@@ -33,8 +33,7 @@ INCLUDES = -I ./include \
 		-I$(LIBGMATRIX)/include \
 		$(SDL_INCLUDES)
 
-CFLAGS = -Wall -Wextra -Werror
-OPTIMIZED_CFLAGS = -Wall -Wextra -Werror -O3 -flto
+CFLAGS =-Wall -Wextra -Werror -O3 -flto
 SOURCES = main.c \
 			doom3d.c \
 			player/player.c \
@@ -77,28 +76,14 @@ DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))
 
 all: $(DIR_OBJ) $(NAME)
 
-dev: $(DIR_OBJ) $(NAME)_dev
-
 $(NAME): $(OBJS)
 	@make libs
-	@printf "\033[32;1mCompiling optimized app...\n\033[0m"
-	$(CC) -o $@ $^ $(LIBS) $(OPTIMIZED_CFLAGS)
-	@printf "\033[32;1mDone. Run: ./$(NAME)\n\033[0m"
-
-$(NAME)_dev: $(DEV_OBJS)
-	@make libs_dev
-	@printf "\033[32;1mCompiling development app...\n\033[0m"
+	@printf "\033[32;1mCompiling app...\n\033[0m"
 	$(CC) -o $@ $^ $(LIBS) $(CFLAGS)
 	@printf "\033[32;1mDone. Run: ./$(NAME)\n\033[0m"
 
-libs_dev:
-	@printf "\033[32;1mCompiling development libs...\n\033[0m"
-	make -C $(LIBFT) dev
-	make -C $(LIB3D) dev
-	make -C $(LIBGMATRIX) dev
-
 libs:
-	@printf "\033[32;1mCompiling optimized libs...\n\033[0m"
+	@printf "\033[32;1mCompiling libs...\n\033[0m"
 	make -C $(LIBFT)
 	make -C $(LIB3D)
 	make -C $(LIBGMATRIX)
@@ -114,9 +99,6 @@ $(DIR_OBJ):
 	@mkdir -p temp/player
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
-	@$(CC) -c -o $@ $< $(OPTIMIZED_CFLAGS) $(INCLUDES)
-
-$(DIR_OBJ)/%_dev.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)
 
 clean:
@@ -131,7 +113,6 @@ fclean: clean
 	@make -C $(LIB3D) fclean
 	@make -C $(LIBGMATRIX) fclean
 	@/bin/rm -f $(NAME)
-	@/bin/rm -f $(NAME)_dev
 
 re: fclean all
 

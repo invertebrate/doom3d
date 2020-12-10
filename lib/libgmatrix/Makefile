@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/17 13:09:18 by ohakola           #+#    #+#              #
-#    Updated: 2020/12/10 14:09:16 by ohakola          ###   ########.fr        #
+#    Updated: 2020/12/10 19:47:35 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,26 +61,17 @@ SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))
 INCLUDES = -I ./include -I $(LIBFT)/include
-CFLAGS = -Wall -Wextra -Werror
-OPTIMIZED_CFLAGS = -Wall -Wextra -Werror -O3 -flto
+CFLAGS = -Wall -Wextra -Werror -O3 -flto
 
 all: $(DIR_OBJ) $(NAME)
 
-dev: $(DIR_OBJ) $(NAME)_dev
-
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
-
-$(NAME)_dev: $(DEV_OBJS)
-	@ar rc $(NAME) $(DEV_OBJS)
 
 $(DIR_OBJ):
 	@mkdir -p temp
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
-	@$(CC) $(OPTIMIZED_CFLAGS) $(INCLUDES) -c -o $@ $<
-
-$(DIR_OBJ)/%_dev.o: $(DIR_SRC)/%.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
 TEST_SRCS =$(wildcard $(DIR_TESTS)/*.c)

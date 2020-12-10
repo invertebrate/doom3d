@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 14:43:04 by ohakola           #+#    #+#              #
-#    Updated: 2020/12/10 14:09:01 by ohakola          ###   ########.fr        #
+#    Updated: 2020/12/10 19:47:37 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -144,19 +144,12 @@ DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))
 
 INC=-I./include/
 
-CFLAGS = -Wall -Wextra -Werror
-
-OPTIMIZED_CFLAGS = -Wall -Wextra -Werror -O3 -flto
+CFLAGS = -Wall -Wextra -Werror -O3 -flto
 
 all: $(DIR_OBJ) $(NAME)
 
-dev: $(DIR_OBJ) $(NAME)_dev
-
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
-
-$(NAME)_dev: $(DEV_OBJS)
-	@ar rc $(NAME) $(DEV_OBJS)
 
 $(DIR_OBJ):
 	@mkdir -p temp
@@ -166,9 +159,6 @@ $(DIR_OBJ):
 	@mkdir -p temp/thread_pool
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
-	@$(CC) $(OPTIMIZED_CFLAGS) $(INC) -c -o $@ $<
-
-$(DIR_OBJ)/%_dev.o: $(DIR_SRC)/%.c
 	@$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 DIR_TESTS = ./tests
