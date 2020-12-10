@@ -11,3 +11,43 @@ Features:
 - AABB collision (player)
 - AABB viewbox occulsion
 - Skybox
+
+## Install
+
+### Mac
+
+```sh
+git clone https://github.com/hakolao/doom3d && cd doom3d
+make && ./doom3d
+```
+
+### WSL
+
+```
+sudo apt update
+sudo apt-get install xorg-dev # make sure x11 related stuff is installed
+# install sdl
+sudo apt-get install libsdl2-dev
+sudo apt-get install libsdl2-ttf-dev
+sudo apt-get install libsdl2-image-dev
+# install vcxsrv on windows side & run it
+export DISPLAY=:0
+export LIBGL_ALWAYS_INDIRECT=1
+# run doom3d
+git clone https://github.com/hakolao/doom3d && cd doom3d
+make && ./doom3d
+```
+
+### Linux
+
+Install SDL2, SDL_image, SDL_ttf on linux.
+
+```sh
+sudo apt update
+sudo apt-get install xorg-dev # make sure x11 related stuff is installed
+sudo apt-get install libsdl2-dev
+sudo apt-get install libsdl2-ttf-dev
+sudo apt-get install libsdl2-image-dev
+git clone https://github.com/hakolao/doom3d && cd doom3d
+make && ./doom3d
+```
