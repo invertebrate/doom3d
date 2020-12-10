@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 15:44:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/10 19:01:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,10 @@
 
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
-# define INITIAL_MAP_SIZE 15
 # define NUM_THREADS_DEFAULT 4
 # define WIDTH 1280
 # define HEIGHT 720
-# define MAP_EDITOR_WIDTH 1280
-# define MAP_EDITOR_HEIGHT 720
-# define OPTIONAL_PATTERN 2
 # define NAME "Doom3D"
-# define SCREEN_INTERSECT_MAX FLT_MAX
 # define PLAYER_SPEED 6.0
 # define PLAYER_ROTATION_SPEED 0.2
 # define NEAR_CLIP_DIST 10

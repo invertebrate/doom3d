@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 18:20:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/10 19:03:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 	if (prev_shot_time != 0 && (float)(curr_time - prev_shot_time) / 1000.0 <
 		(1.0 / app->player.fire_rate_per_sec))
 		return ;
+	// ToDo: Fire effect for gun etc.
 	prev_shot_time = SDL_GetTicks();
 	hits = NULL;
 	ml_vector3_mul(app->player.forward, NEAR_CLIP_DIST, add);
@@ -74,6 +75,7 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 		l3d_get_closest_hit(hits, &closest_triangle_hit);
 		if (closest_triangle_hit != NULL)
 		{
+			//ToDo: What happens when hit? Effects etc.
 		}
 		l3d_delete_hits(&hits);
 	}
