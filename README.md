@@ -16,12 +16,18 @@ Features:
 
 ### Mac
 
+1. Clone & Run :)
+
 ```sh
 git clone https://github.com/hakolao/doom3d && cd doom3d
 make && ./doom3d
 ```
 
 ### WSL
+
+1. Install SDL2, SDL_image, SDL_ttf on WSL terminal on windows
+2. Install vcxsrv on Windows
+3. Run
 
 ```
 sudo apt update
@@ -40,7 +46,8 @@ make && ./doom3d
 
 ### Linux
 
-Install SDL2, SDL_image, SDL_ttf on linux.
+1. Install SDL2, SDL_image, SDL_ttf on Linux
+2. Run
 
 ```sh
 sudo apt update
