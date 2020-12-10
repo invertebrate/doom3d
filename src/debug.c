@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 15:39:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/10 20:15:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,19 @@
 void			doom3d_debug_info_render(t_doom3d *app)
 {
 	char	debug_info[1024];
+	char	pos[128];
+	t_vec3	unit_pos;
 
-	ft_sprintf(debug_info, "fps: %u\ndelta time: %u",
-		app->info.fps, app->info.delta_time);
+	if (app->active_scene->scene_id == scene_id_main_game)
+	{
+		ml_vector3_mul(app->player.pos, 1.0 / app->unit_size, unit_pos);
+		ml_vector3_to_str(unit_pos, pos);
+		ft_sprintf(debug_info, "fps: %u\ndelta time: %u\nunit_pos: %s",
+			app->info.fps, app->info.delta_time, pos);
+	}
+	else
+		ft_sprintf(debug_info, "fps: %u\ndelta time: %u",
+			app->info.fps, app->info.delta_time);
 	window_text_render(app->window, (t_text_params){
 		.text = debug_info, .blend_ratio = 1.0, .xy = (int[2]){5, 5},
 		.text_color = (SDL_Color){255, 255, 255, 0}},
