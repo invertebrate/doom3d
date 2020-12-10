@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 17:30:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/10 19:30:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		game_input_events_handle(t_doom3d *app, SDL_Event event)
 }
 
 /*
-** Main API for event handling in wolf3d
+** Main API for event handling
 ** 1. Poll state and handle keyboard & mouse state (in-game actions mostly
 ** where there should not be any lag)
 ** 2. General input events, e.g. debug mode, set normal map shading, set

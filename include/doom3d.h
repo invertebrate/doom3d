@@ -6,14 +6,9 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 19:01:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/10 19:30:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-** Wolf3d ray cast software renderer project has been written
-** by Okko Hakola & Vesa Eilo
-*/
 
 #ifndef DOOM3D_H
 # define DOOM3D_H
