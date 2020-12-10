@@ -42,7 +42,7 @@
 
 ## Rendering
 
-!(Render flowchart)[assets/img/render_architecture.jpg]
+![Render flowchart](assets/img/render_architecture.jpg)
 
 - Objects & triangles are culled based on camera viewbox
 - Remaining triangles are copied, clipped onto `render_triangles` and their vertices are transformed for the rasterizer so that their origin is 0, 0, 0
