@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 15:39:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/13 21:00:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void			player_move(t_doom3d *app, t_move dir, float speed)
 		ml_vector3_mul(sideways, -speed, add);
 	else if (dir == move_strafe_right)
 		ml_vector3_mul(sideways, speed, add);
-	collision_limit_player(app, add);
+	// collision_limit_player(app, add);
 	ml_vector3_add(app->player.pos, add, app->player.pos);
 	ml_matrix4_translation(app->player.pos[0],
 		app->player.pos[1], app->player.pos[2], app->player.translation);
