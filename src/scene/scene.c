@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/13 23:11:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/13 23:19:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,17 @@ static void		place_test_object(t_doom3d *app)
 		l3d_object_instantiate(hash_map_get(app->active_scene->models, 0x0),
 		app->unit_size, false);
 	l3d_3d_object_translate(app->active_scene->objects[0],
+		0, -2 * app->unit_size, 2 * app->unit_size);
+	app->active_scene->objects[app->active_scene->num_objects++] =
+		l3d_object_instantiate(hash_map_get(app->active_scene->models, 0x0),
+		app->unit_size, false);
+	l3d_3d_object_translate(app->active_scene->objects[1],
 		0, -2 * app->unit_size, 4 * app->unit_size);
+	app->active_scene->objects[app->active_scene->num_objects++] =
+		l3d_object_instantiate(hash_map_get(app->active_scene->models, 0x0),
+		app->unit_size, false);
+	l3d_3d_object_translate(app->active_scene->objects[2],
+		0, -2 * app->unit_size, 8 * app->unit_size);
 }
 
 static void		select_scene(void *app_ptr)
