@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/13 21:07:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/13 22:41:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void			update_camera(t_doom3d *app)
 	camera->far_clip = Z_DIR * FAR_CLIP_DIST;
 	ml_vector3_set(camera->screen.origin, 0, 0,
 		Z_DIR * app->window->framebuffer->width * 0.7);
+	camera->screen.d = NEAR_CLIP_DIST;
 	ml_vector3_set(camera->screen.normal, 0, 0, -Z_DIR);
 	set_camera_viewbox(app, camera);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 19:03:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/13 22:20:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 {
 	ft_memset(&app->player, 0, sizeof(t_player));
 	ft_memcpy(app->player.pos, pos, sizeof(t_vec3));
-	ft_memcpy(app->player.forward, &(t_vec3){0, 0, -1}, sizeof(t_vec3));
-	ft_memcpy(app->player.up, &(t_vec3){0, 1, 0}, sizeof(t_vec3));
-	ft_memcpy(app->player.sideways, &(t_vec3){1, 0, 0}, sizeof(t_vec3));
+	ft_memcpy(app->player.forward, &(t_vec3){0, 0, Z_DIR}, sizeof(t_vec3));
+	ft_memcpy(app->player.up, &(t_vec3){0, Y_DIR, 0}, sizeof(t_vec3));
+	ft_memcpy(app->player.sideways, &(t_vec3){X_DIR, 0, 0}, sizeof(t_vec3));
 	app->player.speed = PLAYER_SPEED;
 	app->player.rot_speed = PLAYER_ROTATION_SPEED;
 	app->player.rot_x = 0;

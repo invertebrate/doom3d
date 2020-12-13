@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/13 20:32:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/13 22:50:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static void		calculate_2d_points(t_vec2 *points_2d, t_vec3 *hits)
 
 static t_bool	triangle_behind_camera(t_triangle *triangle, t_camera *camera)
 {
-	if (triangle->vtc[0]->pos[2] > camera->near_clip &&
-		triangle->vtc[1]->pos[2] > camera->near_clip &&
-		triangle->vtc[2]->pos[2] > camera->near_clip)
+	if (triangle->vtc[0]->pos[2] < camera->near_clip &&
+		triangle->vtc[1]->pos[2] < camera->near_clip &&
+		triangle->vtc[2]->pos[2] < camera->near_clip)
 		return (true);
 	return (false);
 }

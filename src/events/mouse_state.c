@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 15:39:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/13 22:00:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void				mouse_motion_handle(t_doom3d *app,
 	if (xrel != 0 || yrel != 0)
 	{
 		app->player.is_rotating = true;
-		player_rotate_vertical(app, (float)yrel * 0.3);
-		player_rotate_horizontal(app, -(float)xrel * 0.3);
+		player_rotate_vertical(app, -(float)yrel * 0.3);
+		player_rotate_horizontal(app, (float)xrel * 0.3);
 	}
 	else
 		app->player.is_rotating = false;
