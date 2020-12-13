@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 19:30:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/13 21:06:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@
 # define MAX_NUM_OBJECTS 16384
 # define NUM_ASSETS 64
 # define TEMP_OBJECT_EXPIRE_SEC 100
+
+# define X_DIR 1
+# define Y_DIR -1
+# define Z_DIR -1
 
 typedef enum				e_move
 {

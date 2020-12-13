@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 15:39:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/13 21:09:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void			clip_and_add_to_render_triangles(t_doom3d *app,
 	int32_t		test_clip;
 	t_plane		near;
 
-	near.d = NEAR_CLIP_DIST;
-	ml_vector3_set(near.origin, 0, 0, -NEAR_CLIP_DIST);
-	ml_vector3_set(near.normal, 0, 0, -1);
+	near.d = Z_DIR * NEAR_CLIP_DIST;
+	ml_vector3_set(near.origin, 0, 0, Z_DIR * NEAR_CLIP_DIST);
+	ml_vector3_set(near.normal, 0, 0, -Z_DIR);
 	l3d_set_clipped_triangles(vtc, triangle, clipped_triangles);
 	test_clip = l3d_clip_triangle(triangle, &near, clipped_triangles);
 	if (test_clip == 2)
