@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/13 21:06:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/13 21:13:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 # define X_DIR 1
 # define Y_DIR -1
-# define Z_DIR -1
+# define Z_DIR 1
 
 typedef enum				e_move
 {

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:30:52 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 19:03:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/13 21:16:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static t_bool	behind(t_plane *near, t_vec3 point)
 
 	ml_vector3_mul(near->normal, near->d, pldir);
 	ml_vector3_sub(point, pldir, point_from_plane);
-	if (ml_vector3_dot(pldir, point_from_plane) < 0)
+	if (ml_vector3_dot(pldir, point_from_plane) > 0)
 		return (true);
 	return (false);
 }
