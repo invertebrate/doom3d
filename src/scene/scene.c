@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 15:21:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 15:22:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ static void		place_test_object(t_doom3d *app)
 		0, -2 * app->unit_size, 8 * app->unit_size);
 	app->active_scene->objects[app->active_scene->num_objects++] =
 		l3d_object_instantiate(l3d_plane_create(
-			l3d_read_bmp_32bit_rgba_surface("assets/skybox/bottom.bmp")),
+			l3d_read_bmp_32bit_rgba_surface("assets/skybox/front.bmp")),
 		app->unit_size, false);
-	l3d_3d_object_rotate(app->active_scene->objects[3], -90, 0, 0);
+	l3d_3d_object_rotate(app->active_scene->objects[3], 0, 0, 0);
 	l3d_3d_object_translate(app->active_scene->objects[3],
 		0, -2 * app->unit_size, 0);
 }
