@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 15:02:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 18:15:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void		add_two_clipped_triangles(t_doom3d *app,
 					t_tri_vec *render_triangles,
 					t_triangle clipped_triangles[2])
 {
+	ft_printf("Adding two clipped triangles %d\n", SDL_GetTicks());
 	l3d_triangle_update(&clipped_triangles[0]);
 	l3d_triangle_update(&clipped_triangles[1]);
 	screen_intersection(app, &clipped_triangles[0]);
@@ -49,6 +50,7 @@ static void		add_one_clipped_triangles(t_doom3d *app,
 					t_tri_vec *render_triangles,
 					t_triangle clipped_triangles[2])
 {
+	ft_printf("Adding one clipped triangles %d\n", SDL_GetTicks());
 	l3d_triangle_update(&clipped_triangles[0]);
 	screen_intersection(app, &clipped_triangles[0]);
 	update_triangle_vertex_zvalues(&clipped_triangles[0], app->unit_size);

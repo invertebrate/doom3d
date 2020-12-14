@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 17:17:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 18:20:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,25 @@ static void		place_test_objects(t_doom3d *app)
 {
 	app->active_scene->objects[app->active_scene->num_objects++] =
 		l3d_object_instantiate(l3d_plane_create(
-			l3d_read_bmp_32bit_rgba_surface("assets/textures/Dirs.bmp"),
+			l3d_read_bmp_32bit_rgba_surface("assets/textures/test_texture.bmp"),
 			NULL),
 		app->unit_size, false);
+	l3d_3d_object_scale(app->active_scene->objects[0],
+		10, 10, 10);
 	l3d_3d_object_translate(app->active_scene->objects[0],
 		0, app->unit_size, 0);
 	// Freeing the texture at free(scene->objects[0]->material->texture->pixels);
 	// Because this test texture wasn't loaded into scene->textures hashmap
 	// at scene_asset_files.c. // ToDo: Later to be removed
-	app->active_scene->objects[app->active_scene->num_objects++] =
-		l3d_object_instantiate(l3d_plane_create(
-			l3d_read_bmp_32bit_rgba_surface("assets/textures/lava.bmp"),
-			NULL),
-		app->unit_size, false);
-	l3d_3d_object_scale(app->active_scene->objects[1], 10, 10, 10);
-	l3d_3d_object_rotate(app->active_scene->objects[1], -90, 0, 0);
-	l3d_3d_object_translate(app->active_scene->objects[1],
-		0, 2 * app->unit_size, 0);
+	// app->active_scene->objects[app->active_scene->num_objects++] =
+	// 	l3d_object_instantiate(l3d_plane_create(
+	// 		l3d_read_bmp_32bit_rgba_surface("assets/textures/lava.bmp"),
+	// 		NULL),
+	// 	app->unit_size, false);
+	// l3d_3d_object_scale(app->active_scene->objects[1], 10, 10, 10);
+	// l3d_3d_object_rotate(app->active_scene->objects[1], -90, 0, 0);
+	// l3d_3d_object_translate(app->active_scene->objects[1],
+	// 	0, 2 * app->unit_size, 0);
 }
 
 static void		select_scene(void *app_ptr)
@@ -164,7 +166,7 @@ void			scene_destroy(t_scene *scene)
 	if (scene->models)
 	{
 		free(scene->objects[0]->material->texture->pixels);
-		free(scene->objects[1]->material->texture->pixels);
+		// free(scene->objects[1]->material->texture->pixels);
 		scene_models_destroy(scene);
 	}
 	if (scene->skybox[0])
