@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/13 22:44:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:07:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,23 @@ t_bool			triangle_inside_viewbox(t_doom3d *app,
 	t_vec3		player_to_corner[3];
 	int32_t		i;
 	int32_t		j;
+	t_bool		is_outside;
 
 	i = -1;
 	while (++i < 5)
 	{
+		is_outside = true;
 		j = -1;
 		while (++j < 3)
-			ml_vector3_sub(triangle->vtc[j]->pos, app->player.pos,
+		{
+			ml_vector3_sub(app->player.pos, triangle->vtc[j]->pos,
 				player_to_corner[j]);
-		if (ml_vector3_dot(player_to_corner[0],
-				app->active_scene->main_camera->viewplanes[i].normal) < 0 &&
-			ml_vector3_dot(player_to_corner[1],
-				app->active_scene->main_camera->viewplanes[i].normal) < 0 &&
-			ml_vector3_dot(player_to_corner[2],
-				app->active_scene->main_camera->viewplanes[i].normal) < 0)
+			if (ml_vector3_dot(player_to_corner[j],
+				app->active_scene->main_camera->viewplanes[i].normal) < 0
+				&& is_outside)
+				is_outside = false;
+		}
+		if (is_outside)
 			return (false);
 	}
 	return (true);
@@ -115,6 +118,7 @@ t_bool			object_inside_viewbox(t_doom3d *app, t_3d_object *obj)
 	t_vec3	origin_to_corner[8];
 	t_vec3	add;
 	t_vec3	origin;
+	t_bool	is_outside;
 
 	ml_vector3_mul(app->player.forward, NEAR_CLIP_DIST, add);
 	ml_vector3_add(app->player.pos, add, origin);
@@ -122,11 +126,15 @@ t_bool			object_inside_viewbox(t_doom3d *app, t_3d_object *obj)
 	i = -1;
 	while (++i < 5)
 	{
+		is_outside = true;
 		j = -1;
 		while (++j < 8)
-			if (ml_vector3_dot(origin_to_corner[0],
-				app->active_scene->main_camera->viewplanes[i].normal) >= 0)
-				return (true);
+			if (ml_vector3_dot(origin_to_corner[j],
+				app->active_scene->main_camera->viewplanes[i].normal) < 0
+				&& is_outside)
+				is_outside = false;
+		if (is_outside)
+			return (false);
 	}
-	return (false);
+	return (true);
 }

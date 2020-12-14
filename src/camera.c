@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/13 22:41:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 16:47:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,24 @@ static void		set_side_plane_normals(t_doom3d *app, t_camera *camera,
 {
 	t_vec3	tmp[2];
 
-	ml_vector3_sub(corners[3], app->player.pos, tmp[0]);
-	ml_vector3_sub(corners[0], app->player.pos, tmp[1]);
-	ml_vector3_cross(tmp[1], tmp[0], camera->viewplanes[1].normal);
+	ml_vector3_sub(app->player.pos, corners[3], tmp[0]);
+	ml_vector3_sub(app->player.pos, corners[0], tmp[1]);
+	ml_vector3_cross(tmp[0], tmp[1], camera->viewplanes[1].normal);
 	ml_vector3_normalize(camera->viewplanes[1].normal,
 		camera->viewplanes[1].normal);
-	ml_vector3_sub(corners[0], app->player.pos, tmp[0]);
-	ml_vector3_sub(corners[1], app->player.pos, tmp[1]);
-	ml_vector3_cross(tmp[1], tmp[0], camera->viewplanes[2].normal);
+	ml_vector3_sub(app->player.pos, corners[0], tmp[0]);
+	ml_vector3_sub(app->player.pos, corners[1], tmp[1]);
+	ml_vector3_cross(tmp[0], tmp[1], camera->viewplanes[2].normal);
 	ml_vector3_normalize(camera->viewplanes[2].normal,
 		camera->viewplanes[2].normal);
-	ml_vector3_sub(corners[1], app->player.pos, tmp[0]);
-	ml_vector3_sub(corners[2], app->player.pos, tmp[1]);
-	ml_vector3_cross(tmp[1], tmp[0], camera->viewplanes[3].normal);
+	ml_vector3_sub(app->player.pos, corners[1], tmp[0]);
+	ml_vector3_sub(app->player.pos, corners[2], tmp[1]);
+	ml_vector3_cross(tmp[0], tmp[1], camera->viewplanes[3].normal);
 	ml_vector3_normalize(camera->viewplanes[3].normal,
 		camera->viewplanes[3].normal);
-	ml_vector3_sub(corners[2], app->player.pos, tmp[0]);
-	ml_vector3_sub(corners[3], app->player.pos, tmp[1]);
-	ml_vector3_cross(tmp[1], tmp[0], camera->viewplanes[4].normal);
+	ml_vector3_sub(app->player.pos, corners[2], tmp[0]);
+	ml_vector3_sub(app->player.pos, corners[3], tmp[1]);
+	ml_vector3_cross(tmp[0], tmp[1], camera->viewplanes[4].normal);
 	ml_vector3_normalize(camera->viewplanes[4].normal,
 		camera->viewplanes[4].normal);
 }
