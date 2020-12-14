@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/13 22:50:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 15:09:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_bool	triangle_behind_camera(t_triangle *triangle, t_camera *camera)
 
 // static t_bool	is_triangle_facing(t_triangle *triangle, t_vec3 dir)
 // {
-// 	return (ml_vector3_dot(triangle->normal, dir) <= 0);
+// 	return (ml_vector3_dot(triangle->normal, dir) < 0);
 // }
 
 t_bool			is_rendered(t_doom3d *app, t_triangle *triangle)
