@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 18:19:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 13:58:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,15 @@ static void			l3d_plane_set_vertices(t_3d_object *plane)
 {
 	plane->triangles[0].vtc_indices[0] = 0;
 	plane->triangles[0].vtc_indices[1] = 1;
-	plane->triangles[0].vtc_indices[2] = 2;
-	plane->triangles[1].vtc_indices[0] = 0;
-	plane->triangles[1].vtc_indices[1] = 2;
-	plane->triangles[1].vtc_indices[1] = 3;
+	plane->triangles[0].vtc_indices[2] = 3;
+	plane->triangles[1].vtc_indices[0] = 3;
+	plane->triangles[1].vtc_indices[1] = 1;
+	plane->triangles[1].vtc_indices[2] = 2;
 	l3d_triangle_set(&plane->triangles[0], (t_vertex*[3]){
-		plane->vertices[0], plane->vertices[1], plane->vertices[2]}, plane);
+		plane->vertices[0], plane->vertices[1], plane->vertices[3]}, plane);
 	l3d_triangle_set(&plane->triangles[1], (t_vertex*[3]){
-		plane->vertices[0], plane->vertices[2], plane->vertices[3]}, plane);
+		plane->vertices[3], plane->vertices[1], plane->vertices[2]}, plane);
 }
-
-/*
-** Creates a plane facing down.
-** ToDo: Face some other direction...
-*/
 
 t_3d_object			*l3d_plane_create(t_surface *texture)
 {
@@ -38,17 +33,17 @@ t_3d_object			*l3d_plane_create(t_surface *texture)
 	plane = l3d_3d_object_create(4, 2);
 	if (texture != NULL)
 		plane->material->texture = texture;
-	ml_vector4_copy((t_vec4){-1, 0, -1, 1}, plane->vertices[0]->pos);
-	ml_vector4_copy((t_vec4){-1, 0, 1, 1}, plane->vertices[1]->pos);
-	ml_vector4_copy((t_vec4){1, 0, 1, 1}, plane->vertices[2]->pos);
-	ml_vector4_copy((t_vec4){1, 0, -1, 1}, plane->vertices[3]->pos);
+	ml_vector4_copy((t_vec4){-1, 1, 0, 1}, plane->vertices[0]->pos);
+	ml_vector4_copy((t_vec4){1, 1, 0, 1}, plane->vertices[1]->pos);
+	ml_vector4_copy((t_vec4){1, -1, 0, 1}, plane->vertices[2]->pos);
+	ml_vector4_copy((t_vec4){-1, -1, 0, 1}, plane->vertices[3]->pos);
 	l3d_plane_set_vertices(plane);
-	ml_vector2_copy((t_vec2){0, 1}, plane->triangles[0].uvs[0]);
-	ml_vector2_copy((t_vec2){1, 1}, plane->triangles[0].uvs[1]);
-	ml_vector2_copy((t_vec2){1, 0}, plane->triangles[0].uvs[2]);
+	ml_vector2_copy((t_vec2){0, 0}, plane->triangles[0].uvs[0]);
+	ml_vector2_copy((t_vec2){1, 0}, plane->triangles[0].uvs[1]);
+	ml_vector2_copy((t_vec2){0, 1}, plane->triangles[0].uvs[2]);
 	ml_vector2_copy((t_vec2){0, 1}, plane->triangles[1].uvs[0]);
 	ml_vector2_copy((t_vec2){1, 0}, plane->triangles[1].uvs[1]);
-	ml_vector2_copy((t_vec2){0, 0}, plane->triangles[1].uvs[2]);
+	ml_vector2_copy((t_vec2){1, 1}, plane->triangles[1].uvs[2]);
 	l3d_object_aabb_update(plane);
 	return (plane);
 }
