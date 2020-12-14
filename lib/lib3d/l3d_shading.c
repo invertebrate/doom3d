@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:27:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 18:11:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:14:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ uint32_t		l3d_pixel_depth_shaded(uint32_t pixel, float z_val)
 {
 	float	intensity;
 
-	intensity = 5.0;
+	intensity = 10.0;
 	return (l3d_color_blend_u32(pixel, 0x000000ff,
 		1.0 - (ft_abs(z_val) * intensity)));
 }

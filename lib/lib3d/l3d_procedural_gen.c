@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 15:36:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:17:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@ static void			l3d_plane_set_vertices(t_3d_object *plane)
 		plane->vertices[3], plane->vertices[1], plane->vertices[2]}, plane);
 }
 
-t_3d_object			*l3d_plane_create(t_surface *texture)
+t_3d_object			*l3d_plane_create(t_surface *texture, t_surface *normal_map)
 {
 	t_3d_object		*plane;
 
 	plane = l3d_3d_object_create(4, 2);
 	plane->material->texture = texture;
+	plane->material->normal_map = normal_map;
 	ml_vector4_copy((t_vec4){-1, 1, 0, 1}, plane->vertices[0]->pos);
 	ml_vector4_copy((t_vec4){1, 1, 0, 1}, plane->vertices[1]->pos);
 	ml_vector4_copy((t_vec4){1, -1, 0, 1}, plane->vertices[2]->pos);
@@ -63,7 +64,7 @@ void				l3d_skybox_create(t_3d_object *skybox[6],
 	i = -1;
 	while (++i < 6)
 	{
-		skybox[i] = l3d_plane_create(skybox_textures[i]);
+		skybox[i] = l3d_plane_create(skybox_textures[i], NULL);
 		l3d_object_set_shading_opts(skybox[i], e_shading_ignore_zpass);
 		l3d_3d_object_scale(skybox[i],
 			scale, scale, scale);

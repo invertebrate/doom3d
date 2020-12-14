@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 15:37:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:15:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static uint32_t	l3d_get_shaded_pixel(t_triangle *triangle, t_vec2 uv,
 	if ((triangle->material->shading_opts & e_shading_zero_alpha) &&
 		(pixel & 255) == 0)
 		return (UINT32_MAX);
-	if (triangle->material->shading_opts & e_shading_normal_map)
+	if ((triangle->material->shading_opts & e_shading_normal_map) &&
+		triangle->material->normal_map)
 		pixel = l3d_pixel_normal_shaded(pixel, triangle, uv);
 	if (triangle->material->shading_opts & e_shading_depth)
 		pixel = l3d_pixel_depth_shaded(pixel, z_val);
