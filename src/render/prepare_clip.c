@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 18:15:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 22:44:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void		add_two_clipped_triangles(t_doom3d *app,
 					t_tri_vec *render_triangles,
 					t_triangle clipped_triangles[2])
 {
-	ft_printf("Adding two clipped triangles %d\n", SDL_GetTicks());
 	l3d_triangle_update(&clipped_triangles[0]);
 	l3d_triangle_update(&clipped_triangles[1]);
 	screen_intersection(app, &clipped_triangles[0]);
@@ -50,7 +49,6 @@ static void		add_one_clipped_triangles(t_doom3d *app,
 					t_tri_vec *render_triangles,
 					t_triangle clipped_triangles[2])
 {
-	ft_printf("Adding one clipped triangles %d\n", SDL_GetTicks());
 	l3d_triangle_update(&clipped_triangles[0]);
 	screen_intersection(app, &clipped_triangles[0]);
 	update_triangle_vertex_zvalues(&clipped_triangles[0], app->unit_size);
@@ -71,10 +69,13 @@ void			clip_and_add_to_render_triangles(t_doom3d *app,
 	t_triangle	clipped_triangles[2];
 	t_vertex	vtc[6];
 	int32_t		test_clip;
+	t_plane		near;
 
 	l3d_set_clipped_triangles(vtc, triangle, clipped_triangles);
-	test_clip = l3d_clip_triangle(triangle,
-		&app->active_scene->main_camera->screen, clipped_triangles);
+	ml_vector3_copy((t_vec3){0, 0, NEAR_CLIP_DIST}, near.origin);
+	ml_vector3_copy((t_vec3){0, 0, Z_DIR}, near.normal);
+	near.d = NEAR_CLIP_DIST;
+	test_clip = l3d_clip_triangle(triangle, &near, clipped_triangles);
 	if (test_clip == 2)
 		add_two_clipped_triangles(app, render_triangles, clipped_triangles);
 	else if (test_clip == 1)

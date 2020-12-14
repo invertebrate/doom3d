@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 15:14:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 22:38:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,8 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 		l3d_get_closest_hit(hits, &closest_triangle_hit);
 		if (closest_triangle_hit != NULL)
 		{
+			ft_printf("Shot at: ");
 			ml_vector3_print(closest_triangle_hit->hit_point);
-			ml_vector3_print(closest_triangle_hit->normal);
-			t_vec3 player_to_triangle;
-			ml_vector3_sub(closest_triangle_hit->hit_point, app->player.pos,
-				player_to_triangle);
-			ft_printf("Triangle facing: %d\n", ml_vector3_dot(
-				player_to_triangle, closest_triangle_hit->normal
-			) < 0);
 			//ToDo: What happens when hit? Effects etc.
 		}
 		l3d_delete_hits(&hits);

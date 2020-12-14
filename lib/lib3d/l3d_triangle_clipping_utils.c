@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:30:52 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 18:02:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 22:45:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,9 @@ t_bool			l3d_interpolate_clipped_uv(t_triangle *triangle,
 
 static t_bool	behind(t_plane *near, t_vec3 point)
 {
-	t_vec3 near_origin;
 	t_vec3 near_to_point;
 
-	ml_vector3_mul(near->normal, near->d, near_origin);
-	ml_vector3_sub(point, near_origin, near_to_point);
+	ml_vector3_sub(near->origin, point, near_to_point);
 	if (ml_vector3_dot(near->normal, near_to_point) >= 0)
 		return (true);
 	return (false);
