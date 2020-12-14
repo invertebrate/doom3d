@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 17:07:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:10:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,7 @@ void			prepare_skybox_render_triangle(t_doom3d *app,
 
 t_bool			object_inside_viewbox(t_doom3d *app, t_3d_object *obj)
 {
-	int32_t	i;
-	int32_t	j;
+	int32_t	ij[2];
 	t_vec3	origin_to_corner[8];
 	t_vec3	add;
 	t_vec3	origin;
@@ -123,14 +122,14 @@ t_bool			object_inside_viewbox(t_doom3d *app, t_3d_object *obj)
 	ml_vector3_mul(app->player.forward, NEAR_CLIP_DIST, add);
 	ml_vector3_add(app->player.pos, add, origin);
 	set_aabb_origin_to_corners(obj, origin, origin_to_corner);
-	i = -1;
-	while (++i < 5)
+	ij[0] = -1;
+	while (++ij[0] < 5)
 	{
 		is_outside = true;
-		j = -1;
-		while (++j < 8)
-			if (ml_vector3_dot(origin_to_corner[j],
-				app->active_scene->main_camera->viewplanes[i].normal) < 0
+		ij[1] = -1;
+		while (++ij[1] < 8)
+			if (ml_vector3_dot(origin_to_corner[ij[1]],
+				app->active_scene->main_camera->viewplanes[ij[0]].normal) < 0
 				&& is_outside)
 				is_outside = false;
 		if (is_outside)
