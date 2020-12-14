@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:07:32 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 18:08:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 15:02:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			l3d_order_corners_y(t_vec2 *ordered_corners, t_vec2 *points_2d)
 
 float			l3d_z_val(float baryc[3], t_triangle *triangle)
 {
-	return (((baryc[0] * triangle->vtc_zvalue[0] +
+	return (-1 * ((baryc[0] * triangle->vtc_zvalue[0] +
 			baryc[1] * triangle->vtc_zvalue[1] +
 			baryc[2] * triangle->vtc_zvalue[2])));
 }
