@@ -6,11 +6,29 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 13:58:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 14:54:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
+
+static void			l3d_plane_flip_uvs_y(t_3d_object *plane)
+{
+	int32_t	i;
+
+	i = -1;
+	while (++i < 3)
+	{
+		if (plane->triangles[0].uvs[i][1] == 1)
+			plane->triangles[0].uvs[i][1] = 0;
+		else if (plane->triangles[0].uvs[i][1] == 0)
+			plane->triangles[0].uvs[i][1] = 1;
+		if (plane->triangles[1].uvs[i][1] == 1)
+			plane->triangles[1].uvs[i][1] = 0;
+		else if (plane->triangles[1].uvs[i][1] == 0)
+			plane->triangles[1].uvs[i][1] = 1;
+	}
+}
 
 static void			l3d_plane_set_vertices(t_3d_object *plane)
 {
@@ -69,18 +87,22 @@ void				l3d_skybox_create(t_3d_object *skybox[6],
 		l3d_3d_object_scale(skybox[i],
 			scale, scale, scale);
 	}
-	l3d_3d_object_rotate(skybox[0], 90, 0, 90);
-	l3d_3d_object_translate(skybox[0], 0, 0, -scale);
-	l3d_3d_object_rotate(skybox[1], -90, -90, 0);
+	l3d_3d_object_translate(skybox[0], 0, 0, scale);
+	l3d_3d_object_rotate(skybox[1], 0, -90, 0);
+	l3d_3d_object_rotate(skybox[1], -90, 0, 0);
 	l3d_3d_object_translate(skybox[1], -scale, 0, 0);
-	l3d_3d_object_rotate(skybox[2], 0, -90, 0);
+	l3d_3d_object_rotate(skybox[2], -90, 0, 0);
+	l3d_3d_object_rotate(skybox[2], 0, 180, 0);
+	l3d_plane_flip_uvs_y(skybox[2]);
 	l3d_3d_object_translate(skybox[2], 0, -scale, 0);
-	l3d_3d_object_rotate(skybox[3], 90, -180, 90);
-	l3d_3d_object_translate(skybox[3], 0, 0, scale);
-	l3d_3d_object_rotate(skybox[4], 0, -90, 90);
+	l3d_3d_object_rotate(skybox[3], 180, 0, 0);
+	l3d_3d_object_translate(skybox[3], 0, 0, -scale);
+	l3d_3d_object_rotate(skybox[4], 0, 90, 0);
+	l3d_3d_object_rotate(skybox[4], -90, 0, 0);
 	l3d_3d_object_translate(skybox[4], scale, 0, 0);
+	l3d_3d_object_rotate(skybox[5], 90, 0, 0);
+	l3d_plane_flip_uvs_y(skybox[5]);
 	l3d_3d_object_translate(skybox[5], 0, scale, 0);
-	l3d_3d_object_rotate(skybox[5], 0, -90, 180);
 }
 
 /*
