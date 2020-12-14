@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 15:22:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 15:41:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,32 @@ static void				set_scene_collision_tree(t_scene *scene)
 	}
 }
 
-static void		place_test_object(t_doom3d *app)
+/*
+** Temporary test object placement & debugging functionality
+** Also shows how stuff can be placed into the world
+** When things work, scene_asset_files.c should be used to load
+** models and textures into the world.
+*/
+
+static void		place_test_objects(t_doom3d *app)
 {
 	app->active_scene->objects[app->active_scene->num_objects++] =
-		l3d_object_instantiate(hash_map_get(app->active_scene->models, 0x0),
+		l3d_object_instantiate(l3d_plane_create(
+			l3d_read_bmp_32bit_rgba_surface("assets/textures/Dirs.bmp")),
 		app->unit_size, false);
 	l3d_3d_object_translate(app->active_scene->objects[0],
-		0, -2 * app->unit_size, 2 * app->unit_size);
-	app->active_scene->objects[app->active_scene->num_objects++] =
-		l3d_object_instantiate(hash_map_get(app->active_scene->models, 0x0),
-		app->unit_size, false);
-	l3d_3d_object_translate(app->active_scene->objects[1],
-		0, -2 * app->unit_size, 4 * app->unit_size);
-	app->active_scene->objects[app->active_scene->num_objects++] =
-		l3d_object_instantiate(hash_map_get(app->active_scene->models, 0x0),
-		app->unit_size, false);
-	l3d_3d_object_translate(app->active_scene->objects[2],
-		0, -2 * app->unit_size, 8 * app->unit_size);
+		0, app->unit_size, 0);
+	// Freeing the texture at free(scene->objects[0]->material->texture->pixels);
+	// Because this test texture wasn't loaded into scene->textures hashmap
+	// at scene_asset_files.c. // ToDo: Later to be removed
 	app->active_scene->objects[app->active_scene->num_objects++] =
 		l3d_object_instantiate(l3d_plane_create(
-			l3d_read_bmp_32bit_rgba_surface("assets/skybox/front.bmp")),
+			l3d_read_bmp_32bit_rgba_surface("assets/textures/lava.bmp")),
 		app->unit_size, false);
-	l3d_3d_object_rotate(app->active_scene->objects[3], 0, 0, 0);
-	l3d_3d_object_translate(app->active_scene->objects[3],
-		0, -2 * app->unit_size, 0);
+	l3d_3d_object_scale(app->active_scene->objects[1], 10, 10, 10);
+	l3d_3d_object_rotate(app->active_scene->objects[1], -90, 0, 0);
+	l3d_3d_object_translate(app->active_scene->objects[1],
+		0, 2 * app->unit_size, 0);
 }
 
 static void		select_scene(void *app_ptr)
@@ -96,7 +98,7 @@ static void		select_scene(void *app_ptr)
 	app->active_scene = scene_new(&data);
 	if (data.scene_id == scene_id_main_game)
 	{
-		place_test_object(app);
+		place_test_objects(app);
 		set_scene_collision_tree(app->active_scene);
 		l3d_skybox_create(app->active_scene->skybox,
 			app->active_scene->skybox_textures, app->unit_size);
@@ -158,7 +160,11 @@ void			scene_destroy(t_scene *scene)
 	if (scene->normal_maps)
 		scene_normal_maps_destroy(scene);
 	if (scene->models)
+	{
+		free(scene->objects[0]->material->texture->pixels);
+		free(scene->objects[1]->material->texture->pixels);
 		scene_models_destroy(scene);
+	}
 	if (scene->skybox[0])
 		scene_skybox_destroy(scene);
 	if (scene->triangle_ref)

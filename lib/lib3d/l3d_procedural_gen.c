@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 15:21:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/14 15:36:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ t_3d_object			*l3d_plane_create(t_surface *texture)
 	t_3d_object		*plane;
 
 	plane = l3d_3d_object_create(4, 2);
-	if (texture != NULL)
-		plane->material->texture = texture;
+	plane->material->texture = texture;
 	ml_vector4_copy((t_vec4){-1, 1, 0, 1}, plane->vertices[0]->pos);
 	ml_vector4_copy((t_vec4){1, 1, 0, 1}, plane->vertices[1]->pos);
 	ml_vector4_copy((t_vec4){1, -1, 0, 1}, plane->vertices[2]->pos);
