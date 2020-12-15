@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 20:15:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 19:50:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void			doom3d_debug_info_render(t_doom3d *app)
 	char	pos[128];
 	t_vec3	unit_pos;
 
-	if (app->active_scene->scene_id == scene_id_main_game)
+	if (app->active_scene->scene_id == scene_id_main_game ||
+		app->active_scene->scene_id == scene_id_editor)
 	{
 		ml_vector3_mul(app->player.pos, 1.0 / app->unit_size, unit_pos);
 		ml_vector3_to_str(unit_pos, pos);

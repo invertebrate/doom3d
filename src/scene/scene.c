@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 19:35:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 19:55:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,9 @@ static void		init_scene_world(t_doom3d *app)
 		place_test_objects(app);
 		l3d_skybox_create(app->active_scene->skybox,
 			app->active_scene->skybox_textures, app->unit_size);
-		player_init(app, (t_vec3){0, 0, 0});
+		player_init(app, (t_vec3){0,
+			-10 * app->unit_size, -20 * app->unit_size});
+		player_rotate_vertical(app, -90);
 	}
 	if (app->active_scene->main_camera)
 		update_camera(app);
