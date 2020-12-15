@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 19:09:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 19:35:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,27 @@ static void		place_test_objects(t_doom3d *app)
 		0, 2 * app->unit_size, 0);
 }
 
+static void		init_scene_world(t_doom3d *app)
+{
+	if (app->active_scene->scene_id == scene_id_main_game)
+	{
+		place_test_objects(app);
+		set_scene_collision_tree(app->active_scene);
+		l3d_skybox_create(app->active_scene->skybox,
+			app->active_scene->skybox_textures, app->unit_size);
+		player_init(app, (t_vec3){0, 0, 0});
+	}
+	else if (app->active_scene->scene_id == scene_id_editor)
+	{
+		place_test_objects(app);
+		l3d_skybox_create(app->active_scene->skybox,
+			app->active_scene->skybox_textures, app->unit_size);
+		player_init(app, (t_vec3){0, 0, 0});
+	}
+	if (app->active_scene->main_camera)
+		update_camera(app);
+}
+
 static void		select_scene(void *app_ptr)
 {
 	t_scene_data		data;
@@ -100,23 +121,17 @@ static void		select_scene(void *app_ptr)
 	else if (data.scene_id == scene_id_editor)
 		scene_editor_data_set(&data);
 	app->active_scene = scene_new(&data);
-	if (data.scene_id == scene_id_main_game)
+	init_scene_world(app);
+	if (app->active_scene->scene_id == scene_id_editor)
 	{
-		place_test_objects(app);
-		set_scene_collision_tree(app->active_scene);
-		l3d_skybox_create(app->active_scene->skybox,
-			app->active_scene->skybox_textures, app->unit_size);
-		player_init(app, (t_vec3){0, 0, 0});
+		SDL_ShowCursor(SDL_ENABLE);
+		SDL_SetRelativeMouseMode(SDL_FALSE);
 	}
-	else if (data.scene_id == scene_id_editor)
+	else
 	{
-		place_test_objects(app);
-		l3d_skybox_create(app->active_scene->skybox,
-			app->active_scene->skybox_textures, app->unit_size);
-		player_init(app, (t_vec3){0, 0, 0});
+		SDL_ShowCursor(SDL_DISABLE);
+		SDL_SetRelativeMouseMode(SDL_TRUE);
 	}
-	if (app->active_scene->main_camera)
-		update_camera(app);
 	app->is_loading = false;
 }
 
