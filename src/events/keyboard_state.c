@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 19:52:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 23:37:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ static void		keyboard_editor_state_handle(t_doom3d *app)
 
 	speed = app->player.speed * 20;
 	if (app->keyboard.state[SDL_SCANCODE_W])
-		player_move_editor(app, move_forward, speed);
+		player_move(app, move_forward, speed);
 	if (app->keyboard.state[SDL_SCANCODE_A])
-		player_move_editor(app, move_strafe_left, speed);
+		player_move(app, move_strafe_left, speed);
 	if (app->keyboard.state[SDL_SCANCODE_S])
-		player_move_editor(app, move_backward, speed);
+		player_move(app, move_backward, speed);
 	if (app->keyboard.state[SDL_SCANCODE_D])
-		player_move_editor(app, move_strafe_right, speed);
+		player_move(app, move_strafe_right, speed);
 }
 
 void			keyboard_state_handle(t_doom3d *app)

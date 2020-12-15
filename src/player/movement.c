@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 23:07:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 23:36:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,6 @@ void			player_move(t_doom3d *app, t_move dir, float speed)
 	else if (dir == move_strafe_right)
 		ml_vector3_mul(sideways, speed, add);
 	// collision_limit_player(app, add);
-	ml_vector3_add(app->player.pos, add, app->player.pos);
-	ml_matrix4_translation(app->player.pos[0],
-		app->player.pos[1], app->player.pos[2], app->player.translation);
-	ml_matrix4_inverse(app->player.translation, app->player.inv_translation);
-	player_update_aabb(&app->player);
-}
-
-void			player_move_editor(t_doom3d *app, t_move dir, float speed)
-{
-	t_vec3		add;
-	t_vec3		forward;
-	t_vec3		sideways;
-
-	ml_vector3_copy((t_vec3){0, 0, Z_DIR}, forward);
-	ml_vector3_copy((t_vec3){X_DIR, 0, 0}, sideways);
-	if (dir == move_forward)
-		ml_vector3_mul(forward, speed, add);
-	else if (dir == move_backward)
-		ml_vector3_mul(forward, -speed, add);
-	else if (dir == move_strafe_left)
-		ml_vector3_mul(sideways, -speed, add);
-	else if (dir == move_strafe_right)
-		ml_vector3_mul(sideways, speed, add);
 	ml_vector3_add(app->player.pos, add, app->player.pos);
 	ml_matrix4_translation(app->player.pos[0],
 		app->player.pos[1], app->player.pos[2], app->player.translation);
