@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 14:21:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 19:24:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void			window_create(t_window **window_ref,
 void			window_destroy(t_window *window)
 {
 	l3d_framebuffer_destroy(window->framebuffer);
+	l3d_framebuffer_destroy(window->editor_framebuffer);
 	SDL_DestroyRenderer(window->renderer);
 	SDL_DestroyWindow(window->window);
 	TTF_CloseFont(window->main_font);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:32:17 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 14:21:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 19:27:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,27 @@ void			window_frame_draw(t_window *window)
 	SDL_RenderPresent(window->renderer);
 }
 
+static void		window_editor_framebuffer_recreate(t_window *window)
+{
+	t_framebuffer	*editor_view;
+	int32_t			width;
+	int32_t			height;
+
+	editor_view = NULL;
+	width = window->framebuffer->width / 4 * 3;
+	height = window->framebuffer->height / 4 * 3;
+	while (width % 4 != 0)
+		width++;
+	while (height % 4 != 0)
+		height++;
+	l3d_framebuffer_recreate(&editor_view, width, height);
+	window->editor_pos[0] = window->framebuffer->width -
+		editor_view->width - 10;
+	window->editor_pos[1] =
+		(window->framebuffer->height - editor_view->height) / 2;
+	window->editor_framebuffer = editor_view;
+}
+
 void			window_frame_recreate(t_window *window)
 {
 	if (window->frame != NULL)
@@ -36,6 +57,7 @@ void			window_frame_recreate(t_window *window)
 	error_check(window->frame == NULL, SDL_GetError());
 	l3d_framebuffer_recreate(&window->framebuffer,
 		window->width, window->height);
+	window_editor_framebuffer_recreate(window);
 	if (window->main_font != NULL)
 		TTF_CloseFont(window->main_font);
 	window->main_font = TTF_OpenFont(GAME_FONT, FONT_SIZE);

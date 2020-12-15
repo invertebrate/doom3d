@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/07 02:45:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 19:20:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct				s_window
 	SDL_Renderer			*renderer;
 	SDL_Texture				*frame;
 	t_framebuffer			*framebuffer;
+	t_framebuffer			*editor_framebuffer;
+	t_vec2					editor_pos;
 	TTF_Font				*main_font;
 	TTF_Font				*debug_font;
 	TTF_Font				*title_font;

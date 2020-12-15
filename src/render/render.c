@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 19:15:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 19:25:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,37 +96,29 @@ static void		render_work_parallel(t_doom3d *app, t_framebuffer *framebuffer)
 	app->is_first_render = false;
 }
 
+void			render_editor_3d_view(t_doom3d *app)
+{
+
+	render_work_parallel(app, app->window->editor_framebuffer);
+	l3d_image_place(&(t_surface){.pixels = app->window->framebuffer->buffer,
+			.w = app->window->framebuffer->width,
+			.h = app->window->framebuffer->height},
+		&(t_surface){.pixels = app->window->editor_framebuffer->buffer,
+			.w = app->window->editor_framebuffer->width,
+			.h = app->window->editor_framebuffer->height},
+			(int32_t[2]){app->window->editor_pos[0],
+				app->window->editor_pos[1]} ,1.0);
+}
+
 void			doom3d_render(t_doom3d *app)
 {
-	t_framebuffer	*editor_view;
-	int32_t			width;
-	int32_t			height;
-
-	editor_view = NULL;
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
 		render_work_parallel(app, app->window->framebuffer);
 	}
 	else if (app->active_scene->scene_id == scene_id_editor)
 	{
-		width = app->window->framebuffer->width / 4 * 3;
-		height = app->window->framebuffer->height / 4 * 3;
-		while (width % 4 != 0)
-			width++;
-		while (height % 4 != 0)
-			height++;
-		l3d_framebuffer_recreate(&editor_view, width, height);
-		render_work_parallel(app, editor_view);
-		l3d_image_place(&(t_surface){.pixels = app->window->framebuffer->buffer,
-				.w = app->window->framebuffer->width,
-				.h = app->window->framebuffer->height},
-			&(t_surface){.pixels = editor_view->buffer,
-				.w = editor_view->width, .h = editor_view->height},
-				(int32_t[2]){app->window->framebuffer->width -
-					editor_view->width - 10,
-					app->window->framebuffer->height -
-					editor_view->height - 10} ,1.0);
-		l3d_framebuffer_destroy(editor_view);
+		render_editor_3d_view(app);
 	}
 	ui_render(app);
 }
