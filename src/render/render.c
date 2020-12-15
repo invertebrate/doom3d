@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 17:37:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 19:15:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		clear_buffers(t_render_work *work)
 {
 	t_sub_framebuffer	*sub_buffer;
 
-	sub_buffer = work->sub_buffer;
+	sub_buffer = work->framebuffer->sub_buffers[work->sub_buffer_i];
 	l3d_buffer_uint32_clear(sub_buffer->buffer,
 		sub_buffer->width * sub_buffer->height, 0x000000FF);
 	l3d_buffer_float_clear(sub_buffer->zbuffer,
@@ -31,8 +31,8 @@ static void		draw_buffers(t_render_work *work)
 	t_surface			sub_frame;
 	int32_t				xy[0];
 
-	sub_buffer = work->sub_buffer;
-	framebuffer = work->app->window->framebuffer;
+	sub_buffer = work->framebuffer->sub_buffers[work->sub_buffer_i];
+	framebuffer = work->framebuffer;
 	frame.w = framebuffer->width;
 	frame.h = framebuffer->height;
 	frame.pixels = framebuffer->buffer;
@@ -71,7 +71,7 @@ static void		render_work(void *params)
 ** 4. Parallel work is waited to finish and render triangles are destroyed.
 */
 
-static void		render_work_parallel(t_doom3d *app)
+static void		render_work_parallel(t_doom3d *app, t_framebuffer *framebuffer)
 {
 	int32_t				i;
 	t_render_work		*work;
@@ -81,12 +81,12 @@ static void		render_work_parallel(t_doom3d *app)
 	render_triangles = prepare_render_triangles(app);
 	app->triangles_in_view = render_triangles->size;
 	i = -1;
-	while (++i < app->window->framebuffer->num_x *
-		app->window->framebuffer->num_y)
+	while (++i < framebuffer->num_x * framebuffer->num_y)
 	{
 		error_check(!(work = malloc(sizeof(*work))),
 			"Failed to malloc rasterize work");
-		work->sub_buffer = app->window->framebuffer->sub_buffers[i];
+		work->framebuffer = framebuffer;
+		work->sub_buffer_i = i;
 		work->app = app;
 		work->render_triangles = render_triangles;
 		thread_pool_add_work(app->thread_pool, render_work, work);
@@ -98,9 +98,35 @@ static void		render_work_parallel(t_doom3d *app)
 
 void			doom3d_render(t_doom3d *app)
 {
-	if (app->active_scene->main_camera != NULL)
+	t_framebuffer	*editor_view;
+	int32_t			width;
+	int32_t			height;
+
+	editor_view = NULL;
+	if (app->active_scene->scene_id == scene_id_main_game)
 	{
-		render_work_parallel(app);
+		render_work_parallel(app, app->window->framebuffer);
+	}
+	else if (app->active_scene->scene_id == scene_id_editor)
+	{
+		width = app->window->framebuffer->width / 4 * 3;
+		height = app->window->framebuffer->height / 4 * 3;
+		while (width % 4 != 0)
+			width++;
+		while (height % 4 != 0)
+			height++;
+		l3d_framebuffer_recreate(&editor_view, width, height);
+		render_work_parallel(app, editor_view);
+		l3d_image_place(&(t_surface){.pixels = app->window->framebuffer->buffer,
+				.w = app->window->framebuffer->width,
+				.h = app->window->framebuffer->height},
+			&(t_surface){.pixels = editor_view->buffer,
+				.w = editor_view->width, .h = editor_view->height},
+				(int32_t[2]){app->window->framebuffer->width -
+					editor_view->width - 10,
+					app->window->framebuffer->height -
+					editor_view->height - 10} ,1.0);
+		l3d_framebuffer_destroy(editor_view);
 	}
 	ui_render(app);
 }

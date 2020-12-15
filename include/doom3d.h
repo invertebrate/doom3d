@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/13 21:13:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 19:02:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef enum				e_scene_id
 	scene_id_main_menu,
 	scene_id_main_menu_settings,
 	scene_id_main_game,
+	scene_id_editor,
 }							t_scene_id;
 
 typedef struct				s_camera
@@ -150,7 +151,8 @@ typedef struct				s_doom3d
 typedef struct				s_render_work
 {
 	t_doom3d				*app;
-	t_sub_framebuffer		*sub_buffer;
+	t_framebuffer			*framebuffer;
+	uint32_t				sub_buffer_i;
 	t_tri_vec				*render_triangles;
 }							t_render_work;
 
@@ -235,6 +237,7 @@ void						scene_assets_load(t_scene *scene,
 void						scene_main_game_data_set(t_scene_data *data);
 void						scene_main_menu_data_set(t_scene_data *data);
 void						scene_settings_menu_data_set(t_scene_data *data);
+void						scene_editor_data_set(t_scene_data *data);
 t_scene						*scene_new(t_scene_data *data);
 void						scene_destroy(t_scene *scene);
 void						scene_next_select(t_doom3d *app);

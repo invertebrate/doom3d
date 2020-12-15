@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 14:21:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 19:03:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void			rasterize_triangles(t_render_work *work)
 	t_triangle			*triangle;
 	int32_t				i;
 
-	sub_buffer = work->sub_buffer;
+	sub_buffer = work->framebuffer->sub_buffers[work->sub_buffer_i];
 	i = -1;
 	while (++i < (int32_t)work->render_triangles->size)
 	{
