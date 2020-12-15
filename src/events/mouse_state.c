@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/13 22:00:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 23:02:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,12 @@ static void				mouse_motion_handle(t_doom3d *app,
 		app->player.is_rotating = false;
 }
 
-void					mouse_state_handle(t_doom3d *app)
+static void				mouse_game_state_handle(t_doom3d *app)
 {
 	int32_t	xrel;
 	int32_t	yrel;
 
 	SDL_GetRelativeMouseState(&xrel, &yrel);
-	app->mouse.state = SDL_GetMouseState(&app->mouse.x, &app->mouse.y);
-	if (app->active_scene->scene_id != scene_id_main_game)
-		return ;
 	mouse_motion_handle(app, xrel, yrel);
 	if (!app->player.is_shooting && (app->mouse.state & SDL_BUTTON_LMASK))
 	{
@@ -46,4 +43,11 @@ void					mouse_state_handle(t_doom3d *app)
 	}
 	if (app->player.is_shooting)
 		player_shoot(app, SDL_GetTicks());
+}
+
+void					mouse_state_handle(t_doom3d *app)
+{
+	app->mouse.state = SDL_GetMouseState(&app->mouse.x, &app->mouse.y);
+	if (app->active_scene->scene_id == scene_id_main_game)
+		mouse_game_state_handle(app);
 }

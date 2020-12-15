@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 19:47:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/15 23:07:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ void			player_move_editor(t_doom3d *app, t_move dir, float speed)
 	t_vec3		add;
 	t_vec3		forward;
 	t_vec3		sideways;
-	t_mat4		rotation_x;
 
-	ml_matrix4_rotation_y(ml_rad(app->player.rot_x), rotation_x);
 	ml_vector3_copy((t_vec3){0, 0, Z_DIR}, forward);
 	ml_vector3_copy((t_vec3){X_DIR, 0, 0}, sideways);
 	if (dir == move_forward)
@@ -88,6 +86,20 @@ void			player_move_editor(t_doom3d *app, t_move dir, float speed)
 		ml_vector3_mul(sideways, -speed, add);
 	else if (dir == move_strafe_right)
 		ml_vector3_mul(sideways, speed, add);
+	ml_vector3_add(app->player.pos, add, app->player.pos);
+	ml_matrix4_translation(app->player.pos[0],
+		app->player.pos[1], app->player.pos[2], app->player.translation);
+	ml_matrix4_inverse(app->player.translation, app->player.inv_translation);
+	player_update_aabb(&app->player);
+}
+
+void			player_scroll_editor(t_doom3d *app, float speed)
+{
+	t_vec3		add;
+	t_vec3		up;
+
+	ml_vector3_copy((t_vec3){0, Y_DIR, 0}, up);
+	ml_vector3_mul(up, speed, add);
 	ml_vector3_add(app->player.pos, add, app->player.pos);
 	ml_matrix4_translation(app->player.pos[0],
 		app->player.pos[1], app->player.pos[2], app->player.translation);
