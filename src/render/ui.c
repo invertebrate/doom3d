@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 18:52:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 00:35:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,9 @@ void			ui_render(t_doom3d *app)
 			ui_menu_render(app);
 		}
 	}
-	else if (app->active_scene->scene_id == scene_id_editor)
+	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
-		window_text_render_centered(app->window, (t_text_params){
-			.text = "Editor", .blend_ratio = 1.0,
-			.xy = (int32_t[2]){50, 60},
-			.text_color = (SDL_Color){255, 0, 0, 255}},
-			app->window->main_font);
+		editor3d_menu_render(app, (t_vec2){10, 0});
 	}
 }
 

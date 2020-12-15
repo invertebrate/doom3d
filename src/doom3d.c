@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 18:50:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 00:13:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void			doom3d_init(t_doom3d *app)
 	app->unit_size = app->window->width;
 	app->next_scene_id = scene_id_main_menu;
 	app->is_normal_map = false;
+	editor3d_menu_create(app);
 	scene_next_select(app);
 }
 
@@ -72,6 +73,7 @@ static void		doom3d_cleanup(t_doom3d *app)
 	thread_pool_destroy(app->thread_pool);
 	scene_destroy(app->active_scene);
 	window_destroy(app->window);
+	button_group_destroy(app->editor_menu_3d);
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();

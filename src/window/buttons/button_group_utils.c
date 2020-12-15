@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/07 02:37:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 00:29:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void			button_group_update_position(t_button_group *group,
 
 	ml_vector2_copy(pos, group->pos);
 	i = -1;
-	dim_sum[0] = 0;
-	dim_sum[1] = 0;
+	dim_sum[0] = -group->buttons[0]->width;
+	dim_sum[1] = -group->buttons[0]->height;
 	while (++i < (int32_t)group->num_buttons)
 	{
 		if (group->is_horizontal)

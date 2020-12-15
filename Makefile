@@ -54,6 +54,7 @@ SOURCES = main.c \
 			render/rasterize.c \
 			render/prepare_clip.c \
 			render/ui.c \
+			render/ui_editor3d.c \
 			render/ui_main_game.c \
 			window/text.c \
 			window/window.c \
@@ -69,7 +70,8 @@ SOURCES = main.c \
 			events/menu_events.c \
 			events/events.c \
 			events/keyboard_state.c \
-			events/general_input_events.c
+			events/general_input_events.c \
+			editor/editor3d_menu.c
 
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))
@@ -97,6 +99,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/render
 	@mkdir -p temp/events
 	@mkdir -p temp/player
+	@mkdir -p temp/editor
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)

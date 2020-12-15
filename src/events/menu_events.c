@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 19:47:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 00:20:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void			main_menu_event_handle(t_doom3d *app, SDL_Event event)
 			}
 			else if (app->active_scene->selected_option == 1)
 			{
-				app->next_scene_id = scene_id_editor;
+				app->next_scene_id = scene_id_editor3d;
 				scene_next_select(app);
 			}
 			else if (app->active_scene->selected_option == 2)

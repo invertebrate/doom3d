@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 19:55:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 00:20:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void		init_scene_world(t_doom3d *app)
 			app->active_scene->skybox_textures, app->unit_size);
 		player_init(app, (t_vec3){0, 0, 0});
 	}
-	else if (app->active_scene->scene_id == scene_id_editor)
+	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
 		place_test_objects(app);
 		l3d_skybox_create(app->active_scene->skybox,
@@ -120,11 +120,11 @@ static void		select_scene(void *app_ptr)
 		scene_settings_menu_data_set(&data);
 	else if (data.scene_id == scene_id_main_game)
 		scene_main_game_data_set(&data);
-	else if (data.scene_id == scene_id_editor)
+	else if (data.scene_id == scene_id_editor3d)
 		scene_editor_data_set(&data);
 	app->active_scene = scene_new(&data);
 	init_scene_world(app);
-	if (app->active_scene->scene_id == scene_id_editor)
+	if (app->active_scene->scene_id == scene_id_editor3d)
 	{
 		SDL_ShowCursor(SDL_ENABLE);
 		SDL_SetRelativeMouseMode(SDL_FALSE);
@@ -161,7 +161,7 @@ t_scene			*scene_new(t_scene_data *data)
 	// Assets e.g. that can be used to build the map.
 	// Assets that are loaded to the game
 	if (data->scene_id == scene_id_main_game ||
-		data->scene_id == scene_id_editor)
+		data->scene_id == scene_id_editor3d)
 		scene_assets_load(scene, data);
 	return (scene);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 23:46:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 00:20:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void					mouse_state_handle(t_doom3d *app)
 	app->mouse.state = SDL_GetMouseState(&app->mouse.x, &app->mouse.y);
 	if (app->active_scene->scene_id == scene_id_main_game)
 		mouse_game_state_handle(app);
-	if (app->active_scene->scene_id == scene_id_editor)
+	if (app->active_scene->scene_id == scene_id_editor3d)
 	{
 		mouse_editor_state_handle(app);
 	}

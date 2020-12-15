@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 23:10:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 00:20:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void		editor_input_events_handle(t_doom3d *app, SDL_Event event)
 	{
 		player_scroll_editor(app, -event.wheel.y * 30);
 	}
+	button_group_events_handle(app->editor_menu_3d, app->mouse, event);
 }
 
 static void		game_input_events_handle(t_doom3d *app, SDL_Event event)
@@ -29,7 +30,7 @@ static void		game_input_events_handle(t_doom3d *app, SDL_Event event)
 	else if (app->active_scene->scene_id == scene_id_main_game &&
 		app->active_scene->is_paused)
 		main_game_menu_event_handle(app, event);
-	else if (app->active_scene->scene_id == scene_id_editor)
+	else if (app->active_scene->scene_id == scene_id_editor3d)
 		editor_input_events_handle(app, event);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 23:37:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 00:20:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			keyboard_state_handle(t_doom3d *app)
 	{
 		keyboard_game_state_handle(app);
 	}
-	else if (app->active_scene->scene_id == scene_id_editor)
+	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
 		keyboard_editor_state_handle(app);
 	}

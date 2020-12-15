@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 23:37:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 00:20:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ typedef enum				e_scene_id
 	scene_id_main_menu,
 	scene_id_main_menu_settings,
 	scene_id_main_game,
-	scene_id_editor,
+	scene_id_editor3d,
+	scene_id_editor_2d,
 }							t_scene_id;
 
 typedef struct				s_camera
@@ -142,6 +143,7 @@ typedef struct				s_doom3d
 	float					unit_size;
 	t_bool					is_minimap_largened;
 	int32_t					triangles_in_view;
+	t_button_group			*editor_menu_3d;
 }							t_doom3d;
 
 /*
@@ -259,5 +261,11 @@ void						doom3d_debug_info_capture(t_doom3d *app);
 uint64_t					doom3d_performance_counter_start(void);
 void						doom3d_performance_counter_end(uint64_t start_time,
 								char *task_name, float delta_limit);
+
+/*
+** Editor
+*/
+void						editor3d_menu_create(t_doom3d *app);
+void						editor3d_menu_render(t_doom3d *app, t_vec2 pos);
 
 #endif

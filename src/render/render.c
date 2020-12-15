@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 19:25:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 00:20:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void			doom3d_render(t_doom3d *app)
 	{
 		render_work_parallel(app, app->window->framebuffer);
 	}
-	else if (app->active_scene->scene_id == scene_id_editor)
+	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
 		render_editor_3d_view(app);
 	}
