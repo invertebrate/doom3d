@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:32:17 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 00:37:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 14:31:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void			window_frame_clear(t_window *window)
 {
 	l3d_buffer_uint32_clear(window->framebuffer->buffer,
-		window->framebuffer->width * window->framebuffer->height, 0x000000FF);
+		window->framebuffer->width * window->framebuffer->height, CLEAR_COLOR);
 }
 
 void			window_frame_draw(t_window *window)

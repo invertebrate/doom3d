@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 00:20:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 14:31:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define WIDTH 1280
 # define HEIGHT 720
 # define NAME "Doom3D"
+# define CLEAR_COLOR 0x700000FF
 # define PLAYER_SPEED 6.0
 # define PLAYER_ROTATION_SPEED 0.2
 # define NEAR_CLIP_DIST 10
