@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 16:20:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 23:32:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,14 @@ static void		game_input_events_handle(t_doom3d *app, SDL_Event event)
 {
 	if (app->active_scene->scene_id == scene_id_editor3d)
 		editor_input_events_handle(app, event);
-	if (!(app->active_scene->scene_id == scene_id_main_game &&
-		!app->active_scene->is_paused))
-		button_group_events_handle(app->editor_menu_3d, app->mouse, event);
+	if ((!app->is_loading &&
+			app->active_scene->scene_id != scene_id_main_game) ||
+			(app->active_scene->scene_id == scene_id_main_game &&
+				app->active_scene->is_paused))
+	{
+		app->mouse.state = SDL_GetMouseState(&app->mouse.x, &app->mouse.y);
+		button_group_events_handle(app->active_scene->menu, app->mouse, event);
+	}
 }
 
 /*

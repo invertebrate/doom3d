@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 16:21:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 23:28:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ static void		handle_main_game_general_keyup_events(t_doom3d *app,
 		{
 			SDL_ShowCursor(SDL_ENABLE);
 			SDL_SetRelativeMouseMode(SDL_FALSE);
-			SDL_GetRelativeMouseState(NULL, NULL);
 		}
 		else
 		{
 			SDL_ShowCursor(SDL_DISABLE);
 			SDL_SetRelativeMouseMode(SDL_TRUE);
+			SDL_GetRelativeMouseState(NULL, NULL);
 		}
 	}
 }

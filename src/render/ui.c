@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 16:21:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 23:34:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ void			ui_render(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_menu ||
 		app->active_scene->scene_id == scene_id_main_menu_settings)
-		menu_render(app, (t_vec2){app->window->framebuffer->width / 2 -
-			app->active_scene->menu->buttons[0]->width / 2,
-			200});
+	{
+		ui_title_render(app);
+		menu_render(app, (t_vec2){100, 100});
+	}
 	else if (app->active_scene->scene_id == scene_id_main_game)
 	{
 		hud_render(app);
@@ -62,9 +63,7 @@ void			ui_render(t_doom3d *app)
 			framebuffer_dark_overlay(app->window->framebuffer,
 				app->window->framebuffer->width,
 					app->window->framebuffer->height, (t_vec2){0, 0});
-			menu_render(app, (t_vec2){app->window->framebuffer->width / 2 -
-				app->active_scene->menu->buttons[0]->width / 2,
-				200});
+			menu_render(app, (t_vec2){100, 100});
 		}
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
