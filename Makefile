@@ -41,11 +41,15 @@ SOURCES = main.c \
 			player/movement.c \
 			camera.c \
 			debug.c \
+			scene/menus/editor3d_menu.c \
+			scene/menus/settings_menu.c \
+			scene/menus/main_menu.c \
+			scene/menus/pause_menu.c \
+			scene/menus/menu_utils.c \
 			scene/scene.c \
 			scene/cleanup.c \
-			scene/assets.c \
-			scene/scene_asset_files.c \
-			scene/scene_data.c \
+			scene/scene_assets.c \
+			scene/scene_content.c \
 			render/render.c \
 			render/prepare.c \
 			render/prepare_utils1.c \
@@ -53,9 +57,8 @@ SOURCES = main.c \
 			render/prepare_utils3.c \
 			render/rasterize.c \
 			render/prepare_clip.c \
+			render/hud.c \
 			render/ui.c \
-			render/ui_editor3d.c \
-			render/ui_main_game.c \
 			window/text.c \
 			window/window.c \
 			window/frame.c \
@@ -67,11 +70,9 @@ SOURCES = main.c \
 			window/buttons/button_utils.c \
 			window/buttons/button.c \
 			events/mouse_state.c \
-			events/menu_events.c \
 			events/events.c \
 			events/keyboard_state.c \
-			events/general_input_events.c \
-			editor/editor3d_menu.c
+			events/general_input_events.c
 
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))
@@ -94,12 +95,12 @@ $(DIR_OBJ):
 	@mkdir -p temp
 	@mkdir -p temp/map
 	@mkdir -p temp/scene
+	@mkdir -p temp/scene/menus
 	@mkdir -p temp/window
 	@mkdir -p temp/window/buttons
 	@mkdir -p temp/render
 	@mkdir -p temp/events
 	@mkdir -p temp/player
-	@mkdir -p temp/editor
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)

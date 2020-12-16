@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 14:31:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 16:55:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,20 +89,14 @@ typedef struct				s_player
 	t_box3d					aabb;
 }							t_player;
 
-typedef struct				s_scene_data
+typedef struct				s_scene_files
 {
-	int						level;
-	t_scene_id				scene_id;
-	const char				*menu_options[128];
-	uint32_t				menu_option_count;
-	t_camera				*main_camera;
-	char					*map_filename;
 	char					*texture_files[NUM_ASSETS];
 	char					*normal_map_files[NUM_ASSETS];
 	char					*model_files[NUM_ASSETS];
 	uint32_t				asset_keys[NUM_ASSETS];
 	uint32_t				num_assets_to_load;
-}							t_scene_data;
+}							t_scene_files;
 
 typedef struct				s_scene
 {
@@ -113,9 +107,7 @@ typedef struct				s_scene
 	uint32_t				num_triangles;
 	t_camera				*main_camera;
 	t_triangle				*screen_triangles;
-	const char				*menu_options[128];
-	int32_t					menu_option_count;
-	int32_t					selected_option;
+	t_button_group			*menu;
 	t_bool					is_paused;
 	t_scene_id				scene_id;
 	char					*map_filename;
@@ -182,12 +174,6 @@ void						mouse_state_handle(t_doom3d *app);
 void						player_shoot(t_doom3d *app,
 								uint32_t curr_time);
 void						keyboard_state_handle(t_doom3d *app);
-void						main_menu_event_handle(t_doom3d *app,
-								SDL_Event event);
-void						main_menu_settings_event_handle(t_doom3d *app,
-								SDL_Event event);
-void						main_game_menu_event_handle(t_doom3d *app,
-								SDL_Event event);
 void						general_input_events_handle(t_doom3d *app,
 								SDL_Event event);
 
@@ -225,7 +211,7 @@ void						prepare_render_triangle(t_doom3d *app,
 								t_triangle *triangle, t_vertex *vtc);
 t_bool						object_inside_viewbox(t_doom3d *app,
 								t_3d_object *obj);
-void						ui_main_game_render(t_doom3d *app);
+void						hud_render(t_doom3d *app);
 void						framebuffer_dark_overlay(
 								t_framebuffer *framebuffer,
 								int32_t width, int32_t height, t_vec2 pos);
@@ -235,14 +221,9 @@ void						set_aabb_origin_to_corners(t_3d_object *obj,
 /*
 ** Scene
 */
-void						main_scene_data_asset_files_set(t_scene_data *data);
-void						scene_assets_load(t_scene *scene,
-								t_scene_data *data);
-void						scene_main_game_data_set(t_scene_data *data);
-void						scene_main_menu_data_set(t_scene_data *data);
-void						scene_settings_menu_data_set(t_scene_data *data);
-void						scene_editor_data_set(t_scene_data *data);
-t_scene						*scene_new(t_scene_data *data);
+void						scene_assets_load(t_scene *scene);
+void						scene_content_set(t_doom3d *app);
+t_scene						*scene_new(t_scene_id scene_id);
 void						scene_destroy(t_scene *scene);
 void						scene_next_select(t_doom3d *app);
 void						scene_debug(t_scene *scene);
@@ -253,6 +234,17 @@ void						scene_skybox_destroy(t_scene *scene);
 void						scene_models_destroy(t_scene *scene);
 void						scene_textures_destroy(t_scene *scene);
 void						scene_normal_maps_destroy(t_scene *scene);
+
+/*
+** Menus
+*/
+t_button_group				*button_menu_create(t_doom3d *app,
+								const char **options, int32_t num_buttons,
+								void (*on_click)(t_button *, void *));
+void						main_menu_create(t_doom3d *app);
+void						editor3d_menu_create(t_doom3d *app);
+void						pause_menu_create(t_doom3d *app);
+void						settings_menu_create(t_doom3d *app);
 
 /*
 ** Debug
@@ -266,7 +258,6 @@ void						doom3d_performance_counter_end(uint64_t start_time,
 /*
 ** Editor
 */
-void						editor3d_menu_create(t_doom3d *app);
-void						editor3d_menu_render(t_doom3d *app, t_vec2 pos);
+void						menu_render(t_doom3d *app, t_vec2 pos);
 
 #endif

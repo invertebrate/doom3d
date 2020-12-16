@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   editor3d_menu.c                                    :+:      :+:    :+:   */
+/*   menu_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 00:35:55 by ohakola          ###   ########.fr       */
+/*   Created: 2020/12/16 14:51:29 by ohakola           #+#    #+#             */
+/*   Updated: 2020/12/16 15:54:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,7 @@ t_surface			*convert_sdl_surface_to_t_surface(SDL_Surface *src)
 	return (dst);
 }
 
-static void			on_save_button_click(t_doom3d *app)
-{
-	(void)app;
-	ft_printf("One day save when clicking this\n");
-}
-
-static void			on_editor_menu_button_click(t_button *self, void *params)
-{
-	t_doom3d	*app;
-
-	app = params;
-	if (self->id == 0)
-	{
-		app->next_scene_id = scene_id_main_menu;
-		scene_next_select(app);
-	}
-	if (self->id == 1)
-		on_save_button_click(app);
-}
-
-static void			set_editor_menu_button_surfaces(t_doom3d *app,
+static void			set_doom3d_menu_button_surfaces(t_doom3d *app,
 						const char *option,
 						t_surface **surface, t_surface **down_surface)
 {
@@ -66,32 +46,35 @@ static void			set_editor_menu_button_surfaces(t_doom3d *app,
 	SDL_FreeSurface(tmp_surface);
 }
 
-void				editor3d_menu_create(t_doom3d *app)
+t_button_group		*button_menu_create(t_doom3d *app,
+						const char **options, int32_t num_buttons,
+						void (*on_click)(t_button *, void *))
 {
-	int32_t		i;
-	const char	*options[2];
-	t_button	**buttons;
-	t_surface	**surfaces;
-	t_surface	**down_surfaces;
+	int32_t			i;
+	t_button		**buttons;
+	t_surface		**surfaces;
+	t_surface		**down_surfaces;
+	t_button_group	*menu;
 
-	options[0] = "Back";
-	options[1] = "Save";
-	error_check(!(buttons = malloc(sizeof(t_button*) * 2)), "!Merror");
-	error_check(!(surfaces = malloc(sizeof(t_surface*) * 2)), "!Merror");
-	error_check(!(down_surfaces = malloc(sizeof(t_surface*) * 2)), "!Merror");
+	error_check(!(buttons = malloc(sizeof(t_button*) * num_buttons)),
+		"Failed to malloc buttons");
+	error_check(!(surfaces = malloc(sizeof(t_surface*) * num_buttons)),
+		"Failed to malloc surfaces for buttons");
+	error_check(!(down_surfaces = malloc(sizeof(t_surface*) * num_buttons)),
+		"Failed to malloc down surfaces for buttons");
 	i = -1;
-	while (++i < 2)
+	while (++i < num_buttons)
 	{
-		set_editor_menu_button_surfaces(app,
+		set_doom3d_menu_button_surfaces(app,
 			options[i], &surfaces[i], &down_surfaces[i]);
 		buttons[i] = button_create(app->window, i);
 		button_set_texture(buttons[i], surfaces[i], down_surfaces[i]);
-		button_set_handles(buttons[i], on_editor_menu_button_click, NULL);
+		button_set_handles(buttons[i], on_click, NULL);
 		button_set_handle_params(buttons[i], app, NULL);
 	}
-	app->editor_menu_3d = button_group_create(buttons, 2);
-	button_group_set_space_between(app->editor_menu_3d, 0);
+	menu = button_group_create(buttons, num_buttons);
+	button_group_set_space_between(menu, 0);
 	free(surfaces);
 	free(down_surfaces);
+	return (menu);
 }
-
