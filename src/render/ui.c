@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 14:57:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 16:02:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void			loading_render(t_doom3d *app)
 {
 	ui_title_render(app);
 	window_text_render_centered(app->window, (t_text_params){
-		.text = "Loading...",
+		.text = "Loading",
 		.blend_ratio = 1.0,
 		.xy = (int32_t[2]){app->window->framebuffer->width / 2,
 			app->window->framebuffer->height / 2},

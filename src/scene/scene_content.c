@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 13:47:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 15:57:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void		active_scene_content_set(t_doom3d *app)
 		app->active_scene->main_camera = new_camera();
 		scene_assets_load(app->active_scene);
 	}
-	active_scene_menus_recreate(app);
 	active_scene_mouse_mode_set(app);
 	active_scene_world_init(app);
+	active_scene_menus_recreate(app);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 15:51:38 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 16:54:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 15:30:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,9 @@ static void			on_main_menu_button_click(t_button *self, void *params)
 
 void				main_menu_create(t_doom3d *app)
 {
-	const char	*options[4];
-
-	options[0] = "Start Game";
-	options[1] = "Editor";
-	options[2] = "Settings";
-	options[3] = "Quit";
-	app->active_scene->menu = button_menu_create(app, options, 4,
-		on_main_menu_button_click);
+	app->active_scene->menu = button_menu_create(app, (const char*[4]){
+		"Start Game",
+		"Editor",
+		"Settings",
+		"Quit"}, 4, on_main_menu_button_click);
 }

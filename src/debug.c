@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 00:20:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 16:08:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void			doom3d_debug_info_render(t_doom3d *app)
 	else
 		ft_sprintf(debug_info, "fps: %u\ndelta time: %u",
 			app->info.fps, app->info.delta_time);
-	window_text_render(app->window, (t_text_params){
+	window_text_render_wrapped(app->window, (t_text_params){
 		.text = debug_info, .blend_ratio = 1.0, .xy = (int[2]){5, 5},
 		.text_color = (SDL_Color){255, 255, 255, 0}},
-		app->window->debug_font);
+		app->window->debug_font, app->window->framebuffer->width);
 }
 
 void			doom3d_debug_info_capture(t_doom3d *app)
