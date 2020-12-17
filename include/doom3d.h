@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 17:05:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 17:08:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ typedef struct				s_scene
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
 	t_hash_table			*models;
+	uint32_t				asset_keys[NUM_ASSETS];
+	uint32_t				num_loaded_assets;
 	t_surface				*skybox_textures[6];
 	t_3d_object				*skybox[6];
 }							t_scene;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 16:57:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 17:09:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,11 @@ void			scene_assets_load(t_scene *scene)
 {
 	t_scene_files	data;
 
-	data.asset_keys[0] = 0x0;
+	data.asset_keys[0] = 1;
 	data.num_assets_to_load = 1;
+	ft_memcpy(scene->asset_keys, data.asset_keys,
+		sizeof(uint32_t) * data.num_assets_to_load);
+	scene->num_loaded_assets = data.num_assets_to_load;
 	scene_texture_files_set(&data);
 	scene_normal_files_set(&data);
 	scene_model_files_set(&data);
