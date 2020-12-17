@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 14:51:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 13:50:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ SDL_Surface			*surface_from_font(t_window *window, t_text_params params,
 	SDL_Surface		*formatted_surface;
 
 	text_surface = TTF_RenderText_Blended_Wrapped(font,
-		params.text, params.text_color, window->width);
+		params.text, params.text_color, window->framebuffer->width);
 	error_check(!text_surface, TTF_GetError());
 	formatted_surface = SDL_ConvertSurfaceFormat(text_surface,
 		PIXEL_FORMAT, 0);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 19:24:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 13:55:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void			window_resize(t_window *window, int32_t width, int32_t height)
 	window->height = height;
 	SDL_SetWindowPosition(window->window,
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-	window_frame_recreate(window);
+	window->resized = true;
 }
 
 static int		window_resize_callback(void *data, SDL_Event *event)

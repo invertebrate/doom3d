@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 13:40:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 13:47:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,20 @@ static void		active_scene_mouse_mode_set(t_doom3d *app)
 	}
 }
 
+void		active_scene_menus_recreate(t_doom3d *app)
+{
+	if (app->active_scene->menu != NULL)
+		button_group_destroy(app->active_scene->menu);
+	if (app->active_scene->scene_id == scene_id_main_game)
+		pause_menu_create(app);
+	else if (app->active_scene->scene_id == scene_id_editor3d)
+		editor3d_menu_create(app);
+	else if (app->active_scene->scene_id == scene_id_main_menu)
+		main_menu_create(app);
+	else if (app->active_scene->scene_id == scene_id_main_menu_settings)
+		settings_menu_create(app);
+}
+
 void		active_scene_content_set(t_doom3d *app)
 {
 
@@ -125,15 +139,8 @@ void		active_scene_content_set(t_doom3d *app)
 	{
 		app->active_scene->main_camera = new_camera();
 		scene_assets_load(app->active_scene);
-		if (app->active_scene->scene_id == scene_id_main_game)
-			pause_menu_create(app);
-		else if (app->active_scene->scene_id == scene_id_editor3d)
-			editor3d_menu_create(app);
 	}
-	else if (app->active_scene->scene_id == scene_id_main_menu)
-		main_menu_create(app);
-	else if (app->active_scene->scene_id == scene_id_main_menu_settings)
-		settings_menu_create(app);
+	active_scene_menus_recreate(app);
 	active_scene_mouse_mode_set(app);
 	active_scene_world_init(app);
 }
