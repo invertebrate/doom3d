@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 13:59:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 17:14:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,11 @@ void			scene_destroy(t_scene *scene)
 	if (scene->normal_maps)
 		scene_normal_maps_destroy(scene);
 	if (scene->models)
+		scene_models_destroy(scene);
+	if (scene->num_objects > 1)
 	{
 		free(scene->objects[0]->material->texture->pixels);
 		free(scene->objects[1]->material->texture->pixels);
-		scene_models_destroy(scene);
 	}
 	if (scene->skybox[0])
 		scene_skybox_destroy(scene);
