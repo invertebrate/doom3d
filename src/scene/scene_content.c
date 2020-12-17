@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 15:57:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 17:05:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ static void		active_scene_mouse_mode_set(t_doom3d *app)
 	}
 }
 
-void		active_scene_menus_recreate(t_doom3d *app)
+void		active_scene_menu_recreate(t_doom3d *app)
 {
 	if (app->active_scene->menu != NULL)
 		button_group_destroy(app->active_scene->menu);
@@ -142,5 +142,5 @@ void		active_scene_content_set(t_doom3d *app)
 	}
 	active_scene_mouse_mode_set(app);
 	active_scene_world_init(app);
-	active_scene_menus_recreate(app);
+	active_scene_menu_recreate(app);
 }
