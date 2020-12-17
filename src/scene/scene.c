@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 16:59:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 13:40:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void		select_scene(void *app_ptr)
 	if (app->active_scene != NULL)
 		scene_destroy(app->active_scene);
 	app->active_scene = scene_new(app->next_scene_id);
-	scene_content_set(app);
+	active_scene_content_set(app);
 	app->is_loading = false;
 }
 
