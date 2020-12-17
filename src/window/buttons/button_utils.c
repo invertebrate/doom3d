@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/07 02:41:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 17:44:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 void			button_set_texture(t_button *button, t_surface *texture,
 					t_surface *texture_down)
 {
-	if (texture && texture_down)
-		error_check(!(texture->w == texture_down->w &&
-			texture->h == texture_down->h),
-			"Texture and texture down width and height not equal");
 	error_check(!texture, "No texture given, invalid button use");
 	button->texture = texture;
 	button->texture_down = texture_down;
