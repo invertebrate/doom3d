@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 13:55:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 14:29:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,12 @@ void			window_create(t_window **window_ref,
 	window->is_hidden = false;
 	window->frame = NULL;
 	window->framebuffer = NULL;
-	window->main_font = NULL;
-	window->debug_font = NULL;
-	window->title_font = NULL;
+	window->main_font = TTF_OpenFont(GAME_FONT, FONT_SIZE);
+	error_check(window->main_font == NULL, TTF_GetError());
+	window->debug_font = TTF_OpenFont(DEBUG_FONT, FONT_SIZE * 0.3);
+	error_check(window->debug_font == NULL, TTF_GetError());
+	window->title_font = TTF_OpenFont(GAME_FONT, FONT_SIZE * 2);
+	error_check(window->title_font == NULL, TTF_GetError());
 	window_frame_recreate(window);
 	SDL_AddEventWatch(window_resize_callback, window);
 	window->resized = false;

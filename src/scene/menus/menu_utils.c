@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:51:29 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 15:54:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 14:34:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_surface			*convert_sdl_surface_to_t_surface(SDL_Surface *src)
 	return (dst);
 }
 
-static void			set_doom3d_menu_button_surfaces(t_doom3d *app,
+static void			set_menu_button_surfaces(t_doom3d *app,
 						const char *option,
 						t_surface **surface, t_surface **down_surface)
 {
@@ -65,7 +65,7 @@ t_button_group		*button_menu_create(t_doom3d *app,
 	i = -1;
 	while (++i < num_buttons)
 	{
-		set_doom3d_menu_button_surfaces(app,
+		set_menu_button_surfaces(app,
 			options[i], &surfaces[i], &down_surfaces[i]);
 		buttons[i] = button_create(app->window, i);
 		button_set_texture(buttons[i], surfaces[i], down_surfaces[i]);
