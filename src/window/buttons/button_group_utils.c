@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 23:16:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 14:57:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,18 @@ void			button_group_update_position(t_button_group *group,
 {
 	int32_t		i;
 	t_vec2		button_pos;
-	int32_t		dim_sum[2];
 
 	ml_vector2_copy(pos, group->pos);
+	ml_vector2_copy(pos, button_pos);
 	i = -1;
-	dim_sum[0] = -group->buttons[0]->width;
-	dim_sum[1] = -group->buttons[0]->height;
 	while (++i < (int32_t)group->num_buttons)
 	{
 		if (group->is_horizontal)
-		{
-			dim_sum[0] += group->buttons[i]->width + group->space_between;
-			ml_vector2_add(group->pos, (t_vec2){group->pos[0] +
-				dim_sum[0], group->pos[1]}, button_pos);
-		}
+			button_pos[0] = group->pos[0] + i * group->buttons[i]->width +
+				group->space_between;
 		else
-		{
-			dim_sum[1] += group->buttons[i]->height + group->space_between;
-			ml_vector2_add(group->pos, (t_vec2){group->pos[0],
-				group->pos[1] + dim_sum[1]}, button_pos);
-		}
+			button_pos[1] = group->pos[1] + i * group->buttons[i]->height +
+				group->space_between;
 		ml_vector2_copy(button_pos, group->buttons[i]->pos);
 	}
 }
