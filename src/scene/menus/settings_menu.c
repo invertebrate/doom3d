@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:41:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 15:31:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 16:11:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static void			on_settings_menu_button_click(t_button *self, void *params)
 void				settings_menu_create(t_doom3d *app)
 {
 	app->active_scene->menu = button_menu_create(app, (const char*[4]){
-		"960x540",
-		"1280x720",
-		"1920x1080",
+		"Small",
+		"Medium",
+		"Large",
 		"Back"}, 4, on_settings_menu_button_click);
 }
