@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/18 19:19:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/18 19:28:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ typedef struct				s_scene
 	uint32_t				num_triangles;
 	t_camera				*main_camera;
 	t_triangle				*screen_triangles;
-	t_button_group			*menu;
+	t_button_group			*menus[8];
+	uint32_t				num_menus;
 	t_bool					is_paused;
 	t_scene_id				scene_id;
 	char					*map_filename;
@@ -248,6 +249,7 @@ void						editor3d_menu_create(t_doom3d *app);
 void						pause_menu_create(t_doom3d *app);
 void						settings_menu_create(t_doom3d *app);
 void						active_scene_menu_recreate(t_doom3d *app);
+void						scene_menus_destroy(t_scene *scene);
 
 /*
 ** Debug

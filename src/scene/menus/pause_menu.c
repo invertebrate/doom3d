@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 16:02:10 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 16:17:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/18 19:23:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void			on_pause_menu_button_click(t_button *self, void *params)
 
 void				pause_menu_create(t_doom3d *app)
 {
-	app->active_scene->menu = button_menu_create(app, (const char*[4]){
+	app->active_scene->menus[0] = button_menu_create(app, (const char*[4]){
 		"Main Menu\0",
 		"Quit\0"}, 2, on_pause_menu_button_click);
+	app->active_scene->num_menus = 1;
 }

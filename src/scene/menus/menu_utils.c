@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:51:29 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 16:06:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/18 19:28:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,17 @@ t_button_group		*button_menu_create(t_doom3d *app,
 	}
 	menu = button_group_create(buttons, num_buttons);
 	return (menu);
+}
+
+void				scene_menus_destroy(t_scene *scene)
+{
+	int32_t		i;
+
+	if (scene->num_menus > 0)
+	{
+		i = -1;
+		while (++i < (int32_t)scene->num_menus)
+			button_group_destroy(scene->menus[i]);
+	}
+	scene->num_menus = 0;
 }
