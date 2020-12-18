@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 17:06:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/18 19:06:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,28 @@ static void				active_scene_collision_tree_set(t_scene *scene)
 
 static void				place_test_objects(t_doom3d *app)
 {
+	t_3d_object	*model;
+	t_surface	*texture;
+
+	texture = l3d_read_bmp_32bit_rgba_surface("assets/textures/Dirs.bmp");
+	model = l3d_plane_create(texture, NULL);
 	app->active_scene->objects[app->active_scene->num_objects++] =
-		l3d_object_instantiate(l3d_plane_create(
-			l3d_read_bmp_32bit_rgba_surface("assets/textures/Dirs.bmp"),
-			NULL),
-		app->unit_size, false);
+		l3d_object_instantiate(model, app->unit_size, false);
 	l3d_3d_object_translate(app->active_scene->objects[0],
 		0, app->unit_size, 0);
+	l3d_3d_object_destroy(model);
 	// Freeing the texture at free(scene->objects[0]->material->texture->pixels);
 	// Because this test texture wasn't loaded into scene->textures hashmap
 	// at scene_asset_files.c. // ToDo: Later to be removed
+	texture = l3d_read_bmp_32bit_rgba_surface("assets/textures/lava.bmp");
+	model = l3d_plane_create(texture, NULL);
 	app->active_scene->objects[app->active_scene->num_objects++] =
-		l3d_object_instantiate(l3d_plane_create(
-			l3d_read_bmp_32bit_rgba_surface("assets/textures/lava.bmp"),
-			NULL),
-		app->unit_size, false);
+		l3d_object_instantiate(model, app->unit_size, false);
 	l3d_3d_object_scale(app->active_scene->objects[1], 10, 10, 10);
 	l3d_3d_object_rotate(app->active_scene->objects[1], -90, 0, 0);
 	l3d_3d_object_translate(app->active_scene->objects[1],
 		0, 2 * app->unit_size, 0);
+	l3d_3d_object_destroy(model);
 }
 
 static void		active_scene_world_init(t_doom3d *app)
