@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/18 19:28:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/18 19:38:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ void		active_scene_menu_recreate(t_doom3d *app)
 		pause_menu_create(app);
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 		editor3d_menu_create(app);
+	else if (app->active_scene->scene_id == scene_id_editor2d)
+		editor2d_menu_create(app);
 	else if (app->active_scene->scene_id == scene_id_main_menu)
 		main_menu_create(app);
 	else if (app->active_scene->scene_id == scene_id_main_menu_settings)

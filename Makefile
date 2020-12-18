@@ -42,6 +42,7 @@ SOURCES = main.c \
 			camera.c \
 			debug.c \
 			scene/menus/editor3d_menu.c \
+			scene/menus/editor2d_menu.c \
 			scene/menus/settings_menu.c \
 			scene/menus/main_menu.c \
 			scene/menus/pause_menu.c \
