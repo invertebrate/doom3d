@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 17:08:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/18 19:19:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,7 @@ void						framebuffer_dark_overlay(
 								int32_t width, int32_t height, t_vec2 pos);
 void						set_aabb_origin_to_corners(t_3d_object *obj,
 								t_vec3 origin, t_vec3 origin_to_corner[8]);
+void						menu_render(t_button_group *menu, t_vec2 pos);
 
 /*
 ** Scene
@@ -256,10 +257,5 @@ void						doom3d_debug_info_capture(t_doom3d *app);
 uint64_t					doom3d_performance_counter_start(void);
 void						doom3d_performance_counter_end(uint64_t start_time,
 								char *task_name, float delta_limit);
-
-/*
-** Editor
-*/
-void						menu_render(t_doom3d *app, t_vec2 pos);
 
 #endif

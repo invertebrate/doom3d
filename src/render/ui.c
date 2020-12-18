@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 16:02:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/18 19:19:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,15 @@ void			framebuffer_dark_overlay(t_framebuffer *framebuffer,
 		(int32_t[2]){pos[0], pos[1]}, 0.5);
 }
 
-void			menu_render(t_doom3d *app, t_vec2 pos)
+void			menu_render(t_button_group *menu, t_vec2 pos)
 {
-	if (app->active_scene->menu == NULL)
+	if (menu == NULL)
 		return ;
-	if (pos[0] != app->active_scene->menu->pos[0] ||
-		pos[1] != app->active_scene->menu->pos[1])
+	if (pos[0] != menu->pos[0] || pos[1] != menu->pos[1])
 	{
-		button_group_update_position(app->active_scene->menu, pos);
+		button_group_update_position(menu, pos);
 	}
-	button_group_render(app->active_scene->menu);
+	button_group_render(menu);
 }
 
 void			ui_render(t_doom3d *app)
@@ -55,7 +54,7 @@ void			ui_render(t_doom3d *app)
 		app->active_scene->scene_id == scene_id_main_menu_settings)
 	{
 		ui_title_render(app);
-		menu_render(app, (t_vec2){100,
+		menu_render(app->active_scene->menu, (t_vec2){100,
 			app->window->framebuffer->height / 2 -
 			app->active_scene->menu->buttons[0]->height *
 				app->active_scene->menu->num_buttons / 2});
@@ -68,7 +67,7 @@ void			ui_render(t_doom3d *app)
 			framebuffer_dark_overlay(app->window->framebuffer,
 				app->window->framebuffer->width,
 					app->window->framebuffer->height, (t_vec2){0, 0});
-			menu_render(app, (t_vec2){100,
+			menu_render(app->active_scene->menu, (t_vec2){100,
 				app->window->framebuffer->height / 2 -
 				app->active_scene->menu->buttons[0]->height *
 					app->active_scene->menu->num_buttons / 2});
@@ -76,7 +75,7 @@ void			ui_render(t_doom3d *app)
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
-		menu_render(app, (t_vec2){10, 0});
+		menu_render(app->active_scene->menu, (t_vec2){10, 0});
 	}
 }
 
