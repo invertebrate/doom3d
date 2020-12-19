@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 18:17:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/16 23:28:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,20 @@ static void		handle_main_game_general_keyup_events(t_doom3d *app,
 	}
 	if (event.key.keysym.sym == SDLK_p &&
 		app->active_scene->scene_id == scene_id_main_game)
+	{
 		app->active_scene->is_paused = !app->active_scene->is_paused;
+		if (app->active_scene->is_paused)
+		{
+			SDL_ShowCursor(SDL_ENABLE);
+			SDL_SetRelativeMouseMode(SDL_FALSE);
+		}
+		else
+		{
+			SDL_ShowCursor(SDL_DISABLE);
+			SDL_SetRelativeMouseMode(SDL_TRUE);
+			SDL_GetRelativeMouseState(NULL, NULL);
+		}
+	}
 }
 
 static void		handle_general_keyup_events(t_doom3d *app, SDL_Event event)

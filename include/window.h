@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/07 02:45:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 16:09:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 # endif
 
 # define PIXEL_FORMAT SDL_PIXELFORMAT_RGBA8888
-# define GAME_FONT "assets/fonts/wolfenstein.ttf"
+# define GAME_FONT "assets/fonts/AmazDoomLeft.ttf"
 # define DEBUG_FONT "assets/fonts/Roboto-Regular.ttf"
-# define FONT_SIZE 50
+# define FONT_SIZE 60
 
 /*
 **	Frame buffer
@@ -58,6 +58,8 @@ typedef struct				s_window
 	SDL_Renderer			*renderer;
 	SDL_Texture				*frame;
 	t_framebuffer			*framebuffer;
+	t_framebuffer			*editor_framebuffer;
+	t_vec2					editor_pos;
 	TTF_Font				*main_font;
 	TTF_Font				*debug_font;
 	TTF_Font				*title_font;
@@ -132,10 +134,17 @@ void						window_resize(t_window *window,
 
 void						window_text_render(t_window *window,
 								t_text_params params, TTF_Font *font);
+void						window_text_render_wrapped(t_window *window,
+								t_text_params params, TTF_Font *font,
+								uint32_t width);
 void						window_text_render_centered(t_window *window,
 								t_text_params params, TTF_Font *font);
-SDL_Surface					*surface_from_font(t_window *window,
-								t_text_params params,
+void						window_text_render_centered_wrapped(t_window *window,
+									t_text_params params, TTF_Font *font,
+									uint32_t width);
+SDL_Surface					*surface_from_font_wrapped(t_text_params params,
+								TTF_Font *font, uint32_t width);
+SDL_Surface					*surface_from_font(t_text_params params,
 								TTF_Font *font);
 /*
 ** Utils

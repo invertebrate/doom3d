@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 18:16:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 17:05:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void		resize_dependent_recreate(t_doom3d *app)
 	else
 	{
 		window_frame_recreate(app->window);
+		active_scene_menu_recreate(app);
 		app->is_first_render = true;
 	}
 }
@@ -42,7 +43,6 @@ static void		doom3d_main_loop(t_doom3d *app)
 			doom3d_debug_info_capture(app);
 			continue ;
 		}
-		//ToDo Events includes app logic:
 		events_handle(app);
 		if (app->is_loading)
 			continue ;
@@ -88,8 +88,6 @@ void			doom3d_run(t_doom3d *app)
 	error_check(TTF_Init() == -1, TTF_GetError());
 	window_create(&app->window, WIDTH, HEIGHT);
 	doom3d_init(app);
-	SDL_ShowCursor(SDL_DISABLE);
-	SDL_SetRelativeMouseMode(SDL_TRUE);
 	doom3d_main_loop(app);
 	doom3d_cleanup(app);
 }

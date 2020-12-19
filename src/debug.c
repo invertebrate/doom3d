@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 20:15:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/17 16:08:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void			doom3d_debug_info_render(t_doom3d *app)
 	char	pos[128];
 	t_vec3	unit_pos;
 
-	if (app->active_scene->scene_id == scene_id_main_game)
+	if (app->active_scene->scene_id == scene_id_main_game ||
+		app->active_scene->scene_id == scene_id_editor3d)
 	{
 		ml_vector3_mul(app->player.pos, 1.0 / app->unit_size, unit_pos);
 		ml_vector3_to_str(unit_pos, pos);
@@ -28,10 +29,10 @@ void			doom3d_debug_info_render(t_doom3d *app)
 	else
 		ft_sprintf(debug_info, "fps: %u\ndelta time: %u",
 			app->info.fps, app->info.delta_time);
-	window_text_render(app->window, (t_text_params){
+	window_text_render_wrapped(app->window, (t_text_params){
 		.text = debug_info, .blend_ratio = 1.0, .xy = (int[2]){5, 5},
 		.text_color = (SDL_Color){255, 255, 255, 0}},
-		app->window->debug_font);
+		app->window->debug_font, app->window->framebuffer->width);
 }
 
 void			doom3d_debug_info_capture(t_doom3d *app)
