@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 15:39:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 13:12:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void			collision_limit_player(t_doom3d *app, t_vec3 add)
 			hit = l3d_get_aabb_hit_record(&future_player.aabb, &obj->aabb);
 			if (hit != NULL)
 			{
-				if (!obj->aabb.is_trigger)
+				if (!obj->aabb.is_collider)
 					limit_movement_add_by_collision(hit->normal, add);
 				free(hit);
 			}

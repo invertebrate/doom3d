@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 17:16:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 13:12:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ typedef struct				s_hit
 typedef t_list				t_hits;
 
 /*
-** Bounding box AAABBB. Minimum and maximum coordinates are used in
+** Bounding box AABB. Minimum and maximum coordinates are used in
 ** bounding box ray intersection calculations.
 ** center and size are useful in kd_tree / bvh structs.
 */
@@ -181,7 +181,7 @@ typedef struct				s_box3d
 	t_vec3			size;
 	float			xyz_min[3];
 	float			xyz_max[3];
-	t_bool			is_trigger;
+	t_bool			is_collider;
 }							t_box3d;
 
 /*

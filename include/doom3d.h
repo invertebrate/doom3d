@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 12:22:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 12:25:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define NEAR_CLIP_DIST 10
 # define FAR_CLIP_DIST 100000
 # define MAX_NUM_OBJECTS 16384
-# define NUM_ASSETS 64
+# define MAX_ASSETS 256
 # define TEMP_OBJECT_EXPIRE_SEC 100
 
 # define X_DIR 1
@@ -91,10 +91,10 @@ typedef struct				s_player
 
 typedef struct				s_scene_files
 {
-	char					*texture_files[NUM_ASSETS];
-	char					*normal_map_files[NUM_ASSETS];
-	char					*model_files[NUM_ASSETS];
-	uint32_t				asset_keys[NUM_ASSETS];
+	char					*texture_files[MAX_ASSETS];
+	char					*normal_map_files[MAX_ASSETS];
+	char					*model_files[MAX_ASSETS];
+	uint32_t				asset_keys[MAX_ASSETS];
 	uint32_t				num_assets_to_load;
 }							t_scene_files;
 
@@ -114,7 +114,7 @@ typedef struct				s_scene
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
 	t_hash_table			*models;
-	uint32_t				asset_keys[NUM_ASSETS];
+	uint32_t				asset_keys[MAX_ASSETS];
 	uint32_t				num_loaded_assets;
 	t_surface				*skybox_textures[6];
 	t_3d_object				*skybox[6];
