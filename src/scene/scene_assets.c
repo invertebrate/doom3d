@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 17:09:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 13:51:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void		scene_set_skybox_textures(t_scene *scene)
 ** Hashmap = dictionary
 */
 
-static void		assets_load(t_scene *scene, t_scene_files *data)
+static void		assets_load(t_scene *scene, t_asset_files *data)
 {
 	int32_t		i;
 	uint32_t	key;
@@ -42,7 +42,7 @@ static void		assets_load(t_scene *scene, t_scene_files *data)
 	scene->textures = hash_map_create(32);
 	scene->normal_maps = hash_map_create(32);
 	i = -1;
-	while (++i < (int32_t)data->num_assets_to_load)
+	while (++i < (int32_t)data->num_assets)
 	{
 		key = data->asset_keys[i];
 		if (data->texture_files[i] != NULL)
@@ -62,32 +62,27 @@ static void		assets_load(t_scene *scene, t_scene_files *data)
 	scene_set_skybox_textures(scene);
 }
 
-static void		scene_texture_files_set(t_scene_files *data)
+static void		scene_texture_files_set(t_asset_files *data)
 {
 	data->texture_files[0] = "assets/textures/lava.bmp";
 }
 
-static void		scene_normal_files_set(t_scene_files *data)
+static void		scene_normal_files_set(t_asset_files *data)
 {
 	data->normal_map_files[0] = "assets/textures/lava_normal.bmp";
 }
 
-static void		scene_model_files_set(t_scene_files *data)
+static void		scene_model_files_set(t_asset_files *data)
 {
 	data->model_files[0] = "assets/models/axismodels.obj";
 }
 
 void			scene_assets_load(t_scene *scene)
 {
-	t_scene_files	data;
-
-	data.asset_keys[0] = 1;
-	data.num_assets_to_load = 1;
-	ft_memcpy(scene->asset_keys, data.asset_keys,
-		sizeof(uint32_t) * data.num_assets_to_load);
-	scene->num_loaded_assets = data.num_assets_to_load;
-	scene_texture_files_set(&data);
-	scene_normal_files_set(&data);
-	scene_model_files_set(&data);
-	assets_load(scene, &data);
+	scene->asset_files.asset_keys[0] = 1;
+	scene->asset_files.num_assets = 1;
+	scene_texture_files_set(&scene->asset_files);
+	scene_normal_files_set(&scene->asset_files);
+	scene_model_files_set(&scene->asset_files);
+	assets_load(scene, &scene->asset_files);
 }

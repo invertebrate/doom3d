@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 13:21:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 13:49:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,21 @@ typedef struct				s_player
 	t_box3d					aabb;
 }							t_player;
 
-typedef struct				s_scene_files
+// typedef struct				s_map_file
+// {
+// 	char					header[4];
+// 	uint32_t				*object_keys;
+// 	uint32_t				num_objects;
+// }							t_map_file;
+
+typedef struct				s_asset_files
 {
 	char					*texture_files[MAX_ASSETS];
 	char					*normal_map_files[MAX_ASSETS];
 	char					*model_files[MAX_ASSETS];
 	uint32_t				asset_keys[MAX_ASSETS];
-	uint32_t				num_assets_to_load;
-}							t_scene_files;
+	uint32_t				num_assets;
+}							t_asset_files;
 
 typedef struct				s_scene
 {
@@ -114,8 +121,7 @@ typedef struct				s_scene
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
 	t_hash_table			*models;
-	uint32_t				asset_keys[MAX_ASSETS];
-	uint32_t				num_loaded_assets;
+	t_asset_files			asset_files;
 	t_surface				*skybox_textures[6];
 	t_3d_object				*skybox[6];
 }							t_scene;
