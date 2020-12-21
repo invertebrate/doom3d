@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 12:25:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 13:20:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,12 @@ void						scene_skybox_destroy(t_scene *scene);
 void						scene_models_destroy(t_scene *scene);
 void						scene_textures_destroy(t_scene *scene);
 void						scene_normal_maps_destroy(t_scene *scene);
+
+/*
+** Editor
+*/
+uint32_t					random_uuid(void);
+
 
 /*
 ** Menus
