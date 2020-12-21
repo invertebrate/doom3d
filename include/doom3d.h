@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 14:29:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 15:01:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ typedef struct				s_doom3d
 	float					unit_size;
 	t_bool					is_minimap_largened;
 	int32_t					triangles_in_view;
-	char					map_filename[128];
+	char					editor_filename[128];
 }							t_doom3d;
 
 /*

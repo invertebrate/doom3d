@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 14:52:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 15:01:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,19 @@ static void		handle_editor_saving(t_doom3d *app, SDL_Event event)
 
 	if (event.type == SDL_TEXTINPUT)
 	{
-		ft_strcat(app->map_filename, event.text.text);
+		ft_strcat(app->editor_filename, event.text.text);
 	}
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
 	{
 		SDL_StopTextInput();
 		app->is_saving = false;
-		ft_printf("Should save %s\n", app->map_filename);
+		ft_printf("Should save %s\n", app->editor_filename);
 	}
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
 	{
-		length = ft_strlen(app->map_filename);
+		length = ft_strlen(app->editor_filename);
 		if (length > 0)
-			app->map_filename[length - 1] = '\0';
+			app->editor_filename[length - 1] = '\0';
 	}
 }
 
