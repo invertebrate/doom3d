@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 15:01:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 15:26:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct				s_player
 typedef struct				s_map_file
 {
 	char					header[4];
-	uint32_t				*object_keys;
+	uint32_t				object_ids[MAX_ASSETS];
 	uint32_t				num_objects;
 }							t_map_file;
 
