@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 13:51:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 20:00:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,26 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 	int32_t		i;
 	uint32_t	key;
 
-	scene->models = hash_map_create(32);
-	scene->textures = hash_map_create(32);
-	scene->normal_maps = hash_map_create(32);
+	scene->models = hash_map_create(MAX_ASSETS);
+	scene->textures = hash_map_create(MAX_ASSETS);
+	scene->normal_maps = hash_map_create(MAX_ASSETS);
 	i = -1;
-	while (++i < (int32_t)data->num_assets)
+	while (++i < (int32_t)data->num_keys)
 	{
 		key = data->asset_keys[i];
-		if (data->texture_files[i] != NULL)
+		if (hash_map_get(scene->asset_files.texture_files, key) != NULL)
 			hash_map_add(scene->textures, key,
-				l3d_read_bmp_32bit_rgba_surface(data->texture_files[i]));
-		if (data->normal_map_files[i] != NULL)
+				l3d_read_bmp_32bit_rgba_surface(
+					hash_map_get(scene->asset_files.texture_files, key)));
+		if (hash_map_get(scene->asset_files.normal_map_files, key) != NULL)
 			hash_map_add(scene->normal_maps, key,
-				l3d_read_bmp_32bit_rgba_surface(data->normal_map_files[i]));
-		if (data->model_files[i] != NULL)
+				l3d_read_bmp_32bit_rgba_surface(
+					hash_map_get(scene->asset_files.normal_map_files, key)));
+		if (hash_map_get(scene->asset_files.model_files, key) != NULL)
 		{
 			hash_map_add(scene->models, key,
-				l3d_read_obj(data->model_files[i],
+				l3d_read_obj(
+					hash_map_get(scene->asset_files.model_files, key),
 					hash_map_get(scene->textures, key),
 					hash_map_get(scene->normal_maps, key)));
 		}
@@ -62,25 +65,39 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 	scene_set_skybox_textures(scene);
 }
 
+static void		add_asset_file(t_asset_files *data,
+					t_hash_table *table, int32_t key, char *filename)
+{
+	hash_map_add(table, key, filename);
+	data->loaded_filenames[data->num_files++] = filename;
+}
+
 static void		scene_texture_files_set(t_asset_files *data)
 {
-	data->texture_files[0] = "assets/textures/lava.bmp";
+	add_asset_file(data, data->texture_files, 0,
+		"assets/textures/lava.bmp");
 }
 
 static void		scene_normal_files_set(t_asset_files *data)
 {
-	data->normal_map_files[0] = "assets/textures/lava_normal.bmp";
+	add_asset_file(data, data->normal_map_files, 0,
+		"assets/textures/lava_normal.bmp");
 }
 
 static void		scene_model_files_set(t_asset_files *data)
 {
-	data->model_files[0] = "assets/models/axismodels.obj";
+	add_asset_file(data, data->model_files, 0,
+		"assets/models/axismodels.obj");
 }
 
 void			scene_assets_load(t_scene *scene)
 {
+	scene->asset_files.model_files = hash_map_create(MAX_ASSETS);
+	scene->asset_files.texture_files = hash_map_create(MAX_ASSETS);
+	scene->asset_files.normal_map_files = hash_map_create(MAX_ASSETS);
 	scene->asset_files.asset_keys[0] = 1;
-	scene->asset_files.num_assets = 1;
+	scene->asset_files.num_keys = 1;
+	scene->asset_files.num_files = 0;
 	scene_texture_files_set(&scene->asset_files);
 	scene_normal_files_set(&scene->asset_files);
 	scene_model_files_set(&scene->asset_files);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 15:25:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 19:50:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -391,6 +391,10 @@ void						l3d_object_set_shading_opts(t_3d_object *obj,
 								t_shading_opts opts);
 void						l3d_3d_object_set_id(t_3d_object *object,
 								uint32_t id);
+t_3d_object					*l3d_3d_object_shallow_copy(t_3d_object *src);
+void						l3d_3d_object_triangle_copy_and_set(
+								t_3d_object *dst,
+								t_3d_object *src);
 
 /*
 ** OBJ reading

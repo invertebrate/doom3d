@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 15:26:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 19:28:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,13 @@ typedef struct				s_player
 
 /*
 ** Save map data as .obj files & .txt files linking to textures.
-** e.g: assets/map_data/level1_dir
-**		assets/map_data/level1.data = t_map_file binary data
-**		assets/map_data/level1_dir/object_key1.obj
-**		assets/map_data/level1_dir/object_key2.obj
-**		assets/map_data/level1_dir/object_key1_texture.txt text file containing
+** e.g: assets/map_data/level1
+**		assets/map_data/level1/level1.data = t_map_file binary data
+**		assets/map_data/level1/object_key1.obj
+**		assets/map_data/level1/object_key2.obj
+**		assets/map_data/level1/object_key1_texture.txt text file containing
 ** path of the texture file.
-**		assets/map_data/level1_dir/object_key2_texture.txt text file containing
+**		assets/map_data/level1/object_key2_texture.txt text file containing
 ** path of the texture file.
 */
 
@@ -111,11 +111,13 @@ typedef struct				s_map_file
 
 typedef struct				s_asset_files
 {
-	char					*texture_files[MAX_ASSETS];
-	char					*normal_map_files[MAX_ASSETS];
-	char					*model_files[MAX_ASSETS];
+	t_hash_table			*texture_files;
+	t_hash_table			*normal_map_files;
+	t_hash_table			*model_files;
+	const char				*loaded_filenames[MAX_ASSETS * 3];
 	uint32_t				asset_keys[MAX_ASSETS];
-	uint32_t				num_assets;
+	uint32_t				num_files;
+	uint32_t				num_keys;
 }							t_asset_files;
 
 typedef struct				s_scene
