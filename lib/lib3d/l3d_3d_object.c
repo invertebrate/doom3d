@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:36:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 14:08:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,9 @@ void			l3d_3d_object_set_vertex(t_vertex *vertex, t_vec3 pos)
 {
 	ml_vector3_copy(pos, vertex->pos);
 	vertex->color = 0xFFFFFFFF;
+}
+
+void			l3d_3d_object_set_id(t_3d_object *object, uint32_t id)
+{
+	object->id = id;
 }

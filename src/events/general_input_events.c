@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 23:28:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 14:52:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,28 @@ static void		handle_general_keyup_events(t_doom3d *app, SDL_Event event)
 	}
 }
 
+static void		handle_editor_saving(t_doom3d *app, SDL_Event event)
+{
+	int32_t		length;
+
+	if (event.type == SDL_TEXTINPUT)
+	{
+		ft_strcat(app->map_filename, event.text.text);
+	}
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
+	{
+		SDL_StopTextInput();
+		app->is_saving = false;
+		ft_printf("Should save %s\n", app->map_filename);
+	}
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+	{
+		length = ft_strlen(app->map_filename);
+		if (length > 0)
+			app->map_filename[length - 1] = '\0';
+	}
+}
+
 /*
 ** Handle events that aren't related to menus or game, like exiting or esc
 ** or setting to full screen, or disabling debug info
@@ -79,8 +101,14 @@ void			general_input_events_handle(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_QUIT)
 		app->is_running = false;
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
-		app->is_running = false;
-	if (event.type == SDL_KEYUP)
-		handle_general_keyup_events(app, event);
+	if (!SDL_IsTextInputActive())
+	{
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+			app->is_running = false;
+		if (event.type == SDL_KEYUP)
+			handle_general_keyup_events(app, event);
+	}
+	if (app->active_scene->scene_id == scene_id_editor2d ||
+		app->active_scene->scene_id == scene_id_editor3d)
+		handle_editor_saving(app, event);
 }

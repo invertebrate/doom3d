@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 13:52:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 14:29:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void			doom3d_init(t_doom3d *app)
 	app->unit_size = app->window->width;
 	app->next_scene_id = scene_id_main_menu;
 	app->is_normal_map = false;
+	app->is_saving = false;
+	ft_memset(app->map_filename, 0, sizeof(app->map_filename));
 	scene_next_select(app);
 }
 

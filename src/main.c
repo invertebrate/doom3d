@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/10 15:39:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 14:03:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int32_t		main(void)
 {
 	t_doom3d	app;
 
+	srand(time(NULL));
 	doom3d_run(&app);
 	return (EXIT_SUCCESS);
 }

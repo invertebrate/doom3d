@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/18 19:38:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 14:30:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void			on_save(t_doom3d *app)
 {
-	(void)app;
-	ft_printf("One day save when clicking this\n");
+	app->is_saving = true;
+	SDL_StartTextInput();
 }
 
 static void			on_editor_menu_button_click(t_button *self, void *params)

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 13:49:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 14:29:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "lib3d.h"
 # include <float.h>
 # include "window.h"
+# include <time.h>
 
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
@@ -89,12 +90,24 @@ typedef struct				s_player
 	t_box3d					aabb;
 }							t_player;
 
-// typedef struct				s_map_file
-// {
-// 	char					header[4];
-// 	uint32_t				*object_keys;
-// 	uint32_t				num_objects;
-// }							t_map_file;
+/*
+** Save map data as .obj files & .txt files linking to textures.
+** e.g: assets/map_data/level1_dir
+**		assets/map_data/level1.data = t_map_file binary data
+**		assets/map_data/level1_dir/object_key1.obj
+**		assets/map_data/level1_dir/object_key2.obj
+**		assets/map_data/level1_dir/object_key1_texture.txt text file containing
+** path of the texture file.
+**		assets/map_data/level1_dir/object_key2_texture.txt text file containing
+** path of the texture file.
+*/
+
+typedef struct				s_map_file
+{
+	char					header[4];
+	uint32_t				*object_keys;
+	uint32_t				num_objects;
+}							t_map_file;
 
 typedef struct				s_asset_files
 {
@@ -133,6 +146,7 @@ typedef struct				s_doom3d
 	t_bool					is_loading;
 	t_bool					is_normal_map;
 	t_bool					is_first_render;
+	t_bool					is_saving;
 	t_info					info;
 	t_window				*window;
 	t_scene_id				next_scene_id;
@@ -144,7 +158,7 @@ typedef struct				s_doom3d
 	float					unit_size;
 	t_bool					is_minimap_largened;
 	int32_t					triangles_in_view;
-	char					*map_filename;
+	char					map_filename[128];
 }							t_doom3d;
 
 /*

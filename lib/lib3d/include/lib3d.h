@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 13:12:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/21 14:09:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ typedef struct				s_plane
 
 typedef struct				s_3d_object
 {
+	uint32_t		id;
 	t_vertex		**vertices;
 	int32_t			num_vertices;
 	t_triangle		*triangles;
@@ -388,6 +389,8 @@ t_3d_object					*l3d_3d_object_copy(t_3d_object *src);
 void						l3d_3d_object_debug_print(t_3d_object *obj);
 void						l3d_object_set_shading_opts(t_3d_object *obj,
 								t_shading_opts opts);
+void						l3d_3d_object_set_id(t_3d_object *object,
+								uint32_t id);
 
 /*
 ** OBJ reading
