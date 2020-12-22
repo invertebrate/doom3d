@@ -41,6 +41,7 @@ SOURCES = main.c \
 			player/movement.c \
 			camera.c \
 			debug.c \
+			object.c \
 			scene/menus/editor3d_menu.c \
 			scene/menus/editor2d_menu.c \
 			scene/menus/settings_menu.c \

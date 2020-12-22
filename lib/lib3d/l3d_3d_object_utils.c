@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:34:25 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 20:00:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 15:49:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,17 @@ t_3d_object		*l3d_3d_object_shallow_copy(t_3d_object *src)
 void			l3d_object_set_shading_opts(t_3d_object *obj,
 					t_shading_opts opts)
 {
-	if (obj->material != NULL)
-		obj->material->shading_opts = opts;
+	obj->material->shading_opts = opts;
+}
+
+void			l3d_object_set_texture(t_3d_object *obj,
+					t_surface *texture)
+{
+	obj->material->texture = texture;
+}
+
+void			l3d_object_set_normal_map(t_3d_object *obj,
+					t_surface *normal_map)
+{
+	obj->material->texture = normal_map;
 }

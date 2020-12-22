@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 14:08:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 14:47:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_3d_object		*l3d_3d_object_create(uint32_t num_vertices,
 	error_check(!(object = malloc(sizeof(*object))),
 		"Failed to malloc 3d obj");
 	ft_memset(object, 0, sizeof(t_3d_object));
+	object->id = l3d_random_uuid();
 	error_check(!(object->vertices = malloc(sizeof(t_vertex*) * num_vertices)),
 		"Failed to malloc 3d obj vertices");
 	i = -1;

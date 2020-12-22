@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 14:31:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 15:06:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,6 @@ void			scene_destroy(t_scene *scene)
 		scene_normal_maps_destroy(scene);
 	if (scene->models)
 		scene_models_destroy(scene);
-	//ToDo remove this if and its contents once no longer need the test
-	//ToDo objects
-	if (scene->num_objects > 1)
-	{
-		free(scene->objects[0]->material->texture->pixels);
-		free(scene->objects[1]->material->texture->pixels);
-		free(scene->objects[0]->material->texture);
-		free(scene->objects[1]->material->texture);
-	}
 	if (scene->skybox[0])
 		scene_skybox_destroy(scene);
 	if (scene->triangle_ref)

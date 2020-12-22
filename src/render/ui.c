@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 15:01:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 13:40:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,13 @@ void			menu_render(t_button_group *menu, t_vec2 pos)
 void			editor_filename_render(t_doom3d *app)
 {
 	char		filename[256];
+	uint32_t	rgba[4];
 	int32_t		width;
 	int32_t		i;
+	uint32_t	color;
 
+	color = app->is_saved ? 0x00ff00ff : 0xff0000ff;
+	l3d_u32_to_rgba(color, rgba);
 	i = -1;
 	while (++i < 0)
 		filename[i] = '\0';
@@ -63,7 +67,7 @@ void			editor_filename_render(t_doom3d *app)
 		.text = filename, .blend_ratio = 1.0,
 		.xy = (int[2]){10, app->window->framebuffer->height
 			- FONT_SIZE - 10},
-		.text_color = (SDL_Color){255, 0, 0, 255}},
+		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->main_font);
 	if (app->is_saving)
 	{
@@ -77,7 +81,7 @@ void			editor_filename_render(t_doom3d *app)
 				app->window->framebuffer->height - 5 + i},
 				{10 + width,
 				app->window->framebuffer->height - 5 + i}},
-				0xff0000ff);
+				color);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 19:50:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 15:49:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,6 +395,10 @@ t_3d_object					*l3d_3d_object_shallow_copy(t_3d_object *src);
 void						l3d_3d_object_triangle_copy_and_set(
 								t_3d_object *dst,
 								t_3d_object *src);
+void						l3d_object_set_normal_map(t_3d_object *obj,
+								t_surface *normal_map);
+void						l3d_object_set_texture(t_3d_object *obj,
+								t_surface *texture);
 
 /*
 ** OBJ reading
@@ -411,6 +415,7 @@ t_3d_object					*l3d_read_obj(const char *filename,
 float						l3d_fmax(float n1, float n2);
 float						l3d_fmin(float n1, float n2);
 double						l3d_rand_d(void);
+uint32_t					l3d_random_uuid(void);
 
 /*
 **	Triangle rasterization

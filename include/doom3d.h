@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 13:21:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 15:50:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,12 @@ typedef struct				s_player
 
 typedef struct				s_asset_files
 {
-	t_hash_table			*texture_files;
-	t_hash_table			*normal_map_files;
-	t_hash_table			*model_files;
-	const char				*loaded_filenames[MAX_ASSETS * 3];
-	uint32_t				asset_keys[MAX_ASSETS];
-	uint32_t				num_files;
-	uint32_t				num_keys;
+	const char				*texture_files[MAX_ASSETS];
+	const char				*normal_map_files[MAX_ASSETS];
+	const char				*model_files[MAX_ASSETS];
+	uint32_t				num_models;
+	uint32_t				num_textures;
+	uint32_t				num_normal_maps;
 }							t_asset_files;
 
 typedef struct				s_scene
@@ -117,6 +116,8 @@ typedef struct				s_scene
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
 	t_hash_table			*models;
+	t_hash_table			*object_textures;
+	t_hash_table			*object_normal_maps;
 	t_asset_files			asset_files;
 	t_surface				*skybox_textures[6];
 	t_3d_object				*skybox[6];
@@ -130,6 +131,7 @@ typedef struct				s_doom3d
 	t_bool					is_normal_map;
 	t_bool					is_first_render;
 	t_bool					is_saving;
+	t_bool					is_saved;
 	t_info					info;
 	t_window				*window;
 	t_scene_id				next_scene_id;
@@ -244,8 +246,14 @@ void						scene_normal_maps_destroy(t_scene *scene);
 /*
 ** Editor
 */
-uint32_t					random_uuid(void);
-
+void						save_map(t_doom3d *app);
+void						read_map(t_doom3d *app, const char *filename);
+const char					*normal_map_file_key(char *filename, t_doom3d *app);
+const char					*texture_file_key(char *filename, t_doom3d *app);
+void						place_object(t_doom3d *app,
+								t_3d_object *model, t_vec3 pos);
+void						place_object_from_file(t_doom3d *app,
+								char *filename, t_vec3 pos);
 
 /*
 ** Menus
