@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 23:10:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 23:46:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ static int32_t	read_obj_texture(t_3d_object *obj,
 	filename = texture_file_key(buf, app);
 	obj->material->texture = hash_map_get(app->active_scene->textures,
 		(int32_t)filename);
+	if (filename)
+		hash_map_add(app->active_scene->object_textures, obj->id,
+			(void*)filename);
 	return (offset);
 }
 
@@ -47,6 +50,9 @@ static int32_t	read_obj_normal_map(t_3d_object *obj,
 	filename = normal_map_file_key(buf, app);
 	obj->material->normal_map = hash_map_get(app->active_scene->normal_maps,
 		(int32_t)filename);
+	if (filename)
+		hash_map_add(app->active_scene->object_normal_maps, obj->id,
+			(void*)filename);
 	return (offset);
 }
 
@@ -85,14 +91,18 @@ static void	read_objects(t_doom3d *app, char *contents)
 	}
 }
 
-void		read_map(t_doom3d *app, const char *filename)
+void		read_map(t_doom3d *app, const char *map_name)
 {
 	t_file_contents	*file;
+	char			filename[128];
 	char			header[4];
 	uint32_t		num_objects;
 	int32_t			offset;
 
+	ft_sprintf(filename, "assets/map_data/%s", map_name);
 	file = read_file(filename);
+	if (!file)
+		exit(EXIT_FAILURE);
 	ft_memcpy(&header, file->buf, (offset = 4));
 	if (!ft_strequ(header, "MAP\0"))
 		error_check(true,
@@ -102,5 +112,5 @@ void		read_map(t_doom3d *app, const char *filename)
 	app->active_scene->num_objects = num_objects;
 	read_objects(app, file->buf + offset);
 	destroy_file_contents(file);
-	ft_printf("Loaded map: %s\nNum objects %u\n", filename, num_objects);
+	ft_printf("Loaded map: %s\nNum objects %u\n", map_name, num_objects);
 }

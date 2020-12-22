@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 19:34:08 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 14:30:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 23:33:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static void			on_editor_menu_button_click(t_button *self, void *params)
 void				editor2d_menu_create(t_doom3d *app)
 {
 	app->active_scene->menus[0] = button_menu_create(app, (const char*[3]){
-		"Exit\0",
+		"Exit",
 		"3D-Editor",
-		"Save\0"}, 3, on_editor_menu_button_click);
+		"Save"}, 3, on_editor_menu_button_click);
 	app->active_scene->num_menus = 1;
 }

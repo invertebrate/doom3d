@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 23:04:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 23:37:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define FAR_CLIP_DIST 100000
 # define MAX_NUM_OBJECTS 16384
 # define MAX_ASSETS 256
+# define MAX_LEVELS 16
 # define TEMP_OBJECT_EXPIRE_SEC 100
 
 # define X_DIR 1
@@ -146,9 +147,10 @@ typedef struct				s_doom3d
 	t_bool					is_minimap_largened;
 	int32_t					triangles_in_view;
 	char					editor_filename[128];
-	char					*level_list[16];
+	char					*level_list[MAX_LEVELS];
 	uint32_t				num_levels;
 	uint32_t				current_level;
+	uint32_t				editor_level;
 }							t_doom3d;
 
 /*
@@ -252,7 +254,7 @@ void						scene_normal_maps_destroy(t_scene *scene);
 ** Editor
 */
 void						save_map(t_doom3d *app);
-void						read_map(t_doom3d *app, const char *filename);
+void						read_map(t_doom3d *app, const char *map_name);
 const char					*normal_map_file_key(char *filename, t_doom3d *app);
 const char					*texture_file_key(char *filename, t_doom3d *app);
 void						place_object(t_doom3d *app,

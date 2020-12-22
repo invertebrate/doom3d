@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 13:37:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 23:42:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static void		handle_editor_saving(t_doom3d *app, SDL_Event event)
 
 	if (event.type == SDL_TEXTINPUT)
 	{
+		app->is_saved = false;
 		ft_strcat(app->editor_filename, event.text.text);
 	}
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
@@ -86,8 +87,9 @@ static void		handle_editor_saving(t_doom3d *app, SDL_Event event)
 		ft_printf("Saved %s\n", app->editor_filename);
 		app->is_saved = true;
 	}
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKSPACE)
 	{
+		app->is_saved = false;
 		length = ft_strlen(app->editor_filename);
 		if (length > 0)
 			app->editor_filename[length - 1] = '\0';
@@ -103,7 +105,7 @@ void			general_input_events_handle(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_QUIT)
 		app->is_running = false;
-	if (!SDL_IsTextInputActive())
+	if (!SDL_IsTextInputActive() && !app->is_saving)
 	{
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
 			app->is_running = false;

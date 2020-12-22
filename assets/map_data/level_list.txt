@@ -1,1 +1,1 @@
-assets/map_data/OkkoPokko.data
+level1
