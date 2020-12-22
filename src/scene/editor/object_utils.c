@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 23:10:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/23 00:20:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void		place_object(t_doom3d *app, const char *filenames[3],
 	model = hash_map_get(app->active_scene->models, (int32_t)filenames[0]);
 	if (!model)
 	{
-		ft_dprintf(2, "No existing model file (%s) given to place object\n",
+		ft_dprintf(2, "No existing model file (%s) given to place object. "
+			"Add it in scene_assets.c\n",
 			filenames[0]);
 		return ;
 	}

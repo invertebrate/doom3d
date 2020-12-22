@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 22:28:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/23 00:23:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static void		scene_texture_files_set(t_asset_files *data)
 		"assets/textures/lava.bmp";
 	data->texture_files[data->num_textures++] =
 		"assets/textures/Dirs.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/rock.bmp";
 }
 
 static void		scene_normal_files_set(t_asset_files *data)
@@ -77,19 +79,22 @@ static void		scene_normal_files_set(t_asset_files *data)
 static void		scene_model_files_set(t_asset_files *data)
 {
 	data->model_files[data->num_models++] =
-		"assets/models/axismodels.obj";
+		"assets/models/box.obj";
 }
 
 static void		set_scene_model_textures_and_normal_maps(t_scene *scene)
 {
-	t_3d_object	*model;
+	(void)scene;
+	// !When we have more "Prefabs", set their textures here for
+	// !Instantiating.
+	// t_3d_object	*model;
 
-	model = hash_map_get(scene->models,
-		(int32_t)"assets/models/axismodels.obj");
-	l3d_object_set_texture(model, hash_map_get(scene->textures,
-		(int32_t)"assets/textures/lava.bmp"));
-	l3d_object_set_normal_map(model, hash_map_get(scene->normal_maps,
-		(int32_t)"assets/textures/lava_normal.bmp"));
+	// model = hash_map_get(scene->models,
+	// 	(int32_t)"assets/models/box.obj");
+	// l3d_object_set_texture(model, hash_map_get(scene->textures,
+	// 	(int32_t)"assets/textures/lava.bmp"));
+	// l3d_object_set_normal_map(model, hash_map_get(scene->normal_maps,
+	// 	(int32_t)"assets/textures/lava_normal.bmp"));
 }
 
 /*
