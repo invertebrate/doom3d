@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/18 19:38:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 23:46:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,43 +51,38 @@ static void				active_scene_collision_tree_set(t_scene *scene)
 }
 
 /*
-** Temporary test object placement & debugging functionality
-** Also shows how stuff can be placed into the world
-** When things work, scene_asset_files.c should be used to load
-** models and textures into the world.
+** //! Just an example how you can place test objects
+** Their corresponding files should be added to scene_assets.c
+** Meaning textures, objs, normal maps.
+** Below is an example without an obj (Plane), but if there exists an obj
+** use `place_object` instead.
 */
 
-static void				place_test_objects(t_doom3d *app)
-{
-	t_3d_object	*model;
-	t_surface	*texture;
+// static void				place_test_objects(t_doom3d *app)
+// {
+// 	t_3d_object	*model;
+// 	t_3d_object	*floor;
 
-	texture = l3d_read_bmp_32bit_rgba_surface("assets/textures/Dirs.bmp");
-	model = l3d_plane_create(texture, NULL);
-	app->active_scene->objects[app->active_scene->num_objects++] =
-		l3d_object_instantiate(model, app->unit_size, false);
-	l3d_3d_object_translate(app->active_scene->objects[0],
-		0, app->unit_size, 0);
-	l3d_3d_object_destroy(model);
-	// Freeing the texture at free(scene->objects[0]->material->texture->pixels);
-	// Because this test texture wasn't loaded into scene->textures hashmap
-	// at scene_asset_files.c. // ToDo: Later to be removed
-	texture = l3d_read_bmp_32bit_rgba_surface("assets/textures/lava.bmp");
-	model = l3d_plane_create(texture, NULL);
-	app->active_scene->objects[app->active_scene->num_objects++] =
-		l3d_object_instantiate(model, app->unit_size, false);
-	l3d_3d_object_scale(app->active_scene->objects[1], 10, 10, 10);
-	l3d_3d_object_rotate(app->active_scene->objects[1], -90, 0, 0);
-	l3d_3d_object_translate(app->active_scene->objects[1],
-		0, 2 * app->unit_size, 0);
-	l3d_3d_object_destroy(model);
-}
+// 	model = l3d_plane_create(NULL, NULL);
+// 	place_procedural_object(app, model, (const char*[2]){
+// 		"assets/textures/Dirs.bmp", NULL}, (t_vec3){0, app->unit_size, 0});
+// 	l3d_3d_object_destroy(model);
+// 	model = l3d_plane_create(NULL, NULL);
+// 	place_procedural_object(app, model, (const char*[2]){
+// 		"assets/textures/lava.bmp", NULL}, (t_vec3){0, app->unit_size, 0});
+// 	l3d_3d_object_destroy(model);
+// 	floor = app->active_scene->objects[app->active_scene->num_objects - 1];
+// 	l3d_3d_object_scale(floor, 10, 10, 10);
+// 	l3d_3d_object_rotate(floor, -90, 0, 0);
+// 	l3d_3d_object_translate(floor, 0, 2 * app->unit_size, 0);
+// 	ft_printf("Placed test objects\n");
+// }
 
 static void		active_scene_world_init(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
-		place_test_objects(app);
+		read_map(app, app->level_list[app->current_level]);
 		active_scene_collision_tree_set(app->active_scene);
 		l3d_skybox_create(app->active_scene->skybox,
 			app->active_scene->skybox_textures, app->unit_size);
@@ -95,7 +90,15 @@ static void		active_scene_world_init(t_doom3d *app)
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
-		place_test_objects(app);
+		if (app->level_list[app->editor_level])
+		{
+			read_map(app, app->level_list[app->editor_level]);
+			ft_memcpy(app->editor_filename, app->level_list[app->editor_level],
+				ft_strlen(app->level_list[app->editor_level]));
+			app->is_saved = true;
+		}
+		else
+			app->is_saved = false;
 		l3d_skybox_create(app->active_scene->skybox,
 			app->active_scene->skybox_textures, app->unit_size);
 		player_init(app, (t_vec3){0,
@@ -141,6 +144,10 @@ void		active_scene_content_set(t_doom3d *app)
 	if (app->active_scene->scene_id == scene_id_main_game ||
 		app->active_scene->scene_id == scene_id_editor3d)
 	{
+		app->active_scene->object_textures =
+			hash_map_create(MAX_NUM_OBJECTS);
+		app->active_scene->object_normal_maps =
+			hash_map_create(MAX_NUM_OBJECTS);
 		app->active_scene->main_camera = new_camera();
 		scene_assets_load(app->active_scene);
 	}

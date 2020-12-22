@@ -47,7 +47,12 @@ SOURCES = main.c \
 			scene/menus/main_menu.c \
 			scene/menus/pause_menu.c \
 			scene/menus/menu_utils.c \
+			scene/editor/editor_utils.c \
+			scene/editor/object_utils.c \
+			scene/editor/save.c \
+			scene/editor/read.c \
 			scene/scene.c \
+			scene/level.c \
 			scene/cleanup.c \
 			scene/scene_assets.c \
 			scene/scene_content.c \
@@ -97,6 +102,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/map
 	@mkdir -p temp/scene
 	@mkdir -p temp/scene/menus
+	@mkdir -p temp/scene/editor
 	@mkdir -p temp/window
 	@mkdir -p temp/window/buttons
 	@mkdir -p temp/render

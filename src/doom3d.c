@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 17:05:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 23:37:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static void		doom3d_main_loop(t_doom3d *app)
 
 void			doom3d_init(t_doom3d *app)
 {
+
+
 	app->active_scene = NULL;
 	app->is_running = true;
 	app->is_debug = true;
@@ -64,17 +66,30 @@ void			doom3d_init(t_doom3d *app)
 	app->unit_size = app->window->width;
 	app->next_scene_id = scene_id_main_menu;
 	app->is_normal_map = false;
+	app->is_saving = false;
+	app->is_saved = false;
+	read_level_list(app);
+	// ToDo Later load current level from saved file or something...
+	app->current_level = 0;
+	app->editor_level = 0;
+	ft_memcpy(app->editor_filename, app->level_list[app->current_level],
+		ft_strlen(app->level_list[app->current_level]));
 	scene_next_select(app);
 }
 
 static void		doom3d_cleanup(t_doom3d *app)
 {
+	int32_t		i;
+
 	thread_pool_destroy(app->thread_pool);
 	scene_destroy(app->active_scene);
 	window_destroy(app->window);
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
+	i = -1;
+	while (++i < (int32_t)app->num_levels)
+		ft_strdel(&app->level_list[i]);
 }
 
 void			doom3d_run(t_doom3d *app)

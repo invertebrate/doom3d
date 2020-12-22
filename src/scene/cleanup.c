@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 17:46:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 15:23:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ void		scene_textures_destroy(t_scene *scene)
 	int32_t		i;
 
 	i = -1;
-	while (++i < (int32_t)scene->num_loaded_assets)
+	while (++i < (int32_t)scene->asset_files.num_textures)
 	{
-		if ((texture = hash_map_get(scene->textures, scene->asset_keys[i])))
+		if ((texture = hash_map_get(scene->textures,
+				(int32_t)scene->asset_files.texture_files[i])))
 			free(texture->pixels);
 	}
 	hash_map_destroy_free(scene->textures);
+	hash_map_destroy(scene->object_textures);
 }
 
 void		scene_normal_maps_destroy(t_scene *scene)
@@ -32,12 +34,14 @@ void		scene_normal_maps_destroy(t_scene *scene)
 	int32_t		i;
 
 	i = -1;
-	while (++i < (int32_t)scene->num_loaded_assets)
+	while (++i < (int32_t)scene->asset_files.num_normal_maps)
 	{
-		if ((normal_map = hash_map_get(scene->normal_maps, scene->asset_keys[i])))
+		if ((normal_map = hash_map_get(scene->normal_maps,
+			(int32_t)scene->asset_files.normal_map_files[i])))
 			free(normal_map->pixels);
 	}
 	hash_map_destroy_free(scene->normal_maps);
+	hash_map_destroy(scene->object_normal_maps);
 }
 
 void		scene_models_destroy(t_scene *scene)
@@ -46,8 +50,9 @@ void		scene_models_destroy(t_scene *scene)
 	int32_t		i;
 
 	i = -1;
-	while (++i < (int32_t)scene->num_loaded_assets)
-		if ((model = hash_map_get(scene->models, scene->asset_keys[i])))
+	while (++i < (int32_t)scene->asset_files.num_models)
+		if ((model = hash_map_get(scene->models,
+			(int32_t)scene->asset_files.model_files[i])))
 			l3d_3d_object_destroy(model);
 	hash_map_destroy(scene->models);
 }

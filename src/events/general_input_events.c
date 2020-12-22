@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 23:28:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 23:42:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,32 @@ static void		handle_general_keyup_events(t_doom3d *app, SDL_Event event)
 	}
 }
 
+static void		handle_editor_saving(t_doom3d *app, SDL_Event event)
+{
+	int32_t		length;
+
+	if (event.type == SDL_TEXTINPUT)
+	{
+		app->is_saved = false;
+		ft_strcat(app->editor_filename, event.text.text);
+	}
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
+	{
+		SDL_StopTextInput();
+		app->is_saving = false;
+		save_map(app);
+		ft_printf("Saved %s\n", app->editor_filename);
+		app->is_saved = true;
+	}
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKSPACE)
+	{
+		app->is_saved = false;
+		length = ft_strlen(app->editor_filename);
+		if (length > 0)
+			app->editor_filename[length - 1] = '\0';
+	}
+}
+
 /*
 ** Handle events that aren't related to menus or game, like exiting or esc
 ** or setting to full screen, or disabling debug info
@@ -79,8 +105,14 @@ void			general_input_events_handle(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_QUIT)
 		app->is_running = false;
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
-		app->is_running = false;
-	if (event.type == SDL_KEYUP)
-		handle_general_keyup_events(app, event);
+	if (!SDL_IsTextInputActive() && !app->is_saving)
+	{
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+			app->is_running = false;
+		if (event.type == SDL_KEYUP)
+			handle_general_keyup_events(app, event);
+	}
+	if (app->active_scene->scene_id == scene_id_editor2d ||
+		app->active_scene->scene_id == scene_id_editor3d)
+		handle_editor_saving(app, event);
 }

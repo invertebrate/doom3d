@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 17:16:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 15:49:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ typedef struct				s_hit
 typedef t_list				t_hits;
 
 /*
-** Bounding box AAABBB. Minimum and maximum coordinates are used in
+** Bounding box AABB. Minimum and maximum coordinates are used in
 ** bounding box ray intersection calculations.
 ** center and size are useful in kd_tree / bvh structs.
 */
@@ -181,7 +181,7 @@ typedef struct				s_box3d
 	t_vec3			size;
 	float			xyz_min[3];
 	float			xyz_max[3];
-	t_bool			is_trigger;
+	t_bool			is_collider;
 }							t_box3d;
 
 /*
@@ -202,6 +202,7 @@ typedef struct				s_plane
 
 typedef struct				s_3d_object
 {
+	uint32_t		id;
 	t_vertex		**vertices;
 	int32_t			num_vertices;
 	t_triangle		*triangles;
@@ -388,6 +389,16 @@ t_3d_object					*l3d_3d_object_copy(t_3d_object *src);
 void						l3d_3d_object_debug_print(t_3d_object *obj);
 void						l3d_object_set_shading_opts(t_3d_object *obj,
 								t_shading_opts opts);
+void						l3d_3d_object_set_id(t_3d_object *object,
+								uint32_t id);
+t_3d_object					*l3d_3d_object_shallow_copy(t_3d_object *src);
+void						l3d_3d_object_triangle_copy_and_set(
+								t_3d_object *dst,
+								t_3d_object *src);
+void						l3d_object_set_normal_map(t_3d_object *obj,
+								t_surface *normal_map);
+void						l3d_object_set_texture(t_3d_object *obj,
+								t_surface *texture);
 
 /*
 ** OBJ reading
@@ -404,6 +415,7 @@ t_3d_object					*l3d_read_obj(const char *filename,
 float						l3d_fmax(float n1, float n2);
 float						l3d_fmin(float n1, float n2);
 double						l3d_rand_d(void);
+uint32_t					l3d_random_uuid(void);
 
 /*
 **	Triangle rasterization

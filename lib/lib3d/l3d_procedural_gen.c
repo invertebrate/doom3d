@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 17:17:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 14:48:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void				l3d_skybox_create(t_3d_object *skybox[6],
 
 /*
 ** Copies a 3d object / model and places it with given unit scale and position
+** Gets new id.
 */
 
 t_3d_object			*l3d_object_instantiate(t_3d_object *model,
@@ -95,7 +96,8 @@ t_3d_object			*l3d_object_instantiate(t_3d_object *model,
 
 	new_obj = l3d_3d_object_copy(model);
 	l3d_3d_object_scale(new_obj, unit_size, unit_size, unit_size);
-	new_obj->aabb.is_trigger = is_trigger;
+	new_obj->aabb.is_collider = is_trigger;
 	new_obj->material->shading_opts = 0;
+	new_obj->id = l3d_random_uuid();
 	return (new_obj);
 }

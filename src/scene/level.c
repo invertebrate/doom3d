@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   level.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/15 14:59:02 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 13:25:58 by ohakola          ###   ########.fr       */
+/*   Created: 2020/12/22 23:04:12 by ohakola           #+#    #+#             */
+/*   Updated: 2020/12/22 23:36:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "doom3d.h"
 
-/*
-** ft_strlen() returns the length of the null terminated str.
-*/
-
-size_t	ft_strlen(const char *str)
+void			read_level_list(t_doom3d *app)
 {
-	size_t	i;
+	int32_t		fd;
+	const char	*level_list;
+	int32_t		i;
 
-	if (!str)
-		return (0);
+	ft_memset(app->level_list, 0, sizeof(char*) * MAX_LEVELS);
+	level_list = "assets/map_data/level_list.txt";
+	if ((fd = open(level_list, O_RDONLY)) == -1 &&
+		ft_dprintf(2, "Failed to open file %s\n", level_list))
+		return ;
 	i = 0;
-	while (str[i])
+	while (get_next_line(fd, &app->level_list[i]))
 		i++;
-	return (i);
+	app->num_levels = i;
 }

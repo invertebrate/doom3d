@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/18 19:34:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 23:37:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "lib3d.h"
 # include <float.h>
 # include "window.h"
+# include <time.h>
 
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
@@ -31,7 +32,8 @@
 # define NEAR_CLIP_DIST 10
 # define FAR_CLIP_DIST 100000
 # define MAX_NUM_OBJECTS 16384
-# define NUM_ASSETS 64
+# define MAX_ASSETS 256
+# define MAX_LEVELS 16
 # define TEMP_OBJECT_EXPIRE_SEC 100
 
 # define X_DIR 1
@@ -89,14 +91,15 @@ typedef struct				s_player
 	t_box3d					aabb;
 }							t_player;
 
-typedef struct				s_scene_files
+typedef struct				s_asset_files
 {
-	char					*texture_files[NUM_ASSETS];
-	char					*normal_map_files[NUM_ASSETS];
-	char					*model_files[NUM_ASSETS];
-	uint32_t				asset_keys[NUM_ASSETS];
-	uint32_t				num_assets_to_load;
-}							t_scene_files;
+	const char				*texture_files[MAX_ASSETS];
+	const char				*normal_map_files[MAX_ASSETS];
+	const char				*model_files[MAX_ASSETS];
+	uint32_t				num_models;
+	uint32_t				num_textures;
+	uint32_t				num_normal_maps;
+}							t_asset_files;
 
 typedef struct				s_scene
 {
@@ -111,12 +114,12 @@ typedef struct				s_scene
 	uint32_t				num_menus;
 	t_bool					is_paused;
 	t_scene_id				scene_id;
-	char					*map_filename;
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
 	t_hash_table			*models;
-	uint32_t				asset_keys[NUM_ASSETS];
-	uint32_t				num_loaded_assets;
+	t_hash_table			*object_textures;
+	t_hash_table			*object_normal_maps;
+	t_asset_files			asset_files;
 	t_surface				*skybox_textures[6];
 	t_3d_object				*skybox[6];
 }							t_scene;
@@ -128,6 +131,10 @@ typedef struct				s_doom3d
 	t_bool					is_loading;
 	t_bool					is_normal_map;
 	t_bool					is_first_render;
+	// For editor (possibly later for game too)
+	t_bool					is_saving;
+	t_bool					is_saved;
+	//--
 	t_info					info;
 	t_window				*window;
 	t_scene_id				next_scene_id;
@@ -139,6 +146,11 @@ typedef struct				s_doom3d
 	float					unit_size;
 	t_bool					is_minimap_largened;
 	int32_t					triangles_in_view;
+	char					editor_filename[128];
+	char					*level_list[MAX_LEVELS];
+	uint32_t				num_levels;
+	uint32_t				current_level;
+	uint32_t				editor_level;
 }							t_doom3d;
 
 /*
@@ -237,6 +249,25 @@ void						scene_skybox_destroy(t_scene *scene);
 void						scene_models_destroy(t_scene *scene);
 void						scene_textures_destroy(t_scene *scene);
 void						scene_normal_maps_destroy(t_scene *scene);
+
+/*
+** Editor
+*/
+void						save_map(t_doom3d *app);
+void						read_map(t_doom3d *app, const char *map_name);
+const char					*normal_map_file_key(char *filename, t_doom3d *app);
+const char					*texture_file_key(char *filename, t_doom3d *app);
+void						place_object(t_doom3d *app,
+								const char *filenames[3],
+								t_vec3 pos);
+void						place_procedural_object(t_doom3d *app,
+								t_3d_object *model,
+								const char *filenames[2], t_vec3 pos);
+
+/*
+** Level
+*/
+void						read_level_list(t_doom3d *app);
 
 /*
 ** Menus
