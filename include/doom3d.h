@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 19:28:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 13:21:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,25 +89,6 @@ typedef struct				s_player
 	t_mat4					inv_translation;
 	t_box3d					aabb;
 }							t_player;
-
-/*
-** Save map data as .obj files & .txt files linking to textures.
-** e.g: assets/map_data/level1
-**		assets/map_data/level1/level1.data = t_map_file binary data
-**		assets/map_data/level1/object_key1.obj
-**		assets/map_data/level1/object_key2.obj
-**		assets/map_data/level1/object_key1_texture.txt text file containing
-** path of the texture file.
-**		assets/map_data/level1/object_key2_texture.txt text file containing
-** path of the texture file.
-*/
-
-typedef struct				s_map_file
-{
-	char					header[4];
-	uint32_t				object_ids[MAX_ASSETS];
-	uint32_t				num_objects;
-}							t_map_file;
 
 typedef struct				s_asset_files
 {
