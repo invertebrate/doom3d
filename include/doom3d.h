@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 15:50:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 21:50:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,9 +251,11 @@ void						read_map(t_doom3d *app, const char *filename);
 const char					*normal_map_file_key(char *filename, t_doom3d *app);
 const char					*texture_file_key(char *filename, t_doom3d *app);
 void						place_object(t_doom3d *app,
-								t_3d_object *model, t_vec3 pos);
-void						place_object_from_file(t_doom3d *app,
-								char *filename, t_vec3 pos);
+								const char *filenames[3],
+								t_vec3 pos);
+void						place_procedural_object(t_doom3d *app,
+								t_3d_object *model,
+								const char *filenames[2], t_vec3 pos);
 
 /*
 ** Menus

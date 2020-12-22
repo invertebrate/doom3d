@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:34:25 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 15:49:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 22:34:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ t_3d_object		*l3d_3d_object_copy(t_3d_object *src)
 	return (dst);
 }
 
+/*
+** Copies an object apart from any of its pointer content.
+** This is used e.g. in reading obj from a file after which all triangles,
+** vertices, textures etc. are filled later.
+*/
+
 t_3d_object		*l3d_3d_object_shallow_copy(t_3d_object *src)
 {
 	t_3d_object	*dst;
@@ -72,6 +78,7 @@ t_3d_object		*l3d_3d_object_shallow_copy(t_3d_object *src)
 	ml_vector3_copy(src->position, dst->position);
 	ml_matrix4_copy(src->rotation, dst->rotation);
 	ft_memcpy(&dst->aabb, &src->aabb, sizeof(t_box3d));
+	ft_memset(dst->material, 0, sizeof(t_material));
 	return (dst);
 }
 

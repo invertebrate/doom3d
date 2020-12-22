@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 15:32:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 22:40:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void	write_obj_content(int32_t fd, t_doom3d *app, t_3d_object *obj)
 	len = ft_strlen(normal_map_file);
 	write(fd, &len, sizeof(uint32_t));
 	write(fd, normal_map_file, len);
+	// !Write the shading opts
+	write(fd, &obj->material->shading_opts, sizeof(uint32_t));
 }
 
 static void	write_map(int32_t fd, t_doom3d *app)
@@ -81,7 +83,6 @@ const char	*texture_file_key(char *filename, t_doom3d *app)
 {
 	int32_t		i;
 
-	ft_printf("%s\n", filename);
 	i = -1;
 	while (++i < (int32_t)app->active_scene->asset_files.num_textures)
 	{
@@ -96,7 +97,6 @@ const char	*normal_map_file_key(char *filename, t_doom3d *app)
 {
 	int32_t		i;
 
-	ft_printf("%s\n", filename);
 	i = -1;
 	while (++i < (int32_t)app->active_scene->asset_files.num_normal_maps)
 	{
@@ -116,7 +116,6 @@ static int32_t	read_obj_texture(t_3d_object *obj,
 	const char	*filename;
 
 	ft_memcpy(&len, contents, sizeof(uint32_t));
-	ft_printf("Len: %d\n", len);
 	offset = sizeof(uint32_t);
 	ft_memset(buf, 0, sizeof(buf));
 	ft_memcpy(buf, contents + offset, len);
@@ -136,7 +135,6 @@ static int32_t	read_obj_normal_map(t_3d_object *obj,
 	const char	*filename;
 
 	ft_memcpy(&len, contents, sizeof(uint32_t));
-	ft_printf("Len: %d\n", len);
 	offset = sizeof(uint32_t);
 	ft_memset(buf, 0, sizeof(buf));
 	ft_memcpy(buf, contents + offset, len);
@@ -160,11 +158,9 @@ static void	read_objects(t_doom3d *app, char *contents)
 	{
 		obj = l3d_3d_object_shallow_copy((t_3d_object*)(contents + offset));
 		offset += sizeof(t_3d_object);
-		ft_printf("Managed to copy obj %u\n", obj->num_vertices);
 		j = -1;
 		while (++j < (int32_t)obj->num_vertices)
 		{
-			ft_printf("Copy vertex %d\n", j);
 			ft_memcpy(obj->vertices[j], contents + offset, sizeof(t_vertex));
 			offset += sizeof(t_vertex);
 		}
@@ -176,6 +172,9 @@ static void	read_objects(t_doom3d *app, char *contents)
 		}
 		offset += read_obj_texture(obj, app, contents + offset);
 		offset += read_obj_normal_map(obj, app, contents + offset);
+		ft_memcpy(&obj->material->shading_opts,
+			contents + offset, sizeof(uint32_t));
+		offset += sizeof(uint32_t);
 		l3d_3d_object_triangle_copy_and_set(obj, obj);
 		app->active_scene->objects[i] = obj;
 	}
@@ -196,7 +195,7 @@ void		read_map(t_doom3d *app, const char *filename)
 	ft_memcpy(&num_objects, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	app->active_scene->num_objects = num_objects;
-	ft_printf("Num objects %u\n", num_objects);
 	read_objects(app, file->buf + offset);
 	destroy_file_contents(file);
+	ft_printf("Loaded map: %s\nNum objects %u\n", filename, num_objects);
 }

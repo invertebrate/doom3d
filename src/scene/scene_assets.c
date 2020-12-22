@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 15:54:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 22:28:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ void			scene_assets_load(t_scene *scene)
 	scene_texture_files_set(&scene->asset_files);
 	scene_normal_files_set(&scene->asset_files);
 	scene_model_files_set(&scene->asset_files);
-	set_scene_model_textures_and_normal_maps(scene);
 	assets_load(scene, &scene->asset_files);
+	set_scene_model_textures_and_normal_maps(scene);
 }
