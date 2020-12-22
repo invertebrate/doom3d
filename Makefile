@@ -49,7 +49,10 @@ SOURCES = main.c \
 			scene/menus/menu_utils.c \
 			scene/editor/editor_utils.c \
 			scene/editor/object_utils.c \
+			scene/editor/save.c \
+			scene/editor/read.c \
 			scene/scene.c \
+			scene/level.c \
 			scene/cleanup.c \
 			scene/scene_assets.c \
 			scene/scene_content.c \

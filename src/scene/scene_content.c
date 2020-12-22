@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 22:39:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 23:07:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void		active_scene_world_init(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
-		// ToDo Read map file here
+		read_map(app, app->level_list[app->current_level]);
 		active_scene_collision_tree_set(app->active_scene);
 		l3d_skybox_create(app->active_scene->skybox,
 			app->active_scene->skybox_textures, app->unit_size);
@@ -90,9 +90,7 @@ static void		active_scene_world_init(t_doom3d *app)
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
-		// ToDo Read selected map file here
-		// place_test_objects(app);
-		read_map(app, "assets/map_data/OkkoPokko.data");
+		read_map(app, app->level_list[app->current_level]);
 		l3d_skybox_create(app->active_scene->skybox,
 			app->active_scene->skybox_textures, app->unit_size);
 		player_init(app, (t_vec3){0,

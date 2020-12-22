@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 21:50:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/22 23:04:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,10 @@ typedef struct				s_doom3d
 	t_bool					is_loading;
 	t_bool					is_normal_map;
 	t_bool					is_first_render;
+	// For editor (possibly later for game too)
 	t_bool					is_saving;
 	t_bool					is_saved;
+	//--
 	t_info					info;
 	t_window				*window;
 	t_scene_id				next_scene_id;
@@ -144,6 +146,9 @@ typedef struct				s_doom3d
 	t_bool					is_minimap_largened;
 	int32_t					triangles_in_view;
 	char					editor_filename[128];
+	char					*level_list[16];
+	uint32_t				num_levels;
+	uint32_t				current_level;
 }							t_doom3d;
 
 /*
@@ -256,6 +261,11 @@ void						place_object(t_doom3d *app,
 void						place_procedural_object(t_doom3d *app,
 								t_3d_object *model,
 								const char *filenames[2], t_vec3 pos);
+
+/*
+** Level
+*/
+void						read_level_list(t_doom3d *app);
 
 /*
 ** Menus
