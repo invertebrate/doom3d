@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/18 19:25:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/23 13:50:10 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ static void		game_input_events_handle(t_doom3d *app, SDL_Event event)
 		app->mouse.state = SDL_GetMouseState(&app->mouse.x, &app->mouse.y);
 		i = -1;
 		while (++i < (int32_t)app->active_scene->num_menus)
-			button_group_events_handle(app->active_scene->menus[i],
-				app->mouse, event);
+		{
+			if (!app->is_loading)
+				button_group_events_handle(app->active_scene->menus[i],
+					app->mouse, event);
+		}
 	}
 }
 

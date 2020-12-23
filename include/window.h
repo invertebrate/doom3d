@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 16:09:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/23 12:56:30 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # endif
 
 # define PIXEL_FORMAT SDL_PIXELFORMAT_RGBA8888
-# define GAME_FONT "assets/fonts/AmazDoomLeft.ttf"
+# define GAME_FONT "assets/fonts/AmazDooMLeft.ttf"
 # define DEBUG_FONT "assets/fonts/Roboto-Regular.ttf"
 # define FONT_SIZE 60
 

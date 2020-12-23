@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 15:23:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/23 12:49:17 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		scene_textures_destroy(t_scene *scene)
 	while (++i < (int32_t)scene->asset_files.num_textures)
 	{
 		if ((texture = hash_map_get(scene->textures,
-				(int32_t)scene->asset_files.texture_files[i])))
+				(int64_t)scene->asset_files.texture_files[i])))
 			free(texture->pixels);
 	}
 	hash_map_destroy_free(scene->textures);
@@ -37,7 +37,7 @@ void		scene_normal_maps_destroy(t_scene *scene)
 	while (++i < (int32_t)scene->asset_files.num_normal_maps)
 	{
 		if ((normal_map = hash_map_get(scene->normal_maps,
-			(int32_t)scene->asset_files.normal_map_files[i])))
+			(int64_t)scene->asset_files.normal_map_files[i])))
 			free(normal_map->pixels);
 	}
 	hash_map_destroy_free(scene->normal_maps);
@@ -52,7 +52,7 @@ void		scene_models_destroy(t_scene *scene)
 	i = -1;
 	while (++i < (int32_t)scene->asset_files.num_models)
 		if ((model = hash_map_get(scene->models,
-			(int32_t)scene->asset_files.model_files[i])))
+			(int64_t)scene->asset_files.model_files[i])))
 			l3d_3d_object_destroy(model);
 	hash_map_destroy(scene->models);
 }

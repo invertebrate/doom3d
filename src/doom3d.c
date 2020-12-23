@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 23:37:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/23 13:10:10 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,13 @@ static void		doom3d_main_loop(t_doom3d *app)
 			doom3d_debug_info_capture(app);
 			continue ;
 		}
+		ft_printf("TEST!\n");//test
 		events_handle(app);
 		if (app->is_loading)
 			continue ;
+		ft_printf("TEST2!\n");//test
 		doom3d_render(app);
+		ft_printf("TEST3!\n");//test
 		if (app->is_debug)
 			doom3d_debug_info_render(app);
 		window_frame_draw(app->window);

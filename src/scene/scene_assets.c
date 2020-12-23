@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/23 00:23:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/23 12:50:44 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 	i = -1;
 	while (++i < (int32_t)data->num_models)
 		hash_map_add(scene->models,
-			(int32_t)scene->asset_files.model_files[i],
+			(int64_t)scene->asset_files.model_files[i],
 			l3d_read_obj(scene->asset_files.model_files[i], NULL, NULL));
 	i = -1;
 	while (++i < (int32_t)data->num_textures)
 		hash_map_add(scene->textures,
-			(int32_t)scene->asset_files.texture_files[i],
+			(int64_t)scene->asset_files.texture_files[i],
 			l3d_read_bmp_32bit_rgba_surface(
 				scene->asset_files.texture_files[i]));
 	i = -1;
 	while (++i < (int32_t)data->num_normal_maps)
 		hash_map_add(scene->normal_maps,
-			(int32_t)scene->asset_files.normal_map_files[i],
+			(int64_t)scene->asset_files.normal_map_files[i],
 			l3d_read_bmp_32bit_rgba_surface(
 				scene->asset_files.normal_map_files[i]));
 	scene_set_skybox_textures(scene);
