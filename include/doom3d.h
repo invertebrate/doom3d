@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 23:37:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/23 12:04:17 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,20 @@ typedef struct				s_player
 	t_mat4					inv_translation;
 	t_box3d					aabb;
 }							t_player;
+
+typedef struct				s_npc
+{
+	t_vec3					pos;
+	t_vec3					forward;
+	t_vec3					sideways;
+	t_vec3					up;
+	float					speed;
+	float					rot_speed;
+	int						state;
+	int						hp;
+	int						id;
+	t_3d_object				*model;
+}							t_npc;
 
 typedef struct				s_asset_files
 {

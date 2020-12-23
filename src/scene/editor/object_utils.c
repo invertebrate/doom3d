@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/23 00:20:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/23 12:25:23 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		place_object(t_doom3d *app, const char *filenames[3],
 	t_surface	*texture;
 	t_surface	*normal_map;
 
-	model = hash_map_get(app->active_scene->models, (int32_t)filenames[0]);
+	model = hash_map_get(app->active_scene->models, (int64_t)filenames[0]);
 	if (!model)
 	{
 		ft_dprintf(2, "No existing model file (%s) given to place object. "
@@ -34,7 +34,7 @@ void		place_object(t_doom3d *app, const char *filenames[3],
 		return ;
 	}
 	obj = l3d_object_instantiate(model, app->unit_size, false);
-	texture = hash_map_get(app->active_scene->textures, (int32_t)filenames[1]);
+	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[1]);
 	if (texture)
 	{
 		l3d_object_set_texture(obj, texture);
@@ -42,7 +42,7 @@ void		place_object(t_doom3d *app, const char *filenames[3],
 			(void*)filenames[1]);
 	}
 	normal_map = hash_map_get(app->active_scene->textures,
-		(int32_t)filenames[2]);
+		(int64_t)filenames[2]);
 	if (normal_map)
 	{
 		l3d_object_set_normal_map(obj, normal_map);
@@ -70,7 +70,7 @@ void		place_procedural_object(t_doom3d *app, t_3d_object *model,
 		return ;
 	}
 	obj = l3d_object_instantiate(model, app->unit_size, false);
-	texture = hash_map_get(app->active_scene->textures, (int32_t)filenames[0]);
+	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[0]);
 	if (texture)
 	{
 		l3d_object_set_texture(obj, texture);
@@ -78,7 +78,7 @@ void		place_procedural_object(t_doom3d *app, t_3d_object *model,
 			(void*)filenames[0]);
 	}
 	normal_map = hash_map_get(app->active_scene->textures,
-		(int32_t)filenames[1]);
+		(int64_t)filenames[1]);
 	if (normal_map)
 	{
 		l3d_object_set_normal_map(obj, normal_map);
