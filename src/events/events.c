@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/18 19:25:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/26 13:28:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ static void		game_input_events_handle(t_doom3d *app, SDL_Event event)
 
 	if (app->active_scene->scene_id == scene_id_editor3d)
 		editor_input_events_handle(app, event);
-	if ((!app->is_loading &&
-			app->active_scene->scene_id != scene_id_main_game) ||
+	if ((app->active_scene->scene_id != scene_id_main_game) ||
 			(app->active_scene->scene_id == scene_id_main_game &&
 				app->active_scene->is_paused))
 	{

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 23:37:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/26 13:33:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ static void		resize_dependent_recreate(t_doom3d *app)
 	}
 }
 
+static void		handle_scene_switch(t_doom3d *app)
+{
+	if (!app->is_loading &&
+		app->active_scene->scene_id != app->next_scene_id)
+		scene_next_select(app);
+}
+
 static void		doom3d_main_loop(t_doom3d *app)
 {
 	while (app->is_running)
@@ -35,6 +42,7 @@ static void		doom3d_main_loop(t_doom3d *app)
 		app->info.performance_start = SDL_GetPerformanceCounter();
 		if (app->window->resized)
 			resize_dependent_recreate(app);
+		handle_scene_switch(app);
 		window_frame_clear(app->window);
 		if (app->is_loading)
 		{
@@ -43,9 +51,8 @@ static void		doom3d_main_loop(t_doom3d *app)
 			doom3d_debug_info_capture(app);
 			continue ;
 		}
-		events_handle(app);
-		if (app->is_loading)
-			continue ;
+		else
+			events_handle(app);
 		doom3d_render(app);
 		if (app->is_debug)
 			doom3d_debug_info_render(app);
