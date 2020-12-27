@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 19:34:08 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 23:33:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/26 13:22:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ static void			on_editor_menu_button_click(t_button *self, void *params)
 	if (self->id == 0)
 	{
 		app->next_scene_id = scene_id_main_menu;
-		scene_next_select(app);
 	}
 	if (self->id == 1)
 	{
 		app->next_scene_id = scene_id_editor3d;
-		scene_next_select(app);
 	}
 	if (self->id == 2)
 		on_save(app);

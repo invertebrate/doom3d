@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 16:02:10 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 23:33:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/26 13:22:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void			on_pause_menu_button_click(t_button *self, void *params)
 	if (self->id == 0)
 	{
 		app->next_scene_id = scene_id_main_menu;
-		scene_next_select(app);
 	}
 	else if (self->id == 1)
 	{

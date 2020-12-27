@@ -6,7 +6,11 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/12/23 13:10:10 by ahakanen         ###   ########.fr       */
+=======
+/*   Updated: 2020/12/26 13:33:25 by ohakola          ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +32,13 @@ static void		resize_dependent_recreate(t_doom3d *app)
 	}
 }
 
+static void		handle_scene_switch(t_doom3d *app)
+{
+	if (!app->is_loading &&
+		app->active_scene->scene_id != app->next_scene_id)
+		scene_next_select(app);
+}
+
 static void		doom3d_main_loop(t_doom3d *app)
 {
 	while (app->is_running)
@@ -35,6 +46,7 @@ static void		doom3d_main_loop(t_doom3d *app)
 		app->info.performance_start = SDL_GetPerformanceCounter();
 		if (app->window->resized)
 			resize_dependent_recreate(app);
+		handle_scene_switch(app);
 		window_frame_clear(app->window);
 		if (app->is_loading)
 		{
@@ -43,11 +55,16 @@ static void		doom3d_main_loop(t_doom3d *app)
 			doom3d_debug_info_capture(app);
 			continue ;
 		}
+<<<<<<< HEAD
 		ft_printf("TEST!\n");//test
 		events_handle(app);
 		if (app->is_loading)
 			continue ;
 		ft_printf("TEST2!\n");//test
+=======
+		else
+			events_handle(app);
+>>>>>>> master
 		doom3d_render(app);
 		ft_printf("TEST3!\n");//test
 		if (app->is_debug)
