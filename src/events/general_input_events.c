@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/27 22:17:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/27 23:24:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,87 @@ static void		handle_editor_saving(t_doom3d *app, SDL_Event event)
 	}
 }
 
+static void		get_mouse_editor_pos(t_doom3d *app, t_vec2 mouse_editor_pos)
+{
+	t_vec2	mouse_pos;
+
+	ml_vector2_copy((t_vec2){app->mouse.x, app->mouse.y}, mouse_pos);
+	ml_vector2_sub(mouse_pos, app->window->editor_pos, mouse_pos);
+	ml_vector2_copy((t_vec2){
+		(mouse_pos[0] / app->window->framebuffer->width) *
+			app->window->framebuffer->width,
+		(mouse_pos[1] / app->window->framebuffer->height) *
+			app->window->framebuffer->height}, mouse_pos);
+	ml_vector2_copy((t_vec2){
+		((float)app->window->framebuffer->width /
+			(float)app->window->editor_framebuffer->width) *
+			mouse_pos[0],
+		((float)app->window->framebuffer->height /
+			(float)app->window->editor_framebuffer->height) *
+			mouse_pos[1]}, mouse_editor_pos);
+}
+
+static void		get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
+{
+	t_vec2	mouse_editor_pos;
+	t_vec3	screen_origin;
+	t_vec3	add;
+	t_vec3	dirs[4];
+	float	dims[2];
+
+	dims[0] = app->window->framebuffer->width / 2.0;
+	dims[1] = app->window->framebuffer->height / 2.0;
+	ml_vector3_mul(app->player.forward,
+		ml_vector3_mag(app->active_scene->main_camera->screen.origin), add);
+	ml_vector3_add(app->player.pos, add, screen_origin);
+	ml_vector3_mul(app->player.up, dims[1], dirs[0]);
+	ml_vector3_mul(app->player.sideways, dims[0], dirs[1]);
+	ml_vector3_mul(app->player.up, -dims[1], dirs[2]);
+	ml_vector3_mul(app->player.sideways, -dims[0], dirs[3]);
+	ml_vector3_add(screen_origin, dirs[3], mouse_world_pos);
+	ml_vector3_add(mouse_world_pos, dirs[0], mouse_world_pos);
+	get_mouse_editor_pos(app, mouse_editor_pos);
+	ml_vector3_normalize(mouse_editor_pos, mouse_editor_pos);
+	ml_vector3_mul(dirs[1], mouse_editor_pos[0], add);
+	ml_vector3_add(mouse_world_pos, add, mouse_world_pos);
+	ml_vector3_mul(dirs[2], mouse_editor_pos[1], add);
+	ml_vector3_add(mouse_world_pos, add, mouse_world_pos);
+}
+
+static void		editor_select(t_doom3d *app)
+{
+	t_vec3			mouse_world_pos;
+	t_vec3			dir;
+	t_hits			*hits;
+	t_hit			*closest_triangle_hit;
+
+	hits = NULL;
+	get_mouse_world_position(app, mouse_world_pos);
+	ml_vector3_sub(mouse_world_pos, app->player.pos, dir);
+	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, mouse_world_pos,
+		dir, &hits))
+	{
+		l3d_get_closest_hit(hits, &closest_triangle_hit);
+		if (closest_triangle_hit != NULL)
+		{
+			ft_printf("Select at: ");
+			ml_vector3_print(closest_triangle_hit->hit_point);
+		}
+		l3d_delete_hits(&hits);
+	}
+}
+
+static void		handle_editor_selection(t_doom3d *app, SDL_Event event)
+{
+	if (app->is_saving)
+		return ;
+	if (event.type == SDL_MOUSEBUTTONDOWN &&
+		(app->mouse.state & SDL_BUTTON_LMASK))
+	{
+		editor_select(app);
+	}
+}
+
 /*
 ** Handle events that aren't related to menus or game, like exiting or esc
 ** or setting to full screen, or disabling debug info
@@ -113,5 +194,8 @@ void			general_input_events_handle(t_doom3d *app, SDL_Event event)
 			handle_general_keyup_events(app, event);
 	}
 	if (app->active_scene->scene_id == scene_id_editor3d)
+	{
 		handle_editor_saving(app, event);
+		handle_editor_selection(app, event);
+	}
 }
