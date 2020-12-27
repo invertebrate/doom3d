@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/27 23:24:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 00:07:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,17 +96,15 @@ static void		handle_editor_saving(t_doom3d *app, SDL_Event event)
 	}
 }
 
-static void		get_mouse_editor_pos(t_doom3d *app, t_vec2 mouse_editor_pos)
+static void		get_mouse_editor_scale(t_doom3d *app, t_vec2 mouse_editor_pos)
 {
 	t_vec2	mouse_pos;
 
 	ml_vector2_copy((t_vec2){app->mouse.x, app->mouse.y}, mouse_pos);
 	ml_vector2_sub(mouse_pos, app->window->editor_pos, mouse_pos);
 	ml_vector2_copy((t_vec2){
-		(mouse_pos[0] / app->window->framebuffer->width) *
-			app->window->framebuffer->width,
-		(mouse_pos[1] / app->window->framebuffer->height) *
-			app->window->framebuffer->height}, mouse_pos);
+		(mouse_pos[0] / app->window->framebuffer->width),
+		(mouse_pos[1] / app->window->framebuffer->height)}, mouse_pos);
 	ml_vector2_copy((t_vec2){
 		((float)app->window->framebuffer->width /
 			(float)app->window->editor_framebuffer->width) *
@@ -115,6 +113,13 @@ static void		get_mouse_editor_pos(t_doom3d *app, t_vec2 mouse_editor_pos)
 			(float)app->window->editor_framebuffer->height) *
 			mouse_pos[1]}, mouse_editor_pos);
 }
+
+/*
+** 1. Go to screen origin
+** 2. Use vectors to get to left top corner
+** 3. Multiply sideways & down vectors by mouse editor scale
+** 4. Got it!
+*/
 
 static void		get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
 {
@@ -135,11 +140,12 @@ static void		get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
 	ml_vector3_mul(app->player.sideways, -dims[0], dirs[3]);
 	ml_vector3_add(screen_origin, dirs[3], mouse_world_pos);
 	ml_vector3_add(mouse_world_pos, dirs[0], mouse_world_pos);
-	get_mouse_editor_pos(app, mouse_editor_pos);
-	ml_vector3_normalize(mouse_editor_pos, mouse_editor_pos);
-	ml_vector3_mul(dirs[1], mouse_editor_pos[0], add);
+	get_mouse_editor_scale(app, mouse_editor_pos);
+	ml_vector3_mul(app->player.sideways, app->window->framebuffer->width, add);
+	ml_vector3_mul(add, mouse_editor_pos[0], add);
 	ml_vector3_add(mouse_world_pos, add, mouse_world_pos);
-	ml_vector3_mul(dirs[2], mouse_editor_pos[1], add);
+	ml_vector3_mul(app->player.up, -app->window->framebuffer->height, add);
+	ml_vector3_mul(add, mouse_editor_pos[1], add);
 	ml_vector3_add(mouse_world_pos, add, mouse_world_pos);
 }
 
@@ -152,6 +158,7 @@ static void		editor_select(t_doom3d *app)
 
 	hits = NULL;
 	get_mouse_world_position(app, mouse_world_pos);
+	ml_vector3_print(mouse_world_pos);
 	ml_vector3_sub(mouse_world_pos, app->player.pos, dir);
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, mouse_world_pos,
 		dir, &hits))
@@ -173,7 +180,12 @@ static void		handle_editor_selection(t_doom3d *app, SDL_Event event)
 	if (event.type == SDL_MOUSEBUTTONDOWN &&
 		(app->mouse.state & SDL_BUTTON_LMASK))
 	{
-		editor_select(app);
+		if (app->mouse.x > app->window->editor_pos[0] && app->mouse.x <
+			app->window->editor_pos[0] + app->window->editor_framebuffer->width
+			&&
+			app->mouse.y > app->window->editor_pos[1] && app->mouse.y <
+			app->window->editor_pos[1] + app->window->editor_framebuffer->height)
+			editor_select(app);
 	}
 }
 
