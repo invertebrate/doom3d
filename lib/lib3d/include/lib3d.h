@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 15:49:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/27 22:25:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef enum				e_shading_opts
 	e_shading_normal_map = 1 << 1,
 	e_shading_zero_alpha = 1 << 2,
 	e_shading_ignore_zpass = 1 << 3,
+	e_shading_select = 1 << 4,
 }							t_shading_opts;
 
 typedef struct				s_surface
@@ -103,6 +104,8 @@ typedef struct				s_material
 	t_shading_opts	shading_opts;
 }							t_material;
 
+typedef struct s_3d_object	t_3d_object;
+
 /*
 ** Triangle contains pointers to vertices (which get transformed over time)
 ** Center and normal should be updated if vertices are transformed.
@@ -112,6 +115,7 @@ typedef struct				s_triangle
 {
 	t_bool			is_single_sided;
 	t_bool			clipped;
+	t_3d_object		*parent;
 	t_material		*material;
 	t_vertex		*vtc[3];
 	uint32_t		vtc_indices[3];
@@ -200,7 +204,7 @@ typedef struct				s_plane
 ** This is the main struct to hold 3d object data.
 */
 
-typedef struct				s_3d_object
+struct				s_3d_object
 {
 	uint32_t		id;
 	t_vertex		**vertices;
@@ -212,7 +216,7 @@ typedef struct				s_3d_object
 	t_mat4			scale;
 	t_vec3			position;
 	t_box3d			aabb;
-}							t_3d_object;
+};
 
 /*
 ** Utility enum for x y z axes.
