@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/23 13:32:42 by ahakanen         ###   ########.fr       */
+/*   Updated: 2020/12/23 16:12:32 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ typedef struct				s_doom3d
 	uint32_t				num_levels;
 	uint32_t				current_level;
 	uint32_t				editor_level;
+
+	t_list					*npc_list;
 }							t_doom3d;
 
 /*

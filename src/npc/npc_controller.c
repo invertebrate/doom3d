@@ -6,18 +6,15 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:47:28 by ahakanen          #+#    #+#             */
-/*   Updated: 2020/12/22 19:51:37 by ahakanen         ###   ########.fr       */
+/*   Updated: 2020/12/23 16:34:53 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-t_list	*npc_controller_init(void)
+t_list	*npc_controller_init(t_doom3d *app)
 {
-	t_list	*npc_list;
-
-	npc_list = ft_lstnew(NULL, 0);
-	return (npc_list);
+	app->npc_list = ft_lstnew(NULL, 0);
 }
 
 void	npc_controller(t_list *npc_list, float time)
