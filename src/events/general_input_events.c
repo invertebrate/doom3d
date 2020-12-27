@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 00:07:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 00:24:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,15 +158,21 @@ static void		editor_select(t_doom3d *app)
 
 	hits = NULL;
 	get_mouse_world_position(app, mouse_world_pos);
+
 	ml_vector3_print(mouse_world_pos);
 	ml_vector3_sub(mouse_world_pos, app->player.pos, dir);
-	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, mouse_world_pos,
+	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, app->player.pos,
 		dir, &hits))
 	{
 		l3d_get_closest_hit(hits, &closest_triangle_hit);
 		if (closest_triangle_hit != NULL)
 		{
 			ft_printf("Select at: ");
+						place_object(app, (const char*[3]){
+				"assets/models/box.obj",
+				NULL, NULL}, closest_triangle_hit->hit_point);
+			l3d_3d_object_scale(app->active_scene->objects[
+				app->active_scene->num_objects - 1], 0.1, 0.1, 0.1);
 			ml_vector3_print(closest_triangle_hit->hit_point);
 		}
 		l3d_delete_hits(&hits);
