@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 15:52:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 18:11:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,14 @@ void			ui_render(t_doom3d *app)
 	{
 		menu_render(app->active_scene->menus[0], (t_vec2){10, 0});
 		editor_filename_render(app);
+		if (app->editor.selected_object)
+			window_text_render(app->window, (t_text_params){
+				.text = app->editor.selected_object_str, .blend_ratio = 1.0,
+				.xy = (int[2]){app->window->framebuffer->width - 390,
+					app->window->framebuffer->height
+					- FONT_SIZE - 10},
+				.text_color = (SDL_Color){0, 255, 0, 255}},
+				app->window->main_font);
 	}
 }
 

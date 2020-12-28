@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 17:51:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 17:59:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct 				s_editor
 	t_bool					is_saved;
 	uint32_t				editor_level;
 	char					editor_filename[128];
+	char					selected_object_str[128];
 	t_3d_object				*selected_object;
 }							t_editor;
 

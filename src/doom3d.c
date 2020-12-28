@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 15:52:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 17:59:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ void			doom3d_init(t_doom3d *app)
 	app->editor.is_saving = false;
 	app->editor.is_saved = false;
 	read_level_list(app);
-	// ToDo Later load current level from saved file or something...
 	app->current_level = 0;
 	app->editor.editor_level = 0;
+	app->editor.selected_object_str[0] = '\0';
 	ft_memcpy(app->editor.editor_filename, app->level_list[app->current_level],
 		ft_strlen(app->level_list[app->current_level]));
 	scene_next_select(app);

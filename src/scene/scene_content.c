@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 16:04:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 18:26:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,37 +62,47 @@ static void				place_test_objects(t_doom3d *app)
 	ft_printf("Placed test objects\n");
 }
 
-static void		active_scene_world_init(t_doom3d *app)
+static void		game_init(t_doom3d *app)
+{
+	read_map(app, app->level_list[app->current_level]);
+	// Add test objects for playing
+	place_test_objects(app);
+	active_scene_triangle_tree_set(app->active_scene);
+	l3d_skybox_create(app->active_scene->skybox,
+		app->active_scene->skybox_textures, app->unit_size);
+	player_init(app, (t_vec3){0, 0, 0});
+}
+
+static void		editor_init(t_doom3d *app)
+{
+	app->editor.selected_object = NULL;
+	if (app->level_list[app->editor.editor_level])
+	{
+		read_map(app, app->level_list[app->editor.editor_level]);
+		ft_memcpy(app->editor.editor_filename,
+			app->level_list[app->editor.editor_level],
+			ft_strlen(app->level_list[app->editor.editor_level]));
+		app->editor.is_saved = true;
+	}
+	else
+		app->editor.is_saved = false;
+	l3d_skybox_create(app->active_scene->skybox,
+		app->active_scene->skybox_textures, app->unit_size);
+	active_scene_triangle_tree_set(app->active_scene);
+	player_init(app, (t_vec3){0,
+		-10 * app->unit_size, -20 * app->unit_size});
+	player_rotate_vertical(app, -90);
+}
+
+static void		active_scene_init(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
-		read_map(app, app->level_list[app->current_level]);
-		// Add test objects for playing
-		place_test_objects(app);
-		active_scene_triangle_tree_set(app->active_scene);
-		l3d_skybox_create(app->active_scene->skybox,
-			app->active_scene->skybox_textures, app->unit_size);
-		player_init(app, (t_vec3){0, 0, 0});
+		game_init(app);
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
-		if (app->level_list[app->editor.editor_level])
-		{
-			read_map(app, app->level_list[app->editor.editor_level]);
-			ft_memcpy(app->editor.editor_filename,
-				app->level_list[app->editor.editor_level],
-				ft_strlen(app->level_list[app->editor.editor_level]));
-			app->editor.is_saved = true;
-			app->editor.selected_object = NULL;
-		}
-		else
-			app->editor.is_saved = false;
-		l3d_skybox_create(app->active_scene->skybox,
-			app->active_scene->skybox_textures, app->unit_size);
-		active_scene_triangle_tree_set(app->active_scene);
-		player_init(app, (t_vec3){0,
-			-10 * app->unit_size, -20 * app->unit_size});
-		player_rotate_vertical(app, -90);
+		editor_init(app);
 	}
 	if (app->active_scene->main_camera)
 		update_camera(app);
@@ -139,6 +149,6 @@ void		active_scene_content_set(t_doom3d *app)
 		scene_assets_load(app->active_scene);
 	}
 	active_scene_mouse_mode_set(app);
-	active_scene_world_init(app);
+	active_scene_init(app);
 	active_scene_menu_recreate(app);
 }

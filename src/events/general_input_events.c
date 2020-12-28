@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 16:01:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 18:22:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,9 @@ static void		handle_editor_selection(t_doom3d *app, SDL_Event event)
 void			general_input_events_handle(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_QUIT)
+	{
 		app->is_running = false;
+	}
 	if (!SDL_IsTextInputActive() && !app->editor.is_saving)
 	{
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)

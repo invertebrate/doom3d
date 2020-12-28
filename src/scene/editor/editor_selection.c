@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 17:50:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 18:14:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,9 @@ void			editor_deselect(t_doom3d *app)
 		app->editor.selected_object->material->shading_opts =
 			(app->editor.selected_object->material->shading_opts &
 				~e_shading_select);
-		app->editor.selected_object = NULL;
 	}
+	app->editor.selected_object = NULL;
+	app->editor.selected_object_str[0] = '\0';
 }
 
 void			editor_deselect_all(t_doom3d *app)
@@ -94,6 +95,15 @@ void			editor_deselect_all(t_doom3d *app)
 			(app->active_scene->objects[i]->material->shading_opts &
 				~e_shading_select);
 	}
+}
+
+static void		select_object(t_doom3d *app, t_3d_object *object)
+{
+	app->editor.selected_object = object;
+	app->editor.selected_object->material->shading_opts |=
+		e_shading_select;
+	ft_sprintf(app->editor.selected_object_str, "Selected: %u",
+		app->editor.selected_object->id);
 }
 
 /*
@@ -120,10 +130,7 @@ void			editor_select(t_doom3d *app)
 		if (closest_triangle_hit != NULL)
 		{
 			editor_deselect(app);
-			app->editor.selected_object =
-				closest_triangle_hit->triangle->parent;
-			app->editor.selected_object->material->shading_opts |=
-				e_shading_select;
+			select_object(app, closest_triangle_hit->triangle->parent);
 		}
 		l3d_delete_hits(&hits);
 	}
