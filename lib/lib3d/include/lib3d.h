@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 16:20:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 19:32:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -399,10 +399,6 @@ t_3d_object					*l3d_3d_object_shallow_copy(t_3d_object *src);
 void						l3d_3d_object_triangle_copy_and_set(
 								t_3d_object *dst,
 								t_3d_object *src);
-void						l3d_object_set_normal_map(t_3d_object *obj,
-								t_surface *normal_map);
-void						l3d_object_set_texture(t_3d_object *obj,
-								t_surface *texture);
 
 /*
 ** OBJ reading
