@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 00:24:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 15:38:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,14 +123,14 @@ static void		get_mouse_editor_scale(t_doom3d *app, t_vec2 mouse_editor_pos)
 
 static void		get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
 {
-	t_vec2	mouse_editor_pos;
+	t_vec2	mouse_editor_scale;
 	t_vec3	screen_origin;
 	t_vec3	add;
 	t_vec3	dirs[4];
 	float	dims[2];
 
-	dims[0] = app->window->framebuffer->width / 2.0;
-	dims[1] = app->window->framebuffer->height / 2.0;
+	dims[0] = app->window->editor_framebuffer->width / 2.0;
+	dims[1] = app->window->editor_framebuffer->height / 2.0;
 	ml_vector3_mul(app->player.forward,
 		ml_vector3_mag(app->active_scene->main_camera->screen.origin), add);
 	ml_vector3_add(app->player.pos, add, screen_origin);
@@ -140,12 +140,15 @@ static void		get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
 	ml_vector3_mul(app->player.sideways, -dims[0], dirs[3]);
 	ml_vector3_add(screen_origin, dirs[3], mouse_world_pos);
 	ml_vector3_add(mouse_world_pos, dirs[0], mouse_world_pos);
-	get_mouse_editor_scale(app, mouse_editor_pos);
-	ml_vector3_mul(app->player.sideways, app->window->framebuffer->width, add);
-	ml_vector3_mul(add, mouse_editor_pos[0], add);
+	get_mouse_editor_scale(app, mouse_editor_scale);
+	ml_vector2_print(mouse_editor_scale);
+	ml_vector3_mul(app->player.sideways,
+		app->window->editor_framebuffer->width, add);
+	ml_vector3_mul(add, mouse_editor_scale[0], add);
 	ml_vector3_add(mouse_world_pos, add, mouse_world_pos);
-	ml_vector3_mul(app->player.up, -app->window->framebuffer->height, add);
-	ml_vector3_mul(add, mouse_editor_pos[1], add);
+	ml_vector3_mul(app->player.up,
+		-app->window->editor_framebuffer->height, add);
+	ml_vector3_mul(add, mouse_editor_scale[1], add);
 	ml_vector3_add(mouse_world_pos, add, mouse_world_pos);
 }
 
@@ -158,9 +161,9 @@ static void		editor_select(t_doom3d *app)
 
 	hits = NULL;
 	get_mouse_world_position(app, mouse_world_pos);
-
 	ml_vector3_print(mouse_world_pos);
 	ml_vector3_sub(mouse_world_pos, app->player.pos, dir);
+	ml_vector3_normalize(dir, dir);
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, app->player.pos,
 		dir, &hits))
 	{
@@ -168,7 +171,7 @@ static void		editor_select(t_doom3d *app)
 		if (closest_triangle_hit != NULL)
 		{
 			ft_printf("Select at: ");
-						place_object(app, (const char*[3]){
+			place_object(app, (const char*[3]){
 				"assets/models/box.obj",
 				NULL, NULL}, closest_triangle_hit->hit_point);
 			l3d_3d_object_scale(app->active_scene->objects[
