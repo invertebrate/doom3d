@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 19:36:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 19:39:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,5 @@ void			general_input_events_handle(t_doom3d *app, SDL_Event event)
 			app->is_running = false;
 		if (event.type == SDL_KEYUP)
 			handle_general_keyup_events(app, event);
-	}
-	if (app->active_scene->scene_id == scene_id_editor3d)
-	{
-		handle_editor_saving(app, event);
-		handle_editor_selection(app, event);
 	}
 }

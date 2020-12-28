@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/26 13:28:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 19:41:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 static void		editor_input_events_handle(t_doom3d *app, SDL_Event event)
 {
+	if (app->active_scene->scene_id == scene_id_editor3d)
+	{
+		handle_editor_saving(app, event);
+		handle_editor_selection(app, event);
+	}
 	if (event.type == SDL_MOUSEWHEEL)
 	{
 		player_scroll_editor(app, -event.wheel.y * 30);
