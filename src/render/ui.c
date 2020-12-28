@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/27 22:18:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 15:52:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,21 @@ void			editor_filename_render(t_doom3d *app)
 	int32_t		i;
 	uint32_t	color;
 
-	color = app->is_saved ? 0x00ff00ff : 0xff0000ff;
+	color = app->editor.is_saved ? 0x00ff00ff : 0xff0000ff;
 	l3d_u32_to_rgba(color, rgba);
 	i = -1;
 	while (++i < 0)
 		filename[i] = '\0';
 	ft_sprintf(filename, "File: %s",
-		ft_strlen(app->editor_filename) == 0 ? "NULL" : app->editor_filename);
+		ft_strlen(app->editor.editor_filename) == 0 ? "NULL" :
+			app->editor.editor_filename);
 	window_text_render(app->window, (t_text_params){
 		.text = filename, .blend_ratio = 1.0,
 		.xy = (int[2]){10, app->window->framebuffer->height
 			- FONT_SIZE - 10},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->main_font);
-	if (app->is_saving)
+	if (app->editor.is_saving)
 	{
 		TTF_SizeText(app->window->main_font, filename, &width, NULL);
 		i = -1;

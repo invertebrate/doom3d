@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/27 23:30:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 16:03:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,23 +76,22 @@ static void		active_scene_world_init(t_doom3d *app)
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
-		if (app->level_list[app->editor_level])
+		if (app->level_list[app->editor.editor_level])
 		{
-			read_map(app, app->level_list[app->editor_level]);
-			ft_memcpy(app->editor_filename, app->level_list[app->editor_level],
-				ft_strlen(app->level_list[app->editor_level]));
-			app->is_saved = true;
+			read_map(app, app->level_list[app->editor.editor_level]);
+			ft_memcpy(app->editor.editor_filename,
+				app->level_list[app->editor.editor_level],
+				ft_strlen(app->level_list[app->editor.editor_level]));
+			app->editor.is_saved = true;
 		}
 		else
-			app->is_saved = false;
+			app->editor.is_saved = false;
 		l3d_skybox_create(app->active_scene->skybox,
 			app->active_scene->skybox_textures, app->unit_size);
 		active_scene_triangle_tree_set(app->active_scene);
-				player_init(app, (t_vec3){0, 0, 0});
-
-		// player_init(app, (t_vec3){0,
-			// -10 * app->unit_size, -20 * app->unit_size});
-		// player_rotate_vertical(app, -90);
+		player_init(app, (t_vec3){0,
+			-10 * app->unit_size, -20 * app->unit_size});
+		player_rotate_vertical(app, -90);
 	}
 	if (app->active_scene->main_camera)
 		update_camera(app);

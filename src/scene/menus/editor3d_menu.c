@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/27 22:18:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 16:01:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void			on_save(t_doom3d *app)
 {
-	if (!app->is_saving)
+	if (!app->editor.is_saving)
 	{
-		app->is_saving = true;
+		app->editor.is_saving = true;
 		SDL_StartTextInput();
 	}
 }
@@ -35,7 +35,7 @@ static void			on_editor_menu_button_click(t_button *self, void *params)
 	else
 	{
 		SDL_StopTextInput();
-		app->is_saving = false;
+		app->editor.is_saving = false;
 	}
 }
 

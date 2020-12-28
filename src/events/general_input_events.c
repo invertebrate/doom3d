@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 15:38:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 16:01:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,124 +76,39 @@ static void		handle_editor_saving(t_doom3d *app, SDL_Event event)
 
 	if (event.type == SDL_TEXTINPUT)
 	{
-		app->is_saved = false;
-		ft_strcat(app->editor_filename, event.text.text);
+		app->editor.is_saved = false;
+		ft_strcat(app->editor.editor_filename, event.text.text);
 	}
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
 	{
 		SDL_StopTextInput();
-		app->is_saving = false;
+		app->editor.is_saving = false;
 		save_map(app);
-		ft_printf("Saved %s\n", app->editor_filename);
-		app->is_saved = true;
+		ft_printf("Saved %s\n", app->editor.editor_filename);
+		app->editor.is_saved = true;
 	}
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKSPACE)
 	{
-		app->is_saved = false;
-		length = ft_strlen(app->editor_filename);
+		app->editor.is_saved = false;
+		length = ft_strlen(app->editor.editor_filename);
 		if (length > 0)
-			app->editor_filename[length - 1] = '\0';
-	}
-}
-
-static void		get_mouse_editor_scale(t_doom3d *app, t_vec2 mouse_editor_pos)
-{
-	t_vec2	mouse_pos;
-
-	ml_vector2_copy((t_vec2){app->mouse.x, app->mouse.y}, mouse_pos);
-	ml_vector2_sub(mouse_pos, app->window->editor_pos, mouse_pos);
-	ml_vector2_copy((t_vec2){
-		(mouse_pos[0] / app->window->framebuffer->width),
-		(mouse_pos[1] / app->window->framebuffer->height)}, mouse_pos);
-	ml_vector2_copy((t_vec2){
-		((float)app->window->framebuffer->width /
-			(float)app->window->editor_framebuffer->width) *
-			mouse_pos[0],
-		((float)app->window->framebuffer->height /
-			(float)app->window->editor_framebuffer->height) *
-			mouse_pos[1]}, mouse_editor_pos);
-}
-
-/*
-** 1. Go to screen origin
-** 2. Use vectors to get to left top corner
-** 3. Multiply sideways & down vectors by mouse editor scale
-** 4. Got it!
-*/
-
-static void		get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
-{
-	t_vec2	mouse_editor_scale;
-	t_vec3	screen_origin;
-	t_vec3	add;
-	t_vec3	dirs[4];
-	float	dims[2];
-
-	dims[0] = app->window->editor_framebuffer->width / 2.0;
-	dims[1] = app->window->editor_framebuffer->height / 2.0;
-	ml_vector3_mul(app->player.forward,
-		ml_vector3_mag(app->active_scene->main_camera->screen.origin), add);
-	ml_vector3_add(app->player.pos, add, screen_origin);
-	ml_vector3_mul(app->player.up, dims[1], dirs[0]);
-	ml_vector3_mul(app->player.sideways, dims[0], dirs[1]);
-	ml_vector3_mul(app->player.up, -dims[1], dirs[2]);
-	ml_vector3_mul(app->player.sideways, -dims[0], dirs[3]);
-	ml_vector3_add(screen_origin, dirs[3], mouse_world_pos);
-	ml_vector3_add(mouse_world_pos, dirs[0], mouse_world_pos);
-	get_mouse_editor_scale(app, mouse_editor_scale);
-	ml_vector2_print(mouse_editor_scale);
-	ml_vector3_mul(app->player.sideways,
-		app->window->editor_framebuffer->width, add);
-	ml_vector3_mul(add, mouse_editor_scale[0], add);
-	ml_vector3_add(mouse_world_pos, add, mouse_world_pos);
-	ml_vector3_mul(app->player.up,
-		-app->window->editor_framebuffer->height, add);
-	ml_vector3_mul(add, mouse_editor_scale[1], add);
-	ml_vector3_add(mouse_world_pos, add, mouse_world_pos);
-}
-
-static void		editor_select(t_doom3d *app)
-{
-	t_vec3			mouse_world_pos;
-	t_vec3			dir;
-	t_hits			*hits;
-	t_hit			*closest_triangle_hit;
-
-	hits = NULL;
-	get_mouse_world_position(app, mouse_world_pos);
-	ml_vector3_print(mouse_world_pos);
-	ml_vector3_sub(mouse_world_pos, app->player.pos, dir);
-	ml_vector3_normalize(dir, dir);
-	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, app->player.pos,
-		dir, &hits))
-	{
-		l3d_get_closest_hit(hits, &closest_triangle_hit);
-		if (closest_triangle_hit != NULL)
-		{
-			ft_printf("Select at: ");
-			place_object(app, (const char*[3]){
-				"assets/models/box.obj",
-				NULL, NULL}, closest_triangle_hit->hit_point);
-			l3d_3d_object_scale(app->active_scene->objects[
-				app->active_scene->num_objects - 1], 0.1, 0.1, 0.1);
-			ml_vector3_print(closest_triangle_hit->hit_point);
-		}
-		l3d_delete_hits(&hits);
+			app->editor.editor_filename[length - 1] = '\0';
 	}
 }
 
 static void		handle_editor_selection(t_doom3d *app, SDL_Event event)
 {
-	if (app->is_saving)
+	if (app->editor.is_saving)
 		return ;
 	if (event.type == SDL_MOUSEBUTTONDOWN &&
 		(app->mouse.state & SDL_BUTTON_LMASK))
 	{
 		if (app->mouse.x > app->window->editor_pos[0] && app->mouse.x <
-			app->window->editor_pos[0] + app->window->editor_framebuffer->width
-			&&
+				app->window->editor_pos[0] +
+				app->window->editor_framebuffer->width &&
 			app->mouse.y > app->window->editor_pos[1] && app->mouse.y <
-			app->window->editor_pos[1] + app->window->editor_framebuffer->height)
+				app->window->editor_pos[1] +
+				app->window->editor_framebuffer->height)
 			editor_select(app);
 	}
 }
@@ -207,7 +122,7 @@ void			general_input_events_handle(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_QUIT)
 		app->is_running = false;
-	if (!SDL_IsTextInputActive() && !app->is_saving)
+	if (!SDL_IsTextInputActive() && !app->editor.is_saving)
 	{
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
 			app->is_running = false;

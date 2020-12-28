@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/27 22:17:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 15:51:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,15 @@ typedef struct				s_scene
 	t_3d_object				*skybox[6];
 }							t_scene;
 
+typedef struct 				s_editor
+{
+	t_bool					is_saving;
+	t_bool					is_saved;
+	uint32_t				editor_level;
+	char					editor_filename[128];
+	t_3d_object				*selected_object;
+}							t_editor;
+
 typedef struct				s_doom3d
 {
 	t_bool					is_running;
@@ -130,10 +139,6 @@ typedef struct				s_doom3d
 	t_bool					is_loading;
 	t_bool					is_normal_map;
 	t_bool					is_first_render;
-	// For editor (possibly later for game too)
-	t_bool					is_saving;
-	t_bool					is_saved;
-	//--
 	t_info					info;
 	t_window				*window;
 	t_scene_id				next_scene_id;
@@ -145,11 +150,10 @@ typedef struct				s_doom3d
 	float					unit_size;
 	t_bool					is_minimap_largened;
 	int32_t					triangles_in_view;
-	char					editor_filename[128];
 	char					*level_list[MAX_LEVELS];
 	uint32_t				num_levels;
 	uint32_t				current_level;
-	uint32_t				editor_level;
+	t_editor				editor;
 }							t_doom3d;
 
 /*
@@ -262,6 +266,7 @@ void						place_object(t_doom3d *app,
 void						place_procedural_object(t_doom3d *app,
 								t_3d_object *model,
 								const char *filenames[2], t_vec3 pos);
+void						editor_select(t_doom3d *app);
 
 /*
 ** Level

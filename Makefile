@@ -46,6 +46,7 @@ SOURCES = main.c \
 			scene/menus/main_menu.c \
 			scene/menus/pause_menu.c \
 			scene/menus/menu_utils.c \
+			scene/editor/editor_selection.c \
 			scene/editor/editor_utils.c \
 			scene/editor/object_utils.c \
 			scene/editor/save.c \
