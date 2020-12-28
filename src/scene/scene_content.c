@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 16:03:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 16:04:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static void		active_scene_world_init(t_doom3d *app)
 				app->level_list[app->editor.editor_level],
 				ft_strlen(app->level_list[app->editor.editor_level]));
 			app->editor.is_saved = true;
+			app->editor.selected_object = NULL;
 		}
 		else
 			app->editor.is_saved = false;

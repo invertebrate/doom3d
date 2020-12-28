@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 15:51:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 17:51:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,8 @@ void						place_procedural_object(t_doom3d *app,
 								t_3d_object *model,
 								const char *filenames[2], t_vec3 pos);
 void						editor_select(t_doom3d *app);
+void						editor_deselect_all(t_doom3d *app);
+void						editor_deselect(t_doom3d *app);
 
 /*
 ** Level

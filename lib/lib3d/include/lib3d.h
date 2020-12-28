@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/27 22:25:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 16:20:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -442,6 +442,7 @@ float						l3d_z_val(float baryc[3], t_triangle *triangle);
 uint32_t					l3d_pixel_depth_shaded(uint32_t pixel, float z_val);
 uint32_t					l3d_pixel_normal_shaded(uint32_t pixel,
 								t_triangle *triangle, t_vec2 uv);
+uint32_t					l3d_pixel_selection_shaded(uint32_t pixel);
 void						l3d_clamp_uv(t_vec2 uv);
 void						l3d_raster_draw_pixel(t_sub_framebuffer *buffers,
 									int32_t xy[2],

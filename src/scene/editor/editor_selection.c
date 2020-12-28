@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 16:03:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 17:50:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,30 @@ static void		get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
 	ml_vector3_add(mouse_world_pos, add, mouse_world_pos);
 }
 
+void			editor_deselect(t_doom3d *app)
+{
+	if (app->editor.selected_object)
+	{
+		app->editor.selected_object->material->shading_opts =
+			(app->editor.selected_object->material->shading_opts &
+				~e_shading_select);
+		app->editor.selected_object = NULL;
+	}
+}
+
+void			editor_deselect_all(t_doom3d *app)
+{
+	int32_t	i;
+
+	i = -1;
+	while (++i < (int32_t)app->active_scene->num_objects)
+	{
+		app->active_scene->objects[i]->material->shading_opts =
+			(app->active_scene->objects[i]->material->shading_opts &
+				~e_shading_select);
+	}
+}
+
 /*
 ** Cast ray from player to mouse world position (on screen)
 ** and see which closest triangle intersects.
@@ -95,10 +119,14 @@ void			editor_select(t_doom3d *app)
 		l3d_get_closest_hit(hits, &closest_triangle_hit);
 		if (closest_triangle_hit != NULL)
 		{
-			ft_printf("Select at: ");
-			ml_vector3_print(closest_triangle_hit->hit_point);
-
+			editor_deselect(app);
+			app->editor.selected_object =
+				closest_triangle_hit->triangle->parent;
+			app->editor.selected_object->material->shading_opts |=
+				e_shading_select;
 		}
 		l3d_delete_hits(&hits);
 	}
+	else
+		editor_deselect(app);
 }
