@@ -77,6 +77,7 @@ SOURCES = main.c \
 			window/buttons/button.c \
 			events/mouse_state.c \
 			events/events.c \
+			events/editor_events.c \
 			events/keyboard_state.c \
 			events/general_input_events.c
 

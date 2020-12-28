@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 17:59:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 19:37:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,10 @@ void						player_shoot(t_doom3d *app,
 								uint32_t curr_time);
 void						keyboard_state_handle(t_doom3d *app);
 void						general_input_events_handle(t_doom3d *app,
+								SDL_Event event);
+void						handle_editor_selection(t_doom3d *app,
+								SDL_Event event);
+void						handle_editor_saving(t_doom3d *app,
 								SDL_Event event);
 
 /*
