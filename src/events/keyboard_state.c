@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 14:50:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 15:33:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,24 @@ static void		keyboard_game_state_handle(t_doom3d *app)
 		app->player.is_running = false;
 }
 
+static void		handle_editor_transform(t_doom3d *app)
+{
+	if (app->editor.is_saving || !app->editor.selected_object)
+		return ;
+	if (app->keyboard.state[SDL_SCANCODE_UP])
+			l3d_3d_object_translate(app->editor.selected_object,
+				0, 0, 0.1 * app->unit_size);
+		else if (app->keyboard.state[SDL_SCANCODE_RIGHT])
+			l3d_3d_object_translate(app->editor.selected_object,
+				 0.1 * app->unit_size, 0, 0);
+		else if (app->keyboard.state[SDL_SCANCODE_DOWN])
+			l3d_3d_object_translate(app->editor.selected_object,
+				0, 0, -0.1 * app->unit_size);
+		else if (app->keyboard.state[SDL_SCANCODE_LEFT])
+			l3d_3d_object_translate(app->editor.selected_object,
+				-0.1 * app->unit_size, 0, 0);
+}
+
 static void		keyboard_editor_state_handle(t_doom3d *app)
 {
 	float	speed;
@@ -59,6 +77,7 @@ static void		keyboard_editor_state_handle(t_doom3d *app)
 	{
 		app->editor.is_moving = false;
 	}
+	handle_editor_transform(app);
 }
 
 void			keyboard_state_handle(t_doom3d *app)

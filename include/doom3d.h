@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 15:27:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 15:33:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,8 +199,6 @@ void						general_input_events_handle(t_doom3d *app,
 void						handle_editor_selection(t_doom3d *app,
 								SDL_Event event);
 void						handle_editor_saving(t_doom3d *app,
-								SDL_Event event);
-void						handle_editor_transform(t_doom3d *app,
 								SDL_Event event);
 
 /*
