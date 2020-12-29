@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 19:15:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 16:40:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ t_tri_vec		*prepare_render_triangles(t_doom3d *app)
 
 	render_triangles =
 		l3d_triangle_vec_with_capacity(app->active_scene->num_triangles + 12);
-	add_skybox_render_triangles(app, render_triangles);
+	if (app->active_scene->scene_id != scene_id_editor3d)
+		add_skybox_render_triangles(app, render_triangles);
 	add_objects_render_triangles(app, render_triangles);
 	return (render_triangles);
 }

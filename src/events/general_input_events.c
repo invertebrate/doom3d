@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 19:39:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 16:39:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void		handle_main_game_general_keyup_events(t_doom3d *app,
 {
 	if (event.key.keysym.sym == SDLK_n)
 	{
-		app->is_normal_map = !app->is_normal_map;
-		if (app->is_normal_map)
+		app->settings.is_normal_map = !app->settings.is_normal_map;
+		if (app->settings.is_normal_map)
 			set_objects_shading_opts(app,
 				app->active_scene->objects[0]->material->shading_opts |
 				e_shading_normal_map);

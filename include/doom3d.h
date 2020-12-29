@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 16:15:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 16:38:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,12 +135,17 @@ typedef struct 				s_editor
 	t_3d_object				*selected_object;
 }							t_editor;
 
+typedef struct				s_settings
+{
+	t_bool					is_normal_map;
+	t_bool					is_skybox;
+}							t_settings;
+
 typedef struct				s_doom3d
 {
 	t_bool					is_running;
 	t_bool					is_debug;
 	t_bool					is_loading;
-	t_bool					is_normal_map;
 	t_bool					is_first_render;
 	t_info					info;
 	t_window				*window;
@@ -157,6 +162,7 @@ typedef struct				s_doom3d
 	uint32_t				num_levels;
 	uint32_t				current_level;
 	t_editor				editor;
+	t_settings				settings;
 }							t_doom3d;
 
 /*

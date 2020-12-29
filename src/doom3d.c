@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 14:44:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 16:39:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void			doom3d_init(t_doom3d *app)
 	app->is_minimap_largened = false;
 	app->unit_size = app->window->width;
 	app->next_scene_id = scene_id_main_menu;
-	app->is_normal_map = false;
+	app->settings.is_normal_map = false;
+	app->settings.is_skybox = true;
 	app->editor.is_saving = false;
 	app->editor.is_saved = false;
 	read_level_list(app);
