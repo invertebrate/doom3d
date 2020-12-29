@@ -65,6 +65,7 @@ SOURCES = main.c \
 			render/prepare_clip.c \
 			render/hud.c \
 			render/ui.c \
+			render/editor_ui.c \
 			window/text.c \
 			window/window.c \
 			window/frame.c \
