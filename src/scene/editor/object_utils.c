@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/27 15:58:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 19:33:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,16 @@ void		place_object(t_doom3d *app, const char *filenames[3],
 	}
 	obj = l3d_object_instantiate(model, app->unit_size, false);
 	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[1]);
-	if (texture)
-	{
-		l3d_object_set_texture(obj, texture);
+	obj->material->texture = texture;
+	if (texture != NULL)
 		hash_map_add(app->active_scene->object_textures, obj->id,
 			(void*)filenames[1]);
-	}
 	normal_map = hash_map_get(app->active_scene->textures,
 		(int64_t)filenames[2]);
+	obj->material->normal_map = normal_map;
 	if (normal_map)
-	{
-		l3d_object_set_normal_map(obj, normal_map);
 		hash_map_add(app->active_scene->object_normal_maps,
 			obj->id, (void*)filenames[2]);
-	}
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[app->active_scene->num_objects++] = obj;
 }
@@ -71,20 +67,16 @@ void		place_procedural_object(t_doom3d *app, t_3d_object *model,
 	}
 	obj = l3d_object_instantiate(model, app->unit_size, false);
 	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[0]);
+	obj->material->texture = texture;
 	if (texture)
-	{
-		l3d_object_set_texture(obj, texture);
 		hash_map_add(app->active_scene->object_textures, obj->id,
 			(void*)filenames[0]);
-	}
 	normal_map = hash_map_get(app->active_scene->textures,
 		(int64_t)filenames[1]);
+	obj->material->normal_map = normal_map;
 	if (normal_map)
-	{
-		l3d_object_set_normal_map(obj, normal_map);
 		hash_map_add(app->active_scene->object_normal_maps,
 			obj->id, (void*)filenames[1]);
-	}
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[app->active_scene->num_objects++] = obj;
 }

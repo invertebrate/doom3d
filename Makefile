@@ -42,11 +42,11 @@ SOURCES = main.c \
 			camera.c \
 			debug.c \
 			scene/menus/editor3d_menu.c \
-			scene/menus/editor2d_menu.c \
 			scene/menus/settings_menu.c \
 			scene/menus/main_menu.c \
 			scene/menus/pause_menu.c \
 			scene/menus/menu_utils.c \
+			scene/editor/editor_selection.c \
 			scene/editor/editor_utils.c \
 			scene/editor/object_utils.c \
 			scene/editor/save.c \
@@ -77,6 +77,7 @@ SOURCES = main.c \
 			window/buttons/button.c \
 			events/mouse_state.c \
 			events/events.c \
+			events/editor_events.c \
 			events/keyboard_state.c \
 			events/general_input_events.c
 

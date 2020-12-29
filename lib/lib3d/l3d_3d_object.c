@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 14:47:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 16:55:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ t_3d_object		*l3d_3d_object_create(uint32_t num_vertices,
 	ml_vector3_set(object->position, 0, 0, 0);
 	object->num_triangles = num_triangles;
 	object->num_vertices = num_vertices;
+	i = -1;
+	while (++i < (int32_t)num_triangles)
+		object->triangles[i].parent = object;
 	return (object);
 }
 

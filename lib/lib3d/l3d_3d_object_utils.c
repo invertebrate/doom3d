@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:34:25 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 22:34:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 19:32:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void			l3d_3d_object_triangle_copy_and_set(t_3d_object *dst,
 	i = -1;
 	while (++i < src->num_triangles)
 	{
+		dst->triangles[i].parent = dst;
 		l3d_triangle_set(&dst->triangles[i], (t_vertex*[3]){
 			dst->vertices[src->triangles[i].vtc_indices[0]],
 			dst->vertices[src->triangles[i].vtc_indices[1]],
@@ -88,14 +89,3 @@ void			l3d_object_set_shading_opts(t_3d_object *obj,
 	obj->material->shading_opts = opts;
 }
 
-void			l3d_object_set_texture(t_3d_object *obj,
-					t_surface *texture)
-{
-	obj->material->texture = texture;
-}
-
-void			l3d_object_set_normal_map(t_3d_object *obj,
-					t_surface *normal_map)
-{
-	obj->material->texture = normal_map;
-}

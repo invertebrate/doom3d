@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/23 00:23:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 19:32:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 	i = -1;
 	while (++i < (int32_t)data->num_models)
 		hash_map_add(scene->models,
-			(int32_t)scene->asset_files.model_files[i],
+			(int64_t)scene->asset_files.model_files[i],
 			l3d_read_obj(scene->asset_files.model_files[i], NULL, NULL));
 	i = -1;
 	while (++i < (int32_t)data->num_textures)
 		hash_map_add(scene->textures,
-			(int32_t)scene->asset_files.texture_files[i],
+			(int64_t)scene->asset_files.texture_files[i],
 			l3d_read_bmp_32bit_rgba_surface(
 				scene->asset_files.texture_files[i]));
 	i = -1;
 	while (++i < (int32_t)data->num_normal_maps)
 		hash_map_add(scene->normal_maps,
-			(int32_t)scene->asset_files.normal_map_files[i],
+			(int64_t)scene->asset_files.normal_map_files[i],
 			l3d_read_bmp_32bit_rgba_surface(
 				scene->asset_files.normal_map_files[i]));
 	scene_set_skybox_textures(scene);
@@ -82,21 +82,6 @@ static void		scene_model_files_set(t_asset_files *data)
 		"assets/models/box.obj";
 }
 
-static void		set_scene_model_textures_and_normal_maps(t_scene *scene)
-{
-	(void)scene;
-	// !When we have more "Prefabs", set their textures here for
-	// !Instantiating.
-	// t_3d_object	*model;
-
-	// model = hash_map_get(scene->models,
-	// 	(int32_t)"assets/models/box.obj");
-	// l3d_object_set_texture(model, hash_map_get(scene->textures,
-	// 	(int32_t)"assets/textures/lava.bmp"));
-	// l3d_object_set_normal_map(model, hash_map_get(scene->normal_maps,
-	// 	(int32_t)"assets/textures/lava_normal.bmp"));
-}
-
 /*
 ** Load all imported assets here, rest should be done with the editor.
 */
@@ -110,5 +95,4 @@ void			scene_assets_load(t_scene *scene)
 	scene_normal_files_set(&scene->asset_files);
 	scene_model_files_set(&scene->asset_files);
 	assets_load(scene, &scene->asset_files);
-	set_scene_model_textures_and_normal_maps(scene);
 }

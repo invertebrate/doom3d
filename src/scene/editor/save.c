@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/23 13:29:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/28 15:53:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void		save_map(t_doom3d *app)
 	char			filename[128];
 
 	ft_sprintf(filename, "assets/map_data/%s",
-		app->editor_filename, app->editor_filename);
+		app->editor.editor_filename, app->editor.editor_filename);
 	if ((fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0644)) == -1 &&
 		ft_dprintf(2, "Failed to open file %s\n", filename))
 		exit(EXIT_FAILURE);
