@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 18:11:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 14:32:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,14 @@ void			editor_filename_render(t_doom3d *app)
 	i = -1;
 	while (++i < 0)
 		filename[i] = '\0';
-	ft_sprintf(filename, "File: %s",
-		ft_strlen(app->editor.editor_filename) == 0 ? "NULL" :
-			app->editor.editor_filename);
+	if (app->editor.is_saving)
+		ft_sprintf(filename, "File: %s",
+			ft_strlen(app->editor.editor_savename) == 0 ? "NULL" :
+				app->editor.editor_savename);
+	else
+		ft_sprintf(filename, "File: %s",
+			ft_strlen(app->editor.editor_filename) == 0 ? "NULL" :
+				app->editor.editor_filename);
 	window_text_render(app->window, (t_text_params){
 		.text = filename, .blend_ratio = 1.0,
 		.xy = (int[2]){10, app->window->framebuffer->height

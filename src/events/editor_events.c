@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 19:37:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 14:35:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ void		handle_editor_saving(t_doom3d *app, SDL_Event event)
 	if (event.type == SDL_TEXTINPUT)
 	{
 		app->editor.is_saved = false;
-		ft_strcat(app->editor.editor_filename, event.text.text);
+		ft_strcat(app->editor.editor_savename, event.text.text);
 	}
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
 	{
 		SDL_StopTextInput();
 		app->editor.is_saving = false;
+		ft_memcpy(app->editor.editor_filename, app->editor.editor_savename,
+			ft_strlen(app->editor.editor_savename));
 		save_map(app);
 		ft_printf("Saved %s\n", app->editor.editor_filename);
 		app->editor.is_saved = true;
@@ -34,7 +36,7 @@ void		handle_editor_saving(t_doom3d *app, SDL_Event event)
 		app->editor.is_saved = false;
 		length = ft_strlen(app->editor.editor_filename);
 		if (length > 0)
-			app->editor.editor_filename[length - 1] = '\0';
+			app->editor.editor_savename[length - 1] = '\0';
 	}
 }
 
