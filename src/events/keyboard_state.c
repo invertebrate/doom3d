@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 16:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 14:50:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,15 @@ static void		keyboard_editor_state_handle(t_doom3d *app)
 		player_move(app, move_backward, speed);
 	if (app->keyboard.state[SDL_SCANCODE_D])
 		player_move(app, move_strafe_right, speed);
+	if (app->keyboard.state[SDL_SCANCODE_W] ||
+		app->keyboard.state[SDL_SCANCODE_A] ||
+		app->keyboard.state[SDL_SCANCODE_S] ||
+		app->keyboard.state[SDL_SCANCODE_D])
+		app->editor.is_moving = true;
+	else
+	{
+		app->editor.is_moving = false;
+	}
 }
 
 void			keyboard_state_handle(t_doom3d *app)

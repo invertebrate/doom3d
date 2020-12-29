@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 14:30:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 14:44:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ typedef struct 				s_editor
 {
 	t_bool					is_saving;
 	t_bool					is_saved;
+	t_bool					is_moving;
 	uint32_t				editor_level;
 	char					editor_filename[128];
 	char					editor_savename[128];

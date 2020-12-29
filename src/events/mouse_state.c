@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 23:26:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 14:47:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void				mouse_editor_state_handle(t_doom3d *app)
 
 	if ((app->mouse.state & SDL_BUTTON_RMASK))
 	{
+		app->editor.is_moving = true;
 		SDL_ShowCursor(SDL_DISABLE);
 		SDL_SetRelativeMouseMode(SDL_TRUE);
 		SDL_GetRelativeMouseState(&xrel, &yrel);
@@ -59,6 +60,7 @@ static void				mouse_editor_state_handle(t_doom3d *app)
 	}
 	else
 	{
+		app->editor.is_moving = false;
 		SDL_ShowCursor(SDL_ENABLE);
 		SDL_SetRelativeMouseMode(SDL_FALSE);
 		SDL_GetRelativeMouseState(&xrel, &yrel);
