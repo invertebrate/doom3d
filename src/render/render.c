@@ -6,11 +6,36 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 00:20:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 21:04:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+static void		draw_editor_debug_grid(t_render_work *work)
+{
+	t_sub_framebuffer	*sub_buffer;
+	int32_t				i;
+	t_vec3				points[2];
+	float				length;
+
+	sub_buffer = work->framebuffer->sub_buffers[work->sub_buffer_i];
+	length = 35;
+	i = -length / 2 - 1;
+	while (++i <= length / 2)
+	{
+		ml_vector3_copy((t_vec3){i * work->app->unit_size, 0,
+			(-length / 2.0) * work->app->unit_size}, points[0]);
+		ml_vector3_copy((t_vec3){i * work->app->unit_size, 0,
+			(length / 2.0) * work->app->unit_size}, points[1]);
+		draw_debug_line(work->app, sub_buffer, points, 0x808080ff);
+		ml_vector3_copy((t_vec3){(-length / 2.0) * work->app->unit_size, 0,
+			i * work->app->unit_size}, points[0]);
+		ml_vector3_copy((t_vec3){(length / 2.0) * work->app->unit_size, 0,
+			i * work->app->unit_size}, points[1]);
+		draw_debug_line(work->app, sub_buffer, points, 0x808080ff);
+	}
+}
 
 static void		clear_buffers(t_render_work *work)
 {
@@ -51,6 +76,8 @@ static void		render_work(void *params)
 	work = params;
 	clear_buffers(work);
 	rasterize_triangles(work);
+	if (work->app->active_scene->scene_id == scene_id_editor3d)
+		draw_editor_debug_grid(work);
 	draw_buffers(work);
 	free(work);
 }

@@ -66,6 +66,7 @@ SOURCES = main.c \
 			render/hud.c \
 			render/ui.c \
 			render/editor_ui.c \
+			render/debug.c \
 			window/text.c \
 			window/window.c \
 			window/frame.c \
