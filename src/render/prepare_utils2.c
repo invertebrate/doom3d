@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 14:46:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 17:05:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ t_bool			is_rendered(t_doom3d *app, t_triangle *triangle)
 		return (false);
 	ml_vector3_sub(triangle->center,
 		app->active_scene->main_camera->origin, dir);
-	if (!is_triangle_facing(triangle, dir))
+	if (app->active_scene->scene_id != scene_id_editor3d &&
+		!is_triangle_facing(triangle, dir))
 		return (false);
 	return (true);
 }
