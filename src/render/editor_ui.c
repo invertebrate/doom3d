@@ -6,22 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 16:29:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 16:36:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		editor_filename_render(t_doom3d *app)
+static void		get_editor_savename(t_doom3d *app, char *filename)
 {
-	char		filename[256];
-	uint32_t	rgba[4];
-	int32_t		width;
-	int32_t		i;
-	uint32_t	color;
-
-	color = app->editor.is_saved ? 0x00ff00ff : 0xff0000ff;
-	l3d_u32_to_rgba(color, rgba);
 	if (app->editor.is_saving)
 		ft_sprintf(filename, "File: %s",
 			ft_strlen(app->editor.editor_savename) == 0 ? "NULL" :
@@ -30,29 +22,47 @@ static void		editor_filename_render(t_doom3d *app)
 		ft_sprintf(filename, "File: %s",
 			ft_strlen(app->editor.editor_filename) == 0 ? "NULL" :
 				app->editor.editor_filename);
+}
+
+static void		draw_unsaved_underline(t_doom3d *app, char *filename,
+					uint32_t color)
+{
+	int32_t		width;
+	int32_t		i;
+
+	TTF_SizeText(app->window->debug_font, filename, &width, NULL);
+	i = -1;
+	while (++i < 4)
+		l3d_line_draw(app->window->framebuffer->buffer,
+		(uint32_t[2]){app->window->framebuffer->width,
+			app->window->framebuffer->height},
+		(int32_t[2][2]){{10,
+			app->window->framebuffer->height - 5 + i},
+			{10 + width,
+			app->window->framebuffer->height - 5 + i}},
+			color);
+}
+
+static void		editor_info_render(t_doom3d *app)
+{
+	char		filename[256];
+	uint32_t	rgba[4];
+	uint32_t	color;
+
+	color = app->editor.is_saved ? 0x00ff00ff : 0xff0000ff;
+	l3d_u32_to_rgba(color, rgba);
+	get_editor_savename(app, filename);
 	window_text_render(app->window, (t_text_params){
 		.text = filename, .blend_ratio = 1.0,
 		.xy = (int[2]){10, app->window->framebuffer->height - 30},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->debug_font);
 	if (app->editor.is_saving)
-	{
-		TTF_SizeText(app->window->debug_font, filename, &width, NULL);
-		i = -1;
-		while (++i < 4)
-			l3d_line_draw(app->window->framebuffer->buffer,
-			(uint32_t[2]){app->window->framebuffer->width,
-				app->window->framebuffer->height},
-			(int32_t[2][2]){{10,
-				app->window->framebuffer->height - 5 + i},
-				{10 + width,
-				app->window->framebuffer->height - 5 + i}},
-				color);
-	}
+		draw_unsaved_underline(app, filename, color);
 	if (app->editor.selected_object)
 		window_text_render(app->window, (t_text_params){
 			.text = app->editor.selected_object_str, .blend_ratio = 1.0,
-			.xy = (int[2]){app->window->framebuffer->width - 390,
+			.xy = (int[2]){app->window->framebuffer->width - 200,
 				app->window->framebuffer->height - 30},
 			.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 			app->window->debug_font);
@@ -100,6 +110,6 @@ void		editor_ui_render(t_doom3d *app)
 				app->window->framebuffer->height - 60},
 			.text_color = (SDL_Color){0, 255, 0, 255}},
 			app->window->debug_font);
-	editor_filename_render(app);
+	editor_info_render(app);
 	editor_object_location_render(app);
 }
