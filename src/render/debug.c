@@ -6,18 +6,18 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 16:02:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 17:18:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-t_bool		same_signs(float a, float b)
+static t_bool	same_signs(float a, float b)
 {
 	return (a != 0 && b != 0 && a * b >= 0);
 }
 
-int32_t		lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2], t_vec2 intersect)
+static int32_t	lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2], t_vec2 intersect)
 {
 	float	coefs[6];
 	float	signs[4];
@@ -77,11 +77,79 @@ static void		clip_3d_line(t_doom3d *app, t_vec3 points[2])
 	}
 }
 
+static void		find_buffer_intersections(t_sub_framebuffer *buffer,
+					t_vec3 points[2], int32_t is_intersect[4],
+					t_vec2 intersects[4])
+{
+	is_intersect[0] = lines_intersect((t_vec2[2]){{points[0][0],points[0][1]},
+		{points[1][0], points[1][1]}}, (t_vec2[2]){{0, 0}, {0, buffer->height}},
+		intersects[0]);
+	is_intersect[1] = lines_intersect((t_vec2[2]){{points[0][0],points[0][1]},
+		{points[1][0], points[1][1]}}, (t_vec2[2]){{0, 0}, {buffer->width, 0}},
+		intersects[1]);
+	is_intersect[2] = lines_intersect((t_vec2[2]){{points[0][0],points[0][1]},
+		{points[1][0], points[1][1]}}, (t_vec2[2]){{buffer->width, 0},
+			{buffer->width, buffer->height}}, intersects[2]);
+	is_intersect[3] = lines_intersect((t_vec2[2]){{points[0][0],points[0][1]},
+		{points[1][0], points[1][1]}}, (t_vec2[2]){{0, buffer->height},
+			{buffer->width, buffer->height}}, intersects[3]);
+}
+
+static t_bool	point2d_is_inside_aabb(t_vec2 point,
+					t_vec2 xymin, t_vec2 xymax)
+{
+	return (point[0] >= xymin[0] && point[0] < xymax[0] &&
+		point[1] >= xymin[1] && point[1] < xymax[1]);
+}
+
+static t_bool	should_draw_line_modify_points(t_sub_framebuffer *buffer,
+					t_vec3 points[2], int32_t is_intersect[4],
+					t_vec2 intersects[4])
+{
+	int32_t		i;
+	int32_t		count;
+
+	i = -1;
+	count = 0;
+	while (++i < 4)
+		if (is_intersect[i] == 1)
+			count++;
+	if (count == 2)
+	{
+		i = 0;
+		while (is_intersect[i] != 1)
+			i++;
+		ml_vector2_copy(intersects[i++], points[0]);
+		while (is_intersect[i] != 1)
+			i++;
+		ml_vector2_copy(intersects[i], points[1]);
+		return (true);
+	}
+	else if (count == 1)
+	{
+		i = 0;
+		while (is_intersect[i] != 1)
+			i++;
+		if (point2d_is_inside_aabb(points[0],
+			(t_vec2){0, 0}, (t_vec2){buffer->width, buffer->height}))
+			ml_vector2_copy(intersects[i], points[1]);
+		else
+			ml_vector2_copy(intersects[i], points[0]);
+		return (true);
+	}
+	return (point2d_is_inside_aabb(points[0],
+			(t_vec2){0, 0}, (t_vec2){buffer->width, buffer->height}) &&
+			point2d_is_inside_aabb(points[1],
+			(t_vec2){0, 0}, (t_vec2){buffer->width, buffer->height}));
+}
+
 void			draw_debug_line(t_doom3d *app,
 					t_sub_framebuffer *buffer, t_vec3 points[2],
 					uint32_t color)
 {
 	int32_t		i;
+	t_vec2		intersects[4];
+	int32_t		is_intersect[4];
 
 	i = -1;
 	while (++i < 2)
@@ -96,9 +164,11 @@ void			draw_debug_line(t_doom3d *app,
 		points[0]);
 	ml_vector2_add(points[1], (t_vec2){buffer->x_offset, buffer->y_offset},
 		points[1]);
-
-	l3d_line_draw(buffer->buffer, (uint32_t[2]){
-		buffer->width, buffer->height},
-		(int32_t[2][2]){{points[0][0],points[0][1]},
-		{points[1][0], points[1][1]}}, color);
+	find_buffer_intersections(buffer, points, is_intersect, intersects);
+	if (should_draw_line_modify_points(buffer, points,
+		is_intersect, intersects))
+		l3d_line_draw(buffer->buffer, (uint32_t[2]){
+			buffer->width, buffer->height},
+			(int32_t[2][2]){{points[0][0],points[0][1]},
+			{points[1][0], points[1][1]}}, color);
 }

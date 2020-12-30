@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 21:04:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 17:18:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		draw_editor_debug_grid(t_render_work *work)
 	float				length;
 
 	sub_buffer = work->framebuffer->sub_buffers[work->sub_buffer_i];
-	length = 35;
+	length = 100;
 	i = -length / 2 - 1;
 	while (++i <= length / 2)
 	{
