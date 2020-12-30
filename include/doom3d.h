@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 18:43:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 22:48:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,10 +252,10 @@ void						draw_debug_line(t_doom3d *app,
 								t_sub_framebuffer *buffer, t_vec3 points[2],
 								uint32_t color);
 void						draw_editor_debug_grid(t_render_work *work);
-int32_t						lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2],
+int32_t						l3d_2d_lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2],
 								t_vec2 intersect);
-t_bool						point2d_is_inside_aabb(t_vec2 point,
-								t_vec2 xymin, t_vec2 xymax);
+t_bool						l3d_point2d_inside_aabb(t_vec2 point,
+								t_vec2 aabb[2]);
 
 /*
 ** Scene

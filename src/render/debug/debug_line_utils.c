@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:39:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 18:42:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 22:41:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_bool	same_signs(float a, float b)
 	return (a != 0 && b != 0 && a * b >= 0);
 }
 
-int32_t			lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2],
+int32_t			l3d_2d_lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2],
 					t_vec2 intersect)
 {
 	float	coefs[6];
@@ -51,9 +51,9 @@ int32_t			lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2],
 	return (1);
 }
 
-t_bool			point2d_is_inside_aabb(t_vec2 point,
-					t_vec2 xymin, t_vec2 xymax)
+t_bool			l3d_point2d_inside_aabb(t_vec2 point,
+					t_vec2 aabb[2])
 {
-	return (point[0] >= xymin[0] && point[0] < xymax[0] &&
-		point[1] >= xymin[1] && point[1] < xymax[1]);
+	return (point[0] >= aabb[0][0] && point[0] < aabb[1][0] &&
+		point[1] >= aabb[0][1] && point[1] < aabb[1][1]);
 }

@@ -6,29 +6,37 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:38:59 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 19:36:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 22:49:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
 
-static void		find_buffer_intersections(t_sub_framebuffer *buffer,
+static void		find_aabb_intersections(t_vec2 aabb[2],
 					t_vec3 points[2], int32_t is_intersect[4],
 					t_vec2 intersects[4])
 {
-	is_intersect[0] = lines_intersect((t_vec2[2]){{points[0][0],points[0][1]},
-		{points[1][0], points[1][1]}}, (t_vec2[2]){{0, 0}, {0, buffer->height}},
+	is_intersect[0] = l3d_2d_lines_intersect(
+		(t_vec2[2]){{points[0][0], points[0][1]},
+		{points[1][0], points[1][1]}},
+			(t_vec2[2]){{aabb[0][0], aabb[0][0]}, {aabb[0][0], aabb[1][1]}},
 		intersects[0]);
-	is_intersect[1] = lines_intersect((t_vec2[2]){{points[0][0],points[0][1]},
-		{points[1][0], points[1][1]}}, (t_vec2[2]){{0, 0}, {buffer->width, 0}},
+	is_intersect[1] = l3d_2d_lines_intersect(
+		(t_vec2[2]){{points[0][0], points[0][1]},
+		{points[1][0], points[1][1]}},
+		(t_vec2[2]){{aabb[0][0], aabb[0][0]}, {aabb[1][0], aabb[0][1]}},
 		intersects[1]);
-	is_intersect[2] = lines_intersect((t_vec2[2]){{points[0][0],points[0][1]},
-		{points[1][0], points[1][1]}}, (t_vec2[2]){{buffer->width, 0},
-			{buffer->width, buffer->height}}, intersects[2]);
-	is_intersect[3] = lines_intersect((t_vec2[2]){{points[0][0],points[0][1]},
-		{points[1][0], points[1][1]}}, (t_vec2[2]){{0, buffer->height},
-			{buffer->width, buffer->height}}, intersects[3]);
+	is_intersect[2] = l3d_2d_lines_intersect(
+		(t_vec2[2]){{points[0][0], points[0][1]},
+		{points[1][0], points[1][1]}},
+		(t_vec2[2]){{aabb[1][0], aabb[0][0]}, {aabb[1][0], aabb[1][1]}},
+		intersects[2]);
+	is_intersect[3] = l3d_2d_lines_intersect(
+		(t_vec2[2]){{points[0][0], points[0][1]},
+		{points[1][0], points[1][1]}},
+		(t_vec2[2]){{aabb[0][0], aabb[1][1]}, {aabb[1][0], aabb[1][1]}},
+		intersects[3]);
 }
 
 static void		clip_3d_line_and_screen_intersect(t_doom3d *app, t_vec3 points[2])
@@ -72,7 +80,7 @@ static void		copy_two_intersections(int32_t is_intersect[4],
 	ml_vector2_copy(intersects[i], points[1]);
 }
 
-static void		copy_one_intersections(t_sub_framebuffer *buffer,
+static void		copy_one_intersections(t_vec2 aabb[2],
 					int32_t is_intersect[4], t_vec2 intersects[4],
 					t_vec3 points[2])
 {
@@ -81,8 +89,7 @@ static void		copy_one_intersections(t_sub_framebuffer *buffer,
 	i = 0;
 	while (is_intersect[i] != 1)
 		i++;
-	if (point2d_is_inside_aabb(points[0],
-		(t_vec2){0, 0}, (t_vec2){buffer->width, buffer->height}))
+	if (l3d_point2d_inside_aabb(points[0], aabb))
 		ml_vector2_copy(intersects[i], points[1]);
 	else
 		ml_vector2_copy(intersects[i], points[0]);
@@ -97,7 +104,7 @@ static void		copy_one_intersections(t_sub_framebuffer *buffer,
 ** Else don't draw.
 */
 
-static t_bool	should_draw_line_modify_points(t_sub_framebuffer *buffer,
+static t_bool	should_draw_line_modify_points(t_vec2 aabb[2],
 					t_vec3 points[2], int32_t is_intersect[4],
 					t_vec2 intersects[4])
 {
@@ -116,13 +123,11 @@ static t_bool	should_draw_line_modify_points(t_sub_framebuffer *buffer,
 	}
 	else if (count == 1)
 	{
-		copy_one_intersections(buffer, is_intersect, intersects, points);
+		copy_one_intersections(aabb, is_intersect, intersects, points);
 		return (true);
 	}
-	return (point2d_is_inside_aabb(points[0],
-			(t_vec2){0, 0}, (t_vec2){buffer->width, buffer->height}) &&
-			point2d_is_inside_aabb(points[1],
-			(t_vec2){0, 0}, (t_vec2){buffer->width, buffer->height}));
+	return (l3d_point2d_inside_aabb(points[0], aabb) &&
+			l3d_point2d_inside_aabb(points[1], aabb));
 }
 
 /*
@@ -156,9 +161,10 @@ void			draw_debug_line(t_doom3d *app,
 		points[0]);
 	ml_vector2_add(points[1], (t_vec2){buffer->x_offset, buffer->y_offset},
 		points[1]);
-	find_buffer_intersections(buffer, points, is_intersect, intersects);
-	if (should_draw_line_modify_points(buffer, points,
-		is_intersect, intersects))
+	find_aabb_intersections((t_vec2[2]){{0, 0},
+		{buffer->width, buffer->height}}, points, is_intersect, intersects);
+	if (should_draw_line_modify_points((t_vec2[2]){{0, 0},
+		{buffer->width, buffer->height}}, points, is_intersect, intersects))
 		l3d_line_draw(buffer->buffer, (uint32_t[2]){
 			buffer->width, buffer->height},
 			(int32_t[2][2]){{points[0][0],points[0][1]},
