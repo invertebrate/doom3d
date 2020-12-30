@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 18:29:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 18:32:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,7 @@ void						editor_ui_render(t_doom3d *app);
 void						draw_debug_line(t_doom3d *app,
 								t_sub_framebuffer *buffer, t_vec3 points[2],
 								uint32_t color);
+void						draw_editor_debug_grid(t_render_work *work);
 
 /*
 ** Scene
