@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 00:20:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 18:54:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static void		render_work(void *params)
 	work = params;
 	clear_buffers(work);
 	rasterize_triangles(work);
+	if (work->app->active_scene->scene_id == scene_id_editor3d)
+		draw_editor_debug_grid(work);
 	draw_buffers(work);
 	free(work);
 }

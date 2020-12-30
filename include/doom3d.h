@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 19:37:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 18:43:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,18 +127,24 @@ typedef struct 				s_editor
 {
 	t_bool					is_saving;
 	t_bool					is_saved;
+	t_bool					is_moving;
 	uint32_t				editor_level;
 	char					editor_filename[128];
+	char					editor_savename[128];
 	char					selected_object_str[128];
 	t_3d_object				*selected_object;
 }							t_editor;
+
+typedef struct				s_settings
+{
+	t_bool					is_normal_map;
+	t_bool					is_skybox;
+}							t_settings;
 
 typedef struct				s_doom3d
 {
 	t_bool					is_running;
 	t_bool					is_debug;
-	t_bool					is_loading;
-	t_bool					is_normal_map;
 	t_bool					is_first_render;
 	t_info					info;
 	t_window				*window;
@@ -155,6 +161,7 @@ typedef struct				s_doom3d
 	uint32_t				num_levels;
 	uint32_t				current_level;
 	t_editor				editor;
+	t_settings				settings;
 }							t_doom3d;
 
 /*
@@ -182,7 +189,7 @@ void						player_rotate_horizontal(t_doom3d *app,
 void						player_apply_gravity(t_doom3d *app);
 void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
-void						player_scroll_editor(t_doom3d *app, float speed);
+void						editor_vertical_move(t_doom3d *app, float speed);
 
 /*
 ** Events
@@ -240,6 +247,15 @@ void						framebuffer_dark_overlay(
 void						set_aabb_origin_to_corners(t_3d_object *obj,
 								t_vec3 origin, t_vec3 origin_to_corner[8]);
 void						menu_render(t_button_group *menu, t_vec2 pos);
+void						editor_ui_render(t_doom3d *app);
+void						draw_debug_line(t_doom3d *app,
+								t_sub_framebuffer *buffer, t_vec3 points[2],
+								uint32_t color);
+void						draw_editor_debug_grid(t_render_work *work);
+int32_t						lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2],
+								t_vec2 intersect);
+t_bool						point2d_is_inside_aabb(t_vec2 point,
+								t_vec2 xymin, t_vec2 xymax);
 
 /*
 ** Scene

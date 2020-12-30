@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/07 14:55:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 17:11:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,29 @@ static void		raster_lower(t_sub_framebuffer *bufs,
 	}
 }
 
+static void		l3d_triangle_wireframe_draw(t_sub_framebuffer *buffers,
+					t_vec2 points2d[3], uint32_t color)
+{
+	l3d_line_draw(buffers->buffer, (uint32_t[2]){
+		buffers->width, buffers->height
+	}, (int32_t[2][2]){{points2d[0][0] + buffers->x_offset,
+			points2d[0][1] + buffers->y_offset},
+		{points2d[1][0] + buffers->x_offset,
+			points2d[1][1] + buffers->y_offset}}, color);
+	l3d_line_draw(buffers->buffer, (uint32_t[2]){
+		buffers->width, buffers->height
+	}, (int32_t[2][2]){{points2d[1][0] + buffers->x_offset,
+			points2d[1][1] + buffers->y_offset},
+		{points2d[2][0] + buffers->x_offset,
+			points2d[2][1] + buffers->y_offset}}, color);
+	l3d_line_draw(buffers->buffer, (uint32_t[2]){
+		buffers->width, buffers->height
+	}, (int32_t[2][2]){{points2d[2][0] + buffers->x_offset,
+			points2d[2][1] + buffers->y_offset},
+		{points2d[0][0] + buffers->x_offset,
+			points2d[0][1] + buffers->y_offset}}, color);
+}
+
 void			l3d_triangle_raster(t_sub_framebuffer *buffers,
 					t_triangle *triangle)
 {
@@ -102,4 +125,7 @@ void			l3d_triangle_raster(t_sub_framebuffer *buffers,
 	data.slope_ab = (data.x2 - data.x1) / (data.y2 - data.y1);
 	raster_upper(buffers, triangle, &data);
 	raster_lower(buffers, triangle, &data);
+	if ((triangle->material->shading_opts & e_shading_select) &&
+		!triangle->clipped)
+		l3d_triangle_wireframe_draw(buffers, ordered_points_2d, 0x00ff00ff);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 19:41:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 15:33:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void		editor_input_events_handle(t_doom3d *app, SDL_Event event)
 	}
 	if (event.type == SDL_MOUSEWHEEL)
 	{
-		player_scroll_editor(app, -event.wheel.y * 30);
+		editor_vertical_move(app, -event.wheel.y * 30);
 	}
 }
 
@@ -35,6 +35,9 @@ static void		game_input_events_handle(t_doom3d *app, SDL_Event event)
 			(app->active_scene->scene_id == scene_id_main_game &&
 				app->active_scene->is_paused))
 	{
+		if (app->active_scene->scene_id == scene_id_editor3d &&
+			app->editor.is_moving)
+			return ;
 		app->mouse.state = SDL_GetMouseState(&app->mouse.x, &app->mouse.y);
 		i = -1;
 		while (++i < (int32_t)app->active_scene->num_menus)

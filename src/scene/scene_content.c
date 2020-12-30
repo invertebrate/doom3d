@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 19:33:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 14:45:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,13 @@ static void		game_init(t_doom3d *app)
 static void		editor_init(t_doom3d *app)
 {
 	app->editor.selected_object = NULL;
+	app->editor.is_moving = false;
 	if (app->level_list[app->editor.editor_level])
 	{
 		read_map(app, app->level_list[app->editor.editor_level]);
-		ft_memcpy(app->editor.editor_filename,
-			app->level_list[app->editor.editor_level],
-			ft_strlen(app->level_list[app->editor.editor_level]));
+		ft_memcpy(app->editor.editor_savename,
+			app->editor.editor_filename,
+			ft_strlen(app->editor.editor_savename));
 		app->editor.is_saved = true;
 	}
 	else

@@ -65,6 +65,10 @@ SOURCES = main.c \
 			render/prepare_clip.c \
 			render/hud.c \
 			render/ui.c \
+			render/editor_ui.c \
+			render/debug/debug.c \
+			render/debug/debug_line.c \
+			render/debug/debug_line_utils.c \
 			window/text.c \
 			window/window.c \
 			window/frame.c \
@@ -107,6 +111,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/window
 	@mkdir -p temp/window/buttons
 	@mkdir -p temp/render
+	@mkdir -p temp/render/debug
 	@mkdir -p temp/events
 	@mkdir -p temp/player
 

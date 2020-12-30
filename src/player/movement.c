@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 23:36:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 15:27:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void			player_move(t_doom3d *app, t_move dir, float speed)
 	player_update_aabb(&app->player);
 }
 
-void			player_scroll_editor(t_doom3d *app, float speed)
+void			editor_vertical_move(t_doom3d *app, float speed)
 {
 	t_vec3		add;
 	t_vec3		up;

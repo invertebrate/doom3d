@@ -14,15 +14,7 @@
 	while (app->is_running)
 	{
 		window_frame_clear(app->window);
-		if (app->is_loading)
-		{
-			loading_render(app);
-			window_frame_draw(app->window);
-			continue ;
-		}
 		events_handle(app);
-		if (app->is_loading)
-			continue ;
 		doom3d_render(app);
 		window_frame_draw(app->window);
 	}
