@@ -6,11 +6,18 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 18:39:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 23:16:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+/*
+** Draws debug grid to editor.
+** Use this as a "How to" example for drawing debug lines, e.g.
+** enemy direction vector.
+** (1. Access app through work, 2. Access your variables & draw)
+*/
 
 void			draw_editor_debug_grid(t_render_work *work)
 {
