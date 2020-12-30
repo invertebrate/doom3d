@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:38:59 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 23:08:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 23:20:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void		clip_3d_line_and_screen_intersect(t_doom3d *app,
 /*
 ** Based on given sub buffer limitations (screen is split to sub buffers)
 ** renders a 2d line from 3d points.
-** 1. Transform 3d points to world origin 0, 0, 0
+** 1. Transform 3d points to world origin 0, 0, 0 and to account rotation
 ** 2. Clip 3d lines with near plane and return screen intersection = 2d lines
 ** 3. Offset 2d lines by sub buffers offset
 ** 4. Draw 2d line
