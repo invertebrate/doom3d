@@ -27,7 +27,7 @@
 # endif
 
 # define PIXEL_FORMAT SDL_PIXELFORMAT_RGBA8888
-# define GAME_FONT "assets/fonts/AmazDoomLeft.ttf"
+# define GAME_FONT "assets/fonts/AmazDooMLeft.ttf"
 # define DEBUG_FONT "assets/fonts/Roboto-Regular.ttf"
 # define FONT_SIZE 60
 

@@ -12,6 +12,7 @@ LIBGMATRIXFLAGS = -L$(LIBGMATRIX) -lgmatrix
 # Linux and MacOS specific includes & libs
 # Linux requires sdl2 installed
 UNAME := $(shell uname)
+UNAME_ALT := $(shell uname -r)
 ifeq ($(UNAME), Linux)
 	SDL_FLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf
 	LIB_MATH = -lm
@@ -25,6 +26,9 @@ else
 			-I$(LIBSDL2)/SDL2_image.framework/Headers \
 			-I$(LIBSDL2)/SDL2_ttf.framework/Headers
 endif
+ifeq ($(UNAME_ALT), 5.9.13-1-MANJARO-ARM)
+	LINUX_IGNOREW = -Wno-stringop-overflow
+endif
 LIBS = $(LIB3DFLAGS) $(LIBGMATRIXFLAGS) $(LIBFTFLAGS) $(SDL_FLAGS) $(LIB_MATH) $(LIB_PTHRTEAD)
 
 INCLUDES = -I ./include \
@@ -33,7 +37,7 @@ INCLUDES = -I ./include \
 		-I$(LIBGMATRIX)/include \
 		$(SDL_INCLUDES)
 
-CFLAGS =-Wall -Wextra -Werror -O3 -flto
+CFLAGS =-Wall -Wextra -Werror -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
 			doom3d.c \
 			player/player.c \
@@ -79,7 +83,8 @@ SOURCES = main.c \
 			events/events.c \
 			events/editor_events.c \
 			events/keyboard_state.c \
-			events/general_input_events.c
+			events/general_input_events.c \
+			animations/animation.c
 
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))
@@ -109,6 +114,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/render
 	@mkdir -p temp/events
 	@mkdir -p temp/player
+	@mkdir -p temp/animations
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)
