@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:38:59 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 18:46:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 19:36:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ static t_bool	should_draw_line_modify_points(t_sub_framebuffer *buffer,
 ** Based on given sub buffer limitations (screen is split to sub buffers)
 ** renders a 2d line from 3d points.
 ** 1. Transform 3d points to world origin 0, 0, 0
-** 2. Clip 3d lines with near plane and return screen intersection
+** 2. Clip 3d lines with near plane and return screen intersection = 2d lines
 ** 3. Offset 2d lines by sub buffers offset
 ** 4. Cut lines to only segment inside sub buffer (mandatory for performance)
 ** 5. Draw 2d line
