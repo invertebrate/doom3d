@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 18:45:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 23:12:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -469,8 +469,14 @@ void						l3d_line_draw(uint32_t *buffer,
 								uint32_t dimensions_wh[2], int32_t edge[2][2],
 								uint32_t color);
 void						l3d_triangle_2d_draw(uint32_t *buffer,
-							uint32_t dimensions_wh[2],
-							t_vec2 corners[3], uint32_t color);
+								uint32_t dimensions_wh[2],
+								t_vec2 corners[3], uint32_t color);
+void						l3d_edge_aabb_intersections(t_vec2 aabb[2],
+								t_vec2 edge[2], int32_t is_intersect[4],
+								t_vec2 intersects[4]);
+t_bool						l3d_clamp_edge_within_aabb(t_vec2 aabb[2],
+								t_vec2 edge[2], int32_t is_intersect[4],
+								t_vec2 intersects[4]);
 
 /*
 ** Bmp reading
