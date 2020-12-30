@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 23:46:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 17:23:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int32_t	read_obj_texture(t_3d_object *obj,
 	offset += len;
 	filename = texture_file_key(buf, app);
 	obj->material->texture = hash_map_get(app->active_scene->textures,
-		(int32_t)filename);
+		(int64_t)filename);
 	if (filename)
 		hash_map_add(app->active_scene->object_textures, obj->id,
 			(void*)filename);
@@ -49,7 +49,7 @@ static int32_t	read_obj_normal_map(t_3d_object *obj,
 	offset += len;
 	filename = normal_map_file_key(buf, app);
 	obj->material->normal_map = hash_map_get(app->active_scene->normal_maps,
-		(int32_t)filename);
+		(int64_t)filename);
 	if (filename)
 		hash_map_add(app->active_scene->object_normal_maps, obj->id,
 			(void*)filename);
