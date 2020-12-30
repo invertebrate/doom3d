@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 16:25:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 18:50:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,18 @@ static void		handle_editor_transform(t_doom3d *app)
 	{
 		l3d_3d_object_translate(app->editor.selected_object,
 			-0.1 * app->unit_size, 0, 0);
+		app->editor.is_saved = false;
+	}
+	else if (app->keyboard.state[SDL_SCANCODE_O])
+	{
+		l3d_3d_object_translate(app->editor.selected_object,
+			0, -0.1 * app->unit_size, 0);
+		app->editor.is_saved = false;
+	}
+	else if (app->keyboard.state[SDL_SCANCODE_L])
+	{
+		l3d_3d_object_translate(app->editor.selected_object,
+			0, 0.1 * app->unit_size, 0);
 		app->editor.is_saved = false;
 	}
 }

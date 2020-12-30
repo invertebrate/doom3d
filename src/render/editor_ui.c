@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 16:36:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 18:50:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ void		editor_ui_render(t_doom3d *app)
 		"MouseL: Rotate, "
 		"MouseR: Select, "
 		"MouseM: Rotate selected, "
-		"Arrows: Move selected");
+		"Arrows: Move selected x, z, "
+		"O,L: Move selected y");
 	menu_render(app->active_scene->menus[0], (t_vec2){10, 0});
 	window_text_render(app->window, (t_text_params){
 			.text = guide, .blend_ratio = 1.0,
