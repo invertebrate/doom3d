@@ -6,32 +6,49 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 21:24:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 16:02:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-// static t_bool	ray2d_intersect_aabb(float minxy[2], float maxxy[2],
-// 					t_vec2 org_dir[2], float *dist)
-// {
-// 	float	t[6];
-// 	float	inv_dirx;
-// 	float	inv_diry;
+t_bool		same_signs(float a, float b)
+{
+	return (a != 0 && b != 0 && a * b >= 0);
+}
 
-// 	inv_dirx = 1.0f / org_dir[1][0];
-// 	inv_diry = 1.0f / org_dir[1][1];
-// 	t[0] = (minxy[0] - org_dir[0][0]) * inv_dirx;
-// 	t[1] = (maxxy[0] - org_dir[0][0]) * inv_dirx;
-// 	t[2] = (minxy[1] - org_dir[0][1]) * inv_diry;
-// 	t[3] = (maxxy[1] - org_dir[0][1]) * inv_diry;
-// 	t[4] = l3d_fmax(l3d_fmin(t[0], t[1]), l3d_fmin(t[2], t[3]));
-// 	t[5] = l3d_fmin(l3d_fmax(t[0], t[1]), l3d_fmax(t[2], t[3]));
-// 	if (t[4] < 0 || t[4] > t[5])
-// 		return (false);
-// 	*dist = t[4];
-// 	return (true);
-// }
+int32_t		lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2], t_vec2 intersect)
+{
+	float	coefs[6];
+	float	signs[4];
+	float	denom;
+	float	offset;
+	float	num;
+
+	coefs[0] = edge1[1][1] - edge1[0][1];
+	coefs[2] = edge1[0][0] - edge1[1][0];
+	coefs[4] = edge1[1][0] * edge1[0][1] - edge1[0][0] * edge1[1][1];
+	signs[2] = coefs[0] * edge2[0][0] + coefs[2] * edge2[0][1] + coefs[4];
+	signs[3] = coefs[0] * edge2[1][0] + coefs[2] * edge2[1][1] + coefs[4];
+	if (same_signs( signs[2], signs[3] ))
+		return (0);
+	coefs[1] = edge2[1][1] - edge2[0][1];
+	coefs[3] = edge2[0][0] - edge2[1][0];
+	coefs[5] = edge2[1][0] * edge2[0][1] - edge2[0][0] * edge2[1][1];
+	signs[0] = coefs[1] * edge1[0][0] + coefs[3] * edge1[0][1] + coefs[5];
+	signs[1] = coefs[1] * edge1[1][0] + coefs[3] * edge1[1][1] + coefs[5];
+	if (same_signs( signs[0], signs[1] ))
+		return (0);
+	denom = coefs[0] * coefs[3] - coefs[1] * coefs[2];
+	if (denom == 0)
+		return (2);
+	offset = denom < 0 ? - denom / 2 : denom / 2;
+	num = coefs[2] * coefs[5] - coefs[3] * coefs[4];
+	intersect[0] = ( num < 0 ? num - offset : num + offset ) / denom;
+	num = coefs[1] * coefs[4] - coefs[0] * coefs[5];
+	intersect[1] = ( num < 0 ? num - offset : num + offset ) / denom;
+	return (1);
+}
 
 static void		clip_3d_line(t_doom3d *app, t_vec3 points[2])
 {
@@ -65,9 +82,6 @@ void			draw_debug_line(t_doom3d *app,
 					uint32_t color)
 {
 	int32_t		i;
-	// t_vec2		dir;
-	// t_vec2		add;
-	// float		t;
 
 	i = -1;
 	while (++i < 2)
@@ -78,10 +92,11 @@ void			draw_debug_line(t_doom3d *app,
 			points[i], points[i]);
 	}
 	clip_3d_line(app, points);
-	ml_vector3_add(points[0], (t_vec3){buffer->x_offset, buffer->y_offset, 0},
+	ml_vector2_add(points[0], (t_vec2){buffer->x_offset, buffer->y_offset},
 		points[0]);
-	ml_vector3_add(points[1], (t_vec3){buffer->x_offset, buffer->y_offset, 0},
+	ml_vector2_add(points[1], (t_vec2){buffer->x_offset, buffer->y_offset},
 		points[1]);
+
 	l3d_line_draw(buffer->buffer, (uint32_t[2]){
 		buffer->width, buffer->height},
 		(int32_t[2][2]){{points[0][0],points[0][1]},
