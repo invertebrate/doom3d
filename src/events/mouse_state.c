@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 16:24:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 17:35:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ static void				object_rotation_handle(t_doom3d *app,
 	uint32_t			diff;
 
 	diff = SDL_GetTicks() - last_rotated;
-	if (diff > 500 && ft_abs(xrel) > 2 && ft_abs(yrel) < 8)
+	if (diff > 200 && ft_abs(xrel) > 2 && ft_abs(yrel) < 8)
 	{
 		l3d_3d_object_rotate(app->editor.selected_object,
 			 0, 0, (xrel > 0 ? 1 : -1) * 10);
 		last_rotated = SDL_GetTicks();
 		app->editor.is_saved = false;
 	}
-	else if (diff > 500 && ft_abs(yrel) > 2 && ft_abs(xrel) < 8)
+	else if (diff > 200 && ft_abs(yrel) > 2 && ft_abs(xrel) < 8)
 	{
 		l3d_3d_object_rotate(app->editor.selected_object,
 			(yrel > 0 ? 1 : -1) * 10, 0, 0);
