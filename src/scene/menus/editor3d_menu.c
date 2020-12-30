@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 14:23:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 19:23:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void			on_save(t_doom3d *app)
+static void			on_editor_save(t_doom3d *app)
 {
 	if (!app->editor.is_saving)
 	{
@@ -22,7 +22,7 @@ static void			on_save(t_doom3d *app)
 	}
 }
 
-static void			on_exit(t_doom3d *app)
+static void			on_editor_exit(t_doom3d *app)
 {
 	app->next_scene_id = scene_id_main_menu;
 	editor_deselect(app);
@@ -36,9 +36,9 @@ static void			on_editor_menu_button_click(t_button *self, void *params)
 
 	app = params;
 	if (self->id == 0)
-		on_exit(app);
+		on_editor_exit(app);
 	if (self->id == 1)
-		on_save(app);
+		on_editor_save(app);
 }
 
 void				editor3d_menu_create(t_doom3d *app)
