@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 16:39:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 18:29:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ static void		resize_dependent_recreate(t_doom3d *app)
 
 static void		handle_scene_switch(t_doom3d *app)
 {
-	if (!app->is_loading &&
-		app->active_scene->scene_id != app->next_scene_id)
+	if (app->active_scene->scene_id != app->next_scene_id)
 		scene_next_select(app);
 }
 
@@ -44,15 +43,7 @@ static void		doom3d_main_loop(t_doom3d *app)
 			resize_dependent_recreate(app);
 		handle_scene_switch(app);
 		window_frame_clear(app->window);
-		if (app->is_loading)
-		{
-			loading_render(app);
-			window_frame_draw(app->window);
-			doom3d_debug_info_capture(app);
-			continue ;
-		}
-		else
-			events_handle(app);
+		events_handle(app);
 		doom3d_render(app);
 		if (app->is_debug)
 			doom3d_debug_info_render(app);
@@ -66,7 +57,6 @@ void			doom3d_init(t_doom3d *app)
 	app->active_scene = NULL;
 	app->is_running = true;
 	app->is_debug = true;
-	app->is_loading = true;
 	app->is_minimap_largened = false;
 	app->unit_size = app->window->width;
 	app->next_scene_id = scene_id_main_menu;

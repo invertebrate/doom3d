@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 17:18:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 18:19:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ static void		draw_editor_debug_grid(t_render_work *work)
 	int32_t				i;
 	t_vec3				points[2];
 	float				length;
+	uint32_t			line_color;
 
 	sub_buffer = work->framebuffer->sub_buffers[work->sub_buffer_i];
 	length = 100;
+	line_color = 0x202020ff;
 	i = -length / 2 - 1;
 	while (++i <= length / 2)
 	{
@@ -28,12 +30,12 @@ static void		draw_editor_debug_grid(t_render_work *work)
 			(-length / 2.0) * work->app->unit_size}, points[0]);
 		ml_vector3_copy((t_vec3){i * work->app->unit_size, 0,
 			(length / 2.0) * work->app->unit_size}, points[1]);
-		draw_debug_line(work->app, sub_buffer, points, 0x808080ff);
+		draw_debug_line(work->app, sub_buffer, points, line_color);
 		ml_vector3_copy((t_vec3){(-length / 2.0) * work->app->unit_size, 0,
 			i * work->app->unit_size}, points[0]);
 		ml_vector3_copy((t_vec3){(length / 2.0) * work->app->unit_size, 0,
 			i * work->app->unit_size}, points[1]);
-		draw_debug_line(work->app, sub_buffer, points, 0x808080ff);
+		draw_debug_line(work->app, sub_buffer, points, line_color);
 	}
 }
 

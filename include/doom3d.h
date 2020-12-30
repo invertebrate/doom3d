@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 18:08:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 18:29:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,6 @@ typedef struct				s_doom3d
 {
 	t_bool					is_running;
 	t_bool					is_debug;
-	t_bool					is_loading;
 	t_bool					is_first_render;
 	t_info					info;
 	t_window				*window;
