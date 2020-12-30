@@ -73,7 +73,6 @@ SOURCES = main.c \
 			render/editor_ui.c \
 			render/debug/debug.c \
 			render/debug/debug_line.c \
-			render/debug/debug_line_utils.c \
 			window/text.c \
 			window/window.c \
 			window/frame.c \

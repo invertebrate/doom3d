@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 15:31:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 23:13:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		handle_editor_saving(t_doom3d *app, SDL_Event event)
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKSPACE)
 	{
 		app->editor.is_saved = false;
-		length = ft_strlen(app->editor.editor_filename);
+		length = ft_strlen(app->editor.editor_savename);
 		if (length > 0)
 			app->editor.editor_savename[length - 1] = '\0';
 	}
