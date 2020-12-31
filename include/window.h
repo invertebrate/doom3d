@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 19:13:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/31 15:43:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,16 @@ typedef struct				s_button_group
 	uint32_t				selected_index;
 }							t_button_group;
 
+typedef struct				s_button_menu
+{
+	t_button_group			*menu;
+	t_vec2					pos;
+	t_bool					is_open;
+	t_vec2					max_dimensions;
+	uint32_t				background_color;
+	uint32_t				border_color;
+}							t_button_menu;
+
 /*
 ** Window
 */
@@ -199,5 +209,10 @@ t_bool						button_is_hovered(t_button *button, t_mouse mouse,
 								SDL_Event event);
 void						button_state_handle(t_button *button, t_mouse mouse,
 								SDL_Event event);
+
+void						button_popup_menu_destroy(t_button_menu *popup_menu);
+t_button_menu				*button_popup_menu_create(t_button_group *menu,
+								t_vec2 pos, t_vec2 max_dimensions,
+								uint32_t bacgrkound_color);
 
 #endif

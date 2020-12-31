@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 14:45:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/31 15:22:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ static void		editor_init(t_doom3d *app)
 	}
 	else
 		app->editor.is_saved = false;
+	app->editor.editor_menu_open = editor_menu_none;
 	l3d_skybox_create(app->active_scene->skybox,
 		app->active_scene->skybox_textures, app->unit_size);
 	active_scene_triangle_tree_set(app->active_scene);

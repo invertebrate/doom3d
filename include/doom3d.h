@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 23:23:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/31 15:25:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,23 @@ typedef struct				s_scene
 	t_3d_object				*skybox[6];
 }							t_scene;
 
+typedef enum				e_editor_menu
+{
+	editor_menu_none = 0,
+	editor_menu_prefabs = 1,
+	editor_menu_objects = 2,
+	editor_menu_textures = 3,
+	editor_menu_normalmaps = 4,
+	editor_menu_triggers = 5,
+	editor_menu_enemies = 6,
+}							t_editor_menu;
+
 typedef struct 				s_editor
 {
 	t_bool					is_saving;
 	t_bool					is_saved;
 	t_bool					is_moving;
+	int32_t					editor_menu_open;
 	uint32_t				editor_level;
 	char					editor_filename[128];
 	char					editor_savename[128];

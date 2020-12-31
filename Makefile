@@ -83,6 +83,7 @@ SOURCES = main.c \
 			window/buttons/button_group.c \
 			window/buttons/button_utils.c \
 			window/buttons/button.c \
+			window/buttons/button_popup_menu.c \
 			events/mouse_state.c \
 			events/events.c \
 			events/editor_events.c \
