@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// typedef struct  s_animated_object
-//     /* data */
-// }               t_animated_object;
+// typedef struct	s_animated_object
+// 	/* data */
+// }				t_animated_object;
 
-// struct				s_3d_object
+
+// struct			s_3d_object
 // {
 // 	uint32_t		id;
 // 	t_vertex		**vertices;
@@ -26,13 +27,32 @@
 // 	t_mat4			scale;
 // 	t_vec3			position;
 // 	t_box3d			aabb;
-//     t_bool          animated;
+//     t_bool			animated;
+//     uint32_t		frame_count;
+//     uint32_t		current_frame;
+// 	uint32_t		start_frame;
+// 	uint32_t		start_tick;
+//     t_3d_object		*animation_frames;
 // };
-
 
 #include "doom3d.h"
 
-int test()
+void			update_app_ticks(t_doom3d *app)
 {
-    return (0);
+	app->current_tick = (SDL_GetPerformanceCounter() * 1000) /
+						SDL_GetPerformanceFrequency();
 }
+
+// uint32_t		update_current_frame(t_doom3d *app, t_3d_object *object)
+// {
+// 	uint32_t	current_frame;
+
+// 	current_frame = object->start_frame +
+// 	((app->current_tick - object->start_tick) % (int)(TICKS_PER_SEC / ANIM_FPS));
+// 	object->current_frame = current_frame;
+// 	return (current_frame);
+
+// int test()
+// {
+//     return (0);
+// }

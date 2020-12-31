@@ -35,6 +35,8 @@
 # define MAX_ASSETS 256
 # define MAX_LEVELS 16
 # define TEMP_OBJECT_EXPIRE_SEC 100
+# define TICKS_PER_SEC 48
+# define ANIM_FPS 12
 
 # define X_DIR 1
 # define Y_DIR -1
@@ -155,6 +157,7 @@ typedef struct				s_doom3d
 	uint32_t				num_levels;
 	uint32_t				current_level;
 	t_editor				editor;
+	uint64_t				current_tick;
 }							t_doom3d;
 
 /*
@@ -198,6 +201,12 @@ void						handle_editor_selection(t_doom3d *app,
 								SDL_Event event);
 void						handle_editor_saving(t_doom3d *app,
 								SDL_Event event);
+
+/*
+** Animations
+*/
+
+void						update_app_ticks(t_doom3d *app);
 
 /*
 ** Camera

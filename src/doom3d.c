@@ -40,6 +40,7 @@ static void		doom3d_main_loop(t_doom3d *app)
 	while (app->is_running)
 	{
 		app->info.performance_start = SDL_GetPerformanceCounter();
+		update_app_ticks(app);
 		if (app->window->resized)
 			resize_dependent_recreate(app);
 		handle_scene_switch(app);
@@ -58,6 +59,7 @@ static void		doom3d_main_loop(t_doom3d *app)
 			doom3d_debug_info_render(app);
 		window_frame_draw(app->window);
 		doom3d_debug_info_capture(app);
+		// ft_printf("%u\n", app->current_tick);
 	}
 }
 
@@ -76,6 +78,7 @@ void			doom3d_init(t_doom3d *app)
 	read_level_list(app);
 	app->current_level = 0;
 	app->editor.editor_level = 0;
+	app->current_tick = 0;
 	ft_memset(app->editor.editor_filename, 0,
 		sizeof(app->editor.editor_filename));
 	ft_memset(app->editor.selected_object_str, 0,
