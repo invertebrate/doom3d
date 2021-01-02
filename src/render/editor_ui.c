@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 18:21:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 19:56:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ static void		editor_info_render(t_doom3d *app)
 
 static void		editor_object_location_render(t_doom3d *app)
 {
-	char		pos_str[256];
-	char		scale_str[256];
+	char		str[256];
 	uint32_t	rgba[4];
 	uint32_t	color;
 
@@ -79,26 +78,32 @@ static void		editor_object_location_render(t_doom3d *app)
 		return ;
 	color = app->editor.is_saved ? 0x00ff00ff : 0xff0000ff;
 	l3d_u32_to_rgba(color, rgba);
-	ft_memset(pos_str, 0, sizeof(pos_str));
-	ft_memset(scale_str, 0, sizeof(scale_str));
-	ft_sprintf(pos_str, "pos: [%.2f, %.2f, %.2f]",
+	ft_memset(str, 0, sizeof(str));
+	ft_sprintf(str, "pos: [%.2f, %.2f, %.2f]",
 		app->editor.selected_object->position[0] / app->unit_size,
 		app->editor.selected_object->position[1] / app->unit_size,
 		app->editor.selected_object->position[2] / app->unit_size
 	);
 	window_text_render(app->window, (t_text_params){
-		.text = pos_str, .blend_ratio = 1.0,
+		.text = str, .blend_ratio = 1.0,
 		.xy = (int[2]){app->window->framebuffer->width / 4,
 			app->window->framebuffer->height - 30},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->debug_font);
-	ft_sprintf(scale_str, "scale: [%.2f, %.2f, %.2f]",
+	ft_sprintf(str, "scale: [%.2f, %.2f, %.2f]",
 		app->editor.selected_object->scale[0][0] / app->unit_size,
 		app->editor.selected_object->scale[1][1] / app->unit_size,
 		app->editor.selected_object->scale[2][2] / app->unit_size);
 	window_text_render(app->window, (t_text_params){
-		.text = scale_str, .blend_ratio = 1.0,
+		.text = str, .blend_ratio = 1.0,
 		.xy = (int[2]){app->window->framebuffer->width / 4 + 200,
+			app->window->framebuffer->height - 30},
+		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
+		app->window->debug_font);
+	ft_sprintf(str, "unit_size: %.2f", app->unit_size);
+	window_text_render(app->window, (t_text_params){
+		.text = str, .blend_ratio = 1.0,
+		.xy = (int[2]){app->window->framebuffer->width / 4 + 400,
 			app->window->framebuffer->height - 30},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->debug_font);
