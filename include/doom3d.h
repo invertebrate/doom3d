@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 18:29:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 18:53:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,9 @@ void						draw_debug_line(t_doom3d *app,
 								t_sub_framebuffer *buffer, t_vec3 points[2],
 								uint32_t color);
 void						draw_editor_debug_grid(t_render_work *work);
+void						draw_selected_wireframe(t_render_work *work);
+t_bool						triangle_outside_frame(t_triangle *triangle,
+								t_sub_framebuffer *sub_buffer);
 
 /*
 ** Scene
