@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 16:14:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 15:30:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void			framebuffer_dark_overlay(t_framebuffer *framebuffer,
 		(int32_t[2]){pos[0], pos[1]}, 0.5);
 }
 
-void			menu_render(t_button_group *menu, t_vec2 pos)
+void			button_menu_render(t_button_group *menu, t_vec2 pos)
 {
 	if (menu == NULL)
 		return ;
@@ -56,7 +56,7 @@ void			ui_render(t_doom3d *app)
 		app->active_scene->scene_id == scene_id_main_menu_settings)
 	{
 		ui_title_render(app);
-		menu_render(app->active_scene->menus[0], (t_vec2){100,
+		button_menu_render(app->active_scene->menus[0], (t_vec2){100,
 			app->window->framebuffer->height / 2 -
 			app->active_scene->menus[0]->buttons[0]->height *
 				app->active_scene->menus[0]->num_buttons / 2});
@@ -69,7 +69,7 @@ void			ui_render(t_doom3d *app)
 			framebuffer_dark_overlay(app->window->framebuffer,
 				app->window->framebuffer->width,
 					app->window->framebuffer->height, (t_vec2){0, 0});
-			menu_render(app->active_scene->menus[0], (t_vec2){100,
+			button_menu_render(app->active_scene->menus[0], (t_vec2){100,
 				app->window->framebuffer->height / 2 -
 				app->active_scene->menus[0]->buttons[0]->height *
 					app->active_scene->menus[0]->num_buttons / 2});

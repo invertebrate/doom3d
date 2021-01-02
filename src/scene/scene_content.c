@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 14:45:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/03 00:03:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,39 @@
 
 static void				active_scene_triangle_refs_set(t_scene *scene)
 {
-	int		i;
-	int		j;
-	int		k;
-	int		num_triangles;
+	int32_t		i;
+	int32_t		j;
+	int32_t		k;
+	int32_t		num_triangles;
 
 	if (scene->triangle_ref != NULL)
 		free(scene->triangle_ref);
 	i = -1;
 	num_triangles = 0;
-	while (++i < (int)scene->num_objects)
-		num_triangles += scene->objects[i]->num_triangles;
+	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
+		if (scene->objects[i] != NULL)
+			num_triangles += scene->objects[i]->num_triangles;
 	scene->num_triangles = num_triangles;
 	error_check(!(scene->triangle_ref =
 		malloc(sizeof(t_triangle*) * num_triangles)),
 		"Failed to malloc triangle ref");
 	i = -1;
 	k = 0;
-	while (++i < (int)scene->num_objects)
+	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
 	{
+		if (scene->objects[i] == NULL)
+			continue ;
 		j = -1;
 		while (++j < scene->objects[i]->num_triangles)
 			scene->triangle_ref[k++] = &scene->objects[i]->triangles[j];
 	}
 }
 
-static void				active_scene_triangle_tree_set(t_scene *scene)
+void					active_scene_update_after_objects(t_scene *scene)
 {
-	scene->triangle_tree = NULL;
-	if (scene->num_objects > 0)
-	{
-		active_scene_triangle_refs_set(scene);
-		l3d_kd_tree_create_or_update(&scene->triangle_tree,
-			scene->triangle_ref, scene->num_triangles);
-	}
+	active_scene_triangle_refs_set(scene);
+	l3d_kd_tree_create_or_update(&scene->triangle_tree,
+		scene->triangle_ref, scene->num_triangles);
 }
 
 /*
@@ -56,7 +55,7 @@ static void				active_scene_triangle_tree_set(t_scene *scene)
 
 static void				place_test_objects(t_doom3d *app)
 {
-	place_object(app, (const char*[3]){
+	place_scene_object(app, (const char*[3]){
 		"assets/models/box.obj",
 		"assets/textures/rock.bmp", NULL}, (t_vec3){0, app->unit_size, 0});
 	ft_printf("Placed test objects\n");
@@ -67,7 +66,7 @@ static void		game_init(t_doom3d *app)
 	read_map(app, app->level_list[app->current_level]);
 	// Add test objects for playing
 	place_test_objects(app);
-	active_scene_triangle_tree_set(app->active_scene);
+	active_scene_update_after_objects(app->active_scene);
 	l3d_skybox_create(app->active_scene->skybox,
 		app->active_scene->skybox_textures, app->unit_size);
 	player_init(app, (t_vec3){0, 0, 0});
@@ -87,9 +86,11 @@ static void		editor_init(t_doom3d *app)
 	}
 	else
 		app->editor.is_saved = false;
+	app->editor.editor_menu_id = editor_menu_none;
+	app->editor.editor_menu = NULL;
 	l3d_skybox_create(app->active_scene->skybox,
 		app->active_scene->skybox_textures, app->unit_size);
-	active_scene_triangle_tree_set(app->active_scene);
+	active_scene_update_after_objects(app->active_scene);
 	player_init(app, (t_vec3){0,
 		-10 * app->unit_size, -20 * app->unit_size});
 	player_rotate_vertical(app, -90);

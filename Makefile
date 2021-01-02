@@ -53,9 +53,9 @@ SOURCES = main.c \
 			scene/menus/menu_utils.c \
 			scene/editor/editor_selection.c \
 			scene/editor/editor_utils.c \
-			scene/editor/object_utils.c \
 			scene/editor/save.c \
 			scene/editor/read.c \
+			scene/object_utils.c \
 			scene/scene.c \
 			scene/level.c \
 			scene/cleanup.c \
@@ -83,6 +83,8 @@ SOURCES = main.c \
 			window/buttons/button_group.c \
 			window/buttons/button_utils.c \
 			window/buttons/button.c \
+			window/buttons/button_popup_menu.c \
+			window/buttons/button_popup_menu_events.c \
 			events/mouse_state.c \
 			events/events.c \
 			events/editor_events.c \

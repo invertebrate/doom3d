@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 16:19:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:59:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "window.h"
 
-t_button		*button_create(t_window *window, uint32_t id)
+t_button		*button_create(t_window *window, uint32_t id, const char *text)
 {
 	t_button		*button;
 
@@ -20,6 +20,7 @@ t_button		*button_create(t_window *window, uint32_t id)
 	ft_memset(button, 0, sizeof(t_button));
 	button->id = id;
 	button->window = window;
+	button->text = text;
 	return (button);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 19:13:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:59:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define GAME_FONT "assets/fonts/AmazDooMLeft.ttf"
 # define DEBUG_FONT "assets/fonts/Roboto-Regular.ttf"
 # define FONT_SIZE 48
+# define CLEAR_COLOR 0x700000FF
 
 /*
 **	Frame buffer
@@ -90,6 +91,7 @@ typedef struct s_button		t_button;
 struct						s_button
 {
 	uint32_t				id;
+	const char				*text;
 	t_vec2					pos;
 	uint32_t				width;
 	uint32_t				height;
@@ -114,6 +116,18 @@ typedef struct				s_button_group
 	t_bool					is_selector;
 	uint32_t				selected_index;
 }							t_button_group;
+
+typedef struct				s_button_menu
+{
+	t_button_group			*menu;
+	t_vec2					pos;
+	t_bool					is_open;
+	uint32_t				background_color;
+	uint32_t				border_color;
+	t_surface				background;
+	int32_t					border_size;
+	int32_t					padding;
+}							t_button_menu;
 
 /*
 ** Window
@@ -174,7 +188,8 @@ void						button_set_handles(t_button *button,
 void						button_set_texture(t_button *button,
 								t_surface *texture,
 								t_surface *texture_down);
-t_button					*button_create(t_window *window, uint32_t id);
+t_button					*button_create(t_window *window, uint32_t id,
+								const char *text);
 void						button_set_handle_params(t_button *button,
 								void *on_click_params,
 								void *on_hover_params);
@@ -199,5 +214,15 @@ t_bool						button_is_hovered(t_button *button, t_mouse mouse,
 								SDL_Event event);
 void						button_state_handle(t_button *button, t_mouse mouse,
 								SDL_Event event);
+
+void						button_popup_menu_destroy(
+								t_button_menu *popup_menu);
+t_button_menu				*button_popup_menu_create(t_button_group *menu,
+								t_vec2 pos, int32_t padding,
+								uint32_t bg_and_border_color[2]);
+void						button_popup_menu_render(t_button_menu *popup_menu);
+void						button_popup_menu_events_handle(
+								t_button_menu *button_menu,
+								t_mouse mouse, SDL_Event event);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 17:35:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 18:30:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void				object_rotation_handle(t_doom3d *app,
 		l3d_3d_object_rotate(app->editor.selected_object,
 			 0, 0, (xrel > 0 ? 1 : -1) * 10);
 		last_rotated = SDL_GetTicks();
-		app->editor.is_saved = false;
+		after_editor_transform(app, &last_rotated);
 	}
 	else if (diff > 200 && ft_abs(yrel) > 2 && ft_abs(xrel) < 8)
 	{
@@ -65,6 +65,7 @@ static void				object_rotation_handle(t_doom3d *app,
 			(yrel > 0 ? 1 : -1) * 10, 0, 0);
 		last_rotated = SDL_GetTicks();
 		app->editor.is_saved = false;
+		after_editor_transform(app, &last_rotated);
 	}
 }
 
@@ -97,11 +98,11 @@ static void				mouse_editor_state_handle(t_doom3d *app)
 
 void					mouse_state_handle(t_doom3d *app)
 {
-	app->mouse.state = SDL_GetMouseState(&app->mouse.x, &app->mouse.y);
 	if (app->active_scene->scene_id == scene_id_main_game &&
 		!app->active_scene->is_paused)
 		mouse_game_state_handle(app);
-	if (app->active_scene->scene_id == scene_id_editor3d)
+	if (app->active_scene->scene_id == scene_id_editor3d &&
+		!editor_popup_menu_open(app))
 	{
 		mouse_editor_state_handle(app);
 	}

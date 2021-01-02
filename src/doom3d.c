@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 18:29:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 23:50:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void		doom3d_main_loop(t_doom3d *app)
 		app->info.performance_start = SDL_GetPerformanceCounter();
 		if (app->window->resized)
 			resize_dependent_recreate(app);
+		handle_object_deletions(app);
 		handle_scene_switch(app);
 		window_frame_clear(app->window);
 		events_handle(app);
@@ -85,7 +86,7 @@ static void		doom3d_cleanup(t_doom3d *app)
 	int32_t		i;
 
 	thread_pool_destroy(app->thread_pool);
-	scene_destroy(app->active_scene);
+	scene_destroy(app);
 	window_destroy(app->window);
 	TTF_Quit();
 	IMG_Quit();
