@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 18:07:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 19:28:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void			on_objects_menu_button_click(t_button *self, void *params)
 	place_object(app, (const char *[3]){self->text, NULL, NULL},
 		(t_vec3){0, 0, 0});
 	active_scene_update_after_objects(app->active_scene);
+	app->editor.is_saved = false;
 }
 
 static void			on_textures_menu_button_click(t_button *self, void *params)
@@ -51,6 +52,7 @@ static void			on_textures_menu_button_click(t_button *self, void *params)
 			hash_map_get(app->active_scene->textures, (int64_t)self->text);
 		hash_map_add(app->active_scene->object_textures,
 			app->editor.selected_object->id, (void*)self->text);
+		app->editor.is_saved = false;
 	}
 }
 
@@ -65,6 +67,7 @@ static void			on_normmaps_menu_button_click(t_button *self, void *params)
 			hash_map_get(app->active_scene->normal_maps, (int64_t)self->text);
 		hash_map_add(app->active_scene->object_normal_maps,
 			app->editor.selected_object->id, (void*)self->text);
+		app->editor.is_saved = false;
 	}
 }
 
