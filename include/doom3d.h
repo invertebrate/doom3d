@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 20:35:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 23:51:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,6 +279,7 @@ void						draw_selected_wireframe(t_render_work *work);
 t_bool						triangle_outside_frame(t_triangle *triangle,
 								t_sub_framebuffer *sub_buffer);
 void						draw_selected_aabb(t_render_work *work);
+
 /*
 ** Scene
 */
@@ -296,6 +297,7 @@ void						scene_skybox_destroy(t_scene *scene);
 void						scene_models_destroy(t_scene *scene);
 void						scene_textures_destroy(t_scene *scene);
 void						scene_normal_maps_destroy(t_scene *scene);
+void						active_scene_popup_menu_destroy(t_doom3d *app);
 
 /*
 ** Editor
@@ -307,7 +309,7 @@ const char					*texture_file_key(char *filename, t_doom3d *app);
 void						place_scene_object(t_doom3d *app,
 								const char *filenames[3],
 								t_vec3 pos);
-void						delete_scene_object(t_doom3d *app,
+void						set_object_for_deletion(t_doom3d *app,
 								t_3d_object *object);
 void						place_procedural_scene_object(t_doom3d *app,
 								t_3d_object *model,
@@ -317,6 +319,7 @@ void						editor_deselect_all(t_doom3d *app);
 void						editor_deselect(t_doom3d *app);
 void						after_editor_transform(t_doom3d *app,
 								uint32_t *last_changed);
+void						handle_object_deletions(t_doom3d *app);
 
 /*
 ** Level

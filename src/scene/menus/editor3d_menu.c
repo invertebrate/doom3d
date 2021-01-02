@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 21:06:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 23:51:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void			on_delete_menu_button_click(t_button *self, void *params)
 		{
 			object_to_delete = app->editor.selected_object;
 			editor_deselect(app);
-			delete_scene_object(app, object_to_delete);
+			set_object_for_deletion(app, object_to_delete);
 			app->editor.is_saved = false;
 		}
 	}

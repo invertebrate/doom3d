@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 21:11:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 23:52:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static uint32_t	next_object_index(t_doom3d *app)
 	return (next_index);
 }
 
-void			delete_scene_object(t_doom3d *app, t_3d_object *object)
+void			set_object_for_deletion(t_doom3d *app, t_3d_object *object)
 {
 	int32_t		i;
 	uint32_t	del_index;
@@ -123,4 +123,26 @@ void			place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 			obj->id, (void*)filenames[1]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
+}
+
+void			handle_object_deletions(t_doom3d *app)
+{
+	int32_t		i;
+	int32_t		del_index;
+	t_bool		deleted_something;
+
+	i = -1;
+	deleted_something = false;
+	while (++i < (int32_t)app->active_scene->num_deleted)
+	{
+		del_index = app->active_scene->deleted_object_i[i];
+		if (app->active_scene->objects[del_index] != NULL)
+		{
+			l3d_3d_object_destroy(app->active_scene->objects[del_index]);
+			app->active_scene->objects[del_index] = NULL;
+			deleted_something = true;
+		}
+	}
+	if (deleted_something)
+		active_scene_update_after_objects(app->active_scene);
 }
