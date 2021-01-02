@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 17:26:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:35:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,46 +30,22 @@ static void			on_editor_exit(t_doom3d *app)
 	app->editor.is_saving = false;
 }
 
-static void			on_prefab_menu_button_click(t_button *self, void *params)
-{
-	(void)self;
-	(void)params;
-	ft_printf("Clicked prefab menu\n");
-}
-
 static void			on_objects_menu_button_click(t_button *self, void *params)
 {
-	(void)self;
 	(void)params;
-	ft_printf("Clicked objects menu\n");
+	ft_printf("Clicked button %s\n", self->text);
 }
 
 static void			on_textures_menu_button_click(t_button *self, void *params)
 {
-	(void)self;
 	(void)params;
-	ft_printf("Clicked textures menu\n");
+	ft_printf("Clicked button %s\n", self->text);
 }
 
 static void			on_normmaps_menu_button_click(t_button *self, void *params)
 {
-	(void)self;
 	(void)params;
-	ft_printf("Clicked normmaps menu\n");
-}
-
-static void			on_triggers_menu_button_click(t_button *self, void *params)
-{
-	(void)self;
-	(void)params;
-	ft_printf("Clicked triggers menu\n");
-}
-
-static void			on_enemies_menu_button_click(t_button *self, void *params)
-{
-	(void)self;
-	(void)params;
-	ft_printf("Clicked enemies menu\n");
+	ft_printf("Clicked button %s\n", self->text);
 }
 
 static void			create_popup_menu(t_doom3d *app,
@@ -79,58 +55,28 @@ static void			create_popup_menu(t_doom3d *app,
 	t_button_group	*button_menu;
 	t_vec2			pos;
 
-	if (new_menu == editor_menu_prefabs)
+	if (new_menu == editor_menu_objects)
 		button_menu = button_menu_create(app,
 		(t_button_menu_params){
-			.button_names = (const char*[3]){
-				"Prefab1", "Prefab2", "Hello there, love"},
-			.num_buttons = 3,
-			.on_click = on_prefab_menu_button_click,
-			.button_font = app->window->debug_font,
-		});
-	else if (new_menu == editor_menu_objects)
-		button_menu = button_menu_create(app,
-		(t_button_menu_params){
-			.button_names = (const char*[3]){
-				"Prefab1", "Prefab2", "Hello there, love"},
-			.num_buttons = 3,
+			.button_names = app->active_scene->asset_files.model_files,
+			.num_buttons = app->active_scene->asset_files.num_models,
 			.on_click = on_objects_menu_button_click,
 			.button_font = app->window->debug_font,
 		});
 	else if (new_menu == editor_menu_textures)
 		button_menu = button_menu_create(app,
 		(t_button_menu_params){
-			.button_names = (const char*[3]){
-				"Prefab1", "Prefab2", "Hello there, love"},
-			.num_buttons = 3,
+			.button_names = app->active_scene->asset_files.texture_files,
+			.num_buttons = app->active_scene->asset_files.num_textures,
 			.on_click = on_textures_menu_button_click,
 			.button_font = app->window->debug_font,
 		});
 	else if (new_menu == editor_menu_normalmaps)
 		button_menu = button_menu_create(app,
 		(t_button_menu_params){
-			.button_names = (const char*[3]){
-				"Prefab1", "Prefab2", "Hello there, love"},
-			.num_buttons = 3,
+			.button_names = app->active_scene->asset_files.normal_map_files,
+			.num_buttons = app->active_scene->asset_files.num_normal_maps,
 			.on_click = on_normmaps_menu_button_click,
-			.button_font = app->window->debug_font,
-		});
-	else if (new_menu == editor_menu_triggers)
-		button_menu = button_menu_create(app,
-		(t_button_menu_params){
-			.button_names = (const char*[3]){
-				"Prefab1", "Prefab2", "Hello there, love"},
-			.num_buttons = 3,
-			.on_click = on_triggers_menu_button_click,
-			.button_font = app->window->debug_font,
-		});
-	else if (new_menu == editor_menu_enemies)
-		button_menu = button_menu_create(app,
-		(t_button_menu_params){
-			.button_names = (const char*[3]){
-				"Prefab1", "Prefab2", "Hello there, love"},
-			.num_buttons = 3,
-			.on_click = on_enemies_menu_button_click,
 			.button_font = app->window->debug_font,
 		});
 	else
@@ -138,9 +84,8 @@ static void			create_popup_menu(t_doom3d *app,
 	ml_vector2_copy((t_vec2){self->pos[0] + self->width + 2,
 		self->pos[1]}, pos);
 	app->editor.editor_menu =
-		button_popup_menu_create(button_menu, pos, (t_vec2){
-		app->window->framebuffer->width, app->window->framebuffer->height},
-		(uint32_t[2]){CLEAR_COLOR, 0xffffffff});
+		button_popup_menu_create(button_menu, pos, 3,
+			(uint32_t[2]){CLEAR_COLOR, 0xffffffff});
 }
 
 static void			create_or_open_popup_menu(t_doom3d *app,

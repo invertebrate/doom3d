@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:51:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 17:20:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:31:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_button_group		*button_menu_create(t_doom3d *app,
 	i = -1;
 	while (++i < menu_params.num_buttons)
 	{
-		buttons[i] = button_create(app->window, i);
+		buttons[i] = button_create(app->window, i, menu_params.button_names[i]);
 		surfaces[i] = menu_button_surface(menu_params.button_names[i],
 			menu_params.button_font);
 		down_surfaces[i] = menu_button_down_surface(menu_params.button_names[i],
