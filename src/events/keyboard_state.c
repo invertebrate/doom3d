@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 16:25:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 18:22:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ static void		keyboard_game_state_handle(t_doom3d *app)
 
 static void		handle_editor_transform(t_doom3d *app)
 {
+	static uint32_t		last_scaled;
+	uint32_t			diff;
+
+	diff = SDL_GetTicks() - last_scaled;
 	if (app->editor.is_saving || !app->editor.selected_object)
 		return ;
 	if (app->keyboard.state[SDL_SCANCODE_UP])
@@ -77,6 +81,23 @@ static void		handle_editor_transform(t_doom3d *app)
 			0, 0.1 * app->unit_size, 0);
 		app->editor.is_saved = false;
 	}
+	else if (diff > 200 &&
+		app->keyboard.state[SDL_SCANCODE_LEFTBRACKET])
+	{
+		l3d_3d_object_scale(app->editor.selected_object,
+			1.0 / 1.1, 1.0 / 1.1, 1.0 / 1.1);
+		app->editor.is_saved = false;
+		last_scaled = SDL_GetTicks();
+	}
+	else if (diff > 200 &&
+		app->keyboard.state[SDL_SCANCODE_RIGHTBRACKET])
+	{
+		l3d_3d_object_scale(app->editor.selected_object,
+			1.1, 1.1, 1.1);
+		app->editor.is_saved = false;
+		last_scaled = SDL_GetTicks();
+	}
+	active_scene_update_after_objects(app->active_scene);
 }
 
 static void		keyboard_editor_state_handle(t_doom3d *app)
