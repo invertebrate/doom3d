@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 23:59:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/03 00:05:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void			handle_object_deletions(t_doom3d *app)
 	int32_t		i;
 	int32_t		del_index;
 	t_bool		deleted_something;
+	uint32_t	id;
 
 	i = -1;
 	deleted_something = false;
@@ -138,7 +139,8 @@ void			handle_object_deletions(t_doom3d *app)
 		del_index = app->active_scene->deleted_object_i[i];
 		if (app->active_scene->objects[del_index] != NULL)
 		{
-			ft_printf("Deleting object\n");
+			id = app->active_scene->objects[del_index]->id;
+			ft_printf("Deleted object id %u\n", id);
 			l3d_3d_object_destroy(app->active_scene->objects[del_index]);
 			app->active_scene->objects[del_index] = NULL;
 			deleted_something = true;
