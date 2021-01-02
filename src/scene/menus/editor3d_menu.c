@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 18:00:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 18:07:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ static void			on_objects_menu_button_click(t_button *self, void *params)
 	t_doom3d	*app;
 
 	app = params;
-	(void)self;
+	place_object(app, (const char *[3]){self->text, NULL, NULL},
+		(t_vec3){0, 0, 0});
+	active_scene_update_after_objects(app->active_scene);
 }
 
 static void			on_textures_menu_button_click(t_button *self, void *params)
@@ -57,7 +59,13 @@ static void			on_normmaps_menu_button_click(t_button *self, void *params)
 	t_doom3d	*app;
 
 	app = params;
-	ft_printf("Clicked button %s\n", self->text);
+	if (app->editor.selected_object)
+	{
+		app->editor.selected_object->material->normal_map =
+			hash_map_get(app->active_scene->normal_maps, (int64_t)self->text);
+		hash_map_add(app->active_scene->object_normal_maps,
+			app->editor.selected_object->id, (void*)self->text);
+	}
 }
 
 static void			create_popup_menu(t_doom3d *app,
