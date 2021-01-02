@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 17:32:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:59:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ t_button		*button_create(t_window *window, uint32_t id, const char *text)
 	ft_memset(button, 0, sizeof(t_button));
 	button->id = id;
 	button->window = window;
-	if (text != NULL)
-		button->text = ft_strdup(text);
+	button->text = text;
 	return (button);
 }
 
@@ -37,8 +36,6 @@ void			button_destroy(t_button *button)
 		free(button->texture_down->pixels);
 		free(button->texture_down);
 	}
-	if (button->text)
-		ft_strdel(&button->text);
 	free(button);
 	button = NULL;
 }

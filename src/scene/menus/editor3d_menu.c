@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 17:35:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 18:00:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,31 @@ static void			on_editor_exit(t_doom3d *app)
 
 static void			on_objects_menu_button_click(t_button *self, void *params)
 {
-	(void)params;
-	ft_printf("Clicked button %s\n", self->text);
+	t_doom3d	*app;
+
+	app = params;
+	(void)self;
 }
 
 static void			on_textures_menu_button_click(t_button *self, void *params)
 {
-	(void)params;
-	ft_printf("Clicked button %s\n", self->text);
+	t_doom3d	*app;
+
+	app = params;
+	if (app->editor.selected_object)
+	{
+		app->editor.selected_object->material->texture =
+			hash_map_get(app->active_scene->textures, (int64_t)self->text);
+		hash_map_add(app->active_scene->object_textures,
+			app->editor.selected_object->id, (void*)self->text);
+	}
 }
 
 static void			on_normmaps_menu_button_click(t_button *self, void *params)
 {
-	(void)params;
+	t_doom3d	*app;
+
+	app = params;
 	ft_printf("Clicked button %s\n", self->text);
 }
 

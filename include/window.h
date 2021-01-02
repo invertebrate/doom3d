@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 17:35:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:59:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_button		t_button;
 struct						s_button
 {
 	uint32_t				id;
-	char					*text;
+	const char				*text;
 	t_vec2					pos;
 	uint32_t				width;
 	uint32_t				height;
