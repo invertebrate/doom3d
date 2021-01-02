@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:41:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/26 13:22:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 15:25:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ void				settings_menu_create(t_doom3d *app)
 		"Medium",
 		"Large",
 		"Back"}, 4, on_settings_menu_button_click);
-	app->active_scene->num_menus = 1;
+	app->active_scene->num_menu_buttons = 1;
 }

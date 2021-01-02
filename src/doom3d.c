@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/31 15:18:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 15:10:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void		doom3d_cleanup(t_doom3d *app)
 	int32_t		i;
 
 	thread_pool_destroy(app->thread_pool);
-	scene_destroy(app->active_scene);
+	scene_destroy(app);
 	window_destroy(app->window);
 	TTF_Quit();
 	IMG_Quit();

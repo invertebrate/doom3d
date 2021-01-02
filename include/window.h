@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/31 15:43:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 15:37:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define GAME_FONT "assets/fonts/AmazDooMLeft.ttf"
 # define DEBUG_FONT "assets/fonts/Roboto-Regular.ttf"
 # define FONT_SIZE 48
+# define CLEAR_COLOR 0x700000FF
 
 /*
 **	Frame buffer
@@ -123,6 +124,8 @@ typedef struct				s_button_menu
 	t_vec2					max_dimensions;
 	uint32_t				background_color;
 	uint32_t				border_color;
+	t_surface				background;
+	int32_t					border_size;
 }							t_button_menu;
 
 /*
@@ -210,9 +213,11 @@ t_bool						button_is_hovered(t_button *button, t_mouse mouse,
 void						button_state_handle(t_button *button, t_mouse mouse,
 								SDL_Event event);
 
-void						button_popup_menu_destroy(t_button_menu *popup_menu);
+void						button_popup_menu_destroy(
+								t_button_menu *popup_menu);
 t_button_menu				*button_popup_menu_create(t_button_group *menu,
 								t_vec2 pos, t_vec2 max_dimensions,
-								uint32_t bacgrkound_color);
+								uint32_t bg_and_border_color[2]);
+void						button_popup_menu_render(t_button_menu *popup_menu);
 
 #endif

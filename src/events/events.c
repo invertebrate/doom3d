@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 15:33:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 15:29:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void		game_input_events_handle(t_doom3d *app, SDL_Event event)
 			return ;
 		app->mouse.state = SDL_GetMouseState(&app->mouse.x, &app->mouse.y);
 		i = -1;
-		while (++i < (int32_t)app->active_scene->num_menus)
+		while (++i < (int32_t)app->active_scene->num_menu_buttons)
 			button_group_events_handle(app->active_scene->menus[i],
 				app->mouse, event);
 	}

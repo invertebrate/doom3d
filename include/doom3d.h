@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/31 15:25:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 15:30:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # define WIDTH 1280
 # define HEIGHT 720
 # define NAME "Doom3D"
-# define CLEAR_COLOR 0x700000FF
 # define PLAYER_SPEED 6.0
 # define PLAYER_ROTATION_SPEED 0.2
 # define NEAR_CLIP_DIST 10
@@ -110,7 +109,7 @@ typedef struct				s_scene
 	t_camera				*main_camera;
 	t_triangle				*screen_triangles;
 	t_button_group			*menus[8];
-	uint32_t				num_menus;
+	uint32_t				num_menu_buttons;
 	t_bool					is_paused;
 	t_scene_id				scene_id;
 	t_hash_table			*textures;
@@ -140,6 +139,7 @@ typedef struct 				s_editor
 	t_bool					is_saved;
 	t_bool					is_moving;
 	int32_t					editor_menu_open;
+	t_button_menu			*editor_menu;
 	uint32_t				editor_level;
 	char					editor_filename[128];
 	char					editor_savename[128];
@@ -258,7 +258,7 @@ void						framebuffer_dark_overlay(
 								int32_t width, int32_t height, t_vec2 pos);
 void						set_aabb_origin_to_corners(t_3d_object *obj,
 								t_vec3 origin, t_vec3 origin_to_corner[8]);
-void						menu_render(t_button_group *menu, t_vec2 pos);
+void						button_menu_render(t_button_group *menu, t_vec2 pos);
 void						editor_ui_render(t_doom3d *app);
 void						draw_debug_line(t_doom3d *app,
 								t_sub_framebuffer *buffer, t_vec3 points[2],
@@ -271,7 +271,7 @@ void						draw_editor_debug_grid(t_render_work *work);
 void						scene_assets_load(t_scene *scene);
 void						active_scene_content_set(t_doom3d *app);
 t_scene						*scene_new(t_scene_id scene_id);
-void						scene_destroy(t_scene *scene);
+void						scene_destroy(t_doom3d *app);
 void						scene_next_select(t_doom3d *app);
 void						scene_debug(t_scene *scene);
 void						scene_map_init(t_scene *scene);
