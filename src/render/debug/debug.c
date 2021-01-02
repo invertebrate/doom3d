@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 18:53:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 19:23:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,63 @@ void			draw_selected_wireframe(t_render_work *work)
 			continue ;
 		triangle_wireframe_draw(sub_buffer, triangle->points_2d, 0x00ff00ff);
 	}
+}
+
+void			draw_selected_aabb(t_render_work *work)
+{
+	t_doom3d			*app;
+	t_sub_framebuffer	*buffers;
+	t_3d_object			*obj;
+
+	buffers = work->framebuffer->sub_buffers[work->sub_buffer_i];
+	app = work->app;
+	obj = app->editor.selected_object;
+	draw_debug_line(app, buffers, (t_vec3[2]){
+		{obj->aabb.xyz_min[0], obj->aabb.xyz_min[1], obj->aabb.xyz_min[2]},
+		{obj->aabb.xyz_min[0], obj->aabb.xyz_min[1], obj->aabb.xyz_max[2]}
+	}, 0xff0000ff);
+	draw_debug_line(app, buffers, (t_vec3[2]){
+		{obj->aabb.xyz_min[0], obj->aabb.xyz_min[1], obj->aabb.xyz_max[2]},
+		{obj->aabb.xyz_max[0], obj->aabb.xyz_min[1], obj->aabb.xyz_max[2]},
+	}, 0xff0000ff);
+	draw_debug_line(app, buffers, (t_vec3[2]){
+		{obj->aabb.xyz_max[0], obj->aabb.xyz_min[1], obj->aabb.xyz_max[2]},
+		{obj->aabb.xyz_max[0], obj->aabb.xyz_min[1], obj->aabb.xyz_min[2]},
+	}, 0xff0000ff);
+	draw_debug_line(app, buffers, (t_vec3[2]){
+		{obj->aabb.xyz_max[0], obj->aabb.xyz_min[1], obj->aabb.xyz_min[2]},
+		{obj->aabb.xyz_min[0], obj->aabb.xyz_min[1], obj->aabb.xyz_min[2]},
+	}, 0xff0000ff);
+	draw_debug_line(app, buffers, (t_vec3[2]){
+		{obj->aabb.xyz_min[0], obj->aabb.xyz_max[1], obj->aabb.xyz_min[2]},
+		{obj->aabb.xyz_min[0], obj->aabb.xyz_max[1], obj->aabb.xyz_max[2]}
+	}, 0xff0000ff);
+	draw_debug_line(app, buffers, (t_vec3[2]){
+		{obj->aabb.xyz_min[0], obj->aabb.xyz_max[1], obj->aabb.xyz_max[2]},
+		{obj->aabb.xyz_max[0], obj->aabb.xyz_max[1], obj->aabb.xyz_max[2]},
+	}, 0xff0000ff);
+	draw_debug_line(app, buffers, (t_vec3[2]){
+		{obj->aabb.xyz_max[0], obj->aabb.xyz_max[1], obj->aabb.xyz_max[2]},
+		{obj->aabb.xyz_max[0], obj->aabb.xyz_max[1], obj->aabb.xyz_min[2]},
+	}, 0xff0000ff);
+	draw_debug_line(app, buffers, (t_vec3[2]){
+		{obj->aabb.xyz_max[0], obj->aabb.xyz_max[1], obj->aabb.xyz_min[2]},
+		{obj->aabb.xyz_min[0], obj->aabb.xyz_max[1], obj->aabb.xyz_min[2]},
+	}, 0xff0000ff);
+	draw_debug_line(app, buffers, (t_vec3[2]){
+		{obj->aabb.xyz_min[0], obj->aabb.xyz_min[1], obj->aabb.xyz_min[2]},
+		{obj->aabb.xyz_min[0], obj->aabb.xyz_max[1], obj->aabb.xyz_min[2]}
+	}, 0xff0000ff);
+	draw_debug_line(app, buffers, (t_vec3[2]){
+		{obj->aabb.xyz_max[0], obj->aabb.xyz_min[1], obj->aabb.xyz_max[2]},
+		{obj->aabb.xyz_max[0], obj->aabb.xyz_max[1], obj->aabb.xyz_max[2]},
+	}, 0xff0000ff);
+	draw_debug_line(app, buffers, (t_vec3[2]){
+		{obj->aabb.xyz_max[0], obj->aabb.xyz_min[1], obj->aabb.xyz_min[2]},
+		{obj->aabb.xyz_max[0], obj->aabb.xyz_max[1], obj->aabb.xyz_min[2]},
+	}, 0xff0000ff);
+	draw_debug_line(app, buffers, (t_vec3[2]){
+		{obj->aabb.xyz_min[0], obj->aabb.xyz_min[1], obj->aabb.xyz_max[2]},
+		{obj->aabb.xyz_min[0], obj->aabb.xyz_max[1], obj->aabb.xyz_max[2]},
+	}, 0xff0000ff);
 }
