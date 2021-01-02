@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 21:03:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/03 00:03:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void				active_scene_triangle_refs_set(t_scene *scene)
 	i = -1;
 	num_triangles = 0;
 	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
-		if (scene->objects[i])
+		if (scene->objects[i] != NULL)
 			num_triangles += scene->objects[i]->num_triangles;
 	scene->num_triangles = num_triangles;
 	error_check(!(scene->triangle_ref =
@@ -44,30 +44,9 @@ static void				active_scene_triangle_refs_set(t_scene *scene)
 
 void					active_scene_update_after_objects(t_scene *scene)
 {
-	int32_t i;
-
-	i = -1;
-	ft_printf("Num objects %d\n", (int32_t)scene->num_objects);
-	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
-	{
-		if (scene->objects[i] == NULL)
-			ft_printf("NULL\n");
-		else
-			ft_printf("%d\n", i);
-	}
-	i = -1;
-	ft_printf("Num deleted %d\n", (int32_t)scene->num_deleted);
-	while (++i < (int32_t)scene->num_deleted)
-	{
-		ft_printf("deleted index: %d, i: %d\n", scene->deleted_object_i[i], i);
-	}
-	scene->triangle_tree = NULL;
-	if (scene->num_objects > 0)
-	{
-		active_scene_triangle_refs_set(scene);
-		l3d_kd_tree_create_or_update(&scene->triangle_tree,
-			scene->triangle_ref, scene->num_triangles);
-	}
+	active_scene_triangle_refs_set(scene);
+	l3d_kd_tree_create_or_update(&scene->triangle_tree,
+		scene->triangle_ref, scene->num_triangles);
 }
 
 /*
