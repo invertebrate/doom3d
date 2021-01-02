@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 18:07:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 18:29:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,6 +308,8 @@ void						place_procedural_object(t_doom3d *app,
 void						editor_select(t_doom3d *app);
 void						editor_deselect_all(t_doom3d *app);
 void						editor_deselect(t_doom3d *app);
+void						after_editor_transform(t_doom3d *app,
+								uint32_t *last_changed);
 
 /*
 ** Level

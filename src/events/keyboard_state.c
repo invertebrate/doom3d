@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 18:22:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 18:28:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,65 +39,68 @@ static void		keyboard_game_state_handle(t_doom3d *app)
 
 static void		handle_editor_transform(t_doom3d *app)
 {
-	static uint32_t		last_scaled;
+	static uint32_t		last_changed;
 	uint32_t			diff;
 
-	diff = SDL_GetTicks() - last_scaled;
+	diff = SDL_GetTicks() - last_changed;
 	if (app->editor.is_saving || !app->editor.selected_object)
 		return ;
-	if (app->keyboard.state[SDL_SCANCODE_UP])
+	if (diff > 50 &&
+		app->keyboard.state[SDL_SCANCODE_UP])
 	{
 		l3d_3d_object_translate(app->editor.selected_object,
 			0, 0, 0.1 * app->unit_size);
-		app->editor.is_saved = false;
+		after_editor_transform(app, &last_changed);
 	}
-	else if (app->keyboard.state[SDL_SCANCODE_RIGHT])
+	else if (diff > 50 &&
+		app->keyboard.state[SDL_SCANCODE_RIGHT])
 	{
 		l3d_3d_object_translate(app->editor.selected_object,
 			0.1 * app->unit_size, 0, 0);
-		app->editor.is_saved = false;
+		after_editor_transform(app, &last_changed);
 	}
-	else if (app->keyboard.state[SDL_SCANCODE_DOWN])
+	else if (diff > 50 &&
+		app->keyboard.state[SDL_SCANCODE_DOWN])
 	{
 		l3d_3d_object_translate(app->editor.selected_object,
 			0, 0, -0.1 * app->unit_size);
-		app->editor.is_saved = false;
+		after_editor_transform(app, &last_changed);
 	}
-	else if (app->keyboard.state[SDL_SCANCODE_LEFT])
+	else if (diff > 50 &&
+		app->keyboard.state[SDL_SCANCODE_LEFT])
 	{
 		l3d_3d_object_translate(app->editor.selected_object,
 			-0.1 * app->unit_size, 0, 0);
-		app->editor.is_saved = false;
+		after_editor_transform(app, &last_changed);
 	}
-	else if (app->keyboard.state[SDL_SCANCODE_O])
+	else if (diff > 50 &&
+		app->keyboard.state[SDL_SCANCODE_O])
 	{
 		l3d_3d_object_translate(app->editor.selected_object,
 			0, -0.1 * app->unit_size, 0);
-		app->editor.is_saved = false;
+		after_editor_transform(app, &last_changed);
 	}
-	else if (app->keyboard.state[SDL_SCANCODE_L])
+	else if (diff > 50 &&
+		app->keyboard.state[SDL_SCANCODE_L])
 	{
 		l3d_3d_object_translate(app->editor.selected_object,
 			0, 0.1 * app->unit_size, 0);
-		app->editor.is_saved = false;
+		after_editor_transform(app, &last_changed);
 	}
-	else if (diff > 200 &&
+	else if (diff > 100 &&
 		app->keyboard.state[SDL_SCANCODE_LEFTBRACKET])
 	{
 		l3d_3d_object_scale(app->editor.selected_object,
 			1.0 / 1.1, 1.0 / 1.1, 1.0 / 1.1);
-		app->editor.is_saved = false;
-		last_scaled = SDL_GetTicks();
+		after_editor_transform(app, &last_changed);
 	}
-	else if (diff > 200 &&
+	else if (diff > 100 &&
 		app->keyboard.state[SDL_SCANCODE_RIGHTBRACKET])
 	{
 		l3d_3d_object_scale(app->editor.selected_object,
 			1.1, 1.1, 1.1);
-		app->editor.is_saved = false;
-		last_scaled = SDL_GetTicks();
+		after_editor_transform(app, &last_changed);
 	}
-	active_scene_update_after_objects(app->active_scene);
 }
 
 static void		keyboard_editor_state_handle(t_doom3d *app)
