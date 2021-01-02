@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 15:53:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 20:17:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ static void	write_map(int32_t fd, t_doom3d *app)
 	ret = write(fd, &app->active_scene->num_objects, sizeof(uint32_t));
 	(void)ret;
 	i = -1;
-	while (++i < (int32_t)app->active_scene->num_objects)
-		write_obj_content(fd, app, app->active_scene->objects[i]);
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
+		if (app->active_scene->objects[i])
+			write_obj_content(fd, app, app->active_scene->objects[i]);
 }
 
 void		save_map(t_doom3d *app)

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 19:16:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 20:35:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ typedef struct				s_scene
 {
 	t_3d_object				*objects[MAX_NUM_OBJECTS];
 	uint32_t				num_objects;
+	uint32_t				deleted_object_i[MAX_NUM_OBJECTS];
+	uint32_t				num_deleted;
 	t_kd_tree				*triangle_tree;
 	t_triangle				**triangle_ref;
 	uint32_t				num_triangles;
@@ -302,10 +304,12 @@ void						save_map(t_doom3d *app);
 void						read_map(t_doom3d *app, const char *map_name);
 const char					*normal_map_file_key(char *filename, t_doom3d *app);
 const char					*texture_file_key(char *filename, t_doom3d *app);
-void						place_object(t_doom3d *app,
+void						place_scene_object(t_doom3d *app,
 								const char *filenames[3],
 								t_vec3 pos);
-void						place_procedural_object(t_doom3d *app,
+void						delete_scene_object(t_doom3d *app,
+								t_3d_object *object);
+void						place_procedural_scene_object(t_doom3d *app,
 								t_3d_object *model,
 								const char *filenames[2], t_vec3 pos);
 void						editor_select(t_doom3d *app);

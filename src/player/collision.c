@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/21 13:12:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 20:27:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,12 @@ void			collision_limit_player(t_doom3d *app, t_vec3 add)
 
 	set_future_player(app, add, &future_player);
 	i = -1;
-	while (++i < (int32_t)app->active_scene->num_objects)
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
 	{
 		obj = app->active_scene->objects[i];
+		if (obj == NULL)
+			continue ;
 		ml_vector3_sub(obj->position, future_player.pos, diff);
 		if (ml_vector3_mag(diff) > app->unit_size * 3)
 			continue ;

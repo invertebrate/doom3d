@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 19:56:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 20:41:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,9 @@ void		editor_ui_render(t_doom3d *app)
 		"O,L: Move selected y, "
 		"[, ]: Scale selected");
 	button_menu_render(app->active_scene->menus[0], (t_vec2){10, 0});
+	if (app->editor.selected_object)
+		button_menu_render(app->active_scene->menus[1], (t_vec2){10,
+			app->window->framebuffer->height - 120});
 	window_text_render(app->window, (t_text_params){
 			.text = guide, .blend_ratio = 1.0,
 			.xy = (int[2]){10,

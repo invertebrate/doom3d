@@ -6,11 +6,31 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 19:28:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 21:06:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+static void			on_delete_menu_button_click(t_button *self, void *params)
+{
+	t_doom3d			*app;
+	t_editor_menu_index	new_menu_id;
+	t_3d_object			*object_to_delete;
+
+	app = params;
+	new_menu_id = editor_menu_none;
+	if (self->id == 0)
+	{
+		if (app->editor.selected_object)
+		{
+			object_to_delete = app->editor.selected_object;
+			editor_deselect(app);
+			delete_scene_object(app, object_to_delete);
+			app->editor.is_saved = false;
+		}
+	}
+}
 
 static void			on_editor_save(t_doom3d *app)
 {
@@ -35,7 +55,7 @@ static void			on_objects_menu_button_click(t_button *self, void *params)
 	t_doom3d	*app;
 
 	app = params;
-	place_object(app, (const char *[3]){self->text, NULL, NULL},
+	place_scene_object(app, (const char *[3]){self->text, NULL, NULL},
 		(t_vec3){0, 0, 0});
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
@@ -161,6 +181,14 @@ void				editor3d_menu_create(t_doom3d *app)
 			.on_click = on_editor_menu_button_click,
 			.button_font = app->window->main_font,
 		});
-	app->active_scene->num_button_menus = 1;
+	app->active_scene->menus[1] = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = (const char*[1]){
+				"Delete"},
+			.num_buttons = 1,
+			.on_click = on_delete_menu_button_click,
+			.button_font = app->window->main_font,
+		});
+	app->active_scene->num_button_menus = 2;
 }
 

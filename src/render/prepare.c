@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/29 16:40:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 20:27:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,18 @@ static t_bool	object_too_far(t_doom3d *app, t_3d_object *obj)
 static void		add_objects_render_triangles(t_doom3d *app,
 					t_tri_vec *render_triangles)
 {
-	int					i;
-	int					j;
-	t_triangle			*triangle;
-	t_triangle			r_triangle;
-	t_vertex			vtc[3];
+	int32_t					i;
+	int32_t					j;
+	t_triangle				*triangle;
+	t_triangle				r_triangle;
+	t_vertex				vtc[3];
 
 	i = -1;
-	while (++i < (int)app->active_scene->num_objects)
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
 	{
-		if (object_too_far(app, app->active_scene->objects[i]) ||
+		if ((app->active_scene->objects[i] == NULL) ||
+			object_too_far(app, app->active_scene->objects[i]) ||
 			!object_inside_viewbox(app, app->active_scene->objects[i]))
 			continue ;
 		j = -1;

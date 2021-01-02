@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 16:36:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 21:05:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ t_scene			*scene_new(t_scene_id scene_id)
 	error_check(!(scene = (t_scene*)malloc(sizeof(t_scene))),
 		"Failed to malloc scene");
 	ft_memset(scene, 0, sizeof(*scene));
+	ft_memset(scene->deleted_object_i, 0, sizeof(scene->deleted_object_i));
+	scene->num_deleted = 0;
+	scene->num_objects = 0;
 	scene->scene_id = scene_id;
 	scene->triangle_ref = NULL;
 	return (scene);
@@ -89,8 +92,9 @@ void			scene_debug(t_scene *scene)
 		scene->scene_id,
 		scene->num_objects);
 	i = -1;
-	while (++i < (int)scene->num_objects)
+	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
 	{
-		l3d_3d_object_debug_print(scene->objects[i]);
+		if (scene->objects[i])
+			l3d_3d_object_debug_print(scene->objects[i]);
 	}
 }
