@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 17:17:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/03 00:16:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ void			events_handle(t_doom3d *app)
 {
 	SDL_Event	event;
 
+	SDL_PumpEvents();
+	app->mouse.state = SDL_GetMouseState(&app->mouse.x, &app->mouse.y);
+	app->keyboard.state = SDL_GetKeyboardState(NULL);
 	if (!app->active_scene->is_paused)
 	{
-		SDL_PumpEvents();
-		app->mouse.state = SDL_GetMouseState(&app->mouse.x, &app->mouse.y);
-		app->keyboard.state = SDL_GetKeyboardState(NULL);
 		mouse_state_handle(app);
 		keyboard_state_handle(app);
 	}
