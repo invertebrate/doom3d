@@ -6,11 +6,17 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 15:29:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 16:49:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+t_bool			editor_popup_menu_open(t_doom3d *app)
+{
+	return (app->editor.editor_menu != NULL &&
+			app->editor.editor_menu->is_open);
+}
 
 static void		editor_input_events_handle(t_doom3d *app, SDL_Event event)
 {
@@ -25,12 +31,16 @@ static void		editor_input_events_handle(t_doom3d *app, SDL_Event event)
 	}
 }
 
-static void		game_input_events_handle(t_doom3d *app, SDL_Event event)
+static void		doom3d_button_events_handle(t_doom3d *app, SDL_Event event)
 {
 	int32_t	i;
 
-	if (app->active_scene->scene_id == scene_id_editor3d)
-		editor_input_events_handle(app, event);
+	if (editor_popup_menu_open(app))
+	{
+		button_popup_menu_events_handle(app->editor.editor_menu,
+			app->mouse, event);
+		return ;
+	}
 	if ((app->active_scene->scene_id != scene_id_main_game) ||
 			(app->active_scene->scene_id == scene_id_main_game &&
 				app->active_scene->is_paused))
@@ -38,7 +48,6 @@ static void		game_input_events_handle(t_doom3d *app, SDL_Event event)
 		if (app->active_scene->scene_id == scene_id_editor3d &&
 			app->editor.is_moving)
 			return ;
-		app->mouse.state = SDL_GetMouseState(&app->mouse.x, &app->mouse.y);
 		i = -1;
 		while (++i < (int32_t)app->active_scene->num_menu_buttons)
 			button_group_events_handle(app->active_scene->menus[i],
@@ -62,12 +71,17 @@ void			events_handle(t_doom3d *app)
 	if (!app->active_scene->is_paused)
 	{
 		SDL_PumpEvents();
+		app->mouse.state = SDL_GetMouseState(&app->mouse.x, &app->mouse.y);
+		app->keyboard.state = SDL_GetKeyboardState(NULL);
 		mouse_state_handle(app);
 		keyboard_state_handle(app);
 	}
 	while (SDL_PollEvent(&event))
 	{
 		general_input_events_handle(app, event);
-		game_input_events_handle(app, event);
+		if (app->active_scene->scene_id == scene_id_editor3d &&
+			!editor_popup_menu_open(app))
+			editor_input_events_handle(app, event);
+		doom3d_button_events_handle(app, event);
 	}
 }

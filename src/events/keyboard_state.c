@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 18:50:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 16:25:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ static void		keyboard_editor_state_handle(t_doom3d *app)
 void			keyboard_state_handle(t_doom3d *app)
 {
 
-	app->keyboard.state = SDL_GetKeyboardState(NULL);
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
 		keyboard_game_state_handle(app);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 15:30:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 16:49:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ typedef struct				s_scene
 	t_3d_object				*skybox[6];
 }							t_scene;
 
-typedef enum				e_editor_menu
+typedef enum				e_editor_menu_index
 {
 	editor_menu_none = 0,
 	editor_menu_prefabs = 1,
@@ -131,14 +131,14 @@ typedef enum				e_editor_menu
 	editor_menu_normalmaps = 4,
 	editor_menu_triggers = 5,
 	editor_menu_enemies = 6,
-}							t_editor_menu;
+}							t_editor_menu_index;
 
 typedef struct 				s_editor
 {
 	t_bool					is_saving;
 	t_bool					is_saved;
 	t_bool					is_moving;
-	int32_t					editor_menu_open;
+	t_editor_menu_index		editor_menu_id;
 	t_button_menu			*editor_menu;
 	uint32_t				editor_level;
 	char					editor_filename[128];
@@ -217,6 +217,7 @@ void						handle_editor_selection(t_doom3d *app,
 								SDL_Event event);
 void						handle_editor_saving(t_doom3d *app,
 								SDL_Event event);
+t_bool						editor_popup_menu_open(t_doom3d *app);
 
 /*
 ** Camera
