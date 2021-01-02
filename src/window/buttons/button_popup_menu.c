@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:34:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 16:10:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:05:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,35 @@ static void		set_background(t_surface *background,
 	}
 }
 
+static void		button_popup_menu_clamp_position(t_button_menu *popup_menu)
+{
+	t_window		*window;
+
+	window = popup_menu->menu->buttons[0]->window;
+	while (popup_menu->pos[1] + popup_menu->background.h >
+		window->framebuffer->height)
+		popup_menu->pos[1]--;
+	while (popup_menu->pos[1] < 0)
+		popup_menu->pos[1]++;
+	while (popup_menu->pos[0] + popup_menu->background.w >
+		window->framebuffer->width)
+		popup_menu->pos[0]--;
+	while (popup_menu->pos[0] < 0)
+		popup_menu->pos[0]++;
+	button_group_update_position(popup_menu->menu, popup_menu->pos);
+}
+
 t_button_menu	*button_popup_menu_create(t_button_group *menu,
 					t_vec2 pos, t_vec2 max_dimensions,
 					uint32_t bg_and_border_color[2])
 {
 	t_button_menu	*popup_menu;
-	t_vec2			button_rel_pos;
 	t_vec2			dims;
 
 	error_check(!(popup_menu = malloc(sizeof(*popup_menu))),
 		"Failed to malloc popup menu");
 	popup_menu->menu = menu;
 	ml_vector2_copy(max_dimensions, popup_menu->max_dimensions);
-	ml_vector2_copy(pos, popup_menu->pos);
-	ml_vector2_add(popup_menu->menu->pos, pos, button_rel_pos);
-	button_group_update_position(popup_menu->menu, button_rel_pos);
 	popup_menu->is_open = false;
 	popup_menu->background_color = bg_and_border_color[0];
 	popup_menu->border_color = bg_and_border_color[1];
@@ -90,6 +104,8 @@ t_button_menu	*button_popup_menu_create(t_button_group *menu,
 		"Failed to malloc background");
 	set_background(&popup_menu->background, popup_menu->border_size,
 		popup_menu->background_color, popup_menu->border_color);
+	ml_vector2_copy(pos, popup_menu->pos);
+	button_popup_menu_clamp_position(popup_menu);
 	return (popup_menu);
 }
 
