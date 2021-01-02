@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 16:50:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:17:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void		doom3d_button_events_handle(t_doom3d *app, SDL_Event event)
 			app->editor.is_moving)
 			return ;
 		i = -1;
-		while (++i < (int32_t)app->active_scene->num_menu_buttons)
+		while (++i < (int32_t)app->active_scene->num_button_menus)
 			button_group_events_handle(app->active_scene->menus[i],
 				app->mouse, event);
 	}

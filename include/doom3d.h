@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 16:49:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:14:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct				s_scene
 	t_camera				*main_camera;
 	t_triangle				*screen_triangles;
 	t_button_group			*menus[8];
-	uint32_t				num_menu_buttons;
+	uint32_t				num_button_menus;
 	t_bool					is_paused;
 	t_scene_id				scene_id;
 	t_hash_table			*textures;
@@ -187,6 +187,14 @@ typedef struct				s_render_work
 	uint32_t				sub_buffer_i;
 	t_tri_vec				*render_triangles;
 }							t_render_work;
+
+typedef struct				s_button_menu_params
+{
+	const char				**button_names;
+	int32_t					num_buttons;
+	void					(*on_click)(t_button *, void *);
+	TTF_Font				*button_font;
+}							t_button_menu_params;
 
 void						doom3d_run(t_doom3d *app);
 
@@ -309,8 +317,7 @@ void						read_level_list(t_doom3d *app);
 ** Menus
 */
 t_button_group				*button_menu_create(t_doom3d *app,
-								const char **options, int32_t num_buttons,
-								void (*on_click)(t_button *, void *));
+								t_button_menu_params menu_params);
 void						main_menu_create(t_doom3d *app);
 void						editor3d_menu_create(t_doom3d *app);
 void						pause_menu_create(t_doom3d *app);

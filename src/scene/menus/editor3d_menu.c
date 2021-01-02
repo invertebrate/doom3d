@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 16:39:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:18:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,23 +80,59 @@ static void			create_popup_menu(t_doom3d *app,
 	t_vec2			pos;
 
 	if (new_menu == editor_menu_prefabs)
-		button_menu = button_menu_create(app, (const char*[3]){
-		"Prefab1", "Prefab2", "Hello there, love"}, 3, on_prefab_menu_button_click);
+		button_menu = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = (const char*[3]){
+				"Prefab1", "Prefab2", "Hello there, love"},
+			.num_buttons = 3,
+			.on_click = on_prefab_menu_button_click,
+			.button_font = app->window->debug_font,
+		});
 	else if (new_menu == editor_menu_objects)
-		button_menu = button_menu_create(app, (const char*[3]){
-		"Object1", "Object2", "Hello there, love"}, 3, on_objects_menu_button_click);
+		button_menu = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = (const char*[3]){
+				"Prefab1", "Prefab2", "Hello there, love"},
+			.num_buttons = 3,
+			.on_click = on_objects_menu_button_click,
+			.button_font = app->window->debug_font,
+		});
 	else if (new_menu == editor_menu_textures)
-		button_menu = button_menu_create(app, (const char*[3]){
-		"Texture1", "Texture2", "Hello there, love"}, 3, on_textures_menu_button_click);
+		button_menu = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = (const char*[3]){
+				"Prefab1", "Prefab2", "Hello there, love"},
+			.num_buttons = 3,
+			.on_click = on_textures_menu_button_click,
+			.button_font = app->window->debug_font,
+		});
 	else if (new_menu == editor_menu_normalmaps)
-		button_menu = button_menu_create(app, (const char*[3]){
-		"Normmap1", "Normmap2", "Hello there, love"}, 3, on_normmaps_menu_button_click);
+		button_menu = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = (const char*[3]){
+				"Prefab1", "Prefab2", "Hello there, love"},
+			.num_buttons = 3,
+			.on_click = on_normmaps_menu_button_click,
+			.button_font = app->window->debug_font,
+		});
 	else if (new_menu == editor_menu_triggers)
-		button_menu = button_menu_create(app, (const char*[3]){
-		"Trigger1", "Trigger2", "Hello there, love"}, 3, on_triggers_menu_button_click);
+		button_menu = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = (const char*[3]){
+				"Prefab1", "Prefab2", "Hello there, love"},
+			.num_buttons = 3,
+			.on_click = on_triggers_menu_button_click,
+			.button_font = app->window->debug_font,
+		});
 	else if (new_menu == editor_menu_enemies)
-		button_menu = button_menu_create(app, (const char*[3]){
-		"Enemy1", "Enemy2", "Hello there, love"}, 3, on_enemies_menu_button_click);
+		button_menu = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = (const char*[3]){
+				"Prefab1", "Prefab2", "Hello there, love"},
+			.num_buttons = 3,
+			.on_click = on_enemies_menu_button_click,
+			.button_font = app->window->debug_font,
+		});
 	else
 		return ;
 	ml_vector2_copy((t_vec2){self->pos[0] + self->width + 2,
@@ -151,16 +187,22 @@ static void			on_editor_menu_button_click(t_button *self, void *params)
 
 void				editor3d_menu_create(t_doom3d *app)
 {
-	app->active_scene->menus[0] = button_menu_create(app, (const char*[8]){
-		"Exit",
-		"Save",
-		"Prefabs",
-		"Objects",
-		"Textures",
-		"NormMaps",
-		"Triggers",
-		"Enemies"
-		}, 8, on_editor_menu_button_click);
-	app->active_scene->num_menu_buttons = 1;
+	app->active_scene->menus[0] = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = (const char*[8]){
+				"Exit",
+				"Save",
+				"Prefabs",
+				"Objects",
+				"Textures",
+				"NormMaps",
+				"Triggers",
+				"Enemies"
+				},
+			.num_buttons = 8,
+			.on_click = on_editor_menu_button_click,
+			.button_font = app->window->main_font,
+		});
+	app->active_scene->num_button_menus = 1;
 }
 
