@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 23:51:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/03 00:18:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 static void			on_delete_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d			*app;
-	t_editor_menu_index	new_menu_id;
 	t_3d_object			*object_to_delete;
 
 	app = params;
-	new_menu_id = editor_menu_none;
 	if (self->id == 0)
 	{
 		if (app->editor.selected_object)
