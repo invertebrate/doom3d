@@ -39,6 +39,11 @@ SOURCES = main.c \
 			player/player.c \
 			player/collision.c \
 			player/movement.c \
+			npc/npc_controller.c \
+			npc/npc_default.c \
+			npc/npc_execute_behavior.c \
+			npc/npc_spawn.c \
+			npc/npc_update.c \
 			camera.c \
 			debug.c \
 			scene/menus/editor3d_menu.c \
@@ -108,6 +113,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/render
 	@mkdir -p temp/events
 	@mkdir -p temp/player
+	@mkdir -p temp/npc
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)

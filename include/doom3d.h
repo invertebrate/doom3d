@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/23 16:12:32 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/02 15:44:47 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@
 # define Y_DIR -1
 # define Z_DIR 1
 
+#define DEFAULT_MODEL "assets/models/box.obj"
+#define DEFAULT_TEXTURE "assets/textures/rock.bmp"
+
 typedef enum				e_move
 {
 	move_forward,
@@ -58,6 +61,12 @@ typedef enum				e_scene_id
 	scene_id_editor3d,
 	scene_id_editor2d,
 }							t_scene_id;
+
+typedef enum				e_state
+{
+	state_idle,
+	state_attack,
+}							t_state;
 
 typedef struct				s_camera
 {
@@ -90,20 +99,6 @@ typedef struct				s_player
 	t_mat4					inv_translation;
 	t_box3d					aabb;
 }							t_player;
-
-typedef struct				s_npc
-{
-	t_vec3					pos;
-	t_vec3					forward;
-	t_vec3					sideways;
-	t_vec3					up;
-	float					speed;
-	float					rot_speed;
-	int						state;
-	int						hp;
-	int						id;
-	t_3d_object				*model;
-}							t_npc;
 
 typedef struct				s_asset_files
 {
@@ -167,7 +162,25 @@ typedef struct				s_doom3d
 	uint32_t				editor_level;
 
 	t_list					*npc_list;
+	uint32_t				npc_update_timer;
 }							t_doom3d;
+
+typedef struct				s_npc
+{
+	t_doom3d				*app;
+	t_vec3					pos;
+	t_vec3					dir;
+	float					angle;
+	float					speed;
+	float					rot_speed;
+	float					dist;
+	int						state;
+	int						hp;
+	int						id;
+	t_3d_object				*obj;
+	t_3d_object				*model;
+	t_surface				*texture;
+}							t_npc;
 
 /*
 ** For parallelization
@@ -196,6 +209,16 @@ void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						player_scroll_editor(t_doom3d *app, float speed);
 
+/*
+** Npc
+*/
+void						npc_controller_init(t_doom3d *app);
+void						npc_controller(t_doom3d *app);
+void						npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
+								int type);
+void						npc_update(t_list *npc);
+void						npc_execute_behavior(t_list *npc);
+void						npc_default(t_doom3d *app, t_npc *npc);
 /*
 ** Events
 */

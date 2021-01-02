@@ -6,20 +6,30 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:47:28 by ahakanen          #+#    #+#             */
-/*   Updated: 2020/12/23 16:34:53 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/02 16:30:40 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-t_list	*npc_controller_init(t_doom3d *app)
+void	npc_controller_init(t_doom3d *app)
 {
-	app->npc_list = ft_lstnew(NULL, 0);
+	app->npc_update_timer = 0;
+	app->npc_list = NULL;
 }
 
-void	npc_controller(t_list *npc_list, float time)
+void	npc_controller(t_doom3d *app)
 {
-	if (enoughtimepassed)
-		ft_lstiter(npc_list, npc_update);
-	ft_lstiter(npc_list, TODO_EXECUTEBEHAVIOR);
+	static uint32_t	old_time;
+	uint32_t		new_time;
+
+	new_time = SDL_GetTicks();
+	app->npc_update_timer += new_time - old_time;
+	if (app->npc_update_timer > 250)
+	{
+		app->npc_update_timer -= 250;
+		ft_lstiter(app->npc_list, npc_update);
+		old_time = new_time;
+	}
+	ft_lstiter(app->npc_list, npc_execute_behavior);
 }

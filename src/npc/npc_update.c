@@ -6,27 +6,38 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2020/12/22 19:51:41 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/02 16:39:35 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	npc_update(t_npc *npc)
+void	npc_update(t_list *npc)
 {
-	/*
-	check state of npc
-	*/
-	if (npc->state == IDLE)
+	t_npc	*tmp;
+	t_vec3	diff;
+	float	dist;
+
+	tmp = npc->content;
+	ml_vector3_sub(tmp->pos, tmp->app->player.pos, diff);
+	dist = ml_vector3_mag(diff);
+	if (tmp->state == state_idle)
 	{
-		/*
-		DO IDLE THINGS WITH THIS NPC
-		*/
+		//ft_printf("state of npc %d is idle, at dist = |%f|\n", tmp->id, dist);//test
+		if (dist < tmp->app->unit_size * 10)
+			tmp->state = state_attack;
+		else
+			ml_vector3_mul(tmp->dir, 0, tmp->dir);
 	}
-	else if (npc->state == ATTACK)
+	else if (tmp->state == state_attack)
 	{
-		/*
-		DO ATTACK THINGS WITH THIS NPC
-		*/
+		//ft_printf("state of npc %d is attack, at dist = |%f|\n", tmp->id, dist);//test
+		if (dist >= tmp->app->unit_size * 10)
+			tmp->state = state_idle;
+		else
+		{
+			ml_vector3_normalize(diff, tmp->dir);
+			ml_vector3_mul(tmp->dir, tmp->speed, tmp->dir);
+		}
 	}
 }

@@ -6,11 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/12/23 13:10:10 by ahakanen         ###   ########.fr       */
-=======
-/*   Updated: 2020/12/26 13:33:25 by ohakola          ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2020/12/30 15:17:03 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +51,10 @@ static void		doom3d_main_loop(t_doom3d *app)
 			doom3d_debug_info_capture(app);
 			continue ;
 		}
-<<<<<<< HEAD
-		ft_printf("TEST!\n");//test
-		events_handle(app);
-		if (app->is_loading)
-			continue ;
-		ft_printf("TEST2!\n");//test
-=======
 		else
 			events_handle(app);
->>>>>>> master
 		doom3d_render(app);
-		ft_printf("TEST3!\n");//test
+		npc_controller(app);
 		if (app->is_debug)
 			doom3d_debug_info_render(app);
 		window_frame_draw(app->window);

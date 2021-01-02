@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/23 13:09:17 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/02 16:36:20 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,19 @@ static void				active_scene_collision_tree_set(t_scene *scene)
 
 static void				place_test_objects(t_doom3d *app)
 {
-	place_object(app, (const char*[3]){
-		"assets/models/box.obj",
-		"assets/textures/rock.bmp", NULL}, (t_vec3){0, app->unit_size, 0});
-	ft_printf("Placed test objects\n");
+	//place_object(app, (const char*[3]){
+	//	"assets/models/box.obj",
+	//	"assets/textures/rock.bmp", NULL}, (t_vec3){0, app->unit_size, 0});
+	//ft_printf("Placed test objects\n");
+
+	/*
+	NPC TESTING
+	*/
+	npc_controller_init(app);
+	npc_spawn(app, (t_vec3){0, app->unit_size, 0}, 45, 0);
+	//npc_spawn(app, (t_vec3){app->unit_size * 6, 0, 0}, 0, 0);
+	//npc_spawn(app, (t_vec3){app->unit_size * 8, 0, 0}, 90, 0);
+	//npc_spawn(app, (t_vec3){0, 0, app->unit_size * 6}, 45, 0);
 }
 
 static void		active_scene_world_init(t_doom3d *app)
