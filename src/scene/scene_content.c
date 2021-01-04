@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 16:36:20 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:48:09 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ static void				place_test_objects(t_doom3d *app)
 	*/
 	npc_controller_init(app);
 	npc_spawn(app, (t_vec3){0, app->unit_size, 0}, 45, 0);
-	//npc_spawn(app, (t_vec3){app->unit_size * 6, 0, 0}, 0, 0);
-	//npc_spawn(app, (t_vec3){app->unit_size * 8, 0, 0}, 90, 0);
-	//npc_spawn(app, (t_vec3){0, 0, app->unit_size * 6}, 45, 0);
+	npc_spawn(app, (t_vec3){app->unit_size * 6, app->unit_size * 5, 0}, 0, 0);
+	npc_spawn(app, (t_vec3){app->unit_size * 8, 0, 0}, 90, 0);
+	npc_spawn(app, (t_vec3){0, 0, app->unit_size * 6}, 45, 0);
 }
 
 static void		active_scene_world_init(t_doom3d *app)
