@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/04 15:14:06 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/04 16:28:55 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ typedef enum				e_scene_id
 	scene_id_editor3d,
 }							t_scene_id;
 
-typedef enum				e_state
+typedef enum				e_npc_state
 {
 	state_idle,
 	state_attack,
 	state_atk_anim,
-}							t_state;
+}							t_npc_state;
 
 typedef struct				s_camera
 {
@@ -210,8 +210,6 @@ typedef struct				s_npc
 	int						hp;
 	int						id;
 	t_3d_object				*obj;
-	t_3d_object				*model;
-	t_surface				*texture;
 }							t_npc;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/04 15:16:17 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/04 15:24:49 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,6 @@ static void				place_test_objects(t_doom3d *app)
 	npc_spawn(app, (t_vec3){app->unit_size * 6, app->unit_size * 5, 0}, 0, 0);
 	npc_spawn(app, (t_vec3){app->unit_size * 8, 0, 0}, 90, 0);
 	npc_spawn(app, (t_vec3){0, 0, app->unit_size * 6}, 45, 0);
-	place_scene_object(app, (const char*[3]){
-		"assets/models/box.obj",
-		"assets/textures/rock.bmp", NULL}, (t_vec3){0, app->unit_size, 0});
-	ft_printf("Placed test objects\n");
 }
 
 static void		game_init(t_doom3d *app)
