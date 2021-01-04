@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 15:44:47 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:29:45 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef enum				e_state
 {
 	state_idle,
 	state_attack,
+	state_atk_anim,
 }							t_state;
 
 typedef struct				s_camera
@@ -171,6 +172,11 @@ typedef struct				s_npc
 	t_vec3					pos;
 	t_vec3					dir;
 	float					angle;
+	float					vision_range;
+	float					atk_range;
+	uint32_t				atk_start;
+	uint32_t				atk_dur;
+	uint32_t				atk_timer;
 	float					speed;
 	float					rot_speed;
 	float					dist;

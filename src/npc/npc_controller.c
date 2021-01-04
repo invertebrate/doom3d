@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:47:28 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/02 16:30:40 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:11:05 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	npc_controller(t_doom3d *app)
 	uint32_t		new_time;
 
 	new_time = SDL_GetTicks();
+	if (!old_time)
+		old_time = 0;
 	app->npc_update_timer += new_time - old_time;
 	if (app->npc_update_timer > 250)
 	{

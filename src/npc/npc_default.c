@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/02 16:08:13 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:31:03 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void	npc_default(t_doom3d *app, t_npc *npc)
 	npc->rot_speed = 10;
 	npc->state = 0;
 	npc->hp = 100;
+	npc->atk_range = app->unit_size * 5;
+	npc->atk_dur = 500;
+	npc->vision_range = app->unit_size * 10;
 	npc->model = hash_map_get(app->active_scene->models,
 		(int64_t)DEFAULT_MODEL);
 	if (!npc->model)
