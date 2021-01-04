@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_content.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/04 15:24:49 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/04 21:06:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static void				place_test_objects(t_doom3d *app)
 	/*
 	NPC TESTING
 	*/
-	npc_controller_init(app);
 	npc_spawn(app, (t_vec3){0, app->unit_size, 0}, 45, 0);
 	npc_spawn(app, (t_vec3){app->unit_size * 6, app->unit_size * 5, 0}, 0, 0);
 	npc_spawn(app, (t_vec3){app->unit_size * 8, 0, 0}, 90, 0);
@@ -72,16 +71,17 @@ static void				place_test_objects(t_doom3d *app)
 
 static void		game_init(t_doom3d *app)
 {
-	read_map(app, app->level_list[app->current_level]);
-	// Add test objects for playing
-	place_test_objects(app);
-	active_scene_update_after_objects(app->active_scene);
 	l3d_skybox_create(app->active_scene->skybox,
 		app->active_scene->skybox_textures, app->unit_size);
+	read_map(app, app->level_list[app->current_level]);
+	// Add test objects for playing
+	npc_controller_init(app);
+	place_test_objects(app);
 	player_init(app, (t_vec3){0, 0, 0});
+	active_scene_update_after_objects(app->active_scene);
 }
 
-static void		editor_init(t_doom3d *app)
+static void		scene_editor_init(t_doom3d *app)
 {
 	app->editor.selected_object = NULL;
 	app->editor.is_moving = false;
@@ -113,7 +113,7 @@ static void		active_scene_init(t_doom3d *app)
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
-		editor_init(app);
+		scene_editor_init(app);
 	}
 	if (app->active_scene->main_camera)
 		update_camera(app);

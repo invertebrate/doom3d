@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/04 16:28:55 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/04 20:59:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ typedef struct				s_scene
 	t_asset_files			asset_files;
 	t_surface				*skybox_textures[6];
 	t_3d_object				*skybox[6];
+	t_list					*npc_list;
+	uint32_t				npc_update_timer;
 }							t_scene;
 
 typedef enum				e_editor_menu_index
@@ -179,15 +181,11 @@ typedef struct				s_doom3d
 	t_keyboard				keyboard;
 	t_thread_pool			*thread_pool;
 	float					unit_size;
-	t_bool					is_minimap_largened;
 	int32_t					triangles_in_view;
 	char					*level_list[MAX_LEVELS];
 	uint32_t				num_levels;
 	uint32_t				current_level;
 	uint32_t				editor_level;
-
-	t_list					*npc_list;
-	uint32_t				npc_update_timer;
 	t_editor				editor;
 	t_settings				settings;
 }							t_doom3d;
@@ -257,6 +255,8 @@ void						npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
 void						npc_update(t_list *npc);
 void						npc_execute_behavior(t_list *npc);
 void						npc_default(t_doom3d *app, t_npc *npc);
+void						npc_cleanup(t_doom3d *app);
+
 /*
 ** Events
 */
@@ -364,6 +364,7 @@ void						editor_deselect(t_doom3d *app);
 void						after_editor_transform(t_doom3d *app,
 								uint32_t *last_changed);
 void						handle_object_deletions(t_doom3d *app);
+void    					editor_init(t_doom3d *app);
 
 /*
 ** Level

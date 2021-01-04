@@ -49,6 +49,7 @@ SOURCES = main.c \
 			npc/npc_execute_behavior.c \
 			npc/npc_spawn.c \
 			npc/npc_update.c \
+			npc/npc_cleanup.c \
 			camera.c \
 			debug.c \
 			scene/menus/editor3d_menu.c \
@@ -58,6 +59,7 @@ SOURCES = main.c \
 			scene/menus/menu_utils.c \
 			scene/editor/editor_selection.c \
 			scene/editor/editor_utils.c \
+			scene/editor/editor_init.c \
 			scene/editor/save.c \
 			scene/editor/read.c \
 			scene/object_utils.c \

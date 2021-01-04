@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_spawn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 09:35:21 by ahakanen          #+#    #+#             */
-/*   Updated: 2020/12/30 18:31:32 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/04 20:51:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ void	npc_spawn(t_doom3d *app, t_vec3 pos, float angle, int type)
 	parse_type(app, &npc, type);
 	npc.id = next_id;
 	next_id++;
-	if (app->npc_list == NULL)
-		app->npc_list = ft_lstnew(&npc, sizeof(t_npc));
+	if (app->active_scene->npc_list == NULL)
+		app->active_scene->npc_list = ft_lstnew(&npc, sizeof(t_npc));
 	else
-		ft_lstappend(&(app->npc_list), ft_lstnew(&npc, sizeof(t_npc)));
+		ft_lstappend(&(app->active_scene->npc_list),
+			ft_lstnew(&npc, sizeof(t_npc)));
 	ft_printf("Spawned npc, id = |%d|\n", npc.id); //test
 }
