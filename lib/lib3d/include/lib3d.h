@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/22 15:49:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/30 23:12:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef enum				e_shading_opts
 	e_shading_normal_map = 1 << 1,
 	e_shading_zero_alpha = 1 << 2,
 	e_shading_ignore_zpass = 1 << 3,
+	e_shading_select = 1 << 4,
 }							t_shading_opts;
 
 typedef struct				s_surface
@@ -103,6 +104,8 @@ typedef struct				s_material
 	t_shading_opts	shading_opts;
 }							t_material;
 
+typedef struct s_3d_object	t_3d_object;
+
 /*
 ** Triangle contains pointers to vertices (which get transformed over time)
 ** Center and normal should be updated if vertices are transformed.
@@ -112,6 +115,7 @@ typedef struct				s_triangle
 {
 	t_bool			is_single_sided;
 	t_bool			clipped;
+	t_3d_object		*parent;
 	t_material		*material;
 	t_vertex		*vtc[3];
 	uint32_t		vtc_indices[3];
@@ -200,7 +204,7 @@ typedef struct				s_plane
 ** This is the main struct to hold 3d object data.
 */
 
-typedef struct				s_3d_object
+struct				s_3d_object
 {
 	uint32_t		id;
 	t_vertex		**vertices;
@@ -212,7 +216,7 @@ typedef struct				s_3d_object
 	t_mat4			scale;
 	t_vec3			position;
 	t_box3d			aabb;
-}							t_3d_object;
+};
 
 /*
 ** Utility enum for x y z axes.
@@ -395,10 +399,6 @@ t_3d_object					*l3d_3d_object_shallow_copy(t_3d_object *src);
 void						l3d_3d_object_triangle_copy_and_set(
 								t_3d_object *dst,
 								t_3d_object *src);
-void						l3d_object_set_normal_map(t_3d_object *obj,
-								t_surface *normal_map);
-void						l3d_object_set_texture(t_3d_object *obj,
-								t_surface *texture);
 
 /*
 ** OBJ reading
@@ -438,6 +438,7 @@ float						l3d_z_val(float baryc[3], t_triangle *triangle);
 uint32_t					l3d_pixel_depth_shaded(uint32_t pixel, float z_val);
 uint32_t					l3d_pixel_normal_shaded(uint32_t pixel,
 								t_triangle *triangle, t_vec2 uv);
+uint32_t					l3d_pixel_selection_shaded(uint32_t pixel);
 void						l3d_clamp_uv(t_vec2 uv);
 void						l3d_raster_draw_pixel(t_sub_framebuffer *buffers,
 									int32_t xy[2],
@@ -468,8 +469,14 @@ void						l3d_line_draw(uint32_t *buffer,
 								uint32_t dimensions_wh[2], int32_t edge[2][2],
 								uint32_t color);
 void						l3d_triangle_2d_draw(uint32_t *buffer,
-							uint32_t dimensions_wh[2],
-							t_vec2 corners[3], uint32_t color);
+								uint32_t dimensions_wh[2],
+								t_vec2 corners[3], uint32_t color);
+void						l3d_edge_aabb_intersections(t_vec2 aabb[2],
+								t_vec2 edge[2], int32_t is_intersect[4],
+								t_vec2 intersects[4]);
+t_bool						l3d_clamp_edge_within_aabb(t_vec2 aabb[2],
+								t_vec2 edge[2], int32_t is_intersect[4],
+								t_vec2 intersects[4]);
 
 /*
 ** Bmp reading

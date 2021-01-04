@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/23 12:49:17 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/04 15:16:28 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void		scene_objects_destroy(t_scene *scene)
 	int32_t		i;
 
 	i = -1;
-	while (++i < (int)scene->num_objects)
-		l3d_3d_object_destroy(scene->objects[i]);
+	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
+		if (scene->objects[i] != NULL)
+			l3d_3d_object_destroy(scene->objects[i]);
 }

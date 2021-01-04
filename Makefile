@@ -12,6 +12,7 @@ LIBGMATRIXFLAGS = -L$(LIBGMATRIX) -lgmatrix
 # Linux and MacOS specific includes & libs
 # Linux requires sdl2 installed
 UNAME := $(shell uname)
+UNAME_ALT := $(shell uname -r)
 ifeq ($(UNAME), Linux)
 	SDL_FLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf
 	LIB_MATH = -lm
@@ -25,6 +26,10 @@ else
 			-I$(LIBSDL2)/SDL2_image.framework/Headers \
 			-I$(LIBSDL2)/SDL2_ttf.framework/Headers
 endif
+# TODO make proper fix for this if
+ifeq ($(UNAME_ALT), 5.9.13-1-MANJARO-ARM)
+	LINUX_IGNOREW = -Wno-stringop-overflow
+endif
 LIBS = $(LIB3DFLAGS) $(LIBGMATRIXFLAGS) $(LIBFTFLAGS) $(SDL_FLAGS) $(LIB_MATH) $(LIB_PTHRTEAD)
 
 INCLUDES = -I ./include \
@@ -33,7 +38,7 @@ INCLUDES = -I ./include \
 		-I$(LIBGMATRIX)/include \
 		$(SDL_INCLUDES)
 
-CFLAGS =-Wall -Wextra -Werror -O3 -flto
+CFLAGS =-Wall -Wextra -Werror -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
 			doom3d.c \
 			player/player.c \
@@ -47,15 +52,15 @@ SOURCES = main.c \
 			camera.c \
 			debug.c \
 			scene/menus/editor3d_menu.c \
-			scene/menus/editor2d_menu.c \
 			scene/menus/settings_menu.c \
 			scene/menus/main_menu.c \
 			scene/menus/pause_menu.c \
 			scene/menus/menu_utils.c \
+			scene/editor/editor_selection.c \
 			scene/editor/editor_utils.c \
-			scene/editor/object_utils.c \
 			scene/editor/save.c \
 			scene/editor/read.c \
+			scene/object_utils.c \
 			scene/scene.c \
 			scene/level.c \
 			scene/cleanup.c \
@@ -70,6 +75,9 @@ SOURCES = main.c \
 			render/prepare_clip.c \
 			render/hud.c \
 			render/ui.c \
+			render/editor_ui.c \
+			render/debug/debug.c \
+			render/debug/debug_line.c \
 			window/text.c \
 			window/window.c \
 			window/frame.c \
@@ -80,8 +88,11 @@ SOURCES = main.c \
 			window/buttons/button_group.c \
 			window/buttons/button_utils.c \
 			window/buttons/button.c \
+			window/buttons/button_popup_menu.c \
+			window/buttons/button_popup_menu_events.c \
 			events/mouse_state.c \
 			events/events.c \
+			events/editor_events.c \
 			events/keyboard_state.c \
 			events/general_input_events.c
 
@@ -111,6 +122,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/window
 	@mkdir -p temp/window/buttons
 	@mkdir -p temp/render
+	@mkdir -p temp/render/debug
 	@mkdir -p temp/events
 	@mkdir -p temp/player
 	@mkdir -p temp/npc

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:32:17 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 16:20:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/29 14:43:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,15 @@ static void		window_editor_framebuffer_recreate(t_window *window)
 	int32_t			width;
 	int32_t			height;
 
-	width = window->framebuffer->width / 4 * 3;
-	height = window->framebuffer->height / 4 * 3;
+	width = window->framebuffer->width / 6 * 5;
+	height = window->framebuffer->height / 7 * 6;
 	while (width % 4 != 0)
 		width++;
 	while (height % 4 != 0)
 		height++;
 	l3d_framebuffer_recreate(&window->editor_framebuffer, width, height);
-	window->editor_pos[0] = window->framebuffer->width / 2 -
-		window->editor_framebuffer->width / 2;
-	window->editor_pos[1] = window->framebuffer->height / 2 -
-		window->editor_framebuffer->height / 2;
+	window->editor_pos[0] = window->framebuffer->width - width - 10;
+	window->editor_pos[1] = 10;
 }
 
 void			window_frame_recreate(t_window *window)
