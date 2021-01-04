@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   npc_cleanup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/24 18:14:58 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 15:44:55 by ahakanen         ###   ########.fr       */
+/*   Created: 2021/01/04 16:32:20 by ahakanen          #+#    #+#             */
+/*   Updated: 2021/01/04 16:44:28 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "doom3d.h"
 
-/*
-** The ft_lstiter() function iterates over all list elements
-** applying a function f on each element.
-*/
-
-void	ft_lstiter(t_list *lst, void (*f)(t_list*))
+static void	delete_npc(void *npc, size_t size)
 {
-	if (lst && f)
-	{
-		f(lst);
-		ft_lstiter(lst->next, f);
-	}
+  (void)size;
+  if (npc != NULL)
+    free(npc);
+}
+
+void		npc_cleanup(t_doom3d *app)
+{
+    ft_lstdel(app->npc_list, delete_npc);
 }

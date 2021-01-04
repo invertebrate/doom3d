@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 23:51:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/04 16:28:55 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 # define Y_DIR -1
 # define Z_DIR 1
 
+#define DEFAULT_MODEL "assets/models/box.obj"
+#define DEFAULT_TEXTURE "assets/textures/rock.bmp"
+
 typedef enum				e_move
 {
 	move_forward,
@@ -56,6 +59,13 @@ typedef enum				e_scene_id
 	scene_id_main_game,
 	scene_id_editor3d,
 }							t_scene_id;
+
+typedef enum				e_npc_state
+{
+	state_idle,
+	state_attack,
+	state_atk_anim,
+}							t_npc_state;
 
 typedef struct				s_camera
 {
@@ -174,9 +184,33 @@ typedef struct				s_doom3d
 	char					*level_list[MAX_LEVELS];
 	uint32_t				num_levels;
 	uint32_t				current_level;
+	uint32_t				editor_level;
+
+	t_list					*npc_list;
+	uint32_t				npc_update_timer;
 	t_editor				editor;
 	t_settings				settings;
 }							t_doom3d;
+
+typedef struct				s_npc
+{
+	t_doom3d				*app;
+	t_vec3					pos;
+	t_vec3					dir;
+	float					angle;
+	float					vision_range;
+	float					atk_range;
+	uint32_t				atk_start;
+	uint32_t				atk_dur;
+	uint32_t				atk_timer;
+	float					speed;
+	float					rot_speed;
+	float					dist;
+	int						state;
+	int						hp;
+	int						id;
+	t_3d_object				*obj;
+}							t_npc;
 
 /*
 ** For parallelization
@@ -213,6 +247,16 @@ void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						editor_vertical_move(t_doom3d *app, float speed);
 
+/*
+** Npc
+*/
+void						npc_controller_init(t_doom3d *app);
+void						npc_controller(t_doom3d *app);
+void						npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
+								int type);
+void						npc_update(t_list *npc);
+void						npc_execute_behavior(t_list *npc);
+void						npc_default(t_doom3d *app, t_npc *npc);
 /*
 ** Events
 */
