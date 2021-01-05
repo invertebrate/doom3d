@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 19:25:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 16:11:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ static void		render_work(void *params)
 	if (work->app->active_scene->scene_id == scene_id_editor3d)
 	{
 		if (work->app->editor.selected_object)
+		{
 			draw_selected_wireframe(work);
+			if (work->app->editor.selected_npc)
+				draw_selected_enemy_direction(work);
+		}
 		//!Debug bounding box with draw_selected_aabb(work);
 	}
 	draw_buffers(work);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 15:51:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 16:11:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,6 +340,7 @@ void						draw_selected_wireframe(t_render_work *work);
 t_bool						triangle_outside_frame(t_triangle *triangle,
 								t_sub_framebuffer *sub_buffer);
 void						draw_selected_aabb(t_render_work *work);
+void						draw_selected_enemy_direction(t_render_work *work);
 
 /*
 ** Scene

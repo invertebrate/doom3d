@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 09:35:21 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/05 15:29:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 16:15:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void		place_npc_object_in_scene(t_doom3d *app, t_npc *npc)
 		(const char*[3]){npc->model_key, npc->texture_key, npc->normal_map_key},
 		npc->pos);
 	npc->obj = app->active_scene->objects[app->active_scene->num_objects - 1];
+	l3d_3d_object_rotate(npc->obj, 0, npc->angle, 0);
 }
 
 static void		parse_type(t_doom3d *app, t_npc *npc, int type)
