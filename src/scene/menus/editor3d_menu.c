@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 16:54:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 19:13:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void			on_delete_menu_button_click(t_button *self, void *params)
 		{
 			npc_to_delete =  app->editor.selected_npc;
 			editor_deselect(app);
-			npc_delete_one(npc_to_delete);
+			npc_set_to_be_deleted(npc_to_delete);
 			app->editor.is_saved = false;
 		}
 		else if (app->editor.selected_object)

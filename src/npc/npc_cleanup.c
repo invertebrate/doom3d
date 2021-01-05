@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:32:20 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/05 17:23:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 19:13:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		npc_cleanup(t_doom3d *app)
 ** Set npcs to be deleted
 */
 
-void		npc_delete_one(t_npc *npc_to_delete)
+void		npc_set_to_be_deleted(t_npc *npc_to_delete)
 {
 	npc_to_delete->is_deleted = true;
 }
