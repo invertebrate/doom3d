@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 16:54:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 17:20:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ typedef struct				s_scene
 	t_surface				*skybox_textures[6];
 	t_3d_object				*skybox[6];
 	t_list					*npc_list;
+	uint32_t				num_npcs;
 	uint32_t				npc_update_timer;
 }							t_scene;
 

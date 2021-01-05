@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 09:35:21 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/05 16:51:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 17:21:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void		parse_type(t_doom3d *app, t_npc *npc, int type)
 
 void			npc_spawn(t_doom3d *app, t_vec3 pos, float angle, int type)
 {
-	static int	next_id;
 	t_npc		npc;
 
 	npc.is_deleted = false;
@@ -39,8 +38,7 @@ void			npc_spawn(t_doom3d *app, t_vec3 pos, float angle, int type)
 	ml_vector3_copy(pos, npc.pos);
 	npc.angle = angle;
 	parse_type(app, &npc, type);
-	npc.id = next_id;
-	next_id++;
+	npc.id = l3d_random_uuid();
 	place_npc_object_in_scene(app, &npc);
 	if (app->active_scene->npc_list == NULL)
 		app->active_scene->npc_list = ft_lstnew(&npc, sizeof(t_npc));
@@ -48,4 +46,5 @@ void			npc_spawn(t_doom3d *app, t_vec3 pos, float angle, int type)
 		ft_lstappend(&(app->active_scene->npc_list),
 			ft_lstnew(&npc, sizeof(t_npc)));
 	ft_printf("Spawned npc, id = |%d|\n", npc.id); //test
+	app->active_scene->num_npcs++;
 }
