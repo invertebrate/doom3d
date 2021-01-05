@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 15:26:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 15:51:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ typedef enum				e_editor_menu_index
 	editor_menu_enemies = 6,
 }							t_editor_menu_index;
 
+typedef struct s_npc		t_npc;
+
 typedef struct 				s_editor
 {
 	t_bool					is_saving;
@@ -163,6 +165,7 @@ typedef struct 				s_editor
 	char					editor_savename[128];
 	char					selected_object_str[128];
 	t_3d_object				*selected_object;
+	t_npc					*selected_npc;
 }							t_editor;
 
 typedef struct				s_settings
@@ -198,7 +201,7 @@ typedef enum				e_npc_type
 {
 	npc_type_default,
 }							t_npc_type;
-typedef struct				s_npc
+struct						s_npc
 {
 	t_doom3d				*app;
 	t_vec3					pos;
@@ -220,7 +223,7 @@ typedef struct				s_npc
 	const char				*normal_map_key;
 	const char				*model_key;
 	t_3d_object				*obj;
-}							t_npc;
+};
 
 /*
 ** For parallelization
@@ -268,6 +271,8 @@ void						npc_update(t_list *npc);
 void						npc_execute_behavior(t_list *npc);
 void						npc_default(t_doom3d *app, t_npc *npc);
 void						npc_cleanup(t_doom3d *app);
+t_npc						*find_npc_by_object_id(t_doom3d *app,
+								uint32_t object_id);
 
 /*
 ** Events

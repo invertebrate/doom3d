@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/04 21:06:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 15:44:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static void		game_init(t_doom3d *app)
 static void		scene_editor_init(t_doom3d *app)
 {
 	app->editor.selected_object = NULL;
+	app->editor.selected_npc = NULL;
 	app->editor.is_moving = false;
 	if (app->level_list[app->editor.editor_level])
 	{

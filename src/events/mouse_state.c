@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 18:30:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 16:02:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,35 @@ static void				object_rotation_handle(t_doom3d *app,
 {
 	static uint32_t		last_rotated;
 	uint32_t			diff;
+	float				angle;
 
 	diff = SDL_GetTicks() - last_rotated;
-	if (diff > 200 && ft_abs(xrel) > 2 && ft_abs(yrel) < 8)
+	if (app->editor.selected_npc)
+	{
+		angle = (xrel > 0 ? 1 : -1);
+		l3d_3d_object_rotate(app->editor.selected_object,
+			 0, angle, 0);
+		app->editor.selected_npc->angle = angle;
+		last_rotated = SDL_GetTicks();
+		after_editor_transform(app, &last_rotated);
+		return ;
+	}
+	if (app->keyboard.state[SDL_SCANCODE_Q] && diff > 100 && ft_abs(xrel) > 2)
+	{
+		angle = (xrel > 0 ? 1 : -1);
+		l3d_3d_object_rotate(app->editor.selected_object,
+			 0, angle, 0);
+		last_rotated = SDL_GetTicks();
+		after_editor_transform(app, &last_rotated);
+	}
+	else if (diff > 100 && ft_abs(xrel) > 2 && ft_abs(yrel) < 8)
 	{
 		l3d_3d_object_rotate(app->editor.selected_object,
 			 0, 0, (xrel > 0 ? 1 : -1) * 10);
 		last_rotated = SDL_GetTicks();
 		after_editor_transform(app, &last_rotated);
 	}
-	else if (diff > 200 && ft_abs(yrel) > 2 && ft_abs(xrel) < 8)
+	else if (diff > 100 && ft_abs(yrel) > 2 && ft_abs(xrel) < 8)
 	{
 		l3d_3d_object_rotate(app->editor.selected_object,
 			(yrel > 0 ? 1 : -1) * 10, 0, 0);

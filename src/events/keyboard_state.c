@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 18:28:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 15:55:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,11 @@ static void		handle_editor_transform(t_doom3d *app)
 		l3d_3d_object_scale(app->editor.selected_object,
 			1.1, 1.1, 1.1);
 		after_editor_transform(app, &last_changed);
+	}
+	if (app->editor.selected_npc)
+	{
+		ml_vector3_copy(app->editor.selected_object->position,
+			app->editor.selected_npc->pos);
 	}
 }
 

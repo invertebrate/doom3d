@@ -50,6 +50,7 @@ SOURCES = main.c \
 			npc/npc_spawn.c \
 			npc/npc_update.c \
 			npc/npc_cleanup.c \
+			npc/npc_utils.c \
 			camera.c \
 			debug.c \
 			scene/menus/editor3d_menu.c \
