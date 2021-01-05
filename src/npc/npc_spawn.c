@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 09:35:21 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/05 18:49:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 19:42:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void			npc_add_to_scene(t_doom3d *app, t_npc *npc)
 
 void			npc_init(t_doom3d *app, t_npc *npc)
 {
+	ft_memset(npc, 0, sizeof(t_npc));
 	npc->is_deleted = false;
 	npc->app = app;
 }
