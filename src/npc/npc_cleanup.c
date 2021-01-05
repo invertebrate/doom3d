@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:32:20 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/05 17:17:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 17:19:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ static void	delete_npc(void *npc, size_t size)
 	}
 }
 
+/*
+** Clean all npcs e.g when scene changes or app is stopped
+*/
+
 void		npc_cleanup(t_doom3d *app)
 {
 	if (app->active_scene->npc_list == NULL)
@@ -31,10 +35,19 @@ void		npc_cleanup(t_doom3d *app)
 	app->active_scene->npc_list = NULL;
 }
 
+/*
+** Set npcs to be deleted
+*/
+
 void		npc_delete_one(t_npc *npc_to_delete)
 {
 	npc_to_delete->is_deleted = true;
 }
+
+/*
+** Called in main loop in doom3d.c to handle npcs deletions in the beginning
+** of the loop.
+*/
 
 void		handle_npc_deletions(t_doom3d *app)
 {
