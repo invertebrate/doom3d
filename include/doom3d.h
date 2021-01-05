@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 17:20:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 18:53:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,6 +277,9 @@ t_npc						*find_npc_by_object_id(t_doom3d *app,
 								uint32_t object_id);
 void						npc_delete_one(t_npc *npc_to_delete);
 void						handle_npc_deletions(t_doom3d *app);
+void						npc_add_to_scene(t_doom3d *app, t_npc *npc);
+void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
+void						npc_init(t_doom3d *app, t_npc *npc);
 
 /*
 ** Events
@@ -387,6 +390,8 @@ void						after_editor_transform(t_doom3d *app,
 								uint32_t *last_changed);
 void						handle_object_deletions(t_doom3d *app);
 void    					editor_init(t_doom3d *app);
+t_3d_object					*find_object_by_id(t_doom3d *app,
+								uint32_t object_id);
 
 /*
 ** Level

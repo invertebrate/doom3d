@@ -6,11 +6,24 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/03 00:05:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 18:53:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+t_3d_object		*find_object_by_id(t_doom3d *app, uint32_t object_id)
+{
+	int32_t	i;
+
+	i = -1;
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
+		if (app->active_scene->objects[i] &&
+			app->active_scene->objects[i]->id == object_id)
+			return (app->active_scene->objects[i]);
+	return (NULL);
+}
 
 /*
 ** // !Note that this (inc/dec)rements both num_deleted and num_objects

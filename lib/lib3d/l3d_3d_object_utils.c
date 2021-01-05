@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:34:25 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 19:32:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 18:17:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_3d_object		*l3d_3d_object_shallow_copy(t_3d_object *src)
 	t_3d_object	*dst;
 
 	dst = l3d_3d_object_create(src->num_vertices, src->num_triangles);
+	dst->id = src->id;
 	if (!dst || !src)
 		return (NULL);
 	ml_matrix4_copy(src->scale, dst->scale);
