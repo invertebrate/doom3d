@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 20:41:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 16:21:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,18 @@ static void		editor_object_location_render(t_doom3d *app)
 	color = app->editor.is_saved ? 0x00ff00ff : 0xff0000ff;
 	l3d_u32_to_rgba(color, rgba);
 	ft_memset(str, 0, sizeof(str));
-	ft_sprintf(str, "pos: [%.2f, %.2f, %.2f]",
-		app->editor.selected_object->position[0] / app->unit_size,
-		app->editor.selected_object->position[1] / app->unit_size,
-		app->editor.selected_object->position[2] / app->unit_size
-	);
+	if (app->editor.selected_npc)
+		ft_sprintf(str, "pos: [%.2f, %.2f, %.2f]",
+			app->editor.selected_npc->pos[0] / app->unit_size,
+			app->editor.selected_npc->pos[1] / app->unit_size,
+			app->editor.selected_npc->pos[2] / app->unit_size
+		);
+	else
+		ft_sprintf(str, "pos: [%.2f, %.2f, %.2f]",
+			app->editor.selected_object->position[0] / app->unit_size,
+			app->editor.selected_object->position[1] / app->unit_size,
+			app->editor.selected_object->position[2] / app->unit_size
+		);
 	window_text_render(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
 		.xy = (int[2]){app->window->framebuffer->width / 4,
@@ -116,7 +123,7 @@ void		editor_ui_render(t_doom3d *app)
 	ft_sprintf(guide, "WASD: Move, "
 		"MouseL: Rotate, "
 		"MouseR: Select, "
-		"MouseM: Rotate selected, "
+		"MouseM (/+ Q): Rotate selected, "
 		"Arrows: Move selected x, z, "
 		"O,L: Move selected y, "
 		"[, ]: Scale selected");

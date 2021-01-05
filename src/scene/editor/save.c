@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 20:17:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 18:51:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,44 @@ static void	write_obj_content(int32_t fd, t_doom3d *app, t_3d_object *obj)
 	ret = write(fd, normal_map_file, len);
 	// !Write the shading opts
 	ret = write(fd, &obj->material->shading_opts, sizeof(uint32_t));
-	(void)ret;
+}
+
+
+static void	write_npc_content(int32_t fd, t_npc *npc)
+{
+	int32_t			ret;
+
+	ret = write(fd, &npc->type, sizeof(t_npc_type));
+	ret = write(fd, &npc->id, sizeof(uint32_t));
+	ret = write(fd, &npc->obj->id, sizeof(uint32_t));
+	ret = write(fd, npc->pos, sizeof(t_vec3));
+	ret = write(fd, &npc->angle, sizeof(float));
 }
 
 static void	write_map(int32_t fd, t_doom3d *app)
 {
 	int32_t		i;
 	int32_t		ret;
+	t_list		*node;
+	t_npc		*npc;
 
 	ret = write(fd, "MAP\0", 4);
 	ret = write(fd, &app->active_scene->num_objects, sizeof(uint32_t));
-	(void)ret;
+	ret = write(fd, &app->active_scene->num_npcs, sizeof(uint32_t));
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects +
 		app->active_scene->num_deleted))
 		if (app->active_scene->objects[i])
 			write_obj_content(fd, app, app->active_scene->objects[i]);
+	i = 0;
+	node = app->active_scene->npc_list;
+	while (node && i < (int32_t)app->active_scene->num_npcs)
+	{
+		npc = (t_npc*)node->content;
+		write_npc_content(fd, npc);
+		node = node->next;
+		i++;
+	}
 }
 
 void		save_map(t_doom3d *app)

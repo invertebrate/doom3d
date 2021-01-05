@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:47:28 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/04 21:03:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 19:48:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	npc_controller(t_doom3d *app)
 	static uint32_t	old_time;
 	uint32_t		new_time;
 
-	if (app->active_scene->scene_id != scene_id_main_game)
+	if (app->active_scene->is_paused ||
+		app->active_scene->scene_id != scene_id_main_game)
 		return ;
 	new_time = SDL_GetTicks();
 	if (!old_time)

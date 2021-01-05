@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/04 20:59:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 19:13:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@
 # define Y_DIR -1
 # define Z_DIR 1
 
-#define DEFAULT_MODEL "assets/models/box.obj"
-#define DEFAULT_TEXTURE "assets/textures/rock.bmp"
+# define NPC_DEFAULT_MODEL "assets/models/box.obj"
+# define NPC_DEFAULT_TEXTURE "assets/textures/rock.bmp"
+# define NPC_DEFAULT_NORMM "assets/textures/rock.bmp"
 
 typedef enum				e_move
 {
@@ -104,9 +105,11 @@ typedef struct				s_asset_files
 	const char				*texture_files[MAX_ASSETS];
 	const char				*normal_map_files[MAX_ASSETS];
 	const char				*model_files[MAX_ASSETS];
+	const char				*npc_names[MAX_ASSETS];
 	uint32_t				num_models;
 	uint32_t				num_textures;
 	uint32_t				num_normal_maps;
+	uint32_t				num_npcs;
 }							t_asset_files;
 
 typedef struct				s_scene
@@ -127,12 +130,14 @@ typedef struct				s_scene
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
 	t_hash_table			*models;
+	t_hash_table			*npc_map;
 	t_hash_table			*object_textures;
 	t_hash_table			*object_normal_maps;
 	t_asset_files			asset_files;
 	t_surface				*skybox_textures[6];
 	t_3d_object				*skybox[6];
 	t_list					*npc_list;
+	uint32_t				num_npcs;
 	uint32_t				npc_update_timer;
 }							t_scene;
 
@@ -147,6 +152,8 @@ typedef enum				e_editor_menu_index
 	editor_menu_enemies = 6,
 }							t_editor_menu_index;
 
+typedef struct s_npc		t_npc;
+
 typedef struct 				s_editor
 {
 	t_bool					is_saving;
@@ -159,6 +166,7 @@ typedef struct 				s_editor
 	char					editor_savename[128];
 	char					selected_object_str[128];
 	t_3d_object				*selected_object;
+	t_npc					*selected_npc;
 }							t_editor;
 
 typedef struct				s_settings
@@ -190,7 +198,11 @@ typedef struct				s_doom3d
 	t_settings				settings;
 }							t_doom3d;
 
-typedef struct				s_npc
+typedef enum				e_npc_type
+{
+	npc_type_default,
+}							t_npc_type;
+struct						s_npc
 {
 	t_doom3d				*app;
 	t_vec3					pos;
@@ -207,8 +219,13 @@ typedef struct				s_npc
 	int						state;
 	int						hp;
 	int						id;
+	int						type;
+	const char				*texture_key;
+	const char				*normal_map_key;
+	const char				*model_key;
 	t_3d_object				*obj;
-}							t_npc;
+	t_bool					is_deleted;
+};
 
 /*
 ** For parallelization
@@ -256,6 +273,13 @@ void						npc_update(t_list *npc);
 void						npc_execute_behavior(t_list *npc);
 void						npc_default(t_doom3d *app, t_npc *npc);
 void						npc_cleanup(t_doom3d *app);
+t_npc						*find_npc_by_object_id(t_doom3d *app,
+								uint32_t object_id);
+void						npc_set_to_be_deleted(t_npc *npc_to_delete);
+void						handle_npc_deletions(t_doom3d *app);
+void						npc_add_to_scene(t_doom3d *app, t_npc *npc);
+void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
+void						npc_init(t_doom3d *app, t_npc *npc);
 
 /*
 ** Events
@@ -323,6 +347,7 @@ void						draw_selected_wireframe(t_render_work *work);
 t_bool						triangle_outside_frame(t_triangle *triangle,
 								t_sub_framebuffer *sub_buffer);
 void						draw_selected_aabb(t_render_work *work);
+void						draw_selected_enemy_direction(t_render_work *work);
 
 /*
 ** Scene
@@ -365,6 +390,8 @@ void						after_editor_transform(t_doom3d *app,
 								uint32_t *last_changed);
 void						handle_object_deletions(t_doom3d *app);
 void    					editor_init(t_doom3d *app);
+t_3d_object					*find_object_by_id(t_doom3d *app,
+								uint32_t object_id);
 
 /*
 ** Level

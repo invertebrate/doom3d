@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_default.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/04 16:27:35 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:15:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	npc_default(t_doom3d *app, t_npc *npc)
 {
+	npc->type = npc_type_default;
 	npc->speed = app->unit_size / 32;
 	npc->rot_speed = 10;
 	npc->state = 0;
@@ -21,7 +22,7 @@ void	npc_default(t_doom3d *app, t_npc *npc)
 	npc->atk_range = app->unit_size * 5;
 	npc->atk_dur = 500;
 	npc->vision_range = app->unit_size * 10;
-	place_scene_object(app, (const char*[3]){DEFAULT_MODEL, DEFAULT_TEXTURE,
-		NULL}, (t_vec3){npc->pos[0], npc->pos[1], npc->pos[2]});
-	npc->obj = app->active_scene->objects[app->active_scene->num_objects - 1];
+	npc->model_key = NPC_DEFAULT_MODEL;
+	npc->texture_key = NPC_DEFAULT_TEXTURE;
+	npc->normal_map_key = NPC_DEFAULT_NORMM;
 }

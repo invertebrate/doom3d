@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/04 15:16:28 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/05 15:26:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void		scene_models_destroy(t_scene *scene)
 			(int64_t)scene->asset_files.model_files[i])))
 			l3d_3d_object_destroy(model);
 	hash_map_destroy(scene->models);
+	hash_map_destroy(scene->npc_map);
 }
 
 void		scene_skybox_destroy(t_scene *scene)

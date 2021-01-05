@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/04 15:12:46 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/05 15:31:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 	scene_set_skybox_textures(scene);
 }
 
+static void		npcs_load(t_scene *scene)
+{
+	scene->asset_files.npc_names[scene->asset_files.num_npcs] = "Default Enemy";
+	hash_map_add(scene->npc_map,
+		(int64_t)scene->asset_files.npc_names[scene->asset_files.num_npcs++],
+			npc_default);
+}
+
 static void		scene_texture_files_set(t_asset_files *data)
 {
 	data->texture_files[data->num_textures++] =
@@ -91,8 +99,10 @@ void			scene_assets_load(t_scene *scene)
 	scene->asset_files.num_models = 0;
 	scene->asset_files.num_textures = 0;
 	scene->asset_files.num_normal_maps = 0;
+	scene->asset_files.num_npcs = 0;
 	scene_texture_files_set(&scene->asset_files);
 	scene_normal_files_set(&scene->asset_files);
 	scene_model_files_set(&scene->asset_files);
 	assets_load(scene, &scene->asset_files);
+	npcs_load(scene);
 }

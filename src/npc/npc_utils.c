@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   npc_execute_behavior.c                             :+:      :+:    :+:   */
+/*   npc_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/29 17:22:03 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/05 19:43:02 by ohakola          ###   ########.fr       */
+/*   Created: 2021/01/05 15:38:16 by ohakola           #+#    #+#             */
+/*   Updated: 2021/01/05 18:07:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	npc_execute_behavior(t_list *npc)
-{
-	t_npc	*tmp;
+/*
+** Useful in collisions or editor selection :). When you have access to an
+** object, and need its npc (if it has one)
+*/
 
-	tmp = npc->content;
-	/*
-	check state of npc
-	*/
-	if (tmp->state == state_idle)
+t_npc		*find_npc_by_object_id(t_doom3d *app, uint32_t object_id)
+{
+	t_list	*node;
+	t_npc	*npc;
+
+	node = app->active_scene->npc_list;
+	while (node)
 	{
-		/*
-		DO IDLE THINGS WITH THIS NPC
-		*/
+		npc = (t_npc*)node->content;
+		if (npc->obj->id == object_id)
+			return (npc);
+		node = node->next;
 	}
-	else if (tmp->state == state_attack)
-	{
-		/*
-		DO ATTACK THINGS WITH THIS NPC
-		follow path to attack
-		*/
-		l3d_3d_object_translate(tmp->obj, -tmp->dir[0], -tmp->dir[1], -tmp->dir[2]);
-		ml_vector3_copy(tmp->obj->position, tmp->pos);
-	}
+	return (NULL);
 }
