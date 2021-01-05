@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/04 20:59:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 15:26:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@
 # define Y_DIR -1
 # define Z_DIR 1
 
-#define DEFAULT_MODEL "assets/models/box.obj"
-#define DEFAULT_TEXTURE "assets/textures/rock.bmp"
+# define NPC_DEFAULT_MODEL "assets/models/box.obj"
+# define NPC_DEFAULT_TEXTURE "assets/textures/rock.bmp"
+# define NPC_DEFAULT_NORMM "assets/textures/rock.bmp"
 
 typedef enum				e_move
 {
@@ -104,9 +105,11 @@ typedef struct				s_asset_files
 	const char				*texture_files[MAX_ASSETS];
 	const char				*normal_map_files[MAX_ASSETS];
 	const char				*model_files[MAX_ASSETS];
+	const char				*npc_names[MAX_ASSETS];
 	uint32_t				num_models;
 	uint32_t				num_textures;
 	uint32_t				num_normal_maps;
+	uint32_t				num_npcs;
 }							t_asset_files;
 
 typedef struct				s_scene
@@ -127,6 +130,7 @@ typedef struct				s_scene
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
 	t_hash_table			*models;
+	t_hash_table			*npc_map;
 	t_hash_table			*object_textures;
 	t_hash_table			*object_normal_maps;
 	t_asset_files			asset_files;
@@ -190,6 +194,10 @@ typedef struct				s_doom3d
 	t_settings				settings;
 }							t_doom3d;
 
+typedef enum				e_npc_type
+{
+	npc_type_default,
+}							t_npc_type;
 typedef struct				s_npc
 {
 	t_doom3d				*app;
@@ -207,6 +215,10 @@ typedef struct				s_npc
 	int						state;
 	int						hp;
 	int						id;
+	int						type;
+	const char				*texture_key;
+	const char				*normal_map_key;
+	const char				*model_key;
 	t_3d_object				*obj;
 }							t_npc;
 
