@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 15:35:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 16:54:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,19 @@ static void			on_delete_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d			*app;
 	t_3d_object			*object_to_delete;
+	t_npc				*npc_to_delete;
 
 	app = params;
 	if (self->id == 0)
 	{
-		if (app->editor.selected_object)
+		if (app->editor.selected_npc)
+		{
+			npc_to_delete =  app->editor.selected_npc;
+			editor_deselect(app);
+			npc_delete_one(npc_to_delete);
+			app->editor.is_saved = false;
+		}
+		else if (app->editor.selected_object)
 		{
 			object_to_delete = app->editor.selected_object;
 			editor_deselect(app);

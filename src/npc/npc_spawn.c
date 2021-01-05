@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 09:35:21 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/05 16:15:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 16:51:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void			npc_spawn(t_doom3d *app, t_vec3 pos, float angle, int type)
 	static int	next_id;
 	t_npc		npc;
 
+	npc.is_deleted = false;
 	npc.app = app;
 	ml_vector3_copy(pos, npc.pos);
 	npc.angle = angle;

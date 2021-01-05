@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 16:11:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/05 16:54:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ struct						s_npc
 	const char				*normal_map_key;
 	const char				*model_key;
 	t_3d_object				*obj;
+	t_bool					is_deleted;
 };
 
 /*
@@ -273,6 +274,8 @@ void						npc_default(t_doom3d *app, t_npc *npc);
 void						npc_cleanup(t_doom3d *app);
 t_npc						*find_npc_by_object_id(t_doom3d *app,
 								uint32_t object_id);
+void						npc_delete_one(t_npc *npc_to_delete);
+void						handle_npc_deletions(t_doom3d *app);
 
 /*
 ** Events
