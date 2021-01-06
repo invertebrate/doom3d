@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 18:15:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 18:32:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,7 +384,7 @@ const char					*texture_file_key(char *filename, t_doom3d *app);
 void						place_scene_object(t_doom3d *app,
 								const char *filenames[3],
 								t_vec3 pos);
-void						set_object_for_deletion(t_doom3d *app,
+void						object_set_for_deletion(t_doom3d *app,
 								t_3d_object *object);
 void						place_procedural_scene_object(t_doom3d *app,
 								t_3d_object *model,

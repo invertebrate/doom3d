@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 16:45:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 18:32:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static uint32_t	next_object_index(t_doom3d *app)
 	return (next_index);
 }
 
-void			set_object_for_deletion(t_doom3d *app, t_3d_object *object)
+void			object_set_for_deletion(t_doom3d *app, t_3d_object *object)
 {
 	int32_t		i;
 	uint32_t	del_index;

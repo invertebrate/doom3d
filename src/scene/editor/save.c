@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:35:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 18:47:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static void	write_obj_content(int32_t fd, t_doom3d *app, t_3d_object *obj)
 	ret = write(fd, normal_map_file, len);
 	// !Write the shading opts
 	ret = write(fd, &obj->material->shading_opts, sizeof(uint32_t));
+	if (obj->type == object_type_npc)
+		ft_printf("angle %f\n", ((t_npc*)obj->params)->angle);
 }
 
 static void	write_map(int32_t fd, t_doom3d *app)

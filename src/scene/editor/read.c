@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 18:22:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 18:58:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,21 @@ static int32_t	read_obj_normal_map(t_3d_object *obj,
 	return (offset);
 }
 
+
+float			pitch_from_rotation_matrix(t_mat4 rotation)
+{
+	if (rotation[0][2] != 1 && rotation[0][2] != -1)
+	{
+		return (-1 * asin(rotation[0][2]));
+	}
+	return (rotation[0][2] > 0 ? -M_PI / 2.0 : M_PI / 2.0);
+}
 /*
 ** Based on obj type & obj params type sets the params to correct data
 ** E.g. obj type == npc, then check obj params type, and set npc data to
 ** corresponding npc type
+** for npc angle:
+** https://stackoverflow.com/questions/15022630/
 */
 
 static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
@@ -69,10 +80,11 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 	if (obj->type == object_type_npc)
 	{
 		if (obj->params_type == npc_type_default)
-		{
 			npc_default(app, &npc);
-			l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
-		}
+		else
+			return ;
+		npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
+		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
 	}
 }
 
