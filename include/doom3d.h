@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 16:15:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 16:42:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,12 +266,14 @@ void						editor_vertical_move(t_doom3d *app, float speed);
 /*
 ** Npc
 */
-void						npc_controller_init(t_doom3d *app);
-void						npc_controller(t_doom3d *app);
+
+void						npc_controller(t_doom3d *app,
+								t_3d_object *npc_object);
 void						npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
 								int type);
 void						npc_update(t_doom3d *app, t_3d_object *npc_obj);
-void						npc_execute_behavior(t_doom3d *app, t_3d_object *npc_obj);
+void						npc_execute_behavior(t_doom3d *app,
+								t_3d_object *npc_obj);
 void						npc_default(t_doom3d *app, t_npc *npc);
 void						npc_cleanup(t_doom3d *app);
 t_npc						*find_npc_by_object_id(t_doom3d *app,

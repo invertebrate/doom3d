@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 15:55:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 16:45:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,4 +136,16 @@ void			place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 			obj->id, (void*)filenames[1]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
+}
+
+void			object_type_to_str(t_3d_object *obj, char *str)
+{
+	if (obj->type == object_type_default)
+		ft_sprintf(str, "%s", "3d-Object");
+	else if (obj->type == object_type_npc)
+		ft_sprintf(str, "%s", "NPC");
+	else if (obj->type == object_type_trigger)
+		ft_sprintf(str, "%s", "Trigger");
+	else if (obj->type == object_type_projectile)
+		ft_sprintf(str, "%s", "Projectile");
 }
