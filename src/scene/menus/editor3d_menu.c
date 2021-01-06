@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 16:04:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:04:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,7 @@ static void			on_delete_menu_button_click(t_button *self, void *params)
 	app = params;
 	if (self->id == 0)
 	{
-		if (app->editor.selected_npc)
-		{
-			npc_to_delete =  app->editor.selected_npc;
-			editor_deselect(app);
-			npc_set_to_be_deleted(npc_to_delete);
-			app->editor.is_saved = false;
-		}
-		else if (app->editor.selected_object)
+		if (app->editor.selected_object)
 		{
 			object_to_delete = app->editor.selected_object;
 			editor_deselect(app);
@@ -97,11 +90,11 @@ static void			on_normmaps_menu_button_click(t_button *self, void *params)
 	}
 }
 
-static void			on_enemy_menu_button_click(t_button *self, void *params)
+static void			on_prefab_menu_button_click(t_button *self, void *params)
 {
-	t_doom3d	*app;
-	t_npc_type	type;
-	void		*get_res;
+	t_doom3d		*app;
+	t_object_type	type;
+	void			*get_res;
 
 	app = params;
 	get_res = hash_map_get(app->active_scene->prefab_map,
@@ -144,12 +137,12 @@ static void			create_popup_menu(t_doom3d *app,
 			.on_click = on_normmaps_menu_button_click,
 			.button_font = app->window->debug_font,
 		});
-	else if (new_menu == editor_menu_enemies)
+	else if (new_menu == editor_menu_prefabs)
 		button_menu = button_menu_create(app,
 		(t_button_menu_params){
-			.button_names = app->active_scene->asset_files.npc_names,
+			.button_names = app->active_scene->asset_files.prefab_names,
 			.num_buttons = app->active_scene->asset_files.num_npcs,
-			.on_click = on_enemy_menu_button_click,
+			.on_click = on_prefab_menu_button_click,
 			.button_font = app->window->debug_font,
 		});
 	else
@@ -194,7 +187,7 @@ static void			on_editor_menu_button_click(t_button *self, void *params)
 		else if (self->id == 4)
 			new_menu_id = editor_menu_normalmaps;
 		else if (self->id == 5)
-			new_menu_id = editor_menu_enemies;
+			new_menu_id = editor_menu_prefabs;
 		create_or_open_popup_menu(app, new_menu_id, self);
 	}
 }
@@ -209,7 +202,7 @@ void				editor3d_menu_create(t_doom3d *app)
 				"Objects",
 				"Textures",
 				"NormMaps",
-				"Enemies"},
+				"Prefabs"},
 			.num_buttons = 6,
 			.on_click = on_editor_menu_button_click,
 			.button_font = app->window->main_font,

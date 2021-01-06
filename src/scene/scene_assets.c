@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 16:04:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 16:53:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,12 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 	scene_set_skybox_textures(scene);
 }
 
-static void		npcs_load(t_scene *scene)
+static void		prefabs_load(t_scene *scene)
 {
-	scene->asset_files.npc_names[scene->asset_files.num_npcs] = "Default Enemy";
+	scene->asset_files.prefab_names[scene->asset_files.num_npcs] =
+		"Default Enemy";
 	hash_map_add(scene->prefab_map,
-		(int64_t)scene->asset_files.npc_names[scene->asset_files.num_npcs++],
+		(int64_t)scene->asset_files.prefab_names[scene->asset_files.num_npcs++],
 			npc_default);
 }
 
@@ -104,5 +105,5 @@ void			scene_assets_load(t_scene *scene)
 	scene_normal_files_set(&scene->asset_files);
 	scene_model_files_set(&scene->asset_files);
 	assets_load(scene, &scene->asset_files);
-	npcs_load(scene);
+	prefabs_load(scene);
 }

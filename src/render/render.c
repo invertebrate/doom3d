@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 15:52:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:03:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void		render_work(void *params)
 		if (work->app->editor.selected_object)
 		{
 			draw_selected_wireframe(work);
-			if (work->app->editor.selected_npc)
+			if (work->app->editor.selected_object->type == object_type_npc)
 				draw_selected_enemy_direction(work);
 		}
 		//!Debug bounding box with draw_selected_aabb(work);

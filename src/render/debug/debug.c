@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 16:12:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:03:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,13 +155,15 @@ void			draw_selected_enemy_direction(t_render_work *work)
 	t_vec3				forward;
 	t_mat4				rotation_x;
 
-	npc = work->app->editor.selected_npc;
+	npc = work->app->editor.selected_object->params;
 	ml_matrix4_rotation_y(ml_rad(npc->angle), rotation_x);
 	ml_matrix4_mul_vec3(rotation_x, (t_vec3){0, 0, Z_DIR}, forward);
 	ml_vector3_mul(forward, work->app->unit_size * 2, add);
-	ml_vector3_add(npc->pos, add, end);
+	ml_vector3_add(work->app->editor.selected_object->position, add, end);
 	draw_debug_line(work->app,
 		work->framebuffer->sub_buffers[work->sub_buffer_i],
-		(t_vec3[2]){{npc->pos[0], npc->pos[1], npc->pos[2]},
+		(t_vec3[2]){{work->app->editor.selected_object->position[0],
+			work->app->editor.selected_object->position[1],
+			work->app->editor.selected_object->position[2]},
 		{end[0], end[1], end[2]}}, 0xffff00ff);
 }

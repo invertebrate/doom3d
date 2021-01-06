@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 15:45:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:01:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void			editor_deselect(t_doom3d *app)
 				~e_shading_select);
 	}
 	app->editor.selected_object = NULL;
-	app->editor.selected_npc = NULL;
 	app->editor.selected_object_str[0] = '\0';
 }
 
@@ -105,18 +104,13 @@ void			editor_deselect_all(t_doom3d *app)
 static void		select_object(t_doom3d *app, t_3d_object *object)
 {
 	t_npc	*npc;
+	char	object_type[128];
 
 	app->editor.selected_object = object;
 	app->editor.selected_object->material->shading_opts |=
 		e_shading_select;
-	if ((npc = find_npc_by_object_id(app, object->id)) != NULL)
-	{
-		ft_sprintf(app->editor.selected_object_str, "NPC: %u", npc->id);
-		app->editor.selected_npc = npc;
-	}
-	else
-		ft_sprintf(app->editor.selected_object_str, "Object: %u",
-			app->editor.selected_object->id);
+	object_type_to_str(object, object_type);
+	ft_sprintf(app->editor.selected_object_str, "%s: %u", object_type, npc->id);
 }
 
 /*
