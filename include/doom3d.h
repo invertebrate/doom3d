@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 19:09:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 19:23:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,8 +395,6 @@ void						editor_deselect(t_doom3d *app);
 void						after_editor_transform(t_doom3d *app,
 								uint32_t *last_changed);
 void    					editor_init(t_doom3d *app);
-t_3d_object					*find_object_by_id(t_doom3d *app,
-								uint32_t object_id);
 
 /*
 ** Level
