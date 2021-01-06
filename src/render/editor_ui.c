@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:00:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 23:18:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ void		editor_ui_render(t_doom3d *app)
 	char	guide[256];
 
 	ft_sprintf(guide, "WASD: Move, "
-		"MouseL: Rotate, "
-		"MouseR: Select, "
+		"MouseR: Rotate, "
+		"MouseL: Select, "
 		"MouseM (/+ Q): Rotate selected, "
 		"Arrows: Move selected x, z, "
 		"O,L: Move selected y, "
