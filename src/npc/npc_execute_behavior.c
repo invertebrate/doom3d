@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 17:22:03 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/06 16:10:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:24:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	npc_execute_behavior(t_doom3d *app, t_3d_object *npc_obj)
 	t_npc	*npc;
 
 	npc = npc_obj->params;
+	(void)app;
 	/*
 	check state of npc
 	*/

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:11:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:38:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ void			l3d_3d_object_set_params(t_3d_object *object,
 	error_check(!(object->params = malloc(params_size)),
 		"Failed to malloc obj params");
 	object->params_size = params_size;
+	object->params_type = params_type;
 	ft_memcpy(object->params, params, params_size);
 }

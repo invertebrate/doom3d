@@ -44,14 +44,12 @@ SOURCES = main.c \
 			player/player.c \
 			player/collision.c \
 			player/movement.c \
-			npc/npc_controller.c \
 			npc/npc_default.c \
 			npc/npc_execute_behavior.c \
 			npc/npc_spawn.c \
 			npc/npc_update.c \
-			npc/npc_cleanup.c \
-			npc/npc_utils.c \
 			object/object_utils.c \
+			object/object_update.c \
 			camera.c \
 			debug.c \
 			scene/menus/editor3d_menu.c \

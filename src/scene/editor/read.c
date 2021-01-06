@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:22:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:36:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ void			read_map(t_doom3d *app, const char *map_name)
 	ft_memcpy(&lol, file->buf + offset, sizeof(uint32_t)); //ToDo Remove
 	offset += sizeof(uint32_t);
 	offset += read_objects(app, file->buf + offset);
-	offset += read_npcs(app, file->buf + offset);
 	destroy_file_contents(file);
 	ft_printf("Loaded map: %s\nNum objects %u\n", map_name,
 		app->active_scene->num_objects);

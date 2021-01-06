@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:23:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:35:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ static void	write_map(int32_t fd, t_doom3d *app)
 {
 	int32_t		i;
 	int32_t		ret;
-	t_list		*node;
-	t_npc		*npc;
 
 	ret = write(fd, "MAP\0", 4);
 	ret = write(fd, &app->active_scene->num_objects, sizeof(uint32_t));

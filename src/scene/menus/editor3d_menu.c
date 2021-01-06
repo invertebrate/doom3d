@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:04:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:55:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void			on_delete_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d			*app;
 	t_3d_object			*object_to_delete;
-	t_npc				*npc_to_delete;
 
 	app = params;
 	if (self->id == 0)
@@ -93,15 +92,22 @@ static void			on_normmaps_menu_button_click(t_button *self, void *params)
 static void			on_prefab_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d		*app;
-	t_object_type	type;
+	uint64_t		object_type;
+	uint64_t		prefab_type;
+	uint64_t		type_data;
 	void			*get_res;
 
 	app = params;
 	get_res = hash_map_get(app->active_scene->prefab_map,
 		(int64_t)self->text);
-	type = *(t_npc_type*)&get_res;
-	ft_printf("%d\n", (int32_t)type);
-	npc_spawn(app, (t_vec3){0, 0, 0}, 0, type);
+	ft_memcpy(&type_data, &get_res, sizeof(uint64_t));
+	object_type = type_data >> 31;
+	prefab_type = type_data << 31;
+	ft_printf("%llu, %llu, %llu\n", type_data, object_type, prefab_type);
+	if (object_type == (uint64_t)object_type_npc)
+	{
+		npc_spawn(app, (t_vec3){0, 0, 0}, 0, prefab_type);
+	}
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
 }
@@ -141,7 +147,7 @@ static void			create_popup_menu(t_doom3d *app,
 		button_menu = button_menu_create(app,
 		(t_button_menu_params){
 			.button_names = app->active_scene->asset_files.prefab_names,
-			.num_buttons = app->active_scene->asset_files.num_npcs,
+			.num_buttons = app->active_scene->asset_files.num_prefabs,
 			.on_click = on_prefab_menu_button_click,
 			.button_font = app->window->debug_font,
 		});

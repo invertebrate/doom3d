@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 16:56:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:53:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ typedef struct				s_asset_files
 	uint32_t				num_models;
 	uint32_t				num_textures;
 	uint32_t				num_normal_maps;
-	uint32_t				num_npcs;
+	uint32_t				num_prefabs;
 }							t_asset_files;
 
 typedef struct				s_scene
@@ -265,22 +265,16 @@ void						editor_vertical_move(t_doom3d *app, float speed);
 ** Npc
 */
 
-void						npc_controller(t_doom3d *app,
-								t_3d_object *npc_object);
 void						npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
 								int type);
 void						npc_update(t_doom3d *app, t_3d_object *npc_obj);
 void						npc_execute_behavior(t_doom3d *app,
 								t_3d_object *npc_obj);
 void						npc_default(t_doom3d *app, t_npc *npc);
-void						npc_cleanup(t_doom3d *app);
 t_npc						*find_npc_by_object_id(t_doom3d *app,
 								uint32_t object_id);
-void						npc_set_to_be_deleted(t_npc *npc_to_delete);
 void						handle_npc_deletions(t_doom3d *app);
-void						npc_add_to_scene(t_doom3d *app, t_npc *npc);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
-void						npc_init(t_doom3d *app, t_npc *npc);
 
 /*
 ** Events

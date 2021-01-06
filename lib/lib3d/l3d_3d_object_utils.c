@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:34:25 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:16:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:38:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ t_3d_object		*l3d_3d_object_copy(t_3d_object *src)
 	while (++i < src->num_vertices)
 		ft_memcpy(dst->vertices[i], src->vertices[i], sizeof(t_vertex));
 	l3d_3d_object_triangle_copy_and_set(dst, src);
-	l3d_3d_object_set_params(dst, src->params, src->params_size, src->params);
+	l3d_3d_object_set_params(dst, src->params, src->params_size,
+		src->params_type);
 	return (dst);
 }
 
@@ -79,6 +80,7 @@ t_3d_object		*l3d_3d_object_shallow_copy(t_3d_object *src)
 	dst->id = src->id;
 	dst->type = src->type;
 	dst->params_size = src->params_size;
+	dst->params_type = src->params_type;
 	dst->params = NULL;
 	ml_matrix4_copy(src->scale, dst->scale);
 	ml_vector3_copy(src->position, dst->position);

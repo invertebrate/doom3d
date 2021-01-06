@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 16:53:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:54:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,23 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 	scene_set_skybox_textures(scene);
 }
 
+static uint64_t	get_prefab_value(uint32_t object_type, uint32_t prefab_type)
+{
+	return ((uint64_t)(object_type << 31) | (uint64_t)prefab_type);	
+}
+
 static void		prefabs_load(t_scene *scene)
 {
-	scene->asset_files.prefab_names[scene->asset_files.num_npcs] =
+	uint64_t	prefab_value;
+
+	scene->asset_files.prefab_names[scene->asset_files.num_prefabs] =
 		"Default Enemy";
+	prefab_value = get_prefab_value(object_type_npc, npc_type_default);
 	hash_map_add(scene->prefab_map,
-		(int64_t)scene->asset_files.prefab_names[scene->asset_files.num_npcs++],
-			npc_default);
+		(int64_t)scene->asset_files.prefab_names[scene->asset_files.num_prefabs],
+			(void*)prefab_value);
+	scene->asset_files.num_prefabs++;
+	ft_printf("%llu %llu\n", prefab_value, prefab_value >> 31);
 }
 
 static void		scene_texture_files_set(t_asset_files *data)
@@ -100,7 +110,7 @@ void			scene_assets_load(t_scene *scene)
 	scene->asset_files.num_models = 0;
 	scene->asset_files.num_textures = 0;
 	scene->asset_files.num_normal_maps = 0;
-	scene->asset_files.num_npcs = 0;
+	scene->asset_files.num_prefabs = 0;
 	scene_texture_files_set(&scene->asset_files);
 	scene_normal_files_set(&scene->asset_files);
 	scene_model_files_set(&scene->asset_files);
