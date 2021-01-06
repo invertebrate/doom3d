@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 17:26:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 18:10:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,14 @@ static void				object_rotation_handle(t_doom3d *app,
 	float				angle;
 
 	diff = SDL_GetTicks() - last_rotated;
-	if (app->editor.selected_npc && diff > 50 && ft_abs(xrel) > 2)
-	{
-		angle = (xrel > 0 ? 1 : -1) * 10;
-		l3d_3d_object_rotate(app->editor.selected_object,
-			 0, angle, 0);
-		app->editor.selected_npc->angle += angle;
-		last_rotated = SDL_GetTicks();
-		after_editor_transform(app, &last_rotated);
-		return ;
-	}
 	if (app->keyboard.state[SDL_SCANCODE_Q] && diff > 100 && ft_abs(xrel) > 2)
 	{
 		angle = (xrel > 0 ? 1 : -1) * 10;
 		l3d_3d_object_rotate(app->editor.selected_object,
 			 0, angle, 0);
 		last_rotated = SDL_GetTicks();
+		if (app->editor.selected_object->type == object_type_npc)
+			((t_npc*)app->editor.selected_object->params)->angle += angle;
 		after_editor_transform(app, &last_rotated);
 	}
 	else if (diff > 100 && ft_abs(xrel) > 2 && ft_abs(yrel) < 8)

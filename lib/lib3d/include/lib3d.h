@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 23:12:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:11:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,10 @@ typedef struct				s_plane
 struct				s_3d_object
 {
 	uint32_t		id;
+	uint32_t		type;
+	void			*params;
+	uint32_t		params_size;
+	uint32_t		params_type;
 	t_vertex		**vertices;
 	int32_t			num_vertices;
 	t_triangle		*triangles;
@@ -393,13 +397,13 @@ t_3d_object					*l3d_3d_object_copy(t_3d_object *src);
 void						l3d_3d_object_debug_print(t_3d_object *obj);
 void						l3d_object_set_shading_opts(t_3d_object *obj,
 								t_shading_opts opts);
-void						l3d_3d_object_set_id(t_3d_object *object,
-								uint32_t id);
 t_3d_object					*l3d_3d_object_shallow_copy(t_3d_object *src);
 void						l3d_3d_object_triangle_copy_and_set(
 								t_3d_object *dst,
 								t_3d_object *src);
-
+void						l3d_3d_object_set_params(t_3d_object *object,
+								void *params, uint32_t params_size,
+								uint32_t params_type);
 /*
 ** OBJ reading
 */
@@ -532,7 +536,7 @@ void						l3d_skybox_create(t_3d_object *skybox[6],
 t_3d_object					*l3d_plane_create(t_surface	*texture,
 								t_surface *normal_map);
 t_3d_object					*l3d_object_instantiate(t_3d_object *model,
-								float unit_size, t_bool is_trigger);
+								float unit_size);
 void						l3d_temp_objects_add(t_temp_objects **temp_objects,
 								t_3d_object *object, uint32_t creation_time);
 void						l3d_temp_objects_destroy(
