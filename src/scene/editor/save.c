@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 18:51:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 15:06:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	write_obj_content(int32_t fd, t_doom3d *app, t_3d_object *obj)
 	ret = write(fd, normal_map_file, len);
 	// !Write the shading opts
 	ret = write(fd, &obj->material->shading_opts, sizeof(uint32_t));
+	(void)ret;
 }
 
 
@@ -63,6 +64,7 @@ static void	write_npc_content(int32_t fd, t_npc *npc)
 	ret = write(fd, &npc->obj->id, sizeof(uint32_t));
 	ret = write(fd, npc->pos, sizeof(t_vec3));
 	ret = write(fd, &npc->angle, sizeof(float));
+	(void)ret;
 }
 
 static void	write_map(int32_t fd, t_doom3d *app)
@@ -89,6 +91,7 @@ static void	write_map(int32_t fd, t_doom3d *app)
 		node = node->next;
 		i++;
 	}
+	(void)ret;
 }
 
 void		save_map(t_doom3d *app)
