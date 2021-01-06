@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 18:53:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 15:55:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void			place_scene_object(t_doom3d *app, const char *filenames[3],
 			filenames[0]);
 		return ;
 	}
-	obj = l3d_object_instantiate(model, app->unit_size, false);
+	obj = l3d_object_instantiate(model, app->unit_size);
 	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[1]);
 	obj->material->texture = texture;
 	if (texture != NULL)
@@ -122,7 +122,7 @@ void			place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 		ft_dprintf(2, "No existing model object (NULL) given\n");
 		return ;
 	}
-	obj = l3d_object_instantiate(model, app->unit_size, false);
+	obj = l3d_object_instantiate(model, app->unit_size);
 	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[0]);
 	obj->material->texture = texture;
 	if (texture)
@@ -136,29 +136,4 @@ void			place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 			obj->id, (void*)filenames[1]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
-}
-
-void			handle_object_deletions(t_doom3d *app)
-{
-	int32_t		i;
-	int32_t		del_index;
-	t_bool		deleted_something;
-	uint32_t	id;
-
-	i = -1;
-	deleted_something = false;
-	while (++i < (int32_t)app->active_scene->num_deleted)
-	{
-		del_index = app->active_scene->deleted_object_i[i];
-		if (app->active_scene->objects[del_index] != NULL)
-		{
-			id = app->active_scene->objects[del_index]->id;
-			ft_printf("Deleted object id %u\n", id);
-			l3d_3d_object_destroy(app->active_scene->objects[del_index]);
-			app->active_scene->objects[del_index] = NULL;
-			deleted_something = true;
-		}
-	}
-	if (deleted_something)
-		active_scene_update_after_objects(app->active_scene);
 }

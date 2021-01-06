@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 15:31:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 16:04:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 static void		npcs_load(t_scene *scene)
 {
 	scene->asset_files.npc_names[scene->asset_files.num_npcs] = "Default Enemy";
-	hash_map_add(scene->npc_map,
+	hash_map_add(scene->prefab_map,
 		(int64_t)scene->asset_files.npc_names[scene->asset_files.num_npcs++],
 			npc_default);
 }

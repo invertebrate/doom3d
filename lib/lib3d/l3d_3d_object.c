@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 16:55:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 16:32:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void			l3d_3d_object_destroy(t_3d_object *object)
 {
 	int		i;
 
+	free(object->params);
 	free(object->triangles);
 	i = -1;
 	while (++i < object->num_vertices)
@@ -102,7 +103,11 @@ void			l3d_3d_object_set_vertex(t_vertex *vertex, t_vec3 pos)
 	vertex->color = 0xFFFFFFFF;
 }
 
-void			l3d_3d_object_set_id(t_3d_object *object, uint32_t id)
+void			l3d_3d_object_set_params(t_3d_object *object,
+					void *params, uint32_t params_size)
 {
-	object->id = id;
+	error_check(!(object->params = malloc(params_size)),
+		"Failed to malloc obj params");
+	object->params_size = params_size;
+	ft_memcpy(object->params, params, params_size);
 }

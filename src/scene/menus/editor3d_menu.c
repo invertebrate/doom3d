@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 19:13:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 16:04:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static void			on_enemy_menu_button_click(t_button *self, void *params)
 	void		*get_res;
 
 	app = params;
-	get_res = hash_map_get(app->active_scene->npc_map,
+	get_res = hash_map_get(app->active_scene->prefab_map,
 		(int64_t)self->text);
 	type = *(t_npc_type*)&get_res;
 	ft_printf("%d\n", (int32_t)type);

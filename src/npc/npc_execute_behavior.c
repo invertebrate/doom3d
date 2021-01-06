@@ -6,33 +6,33 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 17:22:03 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/05 19:43:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 16:10:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	npc_execute_behavior(t_list *npc)
+void	npc_execute_behavior(t_doom3d *app, t_3d_object *npc_obj)
 {
-	t_npc	*tmp;
+	t_npc	*npc;
 
-	tmp = npc->content;
+	npc = npc_obj->params;
 	/*
 	check state of npc
 	*/
-	if (tmp->state == state_idle)
+	if (npc->state == state_idle)
 	{
 		/*
 		DO IDLE THINGS WITH THIS NPC
 		*/
 	}
-	else if (tmp->state == state_attack)
+	else if (npc->state == state_attack)
 	{
 		/*
 		DO ATTACK THINGS WITH THIS NPC
 		follow path to attack
 		*/
-		l3d_3d_object_translate(tmp->obj, -tmp->dir[0], -tmp->dir[1], -tmp->dir[2]);
-		ml_vector3_copy(tmp->obj->position, tmp->pos);
+		l3d_3d_object_translate(npc_obj,
+			-npc->dir[0], -npc->dir[1], -npc->dir[2]);
 	}
 }

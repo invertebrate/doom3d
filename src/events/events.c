@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/04 20:42:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 15:53:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void		doom3d_button_events_handle(t_doom3d *app, SDL_Event event)
 ** 3. Game input events: menu options, pausing, etc.
 */
 
-void			events_handle(t_doom3d *app)
+void			doom3d_events_handle(t_doom3d *app)
 {
 	SDL_Event	event;
 

@@ -6,19 +6,22 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 09:35:21 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/05 19:42:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 16:32:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		place_npc_object_in_scene(t_doom3d *app, t_npc *npc)
+static void		place_npc_object_in_scene(t_doom3d *app, t_npc *npc, t_vec3 pos)
 {
+	t_3d_object *obj;
 	place_scene_object(app,
 		(const char*[3]){npc->model_key, npc->texture_key, npc->normal_map_key},
-		npc->pos);
-	npc->obj = app->active_scene->objects[app->active_scene->num_objects - 1];
-	l3d_3d_object_rotate(npc->obj, 0, npc->angle, 0);
+		pos);
+	obj = app->active_scene->objects[app->active_scene->num_objects - 1];
+	obj->type = object_type_npc;
+	l3d_3d_object_set_params(obj, npc, sizeof(t_npc));
+	l3d_3d_object_rotate(obj, 0, npc->angle, 0);
 }
 
 void			parse_npc_type(t_doom3d *app, t_npc *npc, int type)
@@ -27,20 +30,9 @@ void			parse_npc_type(t_doom3d *app, t_npc *npc, int type)
 		npc_default(app, npc);
 }
 
-void			npc_add_to_scene(t_doom3d *app, t_npc *npc)
-{
-	if (app->active_scene->npc_list == NULL)
-		app->active_scene->npc_list = ft_lstnew(npc, sizeof(t_npc));
-	else
-		ft_lstappend(&(app->active_scene->npc_list),
-			ft_lstnew(npc, sizeof(t_npc)));
-}
-
 void			npc_init(t_doom3d *app, t_npc *npc)
 {
 	ft_memset(npc, 0, sizeof(t_npc));
-	npc->is_deleted = false;
-	npc->app = app;
 }
 
 /* spawn on position facing direction with given model */
@@ -50,12 +42,10 @@ void			npc_spawn(t_doom3d *app, t_vec3 pos, float angle, int type)
 	t_npc		npc;
 
 	npc_init(app, &npc);
-	ml_vector3_copy(pos, npc.pos);
 	npc.angle = angle;
 	parse_npc_type(app, &npc, type);
-	npc.id = l3d_random_uuid();
-	place_npc_object_in_scene(app, &npc);
+	place_npc_object_in_scene(app, &npc, pos);
 	npc_add_to_scene(app, &npc);
-	app->active_scene->num_npcs++;
-	ft_printf("Spawned npc, id = |%d|\n", npc.id); //test
+	ft_printf("Spawned npc, id = |%d|\n",
+		app->active_scene->objects[app->active_scene->num_objects - 1]->id); //test
 }

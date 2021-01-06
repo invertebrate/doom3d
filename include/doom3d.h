@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 19:13:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 16:15:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@
 # define NPC_DEFAULT_TEXTURE "assets/textures/rock.bmp"
 # define NPC_DEFAULT_NORMM "assets/textures/rock.bmp"
 
+typedef enum				e_object_type
+{
+	object_type_default = 0,
+	object_type_npc = 1,
+	object_type_projectile = 2,
+	object_type_trigger = 3,
+}							t_object_type;
+
 typedef enum				e_move
 {
 	move_forward,
@@ -67,6 +75,11 @@ typedef enum				e_npc_state
 	state_attack,
 	state_atk_anim,
 }							t_npc_state;
+
+typedef enum				e_npc_type
+{
+	npc_type_default,
+}							t_npc_type;
 
 typedef struct				s_camera
 {
@@ -130,14 +143,12 @@ typedef struct				s_scene
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
 	t_hash_table			*models;
-	t_hash_table			*npc_map;
+	t_hash_table			*prefab_map;
 	t_hash_table			*object_textures;
 	t_hash_table			*object_normal_maps;
 	t_asset_files			asset_files;
 	t_surface				*skybox_textures[6];
 	t_3d_object				*skybox[6];
-	t_list					*npc_list;
-	uint32_t				num_npcs;
 	uint32_t				npc_update_timer;
 }							t_scene;
 
@@ -166,7 +177,6 @@ typedef struct 				s_editor
 	char					editor_savename[128];
 	char					selected_object_str[128];
 	t_3d_object				*selected_object;
-	t_npc					*selected_npc;
 }							t_editor;
 
 typedef struct				s_settings
@@ -198,14 +208,8 @@ typedef struct				s_doom3d
 	t_settings				settings;
 }							t_doom3d;
 
-typedef enum				e_npc_type
-{
-	npc_type_default,
-}							t_npc_type;
 struct						s_npc
 {
-	t_doom3d				*app;
-	t_vec3					pos;
 	t_vec3					dir;
 	float					angle;
 	float					vision_range;
@@ -218,13 +222,10 @@ struct						s_npc
 	float					dist;
 	int						state;
 	int						hp;
-	int						id;
 	int						type;
 	const char				*texture_key;
-	const char				*normal_map_key;
 	const char				*model_key;
-	t_3d_object				*obj;
-	t_bool					is_deleted;
+	const char				*normal_map_key;
 };
 
 /*
@@ -269,8 +270,8 @@ void						npc_controller_init(t_doom3d *app);
 void						npc_controller(t_doom3d *app);
 void						npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
 								int type);
-void						npc_update(t_list *npc);
-void						npc_execute_behavior(t_list *npc);
+void						npc_update(t_doom3d *app, t_3d_object *npc_obj);
+void						npc_execute_behavior(t_doom3d *app, t_3d_object *npc_obj);
 void						npc_default(t_doom3d *app, t_npc *npc);
 void						npc_cleanup(t_doom3d *app);
 t_npc						*find_npc_by_object_id(t_doom3d *app,
@@ -284,7 +285,7 @@ void						npc_init(t_doom3d *app, t_npc *npc);
 /*
 ** Events
 */
-void						events_handle(t_doom3d *app);
+void						doom3d_events_handle(t_doom3d *app);
 void						mouse_state_handle(t_doom3d *app);
 void						player_shoot(t_doom3d *app,
 								uint32_t curr_time);
@@ -350,6 +351,12 @@ void						draw_selected_aabb(t_render_work *work);
 void						draw_selected_enemy_direction(t_render_work *work);
 
 /*
+** Objects
+*/
+void						doom3d_update_objects(t_doom3d *app);
+void						object_type_to_str(t_3d_object *obj, char *str);
+
+/*
 ** Scene
 */
 void						scene_assets_load(t_scene *scene);
@@ -388,7 +395,6 @@ void						editor_deselect_all(t_doom3d *app);
 void						editor_deselect(t_doom3d *app);
 void						after_editor_transform(t_doom3d *app,
 								uint32_t *last_changed);
-void						handle_object_deletions(t_doom3d *app);
 void    					editor_init(t_doom3d *app);
 t_3d_object					*find_object_by_id(t_doom3d *app,
 								uint32_t object_id);
