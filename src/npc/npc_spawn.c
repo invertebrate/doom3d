@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 09:35:21 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/06 17:48:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 19:17:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void		place_npc_object_in_scene(t_doom3d *app, t_npc *npc, t_vec3 pos)
 {
 	t_3d_object *obj;
+
 	place_scene_object(app,
 		(const char*[3]){npc->model_key, npc->texture_key, npc->normal_map_key},
 		pos);
