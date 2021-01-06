@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:54:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 18:11:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,18 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 
 static uint64_t	get_prefab_value(uint32_t object_type, uint32_t prefab_type)
 {
-	return ((uint64_t)(object_type << 31) | (uint64_t)prefab_type);	
+	return (((uint64_t)object_type << 32) | (uint64_t)prefab_type);	
 }
 
 static void		prefabs_load(t_scene *scene)
 {
-	uint64_t	prefab_value;
-
+	scene->prefab_map = hash_map_create(MAX_ASSETS);
 	scene->asset_files.prefab_names[scene->asset_files.num_prefabs] =
 		"Default Enemy";
-	prefab_value = get_prefab_value(object_type_npc, npc_type_default);
 	hash_map_add(scene->prefab_map,
 		(int64_t)scene->asset_files.prefab_names[scene->asset_files.num_prefabs],
-			(void*)prefab_value);
+			(void*)get_prefab_value(object_type_npc, npc_type_default));
 	scene->asset_files.num_prefabs++;
-	ft_printf("%llu %llu\n", prefab_value, prefab_value >> 31);
 }
 
 static void		scene_texture_files_set(t_asset_files *data)
