@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 16:32:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:11:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void			l3d_3d_object_set_vertex(t_vertex *vertex, t_vec3 pos)
 }
 
 void			l3d_3d_object_set_params(t_3d_object *object,
-					void *params, uint32_t params_size)
+					void *params, uint32_t params_size, uint32_t params_type)
 {
 	error_check(!(object->params = malloc(params_size)),
 		"Failed to malloc obj params");

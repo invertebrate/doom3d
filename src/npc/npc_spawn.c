@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 09:35:21 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/06 16:32:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:16:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		place_npc_object_in_scene(t_doom3d *app, t_npc *npc, t_vec3 pos)
 		pos);
 	obj = app->active_scene->objects[app->active_scene->num_objects - 1];
 	obj->type = object_type_npc;
-	l3d_3d_object_set_params(obj, npc, sizeof(t_npc));
+	l3d_3d_object_set_params(obj, npc, sizeof(t_npc), npc->type);
 	l3d_3d_object_rotate(obj, 0, npc->angle, 0);
 }
 

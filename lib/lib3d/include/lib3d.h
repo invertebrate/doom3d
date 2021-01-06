@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 16:32:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:11:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,7 @@ struct				s_3d_object
 	uint32_t		type;
 	void			*params;
 	uint32_t		params_size;
+	uint32_t		params_type;
 	t_vertex		**vertices;
 	int32_t			num_vertices;
 	t_triangle		*triangles;
@@ -401,7 +402,8 @@ void						l3d_3d_object_triangle_copy_and_set(
 								t_3d_object *dst,
 								t_3d_object *src);
 void						l3d_3d_object_set_params(t_3d_object *object,
-								void *params, uint32_t params_size);
+								void *params, uint32_t params_size,
+								uint32_t params_type);
 /*
 ** OBJ reading
 */
