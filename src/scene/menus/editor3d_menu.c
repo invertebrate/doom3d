@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 19:13:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 15:03:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,14 @@ static void			on_normmaps_menu_button_click(t_button *self, void *params)
 static void			on_enemy_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d	*app;
-	t_npc_type	type;
+	t_npc_type	npc_type;
 	void		*get_res;
 
 	app = params;
 	get_res = hash_map_get(app->active_scene->npc_map,
 		(int64_t)self->text);
-	type = *(t_npc_type*)&get_res;
-	ft_printf("%d\n", (int32_t)type);
-	npc_spawn(app, (t_vec3){0, 0, 0}, 0, type);
+	ft_memcpy(&npc_type, &get_res, sizeof(t_npc_type));
+	npc_spawn(app, (t_vec3){0, 0, 0}, 0, npc_type);
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
 }

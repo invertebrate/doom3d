@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/05 19:13:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 14:51:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ typedef struct				s_doom3d
 
 typedef enum				e_npc_type
 {
-	npc_type_default,
+	npc_type_default = 1,
 }							t_npc_type;
 struct						s_npc
 {
