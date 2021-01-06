@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:53:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 18:15:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ typedef enum				e_object_type
 	object_type_trigger = 3,
 }							t_object_type;
 
+typedef enum				e_prefab_type
+{
+	prefab_plane = 1,
+}							t_prefab_type;
+
+typedef enum				e_npc_type
+{
+	npc_type_default,
+}							t_npc_type;
+
 typedef enum				e_move
 {
 	move_forward,
@@ -75,11 +85,6 @@ typedef enum				e_npc_state
 	state_attack,
 	state_atk_anim,
 }							t_npc_state;
-
-typedef enum				e_npc_type
-{
-	npc_type_default,
-}							t_npc_type;
 
 typedef struct				s_camera
 {

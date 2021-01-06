@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 18:11:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 18:15:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ static void		prefabs_load(t_scene *scene)
 	hash_map_add(scene->prefab_map,
 		(int64_t)scene->asset_files.prefab_names[scene->asset_files.num_prefabs],
 			(void*)get_prefab_value(object_type_npc, npc_type_default));
+	scene->asset_files.num_prefabs++;
+	scene->asset_files.prefab_names[scene->asset_files.num_prefabs] =
+		"Plane";
+	hash_map_add(scene->prefab_map,
+		(int64_t)scene->asset_files.prefab_names[scene->asset_files.num_prefabs],
+			(void*)get_prefab_value(object_type_default, prefab_plane));
 	scene->asset_files.num_prefabs++;
 }
 

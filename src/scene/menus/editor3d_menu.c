@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 18:10:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 18:20:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,18 @@ static void			on_normmaps_menu_button_click(t_button *self, void *params)
 	}
 }
 
+static void			prefab_spawn_plane(t_doom3d *app)
+{
+	t_3d_object		*model;
+
+	model = l3d_plane_create(NULL, NULL);
+	place_procedural_scene_object(app, model, (const char*[2]){
+		"assets/textures/lava.bmp",
+		"assets/textures/lava_normal.bmp"
+	}, (t_vec3){0, 0, 0});
+	l3d_3d_object_destroy(model);
+}
+
 static void			on_prefab_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d		*app;
@@ -103,9 +115,14 @@ static void			on_prefab_menu_button_click(t_button *self, void *params)
 	ft_memcpy(&type_data, &get_res, sizeof(uint64_t));
 	prefab_type = (uint32_t)type_data;
 	object_type = (type_data >> 32);
-	if (object_type == (uint64_t)object_type_npc)
+	if (object_type == (uint32_t)object_type_npc)
 	{
 		npc_spawn(app, (t_vec3){0, 0, 0}, 0, prefab_type);
+	}
+	else if (object_type == (uint32_t)object_type_default)
+	{
+		if (prefab_type == (uint32_t)prefab_plane)
+			prefab_spawn_plane(app);
 	}
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;

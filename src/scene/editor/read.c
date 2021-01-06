@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:36:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 18:22:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,6 @@ void			read_map(t_doom3d *app, const char *map_name)
 		error_check(true,
 		"Invalid file, not a map file. First 4 bytes must be MAP\0");
 	ft_memcpy(&app->active_scene->num_objects, file->buf + offset, sizeof(uint32_t));
-	offset += sizeof(uint32_t);
-	uint32_t	lol  = 0;
-	ft_memcpy(&lol, file->buf + offset, sizeof(uint32_t)); //ToDo Remove
 	offset += sizeof(uint32_t);
 	offset += read_objects(app, file->buf + offset);
 	destroy_file_contents(file);
