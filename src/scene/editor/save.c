@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 19:09:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 23:23:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void	write_map(int32_t fd, t_doom3d *app)
 		app->active_scene->num_deleted))
 		if (app->active_scene->objects[i])
 			write_obj_content(fd, app, app->active_scene->objects[i]);
+	(void)ret;
 }
 
 void		save_map(t_doom3d *app)
