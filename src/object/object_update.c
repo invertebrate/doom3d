@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:47:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 18:30:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static void		handle_object_deletions(t_doom3d *app)
 			deleted_something = true;
 		}
 	}
-	if (deleted_something)
+	if (deleted_something &&
+		app->active_scene->scene_id == scene_id_editor3d)
 		active_scene_update_after_objects(app->active_scene);
 }
 
@@ -76,10 +77,12 @@ void			doom3d_update_objects(t_doom3d *app)
 	t_bool			is_npc_update;
 	t_3d_object		*obj;
 
+	if (app->active_scene->scene_id == scene_id_main_game ||
+		app->active_scene->scene_id == scene_id_editor3d)
+		handle_object_deletions(app);
 	if (app->active_scene->is_paused ||
 		app->active_scene->scene_id != scene_id_main_game)
 		return ;
-	handle_object_deletions(app);
 	is_npc_update = should_update_npcs(app);
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects +
