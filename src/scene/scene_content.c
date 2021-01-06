@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:36:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 19:11:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ static void				place_test_objects(t_doom3d *app)
 
 static void		game_init(t_doom3d *app)
 {
-	player_init(app, (t_vec3){0, 0, 0});
 	l3d_skybox_create(app->active_scene->skybox,
 		app->active_scene->skybox_textures, app->unit_size);
 	read_map(app, app->level_list[app->current_level]);
+	player_init(app, (t_vec3){0, 0, 0});
 	// Add test objects for playing
 	place_test_objects(app);
 	active_scene_update_after_objects(app->active_scene);
