@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 19:23:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 10:36:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,12 @@ typedef struct				s_asset_files
 	const char				*texture_files[MAX_ASSETS];
 	const char				*normal_map_files[MAX_ASSETS];
 	const char				*model_files[MAX_ASSETS];
+	const char				*npc_names[MAX_ASSETS];
 	const char				*prefab_names[MAX_ASSETS];
 	uint32_t				num_models;
 	uint32_t				num_textures;
 	uint32_t				num_normal_maps;
+	uint32_t				num_npcs;
 	uint32_t				num_prefabs;
 }							t_asset_files;
 
@@ -148,6 +150,7 @@ typedef struct				s_scene
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
 	t_hash_table			*models;
+	t_hash_table			*npc_map;
 	t_hash_table			*prefab_map;
 	t_hash_table			*object_textures;
 	t_hash_table			*object_normal_maps;
@@ -164,6 +167,8 @@ typedef enum				e_editor_menu_index
 	editor_menu_objects = 2,
 	editor_menu_textures = 3,
 	editor_menu_normalmaps = 4,
+	editor_menu_npcs = 5,
+	editor_menu_triggers = 6,
 }							t_editor_menu_index;
 
 typedef struct s_npc		t_npc;

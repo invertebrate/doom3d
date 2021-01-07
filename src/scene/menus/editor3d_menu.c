@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 19:08:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 10:47:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,28 +101,35 @@ static void			prefab_spawn_plane(t_doom3d *app)
 	l3d_3d_object_destroy(model);
 }
 
+static void			on_npc_menu_button_click(t_button *self, void *params)
+{
+	t_doom3d		*app;
+	uint32_t		npc_type;
+	void			*get_res;
+
+	app = params;
+	get_res = hash_map_get(app->active_scene->npc_map,
+		(int64_t)self->text);
+	ft_memcpy(&npc_type, &get_res, sizeof(uint32_t));
+	npc_spawn(app, (t_vec3){0, 0, 0}, 0, npc_type);
+	active_scene_update_after_objects(app->active_scene);
+	app->editor.is_saved = false;
+}
+
 static void			on_prefab_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d		*app;
-	uint32_t		object_type;
 	uint32_t		prefab_type;
-	uint64_t		type_data;
 	void			*get_res;
 
 	app = params;
 	get_res = hash_map_get(app->active_scene->prefab_map,
 		(int64_t)self->text);
-	ft_memcpy(&type_data, &get_res, sizeof(uint64_t));
-	prefab_type = (uint32_t)type_data;
-	object_type = (type_data >> 32);
-	if (object_type == (uint32_t)object_type_npc)
+	ft_memcpy(&prefab_type, &get_res, sizeof(uint32_t));
+	npc_spawn(app, (t_vec3){0, 0, 0}, 0, prefab_type);
+	if (prefab_type == (uint32_t)prefab_plane)
 	{
-		npc_spawn(app, (t_vec3){0, 0, 0}, 0, prefab_type);
-	}
-	else if (object_type == (uint32_t)object_type_default)
-	{
-		if (prefab_type == (uint32_t)prefab_plane)
-			prefab_spawn_plane(app);
+		prefab_spawn_plane(app);
 	}
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
@@ -135,6 +142,7 @@ static void			create_popup_menu(t_doom3d *app,
 	t_button_group	*button_menu;
 	t_vec2			pos;
 
+	ft_printf("%d\n", new_menu);
 	if (new_menu == editor_menu_objects)
 		button_menu = button_menu_create(app,
 		(t_button_menu_params){
@@ -165,6 +173,14 @@ static void			create_popup_menu(t_doom3d *app,
 			.button_names = app->active_scene->asset_files.prefab_names,
 			.num_buttons = app->active_scene->asset_files.num_prefabs,
 			.on_click = on_prefab_menu_button_click,
+			.button_font = app->window->debug_font,
+		});
+	else if (new_menu == editor_menu_npcs)
+		button_menu = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = app->active_scene->asset_files.npc_names,
+			.num_buttons = app->active_scene->asset_files.num_npcs,
+			.on_click = on_npc_menu_button_click,
 			.button_font = app->window->debug_font,
 		});
 	else
@@ -210,6 +226,8 @@ static void			on_editor_menu_button_click(t_button *self, void *params)
 			new_menu_id = editor_menu_normalmaps;
 		else if (self->id == 5)
 			new_menu_id = editor_menu_prefabs;
+		else if (self->id == 6)
+			new_menu_id = editor_menu_npcs;
 		create_or_open_popup_menu(app, new_menu_id, self);
 	}
 }
@@ -218,14 +236,15 @@ void				editor3d_menu_create(t_doom3d *app)
 {
 	app->active_scene->menus[0] = button_menu_create(app,
 		(t_button_menu_params){
-			.button_names = (const char*[6]){
+			.button_names = (const char*[7]){
 				"Exit",
 				"Save",
 				"Objects",
 				"Textures",
 				"NormMaps",
-				"Prefabs"},
-			.num_buttons = 6,
+				"Prefabs",
+				"Characters"},
+			.num_buttons = 7,
 			.on_click = on_editor_menu_button_click,
 			.button_font = app->window->main_font,
 		});

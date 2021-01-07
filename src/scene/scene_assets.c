@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 19:10:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 10:46:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,25 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 	scene_set_skybox_textures(scene);
 }
 
-static uint64_t	get_prefab_value(uint32_t object_type, uint32_t prefab_type)
+static void		npcs_load(t_scene *scene)
 {
-	return (((uint64_t)object_type << 32) | (uint64_t)prefab_type);	
+	scene->npc_map = hash_map_create(MAX_ASSETS);
+	scene->asset_files.npc_names[scene->asset_files.num_npcs] =
+		"Default Enemy";
+	hash_map_add(scene->npc_map,
+		(int64_t)scene->asset_files.npc_names[scene->asset_files.num_npcs++],
+			(void*)npc_type_default);
 }
 
 static void		prefabs_load(t_scene *scene)
 {
 	scene->prefab_map = hash_map_create(MAX_ASSETS);
-	scene->asset_files.prefab_names[scene->asset_files.num_prefabs] =
-		"Default Enemy";
-	hash_map_add(scene->prefab_map,
-		(int64_t)scene->asset_files.prefab_names[scene->asset_files.num_prefabs],
-			(void*)get_prefab_value(object_type_npc, npc_type_default));
-	scene->asset_files.num_prefabs++;
-	scene->asset_files.prefab_names[scene->asset_files.num_prefabs] =
+	scene->asset_files.prefab_names[scene->asset_files.num_npcs] =
 		"Plane";
 	hash_map_add(scene->prefab_map,
-		(int64_t)scene->asset_files.prefab_names[scene->asset_files.num_prefabs],
-			(void*)get_prefab_value(object_type_default, prefab_plane));
-	scene->asset_files.num_prefabs++;
+		(int64_t)scene->asset_files.prefab_names[
+			scene->asset_files.num_prefabs++],
+			(void*)prefab_plane);
 }
 
 static void		scene_texture_files_set(t_asset_files *data)
@@ -113,10 +112,12 @@ void			scene_assets_load(t_scene *scene)
 	scene->asset_files.num_models = 0;
 	scene->asset_files.num_textures = 0;
 	scene->asset_files.num_normal_maps = 0;
+	scene->asset_files.num_npcs = 0;
 	scene->asset_files.num_prefabs = 0;
 	scene_texture_files_set(&scene->asset_files);
 	scene_normal_files_set(&scene->asset_files);
 	scene_model_files_set(&scene->asset_files);
 	assets_load(scene, &scene->asset_files);
 	prefabs_load(scene);
+	npcs_load(scene);
 }
