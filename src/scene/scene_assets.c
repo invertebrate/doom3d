@@ -102,6 +102,9 @@ static void		scene_model_files_set(t_asset_files *data)
 {
 	data->model_files[data->num_models++] =
 		"assets/models/box.obj";
+	// data->model_files[data->num_models++] =
+	// 	"assets/models/run_frame.obj";
+		
 }
 
 /*

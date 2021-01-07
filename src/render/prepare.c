@@ -50,8 +50,11 @@ static void		add_objects_render_triangles(t_doom3d *app,
 		j = -1;
 		while (++j < app->active_scene->objects[i]->num_triangles)
 		{
-			triangle = app->active_scene->objects[i]->triangles + j;
-			if (triangle_too_far(app, triangle) ||
+			// if (app->active_scene->objects[i]->animated)
+			// 	triangle = app->active_scene->objects[i]->animation_frames[0]->triangles + j;//here animation frame mesh
+			// else
+				triangle = app->active_scene->objects[i]->triangles + j;
+			if (triangle_too_far(app, triangle)	 ||
 				!triangle_inside_viewbox(app, triangle))
 				continue ;
 			prepare_render_triangle(app, &r_triangle, triangle, vtc);

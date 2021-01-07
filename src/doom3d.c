@@ -39,7 +39,7 @@ static void		doom3d_main_loop(t_doom3d *app)
 	while (app->is_running)
 	{
 		app->info.performance_start = SDL_GetPerformanceCounter();
-		update_app_ticks(app);
+		// update_app_ticks(app);
 		if (app->window->resized)
 			resize_dependent_recreate(app);
 		window_frame_clear(app->window);
@@ -49,7 +49,7 @@ static void		doom3d_main_loop(t_doom3d *app)
 		doom3d_render(app);
 		window_frame_draw(app->window);
 		doom3d_debug_info_capture(app);
-		ft_printf("%u\n", app->current_tick);
+		// ft_printf("%u\n", app->current_tick);
 	}
 }
 
