@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 14:07:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 14:39:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,10 +158,9 @@ static void			on_trigger_menu_button_click(t_button *self, void *params)
 	t_doom3d		*app;
 	uint32_t		trigger_type;
 	void			*get_res;
-	int32_t			i;
 
 	app = params;
-	get_res = hash_map_get(app->active_scene->prefab_map,
+	get_res = hash_map_get(app->active_scene->trigger_map,
 		(int64_t)self->text);
 	ft_memcpy(&trigger_type, &get_res, sizeof(uint32_t));
 	if (trigger_type == trigger_player_start)
@@ -170,7 +169,7 @@ static void			on_trigger_menu_button_click(t_button *self, void *params)
 			doom3d_notification_add(app, "Player Start exists, delete it first!");
 		else
 		{
-			
+			place_player_start(app);
 			doom3d_notification_add(app, "Placed Player Start!");
 			active_scene_update_after_objects(app->active_scene);
 			app->editor.is_saved = false;
@@ -182,11 +181,13 @@ static void			on_trigger_menu_button_click(t_button *self, void *params)
 			doom3d_notification_add(app, "Player End exists, delete it first!");
 		else
 		{
+			place_player_end(app);
 			doom3d_notification_add(app, "Placed Player End!");
 			active_scene_update_after_objects(app->active_scene);
 			app->editor.is_saved = false;
 		}
 	}
+	editor_triggers_highlight(app);
 }
 
 static void			create_popup_menu(t_doom3d *app,

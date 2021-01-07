@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:03:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 14:43:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,21 @@ void			draw_selected_wireframe(t_render_work *work)
 	t_sub_framebuffer	*sub_buffer;
 	t_triangle			*triangle;
 	int32_t				i;
+	uint32_t			color;
 
 	sub_buffer = work->framebuffer->sub_buffers[work->sub_buffer_i];
 	i = -1;
 	while (++i < (int32_t)work->render_triangles->size)
 	{
 		triangle = work->render_triangles->triangles[i];
+		color = 0x00ff00ff;
+		if (triangle->material->shading_opts & e_shading_green)
+			color = 0x0000ffff;
 		if (!(triangle->material->shading_opts & e_shading_select) ||
 			triangle->clipped ||
 			triangle_outside_frame(triangle, sub_buffer))
 			continue ;
-		triangle_wireframe_draw(sub_buffer, triangle->points_2d, 0x00ff00ff);
+		triangle_wireframe_draw(sub_buffer, triangle->points_2d, color);
 	}
 }
 

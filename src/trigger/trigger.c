@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 14:27:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 14:40:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 void			place_player_start(t_doom3d *app)
 {
-	t_3d_object		*model;
 	t_trigger		trigger;
 
-	model = l3d_plane_create(NULL, NULL);
-	place_procedural_scene_object(app, model,
-		(const char*[2]){"assets/models/box.obj", NULL},
+	place_scene_object(app,
+		(const char*[3]){"assets/models/box.obj", NULL, NULL},
 		(t_vec3){0, 0, 0});
-	l3d_3d_object_destroy(model);
 	l3d_object_set_shading_opts(
 		app->active_scene->objects[app->active_scene->num_objects - 1],
 		e_shading_invisible);
@@ -39,14 +36,11 @@ void			place_player_start(t_doom3d *app)
 
 void			place_player_end(t_doom3d *app)
 {
-	t_3d_object		*model;
 	t_trigger		trigger;
 
-	model = l3d_plane_create(NULL, NULL);
-	place_procedural_scene_object(app, model,
-		(const char*[2]){"assets/models/box.obj", NULL},
+	place_scene_object(app,
+		(const char*[3]){"assets/models/box.obj", NULL, NULL},
 		(t_vec3){0, 0, 0});
-	l3d_3d_object_destroy(model);
 	l3d_object_set_shading_opts(
 		app->active_scene->objects[app->active_scene->num_objects - 1],
 		e_shading_invisible);
@@ -79,9 +73,9 @@ void			editor_triggers_highlight(t_doom3d *app)
 				obj->material->shading_opts = (obj->material->shading_opts &
 					~(e_shading_invisible));
 				obj->material->shading_opts = e_shading_blue;
-				if (obj->params_type == place_player_start)
+				if (obj->params_type == trigger_player_start)
 					obj->material->shading_opts = e_shading_green;
-				if (obj->params_type == place_player_end)
+				if (obj->params_type == trigger_player_end)
 					obj->material->shading_opts = e_shading_red;
 			}
 		}
