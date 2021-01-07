@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 18:14:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:35:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,13 @@ void			editor_deselect_all(t_doom3d *app)
 {
 	int32_t	i;
 
+	editor_deselect(app);
 	i = -1;
-	while (++i < (int32_t)app->active_scene->num_objects)
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
 	{
+		if (app->active_scene->objects[i] == NULL)
+			continue ;
 		app->active_scene->objects[i]->material->shading_opts =
 			(app->active_scene->objects[i]->material->shading_opts &
 				~e_shading_select);
@@ -98,12 +102,15 @@ void			editor_deselect_all(t_doom3d *app)
 }
 
 static void		select_object(t_doom3d *app, t_3d_object *object)
-{
+{	
+	char	object_type[128];
+
 	app->editor.selected_object = object;
 	app->editor.selected_object->material->shading_opts |=
 		e_shading_select;
-	ft_sprintf(app->editor.selected_object_str, "Selected: %u",
-		app->editor.selected_object->id);
+	object_type_to_str(object, object_type);
+	ft_sprintf(app->editor.selected_object_str, "%s: %u", object_type,
+		object->id);
 }
 
 /*

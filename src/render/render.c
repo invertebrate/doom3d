@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 00:20:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:03:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,19 @@ static void		render_work(void *params)
 
 	work = params;
 	clear_buffers(work);
+	if (work->app->active_scene->scene_id == scene_id_editor3d)
+		draw_editor_debug_grid(work);
 	rasterize_triangles(work);
+	if (work->app->active_scene->scene_id == scene_id_editor3d)
+	{
+		if (work->app->editor.selected_object)
+		{
+			draw_selected_wireframe(work);
+			if (work->app->editor.selected_object->type == object_type_npc)
+				draw_selected_enemy_direction(work);
+		}
+		//!Debug bounding box with draw_selected_aabb(work);
+	}
 	draw_buffers(work);
 	free(work);
 }
@@ -121,4 +133,6 @@ void			doom3d_render(t_doom3d *app)
 		render_editor_3d_view(app);
 	}
 	ui_render(app);
+	if (app->is_debug)
+		doom3d_debug_info_render(app);
 }

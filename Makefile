@@ -43,6 +43,12 @@ SOURCES = main.c \
 			player/player.c \
 			player/collision.c \
 			player/movement.c \
+			npc/npc_default.c \
+			npc/npc_execute_behavior.c \
+			npc/npc_spawn.c \
+			npc/npc_update.c \
+			object/object_utils.c \
+			object/object_update.c \
 			camera.c \
 			debug.c \
 			scene/menus/editor3d_menu.c \
@@ -52,7 +58,7 @@ SOURCES = main.c \
 			scene/menus/menu_utils.c \
 			scene/editor/editor_selection.c \
 			scene/editor/editor_utils.c \
-			scene/editor/object_utils.c \
+			scene/editor/editor_init.c \
 			scene/editor/save.c \
 			scene/editor/read.c \
 			scene/scene.c \
@@ -69,6 +75,9 @@ SOURCES = main.c \
 			render/prepare_clip.c \
 			render/hud.c \
 			render/ui.c \
+			render/editor_ui.c \
+			render/debug/debug.c \
+			render/debug/debug_line.c \
 			window/text.c \
 			window/window.c \
 			window/frame.c \
@@ -79,6 +88,8 @@ SOURCES = main.c \
 			window/buttons/button_group.c \
 			window/buttons/button_utils.c \
 			window/buttons/button.c \
+			window/buttons/button_popup_menu.c \
+			window/buttons/button_popup_menu_events.c \
 			events/mouse_state.c \
 			events/events.c \
 			events/editor_events.c \
@@ -112,9 +123,12 @@ $(DIR_OBJ):
 	@mkdir -p temp/window
 	@mkdir -p temp/window/buttons
 	@mkdir -p temp/render
+	@mkdir -p temp/render/debug
 	@mkdir -p temp/events
 	@mkdir -p temp/player
 	@mkdir -p temp/animations
+	@mkdir -p temp/npc
+	@mkdir -p temp/object
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)

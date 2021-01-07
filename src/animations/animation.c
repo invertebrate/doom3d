@@ -81,6 +81,7 @@ t_bool			read_frames_to_object(t_doom3d *app, t_3d_object *object, char *path, i
 	temp_index_string = NULL;
 	frame_path = NULL;
 	return (0);
+	(void)app;
 }
 
 uint32_t		update_current_frame(t_doom3d *app, t_3d_object *object)

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 19:39:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 20:28:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ static void		set_objects_shading_opts(t_doom3d *app, t_shading_opts opts)
 	int32_t	i;
 
 	i = -1;
-	while (++i < (int32_t)app->active_scene->num_objects)
-		l3d_object_set_shading_opts(app->active_scene->objects[i], opts);
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
+		if (app->active_scene->objects[i])
+			l3d_object_set_shading_opts(app->active_scene->objects[i], opts);
 }
 
 static void		handle_main_game_general_keyup_events(t_doom3d *app,
@@ -26,8 +28,8 @@ static void		handle_main_game_general_keyup_events(t_doom3d *app,
 {
 	if (event.key.keysym.sym == SDLK_n)
 	{
-		app->is_normal_map = !app->is_normal_map;
-		if (app->is_normal_map)
+		app->settings.is_normal_map = !app->settings.is_normal_map;
+		if (app->settings.is_normal_map)
 			set_objects_shading_opts(app,
 				app->active_scene->objects[0]->material->shading_opts |
 				e_shading_normal_map);

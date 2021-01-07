@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   button_group_events.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:38:19 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 23:32:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2020/12/23 13:48:43 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void			button_group_events_handle(t_button_group *button_group,
 	{
 		while (++i < (int32_t)button_group->num_buttons)
 		{
+
 			if (button_is_clicked(button_group->buttons[i], mouse, event))
 			{
 				button_group->selected_index = i;

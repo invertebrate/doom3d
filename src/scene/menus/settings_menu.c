@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:41:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/26 13:22:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:14:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,16 @@ static void			on_settings_menu_button_click(t_button *self, void *params)
 
 void				settings_menu_create(t_doom3d *app)
 {
-	app->active_scene->menus[0] = button_menu_create(app, (const char*[4]){
-		"Small",
-		"Medium",
-		"Large",
-		"Back"}, 4, on_settings_menu_button_click);
-	app->active_scene->num_menus = 1;
+	app->active_scene->menus[0] = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = (const char*[4]){
+				"Small",
+				"Medium",
+				"Large",
+				"Back"},
+			.num_buttons = 4,
+			.on_click = on_settings_menu_button_click,
+			.button_font = app->window->main_font,
+		});
+	app->active_scene->num_button_menus = 1;
 }

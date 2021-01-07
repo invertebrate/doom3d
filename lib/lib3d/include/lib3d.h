@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 19:32:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:11:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,10 @@ typedef struct				s_plane
 struct				s_3d_object
 {
 	uint32_t		id;
+	uint32_t		type;
+	void			*params;
+	uint32_t		params_size;
+	uint32_t		params_type;
 	t_vertex		**vertices;
 	int32_t			num_vertices;
 	t_triangle		*triangles;
@@ -400,13 +404,13 @@ t_3d_object					*l3d_3d_object_copy(t_3d_object *src);
 void						l3d_3d_object_debug_print(t_3d_object *obj);
 void						l3d_object_set_shading_opts(t_3d_object *obj,
 								t_shading_opts opts);
-void						l3d_3d_object_set_id(t_3d_object *object,
-								uint32_t id);
 t_3d_object					*l3d_3d_object_shallow_copy(t_3d_object *src);
 void						l3d_3d_object_triangle_copy_and_set(
 								t_3d_object *dst,
 								t_3d_object *src);
-
+void						l3d_3d_object_set_params(t_3d_object *object,
+								void *params, uint32_t params_size,
+								uint32_t params_type);
 /*
 ** OBJ reading
 */
@@ -476,8 +480,14 @@ void						l3d_line_draw(uint32_t *buffer,
 								uint32_t dimensions_wh[2], int32_t edge[2][2],
 								uint32_t color);
 void						l3d_triangle_2d_draw(uint32_t *buffer,
-							uint32_t dimensions_wh[2],
-							t_vec2 corners[3], uint32_t color);
+								uint32_t dimensions_wh[2],
+								t_vec2 corners[3], uint32_t color);
+void						l3d_edge_aabb_intersections(t_vec2 aabb[2],
+								t_vec2 edge[2], int32_t is_intersect[4],
+								t_vec2 intersects[4]);
+t_bool						l3d_clamp_edge_within_aabb(t_vec2 aabb[2],
+								t_vec2 edge[2], int32_t is_intersect[4],
+								t_vec2 intersects[4]);
 
 /*
 ** Bmp reading
@@ -533,7 +543,7 @@ void						l3d_skybox_create(t_3d_object *skybox[6],
 t_3d_object					*l3d_plane_create(t_surface	*texture,
 								t_surface *normal_map);
 t_3d_object					*l3d_object_instantiate(t_3d_object *model,
-								float unit_size, t_bool is_trigger);
+								float unit_size);
 void						l3d_temp_objects_add(t_temp_objects **temp_objects,
 								t_3d_object *object, uint32_t creation_time);
 void						l3d_temp_objects_destroy(

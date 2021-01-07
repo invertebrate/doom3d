@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 19:37:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 19:23:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # define WIDTH 1280
 # define HEIGHT 720
 # define NAME "Doom3D"
-# define CLEAR_COLOR 0x700000FF
 # define PLAYER_SPEED 6.0
 # define PLAYER_ROTATION_SPEED 0.2
 # define NEAR_CLIP_DIST 10
@@ -41,6 +40,28 @@
 # define X_DIR 1
 # define Y_DIR -1
 # define Z_DIR 1
+
+# define NPC_DEFAULT_MODEL "assets/models/box.obj"
+# define NPC_DEFAULT_TEXTURE "assets/textures/rock.bmp"
+# define NPC_DEFAULT_NORMM "assets/textures/rock.bmp"
+
+typedef enum				e_object_type
+{
+	object_type_default = 0,
+	object_type_npc = 1,
+	object_type_projectile = 2,
+	object_type_trigger = 3,
+}							t_object_type;
+
+typedef enum				e_prefab_type
+{
+	prefab_plane = 1,
+}							t_prefab_type;
+
+typedef enum				e_npc_type
+{
+	npc_type_default,
+}							t_npc_type;
 
 typedef enum				e_move
 {
@@ -67,6 +88,13 @@ typedef enum				e_animation
 	anim_attack,
 	anim_death
 }							t_animation;
+
+typedef enum				e_npc_state
+{
+	state_idle,
+	state_attack,
+	state_atk_anim,
+}							t_npc_state;
 
 typedef struct				s_camera
 {
@@ -105,50 +133,75 @@ typedef struct				s_asset_files
 	const char				*texture_files[MAX_ASSETS];
 	const char				*normal_map_files[MAX_ASSETS];
 	const char				*model_files[MAX_ASSETS];
+	const char				*prefab_names[MAX_ASSETS];
 	uint32_t				num_models;
 	uint32_t				num_textures;
 	uint32_t				num_normal_maps;
+	uint32_t				num_prefabs;
 }							t_asset_files;
 
 typedef struct				s_scene
 {
 	t_3d_object				*objects[MAX_NUM_OBJECTS];
 	uint32_t				num_objects;
+	uint32_t				deleted_object_i[MAX_NUM_OBJECTS];
+	uint32_t				num_deleted;
 	t_kd_tree				*triangle_tree;
 	t_triangle				**triangle_ref;
 	uint32_t				num_triangles;
 	t_camera				*main_camera;
 	t_triangle				*screen_triangles;
 	t_button_group			*menus[8];
-	uint32_t				num_menus;
+	uint32_t				num_button_menus;
 	t_bool					is_paused;
 	t_scene_id				scene_id;
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
 	t_hash_table			*models;
+	t_hash_table			*prefab_map;
 	t_hash_table			*object_textures;
 	t_hash_table			*object_normal_maps;
 	t_asset_files			asset_files;
 	t_surface				*skybox_textures[6];
 	t_3d_object				*skybox[6];
+	uint32_t				npc_update_timer;
 }							t_scene;
+
+typedef enum				e_editor_menu_index
+{
+	editor_menu_none = 0,
+	editor_menu_prefabs = 1,
+	editor_menu_objects = 2,
+	editor_menu_textures = 3,
+	editor_menu_normalmaps = 4,
+}							t_editor_menu_index;
+
+typedef struct s_npc		t_npc;
 
 typedef struct 				s_editor
 {
 	t_bool					is_saving;
 	t_bool					is_saved;
+	t_bool					is_moving;
+	t_editor_menu_index		editor_menu_id;
+	t_button_menu			*editor_menu;
 	uint32_t				editor_level;
 	char					editor_filename[128];
+	char					editor_savename[128];
 	char					selected_object_str[128];
 	t_3d_object				*selected_object;
 }							t_editor;
+
+typedef struct				s_settings
+{
+	t_bool					is_normal_map;
+	t_bool					is_skybox;
+}							t_settings;
 
 typedef struct				s_doom3d
 {
 	t_bool					is_running;
 	t_bool					is_debug;
-	t_bool					is_loading;
-	t_bool					is_normal_map;
 	t_bool					is_first_render;
 	t_info					info;
 	t_window				*window;
@@ -159,14 +212,35 @@ typedef struct				s_doom3d
 	t_keyboard				keyboard;
 	t_thread_pool			*thread_pool;
 	float					unit_size;
-	t_bool					is_minimap_largened;
 	int32_t					triangles_in_view;
 	char					*level_list[MAX_LEVELS];
 	uint32_t				num_levels;
 	uint32_t				current_level;
+	uint32_t				editor_level;
 	t_editor				editor;
 	uint64_t				current_tick;
+	t_settings				settings;
 }							t_doom3d;
+
+struct						s_npc
+{
+	t_vec3					dir;
+	float					angle;
+	float					vision_range;
+	float					atk_range;
+	uint32_t				atk_start;
+	uint32_t				atk_dur;
+	uint32_t				atk_timer;
+	float					speed;
+	float					rot_speed;
+	float					dist;
+	int						state;
+	int						hp;
+	int						type;
+	const char				*texture_key;
+	const char				*model_key;
+	const char				*normal_map_key;
+};
 
 /*
 ** For parallelization
@@ -179,6 +253,14 @@ typedef struct				s_render_work
 	uint32_t				sub_buffer_i;
 	t_tri_vec				*render_triangles;
 }							t_render_work;
+
+typedef struct				s_button_menu_params
+{
+	const char				**button_names;
+	int32_t					num_buttons;
+	void					(*on_click)(t_button *, void *);
+	TTF_Font				*button_font;
+}							t_button_menu_params;
 
 void						doom3d_run(t_doom3d *app);
 
@@ -193,12 +275,27 @@ void						player_rotate_horizontal(t_doom3d *app,
 void						player_apply_gravity(t_doom3d *app);
 void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
-void						player_scroll_editor(t_doom3d *app, float speed);
+void						editor_vertical_move(t_doom3d *app, float speed);
+
+/*
+** Npc
+*/
+
+void						npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
+								int type);
+void						npc_update(t_doom3d *app, t_3d_object *npc_obj);
+void						npc_execute_behavior(t_doom3d *app,
+								t_3d_object *npc_obj);
+void						npc_default(t_doom3d *app, t_npc *npc);
+t_npc						*find_npc_by_object_id(t_doom3d *app,
+								uint32_t object_id);
+void						handle_npc_deletions(t_doom3d *app);
+void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
 
 /*
 ** Events
 */
-void						events_handle(t_doom3d *app);
+void						doom3d_events_handle(t_doom3d *app);
 void						mouse_state_handle(t_doom3d *app);
 void						player_shoot(t_doom3d *app,
 								uint32_t curr_time);
@@ -209,6 +306,7 @@ void						handle_editor_selection(t_doom3d *app,
 								SDL_Event event);
 void						handle_editor_saving(t_doom3d *app,
 								SDL_Event event);
+t_bool						editor_popup_menu_open(t_doom3d *app);
 
 /*
 ** Animations
@@ -256,15 +354,32 @@ void						framebuffer_dark_overlay(
 								int32_t width, int32_t height, t_vec2 pos);
 void						set_aabb_origin_to_corners(t_3d_object *obj,
 								t_vec3 origin, t_vec3 origin_to_corner[8]);
-void						menu_render(t_button_group *menu, t_vec2 pos);
+void						button_menu_render(t_button_group *menu, t_vec2 pos);
+void						editor_ui_render(t_doom3d *app);
+void						draw_debug_line(t_doom3d *app,
+								t_sub_framebuffer *buffer, t_vec3 points[2],
+								uint32_t color);
+void						draw_editor_debug_grid(t_render_work *work);
+void						draw_selected_wireframe(t_render_work *work);
+t_bool						triangle_outside_frame(t_triangle *triangle,
+								t_sub_framebuffer *sub_buffer);
+void						draw_selected_aabb(t_render_work *work);
+void						draw_selected_enemy_direction(t_render_work *work);
+
+/*
+** Objects
+*/
+void						doom3d_update_objects(t_doom3d *app);
+void						object_type_to_str(t_3d_object *obj, char *str);
 
 /*
 ** Scene
 */
 void						scene_assets_load(t_scene *scene);
 void						active_scene_content_set(t_doom3d *app);
+void						active_scene_update_after_objects(t_scene *scene);
 t_scene						*scene_new(t_scene_id scene_id);
-void						scene_destroy(t_scene *scene);
+void						scene_destroy(t_doom3d *app);
 void						scene_next_select(t_doom3d *app);
 void						scene_debug(t_scene *scene);
 void						scene_map_init(t_scene *scene);
@@ -274,6 +389,7 @@ void						scene_skybox_destroy(t_scene *scene);
 void						scene_models_destroy(t_scene *scene);
 void						scene_textures_destroy(t_scene *scene);
 void						scene_normal_maps_destroy(t_scene *scene);
+void						active_scene_popup_menu_destroy(t_doom3d *app);
 
 /*
 ** Editor
@@ -282,15 +398,20 @@ void						save_map(t_doom3d *app);
 void						read_map(t_doom3d *app, const char *map_name);
 const char					*normal_map_file_key(char *filename, t_doom3d *app);
 const char					*texture_file_key(char *filename, t_doom3d *app);
-void						place_object(t_doom3d *app,
+void						place_scene_object(t_doom3d *app,
 								const char *filenames[3],
 								t_vec3 pos);
-void						place_procedural_object(t_doom3d *app,
+void						object_set_for_deletion(t_doom3d *app,
+								t_3d_object *object);
+void						place_procedural_scene_object(t_doom3d *app,
 								t_3d_object *model,
 								const char *filenames[2], t_vec3 pos);
 void						editor_select(t_doom3d *app);
 void						editor_deselect_all(t_doom3d *app);
 void						editor_deselect(t_doom3d *app);
+void						after_editor_transform(t_doom3d *app,
+								uint32_t *last_changed);
+void    					editor_init(t_doom3d *app);
 
 /*
 ** Level
@@ -301,8 +422,7 @@ void						read_level_list(t_doom3d *app);
 ** Menus
 */
 t_button_group				*button_menu_create(t_doom3d *app,
-								const char **options, int32_t num_buttons,
-								void (*on_click)(t_button *, void *));
+								t_button_menu_params menu_params);
 void						main_menu_create(t_doom3d *app);
 void						editor3d_menu_create(t_doom3d *app);
 void						pause_menu_create(t_doom3d *app);

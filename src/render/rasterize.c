@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 19:03:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/02 18:53:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** If all points are on the same side outside screen bounds, don't render
 */
 
-static t_bool	triangle_outside_render_area(t_triangle *triangle,
+t_bool			triangle_outside_frame(t_triangle *triangle,
 					t_sub_framebuffer *sub_buffer)
 {
 	t_vec2		xy1;
@@ -56,7 +56,7 @@ void			rasterize_triangles(t_render_work *work)
 	while (++i < (int32_t)work->render_triangles->size)
 	{
 		triangle = work->render_triangles->triangles[i];
-		if (triangle_outside_render_area(triangle, sub_buffer))
+		if (triangle_outside_frame(triangle, sub_buffer))
 			continue ;
 		l3d_triangle_raster(sub_buffer, triangle);
 	}

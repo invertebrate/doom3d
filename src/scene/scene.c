@@ -6,24 +6,20 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 18:27:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:47:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		select_scene(void *app_ptr)
+static void		select_scene(t_doom3d *app)
 {
-	t_doom3d			*app;
-
 	SDL_StopTextInput();
-	app = app_ptr;
 	app->is_first_render = true;
 	if (app->active_scene != NULL)
-		scene_destroy(app->active_scene);
+		scene_destroy(app);
 	app->active_scene = scene_new(app->next_scene_id);
 	active_scene_content_set(app);
-	app->is_loading = false;
 }
 
 /*
@@ -37,45 +33,46 @@ t_scene			*scene_new(t_scene_id scene_id)
 	error_check(!(scene = (t_scene*)malloc(sizeof(t_scene))),
 		"Failed to malloc scene");
 	ft_memset(scene, 0, sizeof(*scene));
+	ft_memset(scene->deleted_object_i, 0, sizeof(scene->deleted_object_i));
+	scene->num_deleted = 0;
+	scene->num_objects = 0;
+	scene->npc_update_timer = 0;
 	scene->scene_id = scene_id;
 	scene->triangle_ref = NULL;
 	return (scene);
 }
 
-/*
-** Concurrently select's and loads next scene. Once done, select scene
-** will turn app->is_loading to false;
-*/
-
 void			scene_next_select(t_doom3d *app)
 {
-	app->is_loading = true;
-	thread_pool_add_work(app->thread_pool,
-		select_scene, app);
+	window_frame_clear(app->window);
+	loading_render(app);
+	window_frame_draw(app->window);
+	select_scene(app);
 }
 
-void			scene_destroy(t_scene *scene)
+void			scene_destroy(t_doom3d *app)
 {
-	scene_menus_destroy(scene);
-	if (scene->triangle_tree)
-		l3d_kd_tree_destroy(scene->triangle_tree);
-	if (scene->textures)
-		scene_textures_destroy(scene);
-	if (scene->normal_maps)
-		scene_normal_maps_destroy(scene);
-	if (scene->models)
-		scene_models_destroy(scene);
-	if (scene->skybox[0])
-		scene_skybox_destroy(scene);
-	if (scene->triangle_ref)
+	active_scene_popup_menu_destroy(app);
+	scene_menus_destroy(app->active_scene);
+	if (app->active_scene->triangle_tree)
+		l3d_kd_tree_destroy(app->active_scene->triangle_tree);
+	if (app->active_scene->textures)
+		scene_textures_destroy(app->active_scene);
+	if (app->active_scene->normal_maps)
+		scene_normal_maps_destroy(app->active_scene);
+	if (app->active_scene->models)
+		scene_models_destroy(app->active_scene);
+	if (app->active_scene->skybox[0])
+		scene_skybox_destroy(app->active_scene);
+	if (app->active_scene->triangle_ref)
 	{
-		free(scene->triangle_ref);
-		scene->triangle_ref = NULL;
+		free(app->active_scene->triangle_ref);
+		app->active_scene->triangle_ref = NULL;
 	}
-	scene_objects_destroy(scene);
-	scene_camera_destroy(scene);
-	free(scene);
-	scene = NULL;
+	scene_objects_destroy(app->active_scene);
+	scene_camera_destroy(app->active_scene);
+	free(app->active_scene);
+	app->active_scene = NULL;
 	return ;
 }
 
@@ -88,8 +85,9 @@ void			scene_debug(t_scene *scene)
 		scene->scene_id,
 		scene->num_objects);
 	i = -1;
-	while (++i < (int)scene->num_objects)
+	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
 	{
-		l3d_3d_object_debug_print(scene->objects[i]);
+		if (scene->objects[i])
+			l3d_3d_object_debug_print(scene->objects[i]);
 	}
 }
