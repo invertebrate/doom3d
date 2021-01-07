@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 19:15:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 11:22:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void		doom3d_main_loop(t_doom3d *app)
 		doom3d_update_objects(app);
 		doom3d_render(app);
 		window_frame_draw(app->window);
+		doom3d_notifications_update(app);
 		doom3d_debug_info_capture(app);
 	}
 }
@@ -60,6 +61,7 @@ void			doom3d_init(t_doom3d *app)
 	app->next_scene_id = scene_id_main_menu;
 	app->settings.is_normal_map = false;
 	app->settings.is_skybox = true;
+	ft_memset(&app->notifications, 0, sizeof(app->notifications));
 	read_level_list(app);
 	app->current_level = 0;
 	editor_init(app);

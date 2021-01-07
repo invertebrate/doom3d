@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 16:08:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 11:47:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,20 @@ void			doom3d_performance_counter_end(uint64_t start_time,
 		(float)SDL_GetPerformanceFrequency();
 	if (delta_limit == 0.0 || delta_time > delta_limit)
 		ft_printf("%s: Profiler time: %f\n", task_name, delta_time);
+}
+
+void			doom3d_notifications_update(t_doom3d *app)
+{
+	app->notifications.timer -= app->info.delta_time;
+	if (app->notifications.timer < 0)
+	{
+		ft_memset(&app->notifications, 0, sizeof(app->notifications));
+	}
+}
+
+void			doom3d_notification_add(t_doom3d *app, const char *message)
+{
+	app->notifications.messages[app->notifications.num_notifications++] =
+		message;
+	app->notifications.timer += 1000;
 }

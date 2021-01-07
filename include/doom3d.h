@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 10:58:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 11:45:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,13 @@ typedef struct				s_settings
 	t_bool					is_skybox;
 }							t_settings;
 
+typedef struct				e_notifications
+{
+	const char				*messages[64];
+	uint32_t				num_notifications;
+	int32_t				timer;
+}							t_notifications;
+
 typedef struct				s_doom3d
 {
 	t_bool					is_running;
@@ -223,6 +230,7 @@ typedef struct				s_doom3d
 	uint32_t				editor_level;
 	t_editor				editor;
 	t_settings				settings;
+	t_notifications			notifications;
 }							t_doom3d;
 
 struct						s_npc
@@ -369,6 +377,7 @@ t_bool						triangle_outside_frame(t_triangle *triangle,
 								t_sub_framebuffer *sub_buffer);
 void						draw_selected_aabb(t_render_work *work);
 void						draw_selected_enemy_direction(t_render_work *work);
+void						notifications_render(t_doom3d *app, t_vec2 pos);
 
 /*
 ** Objects
@@ -435,12 +444,15 @@ void						active_scene_menu_recreate(t_doom3d *app);
 void						scene_menus_destroy(t_scene *scene);
 
 /*
-** Debug
+** Utils
 */
 void						doom3d_debug_info_render(t_doom3d *app);
 void						doom3d_debug_info_capture(t_doom3d *app);
 uint64_t					doom3d_performance_counter_start(void);
 void						doom3d_performance_counter_end(uint64_t start_time,
 								char *task_name, float delta_limit);
+void						doom3d_notification_add(t_doom3d *app,
+								const char *message);
+void						doom3d_notifications_update(t_doom3d *app);
 
 #endif
