@@ -59,7 +59,7 @@ static void		doom3d_main_loop(t_doom3d *app)
 			doom3d_debug_info_render(app);
 		window_frame_draw(app->window);
 		doom3d_debug_info_capture(app);
-		// ft_printf("%u\n", app->current_tick);
+		ft_printf("%u\n", app->current_tick);
 	}
 }
 

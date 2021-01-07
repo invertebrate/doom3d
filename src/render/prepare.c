@@ -41,7 +41,8 @@ static void		add_objects_render_triangles(t_doom3d *app,
 
 	i = -1;
 	while (++i < (int)app->active_scene->num_objects)
-	{
+	{//animated here
+
 		if (object_too_far(app, app->active_scene->objects[i]) ||
 			!object_inside_viewbox(app, app->active_scene->objects[i]))
 			continue ;

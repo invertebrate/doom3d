@@ -60,6 +60,14 @@ typedef enum				e_scene_id
 	scene_id_editor3d,
 }							t_scene_id;
 
+typedef enum				e_animation
+{
+	anim_idle,
+	anim_move,
+	anim_attack,
+	anim_death
+}							t_animation;
+
 typedef struct				s_camera
 {
 	t_vec3					origin;
