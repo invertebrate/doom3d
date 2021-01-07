@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 11:56:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 13:09:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ static void			on_normmaps_menu_button_click(t_button *self, void *params)
 		hash_map_add(app->active_scene->object_normal_maps,
 			app->editor.selected_object->id, (void*)self->text);
 		app->editor.is_saved = false;
+		doom3d_notification_add(app, "Set normal map!");
 	}
 	else
 	{
@@ -143,7 +144,6 @@ static void			on_prefab_menu_button_click(t_button *self, void *params)
 	get_res = hash_map_get(app->active_scene->prefab_map,
 		(int64_t)self->text);
 	ft_memcpy(&prefab_type, &get_res, sizeof(uint32_t));
-	npc_spawn(app, (t_vec3){0, 0, 0}, 0, prefab_type);
 	if (prefab_type == (uint32_t)prefab_plane)
 	{
 		prefab_spawn_plane(app);

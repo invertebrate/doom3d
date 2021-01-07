@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:24:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 12:08:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 13:17:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ static void		notification_messages_render(t_doom3d *app, t_vec2 pos,
 	while (++i < (int32_t)app->notifications.num_notifications)
 	{
 		window_text_render(app->window, (t_text_params){
-			.text = app->notifications.messages[i],
+			.text = app->notifications.messages[
+				app->notifications.num_notifications - i - 1],
 			.text_color = (SDL_Color){255, 255, 0, 255}, .blend_ratio = 1.0,
-			.xy = (int32_t[2]){pos[0] + padding,
+			.xy = (int32_t[2]){pos[0] + padding + 2,
 				pos[1] + i * (text_dims[1] + padding)}
 		}, app->window->debug_font);
 	}
