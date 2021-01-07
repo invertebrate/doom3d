@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 14:27:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 15:11:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ typedef struct 				s_editor
 	t_bool					is_moving;
 	t_editor_menu_index		editor_menu_id;
 	t_button_menu			*editor_menu;
-	uint32_t				editor_level;
+	int32_t					editor_level;
 	char					editor_filename[128];
 	char					editor_savename[128];
 	char					selected_object_str[128];
@@ -229,7 +229,6 @@ typedef struct				s_doom3d
 	char					*level_list[MAX_LEVELS];
 	uint32_t				num_levels;
 	uint32_t				current_level;
-	uint32_t				editor_level;
 	t_editor				editor;
 	t_settings				settings;
 	t_notifications			notifications;
@@ -427,7 +426,7 @@ void						editor_deselect_all(t_doom3d *app);
 void						editor_deselect(t_doom3d *app);
 void						after_editor_transform(t_doom3d *app,
 								uint32_t *last_changed);
-void    					editor_init(t_doom3d *app);
+void    					editor_init(t_doom3d *app, int32_t editor_level);
 
 /*
 ** Level

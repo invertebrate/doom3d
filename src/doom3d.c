@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 13:24:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 15:00:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void			doom3d_init(t_doom3d *app)
 	ft_memset(&app->notifications, 0, sizeof(app->notifications));
 	read_level_list(app);
 	app->current_level = 0;
-	editor_init(app);
+	editor_init(app, 0);
 	scene_next_select(app);
 }
 
