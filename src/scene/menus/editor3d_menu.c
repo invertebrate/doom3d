@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 11:00:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 11:56:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void			on_delete_menu_button_click(t_button *self, void *params)
 			editor_deselect(app);
 			object_set_for_deletion(app, object_to_delete);
 			app->editor.is_saved = false;
+			doom3d_notification_add(app, "Selected!");
 		}
 	}
 }
@@ -37,6 +38,11 @@ static void			on_editor_save(t_doom3d *app)
 		editor_deselect(app);
 		app->editor.is_saving = true;
 		SDL_StartTextInput();
+		doom3d_notification_add(app, "Write name to save");
+	}
+	else
+	{
+		doom3d_notification_add(app, "Press enter to save");
 	}
 }
 
@@ -57,6 +63,7 @@ static void			on_objects_menu_button_click(t_button *self, void *params)
 		(t_vec3){0, 0, 0});
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
+	doom3d_notification_add(app, "Placed object!");
 }
 
 static void			on_textures_menu_button_click(t_button *self, void *params)
@@ -71,7 +78,12 @@ static void			on_textures_menu_button_click(t_button *self, void *params)
 		hash_map_add(app->active_scene->object_textures,
 			app->editor.selected_object->id, (void*)self->text);
 		app->editor.is_saved = false;
+		doom3d_notification_add(app, "Set texture!");
 	}
+	else
+	{
+		doom3d_notification_add(app, "Select object first");
+	}	
 }
 
 static void			on_normmaps_menu_button_click(t_button *self, void *params)
@@ -86,6 +98,10 @@ static void			on_normmaps_menu_button_click(t_button *self, void *params)
 		hash_map_add(app->active_scene->object_normal_maps,
 			app->editor.selected_object->id, (void*)self->text);
 		app->editor.is_saved = false;
+	}
+	else
+	{
+		doom3d_notification_add(app, "Select object first");
 	}
 }
 
@@ -114,6 +130,7 @@ static void			on_npc_menu_button_click(t_button *self, void *params)
 	npc_spawn(app, (t_vec3){0, 0, 0}, 0, npc_type);
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
+	doom3d_notification_add(app, "Placed NPC!");
 }
 
 static void			on_prefab_menu_button_click(t_button *self, void *params)
@@ -130,6 +147,7 @@ static void			on_prefab_menu_button_click(t_button *self, void *params)
 	if (prefab_type == (uint32_t)prefab_plane)
 	{
 		prefab_spawn_plane(app);
+		doom3d_notification_add(app, "Placed Plane!");
 	}
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
@@ -146,6 +164,7 @@ static void			on_trigger_menu_button_click(t_button *self, void *params)
 		(int64_t)self->text);
 	ft_memcpy(&trigger_type, &get_res, sizeof(uint32_t));
 	//ToDo: Create trigger here
+	doom3d_notification_add(app, "Placed Trigger!");
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
 }
@@ -157,7 +176,6 @@ static void			create_popup_menu(t_doom3d *app,
 	t_button_group	*button_menu;
 	t_vec2			pos;
 
-	ft_printf("%d\n", new_menu);
 	if (new_menu == editor_menu_objects)
 		button_menu = button_menu_create(app,
 		(t_button_menu_params){

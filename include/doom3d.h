@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 11:45:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 12:12:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ typedef struct				e_notifications
 {
 	const char				*messages[64];
 	uint32_t				num_notifications;
-	int32_t				timer;
+	int32_t					timer;
 }							t_notifications;
 
 typedef struct				s_doom3d

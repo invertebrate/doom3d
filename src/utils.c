@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 11:47:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 13:08:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,23 @@ void			doom3d_performance_counter_end(uint64_t start_time,
 
 void			doom3d_notifications_update(t_doom3d *app)
 {
+	if (app->notifications.num_notifications == 0)
+		return ;
 	app->notifications.timer -= app->info.delta_time;
-	if (app->notifications.timer < 0)
+	if ((app->notifications.timer + 2000) / 2000 <
+		(int32_t)app->notifications.num_notifications)
 	{
-		ft_memset(&app->notifications, 0, sizeof(app->notifications));
+		app->notifications.messages[
+			app->notifications.num_notifications - 1] = NULL;
+		app->notifications.num_notifications--;
 	}
+	if (app->notifications.timer < 0)
+		app->notifications.timer = 0;
 }
 
 void			doom3d_notification_add(t_doom3d *app, const char *message)
 {
 	app->notifications.messages[app->notifications.num_notifications++] =
 		message;
-	app->notifications.timer += 1000;
+	app->notifications.timer += 2000;
 }
