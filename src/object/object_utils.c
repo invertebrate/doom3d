@@ -6,11 +6,28 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 19:23:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 14:05:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+t_3d_object		*find_one_object_by_type(t_doom3d *app, uint32_t object_type,
+					uint32_t param_type)
+{
+	int32_t	i;
+
+	i = -1;
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
+	{
+		if (app->active_scene->objects[i] &&
+			app->active_scene->objects[i]->type == object_type &&
+			app->active_scene->objects[i]->params_type == param_type)
+			return (app->active_scene->objects[i]);
+	}
+	return (NULL);
+}
 
 /*
 ** // !Note that this (inc/dec)rements both num_deleted and num_objects
@@ -128,11 +145,13 @@ void			place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 void			object_type_to_str(t_3d_object *obj, char *str)
 {
 	if (obj->type == object_type_default)
-		ft_sprintf(str, "%s", "3d-Object");
+		ft_sprintf(str, "%s", "Object");
 	else if (obj->type == object_type_npc)
 		ft_sprintf(str, "%s", "NPC");
 	else if (obj->type == object_type_trigger)
 		ft_sprintf(str, "%s", "Trigger");
 	else if (obj->type == object_type_projectile)
 		ft_sprintf(str, "%s", "Projectile");
+	else if (obj->type == object_type_item)
+		ft_sprintf(str, "%s", "Item");
 }

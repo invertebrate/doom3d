@@ -48,6 +48,7 @@ SOURCES = main.c \
 			npc/npc_execute_behavior.c \
 			npc/npc_spawn.c \
 			npc/npc_update.c \
+			trigger/trigger.c \
 			object/object_utils.c \
 			object/object_update.c \
 			camera.c \
@@ -129,6 +130,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/player
 	@mkdir -p temp/npc
 	@mkdir -p temp/object
+	@mkdir -p temp/trigger
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 11:22:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 13:24:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void		resize_dependent_recreate(t_doom3d *app)
 
 static void		handle_scene_switch(t_doom3d *app)
 {
-	if (app->active_scene->scene_id != app->next_scene_id)
+	if (app->active_scene->scene_id != app->next_scene_id ||
+		app->is_scene_reload)
 		scene_next_select(app);
 }
 
@@ -57,6 +58,7 @@ void			doom3d_init(t_doom3d *app)
 	app->active_scene = NULL;
 	app->is_running = true;
 	app->is_debug = true;
+	app->is_scene_reload = false;
 	app->unit_size = app->window->width;
 	app->next_scene_id = scene_id_main_menu;
 	app->settings.is_normal_map = false;

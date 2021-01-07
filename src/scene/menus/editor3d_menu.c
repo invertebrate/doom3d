@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 13:09:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 14:07:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,15 +158,35 @@ static void			on_trigger_menu_button_click(t_button *self, void *params)
 	t_doom3d		*app;
 	uint32_t		trigger_type;
 	void			*get_res;
+	int32_t			i;
 
 	app = params;
 	get_res = hash_map_get(app->active_scene->prefab_map,
 		(int64_t)self->text);
 	ft_memcpy(&trigger_type, &get_res, sizeof(uint32_t));
-	//ToDo: Create trigger here
-	doom3d_notification_add(app, "Placed Trigger!");
-	active_scene_update_after_objects(app->active_scene);
-	app->editor.is_saved = false;
+	if (trigger_type == trigger_player_start)
+	{
+		if (find_one_object_by_type(app, object_type_trigger, trigger_player_start))
+			doom3d_notification_add(app, "Player Start exists, delete it first!");
+		else
+		{
+			
+			doom3d_notification_add(app, "Placed Player Start!");
+			active_scene_update_after_objects(app->active_scene);
+			app->editor.is_saved = false;
+		}
+	}
+	else if (trigger_type == trigger_player_end)
+	{
+		if (find_one_object_by_type(app, object_type_trigger, trigger_player_end))
+			doom3d_notification_add(app, "Player End exists, delete it first!");
+		else
+		{
+			doom3d_notification_add(app, "Placed Player End!");
+			active_scene_update_after_objects(app->active_scene);
+			app->editor.is_saved = false;
+		}
+	}
 }
 
 static void			create_popup_menu(t_doom3d *app,
@@ -275,6 +295,23 @@ static void			on_editor_menu_button_click(t_button *self, void *params)
 	}
 }
 
+static void			on_new_level_menu_button_click(t_button *self, void *params)
+{
+	t_doom3d			*app;
+	t_editor_menu_index	new_menu_id;
+
+	app = params;
+	new_menu_id = editor_menu_none;
+	if (self->id == 0 && app->editor_level < MAX_LEVELS)
+	{
+		if (app->level_list[app->editor_level])
+			app->editor_level++;
+		app->is_scene_reload = true;
+	}
+	else if (self->id == 0 && app->editor_level == MAX_LEVELS)
+		doom3d_notification_add(app, "Too many levels created!!");
+}
+
 void				editor3d_menu_create(t_doom3d *app)
 {
 	app->active_scene->menus[0] = button_menu_create(app,
@@ -300,6 +337,14 @@ void				editor3d_menu_create(t_doom3d *app)
 			.on_click = on_delete_menu_button_click,
 			.button_font = app->window->main_font,
 		});
-	app->active_scene->num_button_menus = 2;
+	app->active_scene->menus[2] = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = (const char*[1]){
+				"New"},
+			.num_buttons = 1,
+			.on_click = on_new_level_menu_button_click,
+			.button_font = app->window->main_font,
+		});
+	app->active_scene->num_button_menus = 3;
 }
 

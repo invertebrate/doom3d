@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 13:15:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 14:01:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void			editor_deselect_all(t_doom3d *app)
 			continue ;
 		app->active_scene->objects[i]->material->shading_opts =
 			(app->active_scene->objects[i]->material->shading_opts &
-				~e_shading_select);
+				~(e_shading_select));
 	}
 }
 

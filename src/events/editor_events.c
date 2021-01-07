@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 23:13:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 14:33:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,23 @@ void		handle_editor_saving(t_doom3d *app, SDL_Event event)
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
 	{
 		SDL_StopTextInput();
+		if (!find_one_object_by_type(app, object_type_trigger,
+			trigger_player_start) ||
+			!find_one_object_by_type(app, object_type_trigger,
+			trigger_player_end))
+		{
+			doom3d_notification_add(app,
+				"You need to add start and end before saving!");
+			return ;
+		}
+		SDL_StopTextInput();
 		app->editor.is_saving = false;
 		ft_memcpy(app->editor.editor_filename, app->editor.editor_savename,
 			ft_strlen(app->editor.editor_savename));
+		editor_triggers_unhighlight(app);
 		save_map(app);
-		ft_printf("Saved %s\n", app->editor.editor_filename);
+		editor_triggers_highlight(app);
+		doom3d_notification_add(app, "Saved level!");
 		app->editor.is_saved = true;
 	}
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKSPACE)

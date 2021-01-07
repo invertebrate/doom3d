@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 12:12:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 14:27:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef enum				e_object_type
 	object_type_npc = 1,
 	object_type_projectile = 2,
 	object_type_trigger = 3,
+	object_type_item = 4,
 }							t_object_type;
 
 typedef enum				e_prefab_type
@@ -214,6 +215,7 @@ typedef struct				s_doom3d
 	t_bool					is_running;
 	t_bool					is_debug;
 	t_bool					is_first_render;
+	t_bool					is_scene_reload;
 	t_info					info;
 	t_window				*window;
 	t_scene_id				next_scene_id;
@@ -305,8 +307,6 @@ void						npc_update(t_doom3d *app, t_3d_object *npc_obj);
 void						npc_execute_behavior(t_doom3d *app,
 								t_3d_object *npc_obj);
 void						npc_default(t_doom3d *app, t_npc *npc);
-t_npc						*find_npc_by_object_id(t_doom3d *app,
-								uint32_t object_id);
 void						handle_npc_deletions(t_doom3d *app);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
 
@@ -384,6 +384,9 @@ void						notifications_render(t_doom3d *app, t_vec2 pos);
 */
 void						doom3d_update_objects(t_doom3d *app);
 void						object_type_to_str(t_3d_object *obj, char *str);
+t_3d_object					*find_one_object_by_type(t_doom3d *app,
+								uint32_t object_type,
+								uint32_t param_type);
 
 /*
 ** Scene
@@ -454,5 +457,13 @@ void						doom3d_performance_counter_end(uint64_t start_time,
 void						doom3d_notification_add(t_doom3d *app,
 								const char *message);
 void						doom3d_notifications_update(t_doom3d *app);
+
+/*
+** Triggers
+*/
+void						place_player_end(t_doom3d *app);
+void						place_player_start(t_doom3d *app);
+void						editor_triggers_unhighlight(t_doom3d *app);
+void						editor_triggers_highlight(t_doom3d *app);
 
 #endif
