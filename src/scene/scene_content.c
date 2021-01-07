@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 15:47:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 20:58:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void				place_test_objects(t_doom3d *app)
 	// npc_spawn(app, (t_vec3){0, 0, app->unit_size * 6}, 45, 0);
 }
 
-static void		game_init(t_doom3d *app)
+static void		scene_game_init(t_doom3d *app)
 {
 	t_3d_object		*start;
 
@@ -101,6 +101,7 @@ static void		scene_editor_init(t_doom3d *app)
 	{
 		if (app->level_list[app->editor.editor_level])
 			read_map(app, app->level_list[app->editor.editor_level]);
+		editor_triggers_highlight(app);
 		ft_memcpy(app->editor.editor_savename,
 			app->editor.editor_filename,
 			ft_strlen(app->editor.editor_savename));
@@ -122,7 +123,7 @@ static void		active_scene_init(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
-		game_init(app);
+		scene_game_init(app);
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
