@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 17:27:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 11:02:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void			window_create(t_window **window_ref,
 	window->editor_framebuffer = NULL;
 	window->main_font = TTF_OpenFont(GAME_FONT, FONT_SIZE);
 	error_check(window->main_font == NULL, TTF_GetError());
-	window->debug_font = TTF_OpenFont(DEBUG_FONT, FONT_SIZE * 0.3);
+	window->debug_font = TTF_OpenFont(DEBUG_FONT, FONT_SIZE * 0.35);
 	error_check(window->debug_font == NULL, TTF_GetError());
 	window->title_font = TTF_OpenFont(GAME_FONT, FONT_SIZE * 2);
 	error_check(window->title_font == NULL, TTF_GetError());

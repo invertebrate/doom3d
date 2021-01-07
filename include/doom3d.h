@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 10:36:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 10:58:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define NEAR_CLIP_DIST 10
 # define FAR_CLIP_DIST 100000
 # define MAX_NUM_OBJECTS 16384
-# define MAX_ASSETS 256
+# define MAX_ASSETS 64
 # define MAX_LEVELS 16
 # define TEMP_OBJECT_EXPIRE_SEC 100
 
@@ -55,6 +55,12 @@ typedef enum				e_prefab_type
 {
 	prefab_plane = 1,
 }							t_prefab_type;
+
+typedef enum				e_trigger_type
+{
+	trigger_player_start = 1,
+	trigger_player_end = 2,
+}							t_trigger_type;
 
 typedef enum				e_npc_type
 {
@@ -125,11 +131,13 @@ typedef struct				s_asset_files
 	const char				*model_files[MAX_ASSETS];
 	const char				*npc_names[MAX_ASSETS];
 	const char				*prefab_names[MAX_ASSETS];
+	const char				*trigger_names[MAX_ASSETS];
 	uint32_t				num_models;
 	uint32_t				num_textures;
 	uint32_t				num_normal_maps;
 	uint32_t				num_npcs;
 	uint32_t				num_prefabs;
+	uint32_t				num_triggers;
 }							t_asset_files;
 
 typedef struct				s_scene
@@ -152,6 +160,7 @@ typedef struct				s_scene
 	t_hash_table			*models;
 	t_hash_table			*npc_map;
 	t_hash_table			*prefab_map;
+	t_hash_table			*trigger_map;
 	t_hash_table			*object_textures;
 	t_hash_table			*object_normal_maps;
 	t_asset_files			asset_files;
@@ -235,6 +244,13 @@ struct						s_npc
 	const char				*model_key;
 	const char				*normal_map_key;
 };
+
+typedef struct				s_trigger
+{
+	uint32_t				type;
+	uint32_t				id;
+	t_box3d					aabb;
+}							t_trigger;
 
 /*
 ** For parallelization

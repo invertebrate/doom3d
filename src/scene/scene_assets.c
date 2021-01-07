@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 10:46:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 10:58:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,23 @@ static void		prefabs_load(t_scene *scene)
 			(void*)prefab_plane);
 }
 
+static void		triggers_load(t_scene *scene)
+{
+	scene->trigger_map = hash_map_create(MAX_ASSETS);
+	scene->asset_files.trigger_names[scene->asset_files.num_triggers] =
+		"Level Start";
+	hash_map_add(scene->trigger_map,
+		(int64_t)scene->asset_files.trigger_names[
+			scene->asset_files.num_triggers++],
+			(void*)trigger_player_start);
+	scene->asset_files.trigger_names[scene->asset_files.num_triggers] =
+		"Level End";
+	hash_map_add(scene->trigger_map,
+		(int64_t)scene->asset_files.trigger_names[
+			scene->asset_files.num_triggers++],
+			(void*)trigger_player_end);
+}
+
 static void		scene_texture_files_set(t_asset_files *data)
 {
 	data->texture_files[data->num_textures++] =
@@ -120,4 +137,5 @@ void			scene_assets_load(t_scene *scene)
 	assets_load(scene, &scene->asset_files);
 	prefabs_load(scene);
 	npcs_load(scene);
+	triggers_load(scene);
 }
