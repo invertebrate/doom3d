@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 15:27:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 21:20:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,10 +299,8 @@ static void			on_editor_menu_button_click(t_button *self, void *params)
 static void			on_new_level_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d			*app;
-	t_editor_menu_index	new_menu_id;
 
 	app = params;
-	new_menu_id = editor_menu_none;
 	if (self->id == 0 && app->editor.editor_level < MAX_LEVELS)
 	{
 		if (!app->level_list[app->editor.editor_level])
