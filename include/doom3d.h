@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 15:11:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 15:50:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -401,7 +401,7 @@ void						scene_map_init(t_scene *scene);
 void						scene_camera_destroy(t_scene *scene);
 void						scene_objects_destroy(t_scene *scene);
 void						scene_skybox_destroy(t_scene *scene);
-void						scene_models_destroy(t_scene *scene);
+void						scene_assets_destroy(t_scene *scene);
 void						scene_textures_destroy(t_scene *scene);
 void						scene_normal_maps_destroy(t_scene *scene);
 void						active_scene_popup_menu_destroy(t_doom3d *app);
