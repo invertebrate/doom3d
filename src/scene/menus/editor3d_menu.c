@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 15:22:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 15:27:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,7 +312,6 @@ static void			on_new_level_menu_button_click(t_button *self, void *params)
 			return ;
 		}
 		app->is_scene_reload = true;
-		app->next_scene_id = scene_id_editor3d;
 		editor_init(app, app->editor.editor_level +
 			app->num_levels - app->editor.editor_level);
 	}
