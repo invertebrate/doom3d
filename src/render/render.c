@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 23:41:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		draw_buffers(t_render_work *work)
 	t_framebuffer		*framebuffer;
 	t_surface			frame;
 	t_surface			sub_frame;
-	int32_t				xy[0];
+	int32_t				xy[2];
 
 	sub_buffer = work->framebuffer->sub_buffers[work->sub_buffer_i];
 	framebuffer = work->framebuffer;
