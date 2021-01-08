@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 21:06:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:42:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static void		finish_level(t_doom3d *app)
 	}
 	else
 	{
+		app->current_level = 0;
 		app->next_scene_id = scene_id_main_menu;
 		doom3d_notification_add(app, "Game Over!");
 	}
