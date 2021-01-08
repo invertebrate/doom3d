@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_state.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:02:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/09 00:49:29 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ static void		keyboard_game_state_handle(t_doom3d *app)
 		app->player.is_running = true;
 	else
 		app->player.is_running = false;
+	if (app->keyboard.state[SDL_SCANCODE_3])
+		inventory_equip(app, item_type_weapon);
+	else if (app->keyboard.state[SDL_SCANCODE_2])
+		inventory_equip(app, item_type_sidearm);
+	else if (app->keyboard.state[SDL_SCANCODE_1])
+		inventory_equip(app, item_type_melee);
+	if (app->keyboard.state[SDL_SCANCODE_G])
+		inventory_throw_weapon(app);
+	if (app->keyboard.state[SDL_SCANCODE_F]) //test
+	{
+		printf("Picked up RPG!\n");//test
+		inventory_pickup_weapon(app, (t_item) {item_rpg, item_type_weapon, 10}); //test
+	}
 }
 
 static void		handle_editor_transform(t_doom3d *app)

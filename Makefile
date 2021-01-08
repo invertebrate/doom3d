@@ -44,6 +44,10 @@ SOURCES = main.c \
 			player/player.c \
 			player/collision.c \
 			player/movement.c \
+			inventory/inventory_equip.c \
+			inventory/inventory_init.c \
+			inventory/inventory_pickup_weapon.c \
+			inventory/inventory_throw_weapon.c \
 			npc/npc_default.c \
 			npc/npc_execute_behavior.c \
 			npc/npc_spawn.c \
@@ -131,6 +135,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/npc
 	@mkdir -p temp/object
 	@mkdir -p temp/trigger
+	@mkdir -p temp/inventory
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)
