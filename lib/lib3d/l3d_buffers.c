@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/15 18:46:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:02:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_sub_framebuffer	*l3d_subbuffer_create(t_framebuffer *parent,
 {
 	t_sub_framebuffer	*sub_buffer;
 
-	error_check(!(sub_buffer = malloc(sizeof(t_sub_framebuffer))),
+	error_check(!(sub_buffer = ft_calloc(sizeof(t_sub_framebuffer))),
 				"Failed to malloc frame sub buffer");
 	sub_buffer->height = parent->height / parent->num_y;
 	sub_buffer->width = parent->width / parent->num_x;
@@ -29,11 +29,11 @@ static t_sub_framebuffer	*l3d_subbuffer_create(t_framebuffer *parent,
 	sub_buffer->y_offset = sub_buffer->parent_height * 0.5 -
 		sub_buffer->y_start;
 	error_check(!(
-		sub_buffer->buffer = malloc(sizeof(uint32_t) *
+		sub_buffer->buffer = ft_calloc(sizeof(uint32_t) *
 			sub_buffer->height * sub_buffer->width)),
 			"Failed to malloc frame sub buffer");
 	error_check(!(
-		sub_buffer->zbuffer = malloc(sizeof(float) *
+		sub_buffer->zbuffer = ft_calloc(sizeof(float) *
 			sub_buffer->height * sub_buffer->width)),
 			"Failed to malloc frame sub buffer");
 	return (sub_buffer);
@@ -57,14 +57,14 @@ t_framebuffer				*l3d_framebuffer_create(int32_t width,
 	int32_t			y;
 	int32_t			index;
 
-	error_check(!(fbuffer = malloc(sizeof(t_framebuffer))), "!mallocf");
+	error_check(!(fbuffer = ft_calloc(sizeof(t_framebuffer))), "!ft_callocf");
 	error_check(!(fbuffer->buffer =
-		malloc(sizeof(uint32_t) * width * height)), "Failed to malloc fbuffer");
+		ft_calloc(sizeof(uint32_t) * width * height)), "Failed to malloc fbuffer");
 	fbuffer->num_x = L3D_BUFFER_SPLIT_SIZE_X;
 	fbuffer->num_y = L3D_BUFFER_SPLIT_SIZE_Y;
 	fbuffer->width = width;
 	fbuffer->height = height;
-	error_check(!(fbuffer->sub_buffers = malloc(sizeof(t_sub_framebuffer*) *
+	error_check(!(fbuffer->sub_buffers = ft_calloc(sizeof(t_sub_framebuffer*) *
 		fbuffer->num_y * fbuffer->num_x)), "Failed to malloc sbuffer");
 	y = -1;
 	while (++y < fbuffer->num_y)

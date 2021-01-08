@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 17:27:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:02:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void			window_create(t_window **window_ref,
 {
 	t_window *window;
 
-	error_check((window = (t_window*)malloc(sizeof(t_window))) == NULL,
-		"Window malloc failed");
+	error_check((window = (t_window*)ft_calloc(sizeof(t_window))) == NULL,
+		"Window ft_calloc failed");
 	window->window = SDL_CreateWindow(NAME, SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, width, height, 0);
 	window->width = width;
@@ -70,7 +70,7 @@ void			window_create(t_window **window_ref,
 	window->editor_framebuffer = NULL;
 	window->main_font = TTF_OpenFont(GAME_FONT, FONT_SIZE);
 	error_check(window->main_font == NULL, TTF_GetError());
-	window->debug_font = TTF_OpenFont(DEBUG_FONT, FONT_SIZE * 0.3);
+	window->debug_font = TTF_OpenFont(DEBUG_FONT, FONT_SIZE * 0.36);
 	error_check(window->debug_font == NULL, TTF_GetError());
 	window->title_font = TTF_OpenFont(GAME_FONT, FONT_SIZE * 2);
 	error_check(window->title_font == NULL, TTF_GetError());

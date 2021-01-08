@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 15:30:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 11:47:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void			button_menu_render(t_button_group *menu, t_vec2 pos)
 
 void			ui_render(t_doom3d *app)
 {
-
-
 	if (app->active_scene->scene_id == scene_id_main_menu ||
 		app->active_scene->scene_id == scene_id_main_menu_settings)
 	{
@@ -77,6 +75,8 @@ void			ui_render(t_doom3d *app)
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 		editor_ui_render(app);
+	notifications_render(app,
+		(t_vec2){app->window->framebuffer->width - 100, 10});
 }
 
 void			loading_render(t_doom3d *app)

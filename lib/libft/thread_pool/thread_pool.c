@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 15:57:55 by ohakola           #+#    #+#             */
-/*   Updated: 2020/10/18 21:54:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_thread_pool			*thread_pool_create(size_t num_threads)
 	pthread_t		thread;
 	size_t			i;
 
-	error_check(!(thread_pool = malloc(sizeof(*thread_pool))),
+	error_check(!(thread_pool = ft_calloc(sizeof(*thread_pool))),
 		"Failed to malloc thread pool");
 	thread_pool->num_threads_working = 0;
 	thread_pool->num_jobs = 0;

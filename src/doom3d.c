@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 19:15:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 21:02:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void		resize_dependent_recreate(t_doom3d *app)
 
 static void		handle_scene_switch(t_doom3d *app)
 {
-	if (app->active_scene->scene_id != app->next_scene_id)
+	if (app->active_scene->scene_id != app->next_scene_id ||
+		app->is_scene_reload)
 		scene_next_select(app);
 }
 
@@ -47,6 +48,7 @@ static void		doom3d_main_loop(t_doom3d *app)
 		doom3d_update_objects(app);
 		doom3d_render(app);
 		window_frame_draw(app->window);
+		doom3d_notifications_update(app);
 		doom3d_debug_info_capture(app);
 	}
 }
@@ -56,13 +58,15 @@ void			doom3d_init(t_doom3d *app)
 	app->active_scene = NULL;
 	app->is_running = true;
 	app->is_debug = true;
+	app->is_scene_reload = false;
 	app->unit_size = app->window->width;
 	app->next_scene_id = scene_id_main_menu;
 	app->settings.is_normal_map = false;
 	app->settings.is_skybox = true;
+	ft_memset(&app->notifications, 0, sizeof(app->notifications));
 	read_level_list(app);
 	app->current_level = 0;
-	editor_init(app);
+	editor_init(app, 0);
 	scene_next_select(app);
 }
 

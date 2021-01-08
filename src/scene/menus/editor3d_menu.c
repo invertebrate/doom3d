@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 19:08:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void			on_delete_menu_button_click(t_button *self, void *params)
 			editor_deselect(app);
 			object_set_for_deletion(app, object_to_delete);
 			app->editor.is_saved = false;
+			doom3d_notification_add(app, "Deleted!");
 		}
 	}
 }
@@ -37,6 +38,11 @@ static void			on_editor_save(t_doom3d *app)
 		editor_deselect(app);
 		app->editor.is_saving = true;
 		SDL_StartTextInput();
+		doom3d_notification_add(app, "Write name to save");
+	}
+	else
+	{
+		doom3d_notification_add(app, "Press enter to save");
 	}
 }
 
@@ -57,6 +63,7 @@ static void			on_objects_menu_button_click(t_button *self, void *params)
 		(t_vec3){0, 0, 0});
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
+	doom3d_notification_add(app, "Placed object!");
 }
 
 static void			on_textures_menu_button_click(t_button *self, void *params)
@@ -71,7 +78,12 @@ static void			on_textures_menu_button_click(t_button *self, void *params)
 		hash_map_add(app->active_scene->object_textures,
 			app->editor.selected_object->id, (void*)self->text);
 		app->editor.is_saved = false;
+		doom3d_notification_add(app, "Set texture!");
 	}
+	else
+	{
+		doom3d_notification_add(app, "Select object first");
+	}	
 }
 
 static void			on_normmaps_menu_button_click(t_button *self, void *params)
@@ -86,6 +98,11 @@ static void			on_normmaps_menu_button_click(t_button *self, void *params)
 		hash_map_add(app->active_scene->object_normal_maps,
 			app->editor.selected_object->id, (void*)self->text);
 		app->editor.is_saved = false;
+		doom3d_notification_add(app, "Set normal map!");
+	}
+	else
+	{
+		doom3d_notification_add(app, "Select object first");
 	}
 }
 
@@ -101,31 +118,76 @@ static void			prefab_spawn_plane(t_doom3d *app)
 	l3d_3d_object_destroy(model);
 }
 
+static void			on_npc_menu_button_click(t_button *self, void *params)
+{
+	t_doom3d		*app;
+	uint32_t		npc_type;
+	void			*get_res;
+
+	app = params;
+	get_res = hash_map_get(app->active_scene->npc_map,
+		(int64_t)self->text);
+	ft_memcpy(&npc_type, &get_res, sizeof(uint32_t));
+	npc_spawn(app, (t_vec3){0, 0, 0}, 0, npc_type);
+	active_scene_update_after_objects(app->active_scene);
+	app->editor.is_saved = false;
+	doom3d_notification_add(app, "Placed NPC!");
+}
+
 static void			on_prefab_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d		*app;
-	uint32_t		object_type;
 	uint32_t		prefab_type;
-	uint64_t		type_data;
 	void			*get_res;
 
 	app = params;
 	get_res = hash_map_get(app->active_scene->prefab_map,
 		(int64_t)self->text);
-	ft_memcpy(&type_data, &get_res, sizeof(uint64_t));
-	prefab_type = (uint32_t)type_data;
-	object_type = (type_data >> 32);
-	if (object_type == (uint32_t)object_type_npc)
+	ft_memcpy(&prefab_type, &get_res, sizeof(uint32_t));
+	if (prefab_type == (uint32_t)prefab_plane)
 	{
-		npc_spawn(app, (t_vec3){0, 0, 0}, 0, prefab_type);
-	}
-	else if (object_type == (uint32_t)object_type_default)
-	{
-		if (prefab_type == (uint32_t)prefab_plane)
-			prefab_spawn_plane(app);
+		prefab_spawn_plane(app);
+		doom3d_notification_add(app, "Placed Plane!");
 	}
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
+}
+
+static void			on_trigger_menu_button_click(t_button *self, void *params)
+{
+	t_doom3d		*app;
+	uint32_t		trigger_type;
+	void			*get_res;
+
+	app = params;
+	get_res = hash_map_get(app->active_scene->trigger_map,
+		(int64_t)self->text);
+	ft_memcpy(&trigger_type, &get_res, sizeof(uint32_t));
+	if (trigger_type == trigger_player_start)
+	{
+		if (find_one_object_by_type(app, object_type_trigger, trigger_player_start))
+			doom3d_notification_add(app, "Player Start exists, delete it first!");
+		else
+		{
+			place_player_start(app);
+			doom3d_notification_add(app, "Placed Player Start!");
+			active_scene_update_after_objects(app->active_scene);
+			app->editor.is_saved = false;
+		}
+	}
+	else if (trigger_type == trigger_player_end)
+	{
+		if (find_one_object_by_type(app, object_type_trigger, trigger_player_end))
+			doom3d_notification_add(app, "Player End exists, delete it first!");
+		else
+		{
+			place_player_end(app);
+			doom3d_notification_add(app, "Placed Player End!");
+			active_scene_update_after_objects(app->active_scene);
+			app->editor.is_saved = false;
+		}
+	}
+	editor_triggers_highlight(app);
 }
 
 static void			create_popup_menu(t_doom3d *app,
@@ -165,6 +227,22 @@ static void			create_popup_menu(t_doom3d *app,
 			.button_names = app->active_scene->asset_files.prefab_names,
 			.num_buttons = app->active_scene->asset_files.num_prefabs,
 			.on_click = on_prefab_menu_button_click,
+			.button_font = app->window->debug_font,
+		});
+	else if (new_menu == editor_menu_npcs)
+		button_menu = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = app->active_scene->asset_files.npc_names,
+			.num_buttons = app->active_scene->asset_files.num_npcs,
+			.on_click = on_npc_menu_button_click,
+			.button_font = app->window->debug_font,
+		});
+	else if (new_menu == editor_menu_triggers)
+		button_menu = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = app->active_scene->asset_files.trigger_names,
+			.num_buttons = app->active_scene->asset_files.num_triggers,
+			.on_click = on_trigger_menu_button_click,
 			.button_font = app->window->debug_font,
 		});
 	else
@@ -210,22 +288,51 @@ static void			on_editor_menu_button_click(t_button *self, void *params)
 			new_menu_id = editor_menu_normalmaps;
 		else if (self->id == 5)
 			new_menu_id = editor_menu_prefabs;
+		else if (self->id == 6)
+			new_menu_id = editor_menu_npcs;
+		else if (self->id == 7)
+			new_menu_id = editor_menu_triggers;
 		create_or_open_popup_menu(app, new_menu_id, self);
 	}
 }
 
+static void			on_new_level_menu_button_click(t_button *self, void *params)
+{
+	t_doom3d			*app;
+
+	app = params;
+	if (self->id == 0 && app->editor.editor_level < MAX_LEVELS)
+	{
+		if (!app->level_list[app->editor.editor_level])
+		{
+			doom3d_notification_add(app,
+				"Save map first, and add it to assets/level_list.txt!!");
+			return ;
+		}
+		app->is_scene_reload = true;
+		editor_init(app, app->editor.editor_level +
+			app->num_levels - app->editor.editor_level);
+	}
+	else if (self->id == 0 && app->editor.editor_level == MAX_LEVELS)
+		doom3d_notification_add(app, "Too many levels created!!");
+}
+
 void				editor3d_menu_create(t_doom3d *app)
 {
+	error_check(!(app->active_scene->menus =
+		ft_calloc(sizeof(t_button_group*) * 3)), "Failed to malloc menus");
 	app->active_scene->menus[0] = button_menu_create(app,
 		(t_button_menu_params){
-			.button_names = (const char*[6]){
+			.button_names = (const char*[8]){
 				"Exit",
 				"Save",
 				"Objects",
 				"Textures",
 				"NormMaps",
-				"Prefabs"},
-			.num_buttons = 6,
+				"Prefabs",
+				"Characters",
+				"Triggers"},
+			.num_buttons = 8,
 			.on_click = on_editor_menu_button_click,
 			.button_font = app->window->main_font,
 		});
@@ -237,6 +344,14 @@ void				editor3d_menu_create(t_doom3d *app)
 			.on_click = on_delete_menu_button_click,
 			.button_font = app->window->main_font,
 		});
-	app->active_scene->num_button_menus = 2;
+	app->active_scene->menus[2] = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = (const char*[1]){
+				"New"},
+			.num_buttons = 1,
+			.on_click = on_new_level_menu_button_click,
+			.button_font = app->window->main_font,
+		});
+	app->active_scene->num_button_menus = 3;
 }
 

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 20:51:20 by ohakola           #+#    #+#             */
-/*   Updated: 2020/02/20 18:47:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char				**ft_strsplit(char const *str, char c)
 
 	if (!str || *str == '\0')
 		return (NULL);
-	if (!(arr = (char**)ft_memalloc(sizeof(char*) *
+	if (!(arr = (char**)ft_calloc(sizeof(char*) *
 				(split_len((char*)str, c) + 1))))
 		return (NULL);
 	i = 0;

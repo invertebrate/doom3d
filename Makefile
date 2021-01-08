@@ -48,10 +48,11 @@ SOURCES = main.c \
 			npc/npc_execute_behavior.c \
 			npc/npc_spawn.c \
 			npc/npc_update.c \
+			trigger/trigger.c \
 			object/object_utils.c \
 			object/object_update.c \
 			camera.c \
-			debug.c \
+			utils.c \
 			scene/menus/editor3d_menu.c \
 			scene/menus/settings_menu.c \
 			scene/menus/main_menu.c \
@@ -79,6 +80,7 @@ SOURCES = main.c \
 			render/editor_ui.c \
 			render/debug/debug.c \
 			render/debug/debug_line.c \
+			render/notifications.c \
 			window/text.c \
 			window/window.c \
 			window/frame.c \
@@ -128,6 +130,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/player
 	@mkdir -p temp/npc
 	@mkdir -p temp/object
+	@mkdir -p temp/trigger
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)

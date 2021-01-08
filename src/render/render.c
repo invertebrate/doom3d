@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:03:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 23:41:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		draw_buffers(t_render_work *work)
 	t_framebuffer		*framebuffer;
 	t_surface			frame;
 	t_surface			sub_frame;
-	int32_t				xy[0];
+	int32_t				xy[2];
 
 	sub_buffer = work->framebuffer->sub_buffers[work->sub_buffer_i];
 	framebuffer = work->framebuffer;
@@ -95,7 +95,7 @@ static void		render_work_parallel(t_doom3d *app, t_framebuffer *framebuffer)
 	i = -1;
 	while (++i < framebuffer->num_x * framebuffer->num_y)
 	{
-		error_check(!(work = malloc(sizeof(*work))),
+		error_check(!(work = ft_calloc(sizeof(*work))),
 			"Failed to malloc rasterize work");
 		work->framebuffer = framebuffer;
 		work->sub_buffer_i = i;

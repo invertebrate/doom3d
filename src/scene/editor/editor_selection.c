@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:35:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 14:01:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void			editor_deselect_all(t_doom3d *app)
 			continue ;
 		app->active_scene->objects[i]->material->shading_opts =
 			(app->active_scene->objects[i]->material->shading_opts &
-				~e_shading_select);
+				~(e_shading_select));
 	}
 }
 
@@ -111,6 +111,7 @@ static void		select_object(t_doom3d *app, t_3d_object *object)
 	object_type_to_str(object, object_type);
 	ft_sprintf(app->editor.selected_object_str, "%s: %u", object_type,
 		object->id);
+	doom3d_notification_add(app, "Selected!");
 }
 
 /*
@@ -142,5 +143,9 @@ void			editor_select(t_doom3d *app)
 		l3d_delete_hits(&hits);
 	}
 	else
+	{
+		if (app->editor.selected_object)
+			doom3d_notification_add(app, "Deselected!");
 		editor_deselect(app);
+	}
 }

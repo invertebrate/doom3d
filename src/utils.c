@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 16:08:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/09 00:35:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,30 @@ void			doom3d_performance_counter_end(uint64_t start_time,
 		(float)SDL_GetPerformanceFrequency();
 	if (delta_limit == 0.0 || delta_time > delta_limit)
 		ft_printf("%s: Profiler time: %f\n", task_name, delta_time);
+}
+
+void			doom3d_notifications_update(t_doom3d *app)
+{
+	if (app->notifications.num_notifications == 0)
+		return ;
+	app->notifications.timer -= app->info.delta_time;
+	if ((app->notifications.timer + 2000) / 2000 <
+		(int32_t)app->notifications.num_notifications)
+	{
+		app->notifications.messages[
+			app->notifications.num_notifications - 1] = NULL;
+		app->notifications.num_notifications--;
+	}
+	if (app->notifications.timer < 0)
+		app->notifications.timer = 0;
+}
+
+void			doom3d_notification_add(t_doom3d *app, const char *message)
+{
+	if (app->notifications.num_notifications < 64)
+	{
+		app->notifications.messages[app->notifications.num_notifications++] =
+			message;
+		app->notifications.timer += 2000;
+	}
 }

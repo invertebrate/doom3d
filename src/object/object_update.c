@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 18:30:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:42:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,22 @@ static t_bool	should_update_npcs(t_doom3d *app)
 	return (update_npcs);
 }
 
+static void		finish_level(t_doom3d *app)
+{
+	app->current_level++;
+	if (app->current_level < app->num_levels)
+	{
+		app->is_scene_reload = true;
+		doom3d_notification_add(app, "New level!");
+	}
+	else
+	{
+		app->current_level = 0;
+		app->next_scene_id = scene_id_main_menu;
+		doom3d_notification_add(app, "Game Over!");
+	}
+}
+
 static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 					t_bool is_npc_update)
 {
@@ -68,6 +84,15 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 		if (is_npc_update)
 			npc_update(app, obj);
 		npc_execute_behavior(app, obj);
+	}
+	else if (obj->type == object_type_trigger)
+	{
+		if (l3d_aabb_collides(&app->player.aabb, &obj->aabb) &&
+			obj->params_type == trigger_player_end)
+		{
+			ft_printf("End piece\n");
+			finish_level(app);
+		}
 	}
 }
 

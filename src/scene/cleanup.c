@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 16:04:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 15:50:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		scene_normal_maps_destroy(t_scene *scene)
 	hash_map_destroy(scene->object_normal_maps);
 }
 
-void		scene_models_destroy(t_scene *scene)
+void		scene_assets_destroy(t_scene *scene)
 {
 	t_3d_object	*model;
 	int32_t		i;
@@ -55,7 +55,9 @@ void		scene_models_destroy(t_scene *scene)
 			(int64_t)scene->asset_files.model_files[i])))
 			l3d_3d_object_destroy(model);
 	hash_map_destroy(scene->models);
+	hash_map_destroy(scene->npc_map);
 	hash_map_destroy(scene->prefab_map);
+	hash_map_destroy(scene->trigger_map);
 }
 
 void		scene_skybox_destroy(t_scene *scene)

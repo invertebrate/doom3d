@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 19:11:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void				active_scene_triangle_refs_set(t_scene *scene)
 			num_triangles += scene->objects[i]->num_triangles;
 	scene->num_triangles = num_triangles;
 	error_check(!(scene->triangle_ref =
-		malloc(sizeof(t_triangle*) * num_triangles)),
+		ft_calloc(sizeof(t_triangle*) * num_triangles)),
 		"Failed to malloc triangle ref");
 	i = -1;
 	k = 0;
@@ -70,12 +70,24 @@ static void				place_test_objects(t_doom3d *app)
 	// npc_spawn(app, (t_vec3){0, 0, app->unit_size * 6}, 45, 0);
 }
 
-static void		game_init(t_doom3d *app)
+static void		scene_game_init(t_doom3d *app)
 {
+	t_3d_object		*start;
+
 	l3d_skybox_create(app->active_scene->skybox,
 		app->active_scene->skybox_textures, app->unit_size);
 	read_map(app, app->level_list[app->current_level]);
-	player_init(app, (t_vec3){0, 0, 0});
+	start = find_one_object_by_type(app, object_type_trigger,
+		trigger_player_start);
+	if (!start || !find_one_object_by_type(app, object_type_trigger,
+		trigger_player_end))
+	{
+		doom3d_notification_add(app,
+			"Map does not have Start or End locations, Add them in editor!");
+		app->next_scene_id = scene_id_main_menu;
+		return ;
+	}
+	player_init(app, start->position);
 	// Add test objects for playing
 	place_test_objects(app);
 	active_scene_update_after_objects(app->active_scene);
@@ -87,7 +99,9 @@ static void		scene_editor_init(t_doom3d *app)
 	app->editor.is_moving = false;
 	if (app->level_list[app->editor.editor_level])
 	{
-		read_map(app, app->level_list[app->editor.editor_level]);
+		if (app->level_list[app->editor.editor_level])
+			read_map(app, app->level_list[app->editor.editor_level]);
+		editor_triggers_highlight(app);
 		ft_memcpy(app->editor.editor_savename,
 			app->editor.editor_filename,
 			ft_strlen(app->editor.editor_savename));
@@ -109,7 +123,7 @@ static void		active_scene_init(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
-		game_init(app);
+		scene_game_init(app);
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{

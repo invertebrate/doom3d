@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:11:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 14:24:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,10 @@ typedef enum				e_shading_opts
 	e_shading_zero_alpha = 1 << 2,
 	e_shading_ignore_zpass = 1 << 3,
 	e_shading_select = 1 << 4,
+	e_shading_invisible = 1 << 5,
+	e_shading_red = 1 << 6,
+	e_shading_green = 1 << 7,
+	e_shading_blue = 1 << 8,
 }							t_shading_opts;
 
 typedef struct				s_surface
