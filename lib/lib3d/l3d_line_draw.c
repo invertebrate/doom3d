@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 23:07:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 23:15:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,18 @@ static void		l3d_line_plot_low(uint32_t *buffer, uint32_t dimensions_wh[2],
 	}
 	dyi[0] = 2 * dxy[1] - dxy[0];
 	xy[1] = edge[0][1];
-	xy[0] = edge[0][0] - 1;
-	while (++xy[0] <= edge[1][0])
+	xy[0] = edge[0][0];
+	while (xy[0] < edge[1][0] && xy[0] < (int32_t)dimensions_wh[0] && xy[0] >= 0)
 	{
-		l3d_pixel_plot(buffer, dimensions_wh, xy, color);
+		if (xy[1] >= 0 && xy[1] < (int32_t)dimensions_wh[1])
+			l3d_pixel_plot(buffer, dimensions_wh, xy, color);
 		if (dyi[0] > 0)
 		{
 			xy[1] += dyi[1];
 			dyi[0] -= 2 * dxy[0];
 		}
 		dyi[0] += 2 * dxy[1];
+		xy[0]++;
 	}
 }
 
@@ -59,16 +61,18 @@ static void		l3d_line_plot_high(uint32_t *buffer, uint32_t dimensions_wh[2],
 	}
 	dxi[0] = 2 * dxy[0] - dxy[1];
 	xy[0] = edge[0][0];
-	xy[1] = edge[0][1] - 1;
-	while (++xy[1] <= edge[1][1])
+	xy[1] = edge[0][1];
+	while (xy[1] < edge[1][1] && xy[1] < (int32_t)dimensions_wh[1] && xy[1] >= 0)
 	{
-		l3d_pixel_plot(buffer, dimensions_wh, xy, color);
+		if (xy[0] >= 0 && xy[0] < (int32_t)dimensions_wh[0])
+			l3d_pixel_plot(buffer, dimensions_wh, xy, color);
 		if (dxi[0] > 0)
 		{
 			xy[0] += dxi[1];
 			dxi[0] -= 2 * dxy[1];
 		}
 		dxi[0] += 2 * dxy[0];
+		xy[1]++;
 	}
 }
 
