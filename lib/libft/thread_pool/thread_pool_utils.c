@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:16:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 21:01:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_thread_work			*thread_pool_work_create(t_thread_work_func work_func,
 	t_thread_work	*work;
 
 	error_check(work_func == NULL, "Work func for work was NULL");
-	error_check(!(work = ft_memalloc(sizeof(*work))), "Failed to malloc work");
+	error_check(!(work = ft_calloc(sizeof(*work))), "Failed to malloc work");
 	work->work_func = work_func;
 	work->params = params;
 	work->next = NULL;

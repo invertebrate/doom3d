@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 21:01:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 
 void					l3d_obj_content_allocate(t_obj *o)
 {
-	error_check(!(o->v = ft_memalloc(sizeof(t_vec3) * L3D_MAX_OBJ_VERTICES)),
+	error_check(!(o->v = ft_calloc(sizeof(t_vec3) * L3D_MAX_OBJ_VERTICES)),
 		"Failed to malloc obj vs");
-	error_check(!(o->vt = ft_memalloc(sizeof(t_vec2) * L3D_MAX_OBJ_VERTICES)),
+	error_check(!(o->vt = ft_calloc(sizeof(t_vec2) * L3D_MAX_OBJ_VERTICES)),
 		"Failed to malloc obj v textures");
-	error_check(!(o->vn = ft_memalloc(sizeof(t_vec3) * L3D_MAX_OBJ_VERTICES)),
+	error_check(!(o->vn = ft_calloc(sizeof(t_vec3) * L3D_MAX_OBJ_VERTICES)),
 		"Failed to malloc obj v normals");
 	error_check(!(o->triangles =
-		ft_memalloc(sizeof(uint32_t) * 9 * L3D_MAX_OBJ_TRIANGLES)),
+		ft_calloc(sizeof(uint32_t) * 9 * L3D_MAX_OBJ_TRIANGLES)),
 		"Failed to malloc obj triangles");
 }
 

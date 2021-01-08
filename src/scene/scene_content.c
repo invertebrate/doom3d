@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 21:01:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void				active_scene_triangle_refs_set(t_scene *scene)
 			num_triangles += scene->objects[i]->num_triangles;
 	scene->num_triangles = num_triangles;
 	error_check(!(scene->triangle_ref =
-		ft_memalloc(sizeof(t_triangle*) * num_triangles)),
+		ft_calloc(sizeof(t_triangle*) * num_triangles)),
 		"Failed to malloc triangle ref");
 	i = -1;
 	k = 0;

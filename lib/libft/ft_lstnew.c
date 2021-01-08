@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:41:10 by ohakola           #+#    #+#             */
-/*   Updated: 2020/11/06 15:02:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 {
 	t_list	*list;
 
-	list = (t_list*)ft_memalloc(sizeof(*list));
+	list = (t_list*)ft_calloc(sizeof(*list));
 	if (!list)
 		return (NULL);
 	if (!content)
@@ -31,7 +31,7 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	}
 	else
 	{
-		if (!(list->content = ft_memalloc(content_size)))
+		if (!(list->content = ft_calloc(content_size)))
 			return (NULL);
 		ft_memcpy(list->content, content, content_size);
 		list->content_size = content_size;

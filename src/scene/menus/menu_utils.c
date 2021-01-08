@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:51:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 21:01:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_surface			*convert_sdl_surface_to_t_surface(SDL_Surface *src)
 {
 	t_surface	*dst;
 
-	error_check(!(dst = ft_memalloc(sizeof(t_surface))),
+	error_check(!(dst = ft_calloc(sizeof(t_surface))),
 		"Failed to malloc surface");
-	error_check(!(dst->pixels = ft_memalloc(sizeof(uint32_t) *
+	error_check(!(dst->pixels = ft_calloc(sizeof(uint32_t) *
 		src->w * src->h)), "Failed to malloc surface pixels");
 	ft_memcpy(dst->pixels, src->pixels,
 		sizeof(uint32_t) * src->w * src->h);
@@ -64,7 +64,7 @@ t_button_group		*button_menu_create(t_doom3d *app,
 	t_surface		*down_surfaces[menu_params.num_buttons];
 	t_button_group	*menu;
 
-	error_check(!(buttons = ft_memalloc(sizeof(t_button*) *
+	error_check(!(buttons = ft_calloc(sizeof(t_button*) *
 		menu_params.num_buttons)), "Failed to malloc buttons");
 	i = -1;
 	while (++i < menu_params.num_buttons)

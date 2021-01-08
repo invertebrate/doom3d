@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 21:01:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_hit				*l3d_get_aabb_hit_record(t_box3d *origin, t_box3d *target)
 	hits = NULL;
 	if (l3d_bounding_box_ray_hit(target, &ray, &hits))
 	{
-		error_check(!(hit = ft_memalloc(sizeof(t_hit))), "Failed to malloc hit");
+		error_check(!(hit = ft_calloc(sizeof(t_hit))), "Failed to malloc hit");
 		ft_memcpy(hit, ((t_hit*)hits->content), sizeof(t_hit));
 		l3d_delete_hits(&hits);
 		return (hit);

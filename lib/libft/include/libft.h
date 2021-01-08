@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:15:47 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/07 21:13:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ long long int	ft_atoi_long(const char *str);
 char			*ft_strstr(const char *haystack, const char *needle);
 char			*ft_strnstr(const char *haystack, const char *needle,
 				size_t len);
-void			*ft_memalloc(size_t size);
+void			*ft_calloc(size_t size);
 void			ft_memdel(void **ap);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
 void			*ft_memset(void *b, int c, size_t len);

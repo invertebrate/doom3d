@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 14:43:04 by ohakola           #+#    #+#              #
-#    Updated: 2020/12/10 19:47:37 by ohakola          ###   ########.fr        #
+#    Updated: 2021/01/08 22:02:31 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SOURCES = ft_atoi.c \
 		ft_tolower.c \
 		ft_isalpha.c \
 		ft_islower.c \
-		ft_memalloc.c \
+		ft_calloc.c \
 		ft_putchar_fd.c \
 		ft_strcmp.c \
 		ft_strnstr.c \

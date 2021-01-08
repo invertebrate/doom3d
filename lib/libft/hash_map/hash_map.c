@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 15:53:35 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 21:01:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ t_hash_table		*hash_map_create(int size)
 	t_hash_table	*table;
 	int				i;
 
-	if (!(table = ft_memalloc(sizeof(t_hash_table))))
+	if (!(table = ft_calloc(sizeof(t_hash_table))))
 	{
 		ft_dprintf(2, "Failed to malloc hash table\n");
 		exit(EXIT_FAILURE);
 		return (NULL);
 	}
 	table->size = size;
-	if (!(table->list = ft_memalloc(sizeof(t_hash_node*) * size)))
+	if (!(table->list = ft_calloc(sizeof(t_hash_node*) * size)))
 	{
 		ft_dprintf(2, "Failed to malloc hash table list\n");
 		exit(EXIT_FAILURE);
@@ -80,7 +80,7 @@ void				hash_map_add(t_hash_table *table, int key, void *val)
 		}
 		temp = temp->next;
 	}
-	if (!(new_node = ft_memalloc(sizeof(t_hash_node))))
+	if (!(new_node = ft_calloc(sizeof(t_hash_node))))
 		return (void)(ft_dprintf(2, "Failed to malloc new node\n"));
 	new_node->key = key;
 	new_node->val = val;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 21:01:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		l3d_handle_bmp_pixels(t_image_data *image,
 	unsigned char	*temp_row;
 	uint32_t		width;
 
-	temp_row = ft_memalloc(sizeof(char) * image->width * image->bytes_per_pixel);
+	temp_row = ft_calloc(sizeof(char) * image->width * image->bytes_per_pixel);
 	if (header->height > 0)
 	{
 		i = -1;
@@ -83,7 +83,7 @@ static void		l3d_read_bmp_image(const char *filename,
 	ft_memcpy(&header, buf, sizeof(header));
 	error_check(header.file_type != 0x4D42, "Invalid bmp image");
 	image_size = header.size - header.data_offset;
-	error_check(!(image_res->pixels = ft_memalloc(sizeof(char) * image_size)),
+	error_check(!(image_res->pixels = ft_calloc(sizeof(char) * image_size)),
 		"Failed to malloc image pixels");
 	ft_memcpy(image_res->pixels, buf + header.data_offset, image_size);
 	image_res->bytes_per_pixel = header.bits_per_pixel / 8;
@@ -110,7 +110,7 @@ void			l3d_read_bmp_image_32bit_rgba(const char *filename,
 
 	l3d_read_bmp_image(filename, &image);
 	error_check(!(*pixels_out =
-		ft_memalloc(sizeof(uint32_t) * image.width * image.height)),
+		ft_calloc(sizeof(uint32_t) * image.width * image.height)),
 		"Failed to malloc 32 bit pixels");
 	i = 0;
 	j = 0;
@@ -132,7 +132,7 @@ t_surface		*l3d_read_bmp_32bit_rgba_surface(const char *filename)
 {
 	t_surface	*surface;
 
-	surface = ft_memalloc(sizeof(t_surface));
+	surface = ft_calloc(sizeof(t_surface));
 	if (!surface)
 		return (NULL);
 	l3d_read_bmp_image_32bit_rgba(filename, &surface->pixels,
