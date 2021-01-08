@@ -102,9 +102,30 @@ static void		scene_model_files_set(t_asset_files *data)
 {
 	data->model_files[data->num_models++] =
 		"assets/models/box.obj";
-	// data->model_files[data->num_models++] =
-	// 	"assets/models/run_frame.obj";
-		
+	data->model_files[data->num_models++] =
+		"assets/models/run_frame.obj";
+}
+
+static void		animation_frames_set(t_asset_files *data, char* file_path, uint32_t framecount)
+{
+	int		i;
+	char	*frame_path;
+	
+	i = -1;
+	while(++i < framecount && i < 100)
+	{
+		frame_path = (char*)malloc(sizeof(char) * ft_strlen(file_path) + 4);
+		if (i < 10)
+			ft_sprintf(frame_path, "%s00%d", file_path, i);
+		else if (i > 10 & i < 100)
+			ft_sprintf(frame_path, "%s0%d", file_path, i);
+		data->animation_files[data->num_anim_frames++] = frame_path;
+	}
+}
+
+static void		scene_animation_files_set(t_asset_files *data)
+{
+	animation_frames_set(data, "assets/models/run_frame.obj", 6);
 }
 
 /*
@@ -120,6 +141,7 @@ void			scene_assets_load(t_scene *scene)
 	scene_texture_files_set(&scene->asset_files);
 	scene_normal_files_set(&scene->asset_files);
 	scene_model_files_set(&scene->asset_files);
+	scene_animation_files_set(&scene->asset_files);
 	assets_load(scene, &scene->asset_files);
 	prefabs_load(scene);
 }

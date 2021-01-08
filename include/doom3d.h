@@ -105,6 +105,17 @@ typedef struct				s_camera
 	t_plane					screen;
 }							t_camera;
 
+typedef struct				s_animation
+{
+	uint32_t				frame_count;
+	uint32_t				current_frame;
+	uint32_t				start_frame;
+	uint32_t				start_tick;
+	t_3d_object				*base_object;
+	t_3d_object				**animation_frames; //contains the objects for each anim frame
+	int32_t					*anim_frame_numbers; //contains the frame indices for each animation start
+}							t_animation;
+
 typedef struct				s_player
 {
 	t_vec3					pos;
@@ -134,10 +145,12 @@ typedef struct				s_asset_files
 	const char				*normal_map_files[MAX_ASSETS];
 	const char				*model_files[MAX_ASSETS];
 	const char				*prefab_names[MAX_ASSETS];
+	const char				*animation_files[MAX_ASSETS];
 	uint32_t				num_models;
 	uint32_t				num_textures;
 	uint32_t				num_normal_maps;
 	uint32_t				num_prefabs;
+	uint32_t				num_anim_frames;
 }							t_asset_files;
 
 typedef struct				s_scene
@@ -161,6 +174,7 @@ typedef struct				s_scene
 	t_hash_table			*prefab_map;
 	t_hash_table			*object_textures;
 	t_hash_table			*object_normal_maps;
+	t_hash_table			*anim_frames;
 	t_asset_files			asset_files;
 	t_surface				*skybox_textures[6];
 	t_3d_object				*skybox[6];
@@ -240,6 +254,7 @@ struct						s_npc
 	const char				*texture_key;
 	const char				*model_key;
 	const char				*normal_map_key;
+	t_animation				*animation;
 };
 
 /*
@@ -312,7 +327,7 @@ t_bool						editor_popup_menu_open(t_doom3d *app);
 ** Animations
 */
 
-void						update_app_ticks(t_doom3d *app);
+// void						update_app_ticks(t_doom3d *app);
 
 /*
 ** Camera

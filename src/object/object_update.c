@@ -69,6 +69,7 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 			npc_update(app, obj);
 		npc_execute_behavior(app, obj);
 	}
+	//update animation
 }
 
 void			doom3d_update_objects(t_doom3d *app)

@@ -77,6 +77,23 @@ void		scene_objects_destroy(t_scene *scene)
 
 	i = -1;
 	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
+	{
 		if (scene->objects[i] != NULL)
 			l3d_3d_object_destroy(scene->objects[i]);
+		if (scene->objects[i]->type == object_type_npc)
+			//((t_npc*)scene->objects[i]->params)->animation //someting something
+	}
 }
+
+void		scene_animation_destroy(t_scene *scene)
+{
+	int32_t		i;
+
+	i = -1;
+	while (++i < scene->asset_files.num_anim_frames)
+	{
+		//destroy frame
+	}
+}
+scene->asset_files.num_anim_frames
+//cleanup frames function
