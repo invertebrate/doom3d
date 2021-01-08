@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:34:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 17:53:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 21:01:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_button_menu	*button_popup_menu_create(t_button_group *menu,
 	t_button_menu	*popup_menu;
 	t_vec2			dims;
 
-	error_check(!(popup_menu = malloc(sizeof(*popup_menu))),
+	error_check(!(popup_menu = ft_memalloc(sizeof(*popup_menu))),
 		"Failed to malloc popup menu");
 	popup_menu->menu = menu;
 	popup_menu->is_open = false;
@@ -106,7 +106,7 @@ t_button_menu	*button_popup_menu_create(t_button_group *menu,
 		padding * 2);
 	popup_menu->background.h = (int32_t)(dims[1] + popup_menu->border_size * 2 +
 		padding * 2);
-	error_check(!(popup_menu->background.pixels = malloc(sizeof(uint32_t) *
+	error_check(!(popup_menu->background.pixels = ft_memalloc(sizeof(uint32_t) *
 		popup_menu->background.w * popup_menu->background.h)),
 		"Failed to malloc background");
 	set_background(&popup_menu->background, popup_menu->border_size,

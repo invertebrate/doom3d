@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 22:23:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 21:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_camera		*new_camera(void)
 {
 	t_camera	*camera;
 
-	if (!(camera = (t_camera*)malloc(sizeof(t_camera))))
+	if (!(camera = (t_camera*)ft_memalloc(sizeof(t_camera))))
 		return (NULL);
 	ml_vector3_set_all(camera->origin, 0);
 	return (camera);

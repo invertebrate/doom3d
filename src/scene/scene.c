@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 15:50:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 21:01:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_scene			*scene_new(t_scene_id scene_id)
 {
 	t_scene		*scene;
 
-	error_check(!(scene = (t_scene*)malloc(sizeof(t_scene))),
+	error_check(!(scene = (t_scene*)ft_memalloc(sizeof(t_scene))),
 		"Failed to malloc scene");
 	ft_memset(scene, 0, sizeof(*scene));
 	ft_memset(scene->deleted_object_i, 0, sizeof(scene->deleted_object_i));

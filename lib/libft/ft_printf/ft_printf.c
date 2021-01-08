@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:00:25 by ohakola           #+#    #+#             */
-/*   Updated: 2020/08/31 20:00:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 20:49:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 static int				init_printf(t_printf *data, int fd)
 {
+	ft_memset(data, 0, sizeof(t_printf));
 	data->fd = fd;
-	data->len = 0;
 	if (!(data->buffer = ft_strnew(0)))
 		return (false);
 	return (true);

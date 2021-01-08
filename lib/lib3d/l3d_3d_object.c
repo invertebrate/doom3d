@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:38:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 21:01:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,19 @@ t_3d_object		*l3d_3d_object_create(uint32_t num_vertices,
 	t_3d_object	*object;
 	int32_t		i;
 
-	error_check(!(object = malloc(sizeof(*object))),
+	error_check(!(object = ft_memalloc(sizeof(*object))),
 		"Failed to malloc 3d obj");
-	ft_memset(object, 0, sizeof(t_3d_object));
 	object->id = l3d_random_uuid();
-	error_check(!(object->vertices = malloc(sizeof(t_vertex*) * num_vertices)),
+	error_check(!(object->vertices = ft_memalloc(sizeof(t_vertex*) * num_vertices)),
 		"Failed to malloc 3d obj vertices");
 	i = -1;
 	while (++i < (int32_t)num_vertices)
-		error_check(!(object->vertices[i] = malloc(sizeof(t_vertex))),
+		error_check(!(object->vertices[i] = ft_memalloc(sizeof(t_vertex))),
 			"Failed to malloc vertex");
 	error_check(!(object->triangles =
-		malloc(sizeof(t_triangle) * num_triangles)),
+		ft_memalloc(sizeof(t_triangle) * num_triangles)),
 		"Failed to malloc 3d obj triangles");
-	error_check(!(object->material = malloc(sizeof(t_material))),
+	error_check(!(object->material = ft_memalloc(sizeof(t_material))),
 		"Failed to malloc 3d obj material");
 	ml_matrix4_id(object->rotation);
 	ml_matrix4_id(object->scale);
@@ -106,7 +105,7 @@ void			l3d_3d_object_set_vertex(t_vertex *vertex, t_vec3 pos)
 void			l3d_3d_object_set_params(t_3d_object *object,
 					void *params, uint32_t params_size, uint32_t params_type)
 {
-	error_check(!(object->params = malloc(params_size)),
+	error_check(!(object->params = ft_memalloc(params_size)),
 		"Failed to malloc obj params");
 	object->params_size = params_size;
 	object->params_type = params_type;

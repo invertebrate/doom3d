@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:22:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 20:54:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_kd_node			*l3d_kd_node_create(t_tri_vec *triangles)
 {
 	t_kd_node	*node;
 
-	if (!(node = malloc(sizeof(t_kd_node))))
+	if (!(node = ft_memalloc(sizeof(t_kd_node))))
 		return (NULL);
 	l3d_bounding_box_set(triangles, &node->bounding_box);
 	node->triangles = triangles;

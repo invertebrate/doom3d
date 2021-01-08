@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 18:12:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 20:54:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_kd_tree			*l3d_kd_tree_create(t_triangle **triangles,
 	t_kd_tree		*tree;
 	t_tri_vec		*triangle_vector;
 
-	if (!(tree = malloc(sizeof(t_kd_tree))))
+	if (!(tree = ft_memalloc(sizeof(t_kd_tree))))
 		return (NULL);
 	triangle_vector = l3d_triangle_vec(triangles, num_triangles);
 	tree->num_nodes = 0;

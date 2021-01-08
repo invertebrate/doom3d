@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 15:32:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 21:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void			window_create(t_window **window_ref,
 {
 	t_window *window;
 
-	error_check((window = (t_window*)malloc(sizeof(t_window))) == NULL,
-		"Window malloc failed");
+	error_check((window = (t_window*)ft_memalloc(sizeof(t_window))) == NULL,
+		"Window ft_memalloc failed");
 	window->window = SDL_CreateWindow(NAME, SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, width, height, 0);
 	window->width = width;
