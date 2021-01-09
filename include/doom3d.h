@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/09 00:46:03 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/09 15:06:54 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,13 @@ typedef enum				e_item_code
 	item_rpg,
 }							t_item_code;
 
+typedef enum				e_fire_type
+{
+	fire_melee,
+	fire_ray,
+	fire_projectile,
+}							t_fire_type;
+
 typedef struct				s_camera
 {
 	t_vec3					origin;
@@ -123,6 +130,8 @@ typedef struct				s_item
 	int						item;
 	int						item_type;
 	int						ammo;
+	int						fire_type;
+	float					fire_rate;
 }							t_item;
 
 typedef struct				s_player
