@@ -42,6 +42,7 @@ CFLAGS =-Wall -Wextra -Werror -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
 			doom3d.c \
 			player/player.c \
+			player/player_shoot.c \
 			player/collision.c \
 			player/movement.c \
 			inventory/inventory_equip.c \

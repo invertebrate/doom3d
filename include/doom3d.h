@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/09 15:06:54 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/09 19:42:43 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ typedef enum				e_item_code
 
 typedef enum				e_fire_type
 {
-	fire_melee,
 	fire_ray,
 	fire_projectile,
 }							t_fire_type;
@@ -132,6 +131,7 @@ typedef struct				s_item
 	int						ammo;
 	int						fire_type;
 	float					fire_rate;
+	float					range;
 }							t_item;
 
 typedef struct				s_player
@@ -329,6 +329,7 @@ void						player_apply_gravity(t_doom3d *app);
 void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						editor_vertical_move(t_doom3d *app, float speed);
+void						player_shoot_ray(t_doom3d *app, t_vec3 origin);
 
 /*
 ** Inventory
