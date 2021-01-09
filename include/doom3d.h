@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 19:57:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/09 00:46:03 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define MAX_ASSETS 64
 # define MAX_LEVELS 16
 # define TEMP_OBJECT_EXPIRE_SEC 100
+# define INVENTORY_SIZE 23
 
 # define X_DIR 1
 # define Y_DIR -1
@@ -93,6 +94,21 @@ typedef enum				e_npc_state
 	state_atk_anim,
 }							t_npc_state;
 
+typedef enum				e_item_type
+{
+	item_type_melee,
+	item_type_sidearm,
+	item_type_weapon,
+	item_type_misc,
+}							t_item_type;
+
+typedef enum				e_item_code
+{
+	item_fist,
+	item_glock,
+	item_rpg,
+}							t_item_code;
+
 typedef struct				s_camera
 {
 	t_vec3					origin;
@@ -101,6 +117,13 @@ typedef struct				s_camera
 	t_plane					viewplanes[6];
 	t_plane					screen;
 }							t_camera;
+
+typedef struct				s_item
+{
+	int						item;
+	int						item_type;
+	int						ammo;
+}							t_item;
 
 typedef struct				s_player
 {
@@ -123,6 +146,8 @@ typedef struct				s_player
 	t_mat4					translation;
 	t_mat4					inv_translation;
 	t_box3d					aabb;
+	t_item					item[INVENTORY_SIZE];
+	t_item					*equipped_item;
 }							t_player;
 
 typedef struct				s_asset_files
@@ -295,6 +320,15 @@ void						player_apply_gravity(t_doom3d *app);
 void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						editor_vertical_move(t_doom3d *app, float speed);
+
+/*
+** Inventory
+*/
+
+void						inventory_init(t_doom3d *app);
+void						inventory_equip(t_doom3d *app, int slot);
+void						inventory_pickup_weapon(t_doom3d *app, t_item item);
+void						inventory_throw_weapon(t_doom3d *app);
 
 /*
 ** Npc

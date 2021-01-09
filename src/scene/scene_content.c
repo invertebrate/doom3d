@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_content.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/09 00:47:53 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ static void		scene_game_init(t_doom3d *app)
 		return ;
 	}
 	player_init(app, start->position);
+	inventory_init(app); //test
 	// Add test objects for playing
 	place_test_objects(app);
 	active_scene_update_after_objects(app->active_scene);
