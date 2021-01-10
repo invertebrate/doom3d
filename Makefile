@@ -52,6 +52,7 @@ SOURCES = main.c \
 			npc/npc_default.c \
 			npc/npc_execute_behavior.c \
 			npc/npc_spawn.c \
+			npc/npc_trigger_onhit.c \
 			npc/npc_update.c \
 			trigger/trigger.c \
 			object/object_utils.c \

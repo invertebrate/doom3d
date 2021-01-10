@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/09 19:42:43 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/10 13:06:59 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef enum				e_npc_state
 	state_idle,
 	state_attack,
 	state_atk_anim,
+	state_death_anim,
 }							t_npc_state;
 
 typedef enum				e_item_type
@@ -132,6 +133,7 @@ typedef struct				s_item
 	int						fire_type;
 	float					fire_rate;
 	float					range;
+	int						damage;
 }							t_item;
 
 typedef struct				s_player
@@ -352,6 +354,7 @@ void						npc_execute_behavior(t_doom3d *app,
 void						npc_default(t_doom3d *app, t_npc *npc);
 void						handle_npc_deletions(t_doom3d *app);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
+void						npc_trigger_onhit(t_doom3d *app, t_3d_object *obj);
 
 /*
 ** Events

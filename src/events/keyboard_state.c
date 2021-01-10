@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/09 19:47:07 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/10 13:10:58 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void		keyboard_game_state_handle(t_doom3d *app)
 	if (app->keyboard.state[SDL_SCANCODE_F]) //test
 	{
 		printf("Picked up RPG!\n");//test
-		inventory_pickup_weapon(app, (t_item) {item_rpg, item_type_weapon, 10, fire_projectile, 0.25, 100 * app->unit_size}); //test
+		inventory_pickup_weapon(app, (t_item) {item_rpg, item_type_weapon, 10, fire_projectile, 0.25, 100 * app->unit_size, 100}); //test
 	}
 }
 
