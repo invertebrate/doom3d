@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/10 13:30:53 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/10 13:35:30 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,10 @@ void	player_shoot_ray(t_doom3d *app, t_vec3 origin)
 		{
 			ml_vector3_sub(closest_triangle_hit->hit_point, origin, dist);
 			ft_printf("Hit at object type %d, at distance: %f, ", closest_triangle_hit->triangle->parent->type, ml_vector3_mag(dist));
+			ml_vector3_print(closest_triangle_hit->hit_point);
 			if (ml_vector3_mag(dist) <= app->player.equipped_item->range)
-			{
-				ml_vector3_print(closest_triangle_hit->hit_point);
 				if (closest_triangle_hit->triangle->parent->type == object_type_npc)
 					npc_trigger_onhit(app, closest_triangle_hit->triangle->parent);
-			}
 		}
 		l3d_delete_hits(&hits);
 	}
