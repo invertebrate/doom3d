@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 22:06:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 23:12:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ t_surface			*get_animation_source(t_doom3d *app)
 	return (NULL);
 }
 
-static void			set_default_anim(t_sprite_anim *anim)
+static void			set_shotgun_default_anim(t_sprite_anim *anim)
 {
 	anim->frames[0].width = 480;
 	anim->frames[0].height = 528;
 	anim->frames[0].x_offset = 0;
 	anim->frames[0].y_offset = 0;
 	anim->num_frames = 1;
-	anim->id = anim_shoot;
+	anim->id = anim_shotgun_shoot;
 	anim->interruptable = true;
 }
 
-static void			set_reload_anim(t_sprite_anim *anim)
+static void			set_shotgun_reload_anim(t_sprite_anim *anim)
 {
 	anim->current_frame = 0;
 	anim->frames[0].width = 480;
@@ -47,11 +47,11 @@ static void			set_reload_anim(t_sprite_anim *anim)
 	anim->frames[1].y_offset = 0;
 	anim->frames[2].y_offset = 0;
 	anim->num_frames = 3;
-	anim->id = anim_reload;
+	anim->id = anim_shotgun_reload;
 	anim->interruptable = false;
 }
 
-static void			set_shoot_anim(t_sprite_anim *anim)
+static void			set_shotgun_shoot_anim(t_sprite_anim *anim)
 {
 	anim->current_frame = 0;
 	anim->frames[0].width = 480;
@@ -71,15 +71,15 @@ static void			set_shoot_anim(t_sprite_anim *anim)
 	anim->frames[2].y_offset = 0;
 	anim->frames[3].y_offset = 0;
 	anim->num_frames = 4;
-	anim->id = anim_shoot;
+	anim->id = anim_shotgun_shoot;
 	anim->interruptable = false;
 }
 
 void	init_player_animations(t_doom3d *app)
 {
-	set_default_anim(&app->animations[anim_default]);
-	set_reload_anim(&app->animations[anim_reload]);
-	set_shoot_anim(&app->animations[anim_shoot]);
+	set_shotgun_default_anim(&app->animations[anim_shotgun_default]);
+	set_shotgun_reload_anim(&app->animations[anim_shotgun_reload]);
+	set_shotgun_shoot_anim(&app->animations[anim_shotgun_shoot]);
 }
 
 static void				set_player_animation(t_doom3d *app, uint32_t animation_id)
@@ -101,9 +101,7 @@ void					set_player_shoot_frame(t_doom3d *app)
 	if (app->player.equipped_weapon->item_type == item_type_weapon)
 	{
 		if (app->player.equipped_weapon->id == weapon_shotgun)
-			set_player_animation(app, anim_shoot);
-		else
-			set_player_animation(app, anim_none);
+			set_player_animation(app, anim_shotgun_shoot);
 	}
 }
 
@@ -112,7 +110,7 @@ void					set_player_default_frame(t_doom3d *app)
 	if (app->player.equipped_weapon->item_type == item_type_weapon)
 	{
 		if (app->player.equipped_weapon->id == weapon_shotgun)
-			set_player_animation(app, anim_default);
+			set_player_animation(app, anim_shotgun_default);
 		else
 			set_player_animation(app, anim_none);
 	}
@@ -123,9 +121,7 @@ void					set_player_reload_frame(t_doom3d *app)
 	if (app->player.equipped_weapon->item_type == item_type_weapon)
 	{
 		if (app->player.equipped_weapon->id == weapon_shotgun)
-			set_player_animation(app, anim_reload);
-		else
-			set_player_animation(app, anim_none);
+			set_player_animation(app, anim_shotgun_reload);
 	}
 }
 

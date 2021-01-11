@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 22:21:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 23:11:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,9 +262,9 @@ typedef struct				s_sprite_anim
 typedef enum				e_player_animation
 {
 	anim_none = 0,
-	anim_default = 1,
-	anim_shoot = 2,
-	anim_reload = 3,
+	anim_shotgun_default = 1,
+	anim_shotgun_shoot = 2,
+	anim_shotgun_reload = 3,
 }							t_player_animation;
 
 typedef struct				s_player_hud
