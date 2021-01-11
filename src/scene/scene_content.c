@@ -6,11 +6,20 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 13:35:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 13:58:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+static t_bool			include_object_in_triangle_tree(t_scene *scene,
+							t_3d_object *object)
+{
+	if (scene->scene_id == scene_id_editor3d)
+		return (!!object);
+	return (object != NULL &&
+			object->type != object_type_trigger);
+}
 
 static void				active_scene_triangle_refs_set(t_scene *scene)
 {
@@ -24,8 +33,7 @@ static void				active_scene_triangle_refs_set(t_scene *scene)
 	i = -1;
 	num_triangles = 0;
 	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
-		if (scene->objects[i] != NULL &&
-			scene->objects[i]->type != object_type_trigger)
+		if (include_object_in_triangle_tree(scene, scene->objects[i]))
 			num_triangles += scene->objects[i]->num_triangles;
 	scene->num_triangles = num_triangles;
 	error_check(!(scene->triangle_ref =
@@ -35,8 +43,7 @@ static void				active_scene_triangle_refs_set(t_scene *scene)
 	k = 0;
 	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
 	{
-		if (scene->objects[i] == NULL || (scene->objects[i] != NULL &&
-			scene->objects[i]->type == object_type_trigger))
+		if (!include_object_in_triangle_tree(scene, scene->objects[i]))
 			continue ;
 		j = -1;
 		while (++j < scene->objects[i]->num_triangles)
