@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 13:26:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 14:29:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -431,6 +431,8 @@ t_bool						triangle_outside_frame(t_triangle *triangle,
 void						draw_selected_aabb(t_render_work *work);
 void						draw_selected_enemy_direction(t_render_work *work);
 void						notifications_render(t_doom3d *app, t_vec2 pos);
+void						draw_triangle_tree_bounding_boxes(
+								t_render_work *work);
 
 /*
 ** Objects

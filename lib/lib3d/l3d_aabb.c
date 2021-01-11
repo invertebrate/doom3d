@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 14:53:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,16 @@ t_bool				l3d_aabb_collides(t_box3d *left, t_box3d *right)
 			left->xyz_max[1] > right->xyz_min[1] &&
 			left->xyz_min[2] < right->xyz_max[2] &&
 			left->xyz_max[2] > right->xyz_min[2]));
+}
+
+t_bool				l3d_point_inside_aabb(t_box3d *aabb, t_vec3 point)
+{
+	return ((point[0] < aabb->xyz_max[0] &&
+			point[0] > aabb->xyz_min[0] &&
+			point[0] < aabb->xyz_max[1] &&
+			point[0] > aabb->xyz_min[1] &&
+			point[0] < aabb->xyz_max[2] &&
+			point[0] > aabb->xyz_min[2]));
 }
 
 t_hit				*l3d_get_aabb_hit_record(t_box3d *origin, t_box3d *target)
