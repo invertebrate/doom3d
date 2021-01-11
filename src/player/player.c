@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 22:51:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 22:55:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 		set_player_shoot_frame(app);
 	else if (app->player.equipped_weapon->ammo == 0)
 	{
+		ft_printf("Out of ammo\n");
 		set_player_default_frame(app);
 		return ;
 	}
