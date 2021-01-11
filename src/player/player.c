@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/09 19:43:29 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/11 19:01:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	ml_matrix4_id(app->player.inv_translation);
 	player_move(app, move_forward, 0.0);
 	player_update_aabb(&app->player);
+	weapons_init(app);
+}
+
+void			set_player_shoot_frame(t_doom3d *app)
+{
+	if (app->player.equipped_weapon->item_type == item_type_weapon)
+	{
+		if (app->player.equipped_weapon->id == weapon_shotgun)
+			app->player_hud.player_animation = anim_shotgun_shoot;
+	}
 }
 
 /*
@@ -60,14 +70,16 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 	static uint32_t	prev_shot_time;
 
 	if (prev_shot_time != 0 && (float)(curr_time - prev_shot_time) / 1000.0 <
-		(1.0 / app->player.equipped_item->fire_rate))
+		(1.0 / app->player.equipped_weapon->fire_rate))
 		return ;
-	// ToDo: Fire effect for gun etc.
+	set_player_shoot_frame(app);
 	prev_shot_time = SDL_GetTicks();
 	ml_vector3_mul(app->player.forward, NEAR_CLIP_DIST, add);
 	ml_vector3_add(app->player.pos, add, origin);
-	if (app->player.equipped_item->fire_type == fire_ray)
+	if (app->player.equipped_weapon->fire_type == fire_ray)
+	{
 		player_shoot_ray(app, origin);
+	}
 	//if (app->player.equipped_item->fire_type == fire_projectile)
 	//	player_shoot_projectile(app, origin);
 }

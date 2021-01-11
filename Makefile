@@ -45,9 +45,11 @@ SOURCES = main.c \
 			player/player_shoot.c \
 			player/collision.c \
 			player/movement.c \
+			player/player_animations.c \
 			inventory/item_data/item_data_fist.c \
 			inventory/item_data/item_data_glock.c \
 			inventory/item_data/item_data_rpg.c \
+			inventory/item_data/item_data_shotgun.c \
 			inventory/inventory_equip.c \
 			inventory/inventory_init.c \
 			inventory/inventory_init_items.c \

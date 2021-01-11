@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 14:29:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 19:04:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define MAX_ASSETS 64
 # define MAX_LEVELS 16
 # define TEMP_OBJECT_EXPIRE_SEC 100
-# define INVENTORY_SIZE 23
+# define NUM_WEAPONS 4
 
 # define X_DIR 1
 # define Y_DIR -1
@@ -97,30 +97,28 @@ typedef enum				e_npc_state
 
 typedef enum				e_item_type
 {
-	item_type_melee,
-	item_type_sidearm,
 	item_type_weapon,
-	item_type_misc,
+	item_type_key,
 }							t_item_type;
 
-typedef enum				e_item_code
+typedef enum				e_weapon_id
 {
-	item_fist,
-	item_glock,
-	item_rpg,
-	item_default,
-}							t_item_code;
+	weapon_fist = 0,
+	weapon_glock = 1,
+	weapon_shotgun = 2,
+	weapon_rpg = 3,
+}							t_weapon_id;
 
-typedef struct				s_item
+typedef struct				s_weapon
 {
-	int						item;
+	int						id;
 	int						item_type;
 	int						ammo;
 	int						fire_type;
 	float					fire_rate;
 	float					range;
 	int						damage;
-}							t_item;
+}							t_weapon;
 
 typedef enum				e_fire_type
 {
@@ -158,8 +156,8 @@ typedef struct				s_player
 	t_mat4					translation;
 	t_mat4					inv_translation;
 	t_box3d					aabb;
-	t_item					item[INVENTORY_SIZE];
-	t_item					*equipped_item;
+	t_weapon				weapons[NUM_WEAPONS];
+	t_weapon				*equipped_weapon;
 }							t_player;
 
 typedef struct				s_asset_files
@@ -247,6 +245,29 @@ typedef struct				e_notifications
 	int32_t					timer;
 }							t_notifications;
 
+typedef struct				s_sprite_anim
+{
+	int32_t					frames[16];
+	int32_t					num_frames;
+	int32_t					num_frames_show;
+	t_surface				*source;
+	int32_t					frame_width;
+	int32_t					frame_height;
+	int32_t					current_frame;
+}							t_sprite_anim;
+
+typedef enum				e_player_animation
+{
+	anim_shotgun_default = 0,
+	anim_shotgun_shoot = 1,
+	anim_shotgun_reload = 2,
+}							t_player_animation;
+
+typedef struct				s_player_hud
+{
+	t_player_animation		player_animation;
+}							t_player_hud;
+
 typedef struct				s_doom3d
 {
 	t_bool					is_running;
@@ -258,6 +279,7 @@ typedef struct				s_doom3d
 	t_scene_id				next_scene_id;
 	t_scene					*active_scene;
 	t_player				player;
+	t_player_hud			player_hud;
 	t_mouse					mouse;
 	t_keyboard				keyboard;
 	t_thread_pool			*thread_pool;
@@ -269,7 +291,8 @@ typedef struct				s_doom3d
 	t_editor				editor;
 	t_settings				settings;
 	t_notifications			notifications;
-	t_item					item_data[3];
+	t_weapon				weapons_data[NUM_WEAPONS];
+	t_sprite_anim			animations[16];
 }							t_doom3d;
 
 struct						s_npc
@@ -339,15 +362,16 @@ void						player_shoot_ray(t_doom3d *app, t_vec3 origin);
 ** Inventory
 */
 
-void						inventory_init(t_doom3d *app);
-void						inventory_init_items(t_doom3d *app);
-void						inventory_equip(t_doom3d *app, int slot);
-void						inventory_pickup_weapon(t_doom3d *app, t_item item);
+void						weapons_init(t_doom3d *app);
+void						weapons_init_data(t_doom3d *app);
+void						weapon_equip(t_doom3d *app, t_weapon_id slot);
+void						inventory_pickup_weapon(t_doom3d *app, t_weapon item);
 void						inventory_throw_weapon(t_doom3d *app);
 
-t_item						item_data_fist(t_doom3d *app);
-t_item						item_data_glock(t_doom3d *app);
-t_item						item_data_rpg(t_doom3d *app);
+t_weapon						weapon_data_fist(t_doom3d *app);
+t_weapon						weapon_data_glock(t_doom3d *app);
+t_weapon						weapon_data_rpg(t_doom3d *app);
+t_weapon						weapon_data_shotgun(t_doom3d *app);
 
 /*
 ** Npc
@@ -520,5 +544,11 @@ void						place_player_end(t_doom3d *app);
 void						place_player_start(t_doom3d *app);
 void						editor_triggers_unhighlight(t_doom3d *app);
 void						editor_triggers_highlight(t_doom3d *app);
+
+/*
+** Player animations
+*/
+void						set_player_animations(t_doom3d *app);
+
 
 #endif
