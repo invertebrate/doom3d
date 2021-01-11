@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 20:28:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 13:53:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void		handle_general_keyup_events(t_doom3d *app, SDL_Event event)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
 		handle_main_game_general_keyup_events(app, event);
-	if (event.key.keysym.sym == SDLK_g)
+	if (event.key.keysym.sym == SDLK_u)
 		app->is_debug = !app->is_debug;
 	if (event.key.keysym.sym == SDLK_f)
 	{

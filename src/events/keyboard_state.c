@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_state.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 12:13:11 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/11 13:53:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void		keyboard_game_state_handle(t_doom3d *app)
 		inventory_equip(app, item_type_melee);
 	if (app->keyboard.state[SDL_SCANCODE_G])
 		inventory_throw_weapon(app);
-	if (app->keyboard.state[SDL_SCANCODE_F]) //test
+	if (app->keyboard.state[SDL_SCANCODE_E]) //test
 	{
 		printf("Picked up RPG!\n");//test
 		inventory_pickup_weapon(app, app->item_data[item_rpg]); //test
