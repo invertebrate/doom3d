@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:53:57 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 17:58:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 14:53:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_bool			l3d_bounding_box_ray_hit(t_box3d *box, t_ray *ray,
 		l3d_fmin(t[4], t[5]));
 	t[7] = l3d_fmin(l3d_fmin(l3d_fmax(t[0], t[1]), l3d_fmax(t[2], t[3])),
 		l3d_fmax(t[4], t[5]));
-	if (t[6] < 0 || t[6] > t[7])
+	if (t[7] < 0 || t[6] > t[7])
 		return (false);
 	l3d_bounding_box_hit_record_set(t, ray, hits);
 	return (true);
