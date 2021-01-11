@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:54:55 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/11 11:59:49 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/11 13:54:11 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ t_item	item_data_fist(t_doom3d *app)
 	item.fire_rate = 2;
 	item.range = 5 * app->unit_size;
 	item.damage = 5;
+	item.projectile = 0;
 	return (item);
 }

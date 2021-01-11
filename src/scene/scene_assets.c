@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 10:58:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 13:26:13 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ static void		scene_model_files_set(t_asset_files *data)
 {
 	data->model_files[data->num_models++] =
 		"assets/models/box.obj";
+	data->model_files[data->num_models++] =
+		"assets/models/missile.obj";
 }
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 13:26:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 13:56:06 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ typedef enum				e_npc_type
 	npc_type_default,
 }							t_npc_type;
 
+typedef enum				e_projectile_type
+{
+	projectile_type_default,
+}							t_projectile_type;
+
 typedef enum				e_move
 {
 	move_forward,
@@ -120,7 +125,26 @@ typedef struct				s_item
 	float					fire_rate;
 	float					range;
 	int						damage;
+	int						projectile;
 }							t_item;
+
+typedef enum				e_projectile_code
+{
+	projectile_rpg,
+}							t_projectile_code;
+
+typedef struct				s_projectile
+{
+	int						type;
+	int						damage;
+	float					speed;
+	float					range;
+	float					radius;
+	const char				*model_key;
+	const char				*texture_key;
+	const char				*normal_map_key;
+	t_vec3					dir;
+}							t_projectile;
 
 typedef enum				e_fire_type
 {
@@ -270,6 +294,7 @@ typedef struct				s_doom3d
 	t_settings				settings;
 	t_notifications			notifications;
 	t_item					item_data[3];
+	t_projectile			projectile_data[1];
 }							t_doom3d;
 
 struct						s_npc
@@ -348,6 +373,13 @@ void						inventory_throw_weapon(t_doom3d *app);
 t_item						item_data_fist(t_doom3d *app);
 t_item						item_data_glock(t_doom3d *app);
 t_item						item_data_rpg(t_doom3d *app);
+
+/*
+** Projectile
+*/
+
+void						projectile_init(t_doom3d *app);
+t_projectile				projectile_data_rpg(t_doom3d *app);
 
 /*
 ** Npc

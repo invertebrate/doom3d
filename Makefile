@@ -45,6 +45,8 @@ SOURCES = main.c \
 			player/player_shoot.c \
 			player/collision.c \
 			player/movement.c \
+			projectile/projectile_init.c \
+			projectile/projectile_data/projectile_data_rpg.c \
 			inventory/item_data/item_data_fist.c \
 			inventory/item_data/item_data_glock.c \
 			inventory/item_data/item_data_rpg.c \
@@ -143,6 +145,8 @@ $(DIR_OBJ):
 	@mkdir -p temp/trigger
 	@mkdir -p temp/inventory
 	@mkdir -p temp/inventory/item_data
+	@mkdir -p temp/projectile
+	@mkdir -p temp/projectile/projectile_data
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)

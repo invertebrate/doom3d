@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:50:53 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/11 12:12:57 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/11 14:05:12 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	inventory_init(t_doom3d *app)
 	i = 2;
 	while (i < INVENTORY_SIZE)
 	{
-		app->player.item[i] = (t_item) {0, 0, -1, 0, 0, 0, 0};
+		app->player.item[i] = (t_item) {0, 0, -1, 0, 0, 0, 0, 0};
 		i++;
 	}
 	app->player.equipped_item = &(app->player.item[item_type_melee]);

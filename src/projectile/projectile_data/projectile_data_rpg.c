@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   item_data_rpg.c                                    :+:      :+:    :+:   */
+/*   projectile_data_rpg.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/11 12:08:25 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/11 13:54:26 by ahakanen         ###   ########.fr       */
+/*   Created: 2021/01/11 13:17:24 by ahakanen          #+#    #+#             */
+/*   Updated: 2021/01/11 14:07:31 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-t_item	item_data_rpg(t_doom3d *app)
+t_projectile	projectile_data_rpg(t_doom3d *app)
 {
-	t_item	item;
+	t_projectile projectile;
 
-	item.item = item_rpg;
-	item.item_type = item_type_weapon;
-	item.ammo = 10;
-	item.fire_type = fire_projectile;
-	item.fire_rate = 0.25;
-	item.range = 100 * app->unit_size;
-	item.damage = 100;
-	item.projectile = projectile_rpg;
-	return (item);
+	projectile.type = projectile_rpg;
+	projectile.damage = 100;
+	projectile.speed = 10 * app->unit_size;
+	projectile.range = 100 * app->unit_size;
+	projectile.radius = 5 * app->unit_size;
+	projectile.model_key = "assets/models/missile.obj";
+	projectile.texture_key = NPC_DEFAULT_TEXTURE;
+	projectile.normal_map_key = NPC_DEFAULT_NORMM;
+	return (projectile);
 }
