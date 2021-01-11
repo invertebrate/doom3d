@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/09 19:43:29 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/11 14:28:37 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 	ml_vector3_add(app->player.pos, add, origin);
 	if (app->player.equipped_item->fire_type == fire_ray)
 		player_shoot_ray(app, origin);
-	//if (app->player.equipped_item->fire_type == fire_projectile)
-	//	player_shoot_projectile(app, origin);
+	if (app->player.equipped_item->fire_type == fire_projectile)
+		player_shoot_projectile(app, origin);
 }

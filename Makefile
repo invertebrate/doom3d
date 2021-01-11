@@ -46,6 +46,7 @@ SOURCES = main.c \
 			player/collision.c \
 			player/movement.c \
 			projectile/projectile_init.c \
+			projectile/projectile_update.c \
 			projectile/projectile_data/projectile_data_rpg.c \
 			inventory/item_data/item_data_fist.c \
 			inventory/item_data/item_data_glock.c \

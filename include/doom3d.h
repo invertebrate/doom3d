@@ -6,13 +6,10 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/01/11 13:56:06 by ahakanen         ###   ########.fr       */
-=======
-/*   Updated: 2021/01/11 14:29:23 by ohakola          ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2021/01/11 18:11:13 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef DOOM3D_H
 # define DOOM3D_H
@@ -143,6 +140,7 @@ typedef struct				s_projectile
 	int						damage;
 	float					speed;
 	float					range;
+	float					traveled;
 	float					radius;
 	const char				*model_key;
 	const char				*texture_key;
@@ -363,6 +361,7 @@ void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						editor_vertical_move(t_doom3d *app, float speed);
 void						player_shoot_ray(t_doom3d *app, t_vec3 origin);
+void						player_shoot_projectile(t_doom3d *app, t_vec3 origin);
 
 /*
 ** Inventory
@@ -384,6 +383,7 @@ t_item						item_data_rpg(t_doom3d *app);
 
 void						projectile_init(t_doom3d *app);
 t_projectile				projectile_data_rpg(t_doom3d *app);
+void						projectile_update(t_doom3d *app, t_3d_object *obj);
 
 /*
 ** Npc

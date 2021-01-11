@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:42:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 18:33:40 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 			npc_update(app, obj);
 		npc_execute_behavior(app, obj);
 	}
+	else if (obj->type == object_type_projectile)
+		projectile_update(app, obj);
 	else if (obj->type == object_type_trigger)
 	{
 		if (l3d_aabb_collides(&app->player.aabb, &obj->aabb) &&
