@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/09 15:06:54 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/11 13:26:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef enum				e_npc_state
 	state_idle,
 	state_attack,
 	state_atk_anim,
+	state_death_anim,
 }							t_npc_state;
 
 typedef enum				e_item_type
@@ -107,11 +108,22 @@ typedef enum				e_item_code
 	item_fist,
 	item_glock,
 	item_rpg,
+	item_default,
 }							t_item_code;
+
+typedef struct				s_item
+{
+	int						item;
+	int						item_type;
+	int						ammo;
+	int						fire_type;
+	float					fire_rate;
+	float					range;
+	int						damage;
+}							t_item;
 
 typedef enum				e_fire_type
 {
-	fire_melee,
 	fire_ray,
 	fire_projectile,
 }							t_fire_type;
@@ -124,15 +136,6 @@ typedef struct				s_camera
 	t_plane					viewplanes[6];
 	t_plane					screen;
 }							t_camera;
-
-typedef struct				s_item
-{
-	int						item;
-	int						item_type;
-	int						ammo;
-	int						fire_type;
-	float					fire_rate;
-}							t_item;
 
 typedef struct				s_player
 {
@@ -266,6 +269,7 @@ typedef struct				s_doom3d
 	t_editor				editor;
 	t_settings				settings;
 	t_notifications			notifications;
+	t_item					item_data[3];
 }							t_doom3d;
 
 struct						s_npc
@@ -329,15 +333,21 @@ void						player_apply_gravity(t_doom3d *app);
 void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						editor_vertical_move(t_doom3d *app, float speed);
+void						player_shoot_ray(t_doom3d *app, t_vec3 origin);
 
 /*
 ** Inventory
 */
 
 void						inventory_init(t_doom3d *app);
+void						inventory_init_items(t_doom3d *app);
 void						inventory_equip(t_doom3d *app, int slot);
 void						inventory_pickup_weapon(t_doom3d *app, t_item item);
 void						inventory_throw_weapon(t_doom3d *app);
+
+t_item						item_data_fist(t_doom3d *app);
+t_item						item_data_glock(t_doom3d *app);
+t_item						item_data_rpg(t_doom3d *app);
 
 /*
 ** Npc
@@ -351,6 +361,7 @@ void						npc_execute_behavior(t_doom3d *app,
 void						npc_default(t_doom3d *app, t_npc *npc);
 void						handle_npc_deletions(t_doom3d *app);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
+void						npc_trigger_onhit(t_doom3d *app, t_3d_object *obj);
 
 /*
 ** Events

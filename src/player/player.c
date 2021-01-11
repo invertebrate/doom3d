@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/09 16:27:47 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/09 19:43:29 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 {
 	t_vec3			origin;
 	t_vec3			add;
-	t_hits			*hits;
-	t_hit			*closest_triangle_hit;
 	static uint32_t	prev_shot_time;
 
 	if (prev_shot_time != 0 && (float)(curr_time - prev_shot_time) / 1000.0 <
@@ -66,19 +64,10 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 		return ;
 	// ToDo: Fire effect for gun etc.
 	prev_shot_time = SDL_GetTicks();
-	hits = NULL;
 	ml_vector3_mul(app->player.forward, NEAR_CLIP_DIST, add);
 	ml_vector3_add(app->player.pos, add, origin);
-	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, origin,
-		app->player.forward, &hits))
-	{
-		l3d_get_closest_hit(hits, &closest_triangle_hit);
-		if (closest_triangle_hit != NULL)
-		{
-			ft_printf("Shot at: ");
-			ml_vector3_print(closest_triangle_hit->hit_point);
-			//ToDo: What happens when hit? Effects etc.
-		}
-		l3d_delete_hits(&hits);
-	}
+	if (app->player.equipped_item->fire_type == fire_ray)
+		player_shoot_ray(app, origin);
+	//if (app->player.equipped_item->fire_type == fire_projectile)
+	//	player_shoot_projectile(app, origin);
 }

@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inventory_init.c                                   :+:      :+:    :+:   */
+/*   npc_trigger_onhit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 14:50:53 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/11 12:12:57 by ahakanen         ###   ########.fr       */
+/*   Created: 2021/01/10 12:35:16 by ahakanen          #+#    #+#             */
+/*   Updated: 2021/01/10 13:06:45 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	inventory_init(t_doom3d *app)
+void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj)
 {
-	int	i;
+	t_npc	*npc;
 
-	inventory_init_items(app);
-	app->player.item[0] = app->item_data[item_fist];
-	app->player.item[1] = app->item_data[item_glock];
-	i = 2;
-	while (i < INVENTORY_SIZE)
+	npc = obj->params;
+	npc->hp -= app->player.equipped_item->damage;
+	if (npc->hp <= 0)
 	{
-		app->player.item[i] = (t_item) {0, 0, -1, 0, 0, 0, 0};
-		i++;
+		npc->state = state_death_anim;
+		ft_printf("npc killed!\n"); //test
+		object_set_for_deletion(app, obj); //test
 	}
-	app->player.equipped_item = &(app->player.item[item_type_melee]);
+	ft_printf("npc hit for %d damage! current hp: %d\n", app->player.equipped_item->damage, npc->hp); //test
 }
