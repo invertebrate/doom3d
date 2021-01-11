@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/10 13:06:59 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/11 12:19:09 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,19 @@ typedef enum				e_item_code
 	item_fist,
 	item_glock,
 	item_rpg,
+	item_default,
 }							t_item_code;
+
+typedef struct				s_item
+{
+	int						item;
+	int						item_type;
+	int						ammo;
+	int						fire_type;
+	float					fire_rate;
+	float					range;
+	int						damage;
+}							t_item;
 
 typedef enum				e_fire_type
 {
@@ -124,17 +136,6 @@ typedef struct				s_camera
 	t_plane					viewplanes[6];
 	t_plane					screen;
 }							t_camera;
-
-typedef struct				s_item
-{
-	int						item;
-	int						item_type;
-	int						ammo;
-	int						fire_type;
-	float					fire_rate;
-	float					range;
-	int						damage;
-}							t_item;
 
 typedef struct				s_player
 {
@@ -268,6 +269,7 @@ typedef struct				s_doom3d
 	t_editor				editor;
 	t_settings				settings;
 	t_notifications			notifications;
+	t_item					item_data[item_default];
 }							t_doom3d;
 
 struct						s_npc
@@ -338,9 +340,14 @@ void						player_shoot_ray(t_doom3d *app, t_vec3 origin);
 */
 
 void						inventory_init(t_doom3d *app);
+void						inventory_init_items(t_doom3d *app);
 void						inventory_equip(t_doom3d *app, int slot);
 void						inventory_pickup_weapon(t_doom3d *app, t_item item);
 void						inventory_throw_weapon(t_doom3d *app);
+
+t_item						item_data_fist(t_doom3d *app);
+t_item						item_data_glock(t_doom3d *app);
+t_item						item_data_rpg(t_doom3d *app);
 
 /*
 ** Npc
