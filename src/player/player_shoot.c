@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/11 21:15:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 22:44:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	player_shoot_ray(t_doom3d *app, t_vec3 origin)
+void	player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 {
 	t_hits	*hits;
 	t_hit	*closest_triangle_hit;
@@ -21,7 +21,7 @@ void	player_shoot_ray(t_doom3d *app, t_vec3 origin)
 
 	hits = NULL;
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, origin,
-		app->player.forward, &hits))
+		dir, &hits))
 	{
 		l3d_get_closest_hit(hits, &closest_triangle_hit);
 		if (closest_triangle_hit != NULL)

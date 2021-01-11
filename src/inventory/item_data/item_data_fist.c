@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:54:55 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/11 19:13:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 22:51:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ t_weapon	weapon_data_fist(t_doom3d *app)
 
 	item.id = weapon_fist;
 	item.item_type = item_type_weapon;
-	item.ammo = 0;
-	item.fire_type = fire_ray;
+	item.ammo = 1;
 	item.fire_rate = 2;
 	item.range = 5 * app->unit_size;
-	item.damage = 5;
+	item.damage_per_hit = 5;
 	return (item);
 }

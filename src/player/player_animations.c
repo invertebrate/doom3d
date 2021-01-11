@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 21:44:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 22:06:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void			set_default_anim(t_sprite_anim *anim)
 	anim->frames[0].y_offset = 0;
 	anim->num_frames = 1;
 	anim->id = anim_shoot;
+	anim->interruptable = true;
 }
 
 static void			set_reload_anim(t_sprite_anim *anim)
@@ -47,6 +48,7 @@ static void			set_reload_anim(t_sprite_anim *anim)
 	anim->frames[2].y_offset = 0;
 	anim->num_frames = 3;
 	anim->id = anim_reload;
+	anim->interruptable = false;
 }
 
 static void			set_shoot_anim(t_sprite_anim *anim)
@@ -55,17 +57,22 @@ static void			set_shoot_anim(t_sprite_anim *anim)
 	anim->frames[0].width = 480;
 	anim->frames[1].width = 480;
 	anim->frames[2].width = 480;
+	anim->frames[3].width = 480;
 	anim->frames[0].height = 528;
 	anim->frames[1].height = 528;
 	anim->frames[2].height = 528;
-	anim->frames[0].x_offset = 480 * 1;
-	anim->frames[1].x_offset = 480 * 2;
-	anim->frames[2].x_offset = 480 * 3;
+	anim->frames[3].height = 528;
+	anim->frames[0].x_offset = 0;
+	anim->frames[1].x_offset = 480 * 1;
+	anim->frames[2].x_offset = 480 * 2;
+	anim->frames[3].x_offset = 480 * 3;
 	anim->frames[0].y_offset = 0;
 	anim->frames[1].y_offset = 0;
 	anim->frames[2].y_offset = 0;
-	anim->num_frames = 3;
+	anim->frames[3].y_offset = 0;
+	anim->num_frames = 4;
 	anim->id = anim_shoot;
+	anim->interruptable = false;
 }
 
 void	init_player_animations(t_doom3d *app)
@@ -75,12 +82,17 @@ void	init_player_animations(t_doom3d *app)
 	set_shoot_anim(&app->animations[anim_shoot]);
 }
 
-void	set_player_animation(t_doom3d *app, uint32_t animation_id)
+static void				set_player_animation(t_doom3d *app, uint32_t animation_id)
 {
-	if (app->player_hud.curr_animation == animation_id)
+	t_sprite_anim *curr_player_anim;
+
+	curr_player_anim = &app->animations[app->player_hud.curr_animation];
+	if (!(curr_player_anim->is_finished || curr_player_anim->interruptable))
 		return ;
 	app->animations[app->player_hud.curr_animation].current_frame = 0;
-	app->animations[app->player_hud.curr_animation].frame_time = 100;
+	app->animations[app->player_hud.curr_animation].frame_time =
+		ANIM_FRAME_TIME_MS;
+	app->animations[app->player_hud.curr_animation].is_finished = false;
 	app->player_hud.curr_animation = animation_id;
 }
 
@@ -129,8 +141,11 @@ void	doom3d_player_animation_update(t_doom3d *app)
 	{
 		curr_player_anim->frame_time = 0;
 		curr_player_anim->current_frame++;
+		curr_player_anim->frame_time = ANIM_FRAME_TIME_MS;
 		if (curr_player_anim->current_frame >= curr_player_anim->num_frames)
+		{
+			curr_player_anim->is_finished = true;
 			curr_player_anim->current_frame = 0;
-		curr_player_anim->frame_time = 50;
+		}
 	}
 }

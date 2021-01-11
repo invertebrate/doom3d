@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 21:44:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 22:21:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define MAX_LEVELS 16
 # define TEMP_OBJECT_EXPIRE_SEC 100
 # define NUM_WEAPONS 4
+# define ANIM_FRAME_TIME_MS 100
 
 # define X_DIR 1
 # define Y_DIR -1
@@ -114,17 +115,10 @@ typedef struct				s_weapon
 	int						id;
 	int						item_type;
 	int						ammo;
-	int						fire_type;
 	float					fire_rate;
 	float					range;
-	int						damage;
+	int						damage_per_hit;
 }							t_weapon;
-
-typedef enum				e_fire_type
-{
-	fire_ray,
-	fire_projectile,
-}							t_fire_type;
 
 typedef struct				s_camera
 {
@@ -143,7 +137,6 @@ typedef struct				s_player
 	t_vec3					up;
 	t_bool					is_running;
 	t_bool					is_shooting;
-	t_bool					is_firing;
 	t_bool					is_reloading;
 	t_bool					is_moving;
 	t_bool					is_rotating;
@@ -262,6 +255,8 @@ typedef struct				s_sprite_anim
 	int32_t					num_frames;
 	int32_t					current_frame;
 	int32_t					frame_time;
+	t_bool					interruptable;
+	t_bool					is_finished;
 }							t_sprite_anim;
 
 typedef enum				e_player_animation
@@ -365,7 +360,8 @@ void						player_apply_gravity(t_doom3d *app);
 void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						editor_vertical_move(t_doom3d *app, float speed);
-void						player_shoot_ray(t_doom3d *app, t_vec3 origin);
+void						player_shoot_ray(t_doom3d *app,
+								t_vec3 origin, t_vec3 dir);
 
 /*
 ** Inventory
@@ -558,8 +554,6 @@ void						editor_triggers_highlight(t_doom3d *app);
 ** Player animations
 */
 void						init_player_animations(t_doom3d *app);
-void						set_player_animation(t_doom3d *app,
-								uint32_t animation_id);
 void						doom3d_player_animation_update(t_doom3d *app);
 void						set_player_shoot_frame(t_doom3d *app);
 void						set_player_reload_frame(t_doom3d *app);
