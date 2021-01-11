@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 19:01:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 19:11:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 
 	if (prev_shot_time != 0 && (float)(curr_time - prev_shot_time) / 1000.0 <
 		(1.0 / app->player.equipped_weapon->fire_rate))
+		return ;
+	if (app->player.equipped_weapon != weapon_fist &&
+		app->player.equipped_weapon->ammo == 0)
 		return ;
 	set_player_shoot_frame(app);
 	prev_shot_time = SDL_GetTicks();
