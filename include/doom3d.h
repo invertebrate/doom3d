@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 12:19:09 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/11 13:26:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,7 +269,7 @@ typedef struct				s_doom3d
 	t_editor				editor;
 	t_settings				settings;
 	t_notifications			notifications;
-	t_item					item_data[item_default];
+	t_item					item_data[3];
 }							t_doom3d;
 
 struct						s_npc
