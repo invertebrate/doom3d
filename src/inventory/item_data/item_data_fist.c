@@ -3,25 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   item_data_fist.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:54:55 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/11 11:59:49 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/11 23:14:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-t_item	item_data_fist(t_doom3d *app)
+t_weapon	weapon_data_fist(t_doom3d *app)
 {
-	t_item	item;
+	t_weapon	item;
 
-	item.item = item_fist;
-	item.item_type = item_type_melee;
-	item.ammo = 0;
-	item.fire_type = fire_ray;
+	item.id = weapon_fist;
+	item.ammo = 1;
 	item.fire_rate = 2;
 	item.range = 5 * app->unit_size;
-	item.damage = 5;
+	item.damage_per_hit = 5;
 	return (item);
 }

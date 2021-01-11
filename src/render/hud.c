@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:12:01 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/16 16:01:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 21:45:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,40 @@ static void		crosshair_render(t_doom3d *app, int32_t offset, int32_t length,
 			app->window->framebuffer->height / 2}}, color);
 }
 
+static void		player_animation_render(t_doom3d *app)
+{
+	t_surface			*anim_source;
+	t_sprite_anim		*animation;
+	t_anim_frame		*curr_frame;
+	t_surface			player_layer;
+	int32_t				y;
+
+	animation = &app->animations[app->player_hud.curr_animation];
+	if (!(anim_source = get_animation_source(app)))
+		return ;
+	curr_frame = &animation->frames[animation->current_frame];
+	error_check(!(player_layer.pixels =
+		ft_calloc(sizeof(uint32_t) * curr_frame->width * curr_frame->height)),
+		"Failed to malloc player layer for animation");
+	y = -1;
+	while (++y < curr_frame->height)
+	{
+		ft_memcpy(player_layer.pixels + y * curr_frame->width,
+			anim_source->pixels + anim_source->w *
+				(curr_frame->y_offset + y) + curr_frame->x_offset,
+			sizeof(uint32_t) * curr_frame->width);
+	}
+	player_layer.w = curr_frame->width;
+	player_layer.h = curr_frame->height;
+	l3d_image_place(&(t_surface){
+		.pixels = app->window->framebuffer->buffer,
+		.h = app->window->framebuffer->height,
+		.w = app->window->framebuffer->width}, &player_layer,
+		(int32_t[2]){app->window->framebuffer->width / 2,
+			app->window->framebuffer->height - curr_frame->height}, 1.0);
+	free(player_layer.pixels);
+}
+
 void			hud_render(t_doom3d *app)
 {
 	int32_t	offset;
@@ -64,5 +98,6 @@ void			hud_render(t_doom3d *app)
 		offset += 5;
 	if (app->player.is_shooting)
 		offset += 5;
+	player_animation_render(app);
 	crosshair_render(app, offset, length, 0xffffffff);
 }

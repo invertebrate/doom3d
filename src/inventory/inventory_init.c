@@ -3,27 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   inventory_init.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:50:53 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/11 12:12:57 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/11 19:06:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	inventory_init(t_doom3d *app)
+void	weapons_init(t_doom3d *app)
 {
 	int	i;
 
-	inventory_init_items(app);
-	app->player.item[0] = app->item_data[item_fist];
-	app->player.item[1] = app->item_data[item_glock];
-	i = 2;
-	while (i < INVENTORY_SIZE)
-	{
-		app->player.item[i] = (t_item) {0, 0, -1, 0, 0, 0, 0};
-		i++;
-	}
-	app->player.equipped_item = &(app->player.item[item_type_melee]);
+	weapons_init_data(app);
+	i = -1;
+	while (++i < NUM_WEAPONS)
+		ft_memcpy(&app->player.weapons[i],
+			&app->weapons_data[i], sizeof(t_weapon));
+	weapon_equip(app, weapon_shotgun);
 }
