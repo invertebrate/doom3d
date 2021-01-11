@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 21:02:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 19:38:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void		doom3d_main_loop(t_doom3d *app)
 		handle_scene_switch(app);
 		doom3d_events_handle(app);
 		doom3d_update_objects(app);
+		doom3d_player_animation_update(app);
 		doom3d_render(app);
 		window_frame_draw(app->window);
 		doom3d_notifications_update(app);

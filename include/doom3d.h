@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 19:11:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 21:44:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ typedef struct				s_player
 	t_vec3					up;
 	t_bool					is_running;
 	t_bool					is_shooting;
+	t_bool					is_firing;
+	t_bool					is_reloading;
 	t_bool					is_moving;
 	t_bool					is_rotating;
 	float					speed;
@@ -245,27 +247,34 @@ typedef struct				e_notifications
 	int32_t					timer;
 }							t_notifications;
 
+typedef struct				s_anim_frame
+{
+	int32_t		x_offset;
+	int32_t		y_offset;
+	int32_t		width;
+	int32_t		height;
+}							t_anim_frame;
+
 typedef struct				s_sprite_anim
 {
-	int32_t					frames[16];
+	uint32_t				id;
+	t_anim_frame			frames[16];
 	int32_t					num_frames;
-	int32_t					num_frames_show;
-	t_surface				*source;
-	int32_t					frame_width;
-	int32_t					frame_height;
 	int32_t					current_frame;
+	int32_t					frame_time;
 }							t_sprite_anim;
 
 typedef enum				e_player_animation
 {
-	anim_shotgun_default = 0,
-	anim_shotgun_shoot = 1,
-	anim_shotgun_reload = 2,
+	anim_none = 0,
+	anim_default = 1,
+	anim_shoot = 2,
+	anim_reload = 3,
 }							t_player_animation;
 
 typedef struct				s_player_hud
 {
-	t_player_animation		player_animation;
+	t_player_animation		curr_animation;
 }							t_player_hud;
 
 typedef struct				s_doom3d
@@ -548,7 +557,13 @@ void						editor_triggers_highlight(t_doom3d *app);
 /*
 ** Player animations
 */
-void						set_player_animations(t_doom3d *app);
-
+void						init_player_animations(t_doom3d *app);
+void						set_player_animation(t_doom3d *app,
+								uint32_t animation_id);
+void						doom3d_player_animation_update(t_doom3d *app);
+void						set_player_shoot_frame(t_doom3d *app);
+void						set_player_reload_frame(t_doom3d *app);
+void						set_player_default_frame(t_doom3d *app);
+t_surface					*get_animation_source(t_doom3d *app);
 
 #endif

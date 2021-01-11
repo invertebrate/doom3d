@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/11 19:00:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 21:15:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	player_shoot_ray(t_doom3d *app, t_vec3 origin)
 	t_hits	*hits;
 	t_hit	*closest_triangle_hit;
 	t_vec3	dist;
+	char	object_type[128];
 
 	hits = NULL;
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, origin,
@@ -26,11 +27,11 @@ void	player_shoot_ray(t_doom3d *app, t_vec3 origin)
 		if (closest_triangle_hit != NULL)
 		{
 			ml_vector3_sub(closest_triangle_hit->hit_point, origin, dist);
-			ft_printf("Hit at object type %d, at distance: %f, ",
-				closest_triangle_hit->triangle->parent->type,
-				ml_vector3_mag(dist));
+			object_type_to_str(closest_triangle_hit->triangle->parent,
+				object_type);
+			ft_printf("Hit %s, at unit distance: %f, ", object_type,
+				ml_vector3_mag(dist) / app->unit_size);
 			ml_vector3_print(closest_triangle_hit->hit_point);
-			ft_printf("%p\n", app->player.equipped_weapon);
 			if (ml_vector3_mag(dist) <= app->player.equipped_weapon->range)
 				if (closest_triangle_hit->triangle->parent->type == object_type_npc)
 					npc_trigger_onhit(app, closest_triangle_hit->triangle->parent);
