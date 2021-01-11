@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 23:11:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 23:15:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ typedef enum				e_weapon_id
 typedef struct				s_weapon
 {
 	int						id;
-	int						item_type;
 	int						ammo;
 	float					fire_rate;
 	float					range;

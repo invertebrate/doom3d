@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 23:12:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 23:14:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,31 +98,22 @@ static void				set_player_animation(t_doom3d *app, uint32_t animation_id)
 
 void					set_player_shoot_frame(t_doom3d *app)
 {
-	if (app->player.equipped_weapon->item_type == item_type_weapon)
-	{
-		if (app->player.equipped_weapon->id == weapon_shotgun)
-			set_player_animation(app, anim_shotgun_shoot);
-	}
+	if (app->player.equipped_weapon->id == weapon_shotgun)
+		set_player_animation(app, anim_shotgun_shoot);
 }
 
 void					set_player_default_frame(t_doom3d *app)
 {
-	if (app->player.equipped_weapon->item_type == item_type_weapon)
-	{
-		if (app->player.equipped_weapon->id == weapon_shotgun)
-			set_player_animation(app, anim_shotgun_default);
-		else
-			set_player_animation(app, anim_none);
-	}
+	if (app->player.equipped_weapon->id == weapon_shotgun)
+		set_player_animation(app, anim_shotgun_default);
+	else
+		set_player_animation(app, anim_none);
 }
 
 void					set_player_reload_frame(t_doom3d *app)
 {
-	if (app->player.equipped_weapon->item_type == item_type_weapon)
-	{
-		if (app->player.equipped_weapon->id == weapon_shotgun)
-			set_player_animation(app, anim_shotgun_reload);
-	}
+	if (app->player.equipped_weapon->id == weapon_shotgun)
+		set_player_animation(app, anim_shotgun_reload);
 }
 
 void	doom3d_player_animation_update(t_doom3d *app)

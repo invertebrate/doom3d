@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:04:24 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/11 22:12:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 23:14:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_weapon	weapon_data_glock(t_doom3d *app)
 	t_weapon	item;
 
 	item.id = weapon_glock;
-	item.item_type = item_type_weapon;
 	item.ammo = 20;
 	item.fire_rate = 5.0;
 	item.range = 80 * app->unit_size;
