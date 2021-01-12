@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 15:37:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/12 21:11:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ static void		scene_texture_files_set(t_asset_files *data)
 		"assets/textures/Dirs.bmp";
 	data->texture_files[data->num_textures++] =
 		"assets/textures/rock.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/shotgun_texture.bmp";
 }
 
 static void		scene_normal_files_set(t_asset_files *data)
@@ -133,6 +135,8 @@ static void		scene_model_files_set(t_asset_files *data)
 {
 	data->model_files[data->num_models++] =
 		"assets/models/box.obj";
+	data->model_files[data->num_models++] =
+		"assets/models/shotgun.obj";
 }
 
 /*
