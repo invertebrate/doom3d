@@ -81,13 +81,13 @@ typedef enum				e_scene_id
 	scene_id_editor3d,
 }							t_scene_id;
 
-typedef enum				e_animation
+typedef enum				e_animation_type
 {
 	anim_idle,
 	anim_move,
 	anim_attack,
 	anim_death
-}							t_animation;
+}							t_animation_type;
 
 typedef enum				e_npc_state
 {

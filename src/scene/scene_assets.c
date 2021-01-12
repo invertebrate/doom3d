@@ -28,6 +28,18 @@ static void		scene_set_skybox_textures(t_scene *scene)
 		"assets/skybox/bottom.bmp");
 }
 
+static void		animation_frames_load(t_scene *scene, t_asset_files *data)
+{
+	int		i;
+
+	scene->anim_frames = hash_map_create(MAX_ASSETS);
+	i = -1;
+	while (++i < (int32_t)data->num_anim_frames)
+		hash_map_add(scene->anim_frames,
+			(int64_t)scene->asset_files.animation_files[i],
+			l3d_read_obj(scene->asset_files.animation_files[i], NULL, NULL));
+}
+
 /*
 ** Loads assets by keys and files set in scene_data.c
 ** Hashmap = dictionary
@@ -57,6 +69,7 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 			(int64_t)scene->asset_files.normal_map_files[i],
 			l3d_read_bmp_32bit_rgba_surface(
 				scene->asset_files.normal_map_files[i]));
+	animation_frames_load(scene, data);
 	scene_set_skybox_textures(scene);
 }
 

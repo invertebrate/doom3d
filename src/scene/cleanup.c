@@ -81,19 +81,24 @@ void		scene_objects_destroy(t_scene *scene)
 		if (scene->objects[i] != NULL)
 			l3d_3d_object_destroy(scene->objects[i]);
 		if (scene->objects[i]->type == object_type_npc)
-			//((t_npc*)scene->objects[i]->params)->animation //someting something
+			animation_destroy(((t_npc*)scene->objects[i]->params)->animation);
 	}
 }
 
-void		scene_animation_destroy(t_scene *scene)
+void		animation_destroy(t_animation *animation)
 {
-	int32_t		i;
-
-	i = -1;
-	while (++i < scene->asset_files.num_anim_frames)
-	{
-		//destroy frame
-	}
+	/*typedef struct				s_animation
+{
+	uint32_t				frame_count;
+	uint32_t				current_frame;
+	uint32_t				start_frame;
+	uint32_t				start_tick;
+	t_3d_object				*base_object;
+	t_3d_object				**animation_frames; //contains the objects for each anim frame
+	int32_t					*anim_frame_numbers; //contains the frame indices for each animation start
+}							t_animation;
+*/
+(void)animation;
 }
-scene->asset_files.num_anim_frames
+// scene->asset_files.num_anim_frames
 //cleanup frames function

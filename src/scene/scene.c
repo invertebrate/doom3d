@@ -72,7 +72,6 @@ void			scene_destroy(t_doom3d *app)
 	//call destroy frames function
 	scene_objects_destroy(app->active_scene);
 	scene_camera_destroy(app->active_scene);
-	scene_animation_destroy(app->active_scene);
 	free(app->active_scene);
 	app->active_scene = NULL;
 	return ;
