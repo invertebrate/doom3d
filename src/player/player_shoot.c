@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/12 21:43:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/12 22:46:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ static void		place_projectile_object_in_scene(t_doom3d *app,
 	place_scene_object(app,
 		(const char*[3]){projectile->model_key, projectile->texture_key,
 					projectile->normal_map_key}, origin);
-	obj = app->active_scene->objects[app->active_scene->num_objects - 1];
+	obj = app->active_scene->objects[app->active_scene->last_object_index];
 	obj->type = object_type_projectile;
 	l3d_3d_object_set_params(obj, projectile, sizeof(t_projectile),
 		projectile->type);
 	l3d_3d_object_rotate(obj, rot[0], rot[1], rot[2]);
 	l3d_3d_object_scale(obj, 0.1, 0.1, 0.1);
 	ft_printf("Spawned projectile, id = |%d|\n",
-		app->active_scene->objects[app->active_scene->num_objects - 1]->id); //test
+		app->active_scene->objects[app->active_scene->last_object_index]->id); //test
 }
 
 void	player_shoot_projectile(t_doom3d *app, t_vec3 origin)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 15:57:42 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/12 22:41:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,6 @@ void			doom3d_update_objects(t_doom3d *app)
 	t_bool			is_npc_update;
 	t_3d_object		*obj;
 
-	if (app->active_scene->scene_id == scene_id_main_game ||
-		app->active_scene->scene_id == scene_id_editor3d)
-		handle_object_deletions(app);
 	if (app->active_scene->is_paused ||
 		app->active_scene->scene_id != scene_id_main_game)
 		return ;
@@ -120,5 +117,8 @@ void			doom3d_update_objects(t_doom3d *app)
 			continue ;
 		update_object_by_type(app, obj, is_npc_update);
 	}
+	if (app->active_scene->scene_id == scene_id_main_game ||
+		app->active_scene->scene_id == scene_id_editor3d)
+		handle_object_deletions(app);
 	active_scene_update_after_objects(app->active_scene);
 }

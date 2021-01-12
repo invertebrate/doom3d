@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 21:47:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/12 22:45:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_3d_object		*find_one_object_by_type(t_doom3d *app, uint32_t object_type,
 /*
 ** // !Note that this (inc/dec)rements both num_deleted and num_objects
 ** so only use this when intending to actually place objects
+** Saves this next index to last_object_index under scene
 */
 
 static uint32_t	next_object_index(t_doom3d *app)
@@ -47,6 +48,7 @@ static uint32_t	next_object_index(t_doom3d *app)
 		return (next_index);
 	}
 	next_index = app->active_scene->num_objects++;
+	app->active_scene->last_object_index = next_index;
 	return (next_index);
 }
 

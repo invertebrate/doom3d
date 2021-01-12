@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 21:42:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/12 22:44:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ typedef struct				s_scene
 	uint32_t				num_objects;
 	uint32_t				deleted_object_i[MAX_NUM_OBJECTS];
 	uint32_t				num_deleted;
+	int32_t					last_object_index;
 	t_kd_tree				*triangle_tree;
 	t_triangle				**triangle_ref;
 	uint32_t				num_triangles;
