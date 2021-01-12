@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 23:14:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/12 14:52:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 t_surface			*get_animation_source(t_doom3d *app)
 {
 	if (app->player.equipped_weapon->id == weapon_shotgun)
-		return (hash_map_get(app->active_scene->textures,
-			(int64_t)"assets/textures/shotgun_animation.bmp"));
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/shotgun_animation.bmp"));
 	return (NULL);
 }
 

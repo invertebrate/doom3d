@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 23:15:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/12 14:46:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,12 +156,14 @@ typedef struct				s_player
 
 typedef struct				s_asset_files
 {
+	const char				*animation_files[MAX_ASSETS];
 	const char				*texture_files[MAX_ASSETS];
 	const char				*normal_map_files[MAX_ASSETS];
 	const char				*model_files[MAX_ASSETS];
 	const char				*npc_names[MAX_ASSETS];
 	const char				*prefab_names[MAX_ASSETS];
 	const char				*trigger_names[MAX_ASSETS];
+	uint32_t				num_animations;
 	uint32_t				num_models;
 	uint32_t				num_textures;
 	uint32_t				num_normal_maps;
@@ -185,6 +187,7 @@ typedef struct				s_scene
 	uint32_t				num_button_menus;
 	t_bool					is_paused;
 	t_scene_id				scene_id;
+	t_hash_table			*animation_textures;
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
 	t_hash_table			*models;
