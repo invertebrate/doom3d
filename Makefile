@@ -87,7 +87,7 @@ SOURCES = main.c \
 			render/prepare_utils3.c \
 			render/rasterize.c \
 			render/prepare_clip.c \
-			render/hud.c \
+			render/player_hud.c \
 			render/ui.c \
 			render/editor_ui.c \
 			render/debug/debug.c \
