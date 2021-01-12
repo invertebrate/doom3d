@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile_explosion.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:45:28 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/12 17:21:22 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/12 22:32:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	projectile_explosion(t_doom3d *app, t_vec3 pos, t_projectile *projectile)
 	t_3d_object	*obj;
 
 	ft_printf("PROJECTILE EXPLOSION!\n");//test
-	i = 0;
+	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects +
 							app->active_scene->num_deleted))
 	{
