@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 18:11:13 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/12 16:57:20 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ typedef enum				e_npc_type
 
 typedef enum				e_projectile_type
 {
-	projectile_type_default,
+	projectile_type_explosive,
+	projectile_type_bullet,
 }							t_projectile_type;
 
 typedef enum				e_move
@@ -384,6 +385,7 @@ t_item						item_data_rpg(t_doom3d *app);
 void						projectile_init(t_doom3d *app);
 t_projectile				projectile_data_rpg(t_doom3d *app);
 void						projectile_update(t_doom3d *app, t_3d_object *obj);
+void						projectile_explosion(t_doom3d *app, t_vec3 pos, t_projectile *projectile);
 
 /*
 ** Npc
@@ -398,6 +400,7 @@ void						npc_default(t_doom3d *app, t_npc *npc);
 void						handle_npc_deletions(t_doom3d *app);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
 void						npc_trigger_onhit(t_doom3d *app, t_3d_object *obj);
+void						npc_trigger_onhit_explosion(t_doom3d *app, t_3d_object *obj, int damage);
 
 /*
 ** Events
