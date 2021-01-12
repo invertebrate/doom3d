@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 14:46:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/12 15:31:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 # define MAX_LEVELS 16
 # define TEMP_OBJECT_EXPIRE_SEC 100
 # define NUM_WEAPONS 4
-# define ANIM_FRAME_TIME_MS 100
 
 # define X_DIR 1
 # define Y_DIR -1
@@ -257,6 +256,7 @@ typedef struct				s_sprite_anim
 	int32_t					num_frames;
 	int32_t					current_frame;
 	int32_t					frame_time;
+	int32_t					frame_time_left;
 	t_bool					interruptable;
 	t_bool					is_finished;
 }							t_sprite_anim;
@@ -267,6 +267,9 @@ typedef enum				e_player_animation
 	anim_shotgun_default = 1,
 	anim_shotgun_shoot = 2,
 	anim_shotgun_reload = 3,
+	anim_glock_default = 4,
+	anim_glock_shoot = 5,
+	anim_glock_reload = 6,
 }							t_player_animation;
 
 typedef struct				s_player_hud

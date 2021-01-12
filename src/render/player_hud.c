@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:12:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 14:58:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/12 15:52:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,21 @@ static void		player_animation_render(t_doom3d *app)
 	}
 	player_layer.w = curr_frame->width;
 	player_layer.h = curr_frame->height;
-	l3d_image_place(&(t_surface){
-		.pixels = app->window->framebuffer->buffer,
-		.h = app->window->framebuffer->height,
-		.w = app->window->framebuffer->width}, &player_layer,
-		(int32_t[2]){app->window->framebuffer->width / 2,
-			app->window->framebuffer->height - curr_frame->height}, 1.0);
+	if (app->player.equipped_weapon->id == weapon_shotgun)
+		l3d_image_place(&(t_surface){
+			.pixels = app->window->framebuffer->buffer,
+			.h = app->window->framebuffer->height,
+			.w = app->window->framebuffer->width}, &player_layer,
+			(int32_t[2]){app->window->framebuffer->width / 2,
+				app->window->framebuffer->height - curr_frame->height}, 1.0);
+	else
+		l3d_image_place(&(t_surface){
+			.pixels = app->window->framebuffer->buffer,
+			.h = app->window->framebuffer->height,
+			.w = app->window->framebuffer->width}, &player_layer,
+			(int32_t[2]){app->window->framebuffer->width / 2 -
+				curr_frame->width / 2,
+				app->window->framebuffer->height - curr_frame->height}, 1.0);
 	free(player_layer.pixels);
 }
 
