@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 17:10:37 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/12 21:47:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void			place_scene_object(t_doom3d *app, const char *filenames[3],
 			obj->id, (void*)filenames[2]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
+	active_scene_update_after_objects(app->active_scene);
 }
 
 /*
@@ -140,6 +141,7 @@ void			place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 			obj->id, (void*)filenames[1]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
+	active_scene_update_after_objects(app->active_scene);
 }
 
 void			object_type_to_str(t_3d_object *obj, char *str)
