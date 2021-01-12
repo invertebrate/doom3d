@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 16:57:20 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/12 21:42:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define MAX_ASSETS 64
 # define MAX_LEVELS 16
 # define TEMP_OBJECT_EXPIRE_SEC 100
-# define INVENTORY_SIZE 23
+# define NUM_WEAPONS 4
 
 # define X_DIR 1
 # define Y_DIR -1
@@ -70,12 +70,6 @@ typedef enum				e_npc_type
 	npc_type_default,
 }							t_npc_type;
 
-typedef enum				e_projectile_type
-{
-	projectile_type_explosive,
-	projectile_type_bullet,
-}							t_projectile_type;
-
 typedef enum				e_move
 {
 	move_forward,
@@ -104,40 +98,39 @@ typedef enum				e_npc_state
 
 typedef enum				e_item_type
 {
-	item_type_melee,
-	item_type_sidearm,
 	item_type_weapon,
-	item_type_misc,
+	item_type_key,
 }							t_item_type;
 
-typedef enum				e_item_code
+typedef enum				e_weapon_id
 {
-	item_fist,
-	item_glock,
-	item_rpg,
-	item_default,
-}							t_item_code;
+	weapon_fist = 0,
+	weapon_glock = 1,
+	weapon_shotgun = 2,
+	weapon_rpg = 3,
+}							t_weapon_id;
 
-typedef struct				s_item
+typedef enum				e_projectile_type
 {
-	int						item;
-	int						item_type;
+	projectile_type_rpg = 0,
+	projectile_type_bullet = 1,
+	projectile_type_none = 2,
+}							t_projectile_type;
+
+typedef struct				s_weapon
+{
+	t_weapon_id				id;
 	int						ammo;
-	int						fire_type;
 	float					fire_rate;
 	float					range;
-	int						damage;
-	int						projectile;
-}							t_item;
+	t_projectile_type		projectile;
+	int						damage_per_hit;
+}							t_weapon;
 
-typedef enum				e_projectile_code
-{
-	projectile_rpg,
-}							t_projectile_code;
 
 typedef struct				s_projectile
 {
-	int						type;
+	t_projectile_type		type;
 	int						damage;
 	float					speed;
 	float					range;
@@ -148,12 +141,6 @@ typedef struct				s_projectile
 	const char				*normal_map_key;
 	t_vec3					dir;
 }							t_projectile;
-
-typedef enum				e_fire_type
-{
-	fire_ray,
-	fire_projectile,
-}							t_fire_type;
 
 typedef struct				s_camera
 {
@@ -172,6 +159,7 @@ typedef struct				s_player
 	t_vec3					up;
 	t_bool					is_running;
 	t_bool					is_shooting;
+	t_bool					is_reloading;
 	t_bool					is_moving;
 	t_bool					is_rotating;
 	float					speed;
@@ -185,18 +173,20 @@ typedef struct				s_player
 	t_mat4					translation;
 	t_mat4					inv_translation;
 	t_box3d					aabb;
-	t_item					item[INVENTORY_SIZE];
-	t_item					*equipped_item;
+	t_weapon				weapons[NUM_WEAPONS];
+	t_weapon				*equipped_weapon;
 }							t_player;
 
 typedef struct				s_asset_files
 {
+	const char				*animation_files[MAX_ASSETS];
 	const char				*texture_files[MAX_ASSETS];
 	const char				*normal_map_files[MAX_ASSETS];
 	const char				*model_files[MAX_ASSETS];
 	const char				*npc_names[MAX_ASSETS];
 	const char				*prefab_names[MAX_ASSETS];
 	const char				*trigger_names[MAX_ASSETS];
+	uint32_t				num_animations;
 	uint32_t				num_models;
 	uint32_t				num_textures;
 	uint32_t				num_normal_maps;
@@ -220,6 +210,7 @@ typedef struct				s_scene
 	uint32_t				num_button_menus;
 	t_bool					is_paused;
 	t_scene_id				scene_id;
+	t_hash_table			*animation_textures;
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
 	t_hash_table			*models;
@@ -274,6 +265,42 @@ typedef struct				e_notifications
 	int32_t					timer;
 }							t_notifications;
 
+typedef struct				s_anim_frame
+{
+	int32_t		x_offset;
+	int32_t		y_offset;
+	int32_t		width;
+	int32_t		height;
+}							t_anim_frame;
+
+typedef struct				s_sprite_anim
+{
+	uint32_t				id;
+	t_anim_frame			frames[16];
+	int32_t					num_frames;
+	int32_t					current_frame;
+	int32_t					frame_time;
+	int32_t					frame_time_left;
+	t_bool					interruptable;
+	t_bool					is_finished;
+}							t_sprite_anim;
+
+typedef enum				e_player_animation
+{
+	anim_none = 0,
+	anim_shotgun_default = 1,
+	anim_shotgun_shoot = 2,
+	anim_shotgun_reload = 3,
+	anim_glock_default = 4,
+	anim_glock_shoot = 5,
+	anim_glock_reload = 6,
+}							t_player_animation;
+
+typedef struct				s_player_hud
+{
+	t_player_animation		curr_animation;
+}							t_player_hud;
+
 typedef struct				s_doom3d
 {
 	t_bool					is_running;
@@ -285,6 +312,7 @@ typedef struct				s_doom3d
 	t_scene_id				next_scene_id;
 	t_scene					*active_scene;
 	t_player				player;
+	t_player_hud			player_hud;
 	t_mouse					mouse;
 	t_keyboard				keyboard;
 	t_thread_pool			*thread_pool;
@@ -296,8 +324,9 @@ typedef struct				s_doom3d
 	t_editor				editor;
 	t_settings				settings;
 	t_notifications			notifications;
-	t_item					item_data[3];
 	t_projectile			projectile_data[1];
+	t_weapon				weapons_data[NUM_WEAPONS];
+	t_sprite_anim			animations[16];
 }							t_doom3d;
 
 struct						s_npc
@@ -361,28 +390,30 @@ void						player_apply_gravity(t_doom3d *app);
 void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						editor_vertical_move(t_doom3d *app, float speed);
-void						player_shoot_ray(t_doom3d *app, t_vec3 origin);
 void						player_shoot_projectile(t_doom3d *app, t_vec3 origin);
+void						player_shoot_ray(t_doom3d *app,
+								t_vec3 origin, t_vec3 dir);
 
 /*
 ** Inventory
 */
 
-void						inventory_init(t_doom3d *app);
-void						inventory_init_items(t_doom3d *app);
-void						inventory_equip(t_doom3d *app, int slot);
-void						inventory_pickup_weapon(t_doom3d *app, t_item item);
+void						weapons_init(t_doom3d *app);
+void						weapons_init_data(t_doom3d *app);
+void						weapon_equip(t_doom3d *app, t_weapon_id slot);
+void						inventory_pickup_weapon(t_doom3d *app, t_weapon item);
 void						inventory_throw_weapon(t_doom3d *app);
 
-t_item						item_data_fist(t_doom3d *app);
-t_item						item_data_glock(t_doom3d *app);
-t_item						item_data_rpg(t_doom3d *app);
+t_weapon					weapon_data_fist(t_doom3d *app);
+t_weapon					weapon_data_glock(t_doom3d *app);
+t_weapon					weapon_data_rpg(t_doom3d *app);
+t_weapon					weapon_data_shotgun(t_doom3d *app);
 
 /*
 ** Projectile
 */
 
-void						projectile_init(t_doom3d *app);
+void						projectile_data_init(t_doom3d *app);
 t_projectile				projectile_data_rpg(t_doom3d *app);
 void						projectile_update(t_doom3d *app, t_3d_object *obj);
 void						projectile_explosion(t_doom3d *app, t_vec3 pos, t_projectile *projectile);
@@ -559,5 +590,15 @@ void						place_player_end(t_doom3d *app);
 void						place_player_start(t_doom3d *app);
 void						editor_triggers_unhighlight(t_doom3d *app);
 void						editor_triggers_highlight(t_doom3d *app);
+
+/*
+** Player animations
+*/
+void						player_animations_init(t_doom3d *app);
+void						doom3d_player_animation_update(t_doom3d *app);
+void						set_player_shoot_frame(t_doom3d *app);
+void						set_player_reload_frame(t_doom3d *app);
+void						set_player_default_frame(t_doom3d *app);
+t_surface					*get_animation_source(t_doom3d *app);
 
 #endif

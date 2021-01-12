@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inventory_throw_weapon.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:14:01 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/11 14:05:37 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/12 21:28:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	inventory_throw_weapon(t_doom3d *app)
 {
-	if (app->player.equipped_item->item != item_fist)
-		app->player.equipped_item->ammo = -1;
-	if (app->player.equipped_item->item == item_type_melee)
-		app->player.item[0] = app->item_data[item_fist];
-	app->player.equipped_item = &(app->player.item[item_fist]);
+	if (app->player.equipped_weapon->id != weapon_fist)
+		app->player.equipped_weapon->ammo = 0;
+	app->player.equipped_weapon = &(app->player.weapons[weapon_fist]);
 	ft_printf("Threw away item!\n");//test
 }

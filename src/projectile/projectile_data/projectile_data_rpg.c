@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile_data_rpg.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 13:17:24 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/12 17:01:22 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/12 21:39:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_projectile	projectile_data_rpg(t_doom3d *app)
 {
 	t_projectile projectile;
 
-	projectile.type = projectile_rpg;
+	projectile.type = projectile_type_rpg;
 	projectile.damage = 100;
 	projectile.speed = app->unit_size / 2;
 	projectile.range = 100 * app->unit_size;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 13:26:13 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/12 21:15:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 	scene->models = hash_map_create(MAX_ASSETS);
 	scene->textures = hash_map_create(MAX_ASSETS);
 	scene->normal_maps = hash_map_create(MAX_ASSETS);
+	scene->animation_textures = hash_map_create(MAX_ASSETS);
 	i = -1;
 	while (++i < (int32_t)data->num_models)
 		hash_map_add(scene->models,
@@ -57,6 +58,12 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 			(int64_t)scene->asset_files.normal_map_files[i],
 			l3d_read_bmp_32bit_rgba_surface(
 				scene->asset_files.normal_map_files[i]));
+	i = -1;
+	while (++i < (int32_t)data->num_animations)
+		hash_map_add(scene->animation_textures,
+			(int64_t)scene->asset_files.animation_files[i],
+			l3d_read_bmp_32bit_rgba_surface(
+				scene->asset_files.animation_files[i]));
 	scene_set_skybox_textures(scene);
 }
 
@@ -98,6 +105,14 @@ static void		triggers_load(t_scene *scene)
 			(void*)trigger_player_end);
 }
 
+static void		scene_animation_files_set(t_asset_files *data)
+{
+	data->animation_files[data->num_animations++] =
+		"assets/animations/shotgun_animation.bmp";
+	data->animation_files[data->num_animations++] =
+		"assets/animations/glock_shoot_animation.bmp";
+}
+
 static void		scene_texture_files_set(t_asset_files *data)
 {
 	data->texture_files[data->num_textures++] =
@@ -133,9 +148,11 @@ void			scene_assets_load(t_scene *scene)
 	scene->asset_files.num_normal_maps = 0;
 	scene->asset_files.num_npcs = 0;
 	scene->asset_files.num_prefabs = 0;
+	scene->asset_files.num_animations = 0;
 	scene_texture_files_set(&scene->asset_files);
 	scene_normal_files_set(&scene->asset_files);
 	scene_model_files_set(&scene->asset_files);
+	scene_animation_files_set(&scene->asset_files);
 	assets_load(scene, &scene->asset_files);
 	prefabs_load(scene);
 	npcs_load(scene);

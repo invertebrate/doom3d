@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 14:04:33 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/12 21:42:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void		doom3d_main_loop(t_doom3d *app)
 		handle_scene_switch(app);
 		doom3d_events_handle(app);
 		doom3d_update_objects(app);
+		doom3d_player_animation_update(app);
 		doom3d_render(app);
 		window_frame_draw(app->window);
 		doom3d_notifications_update(app);
@@ -67,7 +68,6 @@ void			doom3d_init(t_doom3d *app)
 	read_level_list(app);
 	app->current_level = 0;
 	editor_init(app, 0);
-	projectile_init(app); //test
 	scene_next_select(app);
 }
 

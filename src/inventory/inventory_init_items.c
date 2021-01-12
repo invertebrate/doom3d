@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   inventory_init_items.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/11 12:16:13 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/11 19:04:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	inventory_init_items(t_doom3d *app)
+void	weapons_init_data(t_doom3d *app)
 {
-	app->item_data[item_fist] = item_data_fist(app);
-	app->item_data[item_glock] = item_data_glock(app);
-	app->item_data[item_rpg] = item_data_rpg(app);
+	app->weapons_data[weapon_fist] = weapon_data_fist(app);
+	app->weapons_data[weapon_glock] = weapon_data_glock(app);
+	app->weapons_data[weapon_shotgun] = weapon_data_shotgun(app);
+	app->weapons_data[weapon_rpg] = weapon_data_rpg(app);
 }

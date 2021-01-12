@@ -49,9 +49,11 @@ SOURCES = main.c \
 			projectile/projectile_update.c \
 			projectile/projectile_explosion.c \
 			projectile/projectile_data/projectile_data_rpg.c \
+			player/player_animations.c \
 			inventory/item_data/item_data_fist.c \
 			inventory/item_data/item_data_glock.c \
 			inventory/item_data/item_data_rpg.c \
+			inventory/item_data/item_data_shotgun.c \
 			inventory/inventory_equip.c \
 			inventory/inventory_init.c \
 			inventory/inventory_init_items.c \
@@ -89,7 +91,7 @@ SOURCES = main.c \
 			render/prepare_utils3.c \
 			render/rasterize.c \
 			render/prepare_clip.c \
-			render/hud.c \
+			render/player_hud.c \
 			render/ui.c \
 			render/editor_ui.c \
 			render/debug/debug.c \

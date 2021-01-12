@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile_update.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/12 16:58:56 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/12 21:39:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	deal_collision(t_doom3d *app, t_3d_object *obj, t_3d_object *hit)
 	t_projectile	*projectile;
 
 	projectile = obj->params;
-	if (projectile->type == projectile_type_explosive)
+	if (projectile->type == projectile_type_rpg)
 		projectile_explosion(app, obj->position, projectile);
 	(void)hit; // unused currently
 	//if (projectile->type = projectile_type_bullet)

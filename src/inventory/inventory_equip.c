@@ -3,29 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   inventory_equip.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 22:33:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/09 14:51:12 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/11 21:54:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-/*
-	if weapon slot is empty (-1), prevents equipping the slot
-*/
-
-void	inventory_equip(t_doom3d *app, int slot)
+void	weapon_equip(t_doom3d *app, t_weapon_id slot)
 {
-	if (app->player.item[slot].ammo > -1)
+	app->player.equipped_weapon = &app->player.weapons[slot];
+	if (app->player.equipped_weapon->id == weapon_fist) //test
 	{
-		app->player.equipped_item = &(app->player.item[slot]);
+		ft_printf("equipped item is now |weapon_fist|\n"); //test
 	}
-	if (app->player.equipped_item->item == item_fist) //test
-		ft_printf("equipped item is now |item_fist|\n"); //test
-	if (app->player.equipped_item->item == item_glock) //test
-		ft_printf("equipped item is now |item_glock|\n"); //test
-	if (app->player.equipped_item->item == item_rpg) //test
-		ft_printf("equipped item is now |item_rpg|\n"); //test
+	if (app->player.equipped_weapon->id == weapon_glock) //test
+	{
+		ft_printf("equipped item is now |weapon_glock|\n"); //test
+	}
+	if (app->player.equipped_weapon->id == weapon_rpg) //test
+	{
+		ft_printf("equipped item is now |weapon_rpg|\n"); //test
+	}
+	if (app->player.equipped_weapon->id == weapon_shotgun) //test
+	{
+		ft_printf("equipped item is now |weapon_shotgun|\n"); //test
+	}
 }
