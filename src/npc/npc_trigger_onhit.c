@@ -3,32 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   npc_trigger_onhit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:35:16 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/12 21:43:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 13:00:50 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj)
-{
-	t_npc	*npc;
-
-	npc = obj->params;
-	npc->hp -= app->player.equipped_weapon->damage_per_hit;
-	if (npc->hp <= 0)
-	{
-		npc->state = state_death_anim;
-		ft_printf("npc killed!\n"); //test
-		object_set_for_deletion(app, obj); //test
-	}
-	ft_printf("npc hit for %d damage! current hp: %d\n",
-		app->player.equipped_weapon->damage_per_hit, npc->hp); //test
-}
-
-void	npc_trigger_onhit_explosion(t_doom3d *app, t_3d_object *obj, int damage)
+void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 {
 	t_npc	*npc;
 

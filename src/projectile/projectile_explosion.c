@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile_explosion.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:45:28 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/12 22:32:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 13:21:14 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,13 @@ void	projectile_explosion(t_doom3d *app, t_vec3 pos, t_projectile *projectile)
 		{
 			//damage = projectile->damage;
 			damage = projectile->damage / (1 + (mag / (app->unit_size * 10))) + 0.5 * projectile->damage;
-			npc_trigger_onhit_explosion(app, obj, damage);
+			npc_trigger_onhit(app, obj, damage);
 		}
+	}
+	ml_vector3_sub(app->player.pos, pos, dist);
+	if ((mag = ml_vector3_mag(dist)) < projectile->radius)
+	{
+		damage = projectile->damage / (1 + (mag / (app->unit_size * 10))) + 0.5 * projectile->damage;
+		player_onhit(app, damage);
 	}
 }

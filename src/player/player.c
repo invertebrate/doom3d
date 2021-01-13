@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 21:42:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 13:12:09 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	ml_matrix4_id(app->player.inv_translation);
 	player_move(app, move_forward, 0.0);
 	player_update_aabb(&app->player);
+	app->player.hp = 100; //test
 }
 
 static void		shoot_shotgun(t_doom3d *app, t_vec3 origin)

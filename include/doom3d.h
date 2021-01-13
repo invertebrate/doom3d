@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 22:44:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 13:25:19 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ typedef struct				s_player
 	t_box3d					aabb;
 	t_weapon				weapons[NUM_WEAPONS];
 	t_weapon				*equipped_weapon;
+	int						hp;
 }							t_player;
 
 typedef struct				s_asset_files
@@ -336,6 +337,7 @@ struct						s_npc
 	float					angle;
 	float					vision_range;
 	float					atk_range;
+	int						atk_dmg;
 	uint32_t				atk_start;
 	uint32_t				atk_dur;
 	uint32_t				atk_timer;
@@ -394,6 +396,7 @@ void						editor_vertical_move(t_doom3d *app, float speed);
 void						player_shoot_projectile(t_doom3d *app, t_vec3 origin);
 void						player_shoot_ray(t_doom3d *app,
 								t_vec3 origin, t_vec3 dir);
+void						player_onhit(t_doom3d *app, int damage);
 
 /*
 ** Inventory
@@ -431,8 +434,7 @@ void						npc_execute_behavior(t_doom3d *app,
 void						npc_default(t_doom3d *app, t_npc *npc);
 void						handle_npc_deletions(t_doom3d *app);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
-void						npc_trigger_onhit(t_doom3d *app, t_3d_object *obj);
-void						npc_trigger_onhit_explosion(t_doom3d *app, t_3d_object *obj, int damage);
+void						npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage);
 
 /*
 ** Events
