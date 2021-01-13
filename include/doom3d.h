@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 13:25:19 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/13 16:21:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ typedef enum				e_trigger_type
 {
 	trigger_player_start = 1,
 	trigger_player_end = 2,
+	trigger_weapon_drop_shotgun = 3,
+	trigger_weapon_drop_glock = 4,
+	trigger_weapon_drop_rpg = 5,
 }							t_trigger_type;
 
 typedef enum				e_npc_type
@@ -260,12 +263,17 @@ typedef struct				s_settings
 	t_bool					is_skybox;
 }							t_settings;
 
-typedef struct				e_notifications
+typedef enum				e_nofitication_type
 {
-	const char				*messages[64];
-	uint32_t				num_notifications;
-	int32_t					timer;
-}							t_notifications;
+	notification_type_info,
+	notification_type_story,
+}							t_notification_type;
+typedef struct				e_notification
+{
+	const char				*message;
+	t_notification_type		type;
+	int32_t					time;
+}							t_notification;
 
 typedef struct				s_anim_frame
 {
@@ -325,7 +333,7 @@ typedef struct				s_doom3d
 	uint32_t				current_level;
 	t_editor				editor;
 	t_settings				settings;
-	t_notifications			notifications;
+	t_list					*notifications;
 	t_projectile			projectile_data[1];
 	t_weapon				weapons_data[NUM_WEAPONS];
 	t_sprite_anim			animations[16];
@@ -351,13 +359,6 @@ struct						s_npc
 	const char				*model_key;
 	const char				*normal_map_key;
 };
-
-typedef struct				s_trigger
-{
-	uint32_t				type;
-	uint32_t				id;
-	t_box3d					aabb;
-}							t_trigger;
 
 /*
 ** For parallelization
@@ -405,7 +406,8 @@ void						player_onhit(t_doom3d *app, int damage);
 void						weapons_init(t_doom3d *app);
 void						weapons_init_data(t_doom3d *app);
 void						weapon_equip(t_doom3d *app, t_weapon_id slot);
-void						inventory_pickup_weapon(t_doom3d *app, t_weapon item);
+void						inventory_pickup_weapon_object(t_doom3d *app,
+								t_3d_object *weapon_drop_obj);
 void						inventory_throw_weapon(t_doom3d *app);
 
 t_weapon					weapon_data_fist(t_doom3d *app);
@@ -583,14 +585,16 @@ uint64_t					doom3d_performance_counter_start(void);
 void						doom3d_performance_counter_end(uint64_t start_time,
 								char *task_name, float delta_limit);
 void						doom3d_notification_add(t_doom3d *app,
-								const char *message);
+								t_notification notification);
 void						doom3d_notifications_update(t_doom3d *app);
+void						doom3d_notifications_delete_all(t_doom3d *app);
 
 /*
 ** Triggers
 */
 void						place_player_end(t_doom3d *app);
 void						place_player_start(t_doom3d *app);
+void						place_drop_shotgun(t_doom3d *app);
 void						editor_triggers_unhighlight(t_doom3d *app);
 void						editor_triggers_highlight(t_doom3d *app);
 

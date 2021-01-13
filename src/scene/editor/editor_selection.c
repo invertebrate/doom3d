@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 14:18:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 14:12:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,9 @@ static void		select_object(t_doom3d *app, t_3d_object *object)
 	object_type_to_str(object, object_type);
 	ft_sprintf(app->editor.selected_object_str, "%s: %u", object_type,
 		object->id);
-	doom3d_notification_add(app, "Selected!");
+	doom3d_notification_add(app, (t_notification){
+			.message = "Selected!",
+			.type = notification_type_info, .time = 2000});
 }
 
 /*
@@ -145,7 +147,9 @@ void			editor_select(t_doom3d *app)
 	else
 	{
 		if (app->editor.selected_object)
-			doom3d_notification_add(app, "Deselected!");
+			doom3d_notification_add(app, (t_notification){
+			.message = "Deselected!",
+			.type = notification_type_info, .time = 2000});
 		editor_deselect(app);
 	}
 }
