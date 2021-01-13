@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:41:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/09 00:18:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 16:19:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void						l3d_buffer_uint32_clear(uint32_t *buffer,
 	int32_t		i;
 
 	i = 0;
-	while (i < (int32_t)size - 4)
+	while (i + 3 < (int32_t)size)
 	{
 		buffer[i] = clear_value;
 		buffer[i + 1] = clear_value;
@@ -34,7 +34,7 @@ void						l3d_buffer_float_clear(float *buffer,
 	int32_t		i;
 
 	i = 0;
-	while (i < (int32_t)size - 4)
+	while (i + 3 < (int32_t)size)
 	{
 		buffer[i] = clear_value;
 		buffer[i + 1] = clear_value;
