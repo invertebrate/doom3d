@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 19:39:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/12 21:42:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,10 @@ static void		scene_game_init(t_doom3d *app)
 		return ;
 	}
 	player_init(app, start->position);
+	weapons_init(app);
+	player_animations_init(app);
+	set_player_default_frame(app);
+	projectile_data_init(app);
 	// Add test objects for playing
 	place_test_objects(app);
 	active_scene_update_after_objects(app->active_scene);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/11 22:44:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/12 22:46:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,39 @@ void	player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 		}
 		l3d_delete_hits(&hits);
 	}
+}
+
+static void		place_projectile_object_in_scene(t_doom3d *app,
+					t_projectile *projectile, t_vec3 origin, t_vec3 rot)
+{
+	t_3d_object *obj;
+
+	place_scene_object(app,
+		(const char*[3]){projectile->model_key, projectile->texture_key,
+					projectile->normal_map_key}, origin);
+	obj = app->active_scene->objects[app->active_scene->last_object_index];
+	obj->type = object_type_projectile;
+	l3d_3d_object_set_params(obj, projectile, sizeof(t_projectile),
+		projectile->type);
+	l3d_3d_object_rotate(obj, rot[0], rot[1], rot[2]);
+	l3d_3d_object_scale(obj, 0.1, 0.1, 0.1);
+	ft_printf("Spawned projectile, id = |%d|\n",
+		app->active_scene->objects[app->active_scene->last_object_index]->id); //test
+}
+
+void	player_shoot_projectile(t_doom3d *app, t_vec3 origin)
+{
+	t_projectile	projectile;
+	t_vec3			rot;
+
+	ft_memset(&projectile, 0, sizeof(t_projectile));
+	ft_memcpy(&projectile,
+		&app->projectile_data[app->player.equipped_weapon->projectile],
+		sizeof(t_projectile));
+	ml_vector3_copy(app->player.forward, projectile.dir);
+	rot[0] = app->player.rot_x + 90;
+	rot[1] = -app->player.rot_y;
+	rot[2] = 90;
+	ml_vector3_mul(projectile.dir, projectile.speed, projectile.dir);
+	place_projectile_object_in_scene(app, &projectile, origin, rot);
 }

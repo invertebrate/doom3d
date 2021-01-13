@@ -6,9 +6,10 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 15:31:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/12 22:44:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef DOOM3D_H
 # define DOOM3D_H
@@ -109,14 +110,37 @@ typedef enum				e_weapon_id
 	weapon_rpg = 3,
 }							t_weapon_id;
 
+typedef enum				e_projectile_type
+{
+	projectile_type_rpg = 0,
+	projectile_type_bullet = 1,
+	projectile_type_none = 2,
+}							t_projectile_type;
+
 typedef struct				s_weapon
 {
-	int						id;
+	t_weapon_id				id;
 	int						ammo;
 	float					fire_rate;
 	float					range;
+	t_projectile_type		projectile;
 	int						damage_per_hit;
 }							t_weapon;
+
+
+typedef struct				s_projectile
+{
+	t_projectile_type		type;
+	int						damage;
+	float					speed;
+	float					range;
+	float					traveled;
+	float					radius;
+	const char				*model_key;
+	const char				*texture_key;
+	const char				*normal_map_key;
+	t_vec3					dir;
+}							t_projectile;
 
 typedef struct				s_camera
 {
@@ -177,6 +201,7 @@ typedef struct				s_scene
 	uint32_t				num_objects;
 	uint32_t				deleted_object_i[MAX_NUM_OBJECTS];
 	uint32_t				num_deleted;
+	int32_t					last_object_index;
 	t_kd_tree				*triangle_tree;
 	t_triangle				**triangle_ref;
 	uint32_t				num_triangles;
@@ -300,6 +325,7 @@ typedef struct				s_doom3d
 	t_editor				editor;
 	t_settings				settings;
 	t_notifications			notifications;
+	t_projectile			projectile_data[1];
 	t_weapon				weapons_data[NUM_WEAPONS];
 	t_sprite_anim			animations[16];
 }							t_doom3d;
@@ -365,6 +391,7 @@ void						player_apply_gravity(t_doom3d *app);
 void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						editor_vertical_move(t_doom3d *app, float speed);
+void						player_shoot_projectile(t_doom3d *app, t_vec3 origin);
 void						player_shoot_ray(t_doom3d *app,
 								t_vec3 origin, t_vec3 dir);
 
@@ -378,10 +405,19 @@ void						weapon_equip(t_doom3d *app, t_weapon_id slot);
 void						inventory_pickup_weapon(t_doom3d *app, t_weapon item);
 void						inventory_throw_weapon(t_doom3d *app);
 
-t_weapon						weapon_data_fist(t_doom3d *app);
-t_weapon						weapon_data_glock(t_doom3d *app);
-t_weapon						weapon_data_rpg(t_doom3d *app);
-t_weapon						weapon_data_shotgun(t_doom3d *app);
+t_weapon					weapon_data_fist(t_doom3d *app);
+t_weapon					weapon_data_glock(t_doom3d *app);
+t_weapon					weapon_data_rpg(t_doom3d *app);
+t_weapon					weapon_data_shotgun(t_doom3d *app);
+
+/*
+** Projectile
+*/
+
+void						projectile_data_init(t_doom3d *app);
+t_projectile				projectile_data_rpg(t_doom3d *app);
+void						projectile_update(t_doom3d *app, t_3d_object *obj);
+void						projectile_explosion(t_doom3d *app, t_vec3 pos, t_projectile *projectile);
 
 /*
 ** Npc
@@ -396,6 +432,7 @@ void						npc_default(t_doom3d *app, t_npc *npc);
 void						handle_npc_deletions(t_doom3d *app);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
 void						npc_trigger_onhit(t_doom3d *app, t_3d_object *obj);
+void						npc_trigger_onhit_explosion(t_doom3d *app, t_3d_object *obj, int damage);
 
 /*
 ** Events
@@ -558,7 +595,7 @@ void						editor_triggers_highlight(t_doom3d *app);
 /*
 ** Player animations
 */
-void						init_player_animations(t_doom3d *app);
+void						player_animations_init(t_doom3d *app);
 void						doom3d_player_animation_update(t_doom3d *app);
 void						set_player_shoot_frame(t_doom3d *app);
 void						set_player_reload_frame(t_doom3d *app);

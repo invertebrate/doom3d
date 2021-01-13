@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 15:49:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/12 21:42:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ static void			set_glock_shoot_anim(t_sprite_anim *anim)
 	anim->frame_time = 30;
 }
 
-void	init_player_animations(t_doom3d *app)
+void	player_animations_init(t_doom3d *app)
 {
 	set_shotgun_default_anim(&app->animations[anim_shotgun_default]);
 	set_shotgun_reload_anim(&app->animations[anim_shotgun_reload]);
