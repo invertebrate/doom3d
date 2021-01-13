@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 13:35:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 14:19:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ static void			on_delete_menu_button_click(t_button *self, void *params)
 			editor_deselect(app);
 			object_set_for_deletion(app, object_to_delete);
 			app->editor.is_saved = false;
-			doom3d_notification_add(app, "Deleted!");
+			doom3d_notification_add(app, (t_notification){
+			.message = "Deleted!",
+			.type = notification_type_info, .time = 2000});
 		}
 	}
 }
@@ -38,11 +40,15 @@ static void			on_editor_save(t_doom3d *app)
 		editor_deselect(app);
 		app->editor.is_saving = true;
 		SDL_StartTextInput();
-		doom3d_notification_add(app, "Write name to save");
+		doom3d_notification_add(app, (t_notification){
+			.message = "Write name to save",
+			.type = notification_type_info, .time = 2000});
 	}
 	else
 	{
-		doom3d_notification_add(app, "Press enter to save");
+		doom3d_notification_add(app, (t_notification){
+			.message = "Press enter to save",
+			.type = notification_type_info, .time = 2000});
 	}
 }
 
@@ -63,7 +69,9 @@ static void			on_objects_menu_button_click(t_button *self, void *params)
 		(t_vec3){0, 0, 0});
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
-	doom3d_notification_add(app, "Placed object!");
+	doom3d_notification_add(app, (t_notification){
+			.message = "Placed object!",
+			.type = notification_type_info, .time = 2000});
 }
 
 static void			on_textures_menu_button_click(t_button *self, void *params)
@@ -78,11 +86,15 @@ static void			on_textures_menu_button_click(t_button *self, void *params)
 		hash_map_add(app->active_scene->object_textures,
 			app->editor.selected_object->id, (void*)self->text);
 		app->editor.is_saved = false;
-		doom3d_notification_add(app, "Set texture!");
+		doom3d_notification_add(app, (t_notification){
+			.message = "Texture set!",
+			.type = notification_type_info, .time = 2000});
 	}
 	else
 	{
-		doom3d_notification_add(app, "Select object first");
+		doom3d_notification_add(app, (t_notification){
+			.message = "Select object first!",
+			.type = notification_type_info, .time = 2000});
 	}	
 }
 
@@ -98,11 +110,15 @@ static void			on_normmaps_menu_button_click(t_button *self, void *params)
 		hash_map_add(app->active_scene->object_normal_maps,
 			app->editor.selected_object->id, (void*)self->text);
 		app->editor.is_saved = false;
-		doom3d_notification_add(app, "Set normal map!");
+		doom3d_notification_add(app, (t_notification){
+			.message = "Normal map set!",
+			.type = notification_type_info, .time = 2000});
 	}
 	else
 	{
-		doom3d_notification_add(app, "Select object first");
+		doom3d_notification_add(app, (t_notification){
+			.message = "Select object first!",
+			.type = notification_type_info, .time = 2000});
 	}
 }
 
@@ -131,7 +147,9 @@ static void			on_npc_menu_button_click(t_button *self, void *params)
 	npc_spawn(app, (t_vec3){0, 0, 0}, 0, npc_type);
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
-	doom3d_notification_add(app, "Placed NPC!");
+	doom3d_notification_add(app, (t_notification){
+			.message = "Placed npc!",
+			.type = notification_type_info, .time = 2000});
 }
 
 static void			on_prefab_menu_button_click(t_button *self, void *params)
@@ -147,7 +165,9 @@ static void			on_prefab_menu_button_click(t_button *self, void *params)
 	if (prefab_type == (uint32_t)prefab_plane)
 	{
 		prefab_spawn_plane(app);
-		doom3d_notification_add(app, "Placed Plane!");
+		doom3d_notification_add(app, (t_notification){
+			.message = "Placed plane!",
+			.type = notification_type_info, .time = 2000});
 	}
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
@@ -166,11 +186,15 @@ static void			on_trigger_menu_button_click(t_button *self, void *params)
 	if (trigger_type == trigger_player_start)
 	{
 		if (find_one_object_by_type(app, object_type_trigger, trigger_player_start))
-			doom3d_notification_add(app, "Player Start exists, delete it first!");
+			doom3d_notification_add(app, (t_notification){
+			.message = "Player Start exists, delete it first!",
+			.type = notification_type_info, .time = 2000});
 		else
 		{
 			place_player_start(app);
-			doom3d_notification_add(app, "Placed Player Start!");
+			doom3d_notification_add(app, (t_notification){
+			.message = "Placed Player Start!",
+			.type = notification_type_info, .time = 2000});
 			active_scene_update_after_objects(app->active_scene);
 			app->editor.is_saved = false;
 		}
@@ -178,11 +202,15 @@ static void			on_trigger_menu_button_click(t_button *self, void *params)
 	else if (trigger_type == trigger_player_end)
 	{
 		if (find_one_object_by_type(app, object_type_trigger, trigger_player_end))
-			doom3d_notification_add(app, "Player End exists, delete it first!");
+			doom3d_notification_add(app, (t_notification){
+			.message = "Player End exists, delete it first!",
+			.type = notification_type_info, .time = 2000});
 		else
 		{
 			place_player_end(app);
-			doom3d_notification_add(app, "Placed Player End!");
+			doom3d_notification_add(app, (t_notification){
+			.message = "Placed Player End!",
+			.type = notification_type_info, .time = 2000});
 			active_scene_update_after_objects(app->active_scene);
 			app->editor.is_saved = false;
 		}
@@ -190,7 +218,9 @@ static void			on_trigger_menu_button_click(t_button *self, void *params)
 	else if (trigger_type == trigger_weapon_drop)
 	{
 		place_drop_shotgun(app);
-		doom3d_notification_add(app, "Placed Shotgun Trigger!");
+		doom3d_notification_add(app, (t_notification){
+			.message = "Placed shotgun trigger",
+			.type = notification_type_info, .time = 2000});
 		active_scene_update_after_objects(app->active_scene);
 		app->editor.is_saved = false;
 	}
@@ -312,8 +342,10 @@ static void			on_new_level_menu_button_click(t_button *self, void *params)
 	{
 		if (!app->level_list[app->editor.editor_level])
 		{
-			doom3d_notification_add(app,
-				"Save map first, and add it to assets/level_list.txt!!");
+			doom3d_notification_add(app, (t_notification){
+				.message =
+					"Save map first, and add it to assets/level_list.txt!!",
+				.type = notification_type_info, .time = 2000});
 			return ;
 		}
 		app->is_scene_reload = true;
@@ -321,7 +353,9 @@ static void			on_new_level_menu_button_click(t_button *self, void *params)
 			app->num_levels - app->editor.editor_level);
 	}
 	else if (self->id == 0 && app->editor.editor_level == MAX_LEVELS)
-		doom3d_notification_add(app, "Too many levels created!!");
+		doom3d_notification_add(app, (t_notification){
+			.message = "Too many levels created!!",
+			.type = notification_type_info, .time = 2000});
 }
 
 void				editor3d_menu_create(t_doom3d *app)

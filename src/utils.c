@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/09 00:35:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 14:48:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,46 @@ void			doom3d_performance_counter_end(uint64_t start_time,
 
 void			doom3d_notifications_update(t_doom3d *app)
 {
-	if (app->notifications.num_notifications == 0)
+	t_notification	*last_notification;
+	t_list			**last_node;
+
+	last_node = &app->notifications;
+	if (!*last_node)
 		return ;
-	app->notifications.timer -= app->info.delta_time;
-	if ((app->notifications.timer + 2000) / 2000 <
-		(int32_t)app->notifications.num_notifications)
+	while ((*last_node)->next)
+		last_node = &(*last_node)->next;
+	last_notification = (*last_node)->content;
+	last_notification->time -= app->info.delta_time;
+	if (last_notification->time <= 0)
 	{
-		app->notifications.messages[
-			app->notifications.num_notifications - 1] = NULL;
-		app->notifications.num_notifications--;
+		free(last_notification);
+		free(*last_node);
+		*last_node = NULL;
 	}
-	if (app->notifications.timer < 0)
-		app->notifications.timer = 0;
 }
 
-void			doom3d_notification_add(t_doom3d *app, const char *message)
+void			doom3d_notification_add(t_doom3d *app,
+					t_notification notification)
 {
-	if (app->notifications.num_notifications < 64)
+	if (app->notifications == NULL)
+		app->notifications = ft_lstnew(&notification, sizeof(t_notification));
+	else
+		ft_lstadd(&app->notifications,
+			ft_lstnew(&notification, sizeof(t_notification)));
+}
+
+void			doom3d_notifications_delete_all(t_doom3d *app)
+{
+	t_list		*node;
+	t_list		*tmp;
+
+	node = app->notifications;
+	while (node)
 	{
-		app->notifications.messages[app->notifications.num_notifications++] =
-			message;
-		app->notifications.timer += 2000;
+		tmp = node;
+		free((t_notification*)node->content);
+		node = node->next;
+		free(tmp);
 	}
+	app->notifications = NULL;
 }

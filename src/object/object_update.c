@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 22:41:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 14:58:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,18 @@ static void		finish_level(t_doom3d *app)
 	if (app->current_level < app->num_levels)
 	{
 		app->is_scene_reload = true;
-		doom3d_notification_add(app, "New level!");
+		doom3d_notification_add(app, (t_notification){
+			.message = "New level!",
+			.type = notification_type_story, .time = 4000});
 	}
 	else
 	{
 		app->current_level = 0;
 		app->next_scene_id = scene_id_main_menu;
-		doom3d_notification_add(app, "Game Over!");
+		doom3d_notification_add(app, (t_notification){
+			.message =
+				"Game over!",
+			.type = notification_type_story, .time = 4000});
 	}
 }
 
@@ -104,6 +109,9 @@ void			doom3d_update_objects(t_doom3d *app)
 	t_bool			is_npc_update;
 	t_3d_object		*obj;
 
+	if (app->active_scene->scene_id == scene_id_main_game ||
+		app->active_scene->scene_id == scene_id_editor3d)
+		handle_object_deletions(app);
 	if (app->active_scene->is_paused ||
 		app->active_scene->scene_id != scene_id_main_game)
 		return ;
@@ -117,8 +125,5 @@ void			doom3d_update_objects(t_doom3d *app)
 			continue ;
 		update_object_by_type(app, obj, is_npc_update);
 	}
-	if (app->active_scene->scene_id == scene_id_main_game ||
-		app->active_scene->scene_id == scene_id_editor3d)
-		handle_object_deletions(app);
 	active_scene_update_after_objects(app->active_scene);
 }

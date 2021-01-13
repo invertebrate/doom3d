@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 13:42:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 14:22:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,13 +260,17 @@ typedef struct				s_settings
 	t_bool					is_skybox;
 }							t_settings;
 
-typedef struct				e_notifications
+typedef enum				e_nofitication_type
 {
-	const char				*messages[64];
-	uint32_t				num_notifications;
-	uint32_t				start_index;
-	int32_t					timer;
-}							t_notifications;
+	notification_type_info,
+	notification_type_story,
+}							t_notification_type;
+typedef struct				e_notification
+{
+	const char				*message;
+	t_notification_type		type;
+	int32_t					time;
+}							t_notification;
 
 typedef struct				s_anim_frame
 {
@@ -326,7 +330,7 @@ typedef struct				s_doom3d
 	uint32_t				current_level;
 	t_editor				editor;
 	t_settings				settings;
-	t_notifications			notifications;
+	t_list					*notifications;
 	t_projectile			projectile_data[1];
 	t_weapon				weapons_data[NUM_WEAPONS];
 	t_sprite_anim			animations[16];
@@ -583,8 +587,9 @@ uint64_t					doom3d_performance_counter_start(void);
 void						doom3d_performance_counter_end(uint64_t start_time,
 								char *task_name, float delta_limit);
 void						doom3d_notification_add(t_doom3d *app,
-								const char *message);
+								t_notification notification);
 void						doom3d_notifications_update(t_doom3d *app);
+void						doom3d_notifications_delete_all(t_doom3d *app);
 
 /*
 ** Triggers

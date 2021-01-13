@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:24:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 13:17:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 14:18:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,23 @@ static void		notifications_background_render(t_doom3d *app, t_vec2 pos,
 static void		notification_messages_render(t_doom3d *app, t_vec2 pos,
 					int32_t	text_dims[2], int32_t padding)
 {
-	int32_t		i;
+	int32_t			i;
+	t_list			*node;
+	t_notification	*notification;
 
-	i = -1;
-	while (++i < (int32_t)app->notifications.num_notifications)
+	node = app->notifications;
+	i = 0;
+	while (node)
 	{
+		notification = node->content;
 		window_text_render(app->window, (t_text_params){
-			.text = app->notifications.messages[
-				app->notifications.num_notifications - i - 1],
+			.text = notification->message,
 			.text_color = (SDL_Color){255, 255, 0, 255}, .blend_ratio = 1.0,
 			.xy = (int32_t[2]){pos[0] + padding + 2,
 				pos[1] + i * (text_dims[1] + padding)}
 		}, app->window->debug_font);
+		node = node->next;
+		i++;
 	}
 }
 
@@ -69,19 +74,24 @@ void			notifications_render(t_doom3d *app, t_vec2 pos)
 	int32_t		dims[2];
 	int32_t		padding;
 	int32_t		i;
+	t_list		*node;
 
-	if (app->notifications.num_notifications == 0)
+	if (app->notifications == NULL)
 		return ;
 	dims[0] = 0;
 	dims[1] = 1;
 	padding = 3;
-	i = -1;
-	while (++i < (int32_t)app->notifications.num_notifications)
+	i = 0;
+	node = app->notifications;
+	while (node)
 	{
 		TTF_SizeText(app->window->debug_font,
-			app->notifications.messages[i], &text_dims[0], &text_dims[1]);
+			((t_notification*)node->content)->message,
+				&text_dims[0], &text_dims[1]);
 		dims[0] = (int32_t)l3d_fmax(dims[0], text_dims[0] + padding);
 		dims[1] += text_dims[1] + padding;
+		node = node->next;
+		i++;
 	}
 	while ((int32_t)pos[1] + dims[1] + padding * 2 < 0)
 		pos[1]++;

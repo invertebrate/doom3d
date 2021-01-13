@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 21:42:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 14:43:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static void		doom3d_cleanup(t_doom3d *app)
 	i = -1;
 	while (++i < (int32_t)app->num_levels)
 		ft_strdel(&app->level_list[i]);
+	doom3d_notifications_delete_all(app);
 }
 
 void			doom3d_run(t_doom3d *app)
