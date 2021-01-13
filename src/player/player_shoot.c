@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_shoot.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/12 22:46:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 13:03:56 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 			ml_vector3_print(closest_triangle_hit->hit_point);
 			if (ml_vector3_mag(dist) <= app->player.equipped_weapon->range)
 				if (closest_triangle_hit->triangle->parent->type == object_type_npc)
-					npc_trigger_onhit(app, closest_triangle_hit->triangle->parent);
+					npc_trigger_onhit(app, closest_triangle_hit->triangle->parent,
+									app->player.equipped_weapon->damage_per_hit);
 		}
 		l3d_delete_hits(&hits);
 	}

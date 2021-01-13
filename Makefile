@@ -45,6 +45,7 @@ SOURCES = main.c \
 			player/player_shoot.c \
 			player/collision.c \
 			player/movement.c \
+			player/player_status.c \
 			projectile/projectile_init.c \
 			projectile/projectile_update.c \
 			projectile/projectile_explosion.c \
