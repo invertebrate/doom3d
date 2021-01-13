@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 22:44:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 13:42:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef enum				e_trigger_type
 {
 	trigger_player_start = 1,
 	trigger_player_end = 2,
+	trigger_weapon_drop = 3,
 }							t_trigger_type;
 
 typedef enum				e_npc_type
@@ -263,6 +264,7 @@ typedef struct				e_notifications
 {
 	const char				*messages[64];
 	uint32_t				num_notifications;
+	uint32_t				start_index;
 	int32_t					timer;
 }							t_notifications;
 
@@ -589,6 +591,7 @@ void						doom3d_notifications_update(t_doom3d *app);
 */
 void						place_player_end(t_doom3d *app);
 void						place_player_start(t_doom3d *app);
+void						place_drop_shotgun(t_doom3d *app);
 void						editor_triggers_unhighlight(t_doom3d *app);
 void						editor_triggers_highlight(t_doom3d *app);
 
