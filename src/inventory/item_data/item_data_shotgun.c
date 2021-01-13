@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:20:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 23:14:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/12 21:32:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ t_weapon	weapon_data_shotgun(t_doom3d *app)
 	item.fire_rate = 3.0;
 	item.range = 80 * app->unit_size;
 	item.damage_per_hit = 5;
+	item.projectile = projectile_type_bullet;
 	return (item);
 }
