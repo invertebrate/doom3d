@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 14:22:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 16:05:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ typedef enum				e_trigger_type
 {
 	trigger_player_start = 1,
 	trigger_player_end = 2,
-	trigger_weapon_drop = 3,
+	trigger_weapon_drop_shotgun = 3,
+	trigger_weapon_drop_glock = 4,
+	trigger_weapon_drop_rpg = 5,
 }							t_trigger_type;
 
 typedef enum				e_npc_type
@@ -356,13 +358,6 @@ struct						s_npc
 	const char				*normal_map_key;
 };
 
-typedef struct				s_trigger
-{
-	uint32_t				type;
-	uint32_t				id;
-	t_box3d					aabb;
-}							t_trigger;
-
 /*
 ** For parallelization
 */
@@ -408,7 +403,8 @@ void						player_shoot_ray(t_doom3d *app,
 void						weapons_init(t_doom3d *app);
 void						weapons_init_data(t_doom3d *app);
 void						weapon_equip(t_doom3d *app, t_weapon_id slot);
-void						inventory_pickup_weapon(t_doom3d *app, t_weapon item);
+void						inventory_pickup_weapon_object(t_doom3d *app,
+								t_3d_object *weapon_drop_obj);
 void						inventory_throw_weapon(t_doom3d *app);
 
 t_weapon					weapon_data_fist(t_doom3d *app);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 14:19:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 15:42:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ static void			on_trigger_menu_button_click(t_button *self, void *params)
 			app->editor.is_saved = false;
 		}
 	}
-	else if (trigger_type == trigger_weapon_drop)
+	else if (trigger_type == trigger_weapon_drop_shotgun)
 	{
 		place_drop_shotgun(app);
 		doom3d_notification_add(app, (t_notification){

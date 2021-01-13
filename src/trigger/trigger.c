@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 15:11:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 15:45:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,15 @@
 
 void			place_drop_shotgun(t_doom3d *app)
 {
-	t_trigger		trigger;
-
 	place_scene_object(app,
 		(const char*[3]){"assets/models/shotgun.obj",
 			"assets/textures/shotgun_texture.bmp", NULL},
 		(t_vec3){0, 0, 0});
-	ft_memcpy(&trigger.aabb,
-		&app->active_scene->objects[app->active_scene->last_object_index]->aabb,
-		sizeof(t_box3d));
-	trigger.id = weapon_shotgun;
-	trigger.type = trigger_weapon_drop;
 	app->active_scene->objects[app->active_scene->last_object_index]->type =
 		object_type_trigger;
 	l3d_3d_object_set_params(
 		app->active_scene->objects[app->active_scene->last_object_index],
-		&trigger, sizeof(t_trigger), trigger_weapon_drop);
+		NULL, 0, trigger_weapon_drop_shotgun);
 	l3d_3d_object_scale(
 		app->active_scene->objects[app->active_scene->last_object_index],
 		0.2, 0.2, 0.2);
@@ -37,46 +30,32 @@ void			place_drop_shotgun(t_doom3d *app)
 
 void			place_player_start(t_doom3d *app)
 {
-	t_trigger		trigger;
-
 	place_scene_object(app,
 		(const char*[3]){"assets/models/box.obj", NULL, NULL},
 		(t_vec3){0, 0, 0});
 	l3d_object_set_shading_opts(
 		app->active_scene->objects[app->active_scene->last_object_index],
 		e_shading_invisible);
-	ft_memcpy(&trigger.aabb,
-		&app->active_scene->objects[app->active_scene->last_object_index]->aabb,
-		sizeof(t_box3d));
-	trigger.id = trigger_player_start;
-	trigger.type = trigger_player_start;
 	app->active_scene->objects[app->active_scene->last_object_index]->type =
 		object_type_trigger;
 	l3d_3d_object_set_params(
 		app->active_scene->objects[app->active_scene->last_object_index],
-		&trigger, sizeof(t_trigger), trigger_player_start);
+		NULL, 0, trigger_player_start);
 }
 
 void			place_player_end(t_doom3d *app)
 {
-	t_trigger		trigger;
-
 	place_scene_object(app,
 		(const char*[3]){"assets/models/box.obj", NULL, NULL},
 		(t_vec3){0, 0, 0});
 	l3d_object_set_shading_opts(
 		app->active_scene->objects[app->active_scene->last_object_index],
 		e_shading_invisible);
-	ft_memcpy(&trigger.aabb,
-		&app->active_scene->objects[app->active_scene->last_object_index]->aabb,
-		sizeof(t_box3d));
-	trigger.id = trigger_player_start;
-	trigger.type = trigger_player_start;
 	app->active_scene->objects[app->active_scene->last_object_index]->type =
 		object_type_trigger;
 	l3d_3d_object_set_params(
 		app->active_scene->objects[app->active_scene->last_object_index],
-		&trigger, sizeof(t_trigger), trigger_player_end);
+		NULL, 0, trigger_player_end);
 }
 
 void			editor_triggers_highlight(t_doom3d *app)

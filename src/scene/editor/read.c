@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 18:58:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 15:42:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 			return ;
 		npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
+	}
+	if (obj->type == object_type_trigger)
+	{
+		if (obj->params_type == trigger_weapon_drop_shotgun)
+		{
+			
+		}
 	}
 }
 

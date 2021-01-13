@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 14:58:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/13 15:42:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,15 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 		projectile_update(app, obj);
 	else if (obj->type == object_type_trigger)
 	{
-		if (l3d_aabb_collides(&app->player.aabb, &obj->aabb) &&
-			obj->params_type == trigger_player_end)
+		if (l3d_aabb_collides(&app->player.aabb, &obj->aabb))
 		{
-			ft_printf("End piece\n");
-			finish_level(app);
+			if (obj->params_type == trigger_player_end)
+			{
+				ft_printf("Hit End Trigger, finish level\n");
+				finish_level(app);
+			}
+			else if (obj->params_type == trigger_weapon_drop_shotgun)
+				inventory_pickup_weapon_object(app, obj);
 		}
 	}
 }
