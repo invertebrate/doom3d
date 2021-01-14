@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 16:21:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/14 16:59:37 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,6 +355,7 @@ struct						s_npc
 	int						state;
 	int						hp;
 	int						type;
+	float					y_velocity;
 	const char				*texture_key;
 	const char				*model_key;
 	const char				*normal_map_key;
@@ -437,6 +438,13 @@ void						npc_default(t_doom3d *app, t_npc *npc);
 void						handle_npc_deletions(t_doom3d *app);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
 void						npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage);
+
+/*
+** Physics
+*/
+
+t_bool						physics_is_grounded(t_doom3d *app, t_3d_object *falling_obj);
+void						physics_update_gravity(t_doom3d *app, t_3d_object *tested);
 
 /*
 ** Events

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 15:42:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/14 17:01:54 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 		if (is_npc_update)
 			npc_update(app, obj);
 		npc_execute_behavior(app, obj);
+		physics_update_gravity(app, obj); //test
 	}
 	else if (obj->type == object_type_projectile)
 		projectile_update(app, obj);

@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   npc_default.c                                      :+:      :+:    :+:   */
+/*   physics_update.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/14 16:59:55 by ahakanen         ###   ########.fr       */
+/*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
+/*   Updated: 2021/01/14 18:11:21 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	npc_default(t_doom3d *app, t_npc *npc)
+void	physics_update_gravity(t_doom3d *app, t_3d_object *target)
 {
-	npc->type = npc_type_default;
-	npc->speed = app->unit_size / 32;
-	npc->rot_speed = 10;
-	npc->state = 0;
-	npc->hp = 100;
-	npc->atk_range = app->unit_size * 5;
-	npc->atk_dmg = 10;
-	npc->atk_dur = 500;
-	npc->vision_range = app->unit_size * 10;
-	npc->model_key = NPC_DEFAULT_MODEL;
-	npc->texture_key = NPC_DEFAULT_TEXTURE;
-	npc->normal_map_key = NPC_DEFAULT_NORMM;
-	npc->y_velocity = 0;
+	t_npc	*npc;
+
+	npc = target->params;
+	if (physics_is_grounded(app, target))
+		npc->y_velocity = 0;
+	else
+	{
+		npc->y_velocity += app->info.delta_time / 10;
+		l3d_3d_object_translate(target, 0, npc->y_velocity, 0);
+	}
 }

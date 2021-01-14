@@ -68,6 +68,8 @@ SOURCES = main.c \
 			trigger/trigger.c \
 			object/object_utils.c \
 			object/object_update.c \
+			physics/physics_is_grounded.c \
+			physics/physics_update.c \
 			camera.c \
 			utils.c \
 			scene/menus/editor3d_menu.c \
@@ -147,6 +149,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/player
 	@mkdir -p temp/npc
 	@mkdir -p temp/object
+	@mkdir -p temp/physics
 	@mkdir -p temp/trigger
 	@mkdir -p temp/inventory
 	@mkdir -p temp/inventory/item_data
