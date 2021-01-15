@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:02:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 19:03:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ static void		keyboard_game_state_handle(t_doom3d *app)
 		app->player.is_running = true;
 	else
 		app->player.is_running = false;
+	if (app->keyboard.state[SDL_SCANCODE_4])
+		weapon_equip(app, weapon_rpg);
+	else if (app->keyboard.state[SDL_SCANCODE_3])
+		weapon_equip(app, weapon_shotgun);
+	else if (app->keyboard.state[SDL_SCANCODE_2])
+		weapon_equip(app, weapon_glock);
+	else if (app->keyboard.state[SDL_SCANCODE_1])
+		weapon_equip(app, weapon_fist);
+	// if (app->keyboard.state[SDL_SCANCODE_E]) //Later for interaction
 }
 
 static void		handle_editor_transform(t_doom3d *app)

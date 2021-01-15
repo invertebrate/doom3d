@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:47:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void		select_scene(t_doom3d *app)
 		scene_destroy(app);
 	app->active_scene = scene_new(app->next_scene_id);
 	active_scene_content_set(app);
+	app->is_scene_reload = false;
 }
 
 /*
@@ -30,7 +31,7 @@ t_scene			*scene_new(t_scene_id scene_id)
 {
 	t_scene		*scene;
 
-	error_check(!(scene = (t_scene*)malloc(sizeof(t_scene))),
+	error_check(!(scene = (t_scene*)ft_calloc(sizeof(t_scene))),
 		"Failed to malloc scene");
 	ft_memset(scene, 0, sizeof(*scene));
 	ft_memset(scene->deleted_object_i, 0, sizeof(scene->deleted_object_i));
@@ -61,7 +62,7 @@ void			scene_destroy(t_doom3d *app)
 	if (app->active_scene->normal_maps)
 		scene_normal_maps_destroy(app->active_scene);
 	if (app->active_scene->models)
-		scene_models_destroy(app->active_scene);
+		scene_assets_destroy(app->active_scene);
 	if (app->active_scene->skybox[0])
 		scene_skybox_destroy(app->active_scene);
 	if (app->active_scene->triangle_ref)

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/08 18:06:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 14:53:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,16 @@ t_bool				l3d_aabb_collides(t_box3d *left, t_box3d *right)
 			left->xyz_max[2] > right->xyz_min[2]));
 }
 
+t_bool				l3d_point_inside_aabb(t_box3d *aabb, t_vec3 point)
+{
+	return ((point[0] < aabb->xyz_max[0] &&
+			point[0] > aabb->xyz_min[0] &&
+			point[0] < aabb->xyz_max[1] &&
+			point[0] > aabb->xyz_min[1] &&
+			point[0] < aabb->xyz_max[2] &&
+			point[0] > aabb->xyz_min[2]));
+}
+
 t_hit				*l3d_get_aabb_hit_record(t_box3d *origin, t_box3d *target)
 {
 	t_vec3		dir;
@@ -90,7 +100,7 @@ t_hit				*l3d_get_aabb_hit_record(t_box3d *origin, t_box3d *target)
 	hits = NULL;
 	if (l3d_bounding_box_ray_hit(target, &ray, &hits))
 	{
-		error_check(!(hit = malloc(sizeof(t_hit))), "Failed to malloc hit");
+		error_check(!(hit = ft_calloc(sizeof(t_hit))), "Failed to malloc hit");
 		ft_memcpy(hit, ((t_hit*)hits->content), sizeof(t_hit));
 		l3d_delete_hits(&hits);
 		return (hit);

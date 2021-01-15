@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 16:04:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 15:50:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		scene_normal_maps_destroy(t_scene *scene)
 	hash_map_destroy(scene->object_normal_maps);
 }
 
-void		scene_models_destroy(t_scene *scene)
+void		scene_assets_destroy(t_scene *scene)
 {
 	t_3d_object	*model;
 	int32_t		i;
@@ -55,7 +55,9 @@ void		scene_models_destroy(t_scene *scene)
 			(int64_t)scene->asset_files.model_files[i])))
 			l3d_3d_object_destroy(model);
 	hash_map_destroy(scene->models);
+	hash_map_destroy(scene->npc_map);
 	hash_map_destroy(scene->prefab_map);
+	hash_map_destroy(scene->trigger_map);
 }
 
 void		scene_skybox_destroy(t_scene *scene)
@@ -69,6 +71,22 @@ void		scene_skybox_destroy(t_scene *scene)
 		free(scene->skybox_textures[i]->pixels);
 		free(scene->skybox_textures[i]);
 	}
+}
+
+static void	animation_destroy(t_animation *animation)
+{
+	/*typedef struct				s_animation
+{
+	uint32_t				frame_count;
+	uint32_t				current_frame;
+	uint32_t				start_frame;
+	uint32_t				start_tick;
+	t_3d_object				*base_object;
+	t_3d_object				**animation_frames; //contains the objects for each anim frame
+	int32_t					*anim_frame_numbers; //contains the frame indices for each animation start
+}							t_animation;
+*/
+(void)animation;
 }
 
 void		scene_objects_destroy(t_scene *scene)
@@ -85,20 +103,6 @@ void		scene_objects_destroy(t_scene *scene)
 	}
 }
 
-void		animation_destroy(t_animation *animation)
-{
-	/*typedef struct				s_animation
-{
-	uint32_t				frame_count;
-	uint32_t				current_frame;
-	uint32_t				start_frame;
-	uint32_t				start_tick;
-	t_3d_object				*base_object;
-	t_3d_object				**animation_frames; //contains the objects for each anim frame
-	int32_t					*anim_frame_numbers; //contains the frame indices for each animation start
-}							t_animation;
-*/
-(void)animation;
-}
+
 // scene->asset_files.num_anim_frames
 //cleanup frames function

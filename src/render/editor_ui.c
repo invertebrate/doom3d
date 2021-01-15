@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 23:18:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/07 15:31:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ void		editor_ui_render(t_doom3d *app)
 {
 	char	guide[256];
 
-	ft_sprintf(guide, "WASD: Move, "
+	ft_sprintf(guide, "Tab: Switch level, "
+		"WASD: Move, "
 		"MouseR: Rotate, "
 		"MouseL: Select, "
 		"MouseM (/+ Q): Rotate selected, "
@@ -121,6 +122,9 @@ void		editor_ui_render(t_doom3d *app)
 		"O,L: Move selected y, "
 		"[, ]: Scale selected");
 	button_menu_render(app->active_scene->menus[0], (t_vec2){10, 0});
+	button_menu_render(app->active_scene->menus[2],
+		(t_vec2){app->active_scene->menus[0]->buttons[0]->width + 20,
+			app->active_scene->menus[0]->buttons[0]->pos[1]});
 	if (app->editor.selected_object)
 		button_menu_render(app->active_scene->menus[1], (t_vec2){10,
 			app->window->framebuffer->height - 120});

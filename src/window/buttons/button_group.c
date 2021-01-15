@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/07 02:44:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_button_group		*button_group_create(t_button **buttons,
 
 	if (buttons == NULL || num_buttons == 0)
 		return (NULL);
-	error_check(!(button_group = malloc(sizeof(t_button_group))),
+	error_check(!(button_group = ft_calloc(sizeof(t_button_group))),
 		"Failed to malloc btn group");
 	ft_memset(button_group, 0, sizeof(t_button_group));
 	button_group->num_buttons = num_buttons;

@@ -25,4 +25,6 @@ void	npc_default(t_doom3d *app, t_npc *npc)
 	npc->model_key = NPC_DEFAULT_MODEL;
 	npc->texture_key = NPC_DEFAULT_TEXTURE;
 	npc->normal_map_key = NPC_DEFAULT_NORMM;
+	error_check(!(npc->animation = (t_animation*)ft_calloc(sizeof(t_animation))),
+		"Failed to malloc for dummy npc animation in npc_default.");
 }

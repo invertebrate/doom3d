@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:11:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/11 14:53:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@
 # define L3D_SINGLE_SIDED 1
 # define L3D_MAX_KD_TREE_DEPTH 10
 
-/*
-** L3D_MIN_KD_NODE_NUM_TRIANGLES should be > 2
-** Else tree_create_recursive will leave a triangle vector leak
-** ToDo: Fix in the algorithm...
-*/
 # define L3D_MIN_KD_NODE_NUM_TRIANGLES 4
 # define L3D_TRI_VEC_INITIAL_CAPACITY 30
 
@@ -88,6 +83,10 @@ typedef enum				e_shading_opts
 	e_shading_zero_alpha = 1 << 2,
 	e_shading_ignore_zpass = 1 << 3,
 	e_shading_select = 1 << 4,
+	e_shading_invisible = 1 << 5,
+	e_shading_red = 1 << 6,
+	e_shading_green = 1 << 7,
+	e_shading_blue = 1 << 8,
 }							t_shading_opts;
 
 typedef struct				s_surface
@@ -378,6 +377,7 @@ void						l3d_bounding_box_set(t_tri_vec *triangles,
 void						l3d_object_aabb_update(t_3d_object *obj);
 void						l3d_bounding_box_debug(t_box3d aabb);
 t_bool						l3d_aabb_collides(t_box3d *left, t_box3d *right);
+t_bool						l3d_point_inside_aabb(t_box3d *aabb, t_vec3 point);
 t_hit						*l3d_get_aabb_hit_record(t_box3d *origin,
 								t_box3d *target);
 

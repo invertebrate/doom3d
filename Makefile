@@ -41,16 +41,30 @@ CFLAGS =-Wall -Wextra -Werror -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
 			doom3d.c \
 			player/player.c \
+			player/player_shoot.c \
 			player/collision.c \
 			player/movement.c \
+			player/player_animations.c \
+			inventory/item_data/item_data_fist.c \
+			inventory/item_data/item_data_glock.c \
+			inventory/item_data/item_data_rpg.c \
+			inventory/item_data/item_data_shotgun.c \
+			inventory/inventory_equip.c \
+			inventory/inventory_init.c \
+			inventory/inventory_init_items.c \
+			inventory/inventory_pickup_weapon.c \
+			inventory/inventory_throw_weapon.c \
 			npc/npc_default.c \
 			npc/npc_execute_behavior.c \
 			npc/npc_spawn.c \
+			npc/npc_trigger_onhit.c \
 			npc/npc_update.c \
+			npc/npc_animation.c \
+			trigger/trigger.c \
 			object/object_utils.c \
 			object/object_update.c \
 			camera.c \
-			debug.c \
+			utils.c \
 			scene/menus/editor3d_menu.c \
 			scene/menus/settings_menu.c \
 			scene/menus/main_menu.c \
@@ -78,6 +92,7 @@ SOURCES = main.c \
 			render/editor_ui.c \
 			render/debug/debug.c \
 			render/debug/debug_line.c \
+			render/notifications.c \
 			window/text.c \
 			window/window.c \
 			window/frame.c \
@@ -129,6 +144,9 @@ $(DIR_OBJ):
 	@mkdir -p temp/animations
 	@mkdir -p temp/npc
 	@mkdir -p temp/object
+	@mkdir -p temp/trigger
+	@mkdir -p temp/inventory
+	@mkdir -p temp/inventory/item_data
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)
