@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 15:31:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 16:15:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void		editor_ui_render(t_doom3d *app)
 			app->active_scene->menus[0]->buttons[0]->pos[1]});
 	if (app->editor.selected_object)
 		button_menu_render(app->active_scene->menus[1], (t_vec2){10,
-			app->window->framebuffer->height - 120});
+			app->window->framebuffer->height - 100});
 	window_text_render(app->window, (t_text_params){
 			.text = guide, .blend_ratio = 1.0,
 			.xy = (int[2]){10,
