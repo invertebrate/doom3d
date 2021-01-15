@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_input_events.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 13:53:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 18:42:59 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

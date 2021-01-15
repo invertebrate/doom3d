@@ -42,6 +42,7 @@ CFLAGS =-Wall -Wextra -Werror -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
 			doom3d.c \
 			player/player.c \
+			player/player_jump.c \
 			player/player_shoot.c \
 			player/collision.c \
 			player/movement.c \
@@ -68,8 +69,8 @@ SOURCES = main.c \
 			trigger/trigger.c \
 			object/object_utils.c \
 			object/object_update.c \
-			physics/physics_is_grounded.c \
-			physics/physics_update.c \
+			physics/is_grounded.c \
+			physics/gravity_update.c \
 			camera.c \
 			utils.c \
 			scene/menus/editor3d_menu.c \

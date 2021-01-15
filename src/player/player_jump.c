@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   physics_update.c                                   :+:      :+:    :+:   */
+/*   player_jump.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/14 18:11:21 by ahakanen         ###   ########.fr       */
+/*   Created: 2021/01/15 18:47:01 by ahakanen          #+#    #+#             */
+/*   Updated: 2021/01/15 18:50:32 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	physics_update_gravity(t_doom3d *app, t_3d_object *target)
+void	player_jump(t_doom3d *app)
 {
-	t_npc	*npc;
-
-	npc = target->params;
-	if (physics_is_grounded(app, target))
-		npc->y_velocity = 0;
-	else
-	{
-		npc->y_velocity += app->info.delta_time / 10;
-		l3d_3d_object_translate(target, 0, npc->y_velocity, 0);
-	}
+	if (player_is_grounded(app))
+		app->player.y_velocity = -app->player.jump_force;
 }

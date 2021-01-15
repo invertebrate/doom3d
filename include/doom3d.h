@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/14 16:59:37 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/15 18:50:53 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,9 @@ typedef struct				s_player
 	float					rot_speed;
 	float					rot_x;
 	float					rot_y;
+	float					y_velocity;
+	float					jump_force;
+	t_bool					flying;
 	float					player_height;
 	float					fire_rate_per_sec;
 	t_mat4					rotation;
@@ -399,6 +402,7 @@ void						player_shoot_projectile(t_doom3d *app, t_vec3 origin);
 void						player_shoot_ray(t_doom3d *app,
 								t_vec3 origin, t_vec3 dir);
 void						player_onhit(t_doom3d *app, int damage);
+void						player_jump(t_doom3d *app);
 
 /*
 ** Inventory
@@ -443,8 +447,9 @@ void						npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage);
 ** Physics
 */
 
-t_bool						physics_is_grounded(t_doom3d *app, t_3d_object *falling_obj);
-void						physics_update_gravity(t_doom3d *app, t_3d_object *tested);
+t_bool						obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj);
+t_bool						player_is_grounded(t_doom3d *app);
+void						gravity_update(t_doom3d *app, t_3d_object *tested);
 
 /*
 ** Events
