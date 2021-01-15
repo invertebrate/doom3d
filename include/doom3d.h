@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 15:30:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 15:32:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,34 +149,31 @@ void						player_shoot_ray(t_doom3d *app,
 void						player_onhit(t_doom3d *app, int damage);
 
 /*
-** Inventory
+** Player items
 */
-
 void						weapons_init(t_doom3d *app);
 void						weapons_init_data(t_doom3d *app);
 void						weapon_equip(t_doom3d *app, t_weapon_id slot);
 void						inventory_pickup_weapon_object(t_doom3d *app,
 								t_3d_object *weapon_drop_obj);
 void						inventory_throw_weapon(t_doom3d *app);
-
 t_weapon					weapon_data_fist(t_doom3d *app);
 t_weapon					weapon_data_glock(t_doom3d *app);
 t_weapon					weapon_data_rpg(t_doom3d *app);
 t_weapon					weapon_data_shotgun(t_doom3d *app);
 
 /*
-** Projectile
+** Projectiles
 */
-
 void						projectile_data_init(t_doom3d *app);
 t_projectile				projectile_data_rpg(t_doom3d *app);
 void						projectile_update(t_doom3d *app, t_3d_object *obj);
-void						projectile_explosion(t_doom3d *app, t_vec3 pos, t_projectile *projectile);
+void						projectile_explosion(t_doom3d *app, t_vec3 pos,
+								t_projectile *projectile);
 
 /*
-** Npc
+** Npcs
 */
-
 void						npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
 								int type);
 void						npc_update(t_doom3d *app, t_3d_object *npc_obj);
@@ -185,7 +182,8 @@ void						npc_execute_behavior(t_doom3d *app,
 void						npc_default(t_doom3d *app, t_npc *npc);
 void						handle_npc_deletions(t_doom3d *app);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
-void						npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage);
+void						npc_trigger_onhit(t_doom3d *app,
+								t_3d_object *obj, int damage);
 
 /*
 ** Events
@@ -243,7 +241,8 @@ void						framebuffer_dark_overlay(
 								int32_t width, int32_t height, t_vec2 pos);
 void						set_aabb_origin_to_corners(t_3d_object *obj,
 								t_vec3 origin, t_vec3 origin_to_corner[8]);
-void						button_menu_render(t_button_group *menu, t_vec2 pos);
+void						button_menu_render(t_button_group *menu,
+								t_vec2 pos);
 void						editor_ui_render(t_doom3d *app);
 void						draw_debug_line(t_doom3d *app,
 								t_sub_framebuffer *buffer, t_vec3 points[2],
