@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 15:18:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 16:10:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,4 +156,6 @@ void			object_type_to_str(t_3d_object *obj, char *str)
 		ft_sprintf(str, "%s", "Trigger");
 	else if (obj->type == object_type_projectile)
 		ft_sprintf(str, "%s", "Projectile");
+	else if (obj->type == object_type_light)
+		ft_sprintf(str, "%s", "Light");
 }

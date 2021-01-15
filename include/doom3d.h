@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 15:32:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 16:03:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,8 +343,8 @@ void						doom3d_notifications_delete_all(t_doom3d *app);
 void						place_player_end(t_doom3d *app);
 void						place_player_start(t_doom3d *app);
 void						place_drop_shotgun(t_doom3d *app);
-void						editor_triggers_unhighlight(t_doom3d *app);
-void						editor_triggers_highlight(t_doom3d *app);
+void						editor_objects_invisible_unhighlight(t_doom3d *app);
+void						editor_objects_invisible_highlight(t_doom3d *app);
 
 /*
 ** Player animations

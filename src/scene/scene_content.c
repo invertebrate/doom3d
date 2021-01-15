@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 14:13:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 16:13:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static t_bool			include_object_in_triangle_tree(t_scene *scene,
 	if (scene->scene_id == scene_id_editor3d)
 		return (!!object);
 	return (object != NULL &&
-			object->type != object_type_trigger);
+			object->type != object_type_trigger &&
+			object->type != object_type_light);
 }
 
 static void				active_scene_triangle_refs_set(t_scene *scene)
@@ -116,7 +117,7 @@ static void		scene_editor_init(t_doom3d *app)
 	{
 		if (app->level_list[app->editor.editor_level])
 			read_map(app, app->level_list[app->editor.editor_level]);
-		editor_triggers_highlight(app);
+		editor_objects_invisible_highlight(app);
 		ft_memcpy(app->editor.editor_savename,
 			app->editor.editor_filename,
 			ft_strlen(app->editor.editor_savename));

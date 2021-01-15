@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 15:21:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 16:02:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 ** e.g. triggers react when player (or other) hit its bounding box (aabb),
 ** triggers can also be e.g. weapon drops.
 ** Default objects are just regular rendered 3d objects.
+** t_3d_object 
 */
 
 typedef enum				e_object_type
@@ -33,6 +34,7 @@ typedef enum				e_object_type
 	object_type_npc = 1,
 	object_type_projectile = 2,
 	object_type_trigger = 3,
+	object_type_light = 4,
 }							t_object_type;
 
 

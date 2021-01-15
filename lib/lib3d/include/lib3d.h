@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 14:53:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 16:05:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef enum				e_shading_opts
 	e_shading_red = 1 << 6,
 	e_shading_green = 1 << 7,
 	e_shading_blue = 1 << 8,
+	e_shading_yellow = 1 << 9,
 }							t_shading_opts;
 
 typedef struct				s_surface

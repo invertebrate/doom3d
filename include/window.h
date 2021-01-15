@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 10:47:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 15:55:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define PIXEL_FORMAT SDL_PIXELFORMAT_RGBA8888
 # define GAME_FONT "assets/fonts/AmazDooMLeft.ttf"
 # define DEBUG_FONT "assets/fonts/Roboto-Regular.ttf"
-# define FONT_SIZE 38
+# define FONT_SIZE 36
 # define CLEAR_COLOR 0x700000FF
 
 /*

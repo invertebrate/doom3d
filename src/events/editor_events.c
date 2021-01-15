@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 14:14:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 16:03:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void		handle_editor_saving(t_doom3d *app, SDL_Event event)
 		}
 		ft_memcpy(app->editor.editor_filename, app->editor.editor_savename,
 			ft_strlen(app->editor.editor_savename));
-		editor_triggers_unhighlight(app);
+		editor_objects_invisible_unhighlight(app);
 		save_map(app);
-		editor_triggers_highlight(app);
+		editor_objects_invisible_highlight(app);
 		doom3d_notification_add(app, (t_notification){
 			.message = "Saved level!",
 			.type = notification_type_info, .time = 2000});
