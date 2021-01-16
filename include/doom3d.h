@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 18:50:53 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/16 17:48:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define HEIGHT 720
 # define NAME "Doom3D"
 # define PLAYER_SPEED 6.0
+# define CONST_SPEED 0.1
 # define PLAYER_ROTATION_SPEED 0.2
 # define NEAR_CLIP_DIST 10
 # define FAR_CLIP_DIST 100000
@@ -80,7 +81,7 @@ typedef enum				e_move
 	move_strafe_left,
 	move_strafe_right,
 	move_down,
-	move_up,
+	move_upwards,
 }							t_move;
 
 typedef enum				e_scene_id
@@ -169,7 +170,7 @@ typedef struct				s_player
 	float					rot_speed;
 	float					rot_x;
 	float					rot_y;
-	float					y_velocity;
+	t_vec3					velocity;
 	float					jump_force;
 	t_bool					flying;
 	float					player_height;
@@ -358,7 +359,7 @@ struct						s_npc
 	int						state;
 	int						hp;
 	int						type;
-	float					y_velocity;
+	t_vec3					velocity;
 	const char				*texture_key;
 	const char				*model_key;
 	const char				*normal_map_key;
@@ -435,7 +436,7 @@ void						projectile_explosion(t_doom3d *app, t_vec3 pos, t_projectile *projecti
 
 void						npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
 								int type);
-void						npc_update(t_doom3d *app, t_3d_object *npc_obj);
+void						npc_update_state(t_doom3d *app, t_3d_object *npc_obj);
 void						npc_execute_behavior(t_doom3d *app,
 								t_3d_object *npc_obj);
 void						npc_default(t_doom3d *app, t_npc *npc);
@@ -449,7 +450,9 @@ void						npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage);
 
 t_bool						obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj);
 t_bool						player_is_grounded(t_doom3d *app);
-void						gravity_update(t_doom3d *app, t_3d_object *tested);
+void						forces_update_object(t_doom3d *app,
+								t_3d_object *tested);
+void						forces_update_player(t_doom3d *app);
 
 /*
 ** Events

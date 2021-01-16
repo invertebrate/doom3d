@@ -70,7 +70,7 @@ SOURCES = main.c \
 			object/object_utils.c \
 			object/object_update.c \
 			physics/is_grounded.c \
-			physics/gravity_update.c \
+			physics/forces_update.c \
 			camera.c \
 			utils.c \
 			scene/menus/editor3d_menu.c \

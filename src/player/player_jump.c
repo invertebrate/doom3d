@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_jump.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 18:47:01 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/15 18:50:32 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/16 17:46:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,7 @@
 void	player_jump(t_doom3d *app)
 {
 	if (player_is_grounded(app))
-		app->player.y_velocity = -app->player.jump_force;
+	{
+		app->player.velocity[1] += app->player.jump_force;
+	}
 }
