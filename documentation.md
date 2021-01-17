@@ -41,6 +41,24 @@
 - These `render_triangles` are then freed
 - Main buffer will then be presented onto window
 
+## Player sprite animations
+
+Player animations work as follows:
+
+**INIT**
+1. Set animation source files in `scene_assets.c` and call keys in `get_animation_source`
+2. Define animation frame information and their corresponding ids
+(`player_animations.c`, ids under `t_player_animation`), call them in `player_animations_init`
+
+**UPDATE**
+3. Define which weapon sets which animation in default, shoot and reload
+e.g `set_player_reload_frame`
+4. Update animation frames and loop them in `doom3d_player_animation_update`
+every frame, and decrement frame time with `delta_time`. This is called in main loop.
+
+**DISPLAY**
+5. Render right frame in `player_hud.c` in `player_animation_render`
+
 ## Libs
 
 Easiest way to learn how to use a function is to cmd+shift+f (app wide search) in your IDE and see where a function has been used.
