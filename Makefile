@@ -42,6 +42,7 @@ CFLAGS =-Wall -Wextra -Werror -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
 			doom3d.c \
 			player/player.c \
+			player/player_jump.c \
 			player/player_shoot.c \
 			player/collision.c \
 			player/movement.c \
@@ -68,6 +69,8 @@ SOURCES = main.c \
 			trigger/trigger.c \
 			object/object_utils.c \
 			object/object_update.c \
+			physics/is_grounded.c \
+			physics/forces_update.c \
 			camera.c \
 			utils.c \
 			scene/menus/editor3d_menu.c \
@@ -147,6 +150,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/player
 	@mkdir -p temp/npc
 	@mkdir -p temp/object
+	@mkdir -p temp/physics
 	@mkdir -p temp/trigger
 	@mkdir -p temp/inventory
 	@mkdir -p temp/inventory/item_data

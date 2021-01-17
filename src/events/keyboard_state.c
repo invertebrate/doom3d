@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_state.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 19:03:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 18:54:37 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ static void		keyboard_game_state_handle(t_doom3d *app)
 		weapon_equip(app, weapon_glock);
 	else if (app->keyboard.state[SDL_SCANCODE_1])
 		weapon_equip(app, weapon_fist);
+	if (app->keyboard.state[SDL_SCANCODE_SPACE])
+		player_jump(app);
+	//if (app->keyboard.state[SDL_SCANCODE_F10])
+	//	app->player.flying = (app->player.flying + 1) % 2;
 	// if (app->keyboard.state[SDL_SCANCODE_E]) //Later for interaction
 }
 

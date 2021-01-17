@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 14:12:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/16 18:14:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void			editor_select(t_doom3d *app)
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, app->player.pos,
 		dir, &hits))
 	{
-		l3d_get_closest_hit(hits, &closest_triangle_hit);
+		l3d_get_closest_hit(hits, &closest_triangle_hit, -1);
 		if (closest_triangle_hit != NULL)
 		{
 			editor_deselect(app);

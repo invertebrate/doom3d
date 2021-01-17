@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 17:22:03 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/06 17:24:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/16 18:33:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ void	npc_execute_behavior(t_doom3d *app, t_3d_object *npc_obj)
 		/*
 		DO ATTACK THINGS WITH THIS NPC
 		follow path to attack
+		// ToDo: Instead of translating towards direction, turn npc towards
+		// player and then move to direction by delta_time * speed
 		*/
 		l3d_3d_object_translate(npc_obj,
-			-npc->dir[0], -npc->dir[1], -npc->dir[2]);
+			-npc->dir[0], 0, -npc->dir[2]);
 	}
 }

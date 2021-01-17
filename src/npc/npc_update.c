@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_update.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/13 13:25:28 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/16 16:52:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj)
 	}
 }
 
-void		npc_update(t_doom3d *app, t_3d_object *npc_obj)
+void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 {
 	t_npc	*npc;
 	t_vec3	diff;

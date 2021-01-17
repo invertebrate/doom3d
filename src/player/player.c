@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 13:12:09 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/16 17:29:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,16 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	app->player.aabb.size[0] = app->unit_size / 2.0;
 	app->player.aabb.size[1] = app->player.player_height;
 	app->player.aabb.size[2] = app->unit_size / 2.0;
+	app->player.hp = 100; //test
+	app->player.flying = false;
+	app->player.jump_force = app->unit_size * 1 / 10;
+	ml_vector3_set(app->player.velocity, 0, 0, 0);
 	ml_matrix4_id(app->player.rotation);
 	ml_matrix4_id(app->player.inv_rotation);
 	ml_matrix4_id(app->player.translation);
 	ml_matrix4_id(app->player.inv_translation);
 	player_move(app, move_forward, 0.0);
 	player_update_aabb(&app->player);
-	app->player.hp = 100; //test
 }
 
 static void		shoot_shotgun(t_doom3d *app, t_vec3 origin)

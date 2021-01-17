@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_shoot.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/13 13:03:56 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/16 18:14:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, origin,
 		dir, &hits))
 	{
-		l3d_get_closest_hit(hits, &closest_triangle_hit);
+		l3d_get_closest_hit(hits, &closest_triangle_hit, -1);
 		if (closest_triangle_hit != NULL)
 		{
 			ml_vector3_sub(closest_triangle_hit->hit_point, origin, dist);
