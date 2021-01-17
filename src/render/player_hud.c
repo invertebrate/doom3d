@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:12:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 15:52:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/17 23:56:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ static void		crosshair_render(t_doom3d *app, int32_t offset, int32_t length,
 		{app->window->framebuffer->width / 2 - offset,
 			app->window->framebuffer->height / 2}}, color);
 }
+
+/*
+** Based on current player animation, copy current frame from source image
+** and render it on screen.
+** ToDo: Remove if (app->player.equipped_weapon->id == weapon_shotgun)
+** and leave only bottom l3d_image_place once we've unified our
+** weapon animations.
+*/
 
 static void		player_animation_render(t_doom3d *app)
 {

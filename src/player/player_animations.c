@@ -6,11 +6,17 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 21:42:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/17 23:52:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+/*
+** This function is called in `src/render/player_hud.c` in
+** `player_animation_render` and it determines which source image is used
+** for animation based on equipped weapon
+*/
 
 t_surface			*get_animation_source(t_doom3d *app)
 {
@@ -23,6 +29,10 @@ t_surface			*get_animation_source(t_doom3d *app)
 	return (NULL);
 }
 
+/*
+** See set_glock_shoot_anim
+*/
+
 static void			set_shotgun_default_anim(t_sprite_anim *anim)
 {
 	anim->frames[0].width = 480;
@@ -34,6 +44,10 @@ static void			set_shotgun_default_anim(t_sprite_anim *anim)
 	anim->interruptable = true;
 	anim->frame_time = 100;
 }
+
+/*
+** See set_glock_shoot_anim
+*/
 
 static void			set_shotgun_reload_anim(t_sprite_anim *anim)
 {
@@ -55,6 +69,10 @@ static void			set_shotgun_reload_anim(t_sprite_anim *anim)
 	anim->interruptable = false;
 	anim->frame_time = 100;
 }
+
+/*
+** See set_glock_shoot_anim
+*/
 
 static void			set_shotgun_shoot_anim(t_sprite_anim *anim)
 {
@@ -81,6 +99,10 @@ static void			set_shotgun_shoot_anim(t_sprite_anim *anim)
 	anim->frame_time = 100;
 }
 
+/*
+** See set_glock_shoot_anim
+*/
+
 static void			set_glock_default_anim(t_sprite_anim *anim)
 {
 	anim->frames[0].width = 960;
@@ -93,6 +115,10 @@ static void			set_glock_default_anim(t_sprite_anim *anim)
 	anim->frame_time = 30;
 }
 
+/*
+** See set_glock_shoot_anim
+*/
+
 static void			set_glock_reload_anim(t_sprite_anim *anim)
 {
 	anim->frames[0].width = 960;
@@ -104,6 +130,15 @@ static void			set_glock_reload_anim(t_sprite_anim *anim)
 	anim->interruptable = false;
 	anim->frame_time = 30;
 }
+
+/*
+** Sets the animation frame information in a loop (you need to know what
+** the source image is like (e.g. here 8640x540 (9 frames * 960, height 540)))
+** the frame information tells renderer what to display from source image
+** id = animation_id
+** interruptable = whether animation can be interrupted by another
+** frame_time = how long a single frame is shown
+*/
 
 static void			set_glock_shoot_anim(t_sprite_anim *anim)
 {
@@ -123,6 +158,10 @@ static void			set_glock_shoot_anim(t_sprite_anim *anim)
 	anim->frame_time = 30;
 }
 
+/*
+** Initializes the frame information for each animation the player has
+*/
+
 void	player_animations_init(t_doom3d *app)
 {
 	set_shotgun_default_anim(&app->animations[anim_shotgun_default]);
@@ -132,6 +171,11 @@ void	player_animations_init(t_doom3d *app)
 	set_glock_reload_anim(&app->animations[anim_glock_reload]);
 	set_glock_shoot_anim(&app->animations[anim_glock_shoot]);
 }
+
+/*
+** If current animation is interruptable or finished, the new animation defined
+** by animation_id becomes current animation.
+*/
 
 static void				set_player_animation(t_doom3d *app, uint32_t animation_id)
 {
@@ -147,6 +191,11 @@ static void				set_player_animation(t_doom3d *app, uint32_t animation_id)
 	app->player_hud.curr_animation = animation_id;
 }
 
+/*
+** This function is called when player animation is to be switched to
+** shoot animation
+*/
+
 void					set_player_shoot_frame(t_doom3d *app)
 {
 	if (app->player.equipped_weapon->id == weapon_shotgun)
@@ -154,6 +203,11 @@ void					set_player_shoot_frame(t_doom3d *app)
 	else if (app->player.equipped_weapon->id == weapon_glock)
 		set_player_animation(app, anim_glock_shoot);
 }
+
+/*
+** This function is called when player animation is to be switched to
+** default animation
+*/
 
 void					set_player_default_frame(t_doom3d *app)
 {
@@ -165,6 +219,11 @@ void					set_player_default_frame(t_doom3d *app)
 		set_player_animation(app, anim_none);
 }
 
+/*
+** This function is called when player animation is to be switched to
+** reload animation
+*/
+
 void					set_player_reload_frame(t_doom3d *app)
 {
 	if (app->player.equipped_weapon->id == weapon_shotgun)
@@ -172,6 +231,13 @@ void					set_player_reload_frame(t_doom3d *app)
 	else if (app->player.equipped_weapon->id == weapon_glock)
 		set_player_animation(app, anim_glock_reload);
 }
+
+/*
+** Moves on animation frames if they should be moved on. If An animation frame
+** is finished, the frames don't get incremented. Frame time left is decreased
+** by delta time until it's <= 0. Current frame moves to next. Once last
+** frame is reached, animation is set to be finished.
+*/
 
 void	doom3d_player_animation_update(t_doom3d *app)
 {

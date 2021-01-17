@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/17 22:56:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/17 23:53:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ typedef struct				s_player
 
 /*
 ** A list of animations that the sprite animation under player hud
-** will be able to display.
+** will be able to display. Also defines the index of animation frame data
+** in app->animations
 */
 
 typedef enum				e_player_animation

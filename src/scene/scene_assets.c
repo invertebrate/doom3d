@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 15:56:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/17 23:45:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,11 @@ static void		triggers_load(t_scene *scene)
 			scene->asset_files.num_triggers++],
 			(void*)trigger_weapon_drop_shotgun);
 }
+
+/*
+** Set animation file paths (and they also work as keys when queried from
+** hash_table)
+*/
 
 static void		scene_animation_files_set(t_asset_files *data)
 {
