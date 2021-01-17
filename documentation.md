@@ -51,13 +51,13 @@ Player animations work as follows:
 (`player_animations.c`, ids under `t_player_animation`), call them in `player_animations_init`
 
 **UPDATE**
-3. Define which weapon sets which animation in default, shoot and reload
+1. Define which weapon sets which animation in default, shoot and reload
 e.g `set_player_reload_frame`
-4. Update animation frames and loop them in `doom3d_player_animation_update`
+2. Update animation frames and loop them in `doom3d_player_animation_update`
 every frame, and decrement frame time with `delta_time`. This is called in main loop.
 
 **DISPLAY**
-5. Render right frame in `player_hud.c` in `player_animation_render`
+1. Render right frame in `player_hud.c` in `player_animation_render`
 
 ## Libs
 
