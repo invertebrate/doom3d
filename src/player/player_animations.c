@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/17 23:52:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/18 00:01:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,21 @@ void					set_player_reload_frame(t_doom3d *app)
 	else if (app->player.equipped_weapon->id == weapon_glock)
 		set_player_animation(app, anim_glock_reload);
 }
+
+/*
+** Player animations work as follows:
+** INIT
+** 1. Set animation source files in scene_assets.c and get_animation_source
+** 2. Define animation frame information and their corresponding ids
+** (above, ids under t_player_animation), call them in player_animations_init
+** UPDATE
+** 3. Define which weapon sets which animation in default, shoot and reload
+** e.g set_player_reload_frame
+** 4. Update animation frames and loop them in `doom3d_player_animation_update`
+** every frame, and decrement frame time with delta_time
+** DISPLAY
+** 5. Render right frame in `player_hud.c` in `player_animation_render`
+*/
 
 /*
 ** Moves on animation frames if they should be moved on. If An animation frame
