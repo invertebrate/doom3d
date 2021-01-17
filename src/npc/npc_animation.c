@@ -12,6 +12,34 @@
 
 #include "doom3d.h"
 
+/*
+** NPC type specific function, each type has their own
+*/
+static void		npc_default_anim_metadata_set(t_anim_metadata *anim_data)
+{
+	anim_data->frame_count = 6;
+	anim_data->anim_count = 1;
+	ft_memset(anim_data->anim_frame_numbers,
+	0, sizeof(uint32_t) * ANIM_3D_MAX_COUNT);
+	anim_data->anim_frame_numbers[0] = 0;
+}
+
+void			npc_animation_init(t_doom3d *app, t_3d_object *obj)
+{
+	t_npc			*npc;
+	t_anim_metadata	anim_data;
+
+	npc = (t_npc*)obj->params;
+	if (npc->type == npc_type_default)
+	{
+		npc_default_anim_metadata_set(&anim_data);
+	}
+		npc_animation_set(app, npc, &anim_data);
+}
+
+	if (((t_npc*)obj->params)->animation != NULL)
+		npc_animation_init(app, obj);
+
 static char			*truncate_model_file_path(const char *file_path)
 {
 	char	*path;
@@ -42,7 +70,7 @@ static t_3d_object	**npc_anim_frames_set(t_doom3d *app, t_npc *npc)
 	return (NULL);//figure out the return and the pointer array thingy
 }
 
-static void	npc_animation_data_copy(t_npc *npc, t_anim_metadata *anim_data)
+static void			npc_animation_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 {
 	int		i;
 
@@ -56,7 +84,7 @@ static void	npc_animation_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 	npc->animation->anim_count = anim_data->anim_count;
 }
 
-static void	npc_anim_frame_keys_set(t_npc *npc)
+static void			npc_anim_frame_keys_set(t_npc *npc)
 {
 	int		i;
 
@@ -74,7 +102,7 @@ static void	npc_anim_frame_keys_set(t_npc *npc)
 	}
 }
 
-void		npc_animation_set(t_doom3d *app, t_npc *npc,
+void				npc_animation_set(t_doom3d *app, t_npc *npc,
 								t_anim_metadata *anim_data)
 {
 	if (npc->animation != NULL)

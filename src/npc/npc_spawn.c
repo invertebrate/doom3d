@@ -12,28 +12,6 @@
 
 #include "doom3d.h"
 
-static void		npc_default_anim_metadata_set(t_anim_metadata *anim_data)
-{
-	anim_data->frame_count = 6;
-	anim_data->anim_count = 1;
-	ft_memset(anim_data->anim_frame_numbers,
-	0, sizeof(uint32_t) * ANIM_3D_MAX_COUNT);
-	anim_data->anim_frame_numbers[0] = 0;
-}
-
-static void		npc_animation_init(t_doom3d *app, t_3d_object *obj)
-{
-	t_npc			*npc;
-	t_anim_metadata	anim_data;
-
-	npc = (t_npc*)obj->params;
-	if (npc->type == npc_type_default)
-	{
-		npc_default_anim_metadata_set(&anim_data);
-	}
-		npc_animation_set(app, npc, &anim_data);
-}
-
 static void		place_npc_object_in_scene(t_doom3d *app, t_npc *npc, t_vec3 pos)
 {
 	t_3d_object *obj;
@@ -44,8 +22,6 @@ static void		place_npc_object_in_scene(t_doom3d *app, t_npc *npc, t_vec3 pos)
 	obj = app->active_scene->objects[app->active_scene->num_objects - 1];
 	obj->type = object_type_npc;
 	l3d_3d_object_set_params(obj, npc, sizeof(t_npc), npc->type);
-	if (((t_npc*)obj->params)->animation != NULL)
-		npc_animation_init(app, obj);
 	l3d_3d_object_rotate(obj, 0, npc->angle, 0);
 }
 
