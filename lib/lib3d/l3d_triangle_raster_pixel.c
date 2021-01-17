@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 14:06:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 16:06:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static uint32_t	l3d_get_shaded_pixel(t_triangle *triangle, t_vec2 uv,
 		pixel = 0x00ff00ff;
 	else if (triangle->material->shading_opts & e_shading_red)
 		pixel = 0xff0000ff;
+	else if (triangle->material->shading_opts & e_shading_yellow)
+		pixel = 0xffff00ff;
 	else
 		pixel = L3D_DEFAULT_COLOR;
 	if (triangle->material->texture)

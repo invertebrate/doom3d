@@ -4,10 +4,6 @@
 
 - Initialize app & threadpool
 - Load first `src/scene`
-  - Scene loads all assets related to the scene
-  - Scene options are set in `src/scene/scene_data.c`
-  - Scene ids are set in `include/doom3d.c`
-  - If you wish to add test objects, see an example in e.g. `place_test_object` function in `src/scene/scene.c`
 - After loading first scene, main loop is run like:
 
 ```c

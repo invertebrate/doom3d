@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/16 18:12:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/17 23:06:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define L3D_MAX_OBJ_VERTICES 16384
 
 # define L3D_DEFAULT_COLOR 0xFF00FFFF
+
+# define L3D_MAX_LIGHTS 4
 
 /*
 ** OBJ file temporary structs. They are used in transfering obj data to final
@@ -87,6 +89,7 @@ typedef enum				e_shading_opts
 	e_shading_red = 1 << 6,
 	e_shading_green = 1 << 7,
 	e_shading_blue = 1 << 8,
+	e_shading_yellow = 1 << 9,
 }							t_shading_opts;
 
 typedef struct				s_surface
@@ -101,6 +104,8 @@ typedef struct				s_material
 	t_surface		*texture;
 	t_surface		*normal_map;
 	t_shading_opts	shading_opts;
+	t_vec3			light_sources[L3D_MAX_LIGHTS];
+	uint32_t		num_lights;
 }							t_material;
 
 typedef struct s_3d_object	t_3d_object;
@@ -405,6 +410,9 @@ void						l3d_3d_object_triangle_copy_and_set(
 void						l3d_3d_object_set_params(t_3d_object *object,
 								void *params, uint32_t params_size,
 								uint32_t params_type);
+void						l3d_3d_object_add_light_source(t_3d_object *object,
+								t_vec3 light_pos);
+
 /*
 ** OBJ reading
 */

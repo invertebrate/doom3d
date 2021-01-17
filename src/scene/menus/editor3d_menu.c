@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 15:42:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 16:09:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,23 @@ static void			on_trigger_menu_button_click(t_button *self, void *params)
 		active_scene_update_after_objects(app->active_scene);
 		app->editor.is_saved = false;
 	}
-	editor_triggers_highlight(app);
+	editor_objects_invisible_highlight(app);
+}
+
+static void			on_light_menu_button_click(t_button *self, void *params)
+{
+	t_doom3d		*app;
+	t_3d_object		*light;
+
+	(void)self;
+	app = params;
+	place_scene_object(app, (const char*[3]){
+		"assets/models/box.obj", NULL,  NULL}, (t_vec3){0, 0, 0});
+	light = app->active_scene->objects[app->active_scene->last_object_index];
+	l3d_object_set_shading_opts(light, e_shading_invisible);
+	light->type = object_type_light;
+	light->params_type = object_type_light;
+	editor_objects_invisible_highlight(app);
 }
 
 static void			create_popup_menu(t_doom3d *app,
@@ -282,6 +298,14 @@ static void			create_popup_menu(t_doom3d *app,
 			.on_click = on_trigger_menu_button_click,
 			.button_font = app->window->debug_font,
 		});
+	else if (new_menu == editor_menu_lights)
+		button_menu = button_menu_create(app,
+		(t_button_menu_params){
+			.button_names = (const char*[1]){"Light Source"},
+			.num_buttons = 1,
+			.on_click = on_light_menu_button_click,
+			.button_font = app->window->debug_font,
+		});
 	else
 		return ;
 	ml_vector2_copy((t_vec2){self->pos[0] + self->width + 2,
@@ -329,6 +353,8 @@ static void			on_editor_menu_button_click(t_button *self, void *params)
 			new_menu_id = editor_menu_npcs;
 		else if (self->id == 7)
 			new_menu_id = editor_menu_triggers;
+		else if (self->id == 8)
+			new_menu_id = editor_menu_lights;
 		create_or_open_popup_menu(app, new_menu_id, self);
 	}
 }
@@ -364,7 +390,7 @@ void				editor3d_menu_create(t_doom3d *app)
 		ft_calloc(sizeof(t_button_group*) * 3)), "Failed to malloc menus");
 	app->active_scene->menus[0] = button_menu_create(app,
 		(t_button_menu_params){
-			.button_names = (const char*[8]){
+			.button_names = (const char*[9]){
 				"Exit",
 				"Save",
 				"Objects",
@@ -372,8 +398,9 @@ void				editor3d_menu_create(t_doom3d *app)
 				"NormMaps",
 				"Prefabs",
 				"Characters",
-				"Triggers"},
-			.num_buttons = 8,
+				"Triggers",
+				"Lights"},
+			.num_buttons = 9,
 			.on_click = on_editor_menu_button_click,
 			.button_font = app->window->main_font,
 		});

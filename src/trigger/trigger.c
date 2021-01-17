@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 15:45:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/15 16:08:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void			place_player_end(t_doom3d *app)
 		NULL, 0, trigger_player_end);
 }
 
-void			editor_triggers_highlight(t_doom3d *app)
+void			editor_objects_invisible_highlight(t_doom3d *app)
 {
 	t_3d_object	*obj;
 	int32_t		i;
@@ -70,7 +70,8 @@ void			editor_triggers_highlight(t_doom3d *app)
 		obj = app->active_scene->objects[i];
 		if (obj)
 		{
-			if (obj->type == object_type_trigger)
+			if (obj->type == object_type_trigger ||
+				obj->type == object_type_light)
 			{
 				obj->material->shading_opts = (obj->material->shading_opts &
 					~(e_shading_invisible));
@@ -78,12 +79,14 @@ void			editor_triggers_highlight(t_doom3d *app)
 					obj->material->shading_opts = e_shading_green;
 				if (obj->params_type == trigger_player_end)
 					obj->material->shading_opts = e_shading_red;
+				if (obj->params_type == object_type_light)
+					obj->material->shading_opts = e_shading_yellow;
 			}
 		}
 	}
 }
 
-void			editor_triggers_unhighlight(t_doom3d *app)
+void			editor_objects_invisible_unhighlight(t_doom3d *app)
 {
 	t_3d_object	*obj;
 	int32_t		i;
@@ -93,9 +96,11 @@ void			editor_triggers_unhighlight(t_doom3d *app)
 		app->active_scene->num_deleted))
 	{
 		obj = app->active_scene->objects[i];
-		if (obj && obj->type == object_type_trigger &&
-			(obj->params_type == trigger_player_start ||
-			obj->params_type == trigger_player_end))
+		if (obj &&
+			((obj->type == object_type_trigger &&
+				(obj->params_type == trigger_player_start ||
+					obj->params_type == trigger_player_end)) ||
+			obj->type == object_type_light))
 			obj->material->shading_opts = e_shading_invisible;
 	}
 }
