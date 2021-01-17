@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 16:03:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/17 22:56:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@
 # define X_DIR 1
 # define Y_DIR -1
 # define Z_DIR 1
+
+# define CONST_SPEED 0.1
 
 /*
 ** // ToDo: Create toggleable settings
@@ -147,6 +149,7 @@ void						player_shoot_projectile(t_doom3d *app, t_vec3 origin);
 void						player_shoot_ray(t_doom3d *app,
 								t_vec3 origin, t_vec3 dir);
 void						player_onhit(t_doom3d *app, int damage);
+void						player_jump(t_doom3d *app);
 
 /*
 ** Player items
@@ -176,7 +179,7 @@ void						projectile_explosion(t_doom3d *app, t_vec3 pos,
 */
 void						npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
 								int type);
-void						npc_update(t_doom3d *app, t_3d_object *npc_obj);
+void						npc_update_state(t_doom3d *app, t_3d_object *npc_obj);
 void						npc_execute_behavior(t_doom3d *app,
 								t_3d_object *npc_obj);
 void						npc_default(t_doom3d *app, t_npc *npc);
@@ -184,6 +187,16 @@ void						handle_npc_deletions(t_doom3d *app);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
 void						npc_trigger_onhit(t_doom3d *app,
 								t_3d_object *obj, int damage);
+
+/*
+** Physics
+*/
+
+t_bool						obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj);
+t_bool						player_is_grounded(t_doom3d *app);
+void						forces_update_object(t_doom3d *app,
+								t_3d_object *tested);
+void						forces_update_player(t_doom3d *app);
 
 /*
 ** Events

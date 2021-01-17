@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 16:02:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/17 22:54:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ typedef struct				s_npc
 	int						state;
 	int						hp;
 	int						type;
+	t_vec3					velocity;
 	const char				*texture_key;
 	const char				*model_key;
 	const char				*normal_map_key;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 15:29:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/17 22:56:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ typedef enum				e_move
 	move_backward,
 	move_strafe_left,
 	move_strafe_right,
-	move_down,
-	move_up,
+	move_upwards,
 }							t_move;
 
 /*
@@ -51,6 +50,8 @@ typedef struct				s_player
 	t_bool					is_reloading;
 	t_bool					is_moving;
 	t_bool					is_rotating;
+	t_bool					flying;
+	float					jump_force;
 	float					speed;
 	float					rot_speed;
 	float					rot_x;
@@ -65,6 +66,7 @@ typedef struct				s_player
 	t_weapon				weapons[NUM_WEAPONS];
 	t_weapon				*equipped_weapon;
 	int						hp;
+	t_vec3					velocity;
 }							t_player;
 
 /*
