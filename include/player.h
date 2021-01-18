@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/17 23:53:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/18 17:25:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ typedef enum				e_player_animation
 	anim_glock_default = 4,
 	anim_glock_shoot = 5,
 	anim_glock_reload = 6,
+	anim_rpg_default = 7,
+	anim_rpg_shoot = 8,
+	anim_rpg_reload = 9,
+	anim_fist_default = 10,
+	anim_fist_shoot = 11,
+	anim_fist_reload = 12,
 }							t_player_animation;
 
 /*

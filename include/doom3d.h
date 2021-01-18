@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/17 22:56:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/18 17:17:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ typedef struct				s_settings
 {
 	t_bool					is_normal_map;
 	t_bool					is_skybox;
+	int32_t					width;
+	int32_t					height;
 }							t_settings;
 
 /*

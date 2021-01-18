@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 14:43:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/18 17:17:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ static void		doom3d_main_loop(t_doom3d *app)
 	}
 }
 
+void			settings_init(t_doom3d *app)
+{
+	app->settings.is_normal_map = false;
+	app->settings.is_skybox = true;
+	app->settings.width = 1280;
+	app->settings.height = 720;
+}
+
 void			doom3d_init(t_doom3d *app)
 {
 	app->active_scene = NULL;
@@ -62,8 +70,6 @@ void			doom3d_init(t_doom3d *app)
 	app->is_scene_reload = false;
 	app->unit_size = app->window->width;
 	app->next_scene_id = scene_id_main_menu;
-	app->settings.is_normal_map = false;
-	app->settings.is_skybox = true;
 	ft_memset(&app->notifications, 0, sizeof(app->notifications));
 	read_level_list(app);
 	app->current_level = 0;
@@ -96,7 +102,8 @@ void			doom3d_run(t_doom3d *app)
 		cpu_count >= NUM_THREADS_DEFAULT ? cpu_count : NUM_THREADS_DEFAULT);
 	error_check(SDL_Init(SDL_INIT_VIDEO) != 0, SDL_GetError());
 	error_check(TTF_Init() == -1, TTF_GetError());
-	window_create(&app->window, WIDTH, HEIGHT);
+	settings_init(&app);
+	window_create(&app->window, app->settings.width, app->settings.height);
 	doom3d_init(app);
 	doom3d_main_loop(app);
 	doom3d_cleanup(app);

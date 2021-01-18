@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/17 23:45:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/18 17:28:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,29 @@ static void		triggers_load(t_scene *scene)
 static void		scene_animation_files_set(t_asset_files *data)
 {
 	data->animation_files[data->num_animations++] =
-		"assets/animations/shotgun_animation.bmp";
+		"assets/animations/shotgun_anim_1080p.bmp";
 	data->animation_files[data->num_animations++] =
-		"assets/animations/glock_shoot_animation.bmp";
+		"assets/animations/pistol_anim_1080p.bmp";
+	data->animation_files[data->num_animations++] =
+		"assets/animations/fist_anim_1080p.bmp";
+	data->animation_files[data->num_animations++] =
+		"assets/animations/rpg_anim_1080p.bmp";
+	data->animation_files[data->num_animations++] =
+		"assets/animations/shotgun_anim_720p.bmp";
+	data->animation_files[data->num_animations++] =
+		"assets/animations/pistol_anim_720p.bmp";
+	data->animation_files[data->num_animations++] =
+		"assets/animations/fist_anim_720p.bmp";
+	data->animation_files[data->num_animations++] =
+		"assets/animations/rpg_anim_720p.bmp";
+	data->animation_files[data->num_animations++] =
+		"assets/animations/shotgun_anim_540p.bmp";
+	data->animation_files[data->num_animations++] =
+		"assets/animations/pistol_anim_540p.bmp";
+	data->animation_files[data->num_animations++] =
+		"assets/animations/fist_anim_540p.bmp";
+	data->animation_files[data->num_animations++] =
+		"assets/animations/rpg_anim_540p.bmp";
 }
 
 static void		scene_texture_files_set(t_asset_files *data)
