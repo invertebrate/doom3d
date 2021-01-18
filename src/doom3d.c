@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/18 17:17:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/18 21:54:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void			doom3d_run(t_doom3d *app)
 		cpu_count >= NUM_THREADS_DEFAULT ? cpu_count : NUM_THREADS_DEFAULT);
 	error_check(SDL_Init(SDL_INIT_VIDEO) != 0, SDL_GetError());
 	error_check(TTF_Init() == -1, TTF_GetError());
-	settings_init(&app);
+	settings_init(app);
 	window_create(&app->window, app->settings.width, app->settings.height);
 	doom3d_init(app);
 	doom3d_main_loop(app);
