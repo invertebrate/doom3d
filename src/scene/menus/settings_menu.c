@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:41:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/18 17:19:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,23 @@ static void			on_settings_menu_button_click(t_button *self, void *params)
 
 	app = params;
 	if (self->id == 0)
-		window_resize(app->window, 960, 540);
+	{
+		app->settings.width = 960;
+		app->settings.height = 540;
+		window_resize(app->window, app->settings.width, app->settings.height);
+	}
 	else if (self->id == 1)
-		window_resize(app->window, 1280, 720);
+	{
+		app->settings.width = 1280;
+		app->settings.height = 720;
+		window_resize(app->window, app->settings.width, app->settings.height);
+	}
 	else if (self->id == 2)
-		window_resize(app->window, 1920, 1080);
+	{
+		app->settings.width = 1920;
+		app->settings.height = 1080;
+		window_resize(app->window, app->settings.width, app->settings.height);
+	}
 	else if (self->id == 3)
 	{
 		app->next_scene_id = scene_id_main_menu;

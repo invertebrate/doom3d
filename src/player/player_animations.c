@@ -6,11 +6,62 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/18 00:02:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/18 22:45:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+static t_surface	*get_1080p_animation_source(t_doom3d *app)
+{
+	if (app->player.equipped_weapon->id == weapon_shotgun)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/shotgun_anim_1080p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_glock)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/pistol_anim_1080p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/fist_anim_1080p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_rpg)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/rpg_anim_1080p.bmp"));
+	return (NULL);
+}
+
+static t_surface	*get_720p_animation_source(t_doom3d *app)
+{
+	if (app->player.equipped_weapon->id == weapon_shotgun)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/shotgun_anim_720p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_glock)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/pistol_anim_720p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/fist_anim_720p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_rpg)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/rpg_anim_720p.bmp"));
+	return (NULL);
+}
+
+static t_surface	*get_540p_animation_source(t_doom3d *app)
+{
+	if (app->player.equipped_weapon->id == weapon_shotgun)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/shotgun_anim_540p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_glock)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/pistol_anim_540p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/fist_anim_540p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_rpg)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/rpg_anim_540p.bmp"));
+	return (NULL);
+}
 
 /*
 ** This function is called in `src/render/player_hud.c` in
@@ -20,142 +71,54 @@
 
 t_surface			*get_animation_source(t_doom3d *app)
 {
-	if (app->player.equipped_weapon->id == weapon_shotgun)
-		return (hash_map_get(app->active_scene->animation_textures,
-			(int64_t)"assets/animations/shotgun_animation.bmp"));
-	else if (app->player.equipped_weapon->id == weapon_glock)
-		return (hash_map_get(app->active_scene->animation_textures,
-			(int64_t)"assets/animations/glock_shoot_animation.bmp"));
+	if (app->settings.height == 1080)
+	{
+		return (get_1080p_animation_source(app));
+	}
+	else if (app->settings.height == 720)
+	{
+		return (get_720p_animation_source(app));
+	}
+	else if (app->settings.height == 540)
+	{
+		return (get_540p_animation_source(app));
+	}
 	return (NULL);
 }
 
-/*
-** See set_glock_shoot_anim
-*/
-
-static void			set_shotgun_default_anim(t_sprite_anim *anim)
-{
-	anim->frames[0].width = 480;
-	anim->frames[0].height = 528;
-	anim->frames[0].x_offset = 0;
-	anim->frames[0].y_offset = 0;
-	anim->num_frames = 1;
-	anim->id = anim_shotgun_shoot;
-	anim->interruptable = true;
-	anim->frame_time = 100;
-}
-
-/*
-** See set_glock_shoot_anim
-*/
-
-static void			set_shotgun_reload_anim(t_sprite_anim *anim)
-{
-	anim->current_frame = 0;
-	anim->frames[0].width = 480;
-	anim->frames[1].width = 480;
-	anim->frames[2].width = 480;
-	anim->frames[0].height = 528;
-	anim->frames[1].height = 528;
-	anim->frames[2].height = 528;
-	anim->frames[0].x_offset = 480 * 4;
-	anim->frames[1].x_offset = 480 * 5;
-	anim->frames[2].x_offset = 480 * 6;
-	anim->frames[0].y_offset = 0;
-	anim->frames[1].y_offset = 0;
-	anim->frames[2].y_offset = 0;
-	anim->num_frames = 3;
-	anim->id = anim_shotgun_reload;
-	anim->interruptable = false;
-	anim->frame_time = 100;
-}
-
-/*
-** See set_glock_shoot_anim
-*/
-
-static void			set_shotgun_shoot_anim(t_sprite_anim *anim)
-{
-	anim->current_frame = 0;
-	anim->frames[0].width = 480;
-	anim->frames[1].width = 480;
-	anim->frames[2].width = 480;
-	anim->frames[3].width = 480;
-	anim->frames[0].height = 528;
-	anim->frames[1].height = 528;
-	anim->frames[2].height = 528;
-	anim->frames[3].height = 528;
-	anim->frames[0].x_offset = 0;
-	anim->frames[1].x_offset = 480 * 1;
-	anim->frames[2].x_offset = 480 * 2;
-	anim->frames[3].x_offset = 480 * 3;
-	anim->frames[0].y_offset = 0;
-	anim->frames[1].y_offset = 0;
-	anim->frames[2].y_offset = 0;
-	anim->frames[3].y_offset = 0;
-	anim->num_frames = 4;
-	anim->id = anim_shotgun_shoot;
-	anim->interruptable = false;
-	anim->frame_time = 100;
-}
-
-/*
-** See set_glock_shoot_anim
-*/
-
-static void			set_glock_default_anim(t_sprite_anim *anim)
-{
-	anim->frames[0].width = 960;
-	anim->frames[0].height = 540;
-	anim->frames[0].x_offset = 0;
-	anim->frames[0].y_offset = 0;
-	anim->num_frames = 1;
-	anim->id = anim_glock_default;
-	anim->interruptable = true;
-	anim->frame_time = 30;
-}
-
-/*
-** See set_glock_shoot_anim
-*/
-
-static void			set_glock_reload_anim(t_sprite_anim *anim)
-{
-	anim->frames[0].width = 960;
-	anim->frames[0].height = 540;
-	anim->frames[0].x_offset = 0;
-	anim->frames[0].y_offset = 0;
-	anim->num_frames = 1;
-	anim->id = anim_glock_shoot;
-	anim->interruptable = false;
-	anim->frame_time = 30;
-}
-
-/*
-** Sets the animation frame information in a loop (you need to know what
-** the source image is like (e.g. here 8640x540 (9 frames * 960, height 540)))
-** the frame information tells renderer what to display from source image
-** id = animation_id
-** interruptable = whether animation can be interrupted by another
-** frame_time = how long a single frame is shown
-*/
-
-static void			set_glock_shoot_anim(t_sprite_anim *anim)
+static void			set_anim_frame_info(t_doom3d *app,
+						t_sprite_anim *anim, int32_t index_offset,
+						int32_t num_frames)
 {
 	int32_t		i;
 
-	anim->num_frames = 9;
-	i = -1;
+	anim->num_frames = num_frames;
+	i = index_offset - 1;
 	while (++i < anim->num_frames)
 	{
-		anim->frames[i].width = 960;
-		anim->frames[i].height = 540;
-		anim->frames[i].x_offset = i * 960;
-		anim->frames[i].y_offset = 0;
+		anim->frames[i - index_offset].width = app->settings.width;
+		anim->frames[i - index_offset].height = app->settings.height;
+		anim->frames[i - index_offset].x_offset = i * app->settings.width;
+		anim->frames[i - index_offset].y_offset = 0;
 	}
-	anim->id = anim_glock_reload;
 	anim->interruptable = false;
-	anim->frame_time = 30;
+	anim->frame_time = 80;
+}
+
+static void			player_default_animations_init(t_doom3d *app)
+{
+	set_anim_frame_info(app,
+		&app->animations[anim_shotgun_default], 0, 1);
+	app->animations[anim_shotgun_default].interruptable = true;
+	set_anim_frame_info(app,
+		&app->animations[anim_glock_default], 0, 1);
+	app->animations[anim_glock_default].interruptable = true;
+	set_anim_frame_info(app,
+		&app->animations[anim_rpg_default], 0, 1);
+	app->animations[anim_rpg_default].interruptable = true;
+	set_anim_frame_info(app,
+		&app->animations[anim_fist_default], 0, 1);
+	app->animations[anim_fist_default].interruptable = true;
 }
 
 /*
@@ -164,12 +127,23 @@ static void			set_glock_shoot_anim(t_sprite_anim *anim)
 
 void	player_animations_init(t_doom3d *app)
 {
-	set_shotgun_default_anim(&app->animations[anim_shotgun_default]);
-	set_shotgun_reload_anim(&app->animations[anim_shotgun_reload]);
-	set_shotgun_shoot_anim(&app->animations[anim_shotgun_shoot]);
-	set_glock_default_anim(&app->animations[anim_glock_default]);
-	set_glock_reload_anim(&app->animations[anim_glock_reload]);
-	set_glock_shoot_anim(&app->animations[anim_glock_shoot]);
+	player_default_animations_init(app);
+	set_anim_frame_info(app,
+		&app->animations[anim_shotgun_shoot], 0, 5);
+	set_anim_frame_info(app,
+		&app->animations[anim_glock_shoot], 0, 5);
+	set_anim_frame_info(app,
+		&app->animations[anim_rpg_shoot], 0, 5);
+	set_anim_frame_info(app,
+		&app->animations[anim_fist_shoot], 0, 5);
+	set_anim_frame_info(app,
+		&app->animations[anim_shotgun_reload], 5, 8);
+	set_anim_frame_info(app,
+		&app->animations[anim_glock_reload], 5, 8);
+	set_anim_frame_info(app,
+		&app->animations[anim_rpg_reload], 5, 8);
+	set_anim_frame_info(app,
+		&app->animations[anim_fist_reload], 5, 8);
 }
 
 /*
@@ -202,6 +176,10 @@ void					set_player_shoot_frame(t_doom3d *app)
 		set_player_animation(app, anim_shotgun_shoot);
 	else if (app->player.equipped_weapon->id == weapon_glock)
 		set_player_animation(app, anim_glock_shoot);
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		set_player_animation(app, anim_fist_shoot);
+	else if (app->player.equipped_weapon->id == weapon_rpg)
+		set_player_animation(app, anim_rpg_shoot);
 }
 
 /*
@@ -215,8 +193,10 @@ void					set_player_default_frame(t_doom3d *app)
 		set_player_animation(app, anim_shotgun_default);
 	else if (app->player.equipped_weapon->id == weapon_glock)
 		set_player_animation(app, anim_glock_default);
-	else
-		set_player_animation(app, anim_none);
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		set_player_animation(app, anim_fist_default);
+	else if (app->player.equipped_weapon->id == weapon_rpg)
+		set_player_animation(app, anim_rpg_default);
 }
 
 /*
@@ -230,6 +210,10 @@ void					set_player_reload_frame(t_doom3d *app)
 		set_player_animation(app, anim_shotgun_reload);
 	else if (app->player.equipped_weapon->id == weapon_glock)
 		set_player_animation(app, anim_glock_reload);
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		set_player_animation(app, anim_fist_reload);
+	else if (app->player.equipped_weapon->id == weapon_rpg)
+		set_player_animation(app, anim_rpg_reload);
 }
 
 /*

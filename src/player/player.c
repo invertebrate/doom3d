@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/16 17:29:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/18 22:47:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,14 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 	t_vec3			origin;
 	t_vec3			add;
 	static uint32_t	prev_shot_time;
+	static uint32_t	prev_shot_weapon_id;
 
-	if (prev_shot_time != 0 && (float)(curr_time - prev_shot_time) / 1000.0 <
-		(1.0 / app->player.equipped_weapon->fire_rate))
+	if (prev_shot_weapon_id == app->player.equipped_weapon->id)
+	{
+		if (prev_shot_time != 0 && (float)(curr_time - prev_shot_time) / 1000.0 <
+			(1.0 / app->player.equipped_weapon->fire_rate))
 		return ;
+	}
 	if (app->player.equipped_weapon->ammo > 0)
 		set_player_shoot_frame(app);
 	else if (app->player.equipped_weapon->ammo == 0)
@@ -111,6 +115,7 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 		player_shoot_projectile(app, origin);
 	else if (app->player.equipped_weapon->id == weapon_shotgun)
 		shoot_shotgun(app, origin);
-	if (app->player.equipped_weapon != weapon_fist)
+	if (app->player.equipped_weapon->id != weapon_fist)
 		app->player.equipped_weapon->ammo--;
+	prev_shot_weapon_id = app->player.equipped_weapon->id;
 }

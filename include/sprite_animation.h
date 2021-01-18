@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:07:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/18 00:12:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/18 17:21:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct				s_anim_frame
 
 typedef struct				s_sprite_anim
 {
-	uint32_t				id;
 	t_anim_frame			frames[MAX_ANIMATION_FRAMES];
 	int32_t					num_frames;
 	int32_t					current_frame;
