@@ -15,7 +15,7 @@
 /*
 ** NPC type specific function, each type has their own
 */
-static void		npc_default_anim_metadata_set(t_anim_metadata *anim_data)
+void		npc_default_anim_metadata_set(t_anim_metadata *anim_data)
 {
 	anim_data->frame_count = 6;
 	anim_data->anim_count = 1;
@@ -24,39 +24,46 @@ static void		npc_default_anim_metadata_set(t_anim_metadata *anim_data)
 	anim_data->anim_frame_numbers[0] = 0;
 }
 
-void			npc_animation_init(t_doom3d *app, t_3d_object *obj)
+void			npc_animation_init(t_doom3d *app, t_npc *npc)
 {
-	t_npc			*npc;
+	ft_printf("anim_init\n");
 	t_anim_metadata	anim_data;
 
-	npc = (t_npc*)obj->params;
 	if (npc->type == npc_type_default)
 	{
 		npc_default_anim_metadata_set(&anim_data);
 	}
 		npc_animation_set(app, npc, &anim_data);
+	(void)app;
+	(void)anim_data;
+	(void)npc;
 }
 
-	if (((t_npc*)obj->params)->animation != NULL)
-		npc_animation_init(app, obj);
+/*
+** Removes the .obj from the end of the string
+*/
 
 static char			*truncate_model_file_path(const char *file_path)
 {
 	char	*path;
 	int		len;
+	int		i;
 
+	i = -1;
 	len = ft_strlen(file_path);
-	error_check(!(path = (char*)ft_calloc(sizeof(len))),
+	// ft_printf("filepath: %s  len: %d\n", file_path, len);
+	error_check(!(path = (char*)ft_calloc(sizeof(char) * len)),
 		"Failed to malloc for file path in truncate_model_file_path.");
-	while (len - 3 > 0)
+	while (i < len - 4)
 	{
-		path[len] = file_path[len];
-		len--;
+		path[i] = file_path[i];
+		i++;;
 	}
+	// ft_printf("filepath after truncation: %s\n", path);
 	return (path);
 }
 
-static t_3d_object	**npc_anim_frames_set(t_doom3d *app, t_npc *npc)
+void			npc_anim_frames_set(t_doom3d *app, t_npc *npc)//static
 {
 	int		i;
 
@@ -67,10 +74,9 @@ static t_3d_object	**npc_anim_frames_set(t_doom3d *app, t_npc *npc)
 			hash_map_get(app->active_scene->anim_frames,
 						(int64_t)npc->anim_frames_key[i]);
 	}
-	return (NULL);//figure out the return and the pointer array thingy
 }
 
-static void			npc_animation_data_copy(t_npc *npc, t_anim_metadata *anim_data)
+void			npc_animation_data_copy(t_npc *npc, t_anim_metadata *anim_data)//static
 {
 	int		i;
 
@@ -80,11 +86,13 @@ static void			npc_animation_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 	{
 		npc->animation->anim_frame_numbers[i] =
 			anim_data->anim_frame_numbers[i];
+		ft_printf("anim frame numbers: %d\n", anim_data->anim_frame_numbers[i]);
 	}
 	npc->animation->anim_count = anim_data->anim_count;
+	ft_printf("anim count: %d\n", npc->animation->anim_count);
 }
 
-static void			npc_anim_frame_keys_set(t_npc *npc)
+void			npc_anim_frame_keys_set(t_npc *npc)//static
 {
 	int		i;
 
@@ -92,32 +100,40 @@ static void			npc_anim_frame_keys_set(t_npc *npc)
 	while (++i < (int)(npc->animation->frame_count))
 	if (i < 10)
 	{
-		ft_sprintf(npc->anim_frames_key[i], "%s_00", truncate_model_file_path(npc->model_key));
-		ft_printf("anim frame key : %s\n", npc->anim_frames_key[i]);//
+		ft_sprintf(npc->anim_frames_key[i], "%s_00%d.obj", truncate_model_file_path(npc->model_key), i);
+		// ft_printf("anim frame key : %s\n", npc->anim_frames_key[i]);//
 	}
 	else if (i < 100)
 	{
-		ft_sprintf(npc->anim_frames_key[i], "%s_0", truncate_model_file_path(npc->model_key));
-		ft_printf("anim frame key : %s\n", npc->anim_frames_key[i]);//
+		ft_sprintf(npc->anim_frames_key[i], "%s_0%d.obj", truncate_model_file_path(npc->model_key), i);
+		// ft_printf("anim frame key : %s\n", npc->anim_frames_key[i]);//
 	}
 }
 
 void				npc_animation_set(t_doom3d *app, t_npc *npc,
 								t_anim_metadata *anim_data)
 {
-	if (npc->animation != NULL)
-	{
-		free(npc->animation);
-		npc->animation = NULL;
-	}
+	int		i;
+
+	i = -1;
 	error_check(!(npc->animation = (t_animation*)ft_calloc(sizeof(t_animation))),
 		"Failed to malloc for npc animation in npc_animation_set.");
+	npc_animation_data_copy(npc, anim_data);
+	ft_printf("framecount in malloc: %d\n", npc->animation->frame_count);
 	error_check(!(npc->anim_frames_key =
 		(char**)ft_calloc(sizeof(char*) * npc->animation->frame_count)),
-		"Failed to malloc for npc animation in npc_animation_set.");
-	npc_animation_data_copy(npc, anim_data);
+		"Failed to malloc for npc animation frames key array in npc_animation_set.");
+	error_check(!(npc->animation->animation_frames =
+		(t_3d_object**)ft_calloc(sizeof(t_3d_object*) * npc->animation->frame_count)),
+		"Failed to malloc for npc animation frames array npc_animation_set.");
+	while (++i < (int)npc->animation->frame_count)
+	{ 
+		error_check(!(npc->anim_frames_key[i] =
+		(char*)ft_calloc(sizeof(char) * (ft_strlen(npc->model_key) + 5))),
+		"Failed to malloc for npc animation frames key in npc_animation_set.");
+	}
 	npc->animation->base_object = hash_map_get(app->active_scene->models,
 												(int64_t)npc->model_key);
 	npc_anim_frame_keys_set(npc);
-	npc->animation->animation_frames = npc_anim_frames_set(app, npc);
+	npc_anim_frames_set(app, npc);
 }

@@ -76,14 +76,16 @@ float			pitch_from_rotation_matrix(t_mat4 rotation)
 static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 {
 	t_npc	npc;
-
+	ft_printf("set obj param by type\n");
 	if (obj->type == object_type_npc)
 	{
 		if (obj->params_type == npc_type_default)
 		{
+			ft_printf("npc default set param\n");
 			npc_default(app, &npc);
-			if (((t_npc*)obj->params)->animation != NULL)
-				npc_animation_init(app, obj);
+			ft_printf("animation init\n");
+			npc_animation_init(app, &npc);
+			ft_printf("animation init finished\n");
 		}
 		else
 			return ;
