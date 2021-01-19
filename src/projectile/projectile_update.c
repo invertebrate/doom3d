@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/19 17:03:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 17:31:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,18 @@
 static void		projectile_explode_effect(t_doom3d *app,
 					t_3d_object *projectile_obj)
 {
-	(void)app;
-	(void)projectile_obj;	
+	t_3d_object 	*explosion_effect;
+	t_projectile	*projectile;
+	t_3d_object		*model;
+
+	projectile = projectile_obj->params;
+	model = l3d_plane_create(NULL, NULL);
+	explosion_effect = place_procedural_temp_object(app, model,
+		(const char*[2]){"assets/textures/explosion.bmp", NULL
+	}, projectile_obj->position, 150);
+	if (explosion_effect)
+		l3d_3d_object_rotate(explosion_effect, projectile->euler_angles[0],
+			projectile->euler_angles[1], projectile->euler_angles[2]);
 }
 
 static void		projectile_on_hit(t_doom3d *app,

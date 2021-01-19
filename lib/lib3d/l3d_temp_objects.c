@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:25:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 16:43:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 17:19:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,13 @@ void				l3d_temp_objects_destroy(t_temp_objects **temp_objects)
 }
 
 void				l3d_temp_objects_add(t_temp_objects **temp_objects,
-						t_3d_object *object, uint32_t creation_time,
-						uint32_t lifetime)
+						t_3d_object *object, int32_t lifetime)
 {
 	t_temp_object	*tmp_obj;
 
 	error_check(!(tmp_obj = ft_calloc(sizeof(*tmp_obj))),
 		"Failed to malloc temp object");
 	tmp_obj->obj = object;
-	tmp_obj->creation_time = creation_time;
 	tmp_obj->lifetime = lifetime;
 	if (*temp_objects == NULL)
 		*temp_objects = ft_lstnew(tmp_obj, sizeof(*tmp_obj));
