@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/12 22:44:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 15:58:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_scene			*scene_new(t_scene_id scene_id)
 	scene->last_object_index = -1;
 	scene->scene_id = scene_id;
 	scene->triangle_ref = NULL;
+	scene->temp_objects = NULL;
 	return (scene);
 }
 
