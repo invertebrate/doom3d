@@ -6,11 +6,18 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/19 16:33:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 16:35:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+static void		projectile_explode_effect(t_doom3d *app,
+					t_3d_object *projectile_obj)
+{
+	(void)app;
+	(void)projectile_obj;	
+}
 
 static void		projectile_on_hit(t_doom3d *app,
 					t_3d_object *projectile_obj, t_3d_object *hit_obj,
@@ -67,7 +74,7 @@ static void		projectile_handle_collision(t_doom3d *app,
 				obj->type != object_type_trigger)
 			if (l3d_aabb_collides(&obj->aabb, &projectile_obj->aabb))
 			{
-				projectile_explode(app, projectile_obj);
+				projectile_explode_effect(app, projectile_obj);
 				object_set_for_deletion(app, projectile_obj);
 				projectile_on_hit(app, projectile_obj, obj, NULL);
 				return ;
@@ -75,7 +82,7 @@ static void		projectile_handle_collision(t_doom3d *app,
 	}
 	if (l3d_aabb_collides(&app->player.aabb, &projectile_obj->aabb))
 	{
-		projectile_explode(app, projectile_obj);
+		projectile_explode_effect(app, projectile_obj);
 		object_set_for_deletion(app, projectile_obj);
 		projectile_on_hit(app, projectile_obj, NULL, &app->player);
 	}
