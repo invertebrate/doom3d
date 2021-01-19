@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:25:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 17:19:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 18:02:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,32 @@ void				l3d_temp_objects_destroy_if_expired(
 {
 	t_temp_objects	*curr;
 	t_temp_objects	*prev;
+	t_temp_objects	*tmp;
 	t_temp_object	*temp_obj;
 
 	curr = *temp_objects;
 	prev = NULL;
-	if (!curr)
-		return ;
 	while (curr)
 	{
 		temp_obj = curr->content;
 		if (temp_obj->lifetime <= 0)
 		{
 			if (prev)
+			{
 				prev->next = curr->next;
-			prev = curr;
-			curr = curr->next;
-			free(temp_obj);
-			free(curr);
-			curr = NULL;
+				tmp = curr;
+				curr = curr->next;
+				free(tmp);
+				tmp = NULL;
+			}
+			else
+			{
+				curr = curr->next;
+				free(*temp_objects);
+				*temp_objects = NULL;
+				*temp_objects = curr;
+			}
+			l3d_destroy_temp_object(temp_obj, 0);
 		}
 		else
 		{
