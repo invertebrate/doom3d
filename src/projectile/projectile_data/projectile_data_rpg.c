@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 13:17:24 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/19 16:23:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 16:30:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_projectile	projectile_data_rpg(t_doom3d *app)
 
 	projectile.type = projectile_type_rpg;
 	projectile.damage = 100;
-	projectile.speed = app->unit_size / 2;
+	projectile.speed = 5.0;
 	projectile.range = 100 * app->unit_size;
 	projectile.traveled = 0;
 	projectile.radius = 10 * app->unit_size;

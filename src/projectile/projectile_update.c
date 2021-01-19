@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/19 16:24:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 16:33:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,19 @@ static void		projectile_handle_collision(t_doom3d *app,
 void			projectile_update(t_doom3d *app, t_3d_object *projectile_obj)
 {
 	t_projectile	*projectile;
-	t_vec3			pos_new;
+	t_vec3			add;
+	t_vec3			new_pos;
 
 	projectile = projectile_obj->params;
-	ml_vector3_add(projectile_obj->position, projectile->dir, pos_new);
-	ml_vector3_copy(pos_new, projectile_obj->position);
-	l3d_3d_object_translate(projectile_obj, projectile->dir[0], projectile->dir[1], projectile->dir[2]);
-	projectile->traveled += projectile->speed;
-	projectile_handle_collision(app, projectile_obj);
+	ml_vector3_mul(projectile->dir,
+		projectile->speed * app->info.delta_time * CONST_SPEED, add);
+	ml_vector3_add(projectile_obj->position, add, new_pos);
+	l3d_3d_object_translate(projectile_obj, new_pos[0], new_pos[1], new_pos[2]);
+	projectile->traveled += ml_vector3_mag(add);
 	if (projectile_obj && projectile->traveled > projectile->range)
 	{
 		object_set_for_deletion(app, projectile_obj);
-		ft_printf("Deleted projectile! \n"); //test
+		return ;
 	}
+	projectile_handle_collision(app, projectile_obj);
 }

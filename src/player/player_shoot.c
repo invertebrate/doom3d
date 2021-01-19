@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/16 18:14:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 16:31:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void		place_projectile_object_in_scene(t_doom3d *app,
 		app->active_scene->objects[app->active_scene->last_object_index]->id); //test
 }
 
-void	player_shoot_projectile(t_doom3d *app, t_vec3 origin)
+void			player_shoot_projectile(t_doom3d *app, t_vec3 origin)
 {
 	t_projectile	projectile;
 	t_vec3			rot;
@@ -72,6 +72,6 @@ void	player_shoot_projectile(t_doom3d *app, t_vec3 origin)
 	rot[0] = app->player.rot_x + 90;
 	rot[1] = -app->player.rot_y;
 	rot[2] = 90;
-	ml_vector3_mul(projectile.dir, projectile.speed, projectile.dir);
+	ml_vector3_copy(rot, projectile.euler_angles);
 	place_projectile_object_in_scene(app, &projectile, origin, rot);
 }
