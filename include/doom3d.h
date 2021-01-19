@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/18 22:11:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 16:55:45 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,5 +370,10 @@ void						set_player_shoot_frame(t_doom3d *app);
 void						set_player_reload_frame(t_doom3d *app);
 void						set_player_default_frame(t_doom3d *app);
 t_surface					*get_animation_source(t_doom3d *app);
+
+/*
+** Player HUD
+*/
+void						player_vitals_render(t_doom3d *app);
 
 #endif
