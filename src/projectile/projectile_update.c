@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/19 16:21:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 16:24:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,10 @@ static void		projectile_handle_collision(t_doom3d *app,
 		if (!obj)
 			continue ;
 		ml_vector3_sub(obj->position, projectile_obj->position, dist);
-		if (ml_vector3_mag(dist) < 10 * app->unit_size
-				&& obj->type != object_type_projectile
-				&& obj->type != object_type_trigger)
+		if (ml_vector3_mag(dist) <
+				((t_projectile*)projectile_obj->params)->radius &&
+				obj->type != object_type_projectile &&
+				obj->type != object_type_trigger)
 			if (l3d_aabb_collides(&obj->aabb, &projectile_obj->aabb))
 			{
 				projectile_explode(app, projectile_obj);
