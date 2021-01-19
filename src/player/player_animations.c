@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_animations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 08:02:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 14:20:30 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void			set_anim_frame_info(t_doom3d *app,
 		anim->frames[i - index_offset].y_offset = 0;
 	}
 	anim->interruptable = false;
-	anim->frame_time = 80;
+	anim->frame_time = 40;
 }
 
 static void			player_default_animations_init(t_doom3d *app)
