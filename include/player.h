@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/18 22:10:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 08:03:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define NUM_PLAYER_ANIMATIONS 16
 # define PLAYER_SPEED 6.0
 # define PLAYER_ROTATION_SPEED 0.2
+# define ANIMATION_SCALE 2
 
 #include "lib3d.h"
 #include "game_objects.h"

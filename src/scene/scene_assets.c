@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/18 22:53:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 08:04:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void		scene_set_skybox_textures(t_scene *scene)
 static void		assets_load(t_scene *scene, t_asset_files *data)
 {
 	int32_t		i;
+	t_surface	*animation_source;
+	t_surface	*scaled_anim_source;
 
 	scene->models = hash_map_create(MAX_ASSETS);
 	scene->textures = hash_map_create(MAX_ASSETS);
@@ -60,10 +62,18 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 				scene->asset_files.normal_map_files[i]));
 	i = -1;
 	while (++i < (int32_t)data->num_animations)
+	{
+		animation_source = l3d_read_bmp_32bit_rgba_surface(
+				scene->asset_files.animation_files[i]);
+		scaled_anim_source = l3d_image_scaled(animation_source,
+			animation_source->w * ANIMATION_SCALE, animation_source->h *
+				ANIMATION_SCALE);
+		free(animation_source->pixels);
+		free(animation_source);
 		hash_map_add(scene->animation_textures,
 			(int64_t)scene->asset_files.animation_files[i],
-			l3d_read_bmp_32bit_rgba_surface(
-				scene->asset_files.animation_files[i]));
+			scaled_anim_source);
+	}
 	scene_set_skybox_textures(scene);
 }
 
