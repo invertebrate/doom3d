@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 18:09:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 21:20:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,13 @@ static void		scene_texture_files_set(t_asset_files *data)
 	data->texture_files[data->num_textures++] =
 		"assets/textures/shotgun_texture.bmp";
 	data->texture_files[data->num_textures++] =
-		"assets/textures/explosion.bmp";
+		"assets/textures/explosion1.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/explosion2.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/explosion3.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/explosion4.bmp";
 }
 
 static void		scene_normal_files_set(t_asset_files *data)

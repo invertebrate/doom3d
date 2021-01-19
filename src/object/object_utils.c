@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 17:54:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 21:37:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void			place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 */
 
 t_3d_object			*place_temp_object(t_doom3d *app, const char *filenames[3],
-						t_vec3 pos, int32_t lifetime)
+						t_vec3 pos, int32_t lifetime_and_delay[2])
 {
 	t_3d_object	*obj;
 	t_3d_object	*model;
@@ -179,7 +179,8 @@ t_3d_object			*place_temp_object(t_doom3d *app, const char *filenames[3],
 		hash_map_add(app->active_scene->object_normal_maps,
 			obj->id, (void*)filenames[2]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
-	l3d_temp_objects_add(&app->active_scene->temp_objects, obj, lifetime);
+	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
+		lifetime_and_delay);
 	return (obj);
 }
 
@@ -190,7 +191,7 @@ t_3d_object			*place_temp_object(t_doom3d *app, const char *filenames[3],
 t_3d_object			*place_procedural_temp_object(t_doom3d *app,
 						t_3d_object *model,
 						const char *filenames[2],
-						t_vec3 pos, int32_t lifetime)
+						t_vec3 pos, int32_t lifetime_and_delay[2])
 {
 	t_3d_object	*obj;
 	t_surface	*texture;
@@ -214,7 +215,7 @@ t_3d_object			*place_procedural_temp_object(t_doom3d *app,
 		hash_map_add(app->active_scene->object_normal_maps,
 			obj->id, (void*)filenames[1]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
-	l3d_temp_objects_add(&app->active_scene->temp_objects, obj, lifetime);
+	l3d_temp_objects_add(&app->active_scene->temp_objects, obj, lifetime_and_delay);
 	return (obj);
 }
 

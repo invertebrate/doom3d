@@ -6,33 +6,53 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/19 18:28:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 21:48:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
+static void		transform_explosion_plane(t_projectile *projectile,
+					t_3d_object *explosion_effect)
+{
+	float			scale;
+
+	scale = projectile->radius /
+		(ml_vector3_mag(explosion_effect->aabb.size) * 2.0);
+	l3d_3d_object_scale(explosion_effect, scale, scale, scale);
+	l3d_3d_object_rotate(explosion_effect, projectile->euler_angles[0] - 90,
+		projectile->euler_angles[1], projectile->euler_angles[2]);
+}
+
 static void		projectile_explode_effect(t_doom3d *app,
 					t_3d_object *projectile_obj)
 {
-	t_3d_object 	*explosion_effect;
-	t_projectile	*projectile;
+	t_3d_object 	*explosions[4];
 	t_3d_object		*model;
-	float			scale;
+	int32_t			i;
 
-	projectile = projectile_obj->params;
 	model = l3d_plane_create(NULL, NULL);
-	explosion_effect = place_procedural_temp_object(app, model,
-		(const char*[2]){"assets/textures/explosion.bmp", NULL
-	}, projectile_obj->position, 150);
-	explosion_effect->material->shading_opts = e_shading_zero_alpha;
-	if (explosion_effect)
+	explosions[0] = place_procedural_temp_object(app, model,
+		(const char*[2]){"assets/textures/explosion1.bmp", NULL
+	}, projectile_obj->position, (int32_t[2]){50, 0});
+	explosions[1] = place_procedural_temp_object(app, model,
+		(const char*[2]){"assets/textures/explosion2.bmp", NULL
+	}, projectile_obj->position, (int32_t[2]){50, 50});
+	explosions[2] = place_procedural_temp_object(app, model,
+		(const char*[2]){"assets/textures/explosion3.bmp", NULL
+	}, projectile_obj->position, (int32_t[2]){50, 100});
+	explosions[3] = place_procedural_temp_object(app, model,
+		(const char*[2]){"assets/textures/explosion4.bmp", NULL
+	}, projectile_obj->position, (int32_t[2]){50, 150});
+	i = -1;
+	while (++i < 4)
 	{
-		scale = projectile->radius /
-			(ml_vector3_mag(explosion_effect->aabb.size) * 2.0);
-		l3d_3d_object_scale(explosion_effect, scale, scale, scale);
-		l3d_3d_object_rotate(explosion_effect, projectile->euler_angles[0] - 90,
-			projectile->euler_angles[1], projectile->euler_angles[2]);
+		if (explosions[i])
+		{
+			explosions[i]->material->shading_opts |= e_shading_zero_alpha;
+			transform_explosion_plane(projectile_obj->params,
+				explosions[i]);
+		}
 	}
 }
 

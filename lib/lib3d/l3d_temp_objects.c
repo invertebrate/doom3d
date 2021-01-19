@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:25:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 18:02:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 21:47:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,26 @@ void				l3d_temp_objects_destroy(t_temp_objects **temp_objects)
 }
 
 void				l3d_temp_objects_add(t_temp_objects **temp_objects,
-						t_3d_object *object, int32_t lifetime)
+						t_3d_object *object, int32_t lifetime_and_delay[2])
 {
 	t_temp_object	*tmp_obj;
 
 	error_check(!(tmp_obj = ft_calloc(sizeof(*tmp_obj))),
 		"Failed to malloc temp object");
 	tmp_obj->obj = object;
-	tmp_obj->lifetime = lifetime;
+	tmp_obj->lifetime = lifetime_and_delay[0];
+	tmp_obj->delay = lifetime_and_delay[1];
+	tmp_obj->obj->material->shading_opts |= e_shading_invisible;
 	if (*temp_objects == NULL)
 		*temp_objects = ft_lstnew(tmp_obj, sizeof(*tmp_obj));
 	else
 		ft_lstadd(temp_objects, ft_lstnew(tmp_obj, sizeof(*tmp_obj)));
 }
+
+/*
+** While delay is left, temp object is invisible. Once delay runs out,
+** temp object becomes visible.
+*/
 
 void				l3d_temp_objects_update_time(t_temp_objects **temp_objects,
 						uint32_t delta_time)
@@ -99,7 +106,15 @@ void				l3d_temp_objects_update_time(t_temp_objects **temp_objects,
 	while (curr)
 	{
 		temp_obj = curr->content;
-		temp_obj->lifetime -= (int32_t)delta_time;
+		if (temp_obj->delay >= 0)
+			temp_obj->delay -= (int32_t)delta_time;
+		else
+		{
+			temp_obj->obj->material->shading_opts =
+				(temp_obj->obj->material->shading_opts &
+				~e_shading_invisible);
+			temp_obj->lifetime -= (int32_t)delta_time;
+		}
 		curr = curr->next;
 	}
 }
