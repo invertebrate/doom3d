@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 20:27:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 18:19:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,40 @@ static t_bool	object_too_far(t_doom3d *app, t_3d_object *obj)
 	if (ml_vector3_mag(player_to_obj) > too_far)
 		return (true);
 	return (false);
+}
+
+static void		add_temp_object_render_triangles(t_doom3d *app,
+					t_tri_vec *render_triangles)
+{
+	t_temp_object 			*tmp;
+	t_temp_objects			*node;
+	t_triangle				*triangle;
+	t_triangle				r_triangle;
+	t_vertex				vtc[3];
+	int32_t					i;
+	
+	node = app->active_scene->temp_objects;
+	while (node)
+	{
+		tmp = node->content;
+		if (!object_too_far(app, tmp->obj) &&
+			object_inside_viewbox(app, tmp->obj))
+		{
+			i = -1;
+			while (++i < tmp->obj->num_triangles)
+			{
+				triangle = tmp->obj->triangles + i;
+				if (triangle_too_far(app, triangle) ||
+					!triangle_inside_viewbox(app, triangle))
+					continue ;
+				prepare_render_triangle(app, &r_triangle, triangle, vtc);
+				if (is_rendered(app, &r_triangle))
+					clip_and_add_to_render_triangles(app,
+						render_triangles, &r_triangle);
+			}
+		}
+		node = node->next;
+	}
 }
 
 /*
@@ -60,6 +94,7 @@ static void		add_objects_render_triangles(t_doom3d *app,
 					render_triangles, &r_triangle);
 		}
 	}
+	add_temp_object_render_triangles(app, render_triangles);
 }
 
 static void		add_skybox_render_triangles(t_doom3d *app,
