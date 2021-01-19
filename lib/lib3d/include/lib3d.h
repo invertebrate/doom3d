@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/17 23:06:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 15:57:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,7 @@ typedef struct				s_kd_tree
 typedef struct				s_temp_object
 {
 	uint32_t				creation_time;
+	int32_t					lifetime;
 	t_3d_object				*obj;
 }							t_temp_object;
 
@@ -547,12 +548,13 @@ t_3d_object					*l3d_plane_create(t_surface	*texture,
 t_3d_object					*l3d_object_instantiate(t_3d_object *model,
 								float unit_size);
 void						l3d_temp_objects_add(t_temp_objects **temp_objects,
-								t_3d_object *object, uint32_t creation_time);
+								t_3d_object *object, uint32_t creation_time,
+								uint32_t lifetime);
 void						l3d_temp_objects_destroy(
 								t_temp_objects **temp_objects);
 void						l3d_temp_objects_destroy_if_expired(
-								t_temp_objects **temp_objects,
-								uint32_t current_time,
-								uint32_t diff_limit);
+								t_temp_objects **temp_objects);
+void						l3d_temp_objects_update_time(t_temp_objects **temp_objects,
+								uint32_t delta_time);
 
 #endif
