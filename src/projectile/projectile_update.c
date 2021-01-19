@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/19 21:48:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 22:01:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void		transform_explosion_plane(t_projectile *projectile,
 {
 	float			scale;
 
+	if (!explosion_effect)
+		return ;
 	scale = projectile->radius /
 		(ml_vector3_mag(explosion_effect->aabb.size) * 2.0);
 	l3d_3d_object_scale(explosion_effect, scale, scale, scale);
@@ -46,14 +48,8 @@ static void		projectile_explode_effect(t_doom3d *app,
 	}, projectile_obj->position, (int32_t[2]){50, 150});
 	i = -1;
 	while (++i < 4)
-	{
-		if (explosions[i])
-		{
-			explosions[i]->material->shading_opts |= e_shading_zero_alpha;
-			transform_explosion_plane(projectile_obj->params,
-				explosions[i]);
-		}
-	}
+		transform_explosion_plane(projectile_obj->params,
+			explosions[i]);
 }
 
 static void		projectile_on_hit(t_doom3d *app,
