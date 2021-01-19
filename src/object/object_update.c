@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/18 22:17:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 16:40:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,8 @@ void			doom3d_update_objects(t_doom3d *app)
 			continue ;
 		update_object_by_type(app, obj, is_npc_update);
 	}
+	l3d_temp_objects_update_time(&app->active_scene->temp_objects,
+		app->info.delta_time);
+	l3d_temp_objects_destroy_if_expired(&app->active_scene->temp_objects);
 	active_scene_update_after_objects(app->active_scene);
 }

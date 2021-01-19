@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:25:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 15:57:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 16:43:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ void				l3d_temp_objects_destroy_if_expired(
 
 void				l3d_temp_objects_destroy(t_temp_objects **temp_objects)
 {
-	ft_lstdel(temp_objects, l3d_destroy_temp_object);
-	temp_objects = NULL;
+	if (*temp_objects)
+	{
+		ft_lstdel(temp_objects, l3d_destroy_temp_object);
+		*temp_objects = NULL;
+	}
 }
 
 void				l3d_temp_objects_add(t_temp_objects **temp_objects,
