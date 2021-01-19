@@ -94,7 +94,8 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 	}
 }
 
-
+//TODO! test animation frame models in game
+// implement animation controller
 
 static int32_t	read_objects(t_doom3d *app, char *contents)
 {

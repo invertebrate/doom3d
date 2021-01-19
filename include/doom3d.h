@@ -44,7 +44,7 @@
 # define Y_DIR -1
 # define Z_DIR 1
 
-# define NPC_DEFAULT_MODEL "assets/models/box.obj"
+# define NPC_DEFAULT_MODEL "assets/models/run_frame.obj"
 # define NPC_DEFAULT_TEXTURE "assets/textures/rock.bmp"
 # define NPC_DEFAULT_NORMM "assets/textures/rock.bmp"
 

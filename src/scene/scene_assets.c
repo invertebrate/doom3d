@@ -137,7 +137,7 @@ static void		scene_model_files_set(t_asset_files *data)
 		"assets/models/run_frame.obj";
 }
 
-static void		animation_frames_set(t_asset_files *data, char* file_path, uint32_t framecount)
+static void		scene_animation_frames_set(t_asset_files *data, char* file_path, uint32_t framecount)
 {
 	int		i;
 	char	*frame_path;
@@ -165,7 +165,7 @@ static void		animation_frames_set(t_asset_files *data, char* file_path, uint32_t
 
 static void		scene_animation_files_set(t_asset_files *data)
 {
-	animation_frames_set(data, "assets/models/run_frame", 6);
+	scene_animation_frames_set(data, "assets/models/run_frame", 6);
 }
 
 /*

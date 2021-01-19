@@ -34,9 +34,6 @@ void			npc_animation_init(t_doom3d *app, t_npc *npc)
 		npc_default_anim_metadata_set(&anim_data);
 	}
 		npc_animation_set(app, npc, &anim_data);
-	(void)app;
-	(void)anim_data;
-	(void)npc;
 }
 
 /*
