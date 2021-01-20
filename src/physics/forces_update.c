@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/18 22:33:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 15:36:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 void		forces_update_player(t_doom3d *app)
 {
-	player_move(app, move_upwards, app->player.velocity[1]);
+	t_vec3	dir;
+
 	if (app->player.flying == true || player_is_grounded(app))
 		app->player.velocity[1] = 0;
 	else
-		app->player.velocity[1] -= app->info.delta_time * CONST_SPEED;
+		app->player.velocity[1] += app->info.delta_time * CONST_SPEED;
+	get_move_dir(app, move_upwards, dir);
+	player_move(app, dir);
 }
 
 void		forces_update_object(t_doom3d *app, t_3d_object *target)

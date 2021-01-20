@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 07:43:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 15:35:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,46 @@ void			player_rotate_horizontal(t_doom3d *app, float angle)
 	player_rotate(app);
 }
 
-void			player_move(t_doom3d *app, t_move dir, float speed)
+void			get_move_dir(t_doom3d *app, t_move dir_option, t_vec3 dir)
 {
-	t_vec3		add;
 	t_vec3		forward;
 	t_vec3		sideways;
 	t_mat4		rotation_x;
 
-	app->player.is_moving = true;
 	ml_matrix4_rotation_y(ml_rad(app->player.rot_x), rotation_x);
 	ml_matrix4_mul_vec3(rotation_x, (t_vec3){0, 0, Z_DIR}, forward);
 	ml_matrix4_mul_vec3(rotation_x, (t_vec3){X_DIR, 0, 0}, sideways);
-	if (dir == move_forward)
-		ml_vector3_mul(forward, speed, add);
-	else if (dir == move_backward)
-		ml_vector3_mul(forward, -speed, add);
-	else if (dir == move_strafe_left)
-		ml_vector3_mul(sideways, -speed, add);
-	else if (dir == move_strafe_right)
-		ml_vector3_mul(sideways, speed, add);
-	else if (dir == move_upwards)
-		ml_vector3_mul((t_vec3){0, Y_DIR, 0}, speed, add);
+	if (dir_option == move_forward)
+		ml_vector3_mul(forward, 1, dir);
+	else if (dir_option == move_backward)
+		ml_vector3_mul(forward, -1, dir);
+	else if (dir_option == move_strafe_left)
+		ml_vector3_mul(sideways, -1, dir);
+	else if (dir_option == move_strafe_right)
+		ml_vector3_mul(sideways, 1, dir);
+	else if (dir_option == move_upwards)
+		ml_vector3_mul((t_vec3){0, Y_DIR, 0}, 1, dir);
+}
+
+void			player_move(t_doom3d *app, t_vec3 dir)
+{
+	t_vec3		add;
+	float		speed;
+
+	app->player.is_moving = true;
+	speed = (app->player.is_running ? app->player.speed * 1.5 :
+		app->player.speed) * app->info.delta_time;
+	ml_vector3_mul(dir, speed, add);
+	ml_vector3_add(app->player.velocity, add, add);
 	// collision_limit_player(app, add);
 	ml_vector3_add(app->player.pos, add, app->player.pos);
 	ml_matrix4_translation(app->player.pos[0],
 		app->player.pos[1], app->player.pos[2], app->player.translation);
 	ml_matrix4_inverse(app->player.translation, app->player.inv_translation);
 	player_update_aabb(&app->player);
+	ml_vector3_copy((t_vec3){app->player.velocity[0] / 2.0,
+		app->player.velocity[1], app->player.velocity[2] / 2.0},
+		app->player.velocity);
 }
 
 void			editor_vertical_move(t_doom3d *app, float speed)
