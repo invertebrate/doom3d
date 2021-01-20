@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:25:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 14:16:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 14:18:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,19 @@ void				l3d_temp_objects_destroy(t_temp_objects **temp_objects)
 void				l3d_temp_objects_add(t_temp_objects **temp_objects,
 						t_3d_object *object, int32_t lifetime_and_delay[2])
 {
-	t_temp_object	tmp_obj;
+	t_temp_object	*tmp_obj;
 
-	tmp_obj.obj = object;
-	tmp_obj.lifetime = lifetime_and_delay[0];
-	tmp_obj.delay = lifetime_and_delay[1];
-	tmp_obj.obj->material->shading_opts |=
+	error_check(!(tmp_obj = ft_calloc(sizeof(*tmp_obj))),
+		"Failed to malloc temp object");
+	tmp_obj->obj = object;
+	tmp_obj->lifetime = lifetime_and_delay[0];
+	tmp_obj->delay = lifetime_and_delay[1];
+	tmp_obj->obj->material->shading_opts |=
 		e_shading_invisible | e_shading_zero_alpha;
 	if (*temp_objects == NULL)
-		*temp_objects = ft_lstnew(&tmp_obj, sizeof(tmp_obj));
+		*temp_objects = ft_lstnew(tmp_obj, sizeof(*tmp_obj));
 	else
-		ft_lstadd(temp_objects, ft_lstnew(&tmp_obj, sizeof(tmp_obj)));
+		ft_lstadd(temp_objects, ft_lstnew(tmp_obj, sizeof(*tmp_obj)));
 }
 
 /*

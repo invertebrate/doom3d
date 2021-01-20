@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 21:37:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 14:30:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,11 +147,10 @@ void						player_apply_gravity(t_doom3d *app);
 void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						editor_vertical_move(t_doom3d *app, float speed);
-void						player_shoot_projectile(t_doom3d *app, t_vec3 origin);
-void						player_shoot_ray(t_doom3d *app,
-								t_vec3 origin, t_vec3 dir);
 void						player_onhit(t_doom3d *app, int damage);
 void						player_jump(t_doom3d *app);
+void						player_shoot(t_doom3d *app,
+								uint32_t curr_time);
 
 /*
 ** Player items
@@ -205,8 +204,6 @@ void						forces_update_player(t_doom3d *app);
 */
 void						doom3d_events_handle(t_doom3d *app);
 void						mouse_state_handle(t_doom3d *app);
-void						player_shoot(t_doom3d *app,
-								uint32_t curr_time);
 void						keyboard_state_handle(t_doom3d *app);
 void						general_input_events_handle(t_doom3d *app,
 								SDL_Event event);
