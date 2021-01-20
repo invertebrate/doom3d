@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/20 21:07:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 21:12:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void		forces_update_player(t_doom3d *app)
 		app->player.is_falling = true;
 		app->player.is_jumping = false;
 	}
-	if (app->player.is_falling || app->player.is_jumping)
+	if ((app->player.is_falling || app->player.is_jumping) &&
+		app->player.velocity[1] < PLAYER_MAX_SPEED)
 		app->player.velocity[1] += 0.2;
 	if (!app->player.is_grounded &&
 		app->active_scene->scene_id != scene_id_editor3d)
@@ -68,13 +69,16 @@ static void	forces_update_npc(t_doom3d *app, t_3d_object *npc_object)
 	}
 	else if (!npc->is_jumping && !npc->is_falling &&
 		!obj_is_grounded(app, npc_object))
+	{
 		npc->is_falling = true;
+	}
 	if (npc->is_jumping && npc->velocity[1] >= 0.0)
 	{
 		npc->is_falling = true;
 		npc->is_jumping = false;
 	}
-	if (npc->is_falling || npc->is_jumping)
+	if ((npc->is_falling || npc->is_jumping) &&
+		app->player.velocity[1] < PLAYER_MAX_SPEED)
 		npc->velocity[1] += 0.2;
 	if (!npc->is_grounded)
 		deceleration = 1.005;

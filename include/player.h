@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 20:48:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 21:12:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define NUM_PROJECTILES 4
 # define NUM_PLAYER_ANIMATIONS 16
 # define PLAYER_SPEED 8.0
+# define PLAYER_MAX_SPEED 14.00
 # define PLAYER_ROTATION_SPEED 0.2
 # define ANIMATION_SCALE 2
 # define PLAYER_JUMP_FORCE 8.0
