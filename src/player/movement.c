@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 17:32:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 17:44:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void			player_move(t_doom3d *app)
 {
 	t_vec3		add;
 	float		speed;
-	float		deceleration;
 
 	app->player.is_moving = true;
 	speed = (app->player.is_running && !app->player.is_jumping ?
@@ -84,14 +83,6 @@ void			player_move(t_doom3d *app)
 	ml_matrix4_translation(app->player.pos[0],
 		app->player.pos[1], app->player.pos[2], app->player.translation);
 	ml_matrix4_inverse(app->player.translation, app->player.inv_translation);
-	if (!app->player.is_grounded)
-		deceleration = 1.005;
-	else
-		deceleration = 1.2;
-	ml_vector3_copy((t_vec3){app->player.velocity[0] / deceleration,
-		app->player.velocity[1], app->player.velocity[2] / deceleration},
-		app->player.velocity);
-	ml_vector3_print(app->player.pos);
 }
 
 void			editor_vertical_move(t_doom3d *app, float speed)

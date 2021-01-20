@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 17:34:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 17:46:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	ml_matrix4_id(app->player.inv_translation);
 	player_move(app);
 	player_update_aabb(&app->player);
+	SDL_GetRelativeMouseState(NULL, NULL);
 }
 
 void			doom3d_player_update(t_doom3d *app)

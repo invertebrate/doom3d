@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/20 17:42:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 17:45:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void		forces_update_player(t_doom3d *app)
 {
+	float		deceleration;
+
 	// When player falls, check groundedness only then
 	if (app->player.is_falling && player_is_grounded(app))
 	{
@@ -51,6 +53,13 @@ void		forces_update_player(t_doom3d *app)
 		app->player.jump_force /= CONST_GRAVITY;
 		app->player.velocity[1] = -app->player.jump_force;
 	}
+	if (!app->player.is_grounded)
+		deceleration = 1.005;
+	else
+		deceleration = 1.2;
+	ml_vector3_copy((t_vec3){app->player.velocity[0] / deceleration,
+		app->player.velocity[1], app->player.velocity[2] / deceleration},
+		app->player.velocity);
 }
 
 void		forces_update_object(t_doom3d *app, t_3d_object *target)
