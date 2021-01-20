@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 18:47:01 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/20 17:29:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 20:47:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ void	player_jump(t_doom3d *app)
 		app->player.is_grounded = false;
 		app->player.is_jumping = true;
 		app->player.is_falling = false;
-		app->player.jump_force = PLAYER_JUMP_FORCE * 1.5;
+		app->player.velocity[1] -= PLAYER_JUMP_FORCE * 1.5;
 	}
 }
