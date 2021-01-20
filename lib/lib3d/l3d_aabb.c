@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 14:53:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 12:35:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_hit				*l3d_get_aabb_hit_record(t_box3d *origin, t_box3d *target)
 	ml_vector3_sub(target->center, origin->center, dir);
 	l3d_ray_set(dir, origin->center, &ray);
 	hits = NULL;
-	if (l3d_bounding_box_ray_hit(target, &ray, &hits))
+	if (l3d_bounding_box_ray_hit(target, &ray, &hits, true))
 	{
 		error_check(!(hit = ft_calloc(sizeof(t_hit))), "Failed to malloc hit");
 		ft_memcpy(hit, ((t_hit*)hits->content), sizeof(t_hit));

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/18 22:17:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 18:09:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void		handle_object_deletions(t_doom3d *app)
 	uint32_t	id;
 	char		obj_type[128];
 
+	l3d_temp_objects_destroy_if_expired(&app->active_scene->temp_objects);
 	i = -1;
 	deleted_something = false;
 	while (++i < (int32_t)app->active_scene->num_deleted)
@@ -142,5 +143,7 @@ void			doom3d_update_objects(t_doom3d *app)
 			continue ;
 		update_object_by_type(app, obj, is_npc_update);
 	}
+	l3d_temp_objects_update_time(&app->active_scene->temp_objects,
+		app->info.delta_time);
 	active_scene_update_after_objects(app->active_scene);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/18 22:10:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 16:29:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ typedef struct				s_projectile
 	const char				*texture_key;
 	const char				*normal_map_key;
 	t_vec3					dir;
+	t_vec3					euler_angles;
 }							t_projectile;
 
 /*

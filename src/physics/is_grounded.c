@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/18 22:42:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 12:36:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static t_3d_object	*object_under(t_doom3d *app,
 	{
 		l3d_get_closest_hit(hits, &closest_hit, self_id);
 		if (!closest_hit)
+		{
+			l3d_delete_hits(&hits);
 			return (NULL);
+		}
 		hit_parent = closest_hit->triangle->parent;
 		l3d_delete_hits(&hits);
 		return (hit_parent);
