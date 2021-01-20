@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 18:19:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 21:47:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ static t_bool	object_too_far(t_doom3d *app, t_3d_object *obj)
 	float		too_far;
 	t_vec3		player_to_obj;
 
-	too_far = app->unit_size * 50;
+	if (app->active_scene->scene_id == scene_id_main_game)
+		too_far = app->unit_size * 50;
+	else
+		too_far = app->unit_size * 500;
 	ml_vector3_sub(obj->position, app->player.pos,
 		player_to_obj);
 	if (ml_vector3_mag(player_to_obj) > too_far)

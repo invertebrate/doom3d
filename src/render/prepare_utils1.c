@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 22:27:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 21:48:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ t_bool			triangle_too_far(t_doom3d *app, t_triangle *triangle)
 	t_vec3		player_to_corner[3];
 	int32_t		i;
 
-	too_far = app->unit_size * 50;
+	if (app->active_scene->scene_id == scene_id_main_game)
+		too_far = app->unit_size * 50;
+	else
+		too_far = app->unit_size * 500;
 	i = -1;
 	while (++i < 3)
 		ml_vector3_sub(triangle->vtc[i]->pos, app->player.pos,
