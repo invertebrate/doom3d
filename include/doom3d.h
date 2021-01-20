@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 14:45:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 17:27:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@
 # define Z_DIR 1
 
 # define CONST_SPEED 0.1
-
+# define CONST_GRAVITY 1.06
 /*
 ** // ToDo: Create toggleable settings
 */
@@ -138,8 +138,11 @@ void						doom3d_run(t_doom3d *app);
 /*
 ** Player
 */
+void						doom3d_player_update(t_doom3d *app);
 void						player_init(t_doom3d *app, t_vec3 pos);
-void						player_move(t_doom3d *app, t_move dir, float speed);
+void						player_move(t_doom3d *app);
+void						get_move_dir(t_doom3d *app,
+								t_move dir_option, t_vec3 dir);
 void						player_rotate_vertical(t_doom3d *app, float angle);
 void						player_rotate_horizontal(t_doom3d *app,
 								float angle);

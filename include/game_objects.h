@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 16:29:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 20:51:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,9 @@ typedef enum				e_npc_state
 
 typedef struct				s_npc
 {
+	t_bool					is_jumping;
+	t_bool					is_falling;
+	t_bool					is_grounded;
 	t_vec3					dir;
 	float					angle;
 	float					vision_range;
