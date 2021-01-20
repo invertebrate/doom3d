@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/19 21:59:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 12:42:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void		shoot_bullet_effect(t_doom3d *app,
 	l3d_3d_object_scale(hit_effect, scale, scale, scale);
 	l3d_3d_object_rotate(hit_effect, app->player.rot_x,
 		-app->player.rot_y, 90.0);
+	l3d_3d_object_destroy(model);
 }
 
 void	player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
