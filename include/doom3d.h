@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 14:30:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 14:45:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -374,5 +374,10 @@ void						set_player_shoot_frame(t_doom3d *app);
 void						set_player_reload_frame(t_doom3d *app);
 void						set_player_default_frame(t_doom3d *app);
 t_surface					*get_animation_source(t_doom3d *app);
+
+/*
+** Player HUD
+*/
+void						player_vitals_render(t_doom3d *app);
 
 #endif
