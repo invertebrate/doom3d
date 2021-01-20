@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/20 12:42:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 14:37:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,25 @@ static void		projectile_explode_effect(t_doom3d *app,
 	t_3d_object 	*explosions[4];
 	t_3d_object		*model;
 	int32_t			i;
+	t_vec3			add;
+	t_vec3			pos;
 
+	ml_vector3_mul(((t_projectile*)projectile_obj->params)->dir,
+		-1 * 0.2 * app->unit_size, add);
+	ml_vector3_add(projectile_obj->position, add, pos);
 	model = l3d_plane_create(NULL, NULL);
 	explosions[0] = place_procedural_temp_object(app, model,
 		(const char*[2]){"assets/textures/explosion1.bmp", NULL
-	}, projectile_obj->position, (int32_t[2]){50, 0});
+	}, pos, (int32_t[2]){50, 0});
 	explosions[1] = place_procedural_temp_object(app, model,
 		(const char*[2]){"assets/textures/explosion2.bmp", NULL
-	}, projectile_obj->position, (int32_t[2]){50, 50});
+	}, pos, (int32_t[2]){50, 50});
 	explosions[2] = place_procedural_temp_object(app, model,
 		(const char*[2]){"assets/textures/explosion3.bmp", NULL
-	}, projectile_obj->position, (int32_t[2]){50, 100});
+	}, pos, (int32_t[2]){50, 100});
 	explosions[3] = place_procedural_temp_object(app, model,
 		(const char*[2]){"assets/textures/explosion4.bmp", NULL
-	}, projectile_obj->position, (int32_t[2]){50, 150});
+	}, pos, (int32_t[2]){50, 150});
 	l3d_3d_object_destroy(model);
 	i = -1;
 	while (++i < 4)
