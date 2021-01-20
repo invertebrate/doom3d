@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:14:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 15:56:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 15:58:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct				s_scene
 	t_kd_tree				*triangle_tree;
 	t_triangle				**triangle_ref;
 	uint32_t				num_triangles;
+	t_temp_objects			*temp_objects;
 	t_camera				*main_camera;
 	t_triangle				*screen_triangles;
 	t_button_group			**menus;

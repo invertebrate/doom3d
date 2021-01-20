@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 16:10:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 22:05:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,80 @@ void			place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
 	active_scene_update_after_objects(app->active_scene);
+}
+
+/*
+** Place object from model (add textures from memory)
+*/
+
+t_3d_object			*place_temp_object(t_doom3d *app, const char *filenames[3],
+						t_vec3 pos, int32_t lifetime_and_delay[2])
+{
+	t_3d_object	*obj;
+	t_3d_object	*model;
+	t_surface	*texture;
+	t_surface	*normal_map;
+
+	model = hash_map_get(app->active_scene->models, (int64_t)filenames[0]);
+	if (!model)
+	{
+		ft_dprintf(2, "No existing model file (%s) given to place object. "
+			"Add it in scene_assets.c\n",
+			filenames[0]);
+		return (NULL);
+	}
+	obj = l3d_object_instantiate(model, app->unit_size);
+	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[1]);
+	obj->material->texture = texture;
+	if (texture != NULL)
+		hash_map_add(app->active_scene->object_textures, obj->id,
+			(void*)filenames[1]);
+	normal_map = hash_map_get(app->active_scene->textures,
+		(int64_t)filenames[2]);
+	obj->material->normal_map = normal_map;
+	if (normal_map)
+		hash_map_add(app->active_scene->object_normal_maps,
+			obj->id, (void*)filenames[2]);
+	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
+	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
+		lifetime_and_delay);
+	return (obj);
+}
+
+/*
+** Place object from model (add textures from memory)
+*/
+
+t_3d_object			*place_procedural_temp_object(t_doom3d *app,
+						t_3d_object *model,
+						const char *filenames[2],
+						t_vec3 pos, int32_t lifetime_and_delay[2])
+{
+	t_3d_object	*obj;
+	t_surface	*texture;
+	t_surface	*normal_map;
+
+	if (!model)
+	{
+		ft_dprintf(2, "No existing model object (NULL) given\n");
+		return (NULL);
+	}
+	obj = l3d_object_instantiate(model, app->unit_size);
+	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[0]);
+	obj->material->texture = texture;
+	if (texture)
+		hash_map_add(app->active_scene->object_textures, obj->id,
+			(void*)filenames[0]);
+	normal_map = hash_map_get(app->active_scene->textures,
+		(int64_t)filenames[1]);
+	obj->material->normal_map = normal_map;
+	if (normal_map)
+		hash_map_add(app->active_scene->object_normal_maps,
+			obj->id, (void*)filenames[1]);
+	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
+	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
+		lifetime_and_delay);
+	return (obj);
 }
 
 void			object_type_to_str(t_3d_object *obj, char *str)

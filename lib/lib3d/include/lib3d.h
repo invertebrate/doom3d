@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/17 23:06:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 12:35:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,8 @@ typedef struct				s_kd_tree
 
 typedef struct				s_temp_object
 {
-	uint32_t				creation_time;
+	int32_t					lifetime;
+	int32_t					delay;
 	t_3d_object				*obj;
 }							t_temp_object;
 
@@ -306,7 +307,7 @@ void						l3d_kd_tree_print(t_kd_tree *tree);
 t_bool						l3d_triangle_ray_hit(t_triangle *triangle,
 								t_ray *ray, t_hits **hits);
 t_bool						l3d_bounding_box_ray_hit(t_box3d *box,
-								t_ray *ray, t_hits **hits);
+								t_ray *ray, t_hits **hits, t_bool is_recorded);
 void						l3d_ray_set(t_vec3 dir, t_vec3 origin, t_ray *ray);
 void						l3d_triangle_hit_record_set(float afuvt[5],
 								t_ray *ray,
@@ -547,12 +548,13 @@ t_3d_object					*l3d_plane_create(t_surface	*texture,
 t_3d_object					*l3d_object_instantiate(t_3d_object *model,
 								float unit_size);
 void						l3d_temp_objects_add(t_temp_objects **temp_objects,
-								t_3d_object *object, uint32_t creation_time);
+								t_3d_object *object,
+								int32_t lifetime_and_delay[2]);
 void						l3d_temp_objects_destroy(
 								t_temp_objects **temp_objects);
 void						l3d_temp_objects_destroy_if_expired(
-								t_temp_objects **temp_objects,
-								uint32_t current_time,
-								uint32_t diff_limit);
+								t_temp_objects **temp_objects);
+void						l3d_temp_objects_update_time(t_temp_objects **temp_objects,
+								uint32_t delta_time);
 
 #endif

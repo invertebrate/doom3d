@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 16:55:45 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/20 14:45:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,11 +147,10 @@ void						player_apply_gravity(t_doom3d *app);
 void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						editor_vertical_move(t_doom3d *app, float speed);
-void						player_shoot_projectile(t_doom3d *app, t_vec3 origin);
-void						player_shoot_ray(t_doom3d *app,
-								t_vec3 origin, t_vec3 dir);
 void						player_onhit(t_doom3d *app, int damage);
 void						player_jump(t_doom3d *app);
+void						player_shoot(t_doom3d *app,
+								uint32_t curr_time);
 
 /*
 ** Player items
@@ -205,8 +204,6 @@ void						forces_update_player(t_doom3d *app);
 */
 void						doom3d_events_handle(t_doom3d *app);
 void						mouse_state_handle(t_doom3d *app);
-void						player_shoot(t_doom3d *app,
-								uint32_t curr_time);
 void						keyboard_state_handle(t_doom3d *app);
 void						general_input_events_handle(t_doom3d *app,
 								SDL_Event event);
@@ -315,6 +312,13 @@ void						object_set_for_deletion(t_doom3d *app,
 void						place_procedural_scene_object(t_doom3d *app,
 								t_3d_object *model,
 								const char *filenames[2], t_vec3 pos);
+t_3d_object					*place_temp_object(t_doom3d *app,
+								const char *filenames[3],
+								t_vec3 pos, int32_t lifetime_and_delay[2]);
+t_3d_object					*place_procedural_temp_object(t_doom3d *app,
+								t_3d_object *model,
+								const char *filenames[2],
+								t_vec3 pos, int32_t lifetime_and_delay[2]);
 void						editor_select(t_doom3d *app);
 void						editor_deselect_all(t_doom3d *app);
 void						editor_deselect(t_doom3d *app);

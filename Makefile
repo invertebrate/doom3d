@@ -50,7 +50,6 @@ SOURCES = main.c \
 			player/player_vitals_render.c \
 			projectile/projectile_init.c \
 			projectile/projectile_update.c \
-			projectile/projectile_explosion.c \
 			projectile/projectile_data/projectile_data_rpg.c \
 			player/player_animations.c \
 			inventory/item_data/item_data_fist.c \
