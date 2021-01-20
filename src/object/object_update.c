@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 15:51:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 20:56:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,9 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 					t_bool is_npc_update)
 {
 	if (has_forces(obj))
+	{
 		forces_update_object(app, obj);
+	}
 	if (obj->type == object_type_npc)
 	{
 		if (is_npc_update)

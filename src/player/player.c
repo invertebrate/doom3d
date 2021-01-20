@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 17:46:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 21:04:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	ft_memcpy(app->player.up, &(t_vec3){0, Y_DIR, 0}, sizeof(t_vec3));
 	ft_memcpy(app->player.sideways, &(t_vec3){X_DIR, 0, 0}, sizeof(t_vec3));
 	if (app->active_scene->scene_id == scene_id_editor3d)
-		app->player.speed = PLAYER_SPEED * 10;
+		app->player.speed = PLAYER_SPEED * 2;
 	else
 		app->player.speed = PLAYER_SPEED;
 	app->player.rot_speed = PLAYER_ROTATION_SPEED;
