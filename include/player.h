@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 08:03:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 17:35:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define PLAYER_SPEED 6.0
 # define PLAYER_ROTATION_SPEED 0.2
 # define ANIMATION_SCALE 2
+# define PLAYER_JUMP_FORCE 8.0
 
 #include "lib3d.h"
 #include "game_objects.h"
@@ -34,6 +35,7 @@ typedef enum				e_move
 	move_strafe_left,
 	move_strafe_right,
 	move_upwards,
+	move_downwards,
 }							t_move;
 
 /*
@@ -51,7 +53,9 @@ typedef struct				s_player
 	t_bool					is_reloading;
 	t_bool					is_moving;
 	t_bool					is_rotating;
-	t_bool					flying;
+	t_bool					is_jumping;
+	t_bool					is_falling;
+	t_bool					is_grounded;
 	float					jump_force;
 	float					speed;
 	float					rot_speed;

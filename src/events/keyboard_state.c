@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 15:35:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 17:23:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,38 @@ static void		keyboard_game_state_handle(t_doom3d *app)
 {
 	t_vec3	dir;
 
-	if (app->keyboard.state[SDL_SCANCODE_W])
+	if (app->player.is_grounded)
 	{
-		get_move_dir(app, move_forward, dir);
-		player_move(app, dir);
+		if (app->keyboard.state[SDL_SCANCODE_W])
+		{
+			get_move_dir(app, move_forward, dir);
+			ml_vector3_add(app->player.velocity, dir, app->player.velocity);
+		}
+		if (app->keyboard.state[SDL_SCANCODE_A])
+		{
+			get_move_dir(app, move_strafe_left, dir);
+			ml_vector3_add(app->player.velocity, dir, app->player.velocity);
+		}
+		if (app->keyboard.state[SDL_SCANCODE_S])
+		{
+			get_move_dir(app, move_backward, dir);
+			ml_vector3_add(app->player.velocity, dir, app->player.velocity);
+		}
+		if (app->keyboard.state[SDL_SCANCODE_D])
+		{
+			get_move_dir(app, move_strafe_right, dir);
+			ml_vector3_add(app->player.velocity, dir, app->player.velocity);
+		}
+		if (!(app->keyboard.state[SDL_SCANCODE_W]) &&
+			!(app->keyboard.state[SDL_SCANCODE_A]) &&
+			!(app->keyboard.state[SDL_SCANCODE_S]) &&
+			!(app->keyboard.state[SDL_SCANCODE_D]))
+			app->player.is_moving = false;
+		if (app->keyboard.state[SDL_SCANCODE_LSHIFT])
+			app->player.is_running = true;
+		else if (app->player.is_grounded)
+			app->player.is_running = false;	
 	}
-	if (app->keyboard.state[SDL_SCANCODE_A])
-	{
-		get_move_dir(app, move_strafe_left, dir);
-		player_move(app, dir);
-	}
-	if (app->keyboard.state[SDL_SCANCODE_S])
-	{
-		get_move_dir(app, move_backward, dir);
-		player_move(app, dir);
-	}
-	if (app->keyboard.state[SDL_SCANCODE_D])
-	{
-		get_move_dir(app, move_strafe_right, dir);
-		player_move(app, dir);
-	}
-	if (!(app->keyboard.state[SDL_SCANCODE_W]) &&
-		!(app->keyboard.state[SDL_SCANCODE_A]) &&
-		!(app->keyboard.state[SDL_SCANCODE_S]) &&
-		!(app->keyboard.state[SDL_SCANCODE_D]))
-		app->player.is_moving = false;
-	if (app->keyboard.state[SDL_SCANCODE_LSHIFT])
-		app->player.is_running = true;
-	else
-		app->player.is_running = false;
 	if (app->keyboard.state[SDL_SCANCODE_4])
 		weapon_equip(app, weapon_rpg);
 	else if (app->keyboard.state[SDL_SCANCODE_3])
@@ -53,8 +56,6 @@ static void		keyboard_game_state_handle(t_doom3d *app)
 		weapon_equip(app, weapon_glock);
 	else if (app->keyboard.state[SDL_SCANCODE_1])
 		weapon_equip(app, weapon_fist);
-	if (app->keyboard.state[SDL_SCANCODE_SPACE])
-		player_jump(app);
 	//if (app->keyboard.state[SDL_SCANCODE_F10])
 	//	app->player.flying = (app->player.flying + 1) % 2;
 	// if (app->keyboard.state[SDL_SCANCODE_E]) //Later for interaction
@@ -133,22 +134,22 @@ static void		keyboard_editor_state_handle(t_doom3d *app)
 	if (app->keyboard.state[SDL_SCANCODE_W])
 	{
 		get_move_dir(app, move_forward, dir);
-		player_move(app, dir);
+		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
 	}
 	if (app->keyboard.state[SDL_SCANCODE_A])
 	{
 		get_move_dir(app, move_strafe_left, dir);
-		player_move(app, dir);
+		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
 	}
 	if (app->keyboard.state[SDL_SCANCODE_S])
 	{
 		get_move_dir(app, move_backward, dir);
-		player_move(app, dir);
+		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
 	}
 	if (app->keyboard.state[SDL_SCANCODE_D])
 	{
 		get_move_dir(app, move_strafe_right, dir);
-		player_move(app, dir);
+		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
 	}
 	if (app->keyboard.state[SDL_SCANCODE_W] ||
 		app->keyboard.state[SDL_SCANCODE_A] ||

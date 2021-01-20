@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 18:09:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 15:51:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ void			doom3d_update_objects(t_doom3d *app)
 	if (app->active_scene->is_paused ||
 		app->active_scene->scene_id != scene_id_main_game)
 		return ;
-	forces_update_player(app);
 	is_npc_update = should_update_npc_state(app);
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects +
