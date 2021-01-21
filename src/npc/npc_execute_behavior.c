@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_execute_behavior.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 17:22:03 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/16 18:33:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/21 16:26:16 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	npc_execute_behavior(t_doom3d *app, t_3d_object *npc_obj)
 	if (npc->state == state_idle)
 	{
 		/*
-		DO IDLE THINGS WITH THIS NPC
+		DO IDLE THINGS WITH THIS NPC, LIKE IDLE ANIMATION
 		*/
 	}
 	else if (npc->state == state_attack)

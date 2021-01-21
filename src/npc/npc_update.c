@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_update.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/16 16:52:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/21 15:52:28 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,12 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 	{
 		//ft_printf("state of npc %d is attack, at dist = |%f|\n", tmp->id, dist);//test
 		if (dist >= npc->vision_range)
-			npc->state = state_idle;
+		{
+			npc->interest--;
+			ft_printf("npc %d interest = %d\n", npc_obj->id, npc->interest);//test
+			if (npc->interest < 0)
+				npc->state = state_idle;
+		}
 		else if (dist < npc->atk_range)
 		{
 			npc->atk_timer = 0;
@@ -61,10 +66,9 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 			npc->state = state_atk_anim;
 		}
 		else
-		{
-			ml_vector3_normalize(diff, npc->dir);
-			ml_vector3_mul(npc->dir, npc->speed, npc->dir);
-		}
+			npc->interest = npc->max_interest;
+		ml_vector3_normalize(diff, npc->dir);
+		ml_vector3_mul(npc->dir, npc->speed, npc->dir);
 	}
 	else if (npc->state == state_atk_anim)
 	{

@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:35:16 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/13 13:00:50 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/21 15:50:19 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 
 	npc = obj->params;
 	npc->hp -= damage;
+	npc->state = state_attack;
+	npc->interest = npc->max_interest;
 	if (npc->hp <= 0)
 	{
 		npc->state = state_death_anim;

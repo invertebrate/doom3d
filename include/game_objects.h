@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_objects.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 20:51:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/21 15:34:08 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,8 @@ typedef struct				s_npc
 	t_vec3					dir;
 	float					angle;
 	float					vision_range;
+	int						interest;
+	int						max_interest;
 	float					atk_range;
 	int						atk_dmg;
 	uint32_t				atk_start;
