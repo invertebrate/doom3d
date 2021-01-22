@@ -24,11 +24,13 @@ void		npc_default_anim_metadata_set(t_anim_metadata *anim_data)
 	anim_data->anim_frame_numbers[0] = 0;
 }
 
-void			npc_animation_init(t_doom3d *app, t_npc *npc)
+void			npc_animation_init(t_doom3d *app, t_3d_object *obj)
 {
-	ft_printf("anim_init\n");
+	// ft_printf("anim_init\n");
 	t_anim_metadata	anim_data;
+	t_npc			*npc;
 
+	npc = (t_npc*)obj->params;
 	if (npc->type == npc_type_default)
 	{
 		npc_default_anim_metadata_set(&anim_data);
@@ -48,7 +50,7 @@ static char			*truncate_model_file_path(const char *file_path)
 
 	i = -1;
 	len = ft_strlen(file_path);
-	// ft_printf("filepath: %s  len: %d\n", file_path, len);
+	ft_printf("filepath: %s  len: %d\n", file_path, len);
 	error_check(!(path = (char*)ft_calloc(sizeof(char) * len)),
 		"Failed to malloc for file path in truncate_model_file_path.");
 	while (i < len - 4)
@@ -56,7 +58,7 @@ static char			*truncate_model_file_path(const char *file_path)
 		path[i] = file_path[i];
 		i++;;
 	}
-	// ft_printf("filepath after truncation: %s\n", path);
+	ft_printf("filepath after truncation: %s\n", path);
 	return (path);
 }
 
@@ -98,12 +100,12 @@ void			npc_anim_frame_keys_set(t_npc *npc)//static
 	if (i < 10)
 	{
 		ft_sprintf(npc->anim_frames_key[i], "%s_00%d.obj", truncate_model_file_path(npc->model_key), i);
-		// ft_printf("anim frame key : %s\n", npc->anim_frames_key[i]);//
+		ft_printf("anim frame key : %s\n", npc->anim_frames_key[i]);//
 	}
 	else if (i < 100)
 	{
 		ft_sprintf(npc->anim_frames_key[i], "%s_0%d.obj", truncate_model_file_path(npc->model_key), i);
-		// ft_printf("anim frame key : %s\n", npc->anim_frames_key[i]);//
+		ft_printf("anim frame key : %s\n", npc->anim_frames_key[i]);//
 	}
 }
 
@@ -126,11 +128,14 @@ void				npc_animation_set(t_doom3d *app, t_npc *npc,
 	while (++i < (int)npc->animation->frame_count)
 	{ 
 		error_check(!(npc->anim_frames_key[i] =
-		(char*)ft_calloc(sizeof(char) * (ft_strlen(npc->model_key) + 5))),
+		(char*)ft_calloc(sizeof(char) * (ft_strlen(npc->model_key) + 10))),
 		"Failed to malloc for npc animation frames key in npc_animation_set.");
 	}
-	npc->animation->base_object = hash_map_get(app->active_scene->models,
+	ft_printf("i count : %d\n", i);
+
+	npc->animation->base_object = (t_3d_object*)hash_map_get(app->active_scene->models,
 												(int64_t)npc->model_key);
 	npc_anim_frame_keys_set(npc);
-	npc_anim_frames_set(app, npc);
+	// npc_anim_frames_set(app, npc);
+
 }

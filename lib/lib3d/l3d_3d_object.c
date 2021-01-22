@@ -105,7 +105,7 @@ void			l3d_3d_object_set_vertex(t_vertex *vertex, t_vec3 pos)
 void			l3d_3d_object_set_params(t_3d_object *object,
 					void *params, uint32_t params_size, uint32_t params_type)
 {
-	error_check(!(object->params = ft_calloc(params_size)),
+	error_check(!(object->params = ft_calloc(params_size * 5)),
 		"Failed to malloc obj params");
 	object->params_size = params_size;
 	object->params_type = params_type;

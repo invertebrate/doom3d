@@ -76,26 +76,31 @@ float			pitch_from_rotation_matrix(t_mat4 rotation)
 static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 {
 	t_npc	npc;
-	ft_printf("set obj param by type\n");
+
 	if (obj->type == object_type_npc)
 	{
 		if (obj->params_type == npc_type_default)
 		{
-			ft_printf("npc default set param\n");
 			npc_default(app, &npc);
-			ft_printf("animation init\n");
-			npc_animation_init(app, &npc);
-			ft_printf("animation init finished\n");
 		}
 		else
 			return ;
 		npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
+		npc_animation_init(app, obj);
+		int k = -1;
+		while (++k < 6)//this prints fine and correctly but similar print in read_objects segfaults
+		{
+			ft_printf("SET: anim frame key %d : %s\n", k, ((t_npc*)obj->params)->anim_frames_key[k]);
+		}
+		// ((t_npc*)obj->params)->animation->
 	}
 }
 
 //TODO! test animation frame models in game
 // implement animation controller
+//anim frames should be under object with current setup
+//check if that is really the case
 
 static int32_t	read_objects(t_doom3d *app, char *contents)
 {
@@ -130,6 +135,16 @@ static int32_t	read_objects(t_doom3d *app, char *contents)
 		l3d_3d_object_triangle_copy_and_set(obj, obj);
 		set_obj_params_by_type(app, obj);
 		app->active_scene->objects[i] = obj;
+		// write(1, "test\n", 5);
+		// int k = -1;
+		// while (++k < 6) //!THIS CAUSES SEGFAULT THAT CAUSES NO PREVIOUS PRINTS TO SHOW
+		//IF THIS IS SOLVED THEN PROBABLY ANIMATIONS WORK. MOST LIKELY THE SEGFAULT IS CAUSED
+		//BY SOMETHING IN THE NPC ANIMATIONS FILE AND IT MANIFESTS ONLY HERE
+		// {
+		// 	ft_printf("READ: anim frame key %d : %s\n", k, ((t_npc*)obj->params)->anim_frames_key[k]);
+		// }
+		// 		write(1, "test2\n", 6);
+
 	}
 	return (offset);
 }

@@ -135,6 +135,8 @@ static void		scene_model_files_set(t_asset_files *data)
 		"assets/models/box.obj";
 	data->model_files[data->num_models++] =
 		"assets/models/run_frame.obj";
+	data->model_files[data->num_models++] =
+		"assets/models/axismodels.obj";
 }
 
 static void		scene_animation_frames_set(t_asset_files *data, char* file_path, uint32_t framecount)

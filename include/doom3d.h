@@ -449,7 +449,7 @@ t_bool						editor_popup_menu_open(t_doom3d *app);
 
 void						npc_animation_set(t_doom3d *app, t_npc *npc,
 											t_anim_metadata *anim_data);
-void						npc_animation_init(t_doom3d *app, t_npc *npc);
+void						npc_animation_init(t_doom3d *app, t_3d_object *obj);
 void						update_app_ticks(t_doom3d *app);
 uint32_t					update_current_frame(t_doom3d *app, t_3d_object *object);
 // void						update_app_ticks(t_doom3d *app);

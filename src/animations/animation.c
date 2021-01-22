@@ -27,6 +27,3 @@ uint32_t		update_current_frame(t_doom3d *app, t_3d_object *object)
 	((t_animation*)object->params)->current_frame = current_frame;
 	return (current_frame);
 }
-//TODO LOG
-//figure out how to get framecount to animation struct
-//figure out how to get the anim frames key ** pointer out of the function 
