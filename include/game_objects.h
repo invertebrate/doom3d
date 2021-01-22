@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/21 15:34:08 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/22 00:40:53 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,18 @@ typedef enum				e_npc_state
 }							t_npc_state;
 
 /*
+** Enum defining npc's attack pattern
+*/
+
+typedef enum				e_npc_action
+{
+	action_wait,
+	action_melee_basic,
+	action_projectile_rpg,
+	action_repeat,
+}							t_npc_action;
+
+/*
 ** NPC data defining how npc behaves in the world & how objects under npc
 ** are moved in the game world. Also defines how the npc t_3d_object
 ** gets instantiated.
@@ -180,11 +192,14 @@ typedef struct				s_npc
 	float					vision_range;
 	int						interest;
 	int						max_interest;
+	t_bool					advance;
 	float					atk_range;
 	int						atk_dmg;
 	uint32_t				atk_start;
 	uint32_t				atk_dur;
 	uint32_t				atk_timer;
+	int						atk_pattern[128];
+	int						atk_pattern_index;
 	float					speed;
 	float					rot_speed;
 	float					dist;
