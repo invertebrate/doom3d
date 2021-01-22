@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 15:50:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/22 09:15:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void			settings_init(t_doom3d *app)
 {
 	app->settings.is_normal_map = false;
 	app->settings.is_skybox = true;
-	app->settings.width = 1280;
-	app->settings.height = 720;
+	app->settings.width = 960;
+	app->settings.height = 540;
 }
 
 void			doom3d_init(t_doom3d *app)

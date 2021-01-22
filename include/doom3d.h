@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/22 00:09:15 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/22 09:22:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@
 ** Options: 1920x1080, 1280x720 and 960x540
 */
 
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 960
+# define HEIGHT 540
 # define NAME "Doom3D"
 
 /*
