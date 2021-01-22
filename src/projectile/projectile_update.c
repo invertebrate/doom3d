@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile_update.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/20 14:37:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/22 01:55:39 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

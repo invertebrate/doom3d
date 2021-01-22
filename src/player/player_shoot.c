@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_shoot.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/20 14:34:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/22 00:08:41 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void		player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 	}
 }
 
-static void		place_projectile_object_in_scene(t_doom3d *app,
+void			place_projectile_object_in_scene(t_doom3d *app,
 					t_projectile *projectile, t_vec3 origin, t_vec3 rot)
 {
 	t_3d_object *obj;

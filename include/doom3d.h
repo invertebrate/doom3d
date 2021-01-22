@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/22 09:15:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/22 09:22:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,8 @@ t_projectile				projectile_data_rpg(t_doom3d *app);
 void						projectile_update(t_doom3d *app, t_3d_object *obj);
 void						projectile_explosion(t_doom3d *app, t_vec3 pos,
 								t_projectile *projectile);
+void						place_projectile_object_in_scene(t_doom3d *app,
+					t_projectile *projectile, t_vec3 origin, t_vec3 rot);
 
 /*
 ** Npcs
