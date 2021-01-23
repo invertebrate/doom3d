@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/01/23 18:00:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/23 18:26:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ static void		npc_anim_frames_set(t_doom3d *app, t_npc *npc)//static
 		npc->animation->animation_frames[i] = l3d_object_instantiate(
 			hash_map_get(app->active_scene->model_anim_frames,
 						(int64_t)npc->anim_frames_keys[i]), app->unit_size);
+		l3d_3d_object_translate(npc->animation->animation_frames[i],
+			npc->animation->base_object->position[0],
+			npc->animation->base_object->position[1],
+			npc->animation->base_object->position[2]);
 		npc->animation->animation_frames[i]->material->texture =
 			npc->animation->base_object->material->texture;
 		npc->animation->animation_frames[i]->material->normal_map =
@@ -71,7 +75,6 @@ static void		npc_animation_set(t_doom3d *app, t_npc *npc, t_3d_object *obj,
 	error_check(!(npc->animation = (t_animation*)ft_calloc(sizeof(t_animation))),
 		"Failed to malloc for npc animation in npc_animation_set.");
 	npc_animation_data_copy(npc, anim_data);
-	ft_printf("framecount in malloc: %d\n", npc->animation->frame_count);
 	while (++i < (int)npc->animation->frame_count)
 	{ 
 		// Anim adata defines which key indices are to be called for this npc's
@@ -82,7 +85,6 @@ static void		npc_animation_set(t_doom3d *app, t_npc *npc, t_3d_object *obj,
 			app->active_scene->asset_files.model_animation_files[
 				anim_data->scene_frame_key_indices[i]];
 	}
-	ft_printf("i count : %d\n", i);
 	npc->animation->base_object = obj;
 	npc_anim_frames_set(app, npc);
 }

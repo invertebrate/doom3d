@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/23 16:48:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/23 18:22:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ static void		scene_model_animation_files_set(t_asset_files *data,
 		{
 			ft_sprintf(frame_path, "%s_0%d.obj	", file_path, i);
 		}
-		data->sprite_animation_files[data->num_model_animation_frames++] =
+		data->model_animation_files[data->num_model_animation_frames++] =
 			frame_path;
 	}
 }
@@ -243,13 +243,18 @@ void			scene_assets_load(t_scene *scene)
 	scene->asset_files.num_npcs = 0;
 	scene->asset_files.num_prefabs = 0;
 	scene->asset_files.num_sprite_animations = 0;
+	scene->asset_files.num_model_animation_frames = 0;
 	scene_texture_files_set(&scene->asset_files);
 	scene_normal_files_set(&scene->asset_files);
 	scene_model_files_set(&scene->asset_files);
-	if (scene->scene_id == scene_id_main_game)
+	if (scene->scene_id == scene_id_editor3d ||
+		scene->scene_id == scene_id_main_game)
 	{
 		scene_model_animation_files_set(&scene->asset_files,
 			"assets/models/run_frame", 6);
+	}
+	if (scene->scene_id == scene_id_main_game)
+	{
 		scene_sprite_animation_files_set(&scene->asset_files);
 	}
 	assets_load(scene, &scene->asset_files);
