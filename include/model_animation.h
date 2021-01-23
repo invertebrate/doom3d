@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 16:04:51 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/23 17:15:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/23 18:00:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct				s_animation
 	uint32_t				start_frame;
 	uint32_t				start_tick;
 	t_3d_object				*base_object;
-	t_3d_object				**animation_frames; //contains the objects for each anim frame
+	t_3d_object				*animation_frames[ANIM_3D_MAX_COUNT]; //contains the objects for each anim frame
 	int32_t					anim_frame_numbers[ANIM_3D_MAX_COUNT]; //contains the frame indices for each animation start
 }							t_animation;
 

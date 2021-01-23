@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/23 15:51:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/23 18:05:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ static void		handle_object_deletions(t_doom3d *app)
 			id = app->active_scene->objects[del_index]->id;
 			object_type_to_str(app->active_scene->objects[del_index], obj_type);
 			ft_printf("Deleted %s, id %u\n", obj_type, id);
-			l3d_3d_object_destroy(app->active_scene->objects[del_index]);
+			if (app->active_scene->objects[del_index]->type == object_type_npc)
+				npc_object_destroy(app->active_scene->objects[del_index]);
+			else
+				l3d_3d_object_destroy(app->active_scene->objects[del_index]);
 			app->active_scene->objects[del_index] = NULL;
 		}
 	}

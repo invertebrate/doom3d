@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/23 17:52:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/23 18:05:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,6 @@ void		scene_skybox_destroy(t_scene *scene)
 	}
 }
 
-static void	animation_destroy(t_animation *animation)
-{
-		/*typedef struct				s_animation
-	{
-		uint32_t				frame_count;
-		uint32_t				current_frame;
-		uint32_t				start_frame;
-		uint32_t				start_tick;
-		t_3d_object				*base_object;
-		t_3d_object				**animation_frames; //contains the objects for each anim frame
-		int32_t					*anim_frame_numbers; //contains the frame indices for each animation start
-	}							t_animation;
-	*/
-	//Animation models in hashmap get destroyed in `scene_assets_destroy`
-	(void)animation;
-}
-
 void		scene_objects_destroy(t_scene *scene)
 {
 	int32_t		i;
@@ -115,9 +98,10 @@ void		scene_objects_destroy(t_scene *scene)
 	{
 		if (scene->objects[i] != NULL)
 		{
-			l3d_3d_object_destroy(scene->objects[i]);
 			if (scene->objects[i]->type == object_type_npc)
-				animation_destroy(((t_npc*)scene->objects[i]->params)->animation);
+				npc_object_destroy(scene->objects[i]);
+			else
+				l3d_3d_object_destroy(scene->objects[i]);
 		}
 	}
 	l3d_temp_objects_destroy(&scene->temp_objects);

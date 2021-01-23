@@ -67,6 +67,7 @@ SOURCES = main.c \
 			npc/npc_update.c \
 			npc/npc_animation.c \
 			npc/npc_movement.c \
+			npc/npc_destroy.c \
 			trigger/trigger.c \
 			object/object_utils.c \
 			object/object_update.c \

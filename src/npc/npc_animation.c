@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/01/23 17:56:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/23 18:00:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static void		npc_animation_set(t_doom3d *app, t_npc *npc, t_3d_object *obj,
 		"Failed to malloc for npc animation in npc_animation_set.");
 	npc_animation_data_copy(npc, anim_data);
 	ft_printf("framecount in malloc: %d\n", npc->animation->frame_count);
-
 	while (++i < (int)npc->animation->frame_count)
 	{ 
 		// Anim adata defines which key indices are to be called for this npc's

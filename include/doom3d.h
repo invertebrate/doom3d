@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/23 17:48:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/23 18:03:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,7 @@ void						place_projectile_object_in_scene(t_doom3d *app,
 /*
 ** Npcs
 */
+void						npc_object_destroy(t_3d_object *npc_object);
 void						npc_translate(t_3d_object *npc_obj,
 								float x, float y, float z);
 void						npc_rotate(t_3d_object *npc_obj,
