@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/20 21:12:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/23 15:37:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	forces_update_npc(t_doom3d *app, t_3d_object *npc_object)
 		app->player.velocity[1] < PLAYER_MAX_SPEED)
 		npc->velocity[1] += 0.2;
 	if (!npc->is_grounded)
-		deceleration = 1.005;
+		deceleration = 1.000;
 	else
 		deceleration = 1.2;
 	ml_vector3_copy((t_vec3){npc->velocity[0] / deceleration,
