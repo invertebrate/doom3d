@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_state.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 21:32:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/21 12:51:03 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static void				mouse_editor_state_handle(t_doom3d *app)
 		SDL_SetRelativeMouseMode(SDL_FALSE);
 		SDL_GetRelativeMouseState(&xrel, &yrel);
 		if (app->editor.selected_object &&
-			(app->mouse.state & SDL_BUTTON_MIDDLE))
+			((app->mouse.state & SDL_BUTTON_MIDDLE) || (app->keyboard.state[SDL_SCANCODE_R])))
 		{
 			object_rotation_handle(app, xrel, yrel);
 		}

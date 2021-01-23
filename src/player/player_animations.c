@@ -3,84 +3,153 @@
 /*                                                        :::      ::::::::   */
 /*   player_animations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 23:14:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 14:20:30 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-t_surface			*get_animation_source(t_doom3d *app)
+static t_surface	*get_1080p_animation_source(t_doom3d *app)
 {
 	if (app->player.equipped_weapon->id == weapon_shotgun)
-		return (hash_map_get(app->active_scene->textures,
-			(int64_t)"assets/textures/shotgun_animation.bmp"));
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/shotgun_anim_1080p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_glock)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/pistol_anim_1080p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/fist_anim_1080p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_rpg)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/rpg_anim_1080p.bmp"));
 	return (NULL);
 }
 
-static void			set_shotgun_default_anim(t_sprite_anim *anim)
+static t_surface	*get_720p_animation_source(t_doom3d *app)
 {
-	anim->frames[0].width = 480;
-	anim->frames[0].height = 528;
-	anim->frames[0].x_offset = 0;
-	anim->frames[0].y_offset = 0;
-	anim->num_frames = 1;
-	anim->id = anim_shotgun_shoot;
-	anim->interruptable = true;
+	if (app->player.equipped_weapon->id == weapon_shotgun)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/shotgun_anim_720p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_glock)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/pistol_anim_720p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/fist_anim_720p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_rpg)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/rpg_anim_720p.bmp"));
+	return (NULL);
 }
 
-static void			set_shotgun_reload_anim(t_sprite_anim *anim)
+static t_surface	*get_540p_animation_source(t_doom3d *app)
 {
-	anim->current_frame = 0;
-	anim->frames[0].width = 480;
-	anim->frames[1].width = 480;
-	anim->frames[2].width = 480;
-	anim->frames[0].height = 528;
-	anim->frames[1].height = 528;
-	anim->frames[2].height = 528;
-	anim->frames[0].x_offset = 480 * 4;
-	anim->frames[1].x_offset = 480 * 5;
-	anim->frames[2].x_offset = 480 * 6;
-	anim->frames[0].y_offset = 0;
-	anim->frames[1].y_offset = 0;
-	anim->frames[2].y_offset = 0;
-	anim->num_frames = 3;
-	anim->id = anim_shotgun_reload;
+	if (app->player.equipped_weapon->id == weapon_shotgun)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/shotgun_anim_540p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_glock)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/pistol_anim_540p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/fist_anim_540p.bmp"));
+	else if (app->player.equipped_weapon->id == weapon_rpg)
+		return (hash_map_get(app->active_scene->animation_textures,
+			(int64_t)"assets/animations/rpg_anim_540p.bmp"));
+	return (NULL);
+}
+
+/*
+** This function is called in `src/render/player_hud.c` in
+** `player_animation_render` and it determines which source image is used
+** for animation based on equipped weapon
+*/
+
+t_surface			*get_animation_source(t_doom3d *app)
+{
+	if (app->settings.height == 1080)
+	{
+		return (get_1080p_animation_source(app));
+	}
+	else if (app->settings.height == 720)
+	{
+		return (get_720p_animation_source(app));
+	}
+	else if (app->settings.height == 540)
+	{
+		return (get_540p_animation_source(app));
+	}
+	return (NULL);
+}
+
+static void			set_anim_frame_info(t_doom3d *app,
+						t_sprite_anim *anim, int32_t index_offset,
+						int32_t num_frames)
+{
+	int32_t		i;
+
+	anim->num_frames = num_frames;
+	i = index_offset - 1;
+	while (++i < anim->num_frames)
+	{
+		anim->frames[i - index_offset].width = app->settings.width;
+		anim->frames[i - index_offset].height = app->settings.height;
+		anim->frames[i - index_offset].x_offset = i * app->settings.width;
+		anim->frames[i - index_offset].y_offset = 0;
+	}
 	anim->interruptable = false;
+	anim->frame_time = 40;
 }
 
-static void			set_shotgun_shoot_anim(t_sprite_anim *anim)
+static void			player_default_animations_init(t_doom3d *app)
 {
-	anim->current_frame = 0;
-	anim->frames[0].width = 480;
-	anim->frames[1].width = 480;
-	anim->frames[2].width = 480;
-	anim->frames[3].width = 480;
-	anim->frames[0].height = 528;
-	anim->frames[1].height = 528;
-	anim->frames[2].height = 528;
-	anim->frames[3].height = 528;
-	anim->frames[0].x_offset = 0;
-	anim->frames[1].x_offset = 480 * 1;
-	anim->frames[2].x_offset = 480 * 2;
-	anim->frames[3].x_offset = 480 * 3;
-	anim->frames[0].y_offset = 0;
-	anim->frames[1].y_offset = 0;
-	anim->frames[2].y_offset = 0;
-	anim->frames[3].y_offset = 0;
-	anim->num_frames = 4;
-	anim->id = anim_shotgun_shoot;
-	anim->interruptable = false;
+	set_anim_frame_info(app,
+		&app->animations[anim_shotgun_default], 0, 1);
+	app->animations[anim_shotgun_default].interruptable = true;
+	set_anim_frame_info(app,
+		&app->animations[anim_glock_default], 0, 1);
+	app->animations[anim_glock_default].interruptable = true;
+	set_anim_frame_info(app,
+		&app->animations[anim_rpg_default], 0, 1);
+	app->animations[anim_rpg_default].interruptable = true;
+	set_anim_frame_info(app,
+		&app->animations[anim_fist_default], 0, 1);
+	app->animations[anim_fist_default].interruptable = true;
 }
 
-void	init_player_animations(t_doom3d *app)
+/*
+** Initializes the frame information for each animation the player has
+*/
+
+void	player_animations_init(t_doom3d *app)
 {
-	set_shotgun_default_anim(&app->animations[anim_shotgun_default]);
-	set_shotgun_reload_anim(&app->animations[anim_shotgun_reload]);
-	set_shotgun_shoot_anim(&app->animations[anim_shotgun_shoot]);
+	player_default_animations_init(app);
+	set_anim_frame_info(app,
+		&app->animations[anim_shotgun_shoot], 0, 5);
+	set_anim_frame_info(app,
+		&app->animations[anim_glock_shoot], 0, 5);
+	set_anim_frame_info(app,
+		&app->animations[anim_rpg_shoot], 0, 5);
+	set_anim_frame_info(app,
+		&app->animations[anim_fist_shoot], 0, 5);
+	set_anim_frame_info(app,
+		&app->animations[anim_shotgun_reload], 5, 8);
+	set_anim_frame_info(app,
+		&app->animations[anim_glock_reload], 5, 8);
+	set_anim_frame_info(app,
+		&app->animations[anim_rpg_reload], 5, 8);
+	set_anim_frame_info(app,
+		&app->animations[anim_fist_reload], 5, 8);
 }
+
+/*
+** If current animation is interruptable or finished, the new animation defined
+** by animation_id becomes current animation.
+*/
 
 static void				set_player_animation(t_doom3d *app, uint32_t animation_id)
 {
@@ -90,45 +159,85 @@ static void				set_player_animation(t_doom3d *app, uint32_t animation_id)
 	if (!(curr_player_anim->is_finished || curr_player_anim->interruptable))
 		return ;
 	app->animations[app->player_hud.curr_animation].current_frame = 0;
-	app->animations[app->player_hud.curr_animation].frame_time =
-		ANIM_FRAME_TIME_MS;
+	app->animations[app->player_hud.curr_animation].frame_time_left =
+		app->animations[app->player_hud.curr_animation].frame_time;
 	app->animations[app->player_hud.curr_animation].is_finished = false;
 	app->player_hud.curr_animation = animation_id;
 }
+
+/*
+** This function is called when player animation is to be switched to
+** shoot animation
+*/
 
 void					set_player_shoot_frame(t_doom3d *app)
 {
 	if (app->player.equipped_weapon->id == weapon_shotgun)
 		set_player_animation(app, anim_shotgun_shoot);
+	else if (app->player.equipped_weapon->id == weapon_glock)
+		set_player_animation(app, anim_glock_shoot);
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		set_player_animation(app, anim_fist_shoot);
+	else if (app->player.equipped_weapon->id == weapon_rpg)
+		set_player_animation(app, anim_rpg_shoot);
 }
+
+/*
+** This function is called when player animation is to be switched to
+** default animation
+*/
 
 void					set_player_default_frame(t_doom3d *app)
 {
 	if (app->player.equipped_weapon->id == weapon_shotgun)
 		set_player_animation(app, anim_shotgun_default);
-	else
-		set_player_animation(app, anim_none);
+	else if (app->player.equipped_weapon->id == weapon_glock)
+		set_player_animation(app, anim_glock_default);
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		set_player_animation(app, anim_fist_default);
+	else if (app->player.equipped_weapon->id == weapon_rpg)
+		set_player_animation(app, anim_rpg_default);
 }
+
+/*
+** This function is called when player animation is to be switched to
+** reload animation
+*/
 
 void					set_player_reload_frame(t_doom3d *app)
 {
 	if (app->player.equipped_weapon->id == weapon_shotgun)
 		set_player_animation(app, anim_shotgun_reload);
+	else if (app->player.equipped_weapon->id == weapon_glock)
+		set_player_animation(app, anim_glock_reload);
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		set_player_animation(app, anim_fist_reload);
+	else if (app->player.equipped_weapon->id == weapon_rpg)
+		set_player_animation(app, anim_rpg_reload);
 }
+
+/*
+** Moves on animation frames if they should be moved on. If An animation frame
+** is finished, the frames don't get incremented. Frame time left is decreased
+** by delta time until it's <= 0. Current frame moves to next. Once last
+** frame is reached, animation is set to be finished.
+*/
 
 void	doom3d_player_animation_update(t_doom3d *app)
 {
 	t_sprite_anim *curr_player_anim;
 
-	if (app->active_scene->scene_id != scene_id_main_game)
-		return ;
 	curr_player_anim = &app->animations[app->player_hud.curr_animation];
-	curr_player_anim->frame_time -= app->info.delta_time;
-	if (curr_player_anim->frame_time <= 0)
+	if (app->active_scene->scene_id != scene_id_main_game ||
+		curr_player_anim->is_finished)
+		return ;
+	curr_player_anim->frame_time_left -= app->info.delta_time;
+	if (curr_player_anim->frame_time_left <= 0)
 	{
-		curr_player_anim->frame_time = 0;
+		curr_player_anim->frame_time_left = 0;
 		curr_player_anim->current_frame++;
-		curr_player_anim->frame_time = ANIM_FRAME_TIME_MS;
+		curr_player_anim->frame_time_left =
+			curr_player_anim->frame_time;
 		if (curr_player_anim->current_frame >= curr_player_anim->num_frames)
 		{
 			curr_player_anim->is_finished = true;

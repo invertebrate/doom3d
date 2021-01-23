@@ -4,10 +4,6 @@
 
 - Initialize app & threadpool
 - Load first `src/scene`
-  - Scene loads all assets related to the scene
-  - Scene options are set in `src/scene/scene_data.c`
-  - Scene ids are set in `include/doom3d.c`
-  - If you wish to add test objects, see an example in e.g. `place_test_object` function in `src/scene/scene.c`
 - After loading first scene, main loop is run like:
 
 ```c
@@ -44,6 +40,51 @@
   - Buffers are drawn onto main buffer
 - These `render_triangles` are then freed
 - Main buffer will then be presented onto window
+
+## Player sprite animations
+
+Main struct defining an animation
+
+```c
+/*
+** @id: Animation id, e.g. t_player_animation anim_shotgun_shoot
+** @frames: frame information, dimensions and offsets
+** @current_frame: index of currently shown frame
+** @frame_time: how long each frame is shown
+** @frame_time_left: update decrements this until <= 0 and moves on to next frame
+** @interruptable: whether animation can be interrupted
+** @is_finised: when last frame is shown, animation is set to be finished
+**   uninterruptable animations are not overridden unless they are finised
+*/
+
+typedef struct				s_sprite_anim
+{
+	uint32_t				id;
+	t_anim_frame			frames[MAX_ANIMATION_FRAMES];
+	int32_t					num_frames;
+	int32_t					current_frame;
+	int32_t					frame_time;
+	int32_t					frame_time_left;
+	t_bool					interruptable;
+	t_bool					is_finished;
+}							t_sprite_anim;
+```
+
+Player animations work as follows:
+
+**INIT**
+1. Set animation source files in `scene_assets.c` and call keys in `get_animation_source`
+2. Define animation frame information and their corresponding ids
+(`player_animations.c`, ids under `t_player_animation`), call them in `player_animations_init`
+
+**UPDATE**
+1. Define which weapon sets which animation in default, shoot and reload
+e.g `set_player_reload_frame`
+2. Update animation frames and loop them in `doom3d_player_animation_update`
+every frame, and decrement frame time with `delta_time`. This is called in main loop.
+
+**DISPLAY**
+1. Render right frame in `player_hud.c` in `player_animation_render`
 
 ## Libs
 

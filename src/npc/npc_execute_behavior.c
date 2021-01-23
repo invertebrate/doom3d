@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_execute_behavior.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 17:22:03 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/06 17:24:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/22 01:06:33 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	npc_execute_behavior(t_doom3d *app, t_3d_object *npc_obj)
 	if (npc->state == state_idle)
 	{
 		/*
-		DO IDLE THINGS WITH THIS NPC
+		DO IDLE THINGS WITH THIS NPC, LIKE IDLE ANIMATION
 		*/
 	}
 	else if (npc->state == state_attack)
@@ -32,8 +32,11 @@ void	npc_execute_behavior(t_doom3d *app, t_3d_object *npc_obj)
 		/*
 		DO ATTACK THINGS WITH THIS NPC
 		follow path to attack
+		// ToDo: Instead of translating towards direction, turn npc towards
+		// player and then move to direction by delta_time * speed
 		*/
-		l3d_3d_object_translate(npc_obj,
-			-npc->dir[0], -npc->dir[1], -npc->dir[2]);
+		if (npc->advance == true)
+			l3d_3d_object_translate(npc_obj,
+				npc->dir[0], 0, npc->dir[2]);
 	}
 }

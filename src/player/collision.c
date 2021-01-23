@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 20:27:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/21 16:33:20 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void			collision_limit_player(t_doom3d *app, t_vec3 add)
 		if (obj == NULL)
 			continue ;
 		ml_vector3_sub(obj->position, future_player.pos, diff);
-		if (ml_vector3_mag(diff) > app->unit_size * 3)
+		if (ml_vector3_mag(diff) > app->unit_size * 3 || obj->type == object_type_trigger)
 			continue ;
 		if (l3d_aabb_collides(&obj->aabb, &future_player.aabb))
 		{

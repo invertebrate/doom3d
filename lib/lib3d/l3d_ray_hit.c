@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 14:53:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 12:35:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static t_bool	l3d_kd_tree_ray_hit_recursive(t_kd_node *node, t_ray *ray,
 	t_bool	hits_right;
 	t_bool	hits_left;
 
-	if (l3d_bounding_box_ray_hit(&node->bounding_box, ray, hits))
+	if (l3d_bounding_box_ray_hit(&node->bounding_box, ray, hits, false))
 	{
 		if (node->left || node->right)
 		{

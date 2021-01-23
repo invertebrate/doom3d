@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 15:53:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 17:20:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ static void		doom3d_button_events_handle(t_doom3d *app, SDL_Event event)
 	}
 }
 
+void			doom3d_game_input_events_handle(t_doom3d *app, SDL_Event event)
+{
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE)
+		player_jump(app);
+}
+
 /*
 ** Main API for event handling
 ** 1. Poll state and handle keyboard & mouse state (in-game actions mostly
@@ -79,6 +85,9 @@ void			doom3d_events_handle(t_doom3d *app)
 	while (SDL_PollEvent(&event))
 	{
 		general_input_events_handle(app, event);
+		if (app->active_scene->scene_id == scene_id_main_game &&
+			!app->active_scene->is_paused)
+			doom3d_game_input_events_handle(app, event);
 		if (app->active_scene->scene_id == scene_id_editor3d &&
 			!editor_popup_menu_open(app))
 			editor_input_events_handle(app, event);
