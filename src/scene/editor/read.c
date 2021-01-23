@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/23 17:46:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/23 18:36:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,11 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 		npc_animation_init(app, obj);
 		npc_rotate(obj, 0, npc.angle, 0);
 		int k = -1;
-		while (++k < 6)//this prints fine and correctly but similar print in read_objects segfaults
+		while (++k < 6)
 		{
-			ft_printf("SET: anim frame key %d : %s\n", k, ((t_npc*)obj->params)->anim_frames_keys[k]);
+			ft_printf("SET: anim frame key %d : %s\n", k,
+				((t_npc*)obj->params)->anim_frames_keys[k]);
 		}
-		// ((t_npc*)obj->params)->animation->
 	}
 	if (obj->type == object_type_trigger)
 	{
