@@ -97,11 +97,12 @@ void			npc_anim_frames_set(t_doom3d *app, t_npc *npc)//static
 		npc->animation->animation_frames[i] = l3d_object_instantiate(
 		hash_map_get(app->active_scene->anim_frames,
 			(int64_t)(app->active_scene->asset_files.animation_files[i])), app->unit_size);
-
+		ft_printf("anim frame pointer int: %d: %ld\n", i, (int64_t)(app->active_scene->asset_files.animation_files[i]));
 		// npc->animation->animation_frames[i] =
 		// 	hash_map_get(app->active_scene->anim_frames,
 		// 				(int64_t)npc->anim_frames_key[i]);
 	}
+	ft_printf("------------------\n");
 }
 
 void			npc_animation_data_copy(t_npc *npc, t_anim_metadata *anim_data)//static

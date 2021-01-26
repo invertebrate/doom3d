@@ -48,12 +48,18 @@ static void		add_objects_render_triangles(t_doom3d *app,
 			!object_inside_viewbox(app, app->active_scene->objects[i]))
 			continue ;
 		j = -1;
-		while (++j < app->active_scene->objects[i]->num_triangles && j < 200)
+		while (++j < app->active_scene->objects[i]->num_triangles)
 		{
-			// if (app->active_scene->objects[i]->params_type == object_type_npc)
+			// app->active_scene->objects[i]->params = malloc(1);
+			if (app->active_scene->objects[i]->type == object_type_npc && app->active_scene->objects[i]->params != NULL)// &&
+			{
+			//((t_npc*)app->active_scene->objects[i]->params)->animation != NULL)
+			ft_printf("hre\n");
+				// ft_printf("anim frame pointer int: %d: %ld\n", i,
+				// (int64_t)(((t_npc*)(app->active_scene->objects[i]->params))->animation->animation_frames[0]));
+			}
 				// triangle = ((t_npc*)(app->active_scene->objects[i]->params))->animation->animation_frames[0]->triangles + j;//here animation frame mesh
-				// ft_printf("animation frame 0: %s\n");//, ((t_npc*)(app->active_scene->objects[i]->params))->anim_frames_key[0]);
-			// else
+			else
 				triangle = app->active_scene->objects[i]->triangles + j;
 			if (triangle_too_far(app, triangle)	 ||
 				!triangle_inside_viewbox(app, triangle))
