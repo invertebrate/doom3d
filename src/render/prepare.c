@@ -50,15 +50,11 @@ static void		add_objects_render_triangles(t_doom3d *app,
 		j = -1;
 		while (++j < app->active_scene->objects[i]->num_triangles)
 		{
-			// app->active_scene->objects[i]->params = malloc(1);
-			if (app->active_scene->objects[i]->type == object_type_npc && app->active_scene->objects[i]->params != NULL)// &&
+			if (app->active_scene->objects[i]->params_type == npc_type_default && app->active_scene->objects[i]->params != NULL &&
+			((t_npc*)app->active_scene->objects[i]->params)->animation != NULL)
 			{
-			//((t_npc*)app->active_scene->objects[i]->params)->animation != NULL)
-			ft_printf("hre\n");
-				// ft_printf("anim frame pointer int: %d: %ld\n", i,
-				// (int64_t)(((t_npc*)(app->active_scene->objects[i]->params))->animation->animation_frames[0]));
+				triangle = ((t_npc*)(app->active_scene->objects[i]->params))->animation->animation_frames[5]->triangles + j;
 			}
-				// triangle = ((t_npc*)(app->active_scene->objects[i]->params))->animation->animation_frames[0]->triangles + j;//here animation frame mesh
 			else
 				triangle = app->active_scene->objects[i]->triangles + j;
 			if (triangle_too_far(app, triangle)	 ||

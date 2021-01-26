@@ -32,6 +32,7 @@ void			npc_animation_init(t_doom3d *app, t_3d_object *obj)
 	t_npc			*npc;
 
 	npc = (t_npc*)obj->params;
+	npc->animation->base_object = obj;//new change
 	if (npc->type == npc_type_default)
 	{
 		npc_default_anim_metadata_set(&anim_data);
@@ -91,18 +92,13 @@ void			npc_anim_frames_set(t_doom3d *app, t_npc *npc)//static
 {
 	int		i;
 
-	i = npc->animation->frames_start_idx;
+	i = npc->animation->frames_start_idx - 1;
 	while (++i < (int)(npc->animation->frames_start_idx + (npc->animation->frame_count)))
 	{
 		npc->animation->animation_frames[i] = l3d_object_instantiate(
 		hash_map_get(app->active_scene->anim_frames,
 			(int64_t)(app->active_scene->asset_files.animation_files[i])), app->unit_size);
-		ft_printf("anim frame pointer int: %d: %ld\n", i, (int64_t)(app->active_scene->asset_files.animation_files[i]));
-		// npc->animation->animation_frames[i] =
-		// 	hash_map_get(app->active_scene->anim_frames,
-		// 				(int64_t)npc->anim_frames_key[i]);
 	}
-	ft_printf("------------------\n");
 }
 
 void			npc_animation_data_copy(t_npc *npc, t_anim_metadata *anim_data)//static
@@ -126,9 +122,5 @@ void				npc_animation_set(t_doom3d *app, t_npc *npc,
 	error_check(!(npc->animation = (t_animation*)ft_calloc(sizeof(t_animation))),
 		"Failed to malloc for npc animation in npc_animation_set.");
 	npc_animation_data_copy(npc, anim_data);
-	(void)(anim_data);
-	npc->animation->base_object = (t_3d_object*)hash_map_get(app->active_scene->models,
-												(int64_t)npc->model_key);//change this
 	npc_anim_frames_set(app, npc);
-	(void)app;
 }
