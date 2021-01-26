@@ -25,5 +25,4 @@ void	npc_default(t_doom3d *app, t_npc *npc)
 	npc->model_key = NPC_DEFAULT_MODEL;
 	npc->texture_key = NPC_DEFAULT_TEXTURE;
 	npc->normal_map_key = NPC_DEFAULT_NORMM;
-	ft_printf("npc default \n");
 }

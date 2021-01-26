@@ -31,12 +31,12 @@
 # define NEAR_CLIP_DIST 10
 # define FAR_CLIP_DIST 100000
 # define MAX_NUM_OBJECTS 16384
-# define MAX_ASSETS 64
+# define MAX_ASSETS 128
 # define MAX_LEVELS 16
 # define TEMP_OBJECT_EXPIRE_SEC 100
 # define TICKS_PER_SEC 48
 # define ANIM_3D_FPS 12
-# define ANIM_3D_MAX_COUNT 16
+# define ANIM_3D_FRAME_MAX 256
 # define NUM_WEAPONS 4
 # define ANIM_FRAME_TIME_MS 100
 
@@ -142,20 +142,22 @@ typedef struct				s_camera
 typedef struct				s_anim_metadata
 {
 	uint32_t				frame_count;
+	uint32_t				frames_start_idx;
 	uint32_t				anim_count;
-	uint32_t				anim_frame_numbers[ANIM_3D_MAX_COUNT];
+	uint32_t				anim_frame_numbers[ANIM_3D_FRAME_MAX];
 }							t_anim_metadata;
 
 typedef struct				s_animation
 {
 	uint32_t				frame_count;
+	uint32_t				frames_start_idx;
 	uint32_t				anim_count;
 	uint32_t				current_frame;
 	uint32_t				start_frame;
 	uint32_t				start_tick;
 	t_3d_object				*base_object;
-	t_3d_object				**animation_frames; //contains the objects for each anim frame
-	int32_t					anim_frame_numbers[ANIM_3D_MAX_COUNT]; //contains the frame indices for each animation start
+	t_3d_object				*animation_frames[ANIM_3D_FRAME_MAX]; //contains the objects for each anim frame
+	int32_t					anim_frame_numbers[ANIM_3D_FRAME_MAX]; //contains the frame indices for each animation start
 }							t_animation;
 
 typedef struct				s_player
@@ -350,7 +352,7 @@ struct						s_npc
 	const char				*texture_key;
 	const char				*model_key;
 	const char				*normal_map_key;
-	char					**anim_frames_key;
+	char					*anim_frames_key[ANIM_3D_FRAME_MAX];
 	t_animation				*animation;
 };
 

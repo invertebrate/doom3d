@@ -88,11 +88,11 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 		npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
 		npc_animation_init(app, obj);
-		int k = -1;
-		while (++k < 6)//this prints fine and correctly but similar print in read_objects segfaults
-		{
-			ft_printf("SET: anim frame key %d : %s\n", k, ((t_npc*)obj->params)->anim_frames_key[k]);
-		}
+		// int k = -1;
+		// while (++k < 6)//this prints fine and correctly but similar print in read_objects segfaults
+		// {
+		// 	ft_printf("SET: anim frame key %d : %s\n", k, ((t_npc*)obj->params)->anim_frames_key[k]);
+		// }
 		// ((t_npc*)obj->params)->animation->
 	}
 }
@@ -135,16 +135,6 @@ static int32_t	read_objects(t_doom3d *app, char *contents)
 		l3d_3d_object_triangle_copy_and_set(obj, obj);
 		set_obj_params_by_type(app, obj);
 		app->active_scene->objects[i] = obj;
-		// write(1, "test\n", 5);
-		// int k = -1;
-		// while (++k < 6) //!THIS CAUSES SEGFAULT THAT CAUSES NO PREVIOUS PRINTS TO SHOW
-		//IF THIS IS SOLVED THEN PROBABLY ANIMATIONS WORK. MOST LIKELY THE SEGFAULT IS CAUSED
-		//BY SOMETHING IN THE NPC ANIMATIONS FILE AND IT MANIFESTS ONLY HERE
-		// {
-		// 	ft_printf("READ: anim frame key %d : %s\n", k, ((t_npc*)obj->params)->anim_frames_key[k]);
-		// }
-		// 		write(1, "test2\n", 6);
-
 	}
 	return (offset);
 }
