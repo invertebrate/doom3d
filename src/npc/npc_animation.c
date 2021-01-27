@@ -37,7 +37,7 @@ void			npc_animation_init(t_doom3d *app, t_3d_object *obj)
 	{
 		npc_default_anim_metadata_set(&anim_data);
 	}
-		npc_animation_set(app, npc, &anim_data);
+		npc_animation_set(app, obj, npc, &anim_data);
 }
 
 /*
@@ -64,31 +64,7 @@ char			*truncate_model_file_path(const char *file_path)
 	return (path);
 }
 
-// static void        npc_anim_frames_set(t_doom3d *app, t_npc *npc)//static
-// {
-//     int32_t        i;
-
-//     i = -1;
-//     while(++i < (int32_t)npc->animation->frame_count)
-//     {
-//         npc->animation->animation_frames[i] = l3d_object_instantiate(
-//             hash_map_get(app->active_scene->model_anim_frames,
-//                         (int64_t)npc->anim_frames_keys[i]), app->unit_size);
-//         l3d_3d_object_translate(npc->animation->animation_frames[i],
-//             npc->animation->base_object->position[0],
-//             npc->animation->base_object->position[1],
-//             npc->animation->base_object->position[2]);
-//         npc->animation->animation_frames[i]->material->texture =
-//             npc->animation->base_object->material->texture;
-//         npc->animation->animation_frames[i]->material->normal_map =
-//             npc->animation->base_object->material->normal_map;
-//         npc->animation->animation_frames[i]->material->shading_opts =
-//             npc->animation->base_object->material->shading_opts;
-//         //Todo memcopy light sources... or sth.
-//     }
-// }
-
-void			npc_anim_frames_set(t_doom3d *app, t_npc *npc)//static
+void			npc_anim_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc)//static
 {
 	int		i;
 
@@ -98,6 +74,11 @@ void			npc_anim_frames_set(t_doom3d *app, t_npc *npc)//static
 		npc->animation->animation_frames[i] = l3d_object_instantiate(
 		hash_map_get(app->active_scene->anim_frames,
 			(int64_t)(app->active_scene->asset_files.animation_files[i])), app->unit_size);
+		npc->animation->animation_frames[i]->material->shading_opts = obj->material->shading_opts;
+		// ft_printf("FRAMES SET shading opts: %d\n", ((t_npc*)obj->params)->animation->animation_frames[i]->material->shading_opts);
+		
+
+		//copy shading options or use the parent's in rendering if possible?
 	}
 }
 
@@ -116,11 +97,11 @@ void			npc_animation_data_copy(t_npc *npc, t_anim_metadata *anim_data)//static
 	npc->animation->frames_start_idx = anim_data->frames_start_idx;
 }
 
-void				npc_animation_set(t_doom3d *app, t_npc *npc,
+void				npc_animation_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 								t_anim_metadata *anim_data)
 {
 	error_check(!(npc->animation = (t_animation*)ft_calloc(sizeof(t_animation))),
 		"Failed to malloc for npc animation in npc_animation_set.");
 	npc_animation_data_copy(npc, anim_data);
-	npc_anim_frames_set(app, npc);
+	npc_anim_frames_set(app, obj, npc);
 }

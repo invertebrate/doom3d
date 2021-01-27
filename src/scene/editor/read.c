@@ -75,10 +75,13 @@ float			pitch_from_rotation_matrix(t_mat4 rotation)
 
 static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 {
+	int i = -1;
 	t_npc	npc;
 
 	if (obj->type == object_type_npc)
 	{
+		ft_printf("FRAMES SET shading opts: %d\n", obj->material->shading_opts);
+
 		if (obj->params_type == npc_type_default)
 		{
 			npc_default(app, &npc);
@@ -88,6 +91,14 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 		npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
 		npc_animation_init(app, obj);
+
+		while (++i < 6)
+		{
+			if (obj->type == object_type_npc)
+			{
+				ft_printf("shading opts: %d\n", ((t_npc*)obj->params)->animation->animation_frames[i]->material->shading_opts);
+			}
+		}
 	}
 }
 
@@ -124,6 +135,8 @@ static int32_t	read_objects(t_doom3d *app, char *contents)
 		l3d_3d_object_triangle_copy_and_set(obj, obj);
 		set_obj_params_by_type(app, obj);
 		app->active_scene->objects[i] = obj;
+		// npc->animation->animation_frames[i]->material->shading_opts = obj->material->shading_opts;
+
 	}
 	return (offset);
 }

@@ -17,23 +17,23 @@ static uint32_t	l3d_get_shaded_pixel(t_triangle *triangle, t_vec2 uv,
 {
 	uint32_t	pixel;
 
-	if (triangle->material->shading_opts & e_shading_green)
+	if (triangle->parent->material->shading_opts & e_shading_green)
 		pixel = 0x00ff00ff;
-	else if (triangle->material->shading_opts & e_shading_red)
+	else if (triangle->parent->material->shading_opts & e_shading_red)
 		pixel = 0xff0000ff;
 	else
 		pixel = L3D_DEFAULT_COLOR;
-	if (triangle->material->texture)
-		pixel = l3d_sample_texture(triangle->material->texture, uv);
-	if ((triangle->material->shading_opts & e_shading_zero_alpha) &&
+	if (triangle->parent->material->texture)
+		pixel = l3d_sample_texture(triangle->parent->material->texture, uv);
+	if ((triangle->parent->material->shading_opts & e_shading_zero_alpha) &&
 		(pixel & 255) == 0)
 		return (UINT32_MAX);
-	if ((triangle->material->shading_opts & e_shading_normal_map) &&
-		triangle->material->normal_map)
+	if ((triangle->parent->material->shading_opts & e_shading_normal_map) &&
+		triangle->parent->material->normal_map)
 		pixel = l3d_pixel_normal_shaded(pixel, triangle, uv);
-	if (triangle->material->shading_opts & e_shading_depth)
+	if (triangle->parent->material->shading_opts & e_shading_depth)
 		pixel = l3d_pixel_depth_shaded(pixel, z_val);
-	if (triangle->material->shading_opts & e_shading_select)
+	if (triangle->parent->material->shading_opts & e_shading_select)
 		pixel = l3d_pixel_selection_shaded(pixel);
 	return (pixel);
 }
@@ -60,7 +60,7 @@ void			l3d_raster_draw_pixel(t_sub_framebuffer *buffers, int32_t xy[2],
 			return ;
 		l3d_pixel_plot(buffers->buffer, (uint32_t[2]){buffers->width,
 				buffers->height}, offset_xy, pixel);
-		if (!(triangle->material->shading_opts & e_shading_ignore_zpass))
+		if (!(triangle->parent->material->shading_opts & e_shading_ignore_zpass))
 			l3d_pixel_plot_float(buffers->zbuffer,
 				(uint32_t[2]){buffers->width, buffers->height},
 				offset_xy, z_val);

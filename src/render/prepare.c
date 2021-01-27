@@ -53,7 +53,8 @@ static void		add_objects_render_triangles(t_doom3d *app,
 			if (app->active_scene->objects[i]->params_type == npc_type_default && app->active_scene->objects[i]->params != NULL &&
 			((t_npc*)app->active_scene->objects[i]->params)->animation != NULL)
 			{
-				triangle = ((t_npc*)(app->active_scene->objects[i]->params))->animation->animation_frames[5]->triangles + j;
+				triangle = ((t_npc*)(app->active_scene->objects[i]->params))->animation->animation_frames[0]->triangles + j;
+				// triangle = app->active_scene->objects[i]->triangles + j;
 			}
 			else
 				triangle = app->active_scene->objects[i]->triangles + j;
