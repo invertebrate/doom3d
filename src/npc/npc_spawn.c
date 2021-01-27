@@ -33,7 +33,9 @@ void			parse_npc_type(t_doom3d *app, t_npc *npc, int type)
 	}
 }
 
-/* spawn on position facing direction with given model */
+/*
+** spawn on position facing direction with given model
+*/
 
 void			npc_spawn(t_doom3d *app, t_vec3 pos, float angle, int type)
 {

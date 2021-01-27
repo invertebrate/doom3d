@@ -15,6 +15,7 @@
 /*
 ** NPC type specific function, each type has their own
 */
+
 void		npc_default_anim_metadata_set(t_anim_metadata *anim_data)
 {
 	anim_data->frame_count = 6;
@@ -27,12 +28,11 @@ void		npc_default_anim_metadata_set(t_anim_metadata *anim_data)
 
 void			npc_animation_init(t_doom3d *app, t_3d_object *obj)
 {
-	// ft_printf("anim_init\n");
 	t_anim_metadata	anim_data;
 	t_npc			*npc;
 
 	npc = (t_npc*)obj->params;
-	npc->animation->base_object = obj;//new change
+	npc->animation->base_object = obj;
 	if (npc->type == npc_type_default)
 	{
 		npc_default_anim_metadata_set(&anim_data);
@@ -40,31 +40,7 @@ void			npc_animation_init(t_doom3d *app, t_3d_object *obj)
 		npc_animation_set(app, obj, npc, &anim_data);
 }
 
-/*
-** Removes the .obj from the end of the string
-*/
-
-char			*truncate_model_file_path(const char *file_path)
-{
-	char	*path;
-	int		len;
-	int		i;
-
-	i = -1;
-	len = ft_strlen(file_path);
-	ft_printf("filepath: %s  len: %d\n", file_path, len);
-	error_check(!(path = (char*)ft_calloc(sizeof(char) * len)),
-		"Failed to malloc for file path in truncate_model_file_path.");
-	while (i < len - 4)
-	{
-		path[i] = file_path[i];
-		i++;;
-	}
-	ft_printf("filepath after truncation: %s\n", path);
-	return (path);
-}
-
-void			npc_anim_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc)//static
+static void			npc_anim_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc)
 {
 	int		i;
 
@@ -74,15 +50,11 @@ void			npc_anim_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc)//static
 		npc->animation->animation_frames[i] = l3d_object_instantiate(
 		hash_map_get(app->active_scene->anim_frames,
 			(int64_t)(app->active_scene->asset_files.animation_files[i])), app->unit_size);
-		npc->animation->animation_frames[i]->material->shading_opts = obj->material->shading_opts;
-		// ft_printf("FRAMES SET shading opts: %d\n", ((t_npc*)obj->params)->animation->animation_frames[i]->material->shading_opts);
-		
-
-		//copy shading options or use the parent's in rendering if possible?
+		npc->animation->animation_frames[i]->material = obj->material;
 	}
 }
 
-void			npc_animation_data_copy(t_npc *npc, t_anim_metadata *anim_data)//static
+static void			npc_animation_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 {
 	int		i;
 
