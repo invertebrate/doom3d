@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/22 09:22:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/28 15:54:04 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,8 @@ void						handle_npc_deletions(t_doom3d *app);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
 void						npc_trigger_onhit(t_doom3d *app,
 								t_3d_object *obj, int damage);
+void						npc_get_dir_to_next_waypoint(t_doom3d *app, t_3d_object *obj);
+void						npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj);
 
 /*
 ** Physics
