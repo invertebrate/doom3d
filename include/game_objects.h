@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_objects.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/28 15:41:45 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/29 22:23:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,20 @@ typedef enum				e_object_type
 	object_type_projectile = 2,
 	object_type_trigger = 3,
 	object_type_light = 4,
+	object_type_path = 5,
 }							t_object_type;
 
+/*
+** Prefab is a combination of assets, e.g. 3d model + texture + normal map.
+** Or later a combination of 3d models and their textures.
+** They are a bundle of things placeable by the editor.
+*/
+
+typedef enum				e_prefab_type
+{
+	prefab_plane = 1,
+	prefab_path_node= 2,
+}							t_prefab_type;
 
 /*
 ** Game object Params types
@@ -44,16 +56,18 @@ typedef enum				e_object_type
 */
 
 /*
-** Prefab is a combination of assets, e.g. 3d model + texture + normal map.
-** Or later a combination of 3d models and their textures.
-** They are a bundle of things placeable by the editor.
-** t_prefab_type type may be used as a sub type (params_type) under t_3d_object
+** Sub (params_type) for object_type_path
 */
 
-typedef enum				e_prefab_type
+typedef struct				s_path_node
 {
-	prefab_plane = 1,
-}							t_prefab_type;
+	t_bool	is_visited;
+	t_3d_object	*neighbors[2]; //How many neighbors can have?
+	//Neighbors may have to be set always through algorithm
+	//When map is read... :( or when new nodes are added in editor
+	//Should there be int32_t num_neighbors to denote how many neighbors, or
+	//always two? Dunno
+}							t_path_node;
 
 /*
 ** A list of various trigger types

@@ -68,6 +68,7 @@ SOURCES = main.c \
 			npc/npc_update.c \
 			npc/npc_move_to_waypoint.c \
 			trigger/trigger.c \
+			path/path.c \
 			object/object_utils.c \
 			object/object_update.c \
 			physics/is_grounded.c \
@@ -153,6 +154,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/object
 	@mkdir -p temp/physics
 	@mkdir -p temp/trigger
+	@mkdir -p temp/path
 	@mkdir -p temp/inventory
 	@mkdir -p temp/inventory/item_data
 	@mkdir -p temp/projectile

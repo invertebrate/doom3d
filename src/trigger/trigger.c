@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 16:08:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/29 22:13:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void			editor_objects_invisible_highlight(t_doom3d *app)
 		if (obj)
 		{
 			if (obj->type == object_type_trigger ||
-				obj->type == object_type_light)
+				obj->type == object_type_light ||
+				obj->type == object_type_path)
 			{
 				obj->material->shading_opts = (obj->material->shading_opts &
 					~(e_shading_invisible));
@@ -81,6 +82,8 @@ void			editor_objects_invisible_highlight(t_doom3d *app)
 					obj->material->shading_opts = e_shading_red;
 				if (obj->params_type == object_type_light)
 					obj->material->shading_opts = e_shading_yellow;
+				if (obj->params_type == object_type_path)
+					obj->material->shading_opts = e_shading_cyan;
 			}
 		}
 	}
@@ -99,8 +102,9 @@ void			editor_objects_invisible_unhighlight(t_doom3d *app)
 		if (obj &&
 			((obj->type == object_type_trigger &&
 				(obj->params_type == trigger_player_start ||
-					obj->params_type == trigger_player_end)) ||
-			obj->type == object_type_light))
+				obj->params_type == trigger_player_end)) ||
+				obj->type == object_type_light ||
+				obj->type == object_type_path))
 			obj->material->shading_opts = e_shading_invisible;
 	}
 }

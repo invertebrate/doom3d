@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/14 18:26:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/29 22:34:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,15 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 		npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
 	}
-	if (obj->type == object_type_trigger)
+	else if (obj->type == object_type_trigger)
 	{
 		if (obj->params_type == trigger_weapon_drop_shotgun)
 		{
 			
 		}
 	}
+	else if (obj->type == object_type_path)
+		path_node_init(obj);
 }
 
 static int32_t	read_objects(t_doom3d *app, char *contents)
@@ -161,4 +163,5 @@ void			read_map(t_doom3d *app, const char *map_name)
 	destroy_file_contents(file);
 	ft_printf("Loaded map: %s\nNum objects %u\n", map_name,
 		app->active_scene->num_objects);
+	path_objects_set_neighbors(app);
 }

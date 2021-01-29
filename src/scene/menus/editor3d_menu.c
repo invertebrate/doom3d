@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 16:09:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/29 22:21:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,8 @@ static void			on_npc_menu_button_click(t_button *self, void *params)
 			.type = notification_type_info, .time = 2000});
 }
 
+
+
 static void			on_prefab_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d		*app;
@@ -168,6 +170,14 @@ static void			on_prefab_menu_button_click(t_button *self, void *params)
 		doom3d_notification_add(app, (t_notification){
 			.message = "Placed plane!",
 			.type = notification_type_info, .time = 2000});
+	}
+	else if (prefab_type == (uint32_t)prefab_path_node)
+	{
+		place_path_object(app);
+		doom3d_notification_add(app, (t_notification){
+			.message = "Placed Path Node!",
+			.type = notification_type_info, .time = 2000});
+		editor_objects_invisible_highlight(app);
 	}
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
