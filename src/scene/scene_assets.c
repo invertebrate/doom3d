@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 20:15:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/29 20:37:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ static void		scene_animation_3d_frames_set(t_asset_files *data,
 	i = -1;
 	while(++i < (int)framecount && i < 100)
 	{
-		frame_path = (char*)malloc(sizeof(char) * ft_strlen(file_path) + 4);
+		frame_path = (char*)ft_calloc(sizeof(char) * ft_strlen(file_path) + 4);
 		if (i < 10)
 		{
 			ft_sprintf(frame_path, "%s_00%d.obj", file_path, i);
