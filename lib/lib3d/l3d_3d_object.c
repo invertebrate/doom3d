@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/29 19:55:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,25 @@ void			l3d_3d_object_set_vertex(t_vertex *vertex, t_vec3 pos)
 void			l3d_3d_object_set_params(t_3d_object *object,
 					void *params, uint32_t params_size, uint32_t params_type)
 {
-	error_check(!(object->params = ft_calloc(params_size * 5)),
-		"Failed to malloc obj params");
+	if (params_size > 0)
+	{
+		error_check(!(object->params = ft_calloc(params_size)),
+			"Failed to malloc obj params");
+		ft_memcpy(object->params, params, params_size);
+	}
+	else
+		object->params = NULL;
 	object->params_size = params_size;
 	object->params_type = params_type;
-	ft_memcpy(object->params, params, params_size);
+}
+
+void			l3d_3d_object_add_light_source(t_3d_object *object,
+					t_vec3 light_pos)
+{
+	if (object->material->num_lights < L3D_MAX_LIGHTS)
+		ml_vector3_copy(light_pos,
+			object->material->light_sources[object->material->num_lights++]);
+	else
+		ft_printf("Too many lights set for object %d, max: %d\n",
+			object->id, L3D_MAX_LIGHTS);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 19:38:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/22 09:15:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,22 @@ static void		doom3d_main_loop(t_doom3d *app)
 		window_frame_clear(app->window);
 		handle_scene_switch(app);
 		doom3d_events_handle(app);
+		doom3d_player_update(app);
 		doom3d_update_objects(app);
-		doom3d_player_animation_update(app);
 		doom3d_render(app);
 		window_frame_draw(app->window);
 		doom3d_notifications_update(app);
 		doom3d_debug_info_capture(app);
 		// ft_printf("%u\n", app->current_tick);
 	}
+}
+
+void			settings_init(t_doom3d *app)
+{
+	app->settings.is_normal_map = false;
+	app->settings.is_skybox = true;
+	app->settings.width = 960;
+	app->settings.height = 540;
 }
 
 void			doom3d_init(t_doom3d *app)
@@ -64,8 +72,6 @@ void			doom3d_init(t_doom3d *app)
 	app->is_scene_reload = false;
 	app->unit_size = app->window->width;
 	app->next_scene_id = scene_id_main_menu;
-	app->settings.is_normal_map = false;
-	app->settings.is_skybox = true;
 	ft_memset(&app->notifications, 0, sizeof(app->notifications));
 	read_level_list(app);
 	app->current_level = 0;
@@ -86,6 +92,7 @@ static void		doom3d_cleanup(t_doom3d *app)
 	i = -1;
 	while (++i < (int32_t)app->num_levels)
 		ft_strdel(&app->level_list[i]);
+	doom3d_notifications_delete_all(app);
 }
 
 void			doom3d_run(t_doom3d *app)
@@ -97,7 +104,8 @@ void			doom3d_run(t_doom3d *app)
 		cpu_count >= NUM_THREADS_DEFAULT ? cpu_count : NUM_THREADS_DEFAULT);
 	error_check(SDL_Init(SDL_INIT_VIDEO) != 0, SDL_GetError());
 	error_check(TTF_Init() == -1, TTF_GetError());
-	window_create(&app->window, WIDTH, HEIGHT);
+	settings_init(app);
+	window_create(&app->window, app->settings.width, app->settings.height);
 	doom3d_init(app);
 	doom3d_main_loop(app);
 	doom3d_cleanup(app);

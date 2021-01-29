@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:53:57 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 14:53:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/20 12:39:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void			l3d_delete_hits(t_hits **hits)
 	ft_lstdel(hits, l3d_delete_hit);
 }
 
-void			l3d_get_closest_hit(t_hits *hits, t_hit **closest)
+void			l3d_get_closest_hit(t_hits *hits, t_hit **closest,
+					uint32_t ignore_id)
 {
 	t_hits	*head;
 	t_hit	*hit;
@@ -36,9 +37,11 @@ void			l3d_get_closest_hit(t_hits *hits, t_hit **closest)
 	while (head)
 	{
 		hit = (t_hit*)head->content;
-		if (*closest == NULL && hit != NULL && hit->t > 0.0 && hit->triangle)
+		if (*closest == NULL && hit->t > 0.0 &&
+			hit->triangle->parent->id != ignore_id)
 			*closest = hit;
-		if (hit != NULL && hit->triangle != NULL && hit->t > 0.0 &&
+		if (hit != NULL && hit->t > 0.0 &&
+			hit->triangle->parent->id != ignore_id &&
 			hit->t <= (*closest)->t)
 			*closest = hit;
 		head = head->next;
@@ -79,7 +82,7 @@ t_bool			l3d_plane_ray_hit(t_plane *plane, t_ray *ray,
 */
 
 t_bool			l3d_bounding_box_ray_hit(t_box3d *box, t_ray *ray,
-					t_hits **hits)
+					t_hits **hits, t_bool is_recorded)
 {
 	float	t[8];
 
@@ -95,6 +98,7 @@ t_bool			l3d_bounding_box_ray_hit(t_box3d *box, t_ray *ray,
 		l3d_fmax(t[4], t[5]));
 	if (t[7] < 0 || t[6] > t[7])
 		return (false);
-	l3d_bounding_box_hit_record_set(t, ray, hits);
+	if (is_recorded)
+		l3d_bounding_box_hit_record_set(t, ray, hits);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 18:58:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/29 20:11:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,17 @@ static int32_t	read_obj_normal_map(t_3d_object *obj,
 
 float			pitch_from_rotation_matrix(t_mat4 rotation)
 {
+	float	pitch1;
+	float	pitch2;
+
 	if (rotation[0][2] != 1 && rotation[0][2] != -1)
 	{
-		return (-1 * asin(rotation[0][2]));
+		pitch1 = -1 * asin(rotation[0][2]);
+		pitch2 = M_PI - pitch1;
+		if (rotation[0][0] < 0 || rotation[2][2] < 0)
+			return (pitch2);
+		else
+			return (pitch1);
 	}
 	return (rotation[0][2] > 0 ? -M_PI / 2.0 : M_PI / 2.0);
 }
@@ -87,7 +95,14 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 			return ;
 		npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
-		npc_animation_init(app, obj);
+		npc_animation_3d_init(app, obj);
+	}
+	if (obj->type == object_type_trigger)
+	{
+		if (obj->params_type == trigger_weapon_drop_shotgun)
+		{
+			
+		}
 	}
 }
 

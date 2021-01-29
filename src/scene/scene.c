@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 18:10:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ t_scene			*scene_new(t_scene_id scene_id)
 	scene->num_deleted = 0;
 	scene->num_objects = 0;
 	scene->npc_update_timer = 0;
+	scene->last_object_index = -1;
 	scene->scene_id = scene_id;
 	scene->triangle_ref = NULL;
+	scene->temp_objects = NULL;
 	return (scene);
 }
 

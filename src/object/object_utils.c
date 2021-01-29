@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 14:05:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/19 22:05:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_3d_object		*find_one_object_by_type(t_doom3d *app, uint32_t object_type,
 /*
 ** // !Note that this (inc/dec)rements both num_deleted and num_objects
 ** so only use this when intending to actually place objects
+** Saves this next index to last_object_index under scene
 */
 
 static uint32_t	next_object_index(t_doom3d *app)
@@ -43,10 +44,11 @@ static uint32_t	next_object_index(t_doom3d *app)
 		next_index = app->active_scene->deleted_object_i[
 			app->active_scene->num_deleted - 1];
 		app->active_scene->num_deleted--;
-		app->active_scene->num_objects++;
-		return (next_index);
 	}
-	next_index = app->active_scene->num_objects++;
+	else
+		next_index = app->active_scene->num_objects;
+	app->active_scene->num_objects++;
+	app->active_scene->last_object_index = next_index;
 	return (next_index);
 }
 
@@ -108,6 +110,7 @@ void			place_scene_object(t_doom3d *app, const char *filenames[3],
 			obj->id, (void*)filenames[2]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
+	active_scene_update_after_objects(app->active_scene);
 }
 
 /*
@@ -140,6 +143,81 @@ void			place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 			obj->id, (void*)filenames[1]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
+	active_scene_update_after_objects(app->active_scene);
+}
+
+/*
+** Place object from model (add textures from memory)
+*/
+
+t_3d_object			*place_temp_object(t_doom3d *app, const char *filenames[3],
+						t_vec3 pos, int32_t lifetime_and_delay[2])
+{
+	t_3d_object	*obj;
+	t_3d_object	*model;
+	t_surface	*texture;
+	t_surface	*normal_map;
+
+	model = hash_map_get(app->active_scene->models, (int64_t)filenames[0]);
+	if (!model)
+	{
+		ft_dprintf(2, "No existing model file (%s) given to place object. "
+			"Add it in scene_assets.c\n",
+			filenames[0]);
+		return (NULL);
+	}
+	obj = l3d_object_instantiate(model, app->unit_size);
+	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[1]);
+	obj->material->texture = texture;
+	if (texture != NULL)
+		hash_map_add(app->active_scene->object_textures, obj->id,
+			(void*)filenames[1]);
+	normal_map = hash_map_get(app->active_scene->textures,
+		(int64_t)filenames[2]);
+	obj->material->normal_map = normal_map;
+	if (normal_map)
+		hash_map_add(app->active_scene->object_normal_maps,
+			obj->id, (void*)filenames[2]);
+	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
+	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
+		lifetime_and_delay);
+	return (obj);
+}
+
+/*
+** Place object from model (add textures from memory)
+*/
+
+t_3d_object			*place_procedural_temp_object(t_doom3d *app,
+						t_3d_object *model,
+						const char *filenames[2],
+						t_vec3 pos, int32_t lifetime_and_delay[2])
+{
+	t_3d_object	*obj;
+	t_surface	*texture;
+	t_surface	*normal_map;
+
+	if (!model)
+	{
+		ft_dprintf(2, "No existing model object (NULL) given\n");
+		return (NULL);
+	}
+	obj = l3d_object_instantiate(model, app->unit_size);
+	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[0]);
+	obj->material->texture = texture;
+	if (texture)
+		hash_map_add(app->active_scene->object_textures, obj->id,
+			(void*)filenames[0]);
+	normal_map = hash_map_get(app->active_scene->textures,
+		(int64_t)filenames[1]);
+	obj->material->normal_map = normal_map;
+	if (normal_map)
+		hash_map_add(app->active_scene->object_normal_maps,
+			obj->id, (void*)filenames[1]);
+	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
+	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
+		lifetime_and_delay);
+	return (obj);
 }
 
 void			object_type_to_str(t_3d_object *obj, char *str)
@@ -152,6 +230,6 @@ void			object_type_to_str(t_3d_object *obj, char *str)
 		ft_sprintf(str, "%s", "Trigger");
 	else if (obj->type == object_type_projectile)
 		ft_sprintf(str, "%s", "Projectile");
-	else if (obj->type == object_type_item)
-		ft_sprintf(str, "%s", "Item");
+	else if (obj->type == object_type_light)
+		ft_sprintf(str, "%s", "Light");
 }

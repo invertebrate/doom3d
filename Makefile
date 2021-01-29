@@ -41,9 +41,15 @@ CFLAGS =-Wall -Wextra -Werror -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
 			doom3d.c \
 			player/player.c \
+			player/player_jump.c \
 			player/player_shoot.c \
 			player/collision.c \
 			player/movement.c \
+			player/player_status.c \
+			player/player_vitals_render.c \
+			projectile/projectile_init.c \
+			projectile/projectile_update.c \
+			projectile/projectile_data/projectile_data_rpg.c \
 			player/player_animations.c \
 			inventory/item_data/item_data_fist.c \
 			inventory/item_data/item_data_glock.c \
@@ -63,6 +69,8 @@ SOURCES = main.c \
 			trigger/trigger.c \
 			object/object_utils.c \
 			object/object_update.c \
+			physics/is_grounded.c \
+			physics/forces_update.c \
 			camera.c \
 			utils.c \
 			scene/menus/editor3d_menu.c \
@@ -87,7 +95,7 @@ SOURCES = main.c \
 			render/prepare_utils3.c \
 			render/rasterize.c \
 			render/prepare_clip.c \
-			render/hud.c \
+			render/player_hud.c \
 			render/ui.c \
 			render/editor_ui.c \
 			render/debug/debug.c \
@@ -144,9 +152,12 @@ $(DIR_OBJ):
 	@mkdir -p temp/animations
 	@mkdir -p temp/npc
 	@mkdir -p temp/object
+	@mkdir -p temp/physics
 	@mkdir -p temp/trigger
 	@mkdir -p temp/inventory
 	@mkdir -p temp/inventory/item_data
+	@mkdir -p temp/projectile
+	@mkdir -p temp/projectile/projectile_data
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)
