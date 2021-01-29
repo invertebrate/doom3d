@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_default.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/28 15:59:22 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/29 21:30:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void set_test_patrol_pattern(t_doom3d *app, t_npc *npc) //testing
 	npc->patrol_path_index = 0;
 	npc->patrol_path[0][0] = -14 * u;
 	npc->patrol_path[0][1] = 2 * u;
-	npc->patrol_path[0][3] = -13 * u;
+	npc->patrol_path[0][2] = -13 * u;
 	npc->patrol_path[1][0] = -11 * u;
 	npc->patrol_path[1][1] = 2 * u;
 	npc->patrol_path[1][2] = 9 * u;
