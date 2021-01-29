@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/01/29 20:26:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/29 20:54:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,11 @@ static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc
 		npc->animation_3d->animation_frames[i] = l3d_object_instantiate(
 		hash_map_get(app->active_scene->animation_3d_frames,
 			(int64_t)(app->active_scene->asset_files.animation_3d_files[i])), app->unit_size);
-		npc->animation_3d->animation_frames[i]->material = obj->material;
+		//ToDo: Make material copy if needed
+		npc->animation_3d->animation_frames[i]->material->texture =
+			obj->material->texture;
+		npc->animation_3d->animation_frames[i]->material->shading_opts =
+			obj->material->shading_opts;
 	}
 }
 
