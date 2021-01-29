@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/01/29 20:11:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/29 20:26:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 	t_npc			*npc;
 
 	npc = (t_npc*)obj->params;
-	npc->animation_3d->base_object = obj;
 	if (npc->type == npc_type_default)
 	{
 		npc_default_anim_3d_metadata_set(&anim_data);
@@ -75,5 +74,6 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 	error_check(!(npc->animation_3d = (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
 		"Failed to malloc for npc animation in npc_animation_set.");
 	npc_animation_3d_data_copy(npc, anim_data);
+	npc->animation_3d->base_object = obj;
 	npc_anim_3d_frames_set(app, obj, npc);
 }
