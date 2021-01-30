@@ -18,12 +18,26 @@ void			update_app_ticks(t_doom3d *app)
 						SDL_GetPerformanceFrequency();
 }
 
-uint32_t		update_current_frame(t_doom3d *app, t_3d_object *object)
+uint32_t		update_current_frame(t_doom3d *app, t_animation_3d *animation)
 {
 	uint32_t	current_frame;
 
-	current_frame = ((t_animation_3d*)object->params)->start_frame +
-	((app->current_tick - ((t_animation_3d*)object->params)->start_tick) % (int)(TICKS_PER_SEC / ANIM_3D_FPS));
-	((t_animation_3d*)object->params)->current_frame = current_frame;
+	current_frame = animation->start_frame +
+	((app->current_tick - animation->start_tick) % (int)(TICKS_PER_SEC / ANIM_3D_FPS));
+	animation->current_frame = current_frame;
 	return (current_frame);
+}
+
+t_triangle		*get_animation_3d_triangle(t_3d_object *obj)
+{
+	t_triangle		*result_tri;
+	t_animation_3d	*anim;
+
+	result_tri = NULL;
+	if (obj->type == object_type_npc)
+	{
+		anim =  ((t_npc*)obj->params)->animation_3d;
+		result_tri =anim->animation_frames[anim->current_frame]->triangles;
+	}
+	return (result_tri);
 }

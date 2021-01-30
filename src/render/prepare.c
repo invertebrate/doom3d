@@ -87,6 +87,14 @@ static void		add_objects_render_triangles(t_doom3d *app,
 		j = -1;
 		while (++j < app->active_scene->objects[i]->num_triangles)
 		{
+			if (app->active_scene->objects[i]->type == object_type_npc)
+			//^this could be more elegant as in to take into account multiple types
+				{
+				update_current_frame(app, ((t_npc*)app->active_scene->objects[i]->params)->animation_3d);
+				//^only for testing, animation controller should handle this
+				triangle = get_animation_3d_triangle(app->active_scene->objects[i]) + j;
+				}
+			else
 				triangle = app->active_scene->objects[i]->triangles + j;
 			if (triangle_too_far(app, triangle)	 ||
 				!triangle_inside_viewbox(app, triangle))
