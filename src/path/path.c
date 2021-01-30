@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 22:21:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 22:35:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/30 09:38:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ void			path_node_init(t_3d_object *path_obj)
 void			place_path_object(t_doom3d *app)
 {
 	t_3d_object		*path_obj;
+	t_vec3			pos;
 
+	editor_place_position(app, pos);
 	place_scene_object(app, (const char*[3]){
-		"assets/models/box.obj", NULL,  NULL}, (t_vec3){0, 0, 0});
+		"assets/models/box.obj", NULL,  NULL}, pos);
 	path_obj =
 		app->active_scene->objects[app->active_scene->last_object_index];
 	l3d_object_set_shading_opts(path_obj, e_shading_invisible);

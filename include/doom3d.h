@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 22:32:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/30 09:31:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,6 +279,7 @@ void						draw_npc_dirs(t_render_work *work);
 void						notifications_render(t_doom3d *app, t_vec2 pos);
 void						draw_triangle_tree_bounding_boxes(
 								t_render_work *work);
+void						draw_editor_placement_position(t_render_work *work);
 
 /*
 ** Objects
@@ -339,6 +340,8 @@ void						after_editor_transform(t_doom3d *app,
 void    					editor_init(t_doom3d *app, int32_t editor_level);
 void						place_path_object(t_doom3d *app);
 void						path_node_init(t_3d_object *path_obj);
+void						editor_place_position(t_doom3d *app ,
+								t_vec3 result);
 
 /*
 ** Level

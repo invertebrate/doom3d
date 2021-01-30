@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 21:52:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/30 09:32:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,4 +216,31 @@ void			draw_triangle_tree_bounding_boxes(t_render_work *work)
 	draw_triangle_tree_recursive(work->app,
 		work->framebuffer->sub_buffers[work->sub_buffer_i],
 		work->app->active_scene->triangle_tree->root, 0xff0000ff);
+}
+
+void			draw_editor_placement_position(t_render_work *work)
+{
+	t_vec3		place_pos;
+	t_doom3d	*app;
+	t_vec3		edge1[2];
+	t_vec3		edge2[2];
+	t_vec3		edge3[2];
+
+	app = work->app;
+	editor_place_position(app, place_pos);
+	ml_vector3_add(place_pos, (t_vec3){0, 0, app->unit_size * 0.3}, edge1[0]);
+	ml_vector3_sub(place_pos, (t_vec3){0, 0, app->unit_size * 0.3}, edge1[1]);
+	ml_vector3_add(place_pos, (t_vec3){app->unit_size * 0.3, 0, 0}, edge2[0]);
+	ml_vector3_sub(place_pos, (t_vec3){app->unit_size * 0.3, 0, 0}, edge2[1]);
+	ml_vector3_add(place_pos, (t_vec3){0, app->unit_size * 0.3, 0}, edge3[0]);
+	ml_vector3_sub(place_pos, (t_vec3){0, app->unit_size * 0.3, 0}, edge3[1]);
+	draw_debug_line(app, work->framebuffer->sub_buffers[work->sub_buffer_i],
+		(t_vec3[2]){{edge1[0][0], edge1[0][1], edge1[0][2]},
+		{edge1[1][0], edge1[1][1], edge1[1][2]}}, 0x00ffffff);
+	draw_debug_line(app, work->framebuffer->sub_buffers[work->sub_buffer_i],
+		(t_vec3[2]){{edge2[0][0], edge2[0][1], edge2[0][2]},
+		{edge2[1][0], edge2[1][1], edge2[1][2]}}, 0x00ffffff);
+	draw_debug_line(app, work->framebuffer->sub_buffers[work->sub_buffer_i],
+		(t_vec3[2]){{edge3[0][0], edge3[0][1], edge3[0][2]},
+		{edge3[1][0], edge3[1][1], edge3[1][2]}}, 0x00ffffff);
 }

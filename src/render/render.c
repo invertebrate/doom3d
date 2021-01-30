@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 21:50:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/30 09:31:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static void		render_work(void *params)
 			if (work->app->editor.selected_object->type == object_type_npc)
 				draw_selected_enemy_direction(work);
 		}
+		else
+			draw_editor_placement_position(work);
 		//!Debug bounding box with draw_selected_aabb(work);
 	}
 	else if (work->app->active_scene->scene_id == scene_id_main_game)

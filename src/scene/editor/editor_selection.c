@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/16 18:14:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/30 09:35:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,4 +152,12 @@ void			editor_select(t_doom3d *app)
 			.type = notification_type_info, .time = 2000});
 		editor_deselect(app);
 	}
+}
+
+void			editor_place_position(t_doom3d *app , t_vec3 result)
+{
+	t_vec3	add;
+
+	ml_vector3_mul(app->player.forward, app->unit_size * 30, add);
+	ml_vector3_add(app->player.pos, add, result);
 }
