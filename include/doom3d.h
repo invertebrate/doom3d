@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/30 09:31:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/30 22:28:58 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,7 +339,9 @@ void						after_editor_transform(t_doom3d *app,
 								uint32_t *last_changed);
 void    					editor_init(t_doom3d *app, int32_t editor_level);
 void						place_path_object(t_doom3d *app);
+void						path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj);
 void						path_node_init(t_3d_object *path_obj);
+void						path_draw_connections(t_render_work *work);
 void						editor_place_position(t_doom3d *app ,
 								t_vec3 result);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/30 09:31:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/30 17:54:40 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void		render_work(void *params)
 	rasterize_triangles(work);
 	if (work->app->active_scene->scene_id == scene_id_editor3d)
 	{
+		path_draw_connections(work); //might need to move
 		if (work->app->editor.selected_object)
 		{
 			draw_selected_wireframe(work);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_objects.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 22:23:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/30 13:30:08 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define NPC_DEFAULT_NORMM "assets/textures/rock.bmp"
 
 # include "libgmatrix.h"
+
+# define PATH_NEIGHBOUR_MAX 8
 
 /*
 ** A list defining what kind of objects the doom3d app contains in its scene /
@@ -61,8 +63,9 @@ typedef enum				e_prefab_type
 
 typedef struct				s_path_node
 {
-	t_bool	is_visited;
-	t_3d_object	*neighbors[2]; //How many neighbors can have?
+	t_bool		is_visited;
+	int			neighbourcount;
+	t_3d_object	*neighbors[PATH_NEIGHBOUR_MAX]; //How many neighbors can have?
 	//Neighbors may have to be set always through algorithm
 	//When map is read... :( or when new nodes are added in editor
 	//Should there be int32_t num_neighbors to denote how many neighbors, or
