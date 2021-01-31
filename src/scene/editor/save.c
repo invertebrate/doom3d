@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 23:23:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/31 19:55:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,37 @@ static void	write_obj_content(int32_t fd, t_doom3d *app, t_3d_object *obj)
 	(void)ret;
 }
 
+/*
+** For each object_type_path, writes the id of the object, num of neighbors
+** and each neighbor id for the purpose of saving the connections
+*/
+
+static void	write_path_object_information(int32_t fd, t_doom3d *app)
+{
+	int32_t		i;
+	int32_t		j;
+	int32_t		ret;
+	t_path_node	*path_node;
+
+	i = -1;
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
+	{
+		if (app->active_scene->objects[i] &&
+			app->active_scene->objects[i]->type == object_type_path)
+		{
+			path_node = app->active_scene->objects[i]->params;
+			ret = write(fd,
+				&app->active_scene->objects[i]->id, sizeof(uint32_t));
+			ret = write(fd, &path_node->num_neighbors, sizeof(int32_t));
+			j = -1;
+			while (++j < path_node->num_neighbors)
+				ret = write(fd, &path_node->neighbors[j]->id, sizeof(uint32_t));
+		}
+	}
+	(void)ret;
+}
+
 static void	write_map(int32_t fd, t_doom3d *app)
 {
 	int32_t		i;
@@ -66,6 +97,7 @@ static void	write_map(int32_t fd, t_doom3d *app)
 		app->active_scene->num_deleted))
 		if (app->active_scene->objects[i])
 			write_obj_content(fd, app, app->active_scene->objects[i]);
+	write_path_object_information(fd, app);
 	(void)ret;
 }
 

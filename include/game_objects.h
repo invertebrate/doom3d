@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_objects.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/31 14:45:25 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/31 19:41:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,9 @@ typedef enum				e_prefab_type
 typedef struct				s_path_node
 {
 	t_bool		is_visited;
-	int			neighbourcount;
+	int32_t		num_neighbors;
 	t_3d_object	*neighbors[PATH_NEIGHBOUR_MAX]; //How many neighbors can have?
 	t_3d_object	*parent;
-	//Neighbors may have to be set always through algorithm
-	//When map is read... :( or when new nodes are added in editor
-	//Should there be int32_t num_neighbors to denote how many neighbors, or
-	//always two? Dunno
 }							t_path_node;
 
 /*

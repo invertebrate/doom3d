@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 22:21:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/31 16:07:27 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/31 19:34:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void			path_draw_individual_node_connections(t_render_work *work, t_3d_ob
 	int			i;
 
 	node = obj->params;
-	i = node->neighbourcount;
+	i = node->num_neighbors;
 	while (--i > -1)
 	{
 		if (!node->neighbors[i])	// skipping nulls in case a node connection has been deleted
@@ -94,7 +94,7 @@ static t_path_node	*path_check_existing(t_doom3d *app, t_path_node *path_obj)
 	t_path_node	*ret;
 	int			i;
 
-	i = path_obj->neighbourcount;
+	i = path_obj->num_neighbors;
 	while (--i > -1)
 	{
 		if (!path_obj->neighbors[i])	// skipping nulls in case a node connection has been deleted
@@ -115,7 +115,7 @@ void				delete_path_object_connections(t_path_node *src)
 	t_path_node	*dst;
 	int			i;
 
-	i = src->neighbourcount;
+	i = src->num_neighbors;
 	while (--i > -1)
 		path_delete_connection(src, (dst = src->neighbors[i]->params));
 }
@@ -132,20 +132,20 @@ void				path_delete_connection(t_path_node *src,
 	int	i;
 	int	j;
 
-	i = src->neighbourcount;
-	j = dst->neighbourcount;
+	i = src->num_neighbors;
+	j = dst->num_neighbors;
 	while (--i > 0)
 		if (src->neighbors[i] == dst->parent)
 			break ;
 	while (--j > 0)
 		if (dst->neighbors[j] == src->parent)
 			break ;
-	while (++i < src->neighbourcount)
+	while (++i < src->num_neighbors)
 		src->neighbors[i - 1] = src->neighbors[i];
-	while (++j < dst->neighbourcount)
+	while (++j < dst->num_neighbors)
 		dst->neighbors[j - 1] = dst->neighbors[j];
-	src->neighbourcount--;
-	dst->neighbourcount--;;
+	src->num_neighbors--;
+	dst->num_neighbors--;;
 	ft_printf("deleted connection between obj %d and obj %d!\n", src->parent->id, dst->parent->id);//test
 }
 
@@ -165,9 +165,9 @@ void				path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj)
 		return ;
 	path_obj = obj->params;
 	dest = app->editor.selected_object->params;
-	if (path_obj->neighbourcount >= PATH_NEIGHBOUR_MAX)
+	if (path_obj->num_neighbors >= PATH_NEIGHBOUR_MAX)
 		ft_printf("path connection limit reached on source!\n");
-	else if (dest->neighbourcount >= PATH_NEIGHBOUR_MAX)
+	else if (dest->num_neighbors >= PATH_NEIGHBOUR_MAX)
 		ft_printf("path connection limit reached on destination!\n");
 	else if (path_obj == dest)
 		ft_printf("cannot connect to itself!\n");
@@ -175,10 +175,10 @@ void				path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj)
 		path_delete_connection(path_obj, delete);
 	else
 	{
-		path_obj->neighbors[path_obj->neighbourcount] = app->editor.selected_object;
-		dest->neighbors[dest->neighbourcount] = obj;
-		path_obj->neighbourcount++;
-		dest->neighbourcount++;
+		path_obj->neighbors[path_obj->num_neighbors] = app->editor.selected_object;
+		dest->neighbors[dest->num_neighbors] = obj;
+		path_obj->num_neighbors++;
+		dest->num_neighbors++;
 		ft_printf("nodes connected successfully!\n");
 	}
 }
