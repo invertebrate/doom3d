@@ -16,29 +16,19 @@ void			update_app_ticks(t_doom3d *app)
 {
 	app->current_tick = (SDL_GetPerformanceCounter() * TICKS_PER_SEC) /
 						SDL_GetPerformanceFrequency();
-	// ft_printf("current_tick %d\n", app->current_tick);
 }
 
 uint32_t		update_current_frame(t_doom3d *app, t_animation_3d *animation)
 {
 	uint32_t	current_frame;
-	static uint32_t c = 0;
+
+	if ((app->current_tick - animation->start_tick) % (int)((TICKS_PER_SEC) / (ANIM_3D_FPS)) > 0)
+	{
+		animation->current_frame = (animation->current_frame + 1) % 
+		animation->clip_info[animation->current_clip % ANIM_3D_TYPE_MOD].clip_length;
+	}
 	current_frame = animation->current_frame;
-
-	// if (c)
-	// {
-	// 	current_frame = (current_frame + 1) % 6;
-	// 	c = 0;
-	// }
-	// else 
-	// 	c = 1;
-	current_frame = animation->start_frame +
-	((app->current_tick - animation->start_tick) % (int)((TICKS_PER_SEC) / (ANIM_3D_FPS)));
-
-	animation->current_frame = current_frame;
 	return (current_frame);
-	(void)app;
-	(void)c;
 }
 
 t_triangle		*get_animation_3d_triangle(t_3d_object *obj)

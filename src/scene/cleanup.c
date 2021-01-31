@@ -67,7 +67,7 @@ void		scene_assets_destroy(t_scene *scene)
 	hash_map_destroy(scene->prefab_map);
 	hash_map_destroy(scene->trigger_map);
 	i = -1;
-	while (++i < (int32_t)scene->asset_files.num_animations_3d)
+	while (++i < (int32_t)scene->asset_files.num_animation_frames_3d)
 	{
 		if ((model = hash_map_get(scene->animation_3d_frames,
 				(int64_t)scene->asset_files.animation_3d_files[i])))

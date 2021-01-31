@@ -19,10 +19,8 @@
 void		npc_default_anim_3d_metadata_set(t_anim_metadata *anim_data)
 {
 	int		i;
-	// int		k;
 
 	i = -1;
-	// k = -1;
 	anim_data->frame_count = 6;
 	anim_data->anim_count = 1;
 	anim_data->clip_lengths[0] = 6;

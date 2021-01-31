@@ -18,9 +18,23 @@
 # define ANIM_3D_FRAME_MAX 256
 # define ANIM_3D_CLIP_LENGTH_MAX 32
 # define ANIM_3D_COUNT_MAX 64
+# define ANIM_3D_TYPE_MOD 1000
 
 # include "libft.h"
 # include "lib3d.h"
+
+/*
+**	The enum values are encoded with ANIM_3D_TYPE_MOD and can be decoded using
+**	% to get the array indices for referencing
+*/
+
+typedef enum				e_animation_3d_type
+{
+	anim_3d_type_idle = 0 + ANIM_3D_TYPE_MOD,
+	anim_3d_type_move = 1 + ANIM_3D_TYPE_MOD,
+	anim_3d_type_attack = 2 + ANIM_3D_TYPE_MOD,
+	anim_3d_type_death = 3 + ANIM_3D_TYPE_MOD
+}							t_animation_3d_type;
 
 typedef struct				s_anim_metadata
 {
@@ -48,6 +62,7 @@ typedef struct				s_animation_3d
 	uint32_t				frames_start_idx;
 	uint32_t				anim_count;
 	uint32_t				current_frame;
+	t_animation_3d_type		current_clip;
 	uint32_t				start_frame;
 	uint32_t				start_tick;
 	t_3d_object				*base_object;
