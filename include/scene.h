@@ -66,7 +66,7 @@ typedef struct				s_asset_files
 	const char				*npc_names[MAX_ASSETS];
 	const char				*prefab_names[MAX_ASSETS];
 	const char				*trigger_names[MAX_ASSETS];
-	uint32_t				num_animations_3d;
+	uint32_t				num_animation_frames_3d;
 	uint32_t				num_animations_sprite;
 	uint32_t				num_models;
 	uint32_t				num_textures;

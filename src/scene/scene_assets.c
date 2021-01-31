@@ -34,7 +34,7 @@ static void		animation_3d_frames_load(t_scene *scene, t_asset_files *data)
 
 	scene->animation_3d_frames = hash_map_create(MAX_ASSETS);
 	i = -1;
-	while (++i < (int32_t)data->num_animations_3d)
+	while (++i < (int32_t)data->num_animation_frames_3d)
 		hash_map_add(scene->animation_3d_frames,
 			(int64_t)scene->asset_files.animation_3d_files[i],
 			l3d_read_obj(scene->asset_files.animation_3d_files[i], NULL, NULL));
@@ -203,6 +203,10 @@ static void		scene_model_files_set(t_asset_files *data)
 	data->model_files[data->num_models++] = "assets/models/missile.obj";
 }
 
+/*
+**	Creates the file path for each frame in an animation clip
+*/
+
 static void		scene_animation_3d_frames_set(t_asset_files *data,
 					char* file_path, uint32_t framecount)
 {
@@ -221,18 +225,20 @@ static void		scene_animation_3d_frames_set(t_asset_files *data,
 		{
 			ft_sprintf(frame_path, "%s_0%d.obj	", file_path, i);
 		}
-		data->animation_3d_files[data->num_animations_3d++] = frame_path;
+		data->animation_3d_files[data->num_animation_frames_3d++] = frame_path;
 	}
 }
 
 /*
 ** The file path must not include the ".obj", it will be appended by
-** animation_frames_set function
+** animation_frames_set function. The function call order is important:
+** each object has their animations in a contiguous chunk in the array.
 */
 
 static void		scene_animation_3d_files_set(t_asset_files *data)
 {
 	scene_animation_3d_frames_set(data, "assets/models/run_frame", 6);
+	//call the above function for each animation clip separately;
 }
 
 /*
@@ -246,7 +252,7 @@ void			scene_assets_load(t_scene *scene)
 	scene->asset_files.num_normal_maps = 0;
 	scene->asset_files.num_npcs = 0;
 	scene->asset_files.num_prefabs = 0;
-	scene->asset_files.num_animations_3d = 0;
+	scene->asset_files.num_animation_frames_3d = 0;
 	scene->asset_files.num_animations_sprite = 0;
 	scene_texture_files_set(&scene->asset_files);
 	scene_normal_files_set(&scene->asset_files);

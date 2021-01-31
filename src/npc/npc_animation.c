@@ -18,12 +18,21 @@
 
 void		npc_default_anim_3d_metadata_set(t_anim_metadata *anim_data)
 {
+	int		i;
+	// int		k;
+
+	i = -1;
+	// k = -1;
 	anim_data->frame_count = 6;
 	anim_data->anim_count = 1;
+	anim_data->clip_lengths[0] = 6;
 	anim_data->frames_start_idx = 0;
 	ft_memset(anim_data->anim_frame_numbers,
 	0, sizeof(uint32_t) * ANIM_3D_FRAME_MAX);
-	anim_data->anim_frame_numbers[0] = 0;
+	while (++i < (int)anim_data->frame_count)
+	{
+		anim_data->anim_frame_numbers[i] = anim_data->frames_start_idx + i;
+	}
 }
 
 void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
@@ -51,7 +60,7 @@ static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc
 			(int64_t)(app->active_scene->asset_files.animation_3d_files[i])), app->unit_size);
 		//ToDo: Make material copy if needed
 		npc->animation_3d->animation_frames[i]->material->texture =
-			obj->material->texture;
+			obj->material->texture; // memory leak?
 		npc->animation_3d->animation_frames[i]->material->shading_opts =
 			obj->material->shading_opts;
 	}
@@ -63,10 +72,15 @@ static void			npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 
 	i = -1;
 	npc->animation_3d->frame_count = anim_data->frame_count;
+	while (++i <(int)anim_data->frame_count)
+	{
+		npc->animation_3d->clip_info->anim_frame_numbers[i] =
+			anim_data->anim_frame_numbers[i];
+	}
+	i = -1;
 	while (++i < (int)anim_data->anim_count)
 	{
-		npc->animation_3d->anim_frame_numbers[i] =
-			anim_data->anim_frame_numbers[i];
+		npc->animation_3d->clip_info[i].clip_length = anim_data->clip_lengths[i];
 	}
 	npc->animation_3d->anim_count = anim_data->anim_count;
 	npc->animation_3d->frames_start_idx = anim_data->frames_start_idx;
