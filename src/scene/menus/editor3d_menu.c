@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor3d_menu.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/30 09:40:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/31 15:12:44 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@ static void			on_delete_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d			*app;
 	t_3d_object			*object_to_delete;
+	t_path_node			*delete;
 
 	app = params;
 	if (self->id == 0)
 	{
 		if (app->editor.selected_object)
 		{
+			if (app->editor.selected_object->type == object_type_path)
+				delete_path_object_connections((delete = 
+										app->editor.selected_object->params));
 			object_to_delete = app->editor.selected_object;
 			editor_deselect(app);
 			object_set_for_deletion(app, object_to_delete);

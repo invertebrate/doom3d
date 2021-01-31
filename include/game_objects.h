@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/30 13:30:08 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/31 14:45:25 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct				s_path_node
 	t_bool		is_visited;
 	int			neighbourcount;
 	t_3d_object	*neighbors[PATH_NEIGHBOUR_MAX]; //How many neighbors can have?
+	t_3d_object	*parent;
 	//Neighbors may have to be set always through algorithm
 	//When map is read... :( or when new nodes are added in editor
 	//Should there be int32_t num_neighbors to denote how many neighbors, or

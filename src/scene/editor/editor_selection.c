@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/30 16:37:42 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/31 13:50:52 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,9 @@ static void		path_connect_selection(t_doom3d *app, t_3d_object *obj)
 {
 	t_3d_object	*old;
 
-	old = app->editor.selected_object;
+	old = NULL;
+	if (app->editor.selected_object)
+		old = app->editor.selected_object;
 	editor_deselect(app);
 	select_object(app, obj);
 	path_objects_set_neighbour(app, old);

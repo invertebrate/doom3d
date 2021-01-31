@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/30 22:28:58 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/31 15:09:59 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,6 +342,9 @@ void						place_path_object(t_doom3d *app);
 void						path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj);
 void						path_node_init(t_3d_object *path_obj);
 void						path_draw_connections(t_render_work *work);
+void						path_delete_connection(t_path_node *path_obj,
+													t_path_node *delete);
+void						delete_path_object_connections(t_path_node *node);
 void						editor_place_position(t_doom3d *app ,
 								t_vec3 result);
 

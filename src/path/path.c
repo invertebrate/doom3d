@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 22:21:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/30 23:30:12 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/31 16:07:27 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 ** Called when map is read or when object is placed in editor
 */
 
-void			path_node_init(t_3d_object *path_obj)
+void				path_node_init(t_3d_object *path_obj)
 {
 	t_path_node		path;
 	
 	ft_memset(&path, 0, sizeof(t_path_node));
+	path.parent = path_obj;
 	l3d_3d_object_set_params(path_obj,
 		&path, sizeof(t_path_node), object_type_path);
 }
@@ -30,7 +31,7 @@ void			path_node_init(t_3d_object *path_obj)
 ** Place path object in scene (via editor)
 */
 
-void			place_path_object(t_doom3d *app)
+void				place_path_object(t_doom3d *app)
 {
 	t_3d_object		*path_obj;
 	t_vec3			pos;
@@ -51,7 +52,7 @@ void			place_path_object(t_doom3d *app)
 		path_objects_set_neighbour(app, path_obj);
 }
 
-static void		path_draw_individual_node_connections(t_render_work *work, t_3d_object *obj)
+static void			path_draw_individual_node_connections(t_render_work *work, t_3d_object *obj)
 {
 	t_path_node	*node;
 	t_vec3		vecs[2];
@@ -65,13 +66,12 @@ static void		path_draw_individual_node_connections(t_render_work *work, t_3d_obj
 			continue;
 		ml_vector3_copy(obj->position, vecs[0]);
 		ml_vector3_copy(node->neighbors[i]->position, vecs[1]);
-		ft_printf("obj->id = %d, i = %d, src = {%f, %f, %f}, dst = {%f, %f, %f}\n", obj->id, i, vecs[0][0], vecs[0][1], vecs[0][2], vecs[1][0], vecs[1][1], vecs[1][2]);//test
 		draw_debug_line(work->app, work->framebuffer->sub_buffers[work->sub_buffer_i],
 			vecs, 0xffff00ff);
 	}
 }
 
-void			path_draw_connections(t_render_work *work)
+void				path_draw_connections(t_render_work *work)
 {
 	int32_t			i;
 	t_3d_object		*obj;
@@ -89,23 +89,90 @@ void			path_draw_connections(t_render_work *work)
 	}
 }
 
+static t_path_node	*path_check_existing(t_doom3d *app, t_path_node *path_obj)
+{
+	t_path_node	*ret;
+	int			i;
+
+	i = path_obj->neighbourcount;
+	while (--i > -1)
+	{
+		if (!path_obj->neighbors[i])	// skipping nulls in case a node connection has been deleted
+			continue;
+		if (path_obj->neighbors[i] == app->editor.selected_object)
+			return ((ret = app->editor.selected_object->params));
+	}
+	return (NULL);
+}
+
+/*
+** Deletes all connections of a node
+** eg. for deletion of a node object
+*/
+
+void				delete_path_object_connections(t_path_node *src)
+{
+	t_path_node	*dst;
+	int			i;
+
+	i = src->neighbourcount;
+	while (--i > -1)
+		path_delete_connection(src, (dst = src->neighbors[i]->params));
+}
+
+/*
+** Deletes the connection between two path nodes,
+** then moves any nodes after the deleted nodes
+** to fill the spot and updates neighbour counts of both nodes
+*/
+
+void				path_delete_connection(t_path_node *src,
+											t_path_node *dst)
+{
+	int	i;
+	int	j;
+
+	i = src->neighbourcount;
+	j = dst->neighbourcount;
+	while (--i > 0)
+		if (src->neighbors[i] == dst->parent)
+			break ;
+	while (--j > 0)
+		if (dst->neighbors[j] == src->parent)
+			break ;
+	while (++i < src->neighbourcount)
+		src->neighbors[i - 1] = src->neighbors[i];
+	while (++j < dst->neighbourcount)
+		dst->neighbors[j - 1] = dst->neighbors[j];
+	src->neighbourcount--;
+	dst->neighbourcount--;;
+	ft_printf("deleted connection between obj %d and obj %d!\n", src->parent->id, dst->parent->id);//test
+}
+
 /*
 ** Connects t_path_node params inside t_3d_object so that they point
 ** to their nearest neighbors
 ** Then npcs can loop those to find where to move :)
 */
 
-void			path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj)
+void				path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj)
 {
 	t_path_node	*path_obj;
 	t_path_node	*dest;
+	t_path_node	*delete;
 
+	if (obj == NULL)
+		return ;
 	path_obj = obj->params;
 	dest = app->editor.selected_object->params;
 	if (path_obj->neighbourcount >= PATH_NEIGHBOUR_MAX)
 		ft_printf("path connection limit reached on source!\n");
 	else if (dest->neighbourcount >= PATH_NEIGHBOUR_MAX)
 		ft_printf("path connection limit reached on destination!\n");
+	else if (path_obj == dest)
+		ft_printf("cannot connect to itself!\n");
+	else if ((delete = path_check_existing(app, path_obj)) != NULL)
+		path_delete_connection(path_obj, delete);
 	else
 	{
 		path_obj->neighbors[path_obj->neighbourcount] = app->editor.selected_object;
@@ -114,9 +181,4 @@ void			path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj)
 		dest->neighbourcount++;
 		ft_printf("nodes connected successfully!\n");
 	}
-	//Some logic to loop all t_3d_obj that are of type object_type_path
-	//And access their params and set the neighbors be other 3d objects
-	//of object_type_path
-	//After this works, we can debug / connect lines in editor to show connected
-	//nodes
 }
