@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/31 19:58:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/31 20:03:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ static int32_t	read_path_information(t_doom3d *app, char *contents)
 	while (++i < (int32_t)app->active_scene->num_objects)
 		if (app->active_scene->objects[i]->type == object_type_path)
 			num_path_nodes++;
-	ft_printf("num nodes: %d\n", num_path_nodes);
 	i = -1;
 	while (++i < num_path_nodes)
 	{
