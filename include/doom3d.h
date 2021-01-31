@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/22 09:22:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/31 15:09:59 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,8 @@ void						handle_npc_deletions(t_doom3d *app);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
 void						npc_trigger_onhit(t_doom3d *app,
 								t_3d_object *obj, int damage);
+void						npc_get_dir_to_next_waypoint(t_doom3d *app, t_3d_object *obj);
+void						npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj);
 
 /*
 ** Physics
@@ -270,9 +272,14 @@ t_bool						triangle_outside_frame(t_triangle *triangle,
 								t_sub_framebuffer *sub_buffer);
 void						draw_selected_aabb(t_render_work *work);
 void						draw_selected_enemy_direction(t_render_work *work);
+void						draw_enemy_direction(t_doom3d *app,
+								t_sub_framebuffer *sub_buffer,
+								t_3d_object *npc_object);
+void						draw_npc_dirs(t_render_work *work);
 void						notifications_render(t_doom3d *app, t_vec2 pos);
 void						draw_triangle_tree_bounding_boxes(
 								t_render_work *work);
+void						draw_editor_placement_position(t_render_work *work);
 
 /*
 ** Objects
@@ -282,6 +289,7 @@ void						object_type_to_str(t_3d_object *obj, char *str);
 t_3d_object					*find_one_object_by_type(t_doom3d *app,
 								uint32_t object_type,
 								uint32_t param_type);
+void						path_objects_set_neighbors(t_doom3d *app);
 
 /*
 ** Scene
@@ -330,6 +338,15 @@ void						editor_deselect(t_doom3d *app);
 void						after_editor_transform(t_doom3d *app,
 								uint32_t *last_changed);
 void    					editor_init(t_doom3d *app, int32_t editor_level);
+void						place_path_object(t_doom3d *app);
+void						path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj);
+void						path_node_init(t_3d_object *path_obj);
+void						path_draw_connections(t_render_work *work);
+void						path_delete_connection(t_path_node *path_obj,
+													t_path_node *delete);
+void						delete_path_object_connections(t_path_node *node);
+void						editor_place_position(t_doom3d *app ,
+								t_vec3 result);
 
 /*
 ** Level

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_selection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/16 18:14:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/31 13:50:52 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,18 @@ static void		select_object(t_doom3d *app, t_3d_object *object)
 ** Add hit object to selected object.
 */
 
+static void		path_connect_selection(t_doom3d *app, t_3d_object *obj)
+{
+	t_3d_object	*old;
+
+	old = NULL;
+	if (app->editor.selected_object)
+		old = app->editor.selected_object;
+	editor_deselect(app);
+	select_object(app, obj);
+	path_objects_set_neighbour(app, old);
+}
+
 void			editor_select(t_doom3d *app)
 {
 	t_vec3			mouse_world_pos;
@@ -139,8 +151,13 @@ void			editor_select(t_doom3d *app)
 		l3d_get_closest_hit(hits, &closest_triangle_hit, -1);
 		if (closest_triangle_hit != NULL)
 		{
-			editor_deselect(app);
-			select_object(app, closest_triangle_hit->triangle->parent);
+			if (app->keyboard.state[SDL_SCANCODE_LCTRL])
+				path_connect_selection(app, closest_triangle_hit->triangle->parent);
+			else
+			{
+				editor_deselect(app);
+				select_object(app, closest_triangle_hit->triangle->parent);
+			}
 		}
 		l3d_delete_hits(&hits);
 	}
@@ -152,4 +169,12 @@ void			editor_select(t_doom3d *app)
 			.type = notification_type_info, .time = 2000});
 		editor_deselect(app);
 	}
+}
+
+void			editor_place_position(t_doom3d *app , t_vec3 result)
+{
+	t_vec3	add;
+
+	ml_vector3_mul(app->player.forward, app->unit_size * 30, add);
+	ml_vector3_add(app->player.pos, add, result);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 22:05:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/29 22:16:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,4 +232,6 @@ void			object_type_to_str(t_3d_object *obj, char *str)
 		ft_sprintf(str, "%s", "Projectile");
 	else if (obj->type == object_type_light)
 		ft_sprintf(str, "%s", "Light");
+	else if (obj->type == object_type_path)
+		ft_sprintf(str, "%s", "Path");
 }

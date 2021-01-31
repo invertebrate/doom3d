@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 14:35:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/30 09:32:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,8 @@ void			draw_selected_aabb(t_render_work *work)
 	draw_aabb(app, buffers, &obj->aabb, 0xff0000ff);
 }
 
-void			draw_selected_enemy_direction(t_render_work *work)
+void			draw_enemy_direction(t_doom3d *app,
+					t_sub_framebuffer *sub_buffer, t_3d_object *npc_object)
 {
 	t_npc				*npc;
 	t_vec3				add;
@@ -165,17 +166,38 @@ void			draw_selected_enemy_direction(t_render_work *work)
 	t_vec3				forward;
 	t_mat4				rotation_x;
 
-	npc = work->app->editor.selected_object->params;
+	npc = npc_object->params;
 	ml_matrix4_rotation_y(ml_rad(npc->angle), rotation_x);
 	ml_matrix4_mul_vec3(rotation_x, (t_vec3){0, 0, Z_DIR}, forward);
-	ml_vector3_mul(forward, work->app->unit_size * 2, add);
-	ml_vector3_add(work->app->editor.selected_object->position, add, end);
-	draw_debug_line(work->app,
-		work->framebuffer->sub_buffers[work->sub_buffer_i],
-		(t_vec3[2]){{work->app->editor.selected_object->position[0],
-			work->app->editor.selected_object->position[1],
-			work->app->editor.selected_object->position[2]},
+	ml_vector3_mul(forward, app->unit_size * 2, add);
+	ml_vector3_add(npc_object->position, add, end);
+	draw_debug_line(app, sub_buffer,
+		(t_vec3[2]){{npc_object->position[0], npc_object->position[1],
+			npc_object->position[2]},
 		{end[0], end[1], end[2]}}, 0xffff00ff);
+}
+
+void			draw_selected_enemy_direction(t_render_work *work)
+{
+	draw_enemy_direction(work->app,
+		work->framebuffer->sub_buffers[work->sub_buffer_i],
+		work->app->editor.selected_object);
+}
+
+void			draw_npc_dirs(t_render_work *work)
+{
+	int32_t		i;
+	t_3d_object	*obj;
+	
+	i = -1;
+	while (++i < (int32_t)(work->app->active_scene->num_objects +
+		work->app->active_scene->num_deleted))
+	{
+		obj = work->app->active_scene->objects[i];
+		if (obj && obj->type == object_type_npc)
+			draw_enemy_direction(work->app,
+				work->framebuffer->sub_buffers[work->sub_buffer_i], obj);		
+	}
 }
 
 static void		draw_triangle_tree_recursive(t_doom3d *app,
@@ -194,4 +216,31 @@ void			draw_triangle_tree_bounding_boxes(t_render_work *work)
 	draw_triangle_tree_recursive(work->app,
 		work->framebuffer->sub_buffers[work->sub_buffer_i],
 		work->app->active_scene->triangle_tree->root, 0xff0000ff);
+}
+
+void			draw_editor_placement_position(t_render_work *work)
+{
+	t_vec3		place_pos;
+	t_doom3d	*app;
+	t_vec3		edge1[2];
+	t_vec3		edge2[2];
+	t_vec3		edge3[2];
+
+	app = work->app;
+	editor_place_position(app, place_pos);
+	ml_vector3_add(place_pos, (t_vec3){0, 0, app->unit_size * 0.3}, edge1[0]);
+	ml_vector3_sub(place_pos, (t_vec3){0, 0, app->unit_size * 0.3}, edge1[1]);
+	ml_vector3_add(place_pos, (t_vec3){app->unit_size * 0.3, 0, 0}, edge2[0]);
+	ml_vector3_sub(place_pos, (t_vec3){app->unit_size * 0.3, 0, 0}, edge2[1]);
+	ml_vector3_add(place_pos, (t_vec3){0, app->unit_size * 0.3, 0}, edge3[0]);
+	ml_vector3_sub(place_pos, (t_vec3){0, app->unit_size * 0.3, 0}, edge3[1]);
+	draw_debug_line(app, work->framebuffer->sub_buffers[work->sub_buffer_i],
+		(t_vec3[2]){{edge1[0][0], edge1[0][1], edge1[0][2]},
+		{edge1[1][0], edge1[1][1], edge1[1][2]}}, 0x00ffffff);
+	draw_debug_line(app, work->framebuffer->sub_buffers[work->sub_buffer_i],
+		(t_vec3[2]){{edge2[0][0], edge2[0][1], edge2[0][2]},
+		{edge2[1][0], edge2[1][1], edge2[1][2]}}, 0x00ffffff);
+	draw_debug_line(app, work->framebuffer->sub_buffers[work->sub_buffer_i],
+		(t_vec3[2]){{edge3[0][0], edge3[0][1], edge3[0][2]},
+		{edge3[1][0], edge3[1][1], edge3[1][2]}}, 0x00ffffff);
 }

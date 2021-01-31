@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/22 00:40:53 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/31 14:45:25 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define NPC_DEFAULT_NORMM "assets/textures/rock.bmp"
 
 # include "libgmatrix.h"
+
+# define PATH_NEIGHBOUR_MAX 8
 
 /*
 ** A list defining what kind of objects the doom3d app contains in its scene /
@@ -35,8 +37,20 @@ typedef enum				e_object_type
 	object_type_projectile = 2,
 	object_type_trigger = 3,
 	object_type_light = 4,
+	object_type_path = 5,
 }							t_object_type;
 
+/*
+** Prefab is a combination of assets, e.g. 3d model + texture + normal map.
+** Or later a combination of 3d models and their textures.
+** They are a bundle of things placeable by the editor.
+*/
+
+typedef enum				e_prefab_type
+{
+	prefab_plane = 1,
+	prefab_path_node= 2,
+}							t_prefab_type;
 
 /*
 ** Game object Params types
@@ -44,16 +58,20 @@ typedef enum				e_object_type
 */
 
 /*
-** Prefab is a combination of assets, e.g. 3d model + texture + normal map.
-** Or later a combination of 3d models and their textures.
-** They are a bundle of things placeable by the editor.
-** t_prefab_type type may be used as a sub type (params_type) under t_3d_object
+** Sub (params_type) for object_type_path
 */
 
-typedef enum				e_prefab_type
+typedef struct				s_path_node
 {
-	prefab_plane = 1,
-}							t_prefab_type;
+	t_bool		is_visited;
+	int			neighbourcount;
+	t_3d_object	*neighbors[PATH_NEIGHBOUR_MAX]; //How many neighbors can have?
+	t_3d_object	*parent;
+	//Neighbors may have to be set always through algorithm
+	//When map is read... :( or when new nodes are added in editor
+	//Should there be int32_t num_neighbors to denote how many neighbors, or
+	//always two? Dunno
+}							t_path_node;
 
 /*
 ** A list of various trigger types
@@ -200,6 +218,8 @@ typedef struct				s_npc
 	uint32_t				atk_timer;
 	int						atk_pattern[128];
 	int						atk_pattern_index;
+	t_vec3					patrol_path[16];
+	int						patrol_path_index;
 	float					speed;
 	float					rot_speed;
 	float					dist;
