@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:11:36 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 15:57:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/01 16:46:06 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct 				s_editor
 	char					editor_savename[128];
 	char					selected_object_str[128];
 	t_3d_object				*selected_object;
+	int						patrol_slot;
 }							t_editor;
 
 /*
