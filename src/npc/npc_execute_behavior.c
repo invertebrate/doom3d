@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 17:22:03 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/22 01:06:33 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:54:39 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	npc_execute_behavior(t_doom3d *app, t_3d_object *npc_obj)
 		/*
 		DO IDLE THINGS WITH THIS NPC, LIKE IDLE ANIMATION
 		*/
+		npc_move_step_to_waypoint(app, npc_obj);
 	}
 	else if (npc->state == state_attack)
 	{

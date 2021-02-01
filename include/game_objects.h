@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 19:58:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/31 19:41:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 # include "libgmatrix.h"
 # include "animations_3d.h"
+
+# define PATH_NEIGHBOUR_MAX 8
 
 /*
 ** A list defining what kind of objects the doom3d app contains in its scene /
@@ -36,8 +38,20 @@ typedef enum				e_object_type
 	object_type_projectile = 2,
 	object_type_trigger = 3,
 	object_type_light = 4,
+	object_type_path = 5,
 }							t_object_type;
 
+/*
+** Prefab is a combination of assets, e.g. 3d model + texture + normal map.
+** Or later a combination of 3d models and their textures.
+** They are a bundle of things placeable by the editor.
+*/
+
+typedef enum				e_prefab_type
+{
+	prefab_plane = 1,
+	prefab_path_node= 2,
+}							t_prefab_type;
 
 /*
 ** Game object Params types
@@ -45,16 +59,16 @@ typedef enum				e_object_type
 */
 
 /*
-** Prefab is a combination of assets, e.g. 3d model + texture + normal map.
-** Or later a combination of 3d models and their textures.
-** They are a bundle of things placeable by the editor.
-** t_prefab_type type may be used as a sub type (params_type) under t_3d_object
+** Sub (params_type) for object_type_path
 */
 
-typedef enum				e_prefab_type
+typedef struct				s_path_node
 {
-	prefab_plane = 1,
-}							t_prefab_type;
+	t_bool		is_visited;
+	int32_t		num_neighbors;
+	t_3d_object	*neighbors[PATH_NEIGHBOUR_MAX]; //How many neighbors can have?
+	t_3d_object	*parent;
+}							t_path_node;
 
 /*
 ** A list of various trigger types
@@ -201,6 +215,8 @@ typedef struct				s_npc
 	uint32_t				atk_timer;
 	int						atk_pattern[128];
 	int						atk_pattern_index;
+	t_vec3					patrol_path[16];
+	int						patrol_path_index;
 	float					speed;
 	float					rot_speed;
 	float					dist;

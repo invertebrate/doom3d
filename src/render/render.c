@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/11 14:53:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/30 17:54:40 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,20 @@ static void		render_work(void *params)
 	rasterize_triangles(work);
 	if (work->app->active_scene->scene_id == scene_id_editor3d)
 	{
+		path_draw_connections(work); //might need to move
 		if (work->app->editor.selected_object)
 		{
 			draw_selected_wireframe(work);
 			if (work->app->editor.selected_object->type == object_type_npc)
 				draw_selected_enemy_direction(work);
 		}
+		else
+			draw_editor_placement_position(work);
 		//!Debug bounding box with draw_selected_aabb(work);
+	}
+	else if (work->app->active_scene->scene_id == scene_id_main_game)
+	{
+		draw_npc_dirs(work);
 	}
 	draw_buffers(work);
 	free(work);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor3d_menu.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 16:09:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/31 15:12:44 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@ static void			on_delete_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d			*app;
 	t_3d_object			*object_to_delete;
+	t_path_node			*delete;
 
 	app = params;
 	if (self->id == 0)
 	{
 		if (app->editor.selected_object)
 		{
+			if (app->editor.selected_object->type == object_type_path)
+				delete_path_object_connections((delete = 
+										app->editor.selected_object->params));
 			object_to_delete = app->editor.selected_object;
 			editor_deselect(app);
 			object_set_for_deletion(app, object_to_delete);
@@ -63,10 +67,11 @@ static void			on_editor_exit(t_doom3d *app)
 static void			on_objects_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d	*app;
+	t_vec3		pos;
 
 	app = params;
-	place_scene_object(app, (const char *[3]){self->text, NULL, NULL},
-		(t_vec3){0, 0, 0});
+	editor_place_position(app, pos);
+	place_scene_object(app, (const char *[3]){self->text, NULL, NULL}, pos);
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
 	doom3d_notification_add(app, (t_notification){
@@ -125,12 +130,14 @@ static void			on_normmaps_menu_button_click(t_button *self, void *params)
 static void			prefab_spawn_plane(t_doom3d *app)
 {
 	t_3d_object		*model;
+	t_vec3			pos;
 
+	editor_place_position(app, pos);
 	model = l3d_plane_create(NULL, NULL);
 	place_procedural_scene_object(app, model, (const char*[2]){
 		"assets/textures/lava.bmp",
 		"assets/textures/lava_normal.bmp"
-	}, (t_vec3){0, 0, 0});
+	}, pos);
 	l3d_3d_object_destroy(model);
 }
 
@@ -139,18 +146,22 @@ static void			on_npc_menu_button_click(t_button *self, void *params)
 	t_doom3d		*app;
 	uint32_t		npc_type;
 	void			*get_res;
+	t_vec3			pos;
 
 	app = params;
+	editor_place_position(app, pos);
 	get_res = hash_map_get(app->active_scene->npc_map,
 		(int64_t)self->text);
 	ft_memcpy(&npc_type, &get_res, sizeof(uint32_t));
-	npc_spawn(app, (t_vec3){0, 0, 0}, 0, npc_type);
+	npc_spawn(app, pos, 0, npc_type);
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
 	doom3d_notification_add(app, (t_notification){
 			.message = "Placed npc!",
 			.type = notification_type_info, .time = 2000});
 }
+
+
 
 static void			on_prefab_menu_button_click(t_button *self, void *params)
 {
@@ -168,6 +179,14 @@ static void			on_prefab_menu_button_click(t_button *self, void *params)
 		doom3d_notification_add(app, (t_notification){
 			.message = "Placed plane!",
 			.type = notification_type_info, .time = 2000});
+	}
+	else if (prefab_type == (uint32_t)prefab_path_node)
+	{
+		place_path_object(app);
+		doom3d_notification_add(app, (t_notification){
+			.message = "Placed Path Node!",
+			.type = notification_type_info, .time = 2000});
+		editor_objects_invisible_highlight(app);
 	}
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
@@ -231,11 +250,13 @@ static void			on_light_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d		*app;
 	t_3d_object		*light;
+	t_vec3			pos;
 
 	(void)self;
 	app = params;
+	editor_place_position(app, pos);
 	place_scene_object(app, (const char*[3]){
-		"assets/models/box.obj", NULL,  NULL}, (t_vec3){0, 0, 0});
+		"assets/models/box.obj", NULL,  NULL}, pos);
 	light = app->active_scene->objects[app->active_scene->last_object_index];
 	l3d_object_set_shading_opts(light, e_shading_invisible);
 	light->type = object_type_light;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 20:24:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/31 20:03:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,15 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 		((t_npc*)(obj->params))->animation_3d->start_frame = 0;
 		((t_npc*)(obj->params))->animation_3d->start_tick = app->current_tick;
 	}
-	if (obj->type == object_type_trigger)
+	else if (obj->type == object_type_trigger)
 	{
 		if (obj->params_type == trigger_weapon_drop_shotgun)
 		{
 			
 		}
 	}
+	else if (obj->type == object_type_path)
+		path_node_init(obj);
 }
 
 static int32_t	read_objects(t_doom3d *app, char *contents)
@@ -146,6 +148,49 @@ static int32_t	read_objects(t_doom3d *app, char *contents)
 	return (offset);
 }
 
+static int32_t	read_path_information(t_doom3d *app, char *contents)
+{
+	int32_t		offset;
+	uint32_t	object_id;
+	t_3d_object	*obj;
+	t_path_node	*path_node;
+	int32_t		num_path_nodes;
+	int32_t		i;
+	int32_t		j;
+
+	offset = 0;
+	num_path_nodes = 0;
+	// Count path node objects
+	i = -1;
+	while (++i < (int32_t)app->active_scene->num_objects)
+		if (app->active_scene->objects[i]->type == object_type_path)
+			num_path_nodes++;
+	i = -1;
+	while (++i < num_path_nodes)
+	{
+		// Read object id
+		ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
+		offset += sizeof(uint32_t);
+		obj = find_object_by_id(app, object_id);
+		path_node = obj->params;
+		// Read that object's number of neighbors
+		ft_memcpy(&path_node->num_neighbors, contents + offset, sizeof(int32_t));
+		offset += sizeof(int32_t);
+		// Set neighbors
+		j = -1;
+		while (++j < path_node->num_neighbors)
+		{
+			// Read neighbor id
+			ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
+			offset += sizeof(uint32_t);
+			// Set neighbor
+			obj = find_object_by_id(app, object_id);
+			path_node->neighbors[j] = obj;
+		}
+	}
+	return (offset);
+}
+
 void			read_map(t_doom3d *app, const char *map_name)
 {
 	t_file_contents	*file;
@@ -164,7 +209,9 @@ void			read_map(t_doom3d *app, const char *map_name)
 	ft_memcpy(&app->active_scene->num_objects, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	offset += read_objects(app, file->buf + offset);
+	offset += read_path_information(app, file->buf + offset);
 	destroy_file_contents(file);
 	ft_printf("Loaded map: %s\nNum objects %u\n", map_name,
 		app->active_scene->num_objects);
+	//path_objects_set_neighbours(app);
 }

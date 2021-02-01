@@ -6,11 +6,26 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 22:05:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/31 19:50:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+t_3d_object		*find_object_by_id(t_doom3d *app, uint32_t id)
+{
+	int32_t	i;
+
+	i = -1;
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
+	{
+		if (app->active_scene->objects[i] &&
+			app->active_scene->objects[i]->id == id)
+			return (app->active_scene->objects[i]);
+	}
+	return (NULL);
+}
 
 t_3d_object		*find_one_object_by_type(t_doom3d *app, uint32_t object_type,
 					uint32_t param_type)
@@ -232,4 +247,6 @@ void			object_type_to_str(t_3d_object *obj, char *str)
 		ft_sprintf(str, "%s", "Projectile");
 	else if (obj->type == object_type_light)
 		ft_sprintf(str, "%s", "Light");
+	else if (obj->type == object_type_path)
+		ft_sprintf(str, "%s", "Path");
 }

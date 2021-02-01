@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_update.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/22 09:19:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/28 15:55:56 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,12 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 	npc = npc_obj->params;
 	ml_vector3_sub(npc_obj->position, app->player.pos, diff);
 	dist = ml_vector3_mag(diff);
-	if (npc->state == state_idle && dist < app->unit_size * 10)
-		npc->state = state_attack;
+	if (npc->state == state_idle)
+	{
+		if (dist < app->unit_size * 10)
+			npc->state = state_attack;
+		npc_get_dir_to_next_waypoint(app, npc_obj);
+	}
 	else if (npc->state == state_attack)
 	{
 		npc->atk_pattern_index++;

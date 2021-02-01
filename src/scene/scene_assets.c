@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 20:37:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/29 22:15:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,18 @@ static void		npcs_load(t_scene *scene)
 static void		prefabs_load(t_scene *scene)
 {
 	scene->prefab_map = hash_map_create(MAX_ASSETS);
-	scene->asset_files.prefab_names[scene->asset_files.num_npcs] =
+	scene->asset_files.prefab_names[scene->asset_files.num_prefabs] =
 		"Plane";
 	hash_map_add(scene->prefab_map,
 		(int64_t)scene->asset_files.prefab_names[
 			scene->asset_files.num_prefabs++],
 			(void*)prefab_plane);
+	scene->asset_files.prefab_names[scene->asset_files.num_prefabs] =
+		"Path Node";
+	hash_map_add(scene->prefab_map,
+		(int64_t)scene->asset_files.prefab_names[
+			scene->asset_files.num_prefabs++],
+			(void*)prefab_path_node);
 }
 
 static void		triggers_load(t_scene *scene)
