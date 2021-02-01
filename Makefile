@@ -69,6 +69,7 @@ SOURCES = main.c \
 			npc/npc_move_to_waypoint.c \
 			trigger/trigger.c \
 			path/path.c \
+			path/patrol_path.c \
 			object/object_utils.c \
 			object/object_update.c \
 			physics/is_grounded.c \
