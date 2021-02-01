@@ -27,7 +27,7 @@ else
 			-I$(LIBSDL2)/SDL2_ttf.framework/Headers
 endif
 ifeq ($(UNAME_ALT), 5.9.13-1-MANJARO-ARM)
-	LINUX_IGNOREW = -Wno-stringop-overflow
+	LINUX_IGNOREW = -Wno-stringop-overflow -Wno-maybe-uninitialized
 endif
 LIBS = $(LIB3DFLAGS) $(LIBGMATRIXFLAGS) $(LIBFTFLAGS) $(SDL_FLAGS) $(LIB_MATH) $(LIB_PTHRTEAD)
 
