@@ -6,31 +6,20 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/01 17:06:55 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/02 17:18:12 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void set_test_patrol_pattern(t_doom3d *app, t_npc *npc) //testing
+static void set_test_patrol_pattern(t_npc *npc) //testing
 {
-	float	u = app->unit_size;
 	npc->patrol_path_index = 0;
-	npc->patrol_path[0][0] = -14 * u;
-	npc->patrol_path[0][1] = 2 * u;
-	npc->patrol_path[0][2] = -13 * u;
-	npc->patrol_path[1][0] = -11 * u;
-	npc->patrol_path[1][1] = 2 * u;
-	npc->patrol_path[1][2] = 9 * u;
-	npc->patrol_path[2][0] = 3 * u;
-	npc->patrol_path[2][1] = 2 * u;
-	npc->patrol_path[2][2] = 8 * u;
-	npc->patrol_path[3][0] = 1 * u;
-	npc->patrol_path[3][1] = 2 * u;
-	npc->patrol_path[3][2] = -12 * u;
-	npc->patrol_path[4][0] = INT32_MAX;
-	npc->patrol_path[4][1] = INT32_MAX;
-	npc->patrol_path[4][2] = INT32_MAX;
+	npc->patrol_path[0] = NULL;
+	npc->patrol_path[1] = NULL;
+	npc->patrol_path[2] = NULL;
+	npc->patrol_path[3] = NULL;
+	npc->patrol_path[4] = NULL;
 }
 
 static void	set_attack_pattern(t_npc *npc)
@@ -65,5 +54,5 @@ void	npc_default(t_doom3d *app, t_npc *npc)
 	ml_vector3_set(npc->velocity, 0, 0, 0);
 	npc->atk_pattern_index = 0;
 	set_attack_pattern(npc);
-	set_test_patrol_pattern(app, npc); //testing
+	set_test_patrol_pattern(npc); //testing
 }

@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:07:07 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/28 16:22:16 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/02 17:13:23 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ void	npc_get_dir_to_next_waypoint(t_doom3d *app, t_3d_object *obj)
 	t_vec3	diff;
 
 	npc = obj->params;
-	if (npc->patrol_path[npc->patrol_path_index][0] == INT32_MAX)
+	if (npc->patrol_path[0] == NULL)
+		return ;
+	if (npc->patrol_path[npc->patrol_path_index] == NULL)
 		npc->patrol_path_index = 0;
 	if (npc->patrol_path_index != -1)
 	{
 		ml_vector3_sub(obj->position,
-					npc->patrol_path[npc->patrol_path_index], diff);
+					npc->patrol_path[npc->patrol_path_index]->position, diff);
 		ml_vector3_normalize(diff, npc->dir);
 		ml_vector3_mul(npc->dir, -npc->speed, npc->dir);
 	}

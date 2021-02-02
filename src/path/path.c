@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 22:21:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/31 19:34:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/02 21:12:39 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ static t_path_node	*path_check_existing(t_doom3d *app, t_path_node *path_obj)
 	i = path_obj->num_neighbors;
 	while (--i > -1)
 	{
-		if (!path_obj->neighbors[i])	// skipping nulls in case a node connection has been deleted
-			continue;
 		if (path_obj->neighbors[i] == app->editor.selected_object)
 			return ((ret = app->editor.selected_object->params));
 	}
