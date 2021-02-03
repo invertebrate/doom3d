@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/21 15:57:48 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:14:57 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define PLAYER_ROTATION_SPEED 0.2
 # define ANIMATION_SCALE 2
 # define PLAYER_JUMP_FORCE 8.0
+# define PLAYER_HEIGHT 1.75
+# define PLAYER_HEIGHT_CROUCH 0.75
 
 #include "lib3d.h"
 #include "game_objects.h"
@@ -50,6 +52,7 @@ typedef struct				s_player
 	t_vec3					sideways;
 	t_vec3					up;
 	t_bool					is_running;
+	t_bool					is_crouching;
 	t_bool					is_shooting;
 	t_bool					is_reloading;
 	t_bool					is_moving;
