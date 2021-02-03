@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_grounded.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/20 12:36:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/03 14:41:58 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,26 @@ t_bool	obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj)
 t_bool	player_is_grounded(t_doom3d *app)
 {
 	t_3d_object	*obj_under;
+	t_bool		ret;
+	t_vec3		lift_step;
 
+	ret = false;
 	obj_under = object_under_aabb(app, &app->player.aabb, -1);
 	if (obj_under)
-		return (l3d_aabb_collides(&obj_under->aabb, &app->player.aabb));
-	return (false);
+	{
+		ml_vector3_copy((t_vec3) {0, -app->unit_size / 16, 0}, lift_step);
+		if (l3d_aabb_collides(&obj_under->aabb, &app->player.aabb))
+		{
+			ml_vector3_add(app->player.pos, lift_step, app->player.pos);
+			player_update_aabb(&app->player);
+			ret = true;
+			if (!l3d_aabb_collides(&obj_under->aabb, &app->player.aabb))
+			{
+				ml_vector3_sub(app->player.pos, lift_step, app->player.pos);
+				player_update_aabb(&app->player);
+			}
+		}
+		return (ret);
+	}
+	return (ret);
 }

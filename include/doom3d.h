@@ -152,6 +152,7 @@ void						player_update_aabb(t_player *player);
 void						editor_vertical_move(t_doom3d *app, float speed);
 void						player_onhit(t_doom3d *app, int damage);
 void						player_jump(t_doom3d *app);
+void						player_crouch(t_doom3d *app, t_bool toggle);
 void						player_shoot(t_doom3d *app,
 								uint32_t curr_time);
 

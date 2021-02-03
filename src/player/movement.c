@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/21 16:33:00 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/03 13:30:14 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,16 @@ void			player_move(t_doom3d *app)
 	float		speed;
 
 	app->player.is_moving = true;
-	speed = (app->player.is_running && !app->player.is_jumping ?
+	/*speed = (app->player.is_running && !app->player.is_jumping ?
 		app->player.speed * 1.5 : app->player.speed) *
-			app->info.delta_time * CONST_SPEED;
+			app->info.delta_time * CONST_SPEED;*/
+	if (app->player.is_running && !app->player.is_jumping)
+		speed = app->player.speed * 1.5;
+	else if (app->player.is_crouching && !app->player.is_jumping)
+		speed = app->player.speed * 0.5;
+	else
+		speed = app->player.speed;
+	speed = speed * app->info.delta_time * CONST_SPEED;
 	ml_vector3_mul(app->player.velocity, speed, add);
 	// collision_limit_player(app, add);
 	ml_vector3_add(app->player.pos, add, app->player.pos);

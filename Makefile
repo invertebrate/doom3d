@@ -45,6 +45,7 @@ SOURCES = main.c \
 			player/player_jump.c \
 			player/player_shoot.c \
 			player/collision.c \
+			player/crouch.c \
 			player/movement.c \
 			player/player_status.c \
 			player/player_vitals_render.c \

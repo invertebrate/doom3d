@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/01 17:08:52 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:03:50 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,13 @@ static void		keyboard_game_state_handle(t_doom3d *app)
 			app->player.is_moving = false;
 		if (app->keyboard.state[SDL_SCANCODE_LSHIFT])
 			app->player.is_running = true;
-		else if (app->player.is_grounded)
-			app->player.is_running = false;	
+		else if (app->keyboard.state[SDL_SCANCODE_LCTRL] && app->player.is_grounded)
+			player_crouch(app, true);
+		if (!app->keyboard.state[SDL_SCANCODE_LSHIFT] && app->player.is_grounded)
+			app->player.is_running = false;
+		if (!app->keyboard.state[SDL_SCANCODE_LCTRL])
+			player_crouch(app, false);
+
 	}
 	if (app->keyboard.state[SDL_SCANCODE_4])
 		weapon_equip(app, weapon_rpg);

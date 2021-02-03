@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 21:04:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/03 14:20:37 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	app->player.rot_speed = PLAYER_ROTATION_SPEED;
 	app->player.rot_x = 0;
 	app->player.rot_y = 0;
-	app->player.player_height = 1.75 * app->unit_size;
+	app->player.player_height = PLAYER_HEIGHT * app->unit_size;
 	app->player.fire_rate_per_sec = 4.0;
 	app->player.aabb.size[0] = app->unit_size / 2.0;
 	app->player.aabb.size[1] = app->player.player_height;
