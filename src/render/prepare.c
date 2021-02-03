@@ -80,24 +80,24 @@ static void		add_objects_render_triangles(t_doom3d *app,
 	while (++i < (int32_t)(app->active_scene->num_objects +
 		app->active_scene->num_deleted))
 	{
+		int i = 0;
+		// if ((app->current_tick % (48 * 5)) == 0 && app->active_scene->objects[i]->type == object_type_npc)
+		// 	anim_3d_clip_set(app, app->active_scene->objects[i],
+		// 							anim_3d_type_idle, 0);
 		if ((app->active_scene->objects[i] == NULL) ||
 			object_too_far(app, app->active_scene->objects[i]) ||
 			!object_inside_viewbox(app, app->active_scene->objects[i]))
 			continue ;
-		if (app->active_scene->objects[i]->type == object_type_npc)
-		{
-			update_current_frame(app, ((t_npc*)app->active_scene->objects[i]->params)->animation_3d);
-		}
 		j = -1;
 		while (++j < app->active_scene->objects[i]->num_triangles)
 		{
-			if (app->active_scene->objects[i]->type == object_type_npc)
-			//^this could be more elegant as in to take into account multiple types
-				{
-				//^only for testing, animation controller should handle this
-				triangle = get_animation_3d_triangle(app->active_scene->objects[i]) + j;
-				}
-			else
+			// if (app->active_scene->objects[i]->type == object_type_npc)
+			// //^this could be more elegant as in to take into account multiple types
+			// {
+			// 	triangle = ((t_npc*)app->active_scene->objects[i]->params)->
+			// 				animation_3d->current_object->triangles + j;
+			// }
+			// else
 				triangle = app->active_scene->objects[i]->triangles + j;
 			if (triangle_too_far(app, triangle)	 ||
 				!triangle_inside_viewbox(app, triangle))

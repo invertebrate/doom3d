@@ -90,6 +90,7 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 	}
 	if (obj->type == object_type_npc)
 	{
+		anim_3d_frame_update(app, ((t_npc*)obj->params)->animation_3d);
 		if (is_npc_update)
 			npc_update_state(app, obj);
 		npc_execute_behavior(app, obj);

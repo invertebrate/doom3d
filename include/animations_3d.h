@@ -25,15 +25,16 @@
 
 /*
 **	The enum values are encoded with ANIM_3D_TYPE_MOD and can be decoded using
-**	% to get the array indices for referencing
+**	% to get the array indices for referencing. 0 is basically static base_object
 */
 
 typedef enum				e_animation_3d_type
 {
-	anim_3d_type_idle = 0 + ANIM_3D_TYPE_MOD,
-	anim_3d_type_move = 1 + ANIM_3D_TYPE_MOD,
-	anim_3d_type_attack = 2 + ANIM_3D_TYPE_MOD,
-	anim_3d_type_death = 3 + ANIM_3D_TYPE_MOD
+	anim_3d_type_null = 0 + ANIM_3D_TYPE_MOD,
+	anim_3d_type_idle = 1 + ANIM_3D_TYPE_MOD,
+	anim_3d_type_move = 2 + ANIM_3D_TYPE_MOD,
+	anim_3d_type_attack = 3 + ANIM_3D_TYPE_MOD,
+	anim_3d_type_death = 4 + ANIM_3D_TYPE_MOD
 }							t_animation_3d_type;
 
 typedef struct				s_anim_metadata
@@ -66,6 +67,7 @@ typedef struct				s_animation_3d
 	uint32_t				start_frame;
 	uint32_t				start_tick;
 	t_3d_object				*base_object;
+	t_3d_object				*current_object;
 	t_3d_object				*animation_frames[ANIM_3D_FRAME_MAX]; //contains the objects for each anim frame
 	t_anim_3d_clip_info		clip_info[ANIM_3D_COUNT_MAX];	
 }							t_animation_3d;

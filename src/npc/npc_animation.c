@@ -48,7 +48,8 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 
 static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc)
 {
-	int		i;
+	int			i;
+	t_surface	*temp;
 
 	i = npc->animation_3d->frames_start_idx - 1;
 	while (++i < (int)(npc->animation_3d->frames_start_idx + (npc->animation_3d->frame_count)))
@@ -57,8 +58,11 @@ static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc
 		hash_map_get(app->active_scene->animation_3d_frames,
 			(int64_t)(app->active_scene->asset_files.animation_3d_files[i])), app->unit_size);
 		//ToDo: Make material copy if needed
+		temp = npc->animation_3d->animation_frames[i]->material->texture;
 		npc->animation_3d->animation_frames[i]->material->texture =
 			obj->material->texture; // memory leak?
+		free(temp);//fixes memory leak?
+		temp = NULL;
 		npc->animation_3d->animation_frames[i]->material->shading_opts =
 			obj->material->shading_opts;
 	}
@@ -92,4 +96,8 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 	npc_animation_3d_data_copy(npc, anim_data);
 	npc->animation_3d->base_object = obj;
 	npc_anim_3d_frames_set(app, obj, npc);
+	npc->animation_3d->current_clip = anim_3d_type_move;
+	npc->animation_3d->current_object = npc->animation_3d->base_object;
+	npc->animation_3d->start_frame = 0;
+	npc->animation_3d->start_tick = app->current_tick;
 }
