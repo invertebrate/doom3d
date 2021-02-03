@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/01 15:14:39 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/02 20:59:33 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,8 +215,9 @@ typedef struct				s_npc
 	uint32_t				atk_timer;
 	int						atk_pattern[128];
 	int						atk_pattern_index;
-	t_vec3					patrol_path[MAX_PATROL_NODES];
+	t_3d_object				*patrol_path[MAX_PATROL_NODES + 1];
 	int						patrol_path_index;
+	int32_t					num_patrol_path_nodes;
 	float					speed;
 	float					rot_speed;
 	float					dist;

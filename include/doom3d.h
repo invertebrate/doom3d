@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/01 15:35:58 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/02 17:23:33 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,6 +349,9 @@ void						delete_path_object_connections(t_path_node *node);
 void						patrol_path_link_node(t_3d_object *node_obj, t_3d_object *obj, int slot);
 void						editor_place_position(t_doom3d *app ,
 								t_vec3 result);
+void						patrol_path_highlight(t_render_work *work);
+void						draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
+										t_box3d *aabb, uint32_t color);
 
 /*
 ** Level
