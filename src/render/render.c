@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/30 17:54:40 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/02 17:23:18 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ static void		render_work(void *params)
 		{
 			draw_selected_wireframe(work);
 			if (work->app->editor.selected_object->type == object_type_npc)
+			{
+				patrol_path_highlight(work);
 				draw_selected_enemy_direction(work);
+			}
 		}
 		else
 			draw_editor_placement_position(work);

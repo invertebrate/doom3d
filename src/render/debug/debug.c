@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/30 09:32:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/02 17:18:55 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void			draw_selected_wireframe(t_render_work *work)
 	}
 }
 
-static void		draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
+void		draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
 					t_box3d *aabb, uint32_t color)
 {
 	draw_debug_line(app, buffers, (t_vec3[2]){

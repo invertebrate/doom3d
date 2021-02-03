@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/31 19:55:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/02 21:05:46 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,40 @@ static void	write_path_object_information(int32_t fd, t_doom3d *app)
 	(void)ret;
 }
 
+/*
+** For each object_type_path, writes the id of the object, num of neighbors
+** and each neighbor id for the purpose of saving the connections
+*/
+
+static void	write_npc_patrol_path_information(int32_t fd, t_doom3d *app)
+{
+	int32_t		i;
+	int32_t		j;
+	int32_t		ret;
+	t_npc		*npc;
+
+	i = -1;
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
+	{
+		if (app->active_scene->objects[i] &&
+			app->active_scene->objects[i]->type == object_type_npc)
+		{
+			npc = app->active_scene->objects[i]->params;
+			ret = write(fd,
+				&app->active_scene->objects[i]->id, sizeof(uint32_t));
+			ret = write(fd, &npc->num_patrol_path_nodes, sizeof(int32_t));
+			j = -1;
+			while (++j < 16)
+				if (npc->patrol_path[j])
+					ret = write(fd, &npc->patrol_path[j]->id, sizeof(uint32_t));
+				else
+					ret = write(fd, 0, sizeof(uint32_t));
+		}
+	}
+	(void)ret;
+}
+
 static void	write_map(int32_t fd, t_doom3d *app)
 {
 	int32_t		i;
@@ -98,6 +132,7 @@ static void	write_map(int32_t fd, t_doom3d *app)
 		if (app->active_scene->objects[i])
 			write_obj_content(fd, app, app->active_scene->objects[i]);
 	write_path_object_information(fd, app);
+	write_npc_patrol_path_information(fd, app);
 	(void)ret;
 }
 

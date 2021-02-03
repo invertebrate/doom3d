@@ -28,7 +28,7 @@ else
 endif
 # TODO make proper fix for this if
 ifeq ($(UNAME_ALT), 5.9.13-1-MANJARO-ARM)
-	LINUX_IGNOREW = -Wno-stringop-overflow
+	LINUX_IGNOREW = -Wno-stringop-overflow -Wno-maybe-uninitialized
 endif
 LIBS = $(LIB3DFLAGS) $(LIBGMATRIXFLAGS) $(LIBFTFLAGS) $(SDL_FLAGS) $(LIB_MATH) $(LIB_PTHRTEAD)
 
