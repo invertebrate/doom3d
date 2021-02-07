@@ -21,9 +21,15 @@ void		npc_default_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	int		i;
 
 	i = -1;
-	anim_data->frame_count = 6;
-	anim_data->anim_count = 1;
-	anim_data->clip_lengths[0] = 6;
+	anim_data->frame_count = 0 + 0 + 6;
+	anim_data->anim_count = 3;
+	anim_data->clip_lengths[0] = 0;
+	anim_data->clip_lengths[1] = 0;
+	anim_data->clip_lengths[2] = 6;
+	anim_data->anim_clip_start_indices[0] = 0;
+	anim_data->anim_clip_start_indices[1] = anim_data->clip_lengths[0];
+	anim_data->anim_clip_start_indices[2] = anim_data->clip_lengths[0] +
+											anim_data->clip_lengths[1];
 	anim_data->frames_start_idx = 0;
 	ft_memset(anim_data->anim_frame_numbers,
 	0, sizeof(uint32_t) * ANIM_3D_FRAME_MAX);
@@ -78,11 +84,14 @@ static void			npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 	{
 		npc->animation_3d->clip_info->anim_frame_numbers[i] =
 			anim_data->anim_frame_numbers[i];
+		ml_vector3_copy((t_vec3){0.0, 0.0, 0.0},
+			npc->animation_3d->frame_object_prev_translation[i]);
 	}
 	i = -1;
 	while (++i < (int)anim_data->anim_count)
 	{
 		npc->animation_3d->clip_info[i].clip_length = anim_data->clip_lengths[i];
+		npc->animation_3d->anim_clip_start_indices[i] = anim_data->anim_clip_start_indices[i];
 	}
 	npc->animation_3d->anim_count = anim_data->anim_count;
 	npc->animation_3d->frames_start_idx = anim_data->frames_start_idx;
@@ -96,8 +105,8 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 	npc_animation_3d_data_copy(npc, anim_data);
 	npc->animation_3d->base_object = obj;
 	npc_anim_3d_frames_set(app, obj, npc);
-	npc->animation_3d->current_clip = anim_3d_type_move;
-	npc->animation_3d->current_object = npc->animation_3d->base_object;
+	npc->animation_3d->current_clip = anim_3d_type_null;
+	npc->animation_3d->current_object = npc->animation_3d->animation_frames[0];
 	npc->animation_3d->start_frame = 0;
-	npc->animation_3d->start_tick = app->current_tick;
+	npc->animation_3d->tick_at_update = app->current_tick;
 }

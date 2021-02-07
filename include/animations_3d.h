@@ -40,10 +40,14 @@ typedef enum				e_animation_3d_type
 typedef struct				s_anim_metadata
 {
 	uint32_t				frame_count;
-	uint32_t				frames_start_idx;
+	uint32_t				frames_start_idx;//index where the frames for the animations start
+											//in  asset_files.animation_3d_files[i]
 	uint32_t				anim_count;
-	uint32_t				clip_lengths[ANIM_3D_COUNT_MAX];
-	uint32_t				anim_frame_numbers[ANIM_3D_FRAME_MAX];
+	uint32_t				clip_lengths[ANIM_3D_COUNT_MAX];//length of animation clips
+	uint32_t				anim_frame_numbers[ANIM_3D_FRAME_MAX];//individual frames' indices in
+																	//asset_files.animation_3d_files[i]
+	uint32_t				anim_clip_start_indices[ANIM_3D_COUNT_MAX];//start index of each animation clip
+																		//in asset_files.animation_3d_files[i]
 }							t_anim_metadata;
 
 /*
@@ -61,14 +65,16 @@ typedef struct				s_animation_3d
 {
 	uint32_t				frame_count;
 	uint32_t				frames_start_idx;
+	uint32_t				anim_clip_start_indices[ANIM_3D_COUNT_MAX];	
 	uint32_t				anim_count;
 	uint32_t				current_frame;
 	t_animation_3d_type		current_clip;
 	uint32_t				start_frame;
-	uint32_t				start_tick;
+	uint32_t				tick_at_update;
 	t_3d_object				*base_object;
 	t_3d_object				*current_object;
 	t_3d_object				*animation_frames[ANIM_3D_FRAME_MAX]; //contains the objects for each anim frame
+	t_vec3					frame_object_prev_translation[ANIM_3D_FRAME_MAX];
 	t_anim_3d_clip_info		clip_info[ANIM_3D_COUNT_MAX];	
 }							t_animation_3d;
 

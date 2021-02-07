@@ -225,13 +225,6 @@ struct				s_3d_object
 	t_mat4			scale;
 	t_vec3			position;
 	t_box3d			aabb;
-	// int32_t			animated;
-	// uint32_t		frame_count;
-	// uint32_t		current_frame;
-	// uint32_t		start_frame;
-	// uint32_t		start_tick;
-	// struct s_3d_object		**animation_frames;
-	// int32_t			*anim_frame_numbers;
 };
 
 /*

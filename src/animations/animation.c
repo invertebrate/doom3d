@@ -18,19 +18,45 @@ void					update_app_ticks(t_doom3d *app)
 						SDL_GetPerformanceFrequency();
 }
 
+void		npc_anim_3d_position_update(t_3d_object *obj)
+{
+	t_animation_3d		*anim;
+
+	anim = NULL;
+	if (obj->type == object_type_npc && ((t_npc*)obj->params)->animation_3d != NULL)
+		anim = ((t_npc*)obj->params)->animation_3d;
+	else
+		return ;
+	l3d_3d_object_translate(anim->current_object,
+							-anim->frame_object_prev_translation[anim->current_frame][0],
+							-anim->frame_object_prev_translation[anim->current_frame][1],
+							-anim->frame_object_prev_translation[anim->current_frame][2]);
+	ml_vector3_copy(obj->position, anim->current_object->position);
+	l3d_3d_object_translate(anim->current_object, obj->position[0],
+							obj->position[1], obj->position[2]);
+	ml_vector3_copy((t_vec3){obj->position[0], obj->position[1], obj->position[2]},
+						anim->frame_object_prev_translation[anim->current_frame]);	
+}
+
 uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 {
 	uint32_t	current_frame;
 
-	// if (animation->current_clip == anim_3d_type_null)
-	// 	return (UINT32_MAX);
-	if ((app->current_tick - animation->start_tick) % (int)((TICKS_PER_SEC) / (ANIM_3D_FPS)) > 0)
+	if (animation->current_clip == anim_3d_type_null)
+	{
+		npc_anim_3d_position_update(animation->base_object);
+		return (UINT32_MAX);
+	}
+	if (((app->current_tick - animation->tick_at_update) % (TICKS_PER_SEC)) > (TICKS_PER_SEC / ANIM_3D_FPS))
 	{
 		animation->current_frame = (animation->current_frame + 1) % 
 		animation->clip_info[animation->current_clip % ANIM_3D_TYPE_MOD].clip_length;
+		animation->tick_at_update = app->current_tick;
 	}
 	current_frame = animation->current_frame;
 	animation->current_object = animation->animation_frames[animation->current_frame];
+	npc_anim_3d_position_update(animation->base_object);
+	//npc_anim_3d_rotation_update(animation->base_object)
 	return (current_frame);
 }
 
@@ -43,33 +69,22 @@ void					anim_3d_clip_set(t_doom3d *app, t_3d_object *obj,
 {
 	t_animation_3d		*anim;
 
-	if (clip != anim_3d_type_move)
+	if (!(obj->type == object_type_npc && ((t_npc*)obj->params)->animation_3d != NULL))
 	{
-		ft_printf("animation clip not yet implemented\n");
-		return;
+		ft_printf("Tried to set animation clip to an object with no animation_3d\n");//
+		return ;
+	}
+	if (clip != anim_3d_type_move && clip != anim_3d_type_null)
+	{
+		ft_printf("animation clip %d not yet implemented\nallowed clips: %d, %d\n",
+					clip, anim_3d_type_move, anim_3d_type_null);//
+		return ;
 	}
 	anim = ((t_npc*)obj->params)->animation_3d;
 	anim->current_clip = clip;
 	anim->current_frame = start_frame;
-	anim->current_object = anim->animation_frames[clip % ANIM_3D_TYPE_MOD];
-	anim->start_tick = app->current_tick;
-	(void)app;
-	(void)obj;
-	(void)anim;
-	(void)start_frame;
+	anim->current_object = anim->animation_frames[anim->anim_clip_start_indices[clip %
+													ANIM_3D_TYPE_MOD]];
+	anim->tick_at_update = app->current_tick;
+	npc_anim_3d_position_update(obj);
 }
-
-// t_triangle		*get_animation_3d_triangle(t_3d_object *obj)
-// {
-// 	t_triangle		*result_tri;
-// 	t_animation_3d	*anim;
-
-// 	result_tri = NULL;
-// 	if (obj->type == object_type_npc)
-// 	{
-// 		anim =  ((t_npc*)obj->params)->animation_3d;
-// 		result_tri = anim->animation_frames[anim->current_frame]->triangles;
-// 		anim->current_object = anim->animation_frames[anim->current_frame];
-// 	}
-// 	return (result_tri);
-// }

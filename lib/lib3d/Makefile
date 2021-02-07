@@ -55,7 +55,7 @@ SOURCES = l3d_triangle.c \
 			l3d_triangle_clipping_utils.c \
 			l3d_procedural_gen.c \
 			l3d_buffers.c \
-			l3d_buffer_clear.c
+			l3d_buffer_clear.c 
 
 SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
