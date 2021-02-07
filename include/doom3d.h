@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/31 19:50:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/01 15:35:58 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,6 +361,7 @@ void						path_draw_connections(t_render_work *work);
 void						path_delete_connection(t_path_node *path_obj,
 													t_path_node *delete);
 void						delete_path_object_connections(t_path_node *node);
+void						patrol_path_link_node(t_3d_object *node_obj, t_3d_object *obj, int slot);
 void						editor_place_position(t_doom3d *app ,
 								t_vec3 result);
 

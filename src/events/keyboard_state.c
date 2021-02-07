@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/30 16:50:11 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/01 17:08:52 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,18 @@ static void		handle_editor_transform(t_doom3d *app)
 		l3d_3d_object_scale(app->editor.selected_object,
 			1.1, 1.1, 1.1);
 		after_editor_transform(app, &last_changed);
+	}
+	if (diff > 50 && app->keyboard.state[SDL_SCANCODE_KP_PLUS] &&
+		app->editor.patrol_slot < MAX_PATROL_NODES)
+	{
+		app->editor.patrol_slot++;
+		ft_printf("patrol slot = %d\n", app->editor.patrol_slot);
+	}
+	if (diff > 50 && app->keyboard.state[SDL_SCANCODE_KP_MINUS] &&
+		app->editor.patrol_slot > 0)
+	{
+		app->editor.patrol_slot--;
+		ft_printf("patrol slot = %d\n", app->editor.patrol_slot);
 	}
 }
 

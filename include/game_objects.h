@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_objects.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/31 19:41:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/01 15:14:39 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "animations_3d.h"
 
 # define PATH_NEIGHBOUR_MAX 8
+# define MAX_PATROL_NODES 16
 
 /*
 ** A list defining what kind of objects the doom3d app contains in its scene /
@@ -215,7 +216,7 @@ typedef struct				s_npc
 	uint32_t				atk_timer;
 	int						atk_pattern[128];
 	int						atk_pattern_index;
-	t_vec3					patrol_path[16];
+	t_vec3					patrol_path[MAX_PATROL_NODES];
 	int						patrol_path_index;
 	float					speed;
 	float					rot_speed;
