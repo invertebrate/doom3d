@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 17:20:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/09 09:56:19 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ void			doom3d_game_input_events_handle(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE)
 		player_jump(app);
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_9)
+	{
+		app->player.can_fly = (app->player.can_fly + 1) % 2;
+		ft_printf("player can fly = %d\n", app->player.can_fly);//test
+	}
 }
 
 /*

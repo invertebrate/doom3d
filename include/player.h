@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/03 14:14:57 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/09 09:46:44 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct				s_player
 	t_bool					is_jumping;
 	t_bool					is_falling;
 	t_bool					is_grounded;
+	t_bool					is_flying;
+	t_bool					can_fly;
 	float					jump_force;
 	float					speed;
 	float					rot_speed;

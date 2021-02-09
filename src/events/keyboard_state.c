@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/03 14:03:50 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/09 09:50:22 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		keyboard_game_state_handle(t_doom3d *app)
 {
 	t_vec3	dir;
 
-	if (app->player.is_grounded)
+	if (app->player.is_grounded || app->player.can_fly)
 	{
 		if (app->keyboard.state[SDL_SCANCODE_W])
 		{
