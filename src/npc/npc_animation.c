@@ -21,16 +21,25 @@ void		npc_default_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	int		i;
 
 	i = -1;
-	anim_data->frame_count = 0 + 0 + 6;
-	anim_data->anim_count = 3;
+	anim_data->frame_count = 0 + 4 + 8 + 7 + 9;
+	anim_data->anim_count = 5;
 	anim_data->clip_lengths[0] = 0;
-	anim_data->clip_lengths[1] = 0;
-	anim_data->clip_lengths[2] = 6;
+	anim_data->clip_lengths[1] = 4;
+	anim_data->clip_lengths[2] = 8;
+	anim_data->clip_lengths[3] = 7;
+	anim_data->clip_lengths[4] = 9;
 	anim_data->anim_clip_start_indices[0] = 0;
 	anim_data->anim_clip_start_indices[1] = anim_data->clip_lengths[0];
 	anim_data->anim_clip_start_indices[2] = anim_data->clip_lengths[0] +
 											anim_data->clip_lengths[1];
-	anim_data->frames_start_idx = 0;
+	anim_data->anim_clip_start_indices[3] = anim_data->clip_lengths[0] +
+											anim_data->clip_lengths[1] +
+											anim_data->clip_lengths[2];
+	anim_data->anim_clip_start_indices[4] = anim_data->clip_lengths[0] +
+											anim_data->clip_lengths[1] +
+											anim_data->clip_lengths[2] +
+											anim_data->clip_lengths[3];
+	anim_data->frames_start_idx = 0;//global animation frame array index
 	ft_memset(anim_data->anim_frame_numbers,
 	0, sizeof(uint32_t) * ANIM_3D_FRAME_MAX);
 	while (++i < (int)anim_data->frame_count)
@@ -105,7 +114,7 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 	npc_animation_3d_data_copy(npc, anim_data);
 	npc->animation_3d->base_object = obj;
 	npc_anim_3d_frames_set(app, obj, npc);
-	npc->animation_3d->current_clip = anim_3d_type_null;
+	npc->animation_3d->current_clip = anim_3d_type_idle;
 	npc->animation_3d->current_object = npc->animation_3d->animation_frames[0];
 	npc->animation_3d->start_frame = 0;
 	npc->animation_3d->tick_at_update = app->current_tick;

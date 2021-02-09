@@ -13,7 +13,7 @@
 #ifndef GAME_OBJECTS_H
 # define GAME_OBJECTS_H
 
-# define NPC_DEFAULT_MODEL "assets/models/run_frame.obj"
+# define NPC_DEFAULT_MODEL "assets/models/placeholder_npc/Idle/npc_idle_000.obj"
 # define NPC_DEFAULT_TEXTURE "assets/textures/rock.bmp"
 # define NPC_DEFAULT_NORMM "assets/textures/rock.bmp"
 

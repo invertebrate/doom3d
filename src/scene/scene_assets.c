@@ -204,7 +204,7 @@ static void		scene_normal_files_set(t_asset_files *data)
 static void		scene_model_files_set(t_asset_files *data)
 {
 	data->model_files[data->num_models++] = "assets/models/box.obj";
-	data->model_files[data->num_models++] = "assets/models/run_frame.obj";
+	data->model_files[data->num_models++] = "assets/models/placeholder_npc/Idle/npc_idle_000.obj";
 	data->model_files[data->num_models++] = "assets/models/shotgun.obj";
 	data->model_files[data->num_models++] = "assets/models/missile.obj";
 }
@@ -243,7 +243,10 @@ static void		scene_animation_3d_frames_set(t_asset_files *data,
 
 static void		scene_animation_3d_files_set(t_asset_files *data)
 {
-	scene_animation_3d_frames_set(data, "assets/models/run_frame", 6);
+	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Idle/npc_idle", 4);
+	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Move/npc_move", 8);
+	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Attack/npc_attack", 7);
+	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Death/npc_death", 9);
 	//call the above function for each animation clip separately;
 }
 
