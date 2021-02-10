@@ -120,7 +120,7 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 	npc_animation_3d_data_copy(npc, anim_data);
 	npc->animation_3d->base_object = obj;
 	npc_anim_3d_frames_set(app, obj, npc);
-	npc->animation_3d->current_clip = anim_3d_type_death;
+		npc->animation_3d->current_clip = anim_3d_type_null;
 	npc->animation_3d->current_object = npc->animation_3d->animation_frames[0];
 	npc->animation_3d->start_frame =
 	npc->animation_3d->anim_clip_start_indices[(npc->animation_3d->current_clip) % ANIM_3D_TYPE_MOD];

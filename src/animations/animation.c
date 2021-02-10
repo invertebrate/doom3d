@@ -37,7 +37,7 @@ void		npc_anim_3d_position_update(t_3d_object *obj)
 	ml_vector3_copy((t_vec3){obj->position[0], obj->position[1], obj->position[2]},
 						anim->frame_object_prev_translation[anim->current_frame]);	
 }
-
+# define ANIM_3D_FPSS 2
 uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 {
 	uint32_t	current_frame;
@@ -47,7 +47,7 @@ uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 		npc_anim_3d_position_update(animation->base_object);
 		return (UINT32_MAX);
 	}
-	if (((app->current_tick - animation->tick_at_update) % (TICKS_PER_SEC)) > (TICKS_PER_SEC / ANIM_3D_FPS))
+	if (((app->current_tick - animation->tick_at_update) % (TICKS_PER_SEC)) > (TICKS_PER_SEC / ANIM_3D_FPSS))
 	{
 		animation->current_frame++;
 		if (animation->current_frame > animation->clip_info[animation->current_clip % ANIM_3D_TYPE_MOD].clip_length +
@@ -74,12 +74,6 @@ void					anim_3d_clip_set(t_doom3d *app, t_3d_object *obj,
 	if (!(obj->type == object_type_npc && ((t_npc*)obj->params)->animation_3d != NULL))
 	{
 		ft_printf("Tried to set animation clip to an object with no animation_3d\n");//
-		return ;
-	}
-	if (clip != anim_3d_type_move && clip != anim_3d_type_null)
-	{
-		ft_printf("animation clip %d not yet implemented\nallowed clips: %d, %d\n",
-					clip, anim_3d_type_move, anim_3d_type_null);//
 		return ;
 	}
 	anim = ((t_npc*)obj->params)->animation_3d;

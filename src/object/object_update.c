@@ -84,6 +84,7 @@ static t_bool	has_forces(t_3d_object *obj)
 static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 					t_bool is_npc_update)
 {
+	static int c = 0;
 	if (has_forces(obj))
 	{
 		forces_update_object(app, obj);
@@ -91,7 +92,15 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 	if (obj->type == object_type_npc)
 	{
 		if (((t_npc*)obj->params)->animation_3d != NULL)
+		{
+			if (c == 0)
+			{
+				ft_printf("attack setting\n");
+				anim_3d_clip_set(app, obj, anim_3d_type_attack, c);
+			}
+			c = 1;
 			anim_3d_frame_update(app, ((t_npc*)obj->params)->animation_3d);
+		}
 		if (is_npc_update)
 			npc_update_state(app, obj);
 		npc_execute_behavior(app, obj);
@@ -111,6 +120,7 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 				inventory_pickup_weapon_object(app, obj);
 		}
 	}
+	(void)c;
 }
 
 /*
