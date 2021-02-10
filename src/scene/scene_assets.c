@@ -245,7 +245,8 @@ static void		scene_animation_3d_files_set(t_asset_files *data)
 {
 	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Idle/npc_idle", 4);
 	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Move/npc_move", 8);
-	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Attack/npc_attack", 7);
+	// scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Attack/npc_attack", 7);
+	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/npc_attack", 7);
 	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Death/npc_death", 9);
 	//call the above function for each animation clip separately;
 }

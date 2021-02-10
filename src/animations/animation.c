@@ -49,9 +49,12 @@ uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 	}
 	if (((app->current_tick - animation->tick_at_update) % (TICKS_PER_SEC)) > (TICKS_PER_SEC / ANIM_3D_FPS))
 	{
-		animation->current_frame = (animation->current_frame + 1) % 
-		animation->clip_info[animation->current_clip % ANIM_3D_TYPE_MOD].clip_length;
+		animation->current_frame = ((animation->current_frame) % 
+		animation->clip_info[animation->current_clip % ANIM_3D_TYPE_MOD].clip_length) +
+		animation->anim_clip_start_indices[animation->current_clip % ANIM_3D_TYPE_MOD];
 		animation->tick_at_update = app->current_tick;
+		ft_printf("current frame: %d\n", animation->current_frame);
+		ft_printf("clip length: %d\n", animation->clip_info[animation->current_clip % ANIM_3D_TYPE_MOD].clip_length);
 	}
 	current_frame = animation->current_frame;
 	animation->current_object = animation->animation_frames[animation->current_frame];
