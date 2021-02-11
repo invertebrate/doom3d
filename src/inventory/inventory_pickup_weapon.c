@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inventory_pickup_weapon.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:26:50 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/13 16:05:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/11 12:59:13 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ void			inventory_pickup_weapon_object(t_doom3d *app,
 		weapon = &app->weapons_data[weapon_glock];
 	else if (weapon_drop_obj->params_type == trigger_weapon_drop_rpg)
 		weapon = &app->weapons_data[weapon_rpg];
+	else if (weapon_drop_obj->params_type == trigger_item_jetpack)
+		{
+			app->player.can_fly = true;
+			ft_printf("Picked up jetpack\n");
+			object_set_for_deletion(app, weapon_drop_obj);
+		}
 	if (weapon)
 	{
 		weapon_id_to_str(weapon_id, weapon->id);

@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/02 17:23:33 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/11 09:57:20 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -390,6 +390,7 @@ void						doom3d_notifications_delete_all(t_doom3d *app);
 void						place_player_end(t_doom3d *app);
 void						place_player_start(t_doom3d *app);
 void						place_drop_shotgun(t_doom3d *app);
+void						place_drop_jetpack(t_doom3d *app);
 void						editor_objects_invisible_unhighlight(t_doom3d *app);
 void						editor_objects_invisible_highlight(t_doom3d *app);
 
