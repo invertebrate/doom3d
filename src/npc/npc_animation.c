@@ -42,10 +42,6 @@ void		npc_default_anim_3d_metadata_set(t_anim_metadata *anim_data)
 											anim_data->clip_lengths[2] +
 											anim_data->clip_lengths[3];
 	anim_data->frames_start_idx = 0;//global animation frame array index
-	// for (int i = 0; i < 5; i++)
-	// {
-	// 	ft_printf("start index %d: %d\n", i, anim_data->anim_clip_start_indices[i]);
-	// }
 	ft_memset(anim_data->anim_frame_numbers,
 	0, sizeof(uint32_t) * ANIM_3D_FRAME_MAX);
 	while (++i < (int)anim_data->frame_count)

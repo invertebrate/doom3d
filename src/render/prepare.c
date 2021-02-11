@@ -75,7 +75,7 @@ static void		add_objects_render_triangles(t_doom3d *app,
 	t_triangle				*triangle;
 	t_triangle				r_triangle;
 	t_vertex				vtc[3];
-	// static int c = 0;
+	
 	triangle = &r_triangle;
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects +
@@ -92,13 +92,6 @@ static void		add_objects_render_triangles(t_doom3d *app,
 				((t_npc*)app->active_scene->objects[i]->params)->animation_3d != NULL)
 			//^this could be more elegant as in to take into account multiple types
 			{
-				// if (c < 3)
-				// {
-				// 	c++;
-				// 	ft_printf("here\n");
-				// 	anim_3d_clip_set(app, app->active_scene->objects[i],
-				// 				anim_3d_type_move, 0);
-				// }
 				triangle = ((t_npc*)app->active_scene->objects[i]->params)->
 							animation_3d->current_object->triangles + j;
 			}

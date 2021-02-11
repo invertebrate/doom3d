@@ -37,7 +37,7 @@ void		npc_anim_3d_position_update(t_3d_object *obj)
 	ml_vector3_copy((t_vec3){obj->position[0], obj->position[1], obj->position[2]},
 						anim->frame_object_prev_translation[anim->current_frame]);	
 }
-# define ANIM_3D_FPSS 2
+
 uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 {
 	uint32_t	current_frame;
@@ -47,7 +47,7 @@ uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 		npc_anim_3d_position_update(animation->base_object);
 		return (UINT32_MAX);
 	}
-	if (((app->current_tick - animation->tick_at_update) % (TICKS_PER_SEC)) > (TICKS_PER_SEC / ANIM_3D_FPSS))
+	if (((app->current_tick - animation->tick_at_update) % (TICKS_PER_SEC)) > (TICKS_PER_SEC / ANIM_3D_FPS))
 	{
 		animation->current_frame++;
 		if (animation->current_frame > animation->clip_info[animation->current_clip % ANIM_3D_TYPE_MOD].clip_length +
@@ -56,6 +56,7 @@ uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 		animation->tick_at_update = app->current_tick;
 	}
 	current_frame = animation->current_frame;
+	ft_printf("current_Frame %d\n", current_frame);
 	animation->current_object = animation->animation_frames[animation->current_frame];
 	npc_anim_3d_position_update(animation->base_object);
 	//npc_anim_3d_rotation_update(animation->base_object)
