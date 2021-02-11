@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/21 15:47:25 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:05:40 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 				ft_printf("Hit End Trigger, finish level\n");
 				finish_level(app);
 			}
-			else if (obj->params_type == trigger_weapon_drop_shotgun)
+			else if (obj->params_type == trigger_weapon_drop_shotgun ||
+					obj->params_type == trigger_item_jetpack)
 				inventory_pickup_weapon_object(app, obj);
 		}
 	}
