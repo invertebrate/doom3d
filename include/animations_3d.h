@@ -14,7 +14,7 @@
 # define ANIMATIONS_3D_H
 
 # define TICKS_PER_SEC 48
-# define ANIM_3D_FPS 2
+# define ANIM_3D_FPS 12
 # define ANIM_3D_FRAME_MAX 256
 # define ANIM_3D_CLIP_LENGTH_MAX 32
 # define ANIM_3D_COUNT_MAX 64
