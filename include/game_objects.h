@@ -13,11 +13,12 @@
 #ifndef GAME_OBJECTS_H
 # define GAME_OBJECTS_H
 
-# define NPC_DEFAULT_MODEL "assets/models/box.obj"
+# define NPC_DEFAULT_MODEL "assets/models/placeholder_npc/Idle/npc_idle_000.obj"
 # define NPC_DEFAULT_TEXTURE "assets/textures/rock.bmp"
 # define NPC_DEFAULT_NORMM "assets/textures/rock.bmp"
 
 # include "libgmatrix.h"
+# include "animations_3d.h"
 
 # define PATH_NEIGHBOUR_MAX 8
 # define MAX_PATROL_NODES 16
@@ -228,6 +229,7 @@ typedef struct				s_npc
 	const char				*texture_key;
 	const char				*model_key;
 	const char				*normal_map_key;
+	t_animation_3d			*animation_3d;
 }							t_npc;
 
 

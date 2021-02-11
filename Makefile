@@ -26,7 +26,6 @@ else
 			-I$(LIBSDL2)/SDL2_image.framework/Headers \
 			-I$(LIBSDL2)/SDL2_ttf.framework/Headers
 endif
-# TODO make proper fix for this if
 ifeq ($(UNAME_ALT), 5.9.13-1-MANJARO-ARM)
 	LINUX_IGNOREW = -Wno-stringop-overflow -Wno-maybe-uninitialized
 endif
@@ -67,6 +66,7 @@ SOURCES = main.c \
 			npc/npc_spawn.c \
 			npc/npc_trigger_onhit.c \
 			npc/npc_update.c \
+			npc/npc_animation.c \
 			npc/npc_move_to_waypoint.c \
 			trigger/trigger.c \
 			path/path.c \
@@ -121,7 +121,8 @@ SOURCES = main.c \
 			events/events.c \
 			events/editor_events.c \
 			events/keyboard_state.c \
-			events/general_input_events.c
+			events/general_input_events.c \
+			animations/animation.c
 
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))
@@ -152,6 +153,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/render/debug
 	@mkdir -p temp/events
 	@mkdir -p temp/player
+	@mkdir -p temp/animations
 	@mkdir -p temp/npc
 	@mkdir -p temp/object
 	@mkdir -p temp/physics

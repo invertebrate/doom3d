@@ -28,10 +28,14 @@ static void		place_npc_object_in_scene(t_doom3d *app, t_npc *npc, t_vec3 pos)
 void			parse_npc_type(t_doom3d *app, t_npc *npc, int type)
 {
 	if (type == npc_type_default)
+	{
 		npc_default(app, npc);
+	}
 }
 
-/* spawn on position facing direction with given model */
+/*
+** spawn on position facing direction with given model
+*/
 
 void			npc_spawn(t_doom3d *app, t_vec3 pos, float angle, int type)
 {
@@ -40,7 +44,7 @@ void			npc_spawn(t_doom3d *app, t_vec3 pos, float angle, int type)
 	ft_memset(&npc, 0, sizeof(t_npc));
 	npc.angle = angle;
 	parse_npc_type(app, &npc, type);
-	place_npc_object_in_scene(app, &npc, pos);
+	place_npc_object_in_scene(app, &npc, pos);//mallocs and copies data from npc, sets params
 	ft_printf("Spawned npc, id = |%d|\n",
 		app->active_scene->objects[app->active_scene->last_object_index]->id); //test
 }

@@ -23,9 +23,9 @@ void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 	if (npc->hp <= 0)
 	{
 		npc->state = state_death_anim;
-		ft_printf("npc killed!\n"); //test
+		// ft_printf("npc killed!\n"); //test
 		object_set_for_deletion(app, obj); //test
 	}
-	ft_printf("npc hit for %d damage! current hp: %d\n",
-		damage, npc->hp); //test
+	// ft_printf("npc hit for %d damage! current hp: %d\n",
+		// damage, npc->hp); //test
 }

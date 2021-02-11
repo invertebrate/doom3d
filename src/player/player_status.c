@@ -15,10 +15,11 @@
 void	player_onhit(t_doom3d *app, int damage)
 {
 	app->player.hp -= damage;
-	if (app->player.hp <= 0)
-	{
-		ft_printf("You died!\n"); //test
-	}
-	ft_printf("player hit for %d damage! current hp: %d\n",
-		damage, app->player.hp); //test
+	// if (app->player.hp <= 0)
+	// {
+	// 	ft_printf("You died!\n"); //test
+	// }
+	// ft_printf("player hit for %d damage! current hp: %d\n",
+		// damage, app->player.hp); //test
+	(void)app;
 }

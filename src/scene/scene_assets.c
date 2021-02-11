@@ -28,6 +28,18 @@ static void		scene_set_skybox_textures(t_scene *scene)
 		"assets/skybox/bottom.bmp");
 }
 
+static void		animation_3d_frames_load(t_scene *scene, t_asset_files *data)
+{
+	int		i;
+
+	scene->animation_3d_frames = hash_map_create(MAX_ASSETS);
+	i = -1;
+	while (++i < (int32_t)data->num_animation_frames_3d)
+		hash_map_add(scene->animation_3d_frames,
+			(int64_t)scene->asset_files.animation_3d_files[i],
+			l3d_read_obj(scene->asset_files.animation_3d_files[i], NULL, NULL));
+}
+
 /*
 ** Loads assets by keys and files set in scene_data.c
 ** Hashmap = dictionary
@@ -60,18 +72,19 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 			(int64_t)scene->asset_files.normal_map_files[i],
 			l3d_read_bmp_32bit_rgba_surface(
 				scene->asset_files.normal_map_files[i]));
+	animation_3d_frames_load(scene, data);
 	i = -1;
-	while (++i < (int32_t)data->num_animations)
+	while (++i < (int32_t)data->num_animations_sprite)
 	{
 		animation_source = l3d_read_bmp_32bit_rgba_surface(
-				scene->asset_files.animation_files[i]);
+				scene->asset_files.animation_sprite_files[i]);
 		scaled_anim_source = l3d_image_scaled(animation_source,
 			animation_source->w * ANIMATION_SCALE, animation_source->h *
 				ANIMATION_SCALE);
 		free(animation_source->pixels);
 		free(animation_source);
 		hash_map_add(scene->animation_textures,
-			(int64_t)scene->asset_files.animation_files[i],
+			(int64_t)scene->asset_files.animation_sprite_files[i],
 			scaled_anim_source);
 	}
 	scene_set_skybox_textures(scene);
@@ -132,31 +145,31 @@ static void		triggers_load(t_scene *scene)
 ** hash_table)
 */
 
-static void		scene_animation_files_set(t_asset_files *data)
+static void		scene_animation_sprite_files_set(t_asset_files *data)
 {
-	data->animation_files[data->num_animations++] =
+	data->animation_sprite_files[data->num_animations_sprite++] =
 		"assets/animations/shotgun_anim_1080p.bmp";
-	data->animation_files[data->num_animations++] =
+	data->animation_sprite_files[data->num_animations_sprite++] =
 		"assets/animations/pistol_anim_1080p.bmp";
-	data->animation_files[data->num_animations++] =
+	data->animation_sprite_files[data->num_animations_sprite++] =
 		"assets/animations/fist_anim_1080p.bmp";
-	data->animation_files[data->num_animations++] =
+	data->animation_sprite_files[data->num_animations_sprite++] =
 		"assets/animations/rpg_anim_1080p.bmp";
-	data->animation_files[data->num_animations++] =
+	data->animation_sprite_files[data->num_animations_sprite++] =
 		"assets/animations/shotgun_anim_720p.bmp";
-	data->animation_files[data->num_animations++] =
+	data->animation_sprite_files[data->num_animations_sprite++] =
 		"assets/animations/pistol_anim_720p.bmp";
-	data->animation_files[data->num_animations++] =
+	data->animation_sprite_files[data->num_animations_sprite++] =
 		"assets/animations/fist_anim_720p.bmp";
-	data->animation_files[data->num_animations++] =
+	data->animation_sprite_files[data->num_animations_sprite++] =
 		"assets/animations/rpg_anim_720p.bmp";
-	data->animation_files[data->num_animations++] =
+	data->animation_sprite_files[data->num_animations_sprite++] =
 		"assets/animations/shotgun_anim_540p.bmp";
-	data->animation_files[data->num_animations++] =
+	data->animation_sprite_files[data->num_animations_sprite++] =
 		"assets/animations/pistol_anim_540p.bmp";
-	data->animation_files[data->num_animations++] =
+	data->animation_sprite_files[data->num_animations_sprite++] =
 		"assets/animations/fist_anim_540p.bmp";
-	data->animation_files[data->num_animations++] =
+	data->animation_sprite_files[data->num_animations_sprite++] =
 		"assets/animations/rpg_anim_540p.bmp";
 }
 
@@ -190,12 +203,53 @@ static void		scene_normal_files_set(t_asset_files *data)
 
 static void		scene_model_files_set(t_asset_files *data)
 {
-	data->model_files[data->num_models++] =
-		"assets/models/box.obj";
-	data->model_files[data->num_models++] =
-		"assets/models/shotgun.obj";
-	data->model_files[data->num_models++] =
-		"assets/models/missile.obj";
+	data->model_files[data->num_models++] = "assets/models/box.obj";
+	data->model_files[data->num_models++] = "assets/models/placeholder_npc/Idle/npc_idle_000.obj";
+	data->model_files[data->num_models++] = "assets/models/shotgun.obj";
+	data->model_files[data->num_models++] = "assets/models/missile.obj";
+}
+
+/*
+**	Creates the file path for each frame in an animation clip
+*/
+
+static void		scene_animation_3d_frames_set(t_asset_files *data,
+					char* file_path, uint32_t framecount)
+{
+	int		i;
+	char	*frame_path;
+	
+	i = -1;
+	while(++i < (int)framecount && i < 100)
+	{
+		frame_path = (char*)ft_calloc(sizeof(char) * ft_strlen(file_path) + 4);
+		if (i < 10)
+		{
+			ft_sprintf(frame_path, "%s_00%d.obj", file_path, i);
+		}
+		else if (i > 10 && i < 100)
+		{
+			ft_sprintf(frame_path, "%s_0%d.obj	", file_path, i);
+		}
+		data->animation_3d_files[data->num_animation_frames_3d++] = frame_path;
+	}
+}
+
+/*
+** The file path must not include the ".obj", it will be appended by
+** animation_frames_set function. The function call order is important:
+** each object has their animations in a contiguous chunk in the array.
+*/
+
+static void		scene_animation_3d_files_set(t_asset_files *data)
+{
+	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Idle/npc_idle", 1);
+	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Idle/npc_idle", 4);
+	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Move/npc_move", 8);
+	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Attack/npc_attack", 7);
+	// scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/run_frame", 7);
+	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Death/npc_death", 9);
+	//call the above function for each animation clip separately;
 }
 
 /*
@@ -209,13 +263,15 @@ void			scene_assets_load(t_scene *scene)
 	scene->asset_files.num_normal_maps = 0;
 	scene->asset_files.num_npcs = 0;
 	scene->asset_files.num_prefabs = 0;
-	scene->asset_files.num_animations = 0;
+	scene->asset_files.num_animation_frames_3d = 0;
+	scene->asset_files.num_animations_sprite = 0;
 	scene_texture_files_set(&scene->asset_files);
 	scene_normal_files_set(&scene->asset_files);
 	scene_model_files_set(&scene->asset_files);
+	scene_animation_3d_files_set(&scene->asset_files);
 	if (scene->scene_id == scene_id_main_game)
 	{
-		scene_animation_files_set(&scene->asset_files);
+		scene_animation_sprite_files_set(&scene->asset_files);
 	}
 	assets_load(scene, &scene->asset_files);
 	prefabs_load(scene);

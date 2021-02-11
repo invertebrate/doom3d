@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:14:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 15:58:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/01/29 20:02:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "libft.h"
 # include "lib3d.h"
 # include "window.h"
+# include "animations_3d.h"
 
 /*
 ** Camera defines viewbox by view planes and where screen is in the game world
@@ -57,14 +58,16 @@ typedef enum				e_scene_id
 
 typedef struct				s_asset_files
 {
-	const char				*animation_files[MAX_ASSETS];
+	const char				*animation_3d_files[ANIM_3D_FRAME_MAX];
+	const char				*animation_sprite_files[MAX_ASSETS];
 	const char				*texture_files[MAX_ASSETS];
 	const char				*normal_map_files[MAX_ASSETS];
 	const char				*model_files[MAX_ASSETS];
 	const char				*npc_names[MAX_ASSETS];
 	const char				*prefab_names[MAX_ASSETS];
 	const char				*trigger_names[MAX_ASSETS];
-	uint32_t				num_animations;
+	uint32_t				num_animation_frames_3d;
+	uint32_t				num_animations_sprite;
 	uint32_t				num_models;
 	uint32_t				num_textures;
 	uint32_t				num_normal_maps;
@@ -106,6 +109,7 @@ typedef struct				s_scene
 	t_bool					is_paused;
 	t_scene_id				scene_id;
 	t_hash_table			*animation_textures;
+	t_hash_table			*animation_3d_frames;
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
 	t_hash_table			*models;
