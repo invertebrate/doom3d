@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forces_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/23 15:37:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/09 10:05:07 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,13 @@ void		forces_update_player(t_doom3d *app)
 	}
 	if ((app->player.is_falling || app->player.is_jumping) &&
 		app->player.velocity[1] < PLAYER_MAX_SPEED)
-		app->player.velocity[1] += 0.2;
+		{
+			if (!app->player.is_flying)
+				app->player.velocity[1] += 0.2;
+			else
+				if (app->player.velocity[1] > -PLAYER_MAX_SPEED)
+					app->player.velocity[1] -= 0.2;
+		}
 	if (!app->player.is_grounded &&
 		app->active_scene->scene_id != scene_id_editor3d)
 		deceleration = 1.005;
