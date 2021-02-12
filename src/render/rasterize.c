@@ -58,6 +58,9 @@ void			rasterize_triangles(t_render_work *work)
 		triangle = work->render_triangles->triangles[i];
 		if (triangle_outside_frame(triangle, sub_buffer))
 			continue ;
+		//calculate light position;
+		//temp copy triangle material, change light source origin so that it's position is in relation to player
+		//
 		l3d_triangle_raster(sub_buffer, triangle);
 	}
 }

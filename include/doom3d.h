@@ -31,6 +31,7 @@
 # include "editor.h"
 # include "notification.h"
 # include "sprite_animation.h"
+# include "animations_3d.h"
 
 /*
 ** ------------------------
@@ -111,6 +112,7 @@ typedef struct				s_doom3d
 	uint32_t				num_levels;
 	uint32_t				current_level;
 	t_editor				editor;
+	uint64_t				current_tick;
 	t_settings				settings;
 	t_list					*notifications;
 	t_projectile			projectile_data[NUM_PROJECTILES];
@@ -179,7 +181,7 @@ void						projectile_update(t_doom3d *app, t_3d_object *obj);
 void						projectile_explosion(t_doom3d *app, t_vec3 pos,
 								t_projectile *projectile);
 void						place_projectile_object_in_scene(t_doom3d *app,
-					t_projectile *projectile, t_vec3 origin, t_vec3 rot);
+							t_projectile *projectile, t_vec3 origin, t_vec3 rot);
 
 /*
 ** Npcs
@@ -220,6 +222,19 @@ void						handle_editor_selection(t_doom3d *app,
 void						handle_editor_saving(t_doom3d *app,
 								SDL_Event event);
 t_bool						editor_popup_menu_open(t_doom3d *app);
+
+/*
+** 3D Animations
+*/
+
+void						npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
+											t_anim_metadata *anim_data);
+void						npc_animation_3d_init(t_doom3d *app, t_3d_object *obj);
+void						update_app_ticks(t_doom3d *app);
+uint32_t					anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation);
+void						anim_3d_clip_set(t_doom3d *app, t_3d_object *obj,
+											t_animation_3d_type clip, uint32_t start_frame);
+void						npc_anim_3d_position_update(t_3d_object *obj);
 
 /*
 ** Camera

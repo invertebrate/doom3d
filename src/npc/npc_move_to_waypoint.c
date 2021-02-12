@@ -31,9 +31,9 @@ void	npc_get_dir_to_next_waypoint(t_doom3d *app, t_3d_object *obj)
 	}
 	if (ml_vector3_mag(diff) < app->unit_size * 1.5)
 		npc->patrol_path_index++;
-	ft_printf("object id %d dir set to {%f, %f, %f}\n", obj->id, npc->dir[0], npc->dir[1], npc->dir[2]); //test
-	ft_printf("object id %d patrol_path_index is %d\n", obj->id, npc->patrol_path_index); //test
-	ft_printf("object id %d is patrolling at {%f, %f, %f}\n", obj->id, obj->position[0], obj->position[1], obj->position[2]); //test
+	// ft_printf("object id %d dir set to {%f, %f, %f}\n", obj->id, npc->dir[0], npc->dir[1], npc->dir[2]); //test
+	// ft_printf("object id %d patrol_path_index is %d\n", obj->id, npc->patrol_path_index); //test
+	// ft_printf("object id %d is patrolling at {%f, %f, %f}\n", obj->id, obj->position[0], obj->position[1], obj->position[2]); //test
 }
 
 void	npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj)
