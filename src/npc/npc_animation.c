@@ -82,6 +82,7 @@ static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc
 		temp = NULL;
 		npc->animation_3d->animation_frames[i]->material->shading_opts =
 			obj->material->shading_opts;
+		l3d_3d_object_rotate(npc->animation_3d->animation_frames[i], -90, 0, 0);//
 	}
 }
 
@@ -116,8 +117,9 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 	npc_animation_3d_data_copy(npc, anim_data);
 	npc->animation_3d->base_object = obj;
 	npc_anim_3d_frames_set(app, obj, npc);
-		npc->animation_3d->current_clip = anim_3d_type_move;
-	npc->animation_3d->current_object = npc->animation_3d->animation_frames[0];
+		npc->animation_3d->current_clip = anim_3d_type_idle;
+	npc->animation_3d->current_object = obj;
+	l3d_3d_object_rotate(obj, -90, 0, 0);/////
 	npc->animation_3d->start_frame =
 	npc->animation_3d->anim_clip_start_indices[(npc->animation_3d->current_clip) % ANIM_3D_TYPE_MOD];
 	npc->animation_3d->current_frame =
