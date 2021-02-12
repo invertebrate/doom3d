@@ -101,7 +101,7 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 	{
 		if (obj->params_type == trigger_weapon_drop_shotgun)
 		{
-			
+
 		}
 	}
 	else if (obj->type == object_type_path)
