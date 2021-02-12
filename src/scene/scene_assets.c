@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 22:15:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/11 12:30:10 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,12 @@ static void		triggers_load(t_scene *scene)
 		(int64_t)scene->asset_files.trigger_names[
 			scene->asset_files.num_triggers++],
 			(void*)trigger_weapon_drop_shotgun);
+	scene->asset_files.trigger_names[scene->asset_files.num_triggers] =
+		"Jetpack Drop";
+	hash_map_add(scene->trigger_map,
+		(int64_t)scene->asset_files.trigger_names[
+			scene->asset_files.num_triggers++],
+			(void*)trigger_item_jetpack);
 }
 
 /*

@@ -109,7 +109,8 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 				ft_printf("Hit End Trigger, finish level\n");
 				finish_level(app);
 			}
-			else if (obj->params_type == trigger_weapon_drop_shotgun)
+			else if (obj->params_type == trigger_weapon_drop_shotgun ||
+					obj->params_type == trigger_item_jetpack)
 				inventory_pickup_weapon_object(app, obj);
 		}
 	}
