@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/02 23:49:15 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/13 17:48:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,11 @@ static int32_t	read_path_information(t_doom3d *app, char *contents)
 	return (offset);
 }
 
+/*
+** Reads npc patrol path information, but if npc was deleted, its information
+** is not set even if the patrol path information is found in map data
+*/
+
 static int32_t	read_patrol_path_information(t_doom3d *app, char *contents)
 {
 	int32_t		offset;
@@ -195,11 +200,14 @@ static int32_t	read_patrol_path_information(t_doom3d *app, char *contents)
 	t_3d_object	*obj;
 	t_npc		*npc;
 	int32_t		num_npcs;
+	int32_t		num_patrol_path_nodes;
 	int32_t		i;
 	int32_t		j;
+	int32_t		neighbor_i;
 
 	offset = 0;
 	num_npcs = 0;
+	npc = NULL;
 	i = -1;
 	while (++i < (int32_t)app->active_scene->num_objects)
 		if (app->active_scene->objects[i]->type == object_type_npc)
@@ -211,19 +219,25 @@ static int32_t	read_patrol_path_information(t_doom3d *app, char *contents)
 		ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
 		offset += sizeof(uint32_t);
 		obj = find_object_by_id(app, object_id);
-		npc = obj->params;
-		// Read that object's number of neighbors
-		ft_memcpy(&npc->num_patrol_path_nodes, contents + offset, sizeof(int32_t));
+		if (obj) {
+			npc = obj->params;
+			// Read that object's number of neighbors
+			ft_memcpy(&num_patrol_path_nodes, contents + offset, sizeof(int32_t));
+			npc->num_patrol_path_nodes = num_patrol_path_nodes;
+		}
+		// Increment offset anyway
 		offset += sizeof(int32_t);
 		// Set neighbors
 		j = -1;
-		while (++j < npc->num_patrol_path_nodes)
+		neighbor_i = 0;
+		while (++j < num_patrol_path_nodes)
 		{
 			// Read neighbor id
 			ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
 			offset += sizeof(uint32_t);
 			obj = find_object_by_id(app, object_id);
-			npc->patrol_path[j] = obj;
+			if (obj && npc)
+				npc->patrol_path[neighbor_i++] = obj;
 		}
 	}
 	return (offset);
