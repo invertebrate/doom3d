@@ -66,7 +66,6 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc)
 {
 	int			i;
-	t_surface	*temp;
 
 	i = npc->animation_3d->frames_start_idx - 1;
 	while (++i < (int)(npc->animation_3d->frames_start_idx + (npc->animation_3d->frame_count)))
@@ -75,11 +74,8 @@ static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc
 		hash_map_get(app->active_scene->animation_3d_frames,
 			(int64_t)(app->active_scene->asset_files.animation_3d_files[i])), app->unit_size);
 		//ToDo: Make material copy if needed
-		temp = npc->animation_3d->animation_frames[i]->material->texture;
 		npc->animation_3d->animation_frames[i]->material->texture =
-			obj->material->texture; // memory leak?
-		free(temp);//fixes memory leak?
-		temp = NULL;
+			obj->material->texture;
 		npc->animation_3d->animation_frames[i]->material->shading_opts =
 			obj->material->shading_opts;
 		l3d_3d_object_rotate(npc->animation_3d->animation_frames[i], -90, 0, 0);//

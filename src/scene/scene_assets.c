@@ -228,7 +228,7 @@ static void		scene_animation_3d_frames_set(t_asset_files *data,
 	i = -1;
 	while(++i < (int)framecount && i < 100)
 	{
-		frame_path = (char*)ft_calloc(sizeof(char) * ft_strlen(file_path) + 4);
+		frame_path = (char*)ft_calloc(sizeof(char) * ft_strlen(file_path) + 16);
 		if (i < 10)
 		{
 			ft_sprintf(frame_path, "%s_00%d.obj", file_path, i);

@@ -90,7 +90,7 @@ void		scene_skybox_destroy(t_scene *scene)
 	}
 }
 
-static void	npc_destroy(t_animation_3d *npc_obj)
+static void	npc_destroy(t_3d_object *npc_obj)
 {
 		/*typedef struct				s_animation_3d
 	{
@@ -121,7 +121,7 @@ void		scene_objects_destroy(t_scene *scene)
 		if (scene->objects[i] != NULL)
 		{
 			if (scene->objects[i]->type == object_type_npc)
-				npc_destroy(((t_npc*)scene->objects[i]->params)->animation_3d);
+				npc_destroy(scene->objects[i]);
 			else
 				l3d_3d_object_destroy(scene->objects[i]);
 		}
