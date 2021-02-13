@@ -215,6 +215,7 @@ static int32_t	read_patrol_path_information(t_doom3d *app, char *contents)
 	i = -1;
 	while (++i < num_npcs)
 	{
+		num_patrol_path_nodes = 0;
 		// Read object id
 		ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
 		offset += sizeof(uint32_t);
