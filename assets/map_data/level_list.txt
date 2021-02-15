@@ -1,3 +1,4 @@
+testmapnpcpath
 testmapko
 OkkoPokko
 level1
