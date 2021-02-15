@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/11 09:57:20 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/15 11:42:45 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,8 @@ void						npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
 void						npc_update_state(t_doom3d *app, t_3d_object *npc_obj);
 void						npc_execute_behavior(t_doom3d *app,
 								t_3d_object *npc_obj);
-void						npc_default(t_doom3d *app, t_npc *npc);
+void						npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj);
+void						npc_elevator(t_doom3d *app, t_npc *npc, t_3d_object *obj);
 void						handle_npc_deletions(t_doom3d *app);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
 void						npc_trigger_onhit(t_doom3d *app,

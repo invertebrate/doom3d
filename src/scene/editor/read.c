@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/13 17:48:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/15 11:55:36 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,18 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 	{
 		if (obj->params_type == npc_type_default)
 		{
-			npc_default(app, &npc);
+			npc_default(app, &npc, obj);
+		}
+		else if (obj->params_type == npc_type_elevator)
+		{
+			npc_elevator(app, &npc, obj);
 		}
 		else
 			return ;
 		npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
-		npc_animation_3d_init(app, obj);
+		if (!npc.animation_3d)
+			npc_animation_3d_init(app, obj);
 	}
 	else if (obj->type == object_type_trigger)
 	{

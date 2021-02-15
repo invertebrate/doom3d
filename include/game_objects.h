@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/11 09:56:15 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/15 12:14:30 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # define NPC_DEFAULT_MODEL "assets/models/placeholder_npc/Idle/npc_idle_000.obj"
 # define NPC_DEFAULT_TEXTURE "assets/textures/rock.bmp"
 # define NPC_DEFAULT_NORMM "assets/textures/rock.bmp"
+
+# define NPC_ELEVATOR_MODEL "assets/models/box.obj"
+# define NPC_ELEVATOR_TEXTURE "assets/textures/rock.bmp"
+# define NPC_ELEVATOR_NORMM "assets/textures/rock.bmp"
 
 # include "libgmatrix.h"
 # include "animations_3d.h"
@@ -94,6 +98,7 @@ typedef enum				e_trigger_type
 typedef enum				e_npc_type
 {
 	npc_type_default,
+	npc_type_elevator,
 }							t_npc_type;
 
 /*
@@ -201,9 +206,11 @@ typedef enum				e_npc_action
 
 typedef struct				s_npc
 {
+	t_3d_object				*parent;
 	t_bool					is_jumping;
 	t_bool					is_falling;
 	t_bool					is_grounded;
+	t_bool					is_flying;
 	t_vec3					dir;
 	float					angle;
 	float					vision_range;
