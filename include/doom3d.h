@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/11 09:57:20 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/15 22:00:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,6 @@ void						active_scene_update_after_objects(t_scene *scene);
 t_scene						*scene_new(t_scene_id scene_id);
 void						scene_destroy(t_doom3d *app);
 void						scene_next_select(t_doom3d *app);
-void						scene_debug(t_scene *scene);
 void						scene_map_init(t_scene *scene);
 void						scene_camera_destroy(t_scene *scene);
 void						scene_objects_destroy(t_scene *scene);

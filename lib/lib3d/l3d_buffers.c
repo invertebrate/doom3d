@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:02:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/15 21:55:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_framebuffer				*l3d_framebuffer_create(int32_t width,
 
 	error_check(!(fbuffer = ft_calloc(sizeof(t_framebuffer))), "!ft_callocf");
 	error_check(!(fbuffer->buffer =
-		ft_calloc(sizeof(uint32_t) * width * height)), "Failed to malloc fbuffer");
+		ft_calloc(sizeof(uint32_t) * width * height)), "Failed to alloc fbuf");
 	fbuffer->num_x = L3D_BUFFER_SPLIT_SIZE_X;
 	fbuffer->num_y = L3D_BUFFER_SPLIT_SIZE_Y;
 	fbuffer->width = width;

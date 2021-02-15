@@ -6,22 +6,28 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 23:15:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/15 22:25:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib3d.h"
+#include "lib3d_internals.h"
 
-static void		l3d_line_plot_low(uint32_t *buffer, uint32_t dimensions_wh[2],
-				int32_t edge[2][2], uint32_t color)
+static void		init_line_draw_params(int dxy[2], int dx_or_y_i[2],
+					int32_t edge[2][2])
 {
-	int		dxy[2];
-	int		dyi[2];
-	int		xy[2];
-
 	dxy[0] = edge[1][0] - edge[0][0];
 	dxy[1] = edge[1][1] - edge[0][1];
-	dyi[1] = 1;
+	dx_or_y_i[1] = 1;
+}
+
+static void		l3d_line_plot_low(uint32_t *buffer, uint32_t dims_wh[2],
+				int32_t edge[2][2], uint32_t color)
+{
+	int32_t		dxy[2];
+	int32_t		dyi[2];
+	int32_t		xy[2];
+
+	init_line_draw_params(dxy, dyi, edge);
 	if (dxy[1] < 0)
 	{
 		dyi[1] = -1;
@@ -30,10 +36,10 @@ static void		l3d_line_plot_low(uint32_t *buffer, uint32_t dimensions_wh[2],
 	dyi[0] = 2 * dxy[1] - dxy[0];
 	xy[1] = edge[0][1];
 	xy[0] = edge[0][0];
-	while (xy[0] < edge[1][0] && xy[0] < (int32_t)dimensions_wh[0] && xy[0] >= 0)
+	while (xy[0] < edge[1][0] && xy[0] < (int32_t)dims_wh[0] && xy[0] >= 0)
 	{
-		if (xy[1] >= 0 && xy[1] < (int32_t)dimensions_wh[1])
-			l3d_pixel_plot(buffer, dimensions_wh, xy, color);
+		if (xy[1] >= 0 && xy[1] < (int32_t)dims_wh[1])
+			l3d_pixel_plot(buffer, dims_wh, xy, color);
 		if (dyi[0] > 0)
 		{
 			xy[1] += dyi[1];
@@ -44,16 +50,14 @@ static void		l3d_line_plot_low(uint32_t *buffer, uint32_t dimensions_wh[2],
 	}
 }
 
-static void		l3d_line_plot_high(uint32_t *buffer, uint32_t dimensions_wh[2],
+static void		l3d_line_plot_high(uint32_t *buffer, uint32_t dims_wh[2],
 				int32_t edge[2][2], uint32_t color)
 {
-	int dxy[2];
-	int dxi[2];
-	int xy[2];
+	int32_t dxy[2];
+	int32_t dxi[2];
+	int32_t xy[2];
 
-	dxy[0] = edge[1][0] - edge[0][0];
-	dxy[1] = edge[1][1] - edge[0][1];
-	dxi[1] = 1;
+	init_line_draw_params(dxy, dxi, edge);
 	if (dxy[0] < 0)
 	{
 		dxi[1] = -1;
@@ -62,10 +66,10 @@ static void		l3d_line_plot_high(uint32_t *buffer, uint32_t dimensions_wh[2],
 	dxi[0] = 2 * dxy[0] - dxy[1];
 	xy[0] = edge[0][0];
 	xy[1] = edge[0][1];
-	while (xy[1] < edge[1][1] && xy[1] < (int32_t)dimensions_wh[1] && xy[1] >= 0)
+	while (xy[1] < edge[1][1] && xy[1] < (int32_t)dims_wh[1] && xy[1] >= 0)
 	{
-		if (xy[0] >= 0 && xy[0] < (int32_t)dimensions_wh[0])
-			l3d_pixel_plot(buffer, dimensions_wh, xy, color);
+		if (xy[0] >= 0 && xy[0] < (int32_t)dims_wh[0])
+			l3d_pixel_plot(buffer, dims_wh, xy, color);
 		if (dxi[0] > 0)
 		{
 			xy[0] += dxi[1];
@@ -76,16 +80,23 @@ static void		l3d_line_plot_high(uint32_t *buffer, uint32_t dimensions_wh[2],
 	}
 }
 
-static void		l3d_line_edge_end_swap(int32_t edge[2][2])
+static void		line_draw_clamped_edge(uint32_t *buffer,
+					uint32_t dimensions_wh[2],
+					int32_t clamped[2][2], uint32_t color)
 {
-	int32_t	tmp[2];
-
-	tmp[0] = edge[0][0];
-	tmp[1] = edge[0][1];
-	edge[0][0] = edge[1][0];
-	edge[0][1] = edge[1][1];
-	edge[1][0] = tmp[0];
-	edge[1][1] = tmp[1];
+	if (ft_abs(clamped[1][1] - clamped[0][1]) <
+		ft_abs(clamped[1][0] - clamped[0][0]))
+	{
+		if (clamped[0][0] > clamped[1][0])
+			l3d_line_edge_end_swap(clamped);
+		l3d_line_plot_low(buffer, dimensions_wh, clamped, color);
+	}
+	else
+	{
+		if (clamped[0][1] > clamped[1][1])
+			l3d_line_edge_end_swap(clamped);
+		l3d_line_plot_high(buffer, dimensions_wh, clamped, color);
+	}
 }
 
 /*
@@ -113,37 +124,5 @@ void			l3d_line_draw(uint32_t *buffer, uint32_t dimensions_wh[2],
 	clamped[0][1] = (int32_t)edgef[0][1];
 	clamped[1][0] = (int32_t)edgef[1][0];
 	clamped[1][1] = (int32_t)edgef[1][1];
-	if (ft_abs(clamped[1][1] - clamped[0][1]) <
-		ft_abs(clamped[1][0] - clamped[0][0]))
-	{
-		if (clamped[0][0] > clamped[1][0])
-			l3d_line_edge_end_swap(clamped);
-		l3d_line_plot_low(buffer, dimensions_wh, clamped, color);
-	}
-	else
-	{
-		if (clamped[0][1] > clamped[1][1])
-			l3d_line_edge_end_swap(clamped);
-		l3d_line_plot_high(buffer, dimensions_wh, clamped, color);
-	}
-}
-
-/*
-** Draws a triangle wireframe using Bresenham's line drawing algorithm.
-** Draw order AB, BC, CA
-*/
-
-void			l3d_triangle_2d_draw(uint32_t *buffer,
-				uint32_t dimensions_wh[2],
-				t_vec2 corners[3], uint32_t color)
-{
-	l3d_line_draw(buffer, dimensions_wh,
-		(int32_t[2][2]){{corners[0][0], corners[0][1]},
-			{corners[1][0], corners[1][1]}}, color);
-	l3d_line_draw(buffer, dimensions_wh,
-		(int32_t[2][2]){{corners[1][0], corners[1][1]},
-			{corners[2][0], corners[2][1]}}, color / 2);
-	l3d_line_draw(buffer, dimensions_wh,
-		(int32_t[2][2]){{corners[2][0], corners[2][1]},
-			{corners[0][0], corners[0][1]}}, color / 3);
+	line_draw_clamped_edge(buffer, dimensions_wh, clamped, color);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:34:25 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/06 17:38:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/15 22:06:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,3 @@ void			l3d_object_set_shading_opts(t_3d_object *obj,
 {
 	obj->material->shading_opts = opts;
 }
-

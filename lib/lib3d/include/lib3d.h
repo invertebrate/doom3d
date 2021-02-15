@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 22:11:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/15 22:07:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ typedef struct				s_plane
 ** This is the main struct to hold 3d object data.
 */
 
-struct				s_3d_object
+struct						s_3d_object
 {
 	uint32_t		id;
 	uint32_t		type;
@@ -376,7 +376,6 @@ t_axis						l3d_bounding_box_longest_axis(t_box3d bounding_box);
 void						l3d_bounding_box_set(t_tri_vec *triangles,
 								t_box3d *res);
 void						l3d_object_aabb_update(t_3d_object *obj);
-void						l3d_bounding_box_debug(t_box3d aabb);
 t_bool						l3d_aabb_collides(t_box3d *left, t_box3d *right);
 t_bool						l3d_point_inside_aabb(t_box3d *aabb, t_vec3 point);
 t_hit						*l3d_get_aabb_hit_record(t_box3d *origin,
@@ -402,7 +401,6 @@ void						l3d_3d_object_destroy(t_3d_object *object);
 void						l3d_3d_object_set_vertex(t_vertex *vertex,
 								t_vec3 pos);
 t_3d_object					*l3d_3d_object_copy(t_3d_object *src);
-void						l3d_3d_object_debug_print(t_3d_object *obj);
 void						l3d_object_set_shading_opts(t_3d_object *obj,
 								t_shading_opts opts);
 t_3d_object					*l3d_3d_object_shallow_copy(t_3d_object *src);
@@ -555,7 +553,8 @@ void						l3d_temp_objects_destroy(
 								t_temp_objects **temp_objects);
 void						l3d_temp_objects_destroy_if_expired(
 								t_temp_objects **temp_objects);
-void						l3d_temp_objects_update_time(t_temp_objects **temp_objects,
+void						l3d_temp_objects_update_time(
+								t_temp_objects **temp_objects,
 								uint32_t delta_time);
 
 #endif

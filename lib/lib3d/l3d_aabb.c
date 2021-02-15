@@ -6,31 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 12:35:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/15 22:08:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
-
-void				l3d_bounding_box_debug(t_box3d aabb)
-{
-	ft_printf("bbox.center: [%0.2f %0.2f %0.2f]\n"
-		"bbox.size: [%0.2f %0.2f %0.2f]\n"
-		"bbox.min_xyz: [%0.2f %0.2f %0.2f]\n"
-		"bbox.max_xyz: [%0.2f %0.2f %0.2f]\n",
-		aabb.center[0],
-		aabb.center[1],
-		aabb.center[2],
-		aabb.size[0],
-		aabb.size[1],
-		aabb.size[2],
-		aabb.xyz_min[0],
-		aabb.xyz_min[1],
-		aabb.xyz_min[2],
-		aabb.xyz_max[0],
-		aabb.xyz_max[1],
-		aabb.xyz_max[2]);
-}
 
 static void			l3d_aabb_set_size_and_center(t_box3d *aabb)
 {

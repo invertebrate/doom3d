@@ -6,42 +6,18 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 19:55:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/15 22:01:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
-
-void			l3d_3d_object_debug_print(t_3d_object *obj)
-{
-	int32_t	i;
-
-	ft_printf("Obj: vertices %d, triangles %d\n", obj->num_vertices,
-		obj->num_triangles);
-	if (obj->material)
-		ft_printf("Material: width %d, height %d, pixels: %p\n",
-			obj->material->texture->w, obj->material->texture->h,
-				obj->material->texture->pixels);
-	else
-		ft_printf("Material: NULL");
-	ft_printf("Pos: ");
-	ml_vector3_print(obj->position);
-	ft_printf("Scale:\n");
-	ml_matrix4_print(obj->scale);
-	ft_printf("Rotation:\n");
-	ml_matrix4_print(obj->rotation);
-	ft_printf("Vertices:\n");
-	i = -1;
-	while (++i < obj->num_vertices)
-		ml_vector3_print(obj->vertices[i]->pos);
-}
 
 /*
 ** Creates an empty 3d object allocating space for vertices, triangles and
 ** text coords.
 */
 
-t_3d_object		*l3d_3d_object_create(uint32_t num_vertices,
+t_3d_object		*l3d_3d_object_create(uint32_t num_verts,
 					uint32_t num_triangles)
 {
 	t_3d_object	*object;
@@ -50,22 +26,21 @@ t_3d_object		*l3d_3d_object_create(uint32_t num_vertices,
 	error_check(!(object = ft_calloc(sizeof(*object))),
 		"Failed to malloc 3d obj");
 	object->id = l3d_random_uuid();
-	error_check(!(object->vertices = ft_calloc(sizeof(t_vertex*) * num_vertices)),
+	error_check(!(object->vertices = ft_calloc(sizeof(t_vertex*) * num_verts)),
 		"Failed to malloc 3d obj vertices");
 	i = -1;
-	while (++i < (int32_t)num_vertices)
+	while (++i < (int32_t)num_verts)
 		error_check(!(object->vertices[i] = ft_calloc(sizeof(t_vertex))),
 			"Failed to malloc vertex");
 	error_check(!(object->triangles =
-		ft_calloc(sizeof(t_triangle) * num_triangles)),
-		"Failed to malloc 3d obj triangles");
+		ft_calloc(sizeof(t_triangle) * num_triangles)), "!3d obj triangles");
 	error_check(!(object->material = ft_calloc(sizeof(t_material))),
 		"Failed to malloc 3d obj material");
 	ml_matrix4_id(object->rotation);
 	ml_matrix4_id(object->scale);
 	ml_vector3_set(object->position, 0, 0, 0);
 	object->num_triangles = num_triangles;
-	object->num_vertices = num_vertices;
+	object->num_vertices = num_verts;
 	i = -1;
 	while (++i < (int32_t)num_triangles)
 		object->triangles[i].parent = object;

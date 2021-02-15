@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/15 22:06:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void			l3d_triangle_vec_push(t_tri_vec *vector, t_triangle *triangle)
 		while (++i < (int)vector->size)
 			temp[i] = vector->triangles[i];
 		free(vector->triangles);
-		if (!(vector->triangles = ft_calloc(sizeof(t_triangle*) * new_capacity)) &&
+		if (!(vector->triangles =
+			ft_calloc(sizeof(t_triangle*) * new_capacity)) &&
 			ft_dprintf(2, "Failed to malloc triangle vector new size\n"))
 			exit(1);
 		i = -1;
