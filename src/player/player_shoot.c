@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/22 00:08:41 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/16 17:48:38 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ static void		handle_shoot_hit(t_doom3d *app, t_hit *closest_triangle_hit,
 			"assets/textures/blood.bmp");
 		npc_trigger_onhit(app, closest_triangle_hit->triangle->parent,
 						app->player.equipped_weapon->damage_per_hit);
+	}
+	if (closest_triangle_hit->triangle->parent->type == object_type_trigger)
+	{
+		trigger_activate(app, closest_triangle_hit->triangle->parent);
 	}
 }
 

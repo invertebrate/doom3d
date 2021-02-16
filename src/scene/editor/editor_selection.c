@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/01 16:46:15 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/16 18:30:17 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ static void		path_connect_selection(t_doom3d *app, t_3d_object *obj)
 		path_objects_set_neighbour(app, old);
 	if (old->type == object_type_npc && app->editor.selected_object->type == object_type_path)
 		patrol_path_link_node(app->editor.selected_object, old, app->editor.patrol_slot);
+	if (old->type == object_type_trigger && app->editor.selected_object->type == object_type_npc)
+		trigger_link_object(app, old);
 }
 
 void			editor_select(t_doom3d *app)

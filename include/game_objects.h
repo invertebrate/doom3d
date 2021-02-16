@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/15 12:14:30 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/16 17:55:26 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define NPC_ELEVATOR_MODEL "assets/models/box.obj"
 # define NPC_ELEVATOR_TEXTURE "assets/textures/rock.bmp"
 # define NPC_ELEVATOR_NORMM "assets/textures/rock.bmp"
+
+# define ELEVATOR_SWITCH_TEXTURE "assets/textures/lava.bmp"
 
 # include "libgmatrix.h"
 # include "animations_3d.h"
@@ -88,6 +90,7 @@ typedef enum				e_trigger_type
 	trigger_weapon_drop_glock = 4,
 	trigger_weapon_drop_rpg = 5,
 	trigger_item_jetpack,
+	trigger_elevator_switch,
 }							t_trigger_type;
 
 /*
@@ -173,6 +176,17 @@ typedef struct				s_projectile
 	t_vec3					dir;
 	t_vec3					euler_angles;
 }							t_projectile;
+
+/*
+** a struct for triggers, mostly storing pointers to objects the trigger is linked to
+**
+*/
+
+typedef struct				s_trigger
+{
+	t_3d_object				*parent;
+	t_3d_object				*linked_obj;
+}							t_trigger;
 
 /*
 ** Enum defining npc's state.

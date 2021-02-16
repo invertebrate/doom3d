@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:13:24 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/15 22:33:48 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/16 18:47:06 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	npc_elevator(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 {
 	npc->parent = obj;
 	npc->type = npc_type_elevator;
-	npc->speed = app->unit_size / 16;
+	npc->speed = app->unit_size * 0;
 	npc->rot_speed = 10;
 	npc->state = 0;
 	npc->hp = 1000;
@@ -52,4 +52,12 @@ void	npc_elevator(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->atk_pattern_index = 0;
 	set_attack_pattern(npc);
 	set_test_patrol_pattern(npc); //testing
+}
+
+void	elevator_go_to_next_node(t_doom3d *app, t_3d_object *obj)
+{
+	t_npc	*elevator;
+
+	elevator = obj->params;
+	elevator->speed = app->unit_size / 16;
 }
