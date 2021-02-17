@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:13:24 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/16 18:47:06 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/17 12:27:14 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	npc_elevator(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 {
 	npc->parent = obj;
 	npc->type = npc_type_elevator;
-	npc->speed = app->unit_size * 0;
+	npc->speed = app->unit_size / 16;
 	npc->rot_speed = 10;
 	npc->state = 0;
 	npc->hp = 1000;

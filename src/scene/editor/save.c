@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/02 21:05:46 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/17 12:32:20 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ static void	write_path_object_information(int32_t fd, t_doom3d *app)
 }
 
 /*
-** For each object_type_path, writes the id of the object, num of neighbors
-** and each neighbor id for the purpose of saving the connections
+** Writes patrol path info
+** of npcs that might have them
 */
 
 static void	write_npc_patrol_path_information(int32_t fd, t_doom3d *app)
@@ -109,11 +109,41 @@ static void	write_npc_patrol_path_information(int32_t fd, t_doom3d *app)
 				&app->active_scene->objects[i]->id, sizeof(uint32_t));
 			ret = write(fd, &npc->num_patrol_path_nodes, sizeof(int32_t));
 			j = -1;
-			while (++j < 16)
+			while (++j < npc->num_patrol_path_nodes)
 				if (npc->patrol_path[j])
 					ret = write(fd, &npc->patrol_path[j]->id, sizeof(uint32_t));
 				else
 					ret = write(fd, 0, sizeof(uint32_t));
+		}
+	}
+	(void)ret;
+}
+
+/*
+** Writes trigger links
+** of triggers that might have them
+*/
+
+static void	write_trigger_link_information(int32_t fd, t_doom3d *app)
+{
+	int32_t		i;
+	int32_t		ret;
+	t_trigger	*trigger;
+
+	i = -1;
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
+	{
+		if (app->active_scene->objects[i] &&
+			app->active_scene->objects[i]->type == object_type_trigger)
+		{
+			trigger = app->active_scene->objects[i]->params;
+			ret = write(fd,
+				&app->active_scene->objects[i]->id, sizeof(uint32_t));
+			if (trigger && trigger->linked_obj)
+				ret = write(fd, &trigger->linked_obj->id, sizeof(uint32_t));
+			else
+				ret = write(fd, 0, sizeof(uint32_t));
 		}
 	}
 	(void)ret;
@@ -133,6 +163,7 @@ static void	write_map(int32_t fd, t_doom3d *app)
 			write_obj_content(fd, app, app->active_scene->objects[i]);
 	write_path_object_information(fd, app);
 	write_npc_patrol_path_information(fd, app);
+	write_trigger_link_information(fd, app);
 	(void)ret;
 }
 

@@ -1,3 +1,4 @@
+testmapelevatorswitch
 testmapko
 OkkoPokko
 level1

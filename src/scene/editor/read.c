@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/15 11:55:36 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/17 12:42:15 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,29 +221,67 @@ static int32_t	read_patrol_path_information(t_doom3d *app, char *contents)
 	while (++i < num_npcs)
 	{
 		num_patrol_path_nodes = 0;
-		// Read object id
 		ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
 		offset += sizeof(uint32_t);
 		obj = find_object_by_id(app, object_id);
 		if (obj) {
 			npc = obj->params;
-			// Read that object's number of neighbors
 			ft_memcpy(&num_patrol_path_nodes, contents + offset, sizeof(int32_t));
 			npc->num_patrol_path_nodes = num_patrol_path_nodes;
 		}
-		// Increment offset anyway
 		offset += sizeof(int32_t);
-		// Set neighbors
 		j = -1;
 		neighbor_i = 0;
 		while (++j < num_patrol_path_nodes)
 		{
-			// Read neighbor id
 			ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
 			offset += sizeof(uint32_t);
 			obj = find_object_by_id(app, object_id);
 			if (obj && npc)
 				npc->patrol_path[neighbor_i++] = obj;
+		}
+	}
+	return (offset);
+}
+
+/*
+** Reads trigger link information
+** and links the triggers to their linked objects
+*/
+
+static int32_t	read_trigger_link_information(t_doom3d *app, char *contents)
+{
+	int32_t		offset;
+	uint32_t	object_id;
+	t_3d_object	*obj;
+	t_trigger	*trigger;
+	int32_t		num_triggers;
+	int32_t		i;
+
+	offset = 0;
+	num_triggers = 0;
+	i = -1;
+	while (++i < (int32_t)app->active_scene->num_objects)
+		if (app->active_scene->objects[i]->type == object_type_trigger)
+			num_triggers++;
+	i = -1;
+	while (++i < num_triggers)
+	{
+		trigger = NULL;
+		ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
+		ft_printf("test: id = %d\n", object_id);//test
+		offset += sizeof(uint32_t);
+		obj = find_object_by_id(app, object_id);
+		ft_printf("test: object type = %d\n", obj->params_type);//test
+		if (obj)
+			trigger = obj->params;
+		ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
+		offset += sizeof(uint32_t);
+		obj = find_object_by_id(app, object_id);
+		if (obj && trigger)
+		{
+			trigger->linked_obj = obj;
+			ft_printf("trigger id %d linked to obj id %d\n", trigger->parent->id, trigger->linked_obj->id);//test	
 		}
 	}
 	return (offset);
@@ -269,6 +307,7 @@ void			read_map(t_doom3d *app, const char *map_name)
 	offset += read_objects(app, file->buf + offset);
 	offset += read_path_information(app, file->buf + offset);
 	offset += read_patrol_path_information(app, file->buf + offset);
+	offset += read_trigger_link_information(app, file->buf + offset);
 	destroy_file_contents(file);
 	ft_printf("Loaded map: %s\nNum objects %u\n", map_name,
 		app->active_scene->num_objects);
