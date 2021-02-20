@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/17 12:20:22 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/20 18:21:27 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void			place_elevator_switch(t_doom3d *app)
 	app->active_scene->objects[app->active_scene->last_object_index]->type =
 		object_type_trigger;
 	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
-	trigger_params.linked_obj = NULL;
+	trigger_params.linked_obj[0] = NULL;
 	l3d_3d_object_set_params(
 		app->active_scene->objects[app->active_scene->last_object_index],
 		&trigger_params, sizeof(t_trigger), trigger_elevator_switch);
@@ -84,9 +84,9 @@ void			trigger_activate(t_doom3d *app, t_3d_object *obj)
 		return ;
 	if (obj->params_type == trigger_elevator_switch)
 	{
-		if (trigger->linked_obj)
+		if (trigger->linked_obj[0])
 		{
-			elevator_go_to_next_node(app, trigger->linked_obj);
+			elevator_go_to_next_node(app, trigger->linked_obj[0]);
 		}
 	}
 }
@@ -102,14 +102,16 @@ void			trigger_link_object(t_doom3d *app, t_3d_object *trigger_obj)
 		ft_printf("This trigger cannot be linked\n");
 	else if (npc->type == npc_type_elevator)
 	{
-		if (trigger->linked_obj == app->editor.selected_object)
+		if (trigger->linked_obj[0] == app->editor.selected_object)
 		{
-			trigger->linked_obj = NULL;
+			trigger->linked_obj[0] = NULL;
+			trigger->num_links--;
 			ft_printf("unlinked object\n");
 		}
 		else
 		{
-			trigger->linked_obj = app->editor.selected_object;
+			trigger->linked_obj[0] = app->editor.selected_object;
+			trigger->num_links++;
 			ft_printf("linked object!\n");
 		}
 	}

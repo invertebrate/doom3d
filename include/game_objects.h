@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/16 17:55:26 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/20 17:27:50 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 # define PATH_NEIGHBOUR_MAX 8
 # define MAX_PATROL_NODES 16
+# define MAX_TRIGGER_LINKS 16
 
 /*
 ** A list defining what kind of objects the doom3d app contains in its scene /
@@ -185,7 +186,8 @@ typedef struct				s_projectile
 typedef struct				s_trigger
 {
 	t_3d_object				*parent;
-	t_3d_object				*linked_obj;
+	t_3d_object				*linked_obj[MAX_TRIGGER_LINKS];
+	int32_t					num_links;
 }							t_trigger;
 
 /*
