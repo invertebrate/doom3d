@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/21 11:30:00 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/21 11:37:47 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,7 @@ static int32_t	read_patrol_path_information(t_doom3d *app, char *contents)
 ** Reads trigger link information
 ** and links the triggers to their linked objects
 */
-/*
+
 static int32_t	read_trigger_link_information(t_doom3d *app, char *contents)
 {
 	int32_t		offset;
@@ -294,7 +294,7 @@ static int32_t	read_trigger_link_information(t_doom3d *app, char *contents)
 	}
 	return (offset);
 }
-*/
+
 void			read_map(t_doom3d *app, const char *map_name)
 {
 	t_file_contents	*file;
@@ -315,7 +315,7 @@ void			read_map(t_doom3d *app, const char *map_name)
 	offset += read_objects(app, file->buf + offset);
 	offset += read_path_information(app, file->buf + offset);
 	offset += read_patrol_path_information(app, file->buf + offset);
-	//offset += read_trigger_link_information(app, file->buf + offset);
+	offset += read_trigger_link_information(app, file->buf + offset);
 	destroy_file_contents(file);
 	ft_printf("Loaded map: %s\nNum objects %u\n", map_name,
 		app->active_scene->num_objects);
