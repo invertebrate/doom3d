@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/20 18:11:07 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/21 11:08:57 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ static void	write_npc_patrol_path_information(int32_t fd, t_doom3d *app)
 ** Writes trigger links
 ** of triggers that might have them
 */
-
+/*
 static void	write_trigger_link_information(int32_t fd, t_doom3d *app)
 {
 	int32_t		i;
@@ -152,7 +152,7 @@ static void	write_trigger_link_information(int32_t fd, t_doom3d *app)
 	}
 	(void)ret;
 }
-
+*/
 static void	write_map(int32_t fd, t_doom3d *app)
 {
 	int32_t		i;
@@ -167,7 +167,7 @@ static void	write_map(int32_t fd, t_doom3d *app)
 			write_obj_content(fd, app, app->active_scene->objects[i]);
 	write_path_object_information(fd, app);
 	write_npc_patrol_path_information(fd, app);
-	write_trigger_link_information(fd, app);
+	//write_trigger_link_information(fd, app);
 	(void)ret;
 }
 

@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/20 18:08:21 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/21 11:30:00 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ float			pitch_from_rotation_matrix(t_mat4 rotation)
 
 static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 {
-	t_npc	npc;
+	t_npc		npc;
+	t_trigger	trigger;
 
 	if (obj->type == object_type_npc)
 	{
@@ -104,10 +105,9 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 	}
 	else if (obj->type == object_type_trigger)
 	{
-		if (obj->params_type == trigger_weapon_drop_shotgun)
-		{
-
-		}
+		ft_memset(&trigger, 0, sizeof(t_trigger));
+		trigger.parent = obj;
+		l3d_3d_object_set_params(obj, &trigger, sizeof(t_trigger), obj->params_type);
 	}
 	else if (obj->type == object_type_path)
 		path_node_init(obj);
