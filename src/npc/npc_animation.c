@@ -23,10 +23,10 @@ void		npc_default_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	i = -1;
 	anim_data->anim_count = 5;
 	anim_data->clip_lengths[0] = 1;
-	anim_data->clip_lengths[1] = 4;
-	anim_data->clip_lengths[2] = 8;
-	anim_data->clip_lengths[3] = 7;
-	anim_data->clip_lengths[4] = 9;
+	anim_data->clip_lengths[1] = 24;
+	anim_data->clip_lengths[2] = 24;
+	anim_data->clip_lengths[3] = 24;
+	anim_data->clip_lengths[4] = 44;
 	anim_data->frame_count = anim_data->clip_lengths[0] + anim_data->clip_lengths[1] +
 							anim_data->clip_lengths[2] + anim_data->clip_lengths[3] +
 							anim_data->clip_lengths[4];
@@ -78,7 +78,9 @@ static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc
 			obj->material->texture;
 		npc->animation_3d->animation_frames[i]->material->shading_opts =
 			obj->material->shading_opts;
-		l3d_3d_object_rotate(npc->animation_3d->animation_frames[i], -90, 0, 0);//
+		l3d_3d_object_scale(npc->animation_3d->animation_frames[i],
+							npc->model_scale, npc->model_scale, npc->model_scale);
+		l3d_3d_object_rotate(npc->animation_3d->animation_frames[i], 0, 180, 180);//
 	}
 }
 
@@ -115,7 +117,8 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 	npc_anim_3d_frames_set(app, obj, npc);
 		npc->animation_3d->current_clip = anim_3d_type_idle;
 	npc->animation_3d->current_object = obj;
-	l3d_3d_object_rotate(obj, -90, 0, 0);/////
+	l3d_3d_object_rotate(obj, 0, 180, 180);/////
+	l3d_3d_object_scale(obj, npc->model_scale, npc->model_scale, npc->model_scale);
 	npc->animation_3d->start_frame =
 	npc->animation_3d->anim_clip_start_indices[(npc->animation_3d->current_clip) % ANIM_3D_TYPE_MOD];
 	npc->animation_3d->current_frame =

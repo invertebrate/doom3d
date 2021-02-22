@@ -13,7 +13,7 @@
 #ifndef GAME_OBJECTS_H
 # define GAME_OBJECTS_H
 
-# define NPC_DEFAULT_MODEL "assets/models/placeholder_npc/Idle/npc_idle_000.obj"
+# define NPC_DEFAULT_MODEL "assets/models/monster_01/monster_01_basemodel_000.obj"
 # define NPC_DEFAULT_TEXTURE "assets/textures/rock.bmp"
 # define NPC_DEFAULT_NORMM "assets/textures/rock.bmp"
 
@@ -227,6 +227,7 @@ typedef struct				s_npc
 	int						hp;
 	int						type;
 	t_vec3					velocity;
+	float					model_scale;
 	const char				*texture_key;
 	const char				*model_key;
 	const char				*normal_map_key;

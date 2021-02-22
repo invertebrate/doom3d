@@ -21,7 +21,10 @@ static void		place_npc_object_in_scene(t_doom3d *app, t_npc *npc, t_vec3 pos)
 		pos);
 	obj = app->active_scene->objects[app->active_scene->last_object_index];
 	obj->type = object_type_npc;
+	l3d_3d_object_scale(obj, npc->model_scale, npc->model_scale, npc->model_scale);
 	l3d_3d_object_set_params(obj, npc, sizeof(t_npc), npc->type);
+	if (npc->type == npc_type_default)
+		l3d_3d_object_rotate(obj, 0, 180, 180);//hardcoded for specific model
 	l3d_3d_object_rotate(obj, 0, npc->angle, 0);
 }
 

@@ -13,7 +13,7 @@
 #ifndef SCENE_H
 # define SCENE_H
 
-# define MAX_ASSETS 64
+# define MAX_ASSETS 512
 # define MAX_NUM_OBJECTS 16384
 # define NEAR_CLIP_DIST 10
 # define FAR_CLIP_DIST 100000

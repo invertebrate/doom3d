@@ -1,3 +1,4 @@
+testmapnpcpath1
 testmapnpcpath
 testmapko
 OkkoPokko

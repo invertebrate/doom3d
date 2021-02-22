@@ -32,7 +32,7 @@ static void		animation_3d_frames_load(t_scene *scene, t_asset_files *data)
 {
 	int		i;
 
-	scene->animation_3d_frames = hash_map_create(MAX_ASSETS);
+	scene->animation_3d_frames = hash_map_create(ANIM_3D_FRAME_MAX);
 	i = -1;
 	while (++i < (int32_t)data->num_animation_frames_3d)
 		hash_map_add(scene->animation_3d_frames,
@@ -54,7 +54,7 @@ static void		assets_load(t_scene *scene, t_asset_files *data)
 	scene->models = hash_map_create(MAX_ASSETS);
 	scene->textures = hash_map_create(MAX_ASSETS);
 	scene->normal_maps = hash_map_create(MAX_ASSETS);
-	scene->animation_textures = hash_map_create(MAX_ASSETS);
+	scene->animation_textures = hash_map_create(ANIM_3D_FRAME_MAX);
 	i = -1;
 	while (++i < (int32_t)data->num_models)
 		hash_map_add(scene->models,
@@ -210,7 +210,7 @@ static void		scene_normal_files_set(t_asset_files *data)
 static void		scene_model_files_set(t_asset_files *data)
 {
 	data->model_files[data->num_models++] = "assets/models/box.obj";
-	data->model_files[data->num_models++] = "assets/models/placeholder_npc/Idle/npc_idle_000.obj";
+	data->model_files[data->num_models++] = "assets/models/monster_01/monster_01_basemodel_000.obj";
 	data->model_files[data->num_models++] = "assets/models/shotgun.obj";
 	data->model_files[data->num_models++] = "assets/models/missile.obj";
 }
@@ -232,10 +232,13 @@ static void		scene_animation_3d_frames_set(t_asset_files *data,
 		if (i < 10)
 		{
 			ft_sprintf(frame_path, "%s_00%d.obj", file_path, i);
+			ft_printf("filepath: %s\n", frame_path);
+
 		}
-		else if (i > 10 && i < 100)
+		else if (i >= 10 && i < 100)
 		{
 			ft_sprintf(frame_path, "%s_0%d.obj	", file_path, i);
+			ft_printf("filepath: %s\n", frame_path);
 		}
 		data->animation_3d_files[data->num_animation_frames_3d++] = frame_path;
 	}
@@ -249,12 +252,11 @@ static void		scene_animation_3d_frames_set(t_asset_files *data,
 
 static void		scene_animation_3d_files_set(t_asset_files *data)
 {
-	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Idle/npc_idle", 1);
-	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Idle/npc_idle", 4);
-	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Move/npc_move", 8);
-	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Attack/npc_attack", 7);
-	// scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/run_frame", 7);
-	scene_animation_3d_frames_set(data, "assets/models/placeholder_npc/Death/npc_death", 9);
+	scene_animation_3d_frames_set(data, "assets/models/monster_01/monster_01_basemodel", 1);
+	scene_animation_3d_frames_set(data, "assets/models/monster_01/idle/monster_idle", 24);
+	scene_animation_3d_frames_set(data, "assets/models/monster_01/move/monster_move", 24);
+	scene_animation_3d_frames_set(data, "assets/models/monster_01/attack/monster_attack", 24);
+	scene_animation_3d_frames_set(data, "assets/models/monster_01/death/monster_death", 44);
 	//call the above function for each animation clip separately;
 }
 
