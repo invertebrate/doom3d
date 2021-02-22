@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/11 09:56:15 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/20 17:27:50 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,18 @@
 # define NPC_DEFAULT_TEXTURE "assets/textures/rock.bmp"
 # define NPC_DEFAULT_NORMM "assets/textures/rock.bmp"
 
+# define NPC_ELEVATOR_MODEL "assets/models/box.obj"
+# define NPC_ELEVATOR_TEXTURE "assets/textures/rock.bmp"
+# define NPC_ELEVATOR_NORMM "assets/textures/rock.bmp"
+
+# define ELEVATOR_SWITCH_TEXTURE "assets/textures/lava.bmp"
+
 # include "libgmatrix.h"
 # include "animations_3d.h"
 
 # define PATH_NEIGHBOUR_MAX 8
 # define MAX_PATROL_NODES 16
+# define MAX_TRIGGER_LINKS 16
 
 /*
 ** A list defining what kind of objects the doom3d app contains in its scene /
@@ -84,6 +91,7 @@ typedef enum				e_trigger_type
 	trigger_weapon_drop_glock = 4,
 	trigger_weapon_drop_rpg = 5,
 	trigger_item_jetpack,
+	trigger_elevator_switch,
 }							t_trigger_type;
 
 /*
@@ -94,6 +102,7 @@ typedef enum				e_trigger_type
 typedef enum				e_npc_type
 {
 	npc_type_default,
+	npc_type_elevator,
 }							t_npc_type;
 
 /*
@@ -170,6 +179,18 @@ typedef struct				s_projectile
 }							t_projectile;
 
 /*
+** a struct for triggers, mostly storing pointers to objects the trigger is linked to
+**
+*/
+
+typedef struct				s_trigger
+{
+	t_3d_object				*parent;
+	t_3d_object				*linked_obj[MAX_TRIGGER_LINKS];
+	int32_t					num_links;
+}							t_trigger;
+
+/*
 ** Enum defining npc's state.
 */
 
@@ -201,9 +222,11 @@ typedef enum				e_npc_action
 
 typedef struct				s_npc
 {
+	t_3d_object				*parent;
 	t_bool					is_jumping;
 	t_bool					is_falling;
 	t_bool					is_grounded;
+	t_bool					is_flying;
 	t_vec3					dir;
 	float					angle;
 	float					vision_range;

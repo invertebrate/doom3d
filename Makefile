@@ -62,6 +62,7 @@ SOURCES = main.c \
 			inventory/inventory_pickup_weapon.c \
 			inventory/inventory_throw_weapon.c \
 			npc/npc_default.c \
+			npc/npc_elevator.c \
 			npc/npc_execute_behavior.c \
 			npc/npc_spawn.c \
 			npc/npc_trigger_onhit.c \

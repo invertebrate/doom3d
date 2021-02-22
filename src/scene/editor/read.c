@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/13 17:48:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/21 11:37:47 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,26 +83,31 @@ float			pitch_from_rotation_matrix(t_mat4 rotation)
 
 static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 {
-	t_npc	npc;
+	t_npc		npc;
+	t_trigger	trigger;
 
 	if (obj->type == object_type_npc)
 	{
 		if (obj->params_type == npc_type_default)
 		{
-			npc_default(app, &npc);
+			npc_default(app, &npc, obj);
+		}
+		else if (obj->params_type == npc_type_elevator)
+		{
+			npc_elevator(app, &npc, obj);
 		}
 		else
 			return ;
 		npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
-		npc_animation_3d_init(app, obj);
+		if (!npc.animation_3d)
+			npc_animation_3d_init(app, obj);
 	}
 	else if (obj->type == object_type_trigger)
 	{
-		if (obj->params_type == trigger_weapon_drop_shotgun)
-		{
-
-		}
+		ft_memset(&trigger, 0, sizeof(t_trigger));
+		trigger.parent = obj;
+		l3d_3d_object_set_params(obj, &trigger, sizeof(t_trigger), obj->params_type);
 	}
 	else if (obj->type == object_type_path)
 		path_node_init(obj);
@@ -203,7 +208,7 @@ static int32_t	read_patrol_path_information(t_doom3d *app, char *contents)
 	int32_t		num_patrol_path_nodes;
 	int32_t		i;
 	int32_t		j;
-	int32_t		neighbor_i;
+	int32_t		k;
 
 	offset = 0;
 	num_npcs = 0;
@@ -216,29 +221,75 @@ static int32_t	read_patrol_path_information(t_doom3d *app, char *contents)
 	while (++i < num_npcs)
 	{
 		num_patrol_path_nodes = 0;
-		// Read object id
 		ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
 		offset += sizeof(uint32_t);
 		obj = find_object_by_id(app, object_id);
 		if (obj) {
 			npc = obj->params;
-			// Read that object's number of neighbors
 			ft_memcpy(&num_patrol_path_nodes, contents + offset, sizeof(int32_t));
 			npc->num_patrol_path_nodes = num_patrol_path_nodes;
 		}
-		// Increment offset anyway
 		offset += sizeof(int32_t);
-		// Set neighbors
 		j = -1;
-		neighbor_i = 0;
+		k = 0;
 		while (++j < num_patrol_path_nodes)
 		{
-			// Read neighbor id
 			ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
 			offset += sizeof(uint32_t);
 			obj = find_object_by_id(app, object_id);
 			if (obj && npc)
-				npc->patrol_path[neighbor_i++] = obj;
+				npc->patrol_path[k++] = obj;
+		}
+	}
+	return (offset);
+}
+
+/*
+** Reads trigger link information
+** and links the triggers to their linked objects
+*/
+
+static int32_t	read_trigger_link_information(t_doom3d *app, char *contents)
+{
+	int32_t		offset;
+	uint32_t	object_id;
+	t_3d_object	*obj;
+	t_trigger	*trigger;
+	int32_t		num_npcs;
+	int32_t		num_patrol_path_nodes;
+	int32_t		i;
+	int32_t		j;
+	int32_t		k;
+
+	offset = 0;
+	num_npcs = 0;
+	trigger = NULL;
+	i = -1;
+	while (++i < (int32_t)app->active_scene->num_objects)
+		if (app->active_scene->objects[i]->type == object_type_trigger)
+			num_npcs++;
+	i = -1;
+	while (++i < num_npcs)
+	{
+		num_patrol_path_nodes = 0;
+		ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
+		offset += sizeof(uint32_t);
+		obj = find_object_by_id(app, object_id);
+		if (obj) {
+			trigger = obj->params;
+			ft_memcpy(&num_patrol_path_nodes, contents + offset, sizeof(int32_t));
+			trigger->num_links = num_patrol_path_nodes;
+		}
+		offset += sizeof(int32_t);
+		j = -1;
+		k = 0;
+		while (++j < num_patrol_path_nodes)
+		{
+			ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
+			offset += sizeof(uint32_t);
+			obj = find_object_by_id(app, object_id);
+			if (obj && trigger)
+				trigger->linked_obj[k++] = obj;
 		}
 	}
 	return (offset);
@@ -264,6 +315,7 @@ void			read_map(t_doom3d *app, const char *map_name)
 	offset += read_objects(app, file->buf + offset);
 	offset += read_path_information(app, file->buf + offset);
 	offset += read_patrol_path_information(app, file->buf + offset);
+	offset += read_trigger_link_information(app, file->buf + offset);
 	destroy_file_contents(file);
 	ft_printf("Loaded map: %s\nNum objects %u\n", map_name,
 		app->active_scene->num_objects);

@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/11 12:30:10 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/16 14:29:15 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,11 @@ static void		npcs_load(t_scene *scene)
 	hash_map_add(scene->npc_map,
 		(int64_t)scene->asset_files.npc_names[scene->asset_files.num_npcs++],
 			(void*)npc_type_default);
+	scene->asset_files.npc_names[scene->asset_files.num_npcs] =
+		"Elevator Platform";
+	hash_map_add(scene->npc_map,
+		(int64_t)scene->asset_files.npc_names[scene->asset_files.num_npcs++],
+			(void*)npc_type_elevator);
 }
 
 static void		prefabs_load(t_scene *scene)
@@ -144,6 +149,12 @@ static void		triggers_load(t_scene *scene)
 		(int64_t)scene->asset_files.trigger_names[
 			scene->asset_files.num_triggers++],
 			(void*)trigger_item_jetpack);
+	scene->asset_files.trigger_names[scene->asset_files.num_triggers] =
+		"Door/Elevator Switch";
+	hash_map_add(scene->trigger_map,
+		(int64_t)scene->asset_files.trigger_names[
+			scene->asset_files.num_triggers++],
+			(void*)trigger_elevator_switch);
 }
 
 /*
