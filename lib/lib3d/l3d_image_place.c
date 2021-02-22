@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:02:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/15 21:58:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_surface			*l3d_image_scaled(t_surface *image,
 	t_surface	*image_out;
 	int32_t		i;
 
-	error_check(!(image_out = ft_calloc(sizeof(t_surface))), "!ft_calloc surface");
+	error_check(!(image_out = ft_calloc(sizeof(t_surface))), "!ft_calloc");
 	error_check(!(image_out->pixels = ft_calloc(sizeof(uint32_t) * dest_x *
 		dest_y)), "Failed to malloc pixels");
 	image_out->w = dest_x;

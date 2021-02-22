@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#              #
-#    Updated: 2020/12/30 22:54:35 by ohakola          ###   ########.fr        #
+#    Updated: 2021/02/15 22:26:40 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ SOURCES = l3d_triangle.c \
 			l3d_kd_tree_aabb.c \
 			l3d_pixel_plot.c \
 			l3d_line_draw.c \
-			l3d_line_draw_utils.c \
+			l3d_line_draw_utils1.c \
+			l3d_line_draw_utils2.c \
 			l3d_image_place.c \
 			l3d_color.c \
 			l3d_image_read.c \
@@ -47,6 +48,7 @@ SOURCES = l3d_triangle.c \
 			l3d_triangle_raster_utils.c \
 			l3d_triangle_raster_pixel.c \
 			l3d_shading.c \
+			l3d_shading_utils.c \
 			l3d_uv.c \
 			l3d_texture_sample.c \
 			l3d_baryc.c \

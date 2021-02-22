@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 18:10:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/15 21:59:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,4 @@ void			scene_destroy(t_doom3d *app)
 	free(app->active_scene);
 	app->active_scene = NULL;
 	return ;
-}
-
-void			scene_debug(t_scene *scene)
-{
-	int		i;
-
-	ft_printf("Scene: %d\n"
-	"objects: %d\n",
-		scene->scene_id,
-		scene->num_objects);
-	i = -1;
-	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
-	{
-		if (scene->objects[i])
-			l3d_3d_object_debug_print(scene->objects[i]);
-	}
 }

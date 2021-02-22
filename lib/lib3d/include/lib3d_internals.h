@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 18:53:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/15 22:27:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,13 @@ t_bool						create_one_clipped_triangle(t_triangle *triangle,
 t_bool						create_two_clipped_triangles(t_triangle *triangle,
 								t_plane *plane, int32_t *indices,
 								t_triangle *result_tris);
+
+/*
+** Line draw helpers
+*/
+void						l3d_line_edge_end_swap(int32_t edge[2][2]);
+int32_t						l3d_2d_lines_intersect(t_vec2 edge1[2],
+								t_vec2 edge2[2],
+								t_vec2 intersect);
 
 #endif
