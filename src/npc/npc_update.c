@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/28 15:55:56 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/15 22:19:06 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 	dist = ml_vector3_mag(diff);
 	if (npc->state == state_idle)
 	{
-		if (dist < app->unit_size * 10)
+		if (dist < npc->vision_range)
 			npc->state = state_attack;
 		npc_get_dir_to_next_waypoint(app, npc_obj);
 	}

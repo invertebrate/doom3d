@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 09:35:21 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/01 17:04:26 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/15 11:53:09 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void		place_npc_object_in_scene(t_doom3d *app, t_npc *npc, t_vec3 pos)
 	obj = app->active_scene->objects[app->active_scene->last_object_index];
 	obj->type = object_type_npc;
 	l3d_3d_object_scale(obj, npc->model_scale, npc->model_scale, npc->model_scale);
+	npc->parent = obj;
 	l3d_3d_object_set_params(obj, npc, sizeof(t_npc), npc->type);
 	if (npc->type == npc_type_default)
 		l3d_3d_object_rotate(obj, 0, 180, 180);//hardcoded for specific model
@@ -32,7 +33,11 @@ void			parse_npc_type(t_doom3d *app, t_npc *npc, int type)
 {
 	if (type == npc_type_default)
 	{
-		npc_default(app, npc);
+		npc_default(app, npc, NULL);
+	}
+	if (type == npc_type_elevator)
+	{
+		npc_elevator(app, npc, NULL);
 	}
 }
 

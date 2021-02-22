@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/09 10:05:07 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/15 12:16:12 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static void	forces_update_npc(t_doom3d *app, t_3d_object *npc_object)
 	float		deceleration;
 
 	npc = npc_object->params;
+	if (npc->is_flying)
+		return ;
 	if (npc->is_falling && obj_is_grounded(app, npc_object))
 	{
 		npc->velocity[1] = 0;

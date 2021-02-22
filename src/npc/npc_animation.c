@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/01/29 20:54:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/15 21:41:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 	if (npc->type == npc_type_default)
 	{
 		npc_default_anim_3d_metadata_set(&anim_data);
+	}
+	else
+	{
+		return ;
 	}
 	npc_animation_3d_set(app, obj, npc, &anim_data);
 }
