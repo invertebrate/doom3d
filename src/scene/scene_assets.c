@@ -243,14 +243,10 @@ static void		scene_animation_3d_frames_set(t_asset_files *data,
 		if (i < 10)
 		{
 			ft_sprintf(frame_path, "%s_00%d.obj", file_path, i);
-			ft_printf("filepath: %s\n", frame_path);
-
 		}
 		else if (i >= 10 && i < 100)
 		{
-			ft_sprintf(frame_path, "%s_0%d.obj	", file_path, i);
-			ft_printf("filepath: %s\n", frame_path);
-		}
+			ft_sprintf(frame_path, "%s_0%d.obj", file_path, i);		}
 		data->animation_3d_files[data->num_animation_frames_3d++] = frame_path;
 	}
 }
