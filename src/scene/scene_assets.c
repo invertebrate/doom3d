@@ -210,12 +210,16 @@ static void		scene_texture_files_set(t_asset_files *data)
 		"assets/textures/explosion4.bmp";
 	data->texture_files[data->num_textures++] =
 		"assets/textures/blood.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/monster_01/monster_01_diffuse.bmp";
 }
 
 static void		scene_normal_files_set(t_asset_files *data)
 {
 	data->normal_map_files[data->num_normal_maps++] =
 		"assets/textures/lava_normal.bmp";
+	data->normal_map_files[data->num_normal_maps++] =
+		"assets/textures/monster_01/monster_01_normal.bmp";
 }
 
 static void		scene_model_files_set(t_asset_files *data)

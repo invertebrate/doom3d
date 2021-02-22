@@ -125,8 +125,6 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 	c++;//
 	c = c % 4;//only for animation showcasing
 	npc->animation_3d->current_object = obj;
-	l3d_3d_object_rotate(obj, 0, 180, 180);/////
-	l3d_3d_object_scale(obj, npc->model_scale, npc->model_scale, npc->model_scale);
 	npc->animation_3d->start_frame =
 	npc->animation_3d->anim_clip_start_indices[(npc->animation_3d->current_clip) % ANIM_3D_TYPE_MOD];
 	npc->animation_3d->current_frame =

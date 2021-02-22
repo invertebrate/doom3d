@@ -1,7 +1,3 @@
+map02
 testmap1o
-testmapnpcpath
-testmapko
-OkkoPokko
-level1
-level1test
-NA_dummy
+NADUMMY
