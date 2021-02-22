@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_selection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/16 18:30:17 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/22 21:40:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void			editor_deselect_all(t_doom3d *app)
 	}
 }
 
-static void		select_object(t_doom3d *app, t_3d_object *object)
+void			select_object(t_doom3d *app, t_3d_object *object)
 {	
 	char	object_type[128];
 

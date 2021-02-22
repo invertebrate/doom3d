@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/16 18:49:19 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/22 21:54:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,6 +350,7 @@ t_3d_object					*place_procedural_temp_object(t_doom3d *app,
 								t_3d_object *model,
 								const char *filenames[2],
 								t_vec3 pos, int32_t lifetime_and_delay[2]);
+void						select_object(t_doom3d *app, t_3d_object *object);
 void						editor_select(t_doom3d *app);
 void						editor_deselect_all(t_doom3d *app);
 void						editor_deselect(t_doom3d *app);
@@ -370,6 +371,11 @@ void						patrol_path_highlight(t_render_work *work);
 void						place_elevator_switch(t_doom3d *app);
 void						draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
 										t_box3d *aabb, uint32_t color);
+void						editor_duplicate_selected_object(t_doom3d *app);
+char						*get_object_normal_map_filename(t_scene *scene,
+								t_3d_object *obj);
+char						*get_object_texture_filename(t_scene *scene,
+								t_3d_object *obj);
 
 /*
 ** Level
