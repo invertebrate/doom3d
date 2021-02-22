@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/22 22:05:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/22 22:10:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,13 @@ void		editor_objects_invisible_unhighlight(t_doom3d *app)
 			obj->material->shading_opts = e_shading_invisible;
 	}
 }
+
+/*
+** Duplicates and selects any object that is not start or end trigger
+** Uses existing object placement functionality from place scene object
+** thus we need to once reset the scale by 1.0 / app->unit_size
+** and inverse translate.
+*/
 
 void			editor_duplicate_selected_object(t_doom3d *app)
 {
