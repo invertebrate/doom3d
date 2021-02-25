@@ -100,7 +100,7 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 			return ;
 		npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
-		if (!npc.animation_3d)
+		if (npc.animation_3d)
 			npc_animation_3d_init(app, obj);
 	}
 	else if (obj->type == object_type_trigger)
