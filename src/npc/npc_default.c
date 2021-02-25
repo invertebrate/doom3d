@@ -36,6 +36,10 @@ static void	set_attack_pattern(t_npc *npc)
 
 void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 {
+	t_animation_3d	*dummy;
+
+	error_check(!(dummy= (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
+		"Failed to malloc for dummy in npc_default.");
 	npc->parent = obj;
 	npc->type = npc_type_default;
 	npc->speed = app->unit_size / 8;
@@ -54,6 +58,7 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->model_key = NPC_DEFAULT_MODEL;
 	npc->texture_key = NPC_DEFAULT_TEXTURE;
 	npc->normal_map_key = NPC_DEFAULT_NORMM;
+	npc->animation_3d = dummy;
 	ml_vector3_set(npc->velocity, 0, 0, 0);
 	npc->atk_pattern_index = 0;
 	set_attack_pattern(npc);

@@ -34,6 +34,12 @@ void			parse_npc_type(t_doom3d *app, t_npc *npc, int type)
 	if (type == npc_type_default)
 	{
 		npc_default(app, npc, NULL);
+		if (npc->animation_3d != NULL)
+		{
+			free(npc->animation_3d);
+			npc->animation_3d = NULL;//this so that rendering doesnt crash because in editor
+			//doesnt have animation frames for objects
+		}
 	}
 	if (type == npc_type_elevator)
 	{

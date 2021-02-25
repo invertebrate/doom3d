@@ -56,6 +56,11 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 	t_npc			*npc;
 
 	npc = (t_npc*)obj->params;
+	if (npc->animation_3d != NULL)
+		{
+			free(npc->animation_3d);
+			npc->animation_3d = NULL;
+		}
 	if (npc->type == npc_type_default)
 	{
 		npc_default_anim_3d_metadata_set(&anim_data);

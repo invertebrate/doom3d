@@ -1,3 +1,4 @@
-map02
+monster01_animations
 testmap1o
+map02
 NADUMMY
