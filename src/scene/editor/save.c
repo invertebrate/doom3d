@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   save.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/21 11:37:04 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/22 21:54:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static char	*get_object_texture_filename(t_scene *scene, t_3d_object *obj)
+char		*get_object_texture_filename(t_scene *scene, t_3d_object *obj)
 {
 	return (hash_map_get(scene->object_textures, obj->id));
 }
 
-static char	*get_object_normal_map_filename(t_scene *scene, t_3d_object *obj)
+char		*get_object_normal_map_filename(t_scene *scene, t_3d_object *obj)
 {
 	return (hash_map_get(scene->object_normal_maps, obj->id));
 }

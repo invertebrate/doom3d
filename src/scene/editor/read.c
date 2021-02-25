@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/21 11:37:47 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/22 22:12:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,4 @@ void			read_map(t_doom3d *app, const char *map_name)
 	offset += read_patrol_path_information(app, file->buf + offset);
 	offset += read_trigger_link_information(app, file->buf + offset);
 	destroy_file_contents(file);
-	ft_printf("Loaded map: %s\nNum objects %u\n", map_name,
-		app->active_scene->num_objects);
-	//path_objects_set_neighbours(app);
 }

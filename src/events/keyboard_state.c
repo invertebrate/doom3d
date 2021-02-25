@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_state.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/09 09:50:22 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/22 19:59:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,25 @@ static void		handle_editor_transform(t_doom3d *app)
 	}
 }
 
+static t_bool		editor_duplicate_object_handle(t_doom3d *app)
+{
+	static t_bool	b_down_prev;
+	t_bool			b_down;
+	t_bool			b_up;
+	t_bool			duplicated;
+
+	b_down = app->keyboard.state[SDL_SCANCODE_B];
+	b_up = b_down_prev && !b_down;
+	duplicated = false;
+	if (b_up)
+	{
+		editor_duplicate_selected_object(app);
+		duplicated = true;
+	}
+	b_down_prev = b_down;
+	return (duplicated);
+}
+
 static void		keyboard_editor_state_handle(t_doom3d *app)
 {
 	t_vec3	dir;
@@ -192,6 +211,10 @@ void			keyboard_state_handle(t_doom3d *app)
 	else if (app->active_scene->scene_id == scene_id_editor3d &&
 		!SDL_IsTextInputActive() && !app->editor.is_saving)
 	{
+		// Checks if we are to duplicate object and if so, the rest of
+		// keyboard state checks are done next frame
+		if (editor_duplicate_object_handle(app))
+			return ;
 		keyboard_editor_state_handle(app);
 	}
 }

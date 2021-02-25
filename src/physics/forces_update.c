@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forces_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/15 12:16:12 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/22 20:13:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,19 @@ void		forces_update_player(t_doom3d *app)
 {
 	float		deceleration;
 
-	if (app->player.is_falling && player_is_grounded(app))
+	if (app->active_scene->scene_id != scene_id_editor3d)
 	{
-		app->player.velocity[1] = 0;
-		app->player.is_jumping = false;
-		app->player.is_falling = false;
-		app->player.is_grounded = true;
+		if (app->player.is_falling && player_is_grounded(app))
+		{
+			app->player.velocity[1] = 0;
+			app->player.is_jumping = false;
+			app->player.is_falling = false;
+			app->player.is_grounded = true;
+		}
+		else if (!app->player.is_jumping && !app->player.is_falling &&
+			!player_is_grounded(app))
+			app->player.is_falling = true;
 	}
-	else if (!app->player.is_jumping && !app->player.is_falling &&
-		!player_is_grounded(app))
-		app->player.is_falling = true;
 	if (app->player.is_jumping && app->player.velocity[1] >= 0.0)
 	{
 		app->player.is_falling = true;
