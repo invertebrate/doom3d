@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/21 11:04:20 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/26 17:31:22 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,32 @@ void			place_drop_jetpack(t_doom3d *app)
 		0.2, 0.2, 0.2);
 }
 
+void			place_drop_key(t_doom3d *app)
+{
+	t_vec3		pos;
+	t_trigger	trigger_params;
+
+	editor_place_position(app, pos);
+	ft_memset(&trigger_params, 0, sizeof(t_trigger));
+	place_scene_object(app,
+		(const char*[3]){NPC_DEFAULT_MODEL,
+			NPC_DEFAULT_TEXTURE, NULL}, pos);
+	app->active_scene->objects[app->active_scene->last_object_index]->type =
+		object_type_trigger;
+	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
+	if (app->editor.patrol_slot < MAX_KEYS)
+	{
+		trigger_params.key_id = app->editor.patrol_slot;
+		ft_printf("key id = trigger_params.key_id"); //test
+	}
+	l3d_3d_object_set_params(
+		app->active_scene->objects[app->active_scene->last_object_index],
+		&trigger_params, sizeof(t_trigger), trigger_item_key);
+	l3d_3d_object_scale(
+		app->active_scene->objects[app->active_scene->last_object_index],
+		0.2, 0.2, 0.2);
+}
+
 void			place_elevator_switch(t_doom3d *app)
 {
 	t_vec3		pos;
@@ -67,6 +93,7 @@ void			place_elevator_switch(t_doom3d *app)
 	app->active_scene->objects[app->active_scene->last_object_index]->type =
 		object_type_trigger;
 	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
+	trigger_params.key_id = -1;
 	l3d_3d_object_set_params(
 		app->active_scene->objects[app->active_scene->last_object_index],
 		&trigger_params, sizeof(t_trigger), trigger_elevator_switch);
@@ -116,6 +143,28 @@ void			trigger_link_object(t_doom3d *app, t_3d_object *trigger_obj)
 	}
 	else
 		ft_printf("This object cannot be linked\n");
+}
+
+void			trigger_update_key_id(t_doom3d *app)
+{
+	t_trigger	*trigger;
+
+	if (app->editor.selected_object->params_type == trigger_item_key ||
+		app->editor.selected_object->params_type == trigger_elevator_switch)
+	{
+		trigger = app->editor.selected_object->params;
+		if (trigger && app->editor.selected_object->params_type == trigger_elevator_switch &&
+			trigger->key_id == app->editor.patrol_slot)
+		{
+			trigger->key_id = -1;
+			ft_printf("removed key requirement from door/elevator\n");
+		}
+		else if (app->editor.patrol_slot < MAX_KEYS)
+		{
+			trigger->key_id = app->editor.patrol_slot;
+			ft_printf("key id set to %d\n", app->editor.patrol_slot);
+		}
+	}
 }
 
 void			place_player_start(t_doom3d *app)

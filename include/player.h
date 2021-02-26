@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/09 09:46:44 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/22 17:11:40 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define PLAYER_JUMP_FORCE 8.0
 # define PLAYER_HEIGHT 1.75
 # define PLAYER_HEIGHT_CROUCH 0.75
+# define MAX_KEYS 32
 
 #include "lib3d.h"
 #include "game_objects.h"
@@ -76,6 +77,7 @@ typedef struct				s_player
 	t_box3d					aabb;
 	t_weapon				weapons[NUM_WEAPONS];
 	t_weapon				*equipped_weapon;
+	t_bool					keys[MAX_KEYS];
 	int						hp;
 	t_vec3					velocity;
 }							t_player;

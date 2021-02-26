@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/16 14:30:09 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/22 17:22:23 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,15 @@ static void			on_trigger_menu_button_click(t_button *self, void *params)
 		place_drop_jetpack(app);
 		doom3d_notification_add(app, (t_notification){
 			.message = "Placed jetpack trigger",
+			.type = notification_type_info, .time = 2000});
+		active_scene_update_after_objects(app->active_scene);
+		app->editor.is_saved = false;
+	}
+	else if (trigger_type == trigger_item_key)
+	{
+		place_drop_key(app);
+		doom3d_notification_add(app, (t_notification){
+			.message = "Placed key trigger",
 			.type = notification_type_info, .time = 2000});
 		active_scene_update_after_objects(app->active_scene);
 		app->editor.is_saved = false;

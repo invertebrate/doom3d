@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/21 11:55:18 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:12:01 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,17 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 			else if (obj->params_type == trigger_weapon_drop_shotgun ||
 					obj->params_type == trigger_item_jetpack)
 				inventory_pickup_weapon_object(app, obj);
+			else if (obj->params_type == trigger_item_key)
+				inventory_pickup_key(app, obj);
 			else if (obj->params_type == trigger_elevator_switch &&
 					obj->params && ((t_trigger *)obj->params)->linked_obj[0])
-				elevator_go_to_next_node(app, ((t_trigger *)obj->params)->linked_obj[0]);
+			{
+				if (((t_trigger *)obj->params)->key_id == -1 ||
+					app->player.keys[((t_trigger *)obj->params)->key_id] == true)
+					elevator_go_to_next_node(app, ((t_trigger *)obj->params)->linked_obj[0]);
+				else
+					ft_printf("Missing key!\n");
+			}
 		}
 	}
 }
