@@ -47,6 +47,7 @@ void	npc_elevator(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->model_key = NPC_ELEVATOR_MODEL;
 	npc->texture_key = NPC_ELEVATOR_TEXTURE;
 	npc->normal_map_key = NPC_ELEVATOR_NORMM;
+	npc->model_scale = 1;
 	npc->animation_3d = NULL;
 	ml_vector3_set(npc->velocity, 0, 0, 0);
 	npc->atk_pattern_index = 0;

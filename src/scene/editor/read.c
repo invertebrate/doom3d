@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/26 18:05:10 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/27 16:39:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 			return ;
 		npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
-		if (!npc.animation_3d)
+		if (npc.animation_3d)
 			npc_animation_3d_init(app, obj);
 	}
 	else if (obj->type == object_type_trigger)
@@ -357,7 +357,4 @@ void			read_map(t_doom3d *app, const char *map_name)
 	offset += read_trigger_link_information(app, file->buf + offset);
 	offset += read_key_id_information(app, file->buf + offset);
 	destroy_file_contents(file);
-	ft_printf("Loaded map: %s\nNum objects %u\n", map_name,
-		app->active_scene->num_objects);
-	//path_objects_set_neighbours(app);
 }

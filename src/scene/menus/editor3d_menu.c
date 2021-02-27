@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor3d_menu.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/22 17:22:23 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/27 16:39:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,24 @@ static void			on_delete_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d			*app;
 	t_3d_object			*object_to_delete;
-	t_path_node			*delete;
+	int32_t				i;
 
 	app = params;
 	if (self->id == 0)
 	{
-		if (app->editor.selected_object)
+		if (app->editor.num_selected_objects > 0)
 		{
-			if (app->editor.selected_object->type == object_type_path)
-				delete_path_object_connections((delete = 
-										app->editor.selected_object->params));
-			object_to_delete = app->editor.selected_object;
-			editor_deselect(app);
-			object_set_for_deletion(app, object_to_delete);
+			i = -1;
+			while (++i < app->editor.num_selected_objects)
+			{
+				if (app->editor.selected_objects[i]->type == object_type_path)
+					delete_path_object_connections(
+						app->editor.selected_objects[i]->params);
+				object_to_delete = app->editor.selected_objects[i];
+				object_set_for_deletion(app, object_to_delete);
+			}
 			app->editor.is_saved = false;
+			editor_deselect_all(app);
 			doom3d_notification_add(app, (t_notification){
 			.message = "Deleted!",
 			.type = notification_type_info, .time = 2000});
@@ -41,7 +45,7 @@ static void			on_editor_save(t_doom3d *app)
 {
 	if (!app->editor.is_saving)
 	{
-		editor_deselect(app);
+		editor_deselect_all(app);
 		app->editor.is_saving = true;
 		SDL_StartTextInput();
 		doom3d_notification_add(app, (t_notification){
@@ -59,7 +63,7 @@ static void			on_editor_save(t_doom3d *app)
 static void			on_editor_exit(t_doom3d *app)
 {
 	app->next_scene_id = scene_id_main_menu;
-	editor_deselect(app);
+	editor_deselect_all(app);
 	SDL_StopTextInput();
 	app->editor.is_saving = false;
 }
@@ -82,14 +86,21 @@ static void			on_objects_menu_button_click(t_button *self, void *params)
 static void			on_textures_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d	*app;
+	int32_t		i;
+	t_surface	*texture;
 
 	app = params;
-	if (app->editor.selected_object)
+	if (app->editor.num_selected_objects > 0)
 	{
-		app->editor.selected_object->material->texture =
+		texture =
 			hash_map_get(app->active_scene->textures, (int64_t)self->text);
-		hash_map_add(app->active_scene->object_textures,
-			app->editor.selected_object->id, (void*)self->text);
+		i = -1;
+		while (++i < app->editor.num_selected_objects)
+		{
+			app->editor.selected_objects[i]->material->texture = texture;
+			hash_map_add(app->active_scene->object_textures,
+				app->editor.selected_objects[i]->id, (void*)self->text);
+		}
 		app->editor.is_saved = false;
 		doom3d_notification_add(app, (t_notification){
 			.message = "Texture set!",
@@ -106,14 +117,21 @@ static void			on_textures_menu_button_click(t_button *self, void *params)
 static void			on_normmaps_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d	*app;
+	int32_t		i;
+	t_surface	*normmap;
 
 	app = params;
-	if (app->editor.selected_object)
+	if (app->editor.num_selected_objects > 0)
 	{
-		app->editor.selected_object->material->normal_map =
+		normmap =
 			hash_map_get(app->active_scene->normal_maps, (int64_t)self->text);
-		hash_map_add(app->active_scene->object_normal_maps,
-			app->editor.selected_object->id, (void*)self->text);
+		i = -1;
+		while (++i < app->editor.num_selected_objects)
+		{
+			app->editor.selected_objects[i]->material->normal_map = normmap;
+			hash_map_add(app->active_scene->object_normal_maps,
+				app->editor.selected_objects[i]->id, (void*)self->text);
+		}
 		app->editor.is_saved = false;
 		doom3d_notification_add(app, (t_notification){
 			.message = "Normal map set!",

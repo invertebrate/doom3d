@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_selection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/26 17:37:11 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/27 16:40:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,48 +72,72 @@ static void		get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
 	ml_vector3_add(mouse_world_pos, add, mouse_world_pos);
 }
 
-void			editor_deselect(t_doom3d *app)
+void			editor_deselect_all(t_doom3d *app)
 {
-	if (app->editor.selected_object)
+	int32_t		i;
+	t_3d_object	*obj;
+
+	i = -1;
+	while (++i < (int32_t)(app->editor.num_selected_objects))
 	{
-		app->editor.selected_object->material->shading_opts =
-			(app->editor.selected_object->material->shading_opts &
-				~e_shading_select);
+		obj = app->editor.selected_objects[i];
+		obj->material->shading_opts = (obj->material->shading_opts &
+			~(e_shading_select));
+		app->editor.selected_objects[i] = NULL;
 	}
-	app->editor.selected_object = NULL;
+	app->editor.num_selected_objects = 0;
 	app->editor.selected_object_str[0] = '\0';
 }
 
-void			editor_deselect_all(t_doom3d *app)
-{
-	int32_t	i;
-
-	editor_deselect(app);
-	i = -1;
-	while (++i < (int32_t)(app->active_scene->num_objects +
-		app->active_scene->num_deleted))
-	{
-		if (app->active_scene->objects[i] == NULL)
-			continue ;
-		app->active_scene->objects[i]->material->shading_opts =
-			(app->active_scene->objects[i]->material->shading_opts &
-				~(e_shading_select));
-	}
-}
-
-static void		select_object(t_doom3d *app, t_3d_object *object)
+void			select_object(t_doom3d *app, t_3d_object *object)
 {	
 	char	object_type[128];
+	int32_t	i;
 
-	app->editor.selected_object = object;
-	app->editor.selected_object->material->shading_opts |=
-		e_shading_select;
-	object_type_to_str(object, object_type);
-	ft_sprintf(app->editor.selected_object_str, "%s: %u", object_type,
-		object->id);
-	doom3d_notification_add(app, (t_notification){
-			.message = "Selected!",
+	i = -1;
+	while (++i < app->editor.num_selected_objects)
+	{
+		if (app->editor.selected_objects[i]->id == object->id)
+			return ;
+	}
+	if (app->editor.num_selected_objects >= MAX_SELECTED_OBJECTS)
+	{
+		doom3d_notification_add(app, (t_notification){
+			.message = "Selected max objects (64), can't select more!",
 			.type = notification_type_info, .time = 2000});
+		return ;
+	}
+	app->editor.selected_objects[app->editor.num_selected_objects++] = object;
+	object->material->shading_opts |= e_shading_select;
+	if (app->editor.num_selected_objects == 1)
+	{
+		object_type_to_str(object, object_type);
+		ft_sprintf(app->editor.selected_object_str, "%s: %u", object_type,
+			object->id);
+	}
+	else
+		ft_sprintf(app->editor.selected_object_str, "multiple");
+	doom3d_notification_add(app, (t_notification){.message = "Selected!",
+		.type = notification_type_info, .time = 2000});
+}
+
+static void		path_connect_selection(t_doom3d *app, t_3d_object *new)
+{
+	t_3d_object	*old;
+
+	old = NULL;
+	if (app->editor.selected_objects[0])
+		old = app->editor.selected_objects[0];
+	editor_deselect_all(app);
+	select_object(app, new);
+	if (old->type == object_type_path && new->type == object_type_path)
+		path_objects_set_neighbour(app, old);
+	if (old->type == object_type_npc && new->type == object_type_path)
+		patrol_path_link_node(new, old, app->editor.patrol_slot);
+	if (old->type == object_type_trigger && new->type == object_type_npc)
+		trigger_link_object_to_npc(old, new);
+	if ((!old && new->type == object_type_trigger) || new == old)
+		trigger_update_key_id(app, new);
 }
 
 /*
@@ -121,29 +145,6 @@ static void		select_object(t_doom3d *app, t_3d_object *object)
 ** and see which closest triangle intersects.
 ** Add hit object to selected object.
 */
-
-static void		path_connect_selection(t_doom3d *app, t_3d_object *obj)
-{
-	t_3d_object	*old;
-
-	old = NULL;
-	if (app->editor.selected_object)
-		old = app->editor.selected_object;
-	editor_deselect(app);
-	select_object(app, obj);
-	if (old)
-	{
-		if (old->type == object_type_path && app->editor.selected_object->type == object_type_path)
-			path_objects_set_neighbour(app, old);
-		if (old->type == object_type_npc && app->editor.selected_object->type == object_type_path)
-			patrol_path_link_node(app->editor.selected_object, old, app->editor.patrol_slot);
-		if (old->type == object_type_trigger && app->editor.selected_object->type == object_type_npc)
-			trigger_link_object(app, old);
-	}
-	if ((!old && app->editor.selected_object->type == object_type_trigger) ||
-		app->editor.selected_object == old)
-		trigger_update_key_id(app);
-}
 
 void			editor_select(t_doom3d *app)
 {
@@ -164,9 +165,11 @@ void			editor_select(t_doom3d *app)
 		{
 			if (app->keyboard.state[SDL_SCANCODE_LCTRL])
 				path_connect_selection(app, closest_triangle_hit->triangle->parent);
+			else if (app->keyboard.state[SDL_SCANCODE_LSHIFT])
+				select_object(app, closest_triangle_hit->triangle->parent);
 			else
 			{
-				editor_deselect(app);
+				editor_deselect_all(app);
 				select_object(app, closest_triangle_hit->triangle->parent);
 			}
 		}
@@ -174,11 +177,11 @@ void			editor_select(t_doom3d *app)
 	}
 	else
 	{
-		if (app->editor.selected_object)
+		if (app->editor.num_selected_objects > 0)
 			doom3d_notification_add(app, (t_notification){
 			.message = "Deselected!",
 			.type = notification_type_info, .time = 2000});
-		editor_deselect(app);
+		editor_deselect_all(app);
 	}
 }
 

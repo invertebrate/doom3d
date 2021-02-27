@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trigger.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/26 17:31:22 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/27 16:41:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,18 +117,19 @@ void			trigger_activate(t_doom3d *app, t_3d_object *obj)
 	}
 }
 
-void			trigger_link_object(t_doom3d *app, t_3d_object *trigger_obj)
+void			trigger_link_object_to_npc(t_3d_object *trigger_obj,
+					t_3d_object *target_npc)
 {
 	t_trigger	*trigger;
 	t_npc		*npc;
 
-	npc = app->editor.selected_object->params;
+	npc = target_npc->params;
 	trigger = trigger_obj->params;
 	if (trigger_obj->params_type != trigger_elevator_switch)
 		ft_printf("This trigger cannot be linked\n");
 	else if (npc->type == npc_type_elevator)
 	{
-		if (trigger->linked_obj[0] == app->editor.selected_object)
+		if (trigger->linked_obj[0] == target_npc)
 		{
 			trigger->linked_obj[0] = NULL;
 			trigger->num_links--;
@@ -136,7 +137,7 @@ void			trigger_link_object(t_doom3d *app, t_3d_object *trigger_obj)
 		}
 		else
 		{
-			trigger->linked_obj[0] = app->editor.selected_object;
+			trigger->linked_obj[0] = target_npc;
 			trigger->num_links++;
 			ft_printf("linked object!\n");
 		}
@@ -145,15 +146,15 @@ void			trigger_link_object(t_doom3d *app, t_3d_object *trigger_obj)
 		ft_printf("This object cannot be linked\n");
 }
 
-void			trigger_update_key_id(t_doom3d *app)
+void			trigger_update_key_id(t_doom3d *app, t_3d_object *key)
 {
 	t_trigger	*trigger;
 
-	if (app->editor.selected_object->params_type == trigger_item_key ||
-		app->editor.selected_object->params_type == trigger_elevator_switch)
+	if (key->params_type == trigger_item_key ||
+		key->params_type == trigger_elevator_switch)
 	{
-		trigger = app->editor.selected_object->params;
-		if (trigger && app->editor.selected_object->params_type == trigger_elevator_switch &&
+		trigger = key->params;
+		if (trigger && key->params_type == trigger_elevator_switch &&
 			trigger->key_id == app->editor.patrol_slot)
 		{
 			trigger->key_id = -1;
