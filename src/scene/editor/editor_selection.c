@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 16:00:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/27 16:40:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ static void		path_connect_selection(t_doom3d *app, t_3d_object *new)
 		patrol_path_link_node(new, old, app->editor.patrol_slot);
 	if (old->type == object_type_trigger && new->type == object_type_npc)
 		trigger_link_object_to_npc(old, new);
+	if ((!old && new->type == object_type_trigger) || new == old)
+		trigger_update_key_id(app, new);
 }
 
 /*

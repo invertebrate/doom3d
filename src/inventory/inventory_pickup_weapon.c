@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:26:50 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/11 13:03:30 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/22 18:00:54 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,18 @@ void			inventory_pickup_weapon_object(t_doom3d *app,
 		ft_printf("Picked up %s %d ammo", weapon_id,
 			app->player.weapons[weapon->id].ammo);
 		object_set_for_deletion(app, weapon_drop_obj);
+	}
+}
+
+void			inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj)
+{
+	t_trigger	*key;
+
+	key = key_obj->params;
+	if (key->key_id < MAX_KEYS && app->player.keys[key->key_id] == false)
+	{
+		app->player.keys[key->key_id] = true;
+		object_set_for_deletion(app, key_obj);
+		ft_printf("picked up key %d\n", key->key_id);
 	}
 }

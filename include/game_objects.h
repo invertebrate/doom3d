@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/20 17:27:50 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/22 17:19:43 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef enum				e_trigger_type
 	trigger_weapon_drop_glock = 4,
 	trigger_weapon_drop_rpg = 5,
 	trigger_item_jetpack,
+	trigger_item_key,
 	trigger_elevator_switch,
 }							t_trigger_type;
 
@@ -187,6 +188,7 @@ typedef struct				s_trigger
 {
 	t_3d_object				*parent;
 	t_3d_object				*linked_obj[MAX_TRIGGER_LINKS];
+	int32_t					key_id;
 	int32_t					num_links;
 }							t_trigger;
 

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 15:48:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/27 16:41:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ void						weapons_init_data(t_doom3d *app);
 void						weapon_equip(t_doom3d *app, t_weapon_id slot);
 void						inventory_pickup_weapon_object(t_doom3d *app,
 								t_3d_object *weapon_drop_obj);
+void						inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj);
 void						inventory_throw_weapon(t_doom3d *app);
 t_weapon					weapon_data_fist(t_doom3d *app);
 t_weapon					weapon_data_glock(t_doom3d *app);
@@ -368,6 +369,9 @@ void						editor_place_position(t_doom3d *app ,
 								t_vec3 result);
 void						patrol_path_highlight(t_render_work *work);
 void						place_elevator_switch(t_doom3d *app);
+void						place_drop_key(t_doom3d *app);
+void						trigger_update_key_id(t_doom3d *app,
+								t_3d_object *key);
 void						draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
 										t_box3d *aabb, uint32_t color);
 void						editor_duplicate_selected_objects(t_doom3d *app);

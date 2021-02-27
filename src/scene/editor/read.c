@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/22 22:12:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/27 16:39:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 	{
 		ft_memset(&trigger, 0, sizeof(t_trigger));
 		trigger.parent = obj;
+		trigger.key_id = -1;
 		l3d_3d_object_set_params(obj, &trigger, sizeof(t_trigger), obj->params_type);
 	}
 	else if (obj->type == object_type_path)
@@ -295,6 +296,44 @@ static int32_t	read_trigger_link_information(t_doom3d *app, char *contents)
 	return (offset);
 }
 
+/*
+** Reads trigger key id information
+** and sets the correct key id values
+*/
+
+static int32_t	read_key_id_information(t_doom3d *app, char *contents)
+{
+	int32_t		offset;
+	uint32_t	object_id;
+	t_3d_object	*obj;
+	t_trigger	*trigger;
+	int32_t		num_triggers;
+	int32_t		key_id;
+	int32_t		i;
+
+	offset = 0;
+	num_triggers = 0;
+	trigger = NULL;
+	i = -1;
+	while (++i < (int32_t)app->active_scene->num_objects)
+		if (app->active_scene->objects[i]->type == object_type_trigger)
+			num_triggers++;
+	i = -1;
+	while (++i < num_triggers)
+	{
+		ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
+		offset += sizeof(uint32_t);
+		obj = find_object_by_id(app, object_id);
+		if (obj) {
+			trigger = obj->params;
+			ft_memcpy(&key_id, contents + offset, sizeof(int32_t));
+			trigger->key_id = key_id;
+		}
+		offset += sizeof(int32_t);
+	}
+	return (offset);
+}
+
 void			read_map(t_doom3d *app, const char *map_name)
 {
 	t_file_contents	*file;
@@ -316,5 +355,6 @@ void			read_map(t_doom3d *app, const char *map_name)
 	offset += read_path_information(app, file->buf + offset);
 	offset += read_patrol_path_information(app, file->buf + offset);
 	offset += read_trigger_link_information(app, file->buf + offset);
+	offset += read_key_id_information(app, file->buf + offset);
 	destroy_file_contents(file);
 }
