@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/22 21:54:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/27 15:48:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,7 @@ void						draw_selected_wireframe(t_render_work *work);
 t_bool						triangle_outside_frame(t_triangle *triangle,
 								t_sub_framebuffer *sub_buffer);
 void						draw_selected_aabb(t_render_work *work);
-void						draw_selected_enemy_direction(t_render_work *work);
+void						draw_selected_enemies_direction(t_render_work *work);
 void						draw_enemy_direction(t_doom3d *app,
 								t_sub_framebuffer *sub_buffer,
 								t_3d_object *npc_object);
@@ -353,7 +353,6 @@ t_3d_object					*place_procedural_temp_object(t_doom3d *app,
 void						select_object(t_doom3d *app, t_3d_object *object);
 void						editor_select(t_doom3d *app);
 void						editor_deselect_all(t_doom3d *app);
-void						editor_deselect(t_doom3d *app);
 void						after_editor_transform(t_doom3d *app,
 								uint32_t *last_changed);
 void    					editor_init(t_doom3d *app, int32_t editor_level);
@@ -371,7 +370,7 @@ void						patrol_path_highlight(t_render_work *work);
 void						place_elevator_switch(t_doom3d *app);
 void						draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
 										t_box3d *aabb, uint32_t color);
-void						editor_duplicate_selected_object(t_doom3d *app);
+void						editor_duplicate_selected_objects(t_doom3d *app);
 char						*get_object_normal_map_filename(t_scene *scene,
 								t_3d_object *obj);
 char						*get_object_texture_filename(t_scene *scene,
@@ -417,7 +416,8 @@ void						place_drop_jetpack(t_doom3d *app);
 void						editor_objects_invisible_unhighlight(t_doom3d *app);
 void						editor_objects_invisible_highlight(t_doom3d *app);
 void						trigger_activate(t_doom3d *app, t_3d_object *obj);
-void						trigger_link_object(t_doom3d *app, t_3d_object *obj);
+void						trigger_link_object_to_npc(t_3d_object *trigger,
+								t_3d_object *target);
 
 /*
 ** Player animations

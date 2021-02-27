@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   patrol_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 14:48:18 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/02 21:25:16 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/27 15:22:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	patrol_path_highlight(t_render_work *work)
 
 	if (work->app->active_scene->scene_id != scene_id_editor3d)
 		return ;
-	npc = work->app->editor.selected_object->params;
+	npc = work->app->editor.selected_objects[0]->params;
 	i = 0;
 	while (npc->patrol_path[i])
 	{

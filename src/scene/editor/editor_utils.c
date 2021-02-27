@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/22 22:10:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/27 15:39:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,22 +98,13 @@ void		editor_objects_invisible_unhighlight(t_doom3d *app)
 	}
 }
 
-/*
-** Duplicates and selects any object that is not start or end trigger
-** Uses existing object placement functionality from place scene object
-** thus we need to once reset the scale by 1.0 / app->unit_size
-** and inverse translate.
-*/
-
-void			editor_duplicate_selected_object(t_doom3d *app)
+static void		duplicate_selected_object(t_doom3d *app, t_3d_object *selected)
 {
-	t_3d_object	*selected;
 	t_3d_object	*model;
 	const char	*texture_file;
 	const char	*normal_map_file;
 	t_bool		start_or_end;
 
-	selected = app->editor.selected_object;
 	start_or_end =
 		(selected->type == object_type_trigger &&
 			selected->params_type == trigger_player_start) || 
@@ -144,13 +135,40 @@ void			editor_duplicate_selected_object(t_doom3d *app)
 			app->active_scene->objects[app->active_scene->last_object_index]);
 		doom3d_notification_add(app, (t_notification){
 			.message = "Duplicated an object!", .time = 2000,
-			.type = notification_type_info});	}
+			.type = notification_type_info});
+	}
 	else if (start_or_end)
 		doom3d_notification_add(app, (t_notification){
 			.message = "Can't duplicate start or end triggers!", .time = 2000,
-			.type = notification_type_info});	
-	else
+			.type = notification_type_info});
+}
+
+/*
+** Duplicates and selects any object that is not start or end trigger
+** Uses existing object placement functionality from place scene object
+** thus we need to once reset the scale by 1.0 / app->unit_size
+** and inverse translate.
+*/
+
+void			editor_duplicate_selected_objects(t_doom3d *app)
+{
+	int32_t 	i;
+	t_3d_object	*old_selected[MAX_SELECTED_OBJECTS];
+	int32_t		num_selected;
+
+	if (app->editor.num_selected_objects == 0)
+	{
 		doom3d_notification_add(app, (t_notification){
 			.message = "Select an object first for duplication!", .time = 2000,
-			.type = notification_type_info});	
+			.type = notification_type_info});
+		return ;
+	}
+	num_selected = app->editor.num_selected_objects;
+	i = -1;
+	while (++i < num_selected)
+		old_selected[i] = app->editor.selected_objects[i];
+	editor_deselect_all(app);
+	i = -1;
+	while (++i < num_selected)
+		duplicate_selected_object(app, old_selected[i]);
 }

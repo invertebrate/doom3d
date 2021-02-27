@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   editor.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:11:36 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/01 16:46:06 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/27 15:39:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EDITOR_H
 # define EDITOR_H
 
-#include "window.h"
+# include "window.h"
+
+# define MAX_SELECTED_OBJECTS 128
 
 /*
 ** A list of submenus under editor that open popup menus
@@ -47,7 +49,8 @@ typedef struct 				s_editor
 	char					editor_filename[128];
 	char					editor_savename[128];
 	char					selected_object_str[128];
-	t_3d_object				*selected_object;
+	t_3d_object				*selected_objects[MAX_SELECTED_OBJECTS];
+	int32_t					num_selected_objects;
 	int						patrol_slot;
 }							t_editor;
 
