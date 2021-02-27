@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 15:45:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/27 16:17:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ void		editor_ui_render(t_doom3d *app)
 	ft_sprintf(guide, "Tab: Switch level, "
 		"WASD: Move, "
 		"MouseR: Rotate, "
-		"MouseL: Select, "
-		"MouseM (/+ Q): Rotate selected, "
+		"(Shift+)MouseL: Select, "
+		"R (+ XYZ): Rotate selected, "
 		"Arrows: Move selected x, z, "
 		"O,L: Move selected y, "
 		"[, ]: Scale selected");
