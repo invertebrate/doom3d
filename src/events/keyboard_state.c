@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/22 19:59:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/27 15:56:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,69 +70,66 @@ static void		handle_editor_transform(t_doom3d *app)
 {
 	static uint32_t		last_changed;
 	uint32_t			diff;
-	int					shift;
+	int32_t				shift;
+	int32_t				i;
 
 	shift = 1;
 	if (app->keyboard.state[SDL_SCANCODE_LSHIFT])
 		shift = 10;
 	diff = SDL_GetTicks() - last_changed;
-	if (app->editor.is_saving || !app->editor.selected_object)
+	if (app->editor.is_saving || app->editor.num_selected_objects == 0)
 		return ;
-	if (diff > 20 &&
-		app->keyboard.state[SDL_SCANCODE_UP])
+	i = -1;
+	while (++i < app->editor.num_selected_objects)
 	{
-		l3d_3d_object_translate(app->editor.selected_object,
-			0, 0, 0.1 * app->unit_size * shift);
-		after_editor_transform(app, &last_changed);
-	}
-	else if (diff > 20 &&
-		app->keyboard.state[SDL_SCANCODE_RIGHT])
-	{
-		l3d_3d_object_translate(app->editor.selected_object,
-			0.1 * app->unit_size * shift, 0, 0);
-		after_editor_transform(app, &last_changed);
-	}
-	else if (diff > 20 &&
-		app->keyboard.state[SDL_SCANCODE_DOWN])
-	{
-		l3d_3d_object_translate(app->editor.selected_object,
-			0, 0, -0.1 * app->unit_size * shift);
-		after_editor_transform(app, &last_changed);
-	}
-	else if (diff > 20 &&
-		app->keyboard.state[SDL_SCANCODE_LEFT])
-	{
-		l3d_3d_object_translate(app->editor.selected_object,
-			-0.1 * app->unit_size * shift, 0, 0);
-		after_editor_transform(app, &last_changed);
-	}
-	else if (diff > 20 &&
-		app->keyboard.state[SDL_SCANCODE_O])
-	{
-		l3d_3d_object_translate(app->editor.selected_object,
-			0, -0.1 * app->unit_size * shift, 0);
-		after_editor_transform(app, &last_changed);
-	}
-	else if (diff > 20 &&
-		app->keyboard.state[SDL_SCANCODE_L])
-	{
-		l3d_3d_object_translate(app->editor.selected_object,
-			0, 0.1 * app->unit_size * shift, 0);
-		after_editor_transform(app, &last_changed);
-	}
-	else if (diff > 50 &&
-		app->keyboard.state[SDL_SCANCODE_LEFTBRACKET])
-	{
-		l3d_3d_object_scale(app->editor.selected_object,
-			1.0 / 1.1, 1.0 / 1.1, 1.0 / 1.1);
-		after_editor_transform(app, &last_changed);
-	}
-	else if (diff > 50 &&
-		app->keyboard.state[SDL_SCANCODE_RIGHTBRACKET])
-	{
-		l3d_3d_object_scale(app->editor.selected_object,
-			1.1, 1.1, 1.1);
-		after_editor_transform(app, &last_changed);
+		if (diff > 10 && app->keyboard.state[SDL_SCANCODE_UP])
+		{
+			l3d_3d_object_translate(app->editor.selected_objects[i],
+				0, 0, 0.1 * app->unit_size * shift);
+			after_editor_transform(app, &last_changed);
+		}
+		else if (diff > 10 && app->keyboard.state[SDL_SCANCODE_RIGHT])
+		{
+			l3d_3d_object_translate(app->editor.selected_objects[i],
+				0.1 * app->unit_size * shift, 0, 0);
+			after_editor_transform(app, &last_changed);
+		}
+		else if (diff > 10 && app->keyboard.state[SDL_SCANCODE_DOWN])
+		{
+			l3d_3d_object_translate(app->editor.selected_objects[i],
+				0, 0, -0.1 * app->unit_size * shift);
+			after_editor_transform(app, &last_changed);
+		}
+		else if (diff > 10 && app->keyboard.state[SDL_SCANCODE_LEFT])
+		{
+			l3d_3d_object_translate(app->editor.selected_objects[i],
+				-0.1 * app->unit_size * shift, 0, 0);
+			after_editor_transform(app, &last_changed);
+		}
+		else if (diff > 10 && app->keyboard.state[SDL_SCANCODE_O])
+		{
+			l3d_3d_object_translate(app->editor.selected_objects[i],
+				0, -0.1 * app->unit_size * shift, 0);
+			after_editor_transform(app, &last_changed);
+		}
+		else if (diff > 10 && app->keyboard.state[SDL_SCANCODE_L])
+		{
+			l3d_3d_object_translate(app->editor.selected_objects[i],
+				0, 0.1 * app->unit_size * shift, 0);
+			after_editor_transform(app, &last_changed);
+		}
+		else if (diff > 40 && app->keyboard.state[SDL_SCANCODE_LEFTBRACKET])
+		{
+			l3d_3d_object_scale(app->editor.selected_objects[i],
+				1.0 / 1.1, 1.0 / 1.1, 1.0 / 1.1);
+			after_editor_transform(app, &last_changed);
+		}
+		else if (diff > 40 && app->keyboard.state[SDL_SCANCODE_RIGHTBRACKET])
+		{
+			l3d_3d_object_scale(app->editor.selected_objects[i],
+				1.1, 1.1, 1.1);
+			after_editor_transform(app, &last_changed);
+		}
 	}
 	if (diff > 50 && app->keyboard.state[SDL_SCANCODE_KP_PLUS] &&
 		app->editor.patrol_slot < MAX_PATROL_NODES)
@@ -160,7 +157,7 @@ static t_bool		editor_duplicate_object_handle(t_doom3d *app)
 	duplicated = false;
 	if (b_up)
 	{
-		editor_duplicate_selected_object(app);
+		editor_duplicate_selected_objects(app);
 		duplicated = true;
 	}
 	b_down_prev = b_down;

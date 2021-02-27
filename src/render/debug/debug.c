@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/02 17:18:55 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/27 15:48:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,11 +150,16 @@ void			draw_selected_aabb(t_render_work *work)
 	t_doom3d			*app;
 	t_sub_framebuffer	*buffers;
 	t_3d_object			*obj;
+	int32_t				i;
 
 	buffers = work->framebuffer->sub_buffers[work->sub_buffer_i];
 	app = work->app;
-	obj = app->editor.selected_object;
-	draw_aabb(app, buffers, &obj->aabb, 0xff0000ff);
+	i = -1;
+	while (++i < app->editor.num_selected_objects)
+	{
+		obj = app->editor.selected_objects[i];
+		draw_aabb(app, buffers, &obj->aabb, 0xff0000ff);
+	}
 }
 
 void			draw_enemy_direction(t_doom3d *app,
@@ -177,11 +182,21 @@ void			draw_enemy_direction(t_doom3d *app,
 		{end[0], end[1], end[2]}}, 0xffff00ff);
 }
 
-void			draw_selected_enemy_direction(t_render_work *work)
+void			draw_selected_enemies_direction(t_render_work *work)
 {
-	draw_enemy_direction(work->app,
-		work->framebuffer->sub_buffers[work->sub_buffer_i],
-		work->app->editor.selected_object);
+	int32_t		i;
+	t_3d_object	*obj;
+
+	i = -1;
+	while (++i < work->app->editor.num_selected_objects)
+	{
+		obj = work->app->editor.selected_objects[i];
+		if (obj->type == object_type_npc)
+			draw_enemy_direction(work->app,
+				work->framebuffer->sub_buffers[work->sub_buffer_i],
+				obj);
+	}
+
 }
 
 void			draw_npc_dirs(t_render_work *work)

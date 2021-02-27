@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/02 17:23:18 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/27 15:49:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,14 @@ static void		render_work(void *params)
 	if (work->app->active_scene->scene_id == scene_id_editor3d)
 	{
 		path_draw_connections(work); //might need to move
-		if (work->app->editor.selected_object)
+		if (work->app->editor.num_selected_objects > 0)
 		{
 			draw_selected_wireframe(work);
-			if (work->app->editor.selected_object->type == object_type_npc)
+			draw_selected_enemies_direction(work);
+			if (work->app->editor.num_selected_objects == 1 &&
+				work->app->editor.selected_objects[0]->type == object_type_npc)
 			{
 				patrol_path_highlight(work);
-				draw_selected_enemy_direction(work);
 			}
 		}
 		else

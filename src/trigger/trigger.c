@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trigger.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/21 11:04:20 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/27 15:20:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,19 @@ void			trigger_activate(t_doom3d *app, t_3d_object *obj)
 	}
 }
 
-void			trigger_link_object(t_doom3d *app, t_3d_object *trigger_obj)
+void			trigger_link_object_to_npc(t_3d_object *trigger_obj,
+					t_3d_object *target_npc)
 {
 	t_trigger	*trigger;
 	t_npc		*npc;
 
-	npc = app->editor.selected_object->params;
+	npc = target_npc->params;
 	trigger = trigger_obj->params;
 	if (trigger_obj->params_type != trigger_elevator_switch)
 		ft_printf("This trigger cannot be linked\n");
 	else if (npc->type == npc_type_elevator)
 	{
-		if (trigger->linked_obj[0] == app->editor.selected_object)
+		if (trigger->linked_obj[0] == target_npc)
 		{
 			trigger->linked_obj[0] = NULL;
 			trigger->num_links--;
@@ -109,7 +110,7 @@ void			trigger_link_object(t_doom3d *app, t_3d_object *trigger_obj)
 		}
 		else
 		{
-			trigger->linked_obj[0] = app->editor.selected_object;
+			trigger->linked_obj[0] = target_npc;
 			trigger->num_links++;
 			ft_printf("linked object!\n");
 		}

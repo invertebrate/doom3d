@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 22:21:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/02 21:12:39 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/02/27 15:22:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void				place_path_object(t_doom3d *app)
 	l3d_3d_object_scale(path_obj, 0.3, 0.3, 0.3);
 	path_node_init(path_obj);
 	//After a node is added, if holding LCTRL, connect to last selected node
-	if (app->editor.selected_object &&
-		app->editor.selected_object->type == object_type_path &&
+	if (app->editor.selected_objects[0] &&
+		app->editor.selected_objects[0]->type == object_type_path &&
 		app->keyboard.state[SDL_SCANCODE_LCTRL])
 		path_objects_set_neighbour(app, path_obj);
 }
@@ -97,8 +97,8 @@ static t_path_node	*path_check_existing(t_doom3d *app, t_path_node *path_obj)
 	i = path_obj->num_neighbors;
 	while (--i > -1)
 	{
-		if (path_obj->neighbors[i] == app->editor.selected_object)
-			return ((ret = app->editor.selected_object->params));
+		if (path_obj->neighbors[i] == app->editor.selected_objects[0])
+			return ((ret = app->editor.selected_objects[0]->params));
 	}
 	return (NULL);
 }
@@ -162,7 +162,7 @@ void				path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj)
 	if (obj == NULL)
 		return ;
 	path_obj = obj->params;
-	dest = app->editor.selected_object->params;
+	dest = app->editor.selected_objects[0]->params;
 	if (path_obj->num_neighbors >= PATH_NEIGHBOUR_MAX)
 		ft_printf("path connection limit reached on source!\n");
 	else if (dest->num_neighbors >= PATH_NEIGHBOUR_MAX)
@@ -173,7 +173,7 @@ void				path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj)
 		path_delete_connection(path_obj, delete);
 	else
 	{
-		path_obj->neighbors[path_obj->num_neighbors] = app->editor.selected_object;
+		path_obj->neighbors[path_obj->num_neighbors] = app->editor.selected_objects[0];
 		dest->neighbors[dest->num_neighbors] = obj;
 		path_obj->num_neighbors++;
 		dest->num_neighbors++;
