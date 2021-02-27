@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 15:39:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/27 16:04:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,8 @@ static void		duplicate_selected_object(t_doom3d *app, t_3d_object *selected)
 			selected->params_type == trigger_player_start) || 
 		(selected->type == object_type_trigger &&
 			selected->params_type == trigger_player_end);
-	if (selected && !start_or_end)
+	if (!start_or_end)
 	{
-		editor_deselect_all(app);
 		texture_file = get_object_texture_filename(app->active_scene, selected);
 		normal_map_file =
 			get_object_normal_map_filename(app->active_scene, selected);

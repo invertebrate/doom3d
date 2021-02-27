@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:11:36 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 15:39:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/02/27 16:02:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "window.h"
 
-# define MAX_SELECTED_OBJECTS 128
+# define MAX_SELECTED_OBJECTS 512
 
 /*
 ** A list of submenus under editor that open popup menus
