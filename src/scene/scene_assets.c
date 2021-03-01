@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/22 17:44:15 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/01 13:14:33 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,24 @@ static void		scene_texture_files_set(t_asset_files *data)
 	data->texture_files[data->num_textures++] =
 		"assets/textures/rock.bmp";
 	data->texture_files[data->num_textures++] =
+		"assets/textures/crate.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/floor_dirt.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/floor_metal_2048.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/floor_metal2_2048.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/floor_metal3.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/floor_metal4.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/door_metal.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/wall_metal_panel.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/floor_redsand.bmp";
+	data->texture_files[data->num_textures++] =
 		"assets/textures/shotgun_texture.bmp";
 	data->texture_files[data->num_textures++] =
 		"assets/textures/explosion1.bmp";
@@ -224,6 +242,16 @@ static void		scene_normal_files_set(t_asset_files *data)
 {
 	data->normal_map_files[data->num_normal_maps++] =
 		"assets/textures/lava_normal.bmp";
+	data->normal_map_files[data->num_normal_maps++] =
+		"assets/textures/wall_metal_panel_nmm.bmp";
+	data->normal_map_files[data->num_normal_maps++] =
+		"assets/textures/crate_nmm.bmp";
+	data->normal_map_files[data->num_normal_maps++] =
+		"assets/textures/door_metal_nmm.bmp";
+	data->normal_map_files[data->num_normal_maps++] =
+		"assets/textures/floor_metal3_nmm.bmp";
+	data->normal_map_files[data->num_normal_maps++] =
+		"assets/textures/floor_metal4_nmm.bmp";
 	data->normal_map_files[data->num_normal_maps++] =
 		"assets/textures/monster_01/monster_01_normal.bmp";
 }
