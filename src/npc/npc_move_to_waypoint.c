@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:07:07 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/16 18:26:53 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/02 13:43:37 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,13 @@ void	npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj)
 	(void)app; //delete this later
 	npc = obj->params;
 	if (npc->is_flying)
+	{
 		l3d_3d_object_translate(obj, npc->dir[0], npc->dir[1], npc->dir[2]);
+		l3d_object_aabb_update(obj);
+	}
 	else
+	{
 		l3d_3d_object_translate(obj, npc->dir[0], 0, npc->dir[2]);
+		l3d_object_aabb_update(obj);
+	}
 }
