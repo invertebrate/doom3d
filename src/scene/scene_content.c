@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_content.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 15:40:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/02 16:52:40 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static t_bool			include_object_in_triangle_tree(t_scene *scene,
 		return (!!object);
 	return (object != NULL &&
 			object->type != object_type_trigger &&
-			object->type != object_type_light);
+			object->type != object_type_light &&
+			object->type != object_type_path);
 }
 
 static void				active_scene_triangle_refs_set(t_scene *scene)

@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/03 13:30:14 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/02 14:07:35 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void			player_move(t_doom3d *app)
 		speed = app->player.speed;
 	speed = speed * app->info.delta_time * CONST_SPEED;
 	ml_vector3_mul(app->player.velocity, speed, add);
-	// collision_limit_player(app, add);
+	collision_limit_player(app, add);
 	ml_vector3_add(app->player.pos, add, app->player.pos);
 	ml_matrix4_translation(app->player.pos[0],
 		app->player.pos[1], app->player.pos[2], app->player.translation);

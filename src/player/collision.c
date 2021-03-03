@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/21 16:33:20 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/02 16:03:58 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void		limit_movement_add_by_collision(t_vec3 collision_normal,
 
 	ml_vector3_mul(collision_normal,
 		ml_vector3_dot(dir_add, collision_normal), direction_wall_part);
+	if (direction_wall_part[1] > 0)
+		direction_wall_part[1] = 0;
 	ml_vector3_sub(dir_add, direction_wall_part, dir_add);
 }
 
@@ -52,7 +54,7 @@ void			collision_limit_player(t_doom3d *app, t_vec3 add)
 		if (obj == NULL)
 			continue ;
 		ml_vector3_sub(obj->position, future_player.pos, diff);
-		if (ml_vector3_mag(diff) > app->unit_size * 3 || obj->type == object_type_trigger)
+		if (ml_vector3_mag(diff) > app->unit_size * 10 || obj->type == object_type_trigger || obj->type == object_type_path)
 			continue ;
 		if (l3d_aabb_collides(&obj->aabb, &future_player.aabb))
 		{
