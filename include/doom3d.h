@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 16:41:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/04 14:59:15 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ void						npc_trigger_onhit(t_doom3d *app,
 void						npc_get_dir_to_next_waypoint(t_doom3d *app, t_3d_object *obj);
 void						npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj);
 void						elevator_go_to_next_node(t_doom3d *app, t_3d_object *obj);
+t_bool						npc_has_line_of_sight(t_doom3d *app, t_3d_object *npc_obj);
 
 /*
 ** Physics

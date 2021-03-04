@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 17:22:03 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/28 15:54:39 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:20:43 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	npc_execute_behavior(t_doom3d *app, t_3d_object *npc_obj)
 		// player and then move to direction by delta_time * speed
 		*/
 		if (npc->advance == true)
+		{
 			l3d_3d_object_translate(npc_obj,
 				npc->dir[0], 0, npc->dir[2]);
+			l3d_object_aabb_update(npc_obj);
+		}
 	}
 }
