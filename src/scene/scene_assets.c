@@ -31,7 +31,7 @@ static void		scene_set_skybox_textures(t_scene *scene)
 static void		animation_3d_frames_load(t_scene *scene, t_asset_files *data)
 {
 	int		i;
-
+	
 	scene->animation_3d_frames = hash_map_create(ANIM_3D_FRAME_MAX);
 	i = -1;
 	while (++i < (int32_t)data->num_animation_frames_3d)

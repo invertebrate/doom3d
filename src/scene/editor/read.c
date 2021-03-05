@@ -353,8 +353,12 @@ void			read_map(t_doom3d *app, const char *map_name)
 	offset += sizeof(uint32_t);
 	offset += read_objects(app, file->buf + offset);
 	offset += read_path_information(app, file->buf + offset);
-	offset += read_patrol_path_information(app, file->buf + offset);
+	ft_printf("here33\n");
+	offset += read_patrol_path_information(app, file->buf + offset);//here segfault
+	ft_printf("here5\n");
 	offset += read_trigger_link_information(app, file->buf + offset);
+	ft_printf("her6e\n");
 	offset += read_key_id_information(app, file->buf + offset);
 	destroy_file_contents(file);
+	ft_printf("here3\n");
 }

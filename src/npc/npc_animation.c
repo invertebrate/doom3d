@@ -75,7 +75,7 @@ void		npc_ranged_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	// 										anim_data->clip_lengths[1] +
 	// 										anim_data->clip_lengths[2] +
 	// 										anim_data->clip_lengths[3];
-	anim_data->frames_start_idx = 115;//global animation frame array index// needs to be hardcoded, cumulative number of all anim frames
+	anim_data->frames_start_idx = 117;//global animation frame array index// needs to be hardcoded, cumulative number of all anim frames
 	ft_memset(anim_data->anim_frame_numbers,
 	0, sizeof(uint32_t) * ANIM_3D_FRAME_MAX);
 	while (++i < (int)anim_data->frame_count)
