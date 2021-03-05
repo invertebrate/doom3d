@@ -50,6 +50,40 @@ void		npc_default_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	}
 }
 
+void		npc_ranged_anim_3d_metadata_set(t_anim_metadata *anim_data)
+{
+	int		i;
+
+	i = -1;
+	anim_data->anim_count = 2;
+	anim_data->clip_lengths[0] = 1;
+	anim_data->clip_lengths[1] = 59;
+	// anim_data->clip_lengths[2] = 24;
+	// anim_data->clip_lengths[3] = 24;
+	// anim_data->clip_lengths[4] = 44;
+	anim_data->frame_count = anim_data->clip_lengths[0] + anim_data->clip_lengths[1];// +
+							//anim_data->clip_lengths[2] + anim_data->clip_lengths[3] +
+							//anim_data->clip_lengths[4];
+	anim_data->anim_clip_start_indices[0] = 0;
+	anim_data->anim_clip_start_indices[1] = anim_data->clip_lengths[0];
+	// anim_data->anim_clip_start_indices[2] = anim_data->clip_lengths[0] +
+	// 										anim_data->clip_lengths[1];
+	// anim_data->anim_clip_start_indices[3] = anim_data->clip_lengths[0] +
+	// 										anim_data->clip_lengths[1] +
+	// 										anim_data->clip_lengths[2];
+	// anim_data->anim_clip_start_indices[4] = anim_data->clip_lengths[0] +
+	// 										anim_data->clip_lengths[1] +
+	// 										anim_data->clip_lengths[2] +
+	// 										anim_data->clip_lengths[3];
+	anim_data->frames_start_idx = 115;//global animation frame array index// needs to be hardcoded, cumulative number of all anim frames
+	ft_memset(anim_data->anim_frame_numbers,
+	0, sizeof(uint32_t) * ANIM_3D_FRAME_MAX);
+	while (++i < (int)anim_data->frame_count)
+	{
+		anim_data->anim_frame_numbers[i] = anim_data->frames_start_idx + i;
+	}
+}
+
 void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 {
 	t_anim_metadata	anim_data;
@@ -64,6 +98,10 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 	if (npc->type == npc_type_default)
 	{
 		npc_default_anim_3d_metadata_set(&anim_data);
+	}
+	else if (npc->type == npc_type_ranged)
+	{
+		npc_ranged_anim_3d_metadata_set(&anim_data);
 	}
 	else
 	{

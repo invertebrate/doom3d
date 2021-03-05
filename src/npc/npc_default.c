@@ -64,3 +64,34 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	set_attack_pattern(npc);
 	set_test_patrol_pattern(npc); //testing
 }
+
+void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
+{
+	t_animation_3d	*dummy;
+
+	error_check(!(dummy= (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
+		"Failed to malloc for dummy in npc_ranged.");
+	npc->parent = obj;
+	npc->type = npc_type_ranged;
+	npc->speed = app->unit_size / 8;
+	npc->rot_speed = 10;
+	npc->state = 0;
+	npc->hp = 100;
+	npc->advance = false;
+	npc->is_flying = false;
+	npc->atk_range = app->unit_size * 5;
+	npc->atk_dmg = 10;
+	npc->atk_dur = 500;
+	npc->vision_range = app->unit_size * 10;
+	npc->interest = 0;
+	npc->max_interest = 100;
+	npc->model_scale = 0.01;
+	npc->model_key = NPC_RANGED_MODEL;
+	npc->texture_key = NPC_RANGED_TEXTURE;
+	npc->normal_map_key = NPC_RANGED_NORMM;
+	npc->animation_3d = dummy;
+	ml_vector3_set(npc->velocity, 0, 0, 0);
+	npc->atk_pattern_index = 0;
+	set_attack_pattern(npc);
+	set_test_patrol_pattern(npc); //testing
+}

@@ -17,6 +17,10 @@
 # define NPC_DEFAULT_TEXTURE "assets/textures/monster_01/monster_01_diffuse.bmp"
 # define NPC_DEFAULT_NORMM "assets/textures/monster_01/monster_01_normal.bmp"
 
+# define NPC_RANGED_MODEL "assets/models/monster_02/monster_02_basemodel_000.obj"
+# define NPC_RANGED_TEXTURE "assets/textures/monster_02/monster_02_diffuse.bmp"
+# define NPC_RANGED_NORMM "assets/textures/monster_02/monster_02_normal.bmp"
+
 # define NPC_ELEVATOR_MODEL "assets/models/box.obj"
 # define NPC_ELEVATOR_TEXTURE "assets/textures/rock.bmp"
 # define NPC_ELEVATOR_NORMM "assets/textures/rock.bmp"
@@ -103,6 +107,7 @@ typedef enum				e_trigger_type
 typedef enum				e_npc_type
 {
 	npc_type_default,
+	npc_type_ranged,
 	npc_type_elevator,
 }							t_npc_type;
 
