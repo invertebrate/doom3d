@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/15 22:19:06 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:20:38 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 	dist = ml_vector3_mag(diff);
 	if (npc->state == state_idle)
 	{
-		if (dist < npc->vision_range)
+		if (dist < npc->vision_range &&
+			npc_has_line_of_sight(app, npc_obj))
 			npc->state = state_attack;
 		npc_get_dir_to_next_waypoint(app, npc_obj);
 	}
@@ -84,10 +85,10 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 		npc->atk_pattern_index++;
 		if (npc->atk_pattern[npc->atk_pattern_index] == action_repeat)
 			npc->atk_pattern_index = 0;
-		if (dist >= npc->vision_range)
+		if (dist >= npc->vision_range || !npc_has_line_of_sight(app, npc_obj))
 		{
 			npc->interest--;
-			// ft_printf("npc %d interest = %d\n", npc_obj->id, npc->interest);//test
+			//ft_printf("npc %d interest = %d\n", npc_obj->id, npc->interest);//test
 			if (npc->interest < 0)
 			{
 				npc->atk_pattern_index = 0;
@@ -103,7 +104,8 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 			npc->atk_start = SDL_GetTicks();
 			npc->state = state_atk_anim;
 		}
-		if (npc->atk_pattern[npc->atk_pattern_index] == action_projectile_rpg)
+		if (npc->atk_pattern[npc->atk_pattern_index] == action_projectile_rpg &&
+			npc_has_line_of_sight(app, npc_obj))
 		{
 			npc->atk_timer = 0;
 			npc->atk_start = SDL_GetTicks();
