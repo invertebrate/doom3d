@@ -53,7 +53,6 @@ void		npc_default_anim_3d_metadata_set(t_anim_metadata *anim_data)
 void		npc_ranged_anim_3d_metadata_set(t_anim_metadata *anim_data)
 {
 	int		i;
-
 	i = -1;
 	anim_data->anim_count = 2;
 	anim_data->clip_lengths[0] = 1;
@@ -88,6 +87,7 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 {
 	t_anim_metadata	anim_data;
 	t_npc			*npc;
+			ft_printf("anim init\n");
 
 	npc = (t_npc*)obj->params;
 	if (npc->animation_3d != NULL)
@@ -97,10 +97,12 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 		}
 	if (npc->type == npc_type_default)
 	{
+		ft_printf("default npc\n");
 		npc_default_anim_3d_metadata_set(&anim_data);
 	}
 	else if (npc->type == npc_type_ranged)
 	{
+		ft_printf("ranged npc\n");
 		npc_ranged_anim_3d_metadata_set(&anim_data);
 	}
 	else

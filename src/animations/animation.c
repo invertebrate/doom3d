@@ -57,7 +57,7 @@ uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 	}
 	current_frame = animation->current_frame;
 	animation->current_object = animation->animation_frames[animation->current_frame];
-	npc_anim_3d_position_update(animation->base_object);
+	// npc_anim_3d_position_update(animation->base_object);
 	//npc_anim_3d_rotation_update(animation->base_object)
 	return (current_frame);
 }

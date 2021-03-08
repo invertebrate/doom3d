@@ -92,6 +92,10 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 		{
 			npc_default(app, &npc, obj);
 		}
+		if (obj->params_type == npc_type_ranged)
+		{
+			npc_ranged(app, &npc, obj);
+		}
 		else if (obj->params_type == npc_type_elevator)
 		{
 			npc_elevator(app, &npc, obj);
@@ -351,14 +355,11 @@ void			read_map(t_doom3d *app, const char *map_name)
 		"Invalid file, not a map file. First 4 bytes must be MAP\0");
 	ft_memcpy(&app->active_scene->num_objects, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
-	offset += read_objects(app, file->buf + offset);
+	offset += read_objects(app, file->buf + offset);//here sfault
 	offset += read_path_information(app, file->buf + offset);
-	ft_printf("here33\n");
-	offset += read_patrol_path_information(app, file->buf + offset);//here segfault
-	ft_printf("here5\n");
+	// (void)read_patrol_path_information;
+	offset += read_patrol_path_information(app, file->buf + offset);//here segfault, read objects causes something that crashes map read later
 	offset += read_trigger_link_information(app, file->buf + offset);
-	ft_printf("her6e\n");
 	offset += read_key_id_information(app, file->buf + offset);
 	destroy_file_contents(file);
-	ft_printf("here3\n");
 }

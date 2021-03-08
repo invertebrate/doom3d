@@ -9,6 +9,7 @@ LIBGMATRIX = ./lib/libgmatrix
 LIBFTFLAGS = -L$(LIBFT) -lft
 LIB3DFLAGS = -L$(LIB3D) -l3d
 LIBGMATRIXFLAGS = -L$(LIBGMATRIX) -lgmatrix
+DEBUGFLAG = -g
 # Linux and MacOS specific includes & libs
 # Linux requires sdl2 installed
 UNAME := $(shell uname)
@@ -134,6 +135,12 @@ $(NAME): $(OBJS)
 	@make libs
 	@printf "\033[32;1mCompiling app...\n\033[0m"
 	$(CC) -o $@ $^ $(LIBS) $(CFLAGS)
+	@printf "\033[32;1mDone. Run: ./$(NAME)\n\033[0m"
+
+debug: $(OBJS)
+	@make libs
+	@printf "\033[32;1mCompiling app...\n\033[0m"
+	$(CC) -o $@ $^ $(LIBS) $(CFLAGS) $(DEBUGFLAG)
 	@printf "\033[32;1mDone. Run: ./$(NAME)\n\033[0m"
 
 libs:
