@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/04 17:20:38 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:31:04 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj)
 		if (npc->atk_pattern[npc->atk_pattern_index] == action_projectile_rpg)
 		{
 			// ft_printf("npc %d shot a rocket!\n", npc_obj->id);//test
-			npc_shoot_projectile(app, npc_obj->position, npc->dir);
+			npc_shoot_projectile(app, npc_obj->aabb.center, npc->dir);
 		}
 		npc->state = state_attack;
 	}
