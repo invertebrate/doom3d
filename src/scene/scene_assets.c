@@ -323,9 +323,9 @@ static void		scene_animation_3d_files_set(t_asset_files *data)
 
 	scene_animation_3d_frames_set(data, "assets/models/monster_02/monster_02_basemodel", 1);
 	scene_animation_3d_frames_set(data, "assets/models/monster_02/idle/monster02_idle", 59);
-	// scene_animation_3d_frames_set(data, "assets/models/monster_02/move/monster_move", 24);
-	// scene_animation_3d_frames_set(data, "assets/models/monster_02/attack/monster_attack", 24);
-	// scene_animation_3d_frames_set(data, "assets/models/monster_02/death/monster_death", 44);
+	scene_animation_3d_frames_set(data, "assets/models/monster_02/move/monster02_move", 18);
+	scene_animation_3d_frames_set(data, "assets/models/monster_02/attack/monster02_attack", 19);
+	scene_animation_3d_frames_set(data, "assets/models/monster_02/death/monster02_death", 28);
 	//call the above function for each animation clip separately;
 }
 
