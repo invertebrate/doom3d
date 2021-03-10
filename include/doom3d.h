@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/04 14:59:15 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/10 23:47:04 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ typedef struct				s_doom3d
 	uint64_t				current_tick;
 	t_settings				settings;
 	t_list					*notifications;
+	t_path_node				*path_node_network[MAX_PATH_NODE_NETWORK_SIZE];
+	int						path_node_network_count;
 	t_projectile			projectile_data[NUM_PROJECTILES];
 	t_weapon				weapons_data[NUM_WEAPONS];
 	t_sprite_anim			animations[NUM_PLAYER_ANIMATIONS];
@@ -202,6 +204,8 @@ void						npc_get_dir_to_next_waypoint(t_doom3d *app, t_3d_object *obj);
 void						npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj);
 void						elevator_go_to_next_node(t_doom3d *app, t_3d_object *obj);
 t_bool						npc_has_line_of_sight(t_doom3d *app, t_3d_object *npc_obj);
+void						path_node_network_init(t_doom3d *app);
+void						npc_find_path(t_doom3d *app, t_npc *npc, t_vec3	start, t_vec3 end);
 
 /*
 ** Physics

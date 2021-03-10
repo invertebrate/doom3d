@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 22:21:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 15:22:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:15:37 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void				path_node_init(t_3d_object *path_obj)
 	t_path_node		path;
 	
 	ft_memset(&path, 0, sizeof(t_path_node));
-	path.parent = path_obj;
+	path.parent_obj = path_obj;
 	l3d_3d_object_set_params(path_obj,
 		&path, sizeof(t_path_node), object_type_path);
 }
@@ -133,10 +133,10 @@ void				path_delete_connection(t_path_node *src,
 	i = src->num_neighbors;
 	j = dst->num_neighbors;
 	while (--i > 0)
-		if (src->neighbors[i] == dst->parent)
+		if (src->neighbors[i] == dst->parent_obj)
 			break ;
 	while (--j > 0)
-		if (dst->neighbors[j] == src->parent)
+		if (dst->neighbors[j] == src->parent_obj)
 			break ;
 	while (++i < src->num_neighbors)
 		src->neighbors[i - 1] = src->neighbors[i];
@@ -144,7 +144,7 @@ void				path_delete_connection(t_path_node *src,
 		dst->neighbors[j - 1] = dst->neighbors[j];
 	src->num_neighbors--;
 	dst->num_neighbors--;;
-	ft_printf("deleted connection between obj %d and obj %d!\n", src->parent->id, dst->parent->id);//test
+	ft_printf("deleted connection between obj %d and obj %d!\n", src->parent_obj->id, dst->parent_obj->id);//test
 }
 
 /*

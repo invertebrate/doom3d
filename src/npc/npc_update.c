@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/09 14:31:04 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/10 23:55:55 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 			npc->atk_pattern_index = 0;
 		if (dist >= npc->vision_range || !npc_has_line_of_sight(app, npc_obj))
 		{
+			npc_find_path(app, npc, npc_obj->position, app->player.pos);
+			npc_get_dir_to_next_attack_waypoint(app, npc_obj);
 			npc->interest--;
 			//ft_printf("npc %d interest = %d\n", npc_obj->id, npc->interest);//test
 			if (npc->interest < 0)

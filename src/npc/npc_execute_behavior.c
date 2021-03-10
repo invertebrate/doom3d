@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 17:22:03 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/04 17:20:43 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/10 23:52:02 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void	npc_execute_behavior(t_doom3d *app, t_3d_object *npc_obj)
 		// ToDo: Instead of translating towards direction, turn npc towards
 		// player and then move to direction by delta_time * speed
 		*/
-		if (npc->advance == true)
+		if (npc_has_line_of_sight(app, npc_obj) == false)
+			npc_move_step_to_waypoint(app, npc_obj);
+		else if (npc->advance == true)
 		{
 			l3d_3d_object_translate(npc_obj,
 				npc->dir[0], 0, npc->dir[2]);

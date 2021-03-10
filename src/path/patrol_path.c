@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   patrol_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 14:48:18 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/27 15:22:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:14:17 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	patrol_path_link_node(t_3d_object *node_obj, t_3d_object *obj, int slot)
 			npc->num_patrol_path_nodes++;
 			ft_printf("num_patrol_path_nodes = %d\n", npc->num_patrol_path_nodes);//test
 		}
-		if (npc->patrol_path[slot] == node->parent)
+		if (npc->patrol_path[slot] == node->parent_obj)
 		{
 			npc->patrol_path[slot] = NULL;
 			npc->num_patrol_path_nodes--;
@@ -53,7 +53,7 @@ void	patrol_path_link_node(t_3d_object *node_obj, t_3d_object *obj, int slot)
 		}
 		else
 		{
-			npc->patrol_path[slot] = node->parent;
+			npc->patrol_path[slot] = node->parent_obj;
 			ft_printf("path node id %d added to npc id %d patrol path slot %d\n", node_obj->id, obj->id, slot);//test
 		}
 	}
