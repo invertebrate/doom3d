@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/15 12:33:24 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/11 16:11:16 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void set_test_patrol_pattern(t_npc *npc) //testing
 {
+	int	i;
+
 	npc->patrol_path_index = 0;
-	npc->patrol_path[0] = NULL;
-	npc->patrol_path[1] = NULL;
-	npc->patrol_path[2] = NULL;
-	npc->patrol_path[3] = NULL;
-	npc->patrol_path[4] = NULL;
+	i = -1;
+	while (++i < MAX_PATROL_NODES + 1)
+		npc->patrol_path[i] = NULL;
 }
 
 static void	set_attack_pattern(t_npc *npc)
@@ -53,7 +53,7 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->atk_dur = 500;
 	npc->vision_range = app->unit_size * 10;
 	npc->interest = 0;
-	npc->max_interest = 100;
+	npc->max_interest = 10000;
 	npc->model_scale = 0.01;
 	npc->model_key = NPC_DEFAULT_MODEL;
 	npc->texture_key = NPC_DEFAULT_TEXTURE;
