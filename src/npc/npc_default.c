@@ -48,6 +48,7 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->hp = 100;
 	npc->advance = false;
 	npc->is_flying = false;
+	ml_vector3_set_all(npc->dir, 0.0);
 	npc->atk_range = app->unit_size * 5;
 	npc->atk_dmg = 10;
 	npc->atk_dur = 500;
@@ -80,6 +81,7 @@ void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->hp = 100;
 	npc->advance = false;
 	npc->is_flying = false;
+	ml_vector3_set_all(npc->dir, 0.0);
 	npc->atk_range = app->unit_size * 5;
 	npc->atk_dmg = 10;
 	npc->atk_dur = 500;
