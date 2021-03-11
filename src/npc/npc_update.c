@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/10 23:55:55 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/11 12:34:35 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 			npc->atk_pattern_index = 0;
 		if (dist >= npc->vision_range || !npc_has_line_of_sight(app, npc_obj))
 		{
-			npc_find_path(app, npc, npc_obj->position, app->player.pos);
-			npc_get_dir_to_next_attack_waypoint(app, npc_obj);
 			npc->interest--;
 			//ft_printf("npc %d interest = %d\n", npc_obj->id, npc->interest);//test
 			if (npc->interest < 0)
@@ -113,8 +111,18 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 			npc->atk_start = SDL_GetTicks();
 			npc->state = state_atk_anim;
 		}
-		ml_vector3_normalize(diff, npc->dir);
-		ml_vector3_mul(npc->dir, -npc->speed, npc->dir);
+		if (!npc_has_line_of_sight(app, npc_obj))
+		{
+			if (!npc->attack_path[0])
+				npc_find_path(app, npc, npc_obj->position, app->player.pos);
+			npc_get_dir_to_next_attack_waypoint(app, npc_obj);
+		}
+		else
+		{
+			ft_memset(npc->attack_path, 0, sizeof(t_3d_object *) * MAX_PATH_NODE_NETWORK_SIZE);
+			ml_vector3_normalize(diff, npc->dir);
+			ml_vector3_mul(npc->dir, -npc->speed, npc->dir);
+		}
 	}
 	else if (npc->state == state_atk_anim)
 	{

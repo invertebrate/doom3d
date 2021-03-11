@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:19:27 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/10 23:46:48 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/11 12:08:50 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void		list_sort(t_list *list)
 				break ;
 			if (node_a && node_a->global_goal > node_b->global_goal)
 			{
-				lst_swap(node_a, node_b);
+				lst_swap(tmp, tmp->next);
 				swapped = true;
 				break ;
 			}
@@ -104,7 +104,7 @@ static void		delete_node(void *node, size_t size)
 **	Algorithm for pathfinding
 */
 
-static void		solve_Astar(t_doom3d *app, t_npc *npc, int start_id, int end_id)
+static void		solve_Astar(t_doom3d *app, t_npc *npc, uint32_t start_id, uint32_t end_id)
 {
 	t_path_node	tmp_network[MAX_PATH_NODE_NETWORK_SIZE];
 	t_path_node	*start;
@@ -122,9 +122,9 @@ static void		solve_Astar(t_doom3d *app, t_npc *npc, int start_id, int end_id)
 	{
 		ft_memcpy(&tmp_network[i], app->path_node_network[i], sizeof(t_path_node));
 		if (tmp_network[i].parent_obj->id == start_id)
-			end = &tmp_network[i];
-		if (tmp_network[i].parent_obj->id == end_id)
 			start = &tmp_network[i];
+		if (tmp_network[i].parent_obj->id == end_id)
+			end = &tmp_network[i];
 		tmp_network[i].global_goal = INFINITY;
 		tmp_network[i].local_goal = INFINITY;
 	}
@@ -150,25 +150,25 @@ static void		solve_Astar(t_doom3d *app, t_npc *npc, int start_id, int end_id)
 		while (++i < current->num_neighbors)
 		{
 			if (((t_path_node *)current->neighbors[i]->params)->is_visited == false)
-				ft_lstappend(not_tested_nodes, ft_lstnew(current, sizeof(t_path_node *)));
+				ft_lstappend(&not_tested_nodes, ft_lstnew(current, sizeof(t_path_node *)));
 			possibly_lower_goal = current->local_goal + dist_between_nodes(current, (t_path_node *)current->neighbors[i]->params);
 			if (possibly_lower_goal < ((t_path_node *)current->neighbors[i]->params)->local_goal)
 			{
-				((t_path_node *)current->neighbors[i]->params)->parent = current;
+				((t_path_node *)current->neighbors[i]->params)->parent = current->parent_obj;
 				((t_path_node *)current->neighbors[i]->params)->local_goal = possibly_lower_goal;
 				((t_path_node *)current->neighbors[i]->params)->global_goal = possibly_lower_goal + dist_between_nodes((t_path_node *)current->neighbors[i]->params, end);
 			}
 		}
 	}
-	ft_lstdel(not_tested_nodes, delete_node);
 	current = start;
 	i = 0;
 	while (current && i < MAX_PATH_NODE_NETWORK_SIZE)
 	{
-		npc->attack_path[i++] = current->parent_obj;
-		current = current->parent;
+		npc->attack_path[i++] = find_object_by_id(app, current->parent_obj->id);
+		current = current->parent->params;
 	}
 	npc->attack_path_index = 0;
+	ft_lstdel(&not_tested_nodes, delete_node);
 }
 
 void			npc_find_path(t_doom3d *app, t_npc *npc, t_vec3	start, t_vec3 end)
@@ -181,6 +181,7 @@ void			npc_find_path(t_doom3d *app, t_npc *npc, t_vec3	start, t_vec3 end)
 
 	start_id = 0;
 	end_id = 0;
+	closest = INFINITY;
 	i = -1;
 	while (++i < MAX_PATH_NODE_NETWORK_SIZE && app->path_node_network[i])
 	{
@@ -191,6 +192,7 @@ void			npc_find_path(t_doom3d *app, t_npc *npc, t_vec3	start, t_vec3 end)
 			start_id = app->path_node_network[i]->parent_obj->id;
 		}
 	}
+	closest = INFINITY;
 	i = -1;
 	while (++i < MAX_PATH_NODE_NETWORK_SIZE && app->path_node_network[i])
 	{
