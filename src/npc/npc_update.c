@@ -55,11 +55,12 @@ static void	handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj)
 			if (ml_vector3_mag(dist) < npc->atk_range)
 				player_onhit(app, npc->atk_dmg);
 		}
-		if (npc->atk_pattern[npc->atk_pattern_index] == action_projectile_rpg)
-		{
-			// ft_printf("npc %d shot a rocket!\n", npc_obj->id);//test
-			npc_shoot_projectile(app, npc_obj->position, npc->dir);
-		}
+		// if (npc->atk_pattern[npc->atk_pattern_index] == action_projectile_rpg)TODO UNCOMMENT THIS
+		// {
+		// 	// ft_printf("npc %d shot a rocket!\n", npc_obj->id);//test
+		// 	npc_shoot_projectile(app, npc_obj->position, npc->dir);
+		// }
+		(void)npc_shoot_projectile;
 		npc->state = state_attack;
 	}
 }
@@ -116,4 +117,7 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 	{
 		handle_atk_anim(app, npc_obj);
 	}
+	(void)handle_atk_anim;
+	(void)app;
+	(void)npc_obj;
 }

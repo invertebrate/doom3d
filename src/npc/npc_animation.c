@@ -85,7 +85,9 @@ void		npc_ranged_anim_3d_metadata_set(t_anim_metadata *anim_data)
 
 void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 {
+	ft_printf("animation init\n");
 	t_anim_metadata	anim_data;
+	(void)app;
 	t_npc			*npc;
 
 	npc = (t_npc*)obj->params;
@@ -97,6 +99,7 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 		}
 	if (npc->type == npc_type_default)
 	{
+		ft_printf("npc default metadata\n");
 		npc_default_anim_3d_metadata_set(&anim_data);
 	}
 	else if (npc->type == npc_type_ranged)
@@ -136,7 +139,7 @@ static void			npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 {
 	int		i;
 
-	i = -1;
+	i = anim_data->frames_start_idx -1;
 	npc->animation_3d->frame_count = anim_data->frame_count;
 	while (++i <(int)anim_data->frame_count)
 	{
@@ -145,6 +148,11 @@ static void			npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 		ml_vector3_copy((t_vec3){0.0, 0.0, 0.0},
 			npc->animation_3d->frame_object_prev_translation[i]);
 	}
+	// for (i = 0; i < 512; i++)
+	// {
+	// 	ml_vector3_copy((t_vec3){0.0, 0.0, 0.0},
+	// 		npc->animation_3d->frame_object_prev_translation[i]);
+	// }
 	i = -1;
 	while (++i < (int)anim_data->anim_count)
 	{
@@ -159,19 +167,25 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 								t_anim_metadata *anim_data)
 {
 	static int c = 0;//only for animation showcasing
+	// t_animation_3d	*anim;
 
 	error_check(!(npc->animation_3d = (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
 		"Failed to malloc for npc animation in npc_animation_set.");
 	npc_animation_3d_data_copy(npc, anim_data);
+	// anim = npc->animation_3d;
 	npc->animation_3d->base_object = obj;
 	npc_anim_3d_frames_set(app, obj, npc);
 	c = c % 4;//only for animation showcasing
-	npc->animation_3d->current_clip = anim_3d_type_idle + c;
+	npc->animation_3d->current_clip = anim_3d_type_idle;
 	c++;//
-	npc->animation_3d->current_object = obj;
+	npc->animation_3d->current_object =
+		npc->animation_3d->animation_frames[npc->animation_3d->anim_clip_start_indices[
+				(npc->animation_3d->current_clip) % ANIM_3D_TYPE_MOD]];
 	npc->animation_3d->start_frame =
-	npc->animation_3d->anim_clip_start_indices[(npc->animation_3d->current_clip) % ANIM_3D_TYPE_MOD];
+		npc->animation_3d->anim_clip_start_indices[
+			(npc->animation_3d->current_clip) % ANIM_3D_TYPE_MOD];
 	npc->animation_3d->current_frame =
-	npc->animation_3d->anim_clip_start_indices[((npc->animation_3d->current_clip) % ANIM_3D_TYPE_MOD)];
+		npc->animation_3d->anim_clip_start_indices[
+			((npc->animation_3d->current_clip) % ANIM_3D_TYPE_MOD)];
 	npc->animation_3d->tick_at_update = app->current_tick;
 }

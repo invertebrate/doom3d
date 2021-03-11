@@ -28,14 +28,16 @@ void		npc_anim_3d_position_update(t_3d_object *obj)
 	else
 		return ;
 	l3d_3d_object_translate(anim->current_object,
-							-anim->frame_object_prev_translation[anim->current_frame][0],
-							-anim->frame_object_prev_translation[anim->current_frame][1],
-							-anim->frame_object_prev_translation[anim->current_frame][2]);
+							-anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][0],
+							-anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][1],
+							-anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][2]);
+	ft_printf("prev translation: ");
+	ml_vector3_print(anim->frame_object_prev_translation[anim->current_frame]);
 	ml_vector3_copy(obj->position, anim->current_object->position);
 	l3d_3d_object_translate(anim->current_object, obj->position[0],
 							obj->position[1], obj->position[2]);
 	ml_vector3_copy((t_vec3){obj->position[0], obj->position[1], obj->position[2]},
-						anim->frame_object_prev_translation[anim->current_frame]);	
+						anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame]);
 }
 
 uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
@@ -58,7 +60,7 @@ uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 	current_frame = animation->current_frame;
 	animation->current_object = animation->animation_frames[animation->current_frame];
 	npc_anim_3d_position_update(animation->base_object);
-	//npc_anim_3d_rotation_update(animation->base_object)
+	// npc_anim_3d_rotation_update(animation->base_object);
 	return (current_frame);
 }
 
