@@ -118,4 +118,7 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 	{
 		handle_atk_anim(app, npc_obj);
 	}
+	(void)handle_atk_anim;
+	(void)app;
+	(void)npc_obj;
 }

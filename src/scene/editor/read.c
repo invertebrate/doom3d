@@ -92,6 +92,10 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 		{
 			npc_default(app, &npc, obj);
 		}
+		else if (obj->params_type == npc_type_ranged)
+		{
+			npc_ranged(app, &npc, obj);
+		}
 		else if (obj->params_type == npc_type_elevator)
 		{
 			npc_elevator(app, &npc, obj);
@@ -101,7 +105,9 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 		npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
 		if (npc.animation_3d)
+		{
 			npc_animation_3d_init(app, obj);
+		}
 	}
 	else if (obj->type == object_type_trigger)
 	{
@@ -351,9 +357,11 @@ void			read_map(t_doom3d *app, const char *map_name)
 		"Invalid file, not a map file. First 4 bytes must be MAP\0");
 	ft_memcpy(&app->active_scene->num_objects, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
-	offset += read_objects(app, file->buf + offset);
+	offset += read_objects(app, file->buf + offset);//here sfault
 	offset += read_path_information(app, file->buf + offset);
-	offset += read_patrol_path_information(app, file->buf + offset);
+	// (void)read_path_information;
+	// (void)read_patrol_path_information;
+	offset += read_patrol_path_information(app, file->buf + offset);//here segfault, read objects causes something that crashes map read later
 	offset += read_trigger_link_information(app, file->buf + offset);
 	offset += read_key_id_information(app, file->buf + offset);
 	destroy_file_contents(file);

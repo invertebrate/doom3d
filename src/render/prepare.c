@@ -84,8 +84,9 @@ static void		add_objects_render_triangles(t_doom3d *app,
 		if ((app->active_scene->objects[i] == NULL) ||
 			object_too_far(app, app->active_scene->objects[i]) ||
 			!object_inside_viewbox(app, app->active_scene->objects[i]))
-			continue ;
-			// }
+			{
+				continue ;
+			}
 		j = -1;
 		while (++j < app->active_scene->objects[i]->num_triangles)
 		{
@@ -97,7 +98,9 @@ static void		add_objects_render_triangles(t_doom3d *app,
 							animation_3d->current_object->triangles + j;
 			}
 			else
+			{
 				triangle = app->active_scene->objects[i]->triangles + j;
+			}
 			if (triangle_too_far(app, triangle)	 ||
 				!triangle_inside_viewbox(app, triangle))
 				continue ;
