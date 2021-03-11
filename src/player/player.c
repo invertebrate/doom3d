@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/22 20:11:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/08 18:04:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,11 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 
 void			doom3d_player_update(t_doom3d *app)
 {
-	if (app->active_scene->scene_id == scene_id_main_game ||
-		app->active_scene->scene_id == scene_id_editor3d)
+	if ((app->active_scene->scene_id == scene_id_main_game &&
+		!app->active_scene->is_paused) ||
+			app->active_scene->scene_id == scene_id_editor3d)
 		player_move(app);
 	else
-		return ;
-	if (app->active_scene->scene_id == scene_id_main_game &&
-		app->active_scene->is_paused)
 		return ;
 	forces_update_player(app);
 	player_update_aabb(&app->player);
