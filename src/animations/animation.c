@@ -31,8 +31,6 @@ void		npc_anim_3d_position_update(t_3d_object *obj)
 							-anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][0],
 							-anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][1],
 							-anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][2]);
-	ft_printf("prev translation: ");
-	ml_vector3_print(anim->frame_object_prev_translation[anim->current_frame]);
 	ml_vector3_copy(obj->position, anim->current_object->position);
 	l3d_3d_object_translate(anim->current_object, obj->position[0],
 							obj->position[1], obj->position[2]);

@@ -106,7 +106,6 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
 		if (npc.animation_3d)
 		{
-			ft_printf("anim was not null\n");
 			npc_animation_3d_init(app, obj);
 		}
 	}
@@ -133,8 +132,6 @@ static int32_t	read_objects(t_doom3d *app, char *contents)
 	while (++i < (int32_t)app->active_scene->num_objects)
 	{
 		obj = l3d_3d_object_shallow_copy((t_3d_object*)(contents + offset));
-		ft_printf("position : ");
-		ml_vector3_print(obj->position);
 		offset += sizeof(t_3d_object);
 		j = -1;
 		while (++j < (int32_t)obj->num_vertices)
