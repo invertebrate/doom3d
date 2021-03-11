@@ -88,7 +88,7 @@ void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->vision_range = app->unit_size * 10;
 	npc->interest = 0;
 	npc->max_interest = 100;
-	npc->model_scale = 0.01;
+	npc->model_scale = 0.0065;
 	npc->model_key = NPC_RANGED_MODEL;
 	npc->texture_key = NPC_RANGED_TEXTURE;
 	npc->normal_map_key = NPC_RANGED_NORMM;

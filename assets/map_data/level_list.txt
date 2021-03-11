@@ -1,5 +1,3 @@
-test1
-texturetestingations
 testmap1o
 map02
 NADUMMY
