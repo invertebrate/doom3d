@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/12 02:05:04 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/12 03:27:10 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 		"Failed to malloc for dummy in npc_default.");
 	npc->parent = obj;
 	npc->type = npc_type_default;
-	npc->speed = app->unit_size / 2;
+	npc->speed = app->unit_size / 4;
 	npc->dir[0] = 0;
 	npc->dir[1] = 0;
 	npc->dir[2] = 0;

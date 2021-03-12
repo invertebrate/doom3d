@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:07:07 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/12 01:25:11 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/12 03:28:21 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ t_bool	npc_get_dir_to_next_attack_waypoint(t_doom3d *app, t_3d_object *obj)
 	//ft_printf("mag was %f\n", ml_vector3_mag(diff));//test
 	//ft_printf("path obj id = %d, index = %d\n", npc->attack_path[npc->attack_path_index], npc->attack_path_index);//test
 	if (ml_vector3_mag(diff) < app->unit_size * 1.5)
-	{
-		ft_printf("REACHED ATTACK PATH NODE!\n");//test
 		npc->attack_path_index++;
-	}
 	return (false);
 }
 

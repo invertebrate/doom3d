@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:19:27 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/12 02:37:26 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/12 03:26:07 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,37 +52,30 @@ static float	dist_between_nodes(t_path_node *start, t_path_node *end)
 	return (ml_vector3_mag(tmp));
 }
 
-static void		swap(t_path_node *node_a, t_path_node *node_b)
+static void		sort_array(t_path_node **array)
 {
-	t_path_node	tmp;
+	int			i;
+	int			j;
+	t_path_node	*tmp;
 
-	tmp = *node_a;
-	*node_a = *node_b;
-	*node_b = tmp;
-}
-
-static t_list	*list_sort(t_list *list)
-{
-	t_list		*start;
-	t_list		*tmp;
-	t_path_node	*node_a;
-	t_path_node	*node_b;
-
-	start = list;
-	while (list)
+	i = 0;
+	while (i < MAX_PATH_NODE_NETWORK_SIZE)
 	{
-		tmp = list->next;
-		while (tmp)
+		j = 0;
+		while (j < MAX_PATH_NODE_NETWORK_SIZE - 1)
 		{
-			node_a = list->content;
-			node_b = tmp->content;
-			if (node_a->global_goal > node_b->global_goal)
-				swap(node_a, node_b);
-			tmp = tmp->next;
+			if (array[j] && array[j + 1] && array[j]->global_goal > array[j + 1]->global_goal)
+			{
+				tmp = array[j];
+				array[j] = array[j + 1];
+				array[j + 1] = tmp;
+				j++;
+			}
+			else
+				j++;
+			i++;
 		}
-		list = list->next;
 	}
-	return (start);
 }
 /*
 static void		delete_node(void *node, size_t size)
@@ -101,12 +94,12 @@ static void		solve_Astar(t_doom3d *app, t_npc *npc, uint32_t start_id, uint32_t 
 	t_path_node	*start;
 	t_path_node	*end;
 	t_path_node	*current;
-	t_list		*not_tested_nodes;
-	t_list		*tmp;
+	t_path_node	*not_tested_nodes[MAX_PATH_NODE_NETWORK_SIZE];
 	t_3d_object	*obj;
 	t_3d_object	*tmp_obj[MAX_PATH_NODE_NETWORK_SIZE];
 	float		possibly_lower_goal;
 	int			i;
+	int			arr_pos;
 
 	i = -1;
 	start = NULL;
@@ -114,9 +107,9 @@ static void		solve_Astar(t_doom3d *app, t_npc *npc, uint32_t start_id, uint32_t 
 	while (++i < MAX_PATH_NODE_NETWORK_SIZE && app->path_node_network[i])
 	{
 		if (app->path_node_network[i]->parent_obj->id == start_id)
-			start = app->path_node_network[i];
-		if (app->path_node_network[i]->parent_obj->id == end_id)
 			end = app->path_node_network[i];
+		if (app->path_node_network[i]->parent_obj->id == end_id)
+			start = app->path_node_network[i];
 		app->path_node_network[i]->global_goal = INFINITY;
 		app->path_node_network[i]->local_goal = INFINITY;
 		app->path_node_network[i]->is_visited = false;
@@ -127,38 +120,30 @@ static void		solve_Astar(t_doom3d *app, t_npc *npc, uint32_t start_id, uint32_t 
 	current = start;
 	start->local_goal = 0;
 	start->global_goal = dist_between_nodes(start, end);
-	not_tested_nodes = ft_lstnew(start, sizeof(t_path_node));
-	while (not_tested_nodes && current->parent_obj->id != end->parent_obj->id)
+	arr_pos = 0;
+	ft_memset(&not_tested_nodes, 0, sizeof(t_path_node *) * MAX_PATH_NODE_NETWORK_SIZE);
+	not_tested_nodes[arr_pos++] = start;
+	while (current->parent_obj->id != end->parent_obj->id)
 	{
-		not_tested_nodes = list_sort(not_tested_nodes);
-		while (not_tested_nodes)
-		{
-			current = not_tested_nodes->content;
-			obj = find_object_by_id(app, current->parent_obj->id);
-			current = obj->params;
-			if (((t_path_node *)obj)->is_visited == false)
-				break ;
-			tmp = not_tested_nodes->next;
-			//free(not_tested_nodes->content);
-			//free(not_tested_nodes);
-			not_tested_nodes = tmp;
-		}
-		if (!not_tested_nodes)
+		sort_array(not_tested_nodes);
+		i = 0;
+		while (i < MAX_PATH_NODE_NETWORK_SIZE && not_tested_nodes[i]->is_visited)
+			i++;
+		if (!not_tested_nodes[i])
 			break ;
+		current = not_tested_nodes[i];
 		current->is_visited = true;
-		ft_printf("num neighbours = %d\n", ((t_path_node *)current->neighbors[i]->params)->num_neighbors);//test
-		ft_printf("added to list!\n");//test
 		i = -1;
 		while (++i < current->num_neighbors)
 		{
 			if (((t_path_node *)current->neighbors[i]->params)->is_visited == false)
 			{
-				ft_lstadd(&not_tested_nodes, ft_lstnew(current->neighbors[i]->params, sizeof(t_path_node)));
+				not_tested_nodes[arr_pos++] = current->neighbors[i]->params;
 			}
 			possibly_lower_goal = current->local_goal + dist_between_nodes(current, (t_path_node *)current->neighbors[i]->params);
 			if (possibly_lower_goal < ((t_path_node *)current->neighbors[i]->params)->local_goal)
 			{
-				((t_path_node *)current->neighbors[i]->params)->parent = obj;
+				((t_path_node *)current->neighbors[i]->params)->parent = current->parent_obj;
 				((t_path_node *)current->neighbors[i]->params)->local_goal = possibly_lower_goal;
 				((t_path_node *)current->neighbors[i]->params)->global_goal = possibly_lower_goal + dist_between_nodes((t_path_node *)current->neighbors[i]->params, end);
 			}
@@ -169,7 +154,6 @@ static void		solve_Astar(t_doom3d *app, t_npc *npc, uint32_t start_id, uint32_t 
 	i = 0;
 	while (current && i < MAX_PATH_NODE_NETWORK_SIZE)
 	{
-		ft_printf("i = %d\n", i);//test
 		tmp_obj[i++] = find_object_by_id(app, current->parent_obj->id);
 		if (current->parent)
 			current = current->parent->params;
