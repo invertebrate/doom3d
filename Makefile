@@ -123,6 +123,11 @@ SOURCES = main.c \
 			events/editor_events.c \
 			events/keyboard_state.c \
 			events/general_input_events.c \
+			sound/sound.c\
+			sound/sound_controls.c\
+			sound/sound_init.c\
+			sound/sound_loop.c\
+			sound/sound_mp_controls.c\
 			animations/animation.c
 
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
@@ -164,6 +169,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/inventory/item_data
 	@mkdir -p temp/projectile
 	@mkdir -p temp/projectile/projectile_data
+	@mkdir -p temp/sound
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)

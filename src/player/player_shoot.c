@@ -136,6 +136,7 @@ static void		shoot_shotgun(t_doom3d *app, t_vec3 origin)
 		ml_vector3_normalize(dir, dir);
 		player_shoot_ray(app, origin, dir);
 	}
+	mp_play_eff(app, sf_shtg_fire, s_ini(0, 1, st_game, 1.0));
 }
 
 /*
