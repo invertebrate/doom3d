@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/11 17:04:24 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/12 01:40:16 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ typedef struct				s_doom3d
 	uint64_t				current_tick;
 	t_settings				settings;
 	t_list					*notifications;
-	t_path_node				*path_node_network[MAX_PATH_NODE_NETWORK_SIZE];
+	t_path_node				*path_node_network[MAX_PATH_NODE_NETWORK_SIZE + 1];
 	int						path_node_network_count;
 	t_projectile			projectile_data[NUM_PROJECTILES];
 	t_weapon				weapons_data[NUM_WEAPONS];

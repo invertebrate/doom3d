@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 14:24:25 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/04 17:20:42 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/11 19:01:10 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_bool	npc_ray_to_npc(t_doom3d *app, t_vec3 origin, t_vec3 dir,
 		}
 		l3d_delete_hits(&hits);
 	}
-	ft_printf("something blocking line of sight! \n");//test
+	//ft_printf("something blocking line of sight! \n");//test
 	return (false);
 }
 
