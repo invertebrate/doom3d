@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:19:27 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/12 03:26:07 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/12 03:30:21 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,13 +161,8 @@ static void		solve_Astar(t_doom3d *app, t_npc *npc, uint32_t start_id, uint32_t 
 			current = NULL;
 	}
 	while (--i >= 0)
-	{
 		npc->attack_path[i] = tmp_obj[i];
-		ft_printf("added path node id %d\n",npc->attack_path[i]->id);//test
-	}
-	//npc->attack_path[0] = find_object_by_id(app, start->parent_obj->id);
 	npc->attack_path_index = 0;
-	//ft_lstdel(&not_tested_nodes, delete_node);
 }
 
 void			npc_find_path(t_doom3d *app, t_npc *npc, t_vec3	start, t_vec3 end)
