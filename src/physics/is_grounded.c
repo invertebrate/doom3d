@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/03 14:41:58 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/11 13:24:26 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,28 @@ static t_3d_object	*object_under_aabb(t_doom3d *app, t_box3d *aabb,
 t_bool	obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj)
 {
 	t_3d_object	*obj_under;
+	t_bool		ret;
+	t_vec3		lift_step;
 
+	ret = false;
 	obj_under = object_under_aabb(app, &falling_obj->aabb, falling_obj->id);
 	if (obj_under)
-		return (l3d_aabb_collides(&obj_under->aabb, &falling_obj->aabb));
-	return (false);
+	{
+		ml_vector3_copy((t_vec3) {0, -app->unit_size / 16, 0}, lift_step);
+		if (l3d_aabb_collides(&obj_under->aabb, &falling_obj->aabb))
+		{
+			l3d_3d_object_translate(falling_obj, lift_step[0], lift_step[1], lift_step[2]);
+			l3d_object_aabb_update(falling_obj);
+			ret = true;
+			if (!l3d_aabb_collides(&obj_under->aabb, &falling_obj->aabb))
+			{
+				l3d_3d_object_translate(falling_obj, -lift_step[0], -lift_step[1], -lift_step[2]);
+				l3d_object_aabb_update(falling_obj);
+			}
+		}
+		return (ret);
+	}
+	return (ret);
 }
 
 /*

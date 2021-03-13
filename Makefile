@@ -68,6 +68,7 @@ SOURCES = main.c \
 			npc/npc_spawn.c \
 			npc/npc_trigger_onhit.c \
 			npc/npc_update.c \
+			npc/npc_pathfinding.c \
 			npc/npc_line_of_sight.c \
 			npc/npc_animation.c \
 			npc/npc_move_to_waypoint.c \

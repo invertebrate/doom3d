@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/04 14:13:21 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/11 11:43:53 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ static void		scene_game_init(t_doom3d *app)
 	}
 	player_init(app, start->position);
 	weapons_init(app);
+	path_node_network_init(app);
 	player_animations_init(app);
 	set_player_default_frame(app);
 	projectile_data_init(app);

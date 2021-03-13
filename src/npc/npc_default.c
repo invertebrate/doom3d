@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/15 12:33:24 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/12 03:27:10 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 static void set_test_patrol_pattern(t_npc *npc) //testing
 {
+	int	i;
+
 	npc->patrol_path_index = 0;
-	npc->patrol_path[0] = NULL;
-	npc->patrol_path[1] = NULL;
-	npc->patrol_path[2] = NULL;
-	npc->patrol_path[3] = NULL;
-	npc->patrol_path[4] = NULL;
+	i = -1;
+	while (++i < MAX_PATROL_NODES + 1)
+		npc->patrol_path[i] = NULL;
+	npc->atk_pattern_index = 0;
+	i = -1;
+	while (++i < MAX_PATH_NODE_NETWORK_SIZE + 1)
+		npc->attack_path[i] = NULL;
 }
 
 static void	set_attack_pattern(t_npc *npc)
@@ -42,7 +46,10 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 		"Failed to malloc for dummy in npc_default.");
 	npc->parent = obj;
 	npc->type = npc_type_default;
-	npc->speed = app->unit_size / 8;
+	npc->speed = app->unit_size / 4;
+	npc->dir[0] = 0;
+	npc->dir[1] = 0;
+	npc->dir[2] = 0;
 	npc->rot_speed = 10;
 	npc->state = 0;
 	npc->hp = 100;
@@ -54,7 +61,7 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->atk_dur = 500;
 	npc->vision_range = app->unit_size * 10;
 	npc->interest = 0;
-	npc->max_interest = 100;
+	npc->max_interest = 10000;
 	npc->model_scale = 0.01;
 	npc->model_key = NPC_DEFAULT_MODEL;
 	npc->texture_key = NPC_DEFAULT_TEXTURE;
@@ -94,7 +101,6 @@ void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->normal_map_key = NPC_RANGED_NORMM;
 	npc->animation_3d = dummy;
 	ml_vector3_set(npc->velocity, 0, 0, 0);
-	npc->atk_pattern_index = 0;
 	set_attack_pattern(npc);
 	set_test_patrol_pattern(npc); //testing
 }

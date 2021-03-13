@@ -1,3 +1,5 @@
+testpathfinding3
+pathfinding testions
 texturetestingations
 testmap1o
 map02

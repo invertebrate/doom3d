@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/22 17:19:43 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/11 11:38:12 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define PATH_NEIGHBOUR_MAX 8
 # define MAX_PATROL_NODES 16
 # define MAX_TRIGGER_LINKS 16
+# define MAX_PATH_NODE_NETWORK_SIZE 256
 
 /*
 ** A list defining what kind of objects the doom3d app contains in its scene /
@@ -77,9 +78,12 @@ typedef enum				e_prefab_type
 typedef struct				s_path_node
 {
 	t_bool		is_visited;
+	float		global_goal;
+	float		local_goal;
 	int32_t		num_neighbors;
 	t_3d_object	*neighbors[PATH_NEIGHBOUR_MAX]; //How many neighbors can have?
 	t_3d_object	*parent;
+	t_3d_object *parent_obj;
 }							t_path_node;
 
 /*
@@ -250,6 +254,8 @@ typedef struct				s_npc
 	t_3d_object				*patrol_path[MAX_PATROL_NODES + 1];
 	int						patrol_path_index;
 	int32_t					num_patrol_path_nodes;
+	t_3d_object				*attack_path[MAX_PATH_NODE_NETWORK_SIZE + 1];
+	int						attack_path_index;
 	float					speed;
 	float					rot_speed;
 	float					dist;
