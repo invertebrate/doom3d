@@ -57,7 +57,7 @@ void	sound_print(t_sound *sound)
 void	auspec_print(t_mp *mp)
 {	ft_printf("mp_auspec_print()\n");
 	ft_printf("format %d\nchannels %d\nsamples %d\ncallback %p\ndata %p\n",
-	mp->auSpec.format, mp->auSpec.channels, mp->auSpec.samples, mp->auSpec.callback, mp->auSpec.userdata);
+	mp->auspec.format, mp->auspec.channels, mp->auspec.samples, mp->auspec.callback, mp->auspec.userdata);
 }
 
 void	mp_print(t_mp *mp)
@@ -102,7 +102,7 @@ t_track		*read_sound(char *file, t_doom3d *app)
         return (NULL);
     }
     if (SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq, 
-		app->mp.auSpec.format, app->mp.auSpec.channels, app->mp.auSpec.freq)
+		app->mp.auspec.format, app->mp.auspec.channels, app->mp.auspec.freq)
 		== -1)
 		return (NULL);
     if (!(cvt.buf = (Uint8*)malloc(dlen * cvt.len_mult)))
@@ -134,6 +134,7 @@ static void	mp_reorder(t_sound **start, t_sound *new)
 		*start = new;
 		return ;
 	}
+	prev = NULL;
 	while (curr->next)
 	{
 		if (new && new->priority > curr->priority)
@@ -196,9 +197,9 @@ int				mp_play_eff(t_doom3d *app, int ind, t_sound *new)
 	if (!new)
 		return (0);
 	new->sound = app->mp.library[ind];
-	SDL_LockAudioDevice(app->mp.auDev);
+	SDL_LockAudioDevice(app->mp.audev);
 	mp_reorder(&app->mp.effects, new);
-	SDL_UnlockAudioDevice(app->mp.auDev);
+	SDL_UnlockAudioDevice(app->mp.audev);
 	//sound_len(app->mp.effects);
 	return (1);
 }
@@ -216,8 +217,8 @@ int				mp_play_music(t_doom3d *app, int ind, t_sound *new)
 	if (!new)
 		return (0);
 	new->sound = app->mp.library[ind];
-	SDL_LockAudioDevice(app->mp.auDev);
+	SDL_LockAudioDevice(app->mp.audev);
 	mp_reorder(&app->mp.tracks, new);
-	SDL_UnlockAudioDevice(app->mp.auDev);
+	SDL_UnlockAudioDevice(app->mp.audev);
 	return (1);
 }

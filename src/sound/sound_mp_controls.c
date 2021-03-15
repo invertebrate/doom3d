@@ -40,7 +40,7 @@ void	mp_close(t_doom3d *app)
 	SDL_PauseAudioDevice(app->mp.audev, 1);
 	i = -1;
 	ft_printf("freeing library\n");
-	while (++i < SOUNDS + 1)
+	while (++i < SOUNDS)
 		free(app->mp.library[i]->data);
 	curr = app->mp.tracks;
 	ft_printf("freeing music\n");

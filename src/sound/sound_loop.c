@@ -82,9 +82,9 @@ static t_sound	*mp_mixing(t_sound *curr, t_mp *mp, float vol)
 	if (!(curr = mp_mix_next(curr)))
 		return (curr);
 	amount = curr->sound->len - curr->pos;
-	amount = amount > (Uint32)mp->len ? mp->len : amount;
+	amount = amount > (Uint32)mp->len ? (Uint32)mp->len : amount;
 	SDL_MixAudioFormat(mp->stream, &curr->sound->data[curr->pos],
-		mp->auSpec.format, amount, SDL_MIX_MAXVOLUME * vol * curr->vol);
+		mp->auspec.format, amount, SDL_MIX_MAXVOLUME * vol * curr->vol);
 	return (curr);
 }
 
