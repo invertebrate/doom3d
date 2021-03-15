@@ -13,7 +13,12 @@
 #ifndef SOUND_H
 # define SOUND_H
 
+# ifdef __APPLE__
 # include <SDL_audio.h>
+# endif
+# ifdef __linux__
+#  include <SDL2/SDL_audio.h>
+# endif
 
 /*
 ** SOUND MACROS
