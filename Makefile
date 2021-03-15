@@ -14,7 +14,7 @@ LIBGMATRIXFLAGS = -L$(LIBGMATRIX) -lgmatrix
 UNAME := $(shell uname)
 UNAME_ALT := $(shell uname -r)
 ifeq ($(UNAME), Linux)
-	SDL_FLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf
+	SDL_FLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 	LIB_MATH = -lm
 	LIB_PTHRTEAD = -lpthread
 else
@@ -24,7 +24,8 @@ else
 					-framework SDL2_ttf -F$(LIBSDL2)/
 	SDL_INCLUDES = -I$(LIBSDL2)/SDL2.framework/Headers \
 			-I$(LIBSDL2)/SDL2_image.framework/Headers \
-			-I$(LIBSDL2)/SDL2_ttf.framework/Headers
+			-I$(LIBSDL2)/SDL2_ttf.framework/Headers \
+			-I$(LIBSDL2)/SDL2_mixer.framework/Headers
 endif
 ifeq ($(UNAME_ALT), 5.9.13-1-MANJARO-ARM)
 	LINUX_IGNOREW = -Wno-stringop-overflow -Wno-maybe-uninitialized
