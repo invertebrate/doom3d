@@ -90,7 +90,8 @@ static void		add_objects_render_triangles(t_doom3d *app,
 		j = -1;
 		while (++j < app->active_scene->objects[i]->num_triangles)
 		{
-			if (app->active_scene->objects[i]->type == object_type_npc &&
+			if (app->active_scene->scene_id != scene_id_editor3d &&
+				app->active_scene->objects[i]->type == object_type_npc &&
 				((t_npc*)app->active_scene->objects[i]->params)->animation_3d != NULL)
 			//^this could be more elegant as in to take into account multiple types
 			{

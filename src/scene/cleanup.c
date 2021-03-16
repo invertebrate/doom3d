@@ -90,27 +90,6 @@ void		scene_skybox_destroy(t_scene *scene)
 	}
 }
 
-static void	npc_destroy(t_3d_object *npc_obj)
-{
-		/*typedef struct				s_animation_3d
-	{
-		uint32_t				frame_count;
-		uint32_t				current_frame;
-		uint32_t				start_frame;
-		uint32_t				start_tick;
-		t_3d_object				*base_object;
-		t_3d_object				**animation_frames; //contains the objects for each anim frame
-		int32_t					*anim_frame_numbers; //contains the frame indices for each animation start
-	}							t_animation_3d;
-	//ToDo: Move this function under npc_destroy.c
-	//Loop through animations under NPC and call l3d_3d_object_destroy on
-	//the frames
-	//then free t_animation_3d
-	//then l3d_3d_object_destroy on npc_obj
-	*/
-	(void)npc_obj;
-}
-
 void		scene_objects_destroy(t_scene *scene)
 {
 	int32_t		i;

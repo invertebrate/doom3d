@@ -1,3 +1,4 @@
+clean_map
 testpathfinding3
 pathfinding testions
 texturetestingations

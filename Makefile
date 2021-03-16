@@ -72,6 +72,7 @@ SOURCES = main.c \
 			npc/npc_line_of_sight.c \
 			npc/npc_animation.c \
 			npc/npc_move_to_waypoint.c \
+			npc/npc_destroy.c \
 			trigger/trigger.c \
 			path/path.c \
 			path/patrol_path.c \

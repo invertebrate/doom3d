@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   npc_animation.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo     <veilo@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
 /*   Updated: 2021/02/15 21:41:51 by ohakola          ###   ########.fr       */
@@ -91,8 +91,8 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 
 	npc = (t_npc*)obj->params;
 	if (npc->animation_3d != NULL)
-	
 		{
+			// ft_printf("freeing anim in npc anim init\n");
 			free(npc->animation_3d);
 			npc->animation_3d = NULL;
 		}
@@ -115,6 +115,11 @@ static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc
 {
 	int			i;
 
+	i = -1;
+	while (++i < ANIM_3D_FRAME_MAX)
+	{
+		npc->animation_3d->animation_frames[i] = NULL;
+	}
 	i = npc->animation_3d->frames_start_idx - 1;
 	while (++i < (int)(npc->animation_3d->frames_start_idx + (npc->animation_3d->frame_count)))
 	{
