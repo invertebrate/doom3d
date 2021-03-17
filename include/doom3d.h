@@ -32,6 +32,7 @@
 # include "notification.h"
 # include "sprite_animation.h"
 # include "animations_3d.h"
+# include "sound.h"
 
 /*
 ** ------------------------
@@ -75,6 +76,7 @@
 
 # define CONST_SPEED 0.1
 # define CONST_GRAVITY 1.06
+
 /*
 ** // ToDo: Create toggleable settings
 */
@@ -120,6 +122,7 @@ typedef struct				s_doom3d
 	t_projectile			projectile_data[NUM_PROJECTILES];
 	t_weapon				weapons_data[NUM_WEAPONS];
 	t_sprite_anim			animations[NUM_PLAYER_ANIMATIONS];
+	t_mp					mp;
 }							t_doom3d;
 
 /*
@@ -444,5 +447,21 @@ t_surface					*get_animation_source(t_doom3d *app);
 ** Player HUD
 */
 void						player_vitals_render(t_doom3d *app);
+
+/*
+** Sounds
+*/
+
+void						mp_init(t_doom3d *app);
+t_mp						mix_chan_swap(t_doom3d *app, int channels);
+t_mp						mix_init(t_doom3d *app, int channels);
+t_track						*read_sound(char *file, t_doom3d *app);
+void						mp_close(t_doom3d *app);
+void						mp_au_mix(void *para, Uint8 *stream, int len);
+t_sound						*s_ini(char loop, char priority, char type, float vol);
+int							mp_play_eff(t_doom3d *app, int ind, t_sound *new);
+int							mp_play_music(t_doom3d *app, int ind, t_sound *new);
+void						mp_typec(t_doom3d *app, char type, char sound, char state);
+void						mp_print(t_mp *mp);//
 
 #endif

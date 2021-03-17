@@ -66,6 +66,7 @@ void			settings_init(t_doom3d *app)
 
 void			doom3d_init(t_doom3d *app)
 {
+	mp_init(app);
 	app->active_scene = NULL;
 	app->is_running = true;
 	app->is_debug = true;
@@ -86,6 +87,7 @@ static void		doom3d_cleanup(t_doom3d *app)
 	thread_pool_destroy(app->thread_pool);
 	scene_destroy(app);
 	window_destroy(app->window);
+	mp_close(app);
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
@@ -102,11 +104,12 @@ void			doom3d_run(t_doom3d *app)
 	cpu_count = SDL_GetCPUCount();
 	app->thread_pool = thread_pool_create(
 		cpu_count >= NUM_THREADS_DEFAULT ? cpu_count : NUM_THREADS_DEFAULT);
-	error_check(SDL_Init(SDL_INIT_VIDEO) != 0, SDL_GetError());
+	error_check(SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0, SDL_GetError());
 	error_check(TTF_Init() == -1, TTF_GetError());
 	settings_init(app);
 	window_create(&app->window, app->settings.width, app->settings.height);
 	doom3d_init(app);
+	mp_play_music(app, mu_main, s_ini(1, 10, st_main_menu, 0.6));
 	doom3d_main_loop(app);
 	doom3d_cleanup(app);
 }
