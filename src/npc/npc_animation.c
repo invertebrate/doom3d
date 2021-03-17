@@ -86,13 +86,11 @@ void		npc_ranged_anim_3d_metadata_set(t_anim_metadata *anim_data)
 void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 {
 	t_anim_metadata	anim_data;
-	(void)app;
 	t_npc			*npc;
 
 	npc = (t_npc*)obj->params;
 	if (npc->animation_3d != NULL)
 		{
-			// ft_printf("freeing anim in npc anim init\n");
 			free(npc->animation_3d);
 			npc->animation_3d = NULL;
 		}

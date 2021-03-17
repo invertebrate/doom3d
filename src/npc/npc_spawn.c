@@ -34,20 +34,10 @@ void			parse_npc_type(t_doom3d *app, t_npc *npc, int type)
 	if (type == npc_type_default)
 	{
 		npc_default(app, npc, NULL);
-		if (npc->animation_3d != NULL)
-		{
-			free(npc->animation_3d);
-			npc->animation_3d = NULL;
-		}
 	}
 	if (type == npc_type_ranged)
 	{
-		npc_ranged(app, npc, NULL);
-		if (npc->animation_3d != NULL)
-		{
-			free(npc->animation_3d);
-			npc->animation_3d = NULL;
-		}
+		npc_ranged(app, npc, NULL);	
 	}
 	if (type == npc_type_elevator)
 	{
@@ -67,6 +57,10 @@ void			npc_spawn(t_doom3d *app, t_vec3 pos, float angle, int type)
 	npc.angle = angle;
 	parse_npc_type(app, &npc, type);
 	place_npc_object_in_scene(app, &npc, pos);//mallocs and copies data from npc, sets params
+	if (npc.type == npc_type_default || npc.type == npc_type_ranged)
+		npc_animation_3d_init(app, npc.parent);
+	if (npc.parent == NULL)
+			ft_printf("default npc parent was null\n");
 	ft_printf("Spawned npc, id = |%d|\n",
 		app->active_scene->objects[app->active_scene->last_object_index]->id); //test
 }
