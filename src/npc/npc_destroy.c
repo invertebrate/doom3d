@@ -61,10 +61,15 @@ t_bool          npc_destroy(t_3d_object *npc_obj)
      if (((t_npc*)npc_obj->params)->type == npc_type_default ||
         ((t_npc*)npc_obj->params)->type == npc_type_ranged)
         return (npc_enemy_destroy(npc_obj));
+    else if (((t_npc*)npc_obj->params)->type == npc_type_elevator)
+    {
+        l3d_3d_object_destroy(npc_obj);
+        return (true);
+    }
     else
     {
         ft_printf("NPC not destroyed: functionality not implemented yet!"
-         "\nNPC type: %d, not implemented", ((t_npc*)npc_obj->params)->type);
+         "\nNPC type: %d, not implemented\n", ((t_npc*)npc_obj->params)->type);
         return false;
     }
     return (false);
