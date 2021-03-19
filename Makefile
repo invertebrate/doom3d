@@ -15,7 +15,7 @@ DEBUGFLAG = -g
 UNAME := $(shell uname)
 UNAME_ALT := $(shell uname -r)
 ifeq ($(UNAME), Linux)
-	SDL_FLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf
+	SDL_FLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 	LIB_MATH = -lm
 	LIB_PTHRTEAD = -lpthread
 else
@@ -25,7 +25,8 @@ else
 					-framework SDL2_ttf -F$(LIBSDL2)/
 	SDL_INCLUDES = -I$(LIBSDL2)/SDL2.framework/Headers \
 			-I$(LIBSDL2)/SDL2_image.framework/Headers \
-			-I$(LIBSDL2)/SDL2_ttf.framework/Headers
+			-I$(LIBSDL2)/SDL2_ttf.framework/Headers \
+			-I$(LIBSDL2)/SDL2_mixer.framework/Headers
 endif
 ifeq ($(UNAME_ALT), 5.9.13-1-MANJARO-ARM)
 	LINUX_IGNOREW = -Wno-stringop-overflow -Wno-maybe-uninitialized
@@ -127,6 +128,11 @@ SOURCES = main.c \
 			events/editor_events.c \
 			events/keyboard_state.c \
 			events/general_input_events.c \
+			sound/sound.c\
+			sound/sound_controls.c\
+			sound/sound_init.c\
+			sound/sound_loop.c\
+			sound/sound_mp_controls.c\
 			animations/animation.c
 
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
@@ -174,6 +180,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/inventory/item_data
 	@mkdir -p temp/projectile
 	@mkdir -p temp/projectile/projectile_data
+	@mkdir -p temp/sound
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)
