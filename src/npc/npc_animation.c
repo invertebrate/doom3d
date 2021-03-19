@@ -132,6 +132,8 @@ static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc
 		l3d_3d_object_scale(npc->animation_3d->animation_frames[i],
 							npc->model_scale, npc->model_scale, npc->model_scale);
 		l3d_3d_object_rotate(npc->animation_3d->animation_frames[i], 0, 180, 180);//
+		ml_matrix4_id(npc->animation_3d->animation_frames[i]);
+		// ml_matrix4_rotation(0, 180, 180, npc->animation_3d->frame_object_prev_rotation[i]);
 	}
 
 }
@@ -139,7 +141,9 @@ static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc
 static void			npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 {
 	int		i;
+	t_mat4	id_matrix;
 
+	ml_matrix4_id(id_matrix);
 	i = anim_data->frames_start_idx -1;
 	npc->animation_3d->frame_count = anim_data->frame_count;
 	while (++i <(int)anim_data->frame_count)
@@ -148,6 +152,8 @@ static void			npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 			anim_data->anim_frame_numbers[i];
 		ml_vector3_copy((t_vec3){0.0, 0.0, 0.0},
 			npc->animation_3d->frame_object_prev_translation[i]);
+		ml_matrix4_copy(id_matrix, 
+			npc->animation_3d->frame_object_prev_rotation[i]);
 	}
 	i = -1;
 	while (++i < (int)anim_data->anim_count)
