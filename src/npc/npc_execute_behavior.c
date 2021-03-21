@@ -16,11 +16,13 @@ void	npc_execute_behavior(t_doom3d *app, t_3d_object *npc_obj)
 {
 	t_npc	*npc;
 
+	if (npc_obj == NULL || npc_obj->params == NULL)
+		return ;
 	npc = npc_obj->params;
-	(void)app;
 	/*
 	check state of npc
 	*/
+
 	if (npc->state == state_idle)
 	{
 		/*
