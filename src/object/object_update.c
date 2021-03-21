@@ -107,8 +107,8 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 	{
 		if (((t_npc*)obj->params)->animation_3d != NULL)
 		{
-			ft_printf("here\n");
-			l3d_3d_object_rotate(obj, 0.0, 1.0, 0.0);
+			// ft_printf("here\n");
+			// l3d_3d_object_rotate(obj, 0.0, 1.0, 0.0);
 			anim_3d_frame_update(app, ((t_npc*)obj->params)->animation_3d);
 		}
 		if (is_npc_update)

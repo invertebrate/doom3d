@@ -181,10 +181,10 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 	c = c % 4;//only for animation showcasing
 	npc->animation_3d->current_clip = anim_3d_type_null;
 	c++;//
-	anim->current_object = obj;
 	anim->start_frame =
 		anim->anim_clip_start_indices[
 			(anim->current_clip) % ANIM_3D_TYPE_MOD];
+	anim->current_object = anim->animation_frames[anim->start_frame];
 	anim->current_frame =
 		anim->anim_clip_start_indices[
 			((anim->current_clip) % ANIM_3D_TYPE_MOD)];
