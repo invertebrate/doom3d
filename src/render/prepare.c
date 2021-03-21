@@ -81,12 +81,12 @@ static void		add_objects_render_triangles(t_doom3d *app,
 	while (++i < (int32_t)(app->active_scene->num_objects +
 		app->active_scene->num_deleted))
 	{
-		// if ((app->active_scene->objects[i] == NULL) ||
-		// 	object_too_far(app, app->active_scene->objects[i]) ||
-		// 	!object_inside_viewbox(app, app->active_scene->objects[i]))
-		// 	{
-		// 		continue ;
-		// 	}
+		if ((app->active_scene->objects[i] == NULL) ||
+			object_too_far(app, app->active_scene->objects[i]) ||
+			!object_inside_viewbox(app, app->active_scene->objects[i]))
+			{
+				continue ;
+			}
 		j = -1;
 		while (++j < app->active_scene->objects[i]->num_triangles)
 		{
@@ -102,9 +102,9 @@ static void		add_objects_render_triangles(t_doom3d *app,
 			{
 				triangle = app->active_scene->objects[i]->triangles + j;
 			}
-			// if (triangle_too_far(app, triangle)	 ||
-			// 	!triangle_inside_viewbox(app, triangle))
-			// 	continue ;
+			if (triangle_too_far(app, triangle)	 ||
+				!triangle_inside_viewbox(app, triangle))
+				continue ;
 			prepare_render_triangle(app, &r_triangle, triangle, vtc);
 			if (is_rendered(app, &r_triangle))
 				clip_and_add_to_render_triangles(app,
