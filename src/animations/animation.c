@@ -61,8 +61,15 @@ void		npc_anim_3d_rotation_update(t_3d_object *obj)
 	l3d_3d_object_rotate_matrix(anim->current_object, inverse_rot);
 
 	//get rotation matrix from object and apply to frame
-	//REVERSE TRANSLATION BEFORE ROTATING
-	l3d_3d_object_rotate_matrix(anim->current_object, obj->rotation);
+	l3d_3d_object_translate(anim->current_object,
+							-anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][0],
+							-anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][1],
+							-anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][2]);//transform to origin
+	l3d_3d_object_rotate_matrix(anim->current_object, obj->rotation); //apply rotation
+	l3d_3d_object_translate(anim->current_object,
+							anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][0],
+							anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][1],
+							anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][2]);//transform back to position
 
 	//save previous rotation to array;
 	ml_matrix4_copy(obj->rotation, anim->frame_object_prev_rotation[anim->frames_start_idx + anim->current_frame]);
