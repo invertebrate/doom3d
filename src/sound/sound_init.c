@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phakakos <phakakos@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:51:15 by phakakos          #+#    #+#             */
-/*   Updated: 2021/03/12 15:51:18 by phakakos         ###   ########.fr       */
+/*   Updated: 2021/03/24 21:58:28 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_mp		mix_init(t_doom3d *app, int channels)
 	app->mp.auspec.freq = PREF_FREQ;
 	app->mp.auspec.format = PREF_AUDIO;
 	app->mp.auspec.channels = app->mp.channels;
-	app->mp.auspec.samples = 4096;
+	app->mp.auspec.samples = 128;
 	app->mp.auspec.callback = mp_au_mix;
 	app->mp.auspec.userdata = &app->mp;
 
