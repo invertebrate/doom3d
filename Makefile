@@ -22,7 +22,8 @@ else
 	SDL_FLAGS = -rpath $(LIBSDL2) \
 					-framework SDL2 -F$(LIBSDL2)/ \
 					-framework SDL2_image -F$(LIBSDL2)/ \
-					-framework SDL2_ttf -F$(LIBSDL2)/
+					-framework SDL2_ttf -F$(LIBSDL2)/ \
+					-framework SDL2_mixer -F$(LIBSDL2)/
 	SDL_INCLUDES = -I$(LIBSDL2)/SDL2.framework/Headers \
 			-I$(LIBSDL2)/SDL2_image.framework/Headers \
 			-I$(LIBSDL2)/SDL2_ttf.framework/Headers \
