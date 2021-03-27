@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 19:15:20 by ohakola           #+#    #+#             */
-/*   Updated: 2020/09/30 01:21:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/28 01:35:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 # define OH_ASSERT(message, test) { if (!(test)) return message; }
 # define OH_RUN_TEST(test) { update_test_state(test); }
+# define OH_RUN_TEST_POOLED(t, p) { update_test_state_with_pool(t, p); }
 
 extern int g_tests_run;
 extern t_test_state g_test_states[MAX_TESTS];
