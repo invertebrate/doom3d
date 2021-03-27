@@ -212,13 +212,17 @@ int				mp_play_eff(t_doom3d *app, int ind, t_sound *new)
 
 int				mp_play_music(t_doom3d *app, int ind, t_sound *new)
 {
-	//ind = ind < 0 ? 0 : ind;	// "SECURE" INDEXING?
-	//ind = ind >= MUSIC ? MUSIC - 1 : ind;
-	if (!new)
-		return (0);
-	new->sound = app->mp.library[ind];
-	SDL_LockAudioDevice(app->mp.audev);
-	mp_reorder(&app->mp.tracks, new);
-	SDL_UnlockAudioDevice(app->mp.audev);
+	// ind = ind < 0 ? 0 : ind;	// "SECURE" INDEXING?
+	// ind = ind >= MUSIC ? MUSIC - 1 : ind;
+	// if (!new)
+	// 	return (0);
+	// new->sound = app->mp.library[ind];
+	// SDL_LockAudioDevice(app->mp.audev);
+	// mp_reorder(&app->mp.tracks, new);
+	// SDL_UnlockAudioDevice(app->mp.audev);
+	(void)app;
+	(void)ind;
+	(void)new;
 	return (1);
+
 }
