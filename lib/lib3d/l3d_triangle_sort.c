@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 15:49:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/28 17:56:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/28 22:42:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static unsigned int		expand_bits(unsigned int v)
 	v = (v * 0x00000101u) & 0x0F00F00Fu;
 	v = (v * 0x00000011u) & 0xC30C30C3u;
 	v = (v * 0x00000005u) & 0x49249249u;
-	return v;
+	return (v);
 }
 
 /*

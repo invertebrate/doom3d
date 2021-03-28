@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/28 18:03:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/28 22:41:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,5 @@ t_tri_vec		*prepare_render_triangles(t_doom3d *app)
 		add_skybox_render_triangles(app, render_triangles);
 	offset = render_triangles->size;
 	add_objects_render_triangles(app, render_triangles);
-	triangle_sort_by_morton_code(render_triangles, app->thread_pool,
-		offset, render_triangles->size);
 	return (render_triangles);
 }
