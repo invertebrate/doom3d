@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/15 22:07:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/28 17:53:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -353,6 +353,9 @@ void						l3d_triangle_destroy(t_triangle *triangle,
 								t_bool with_vertices);
 t_triangle					*l3d_triangle_copy(t_triangle *src,
 								t_bool new_vertices);
+void						triangle_sort_by_morton_code(t_tri_vec *triangles,
+								t_thread_pool *pool,
+								uint32_t start, uint32_t end);
 
 /*
 **	Triangle clipping

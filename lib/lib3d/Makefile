@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#              #
-#    Updated: 2021/02/15 22:26:40 by ohakola          ###   ########.fr        #
+#    Updated: 2021/03/28 16:40:25 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SOURCES = l3d_triangle.c \
 			l3d_triangle_raster.c \
 			l3d_triangle_raster_utils.c \
 			l3d_triangle_raster_pixel.c \
+			l3d_triangle_sort.c \
 			l3d_shading.c \
 			l3d_shading_utils.c \
 			l3d_uv.c \

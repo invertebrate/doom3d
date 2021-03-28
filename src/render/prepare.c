@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 21:41:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/28 18:03:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,17 +149,22 @@ void			destroy_render_triangles(t_tri_vec *render_triangles)
 }
 
 /*
-** Prepares triangles for parallel rendering
+** Prepares triangles for parallel rendering. Sort them in z order curve,
+** but ignore skybox.
 */
 
 t_tri_vec		*prepare_render_triangles(t_doom3d *app)
 {
 	t_tri_vec			*render_triangles;
+	uint32_t			offset;
 
 	render_triangles =
 		l3d_triangle_vec_with_capacity(app->active_scene->num_triangles + 12);
 	if (app->active_scene->scene_id != scene_id_editor3d)
 		add_skybox_render_triangles(app, render_triangles);
+	offset = render_triangles->size;
 	add_objects_render_triangles(app, render_triangles);
+	triangle_sort_by_morton_code(render_triangles, app->thread_pool,
+		offset, render_triangles->size);
 	return (render_triangles);
 }
