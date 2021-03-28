@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 00:55:48 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/28 00:57:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/28 14:59:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 ** Radix utils
 */
 
-size_t			pad_array(uint32_t **array_out, uint32_t *array,
+size_t			pad_array(uint32_t *array_out, uint32_t *array,
 					size_t size_in);
-size_t			pad_array_key_val(uint32_t **key_vals_out[2],
+size_t			pad_array_key_val(uint32_t *key_vals_out[2],
 					uint32_t *key_vals[2],
 					size_t size_in);
 void			copy_array(uint32_t *dst, uint32_t *src,
