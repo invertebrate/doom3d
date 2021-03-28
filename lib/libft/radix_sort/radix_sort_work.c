@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 21:34:09 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/28 00:57:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/28 17:26:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,27 @@
 void		reorder_work(void *args)
 {
 	t_radix_params	*params;
-	uint32_t		*arr;
-	uint32_t		*out;
 	size_t			i;
 	size_t			bucket;
 
 	params = args;
-	arr = params->arr_keys;
-	out = params->out_keys;
 	i = -1;
-	while (++i < params->bucket_size)
+	if (params->is_key_val)
 	{
-		bucket = (arr[i] >> params->shift) & (RADIX - 1);
-		out[params->index[bucket]++] = arr[i];
+		while (++i < params->bucket_size)
+		{
+			bucket = (params->arr_keys[i] >> params->shift) & (RADIX - 1);
+			params->out_keys[params->index[bucket]] = params->arr_keys[i];
+			params->out_vals[params->index[bucket]++] = params->arr_vals[i];
+		}
+	}
+	else
+	{
+		while (++i < params->bucket_size)
+		{
+			bucket = (params->arr_keys[i] >> params->shift) & (RADIX - 1);
+			params->out_keys[params->index[bucket]++] = params->arr_keys[i];
+		}
 	}
 }
 

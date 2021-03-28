@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_radix_sort.c                                  :+:      :+:    :+:   */
+/*   radix_sort_tests.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 17:06:27 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/28 01:30:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/28 17:26:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ const char		*test_radix_sort_simple_key_val(t_thread_pool *pool)
 	i = -1;
 	while (++i < 6)
 		OH_ASSERT("Radix sort simple key_val sorted wrong",
-			key_vals_to_sort[1][i] == i);
+			key_vals_to_sort[1][i] == 6 - 1 - i);
 	return (0);
 }
 
@@ -118,6 +118,6 @@ const char		*test_radix_sort_large_key_val(t_thread_pool *pool)
 	i = -1;
 	while (++i < 12345)
 		OH_ASSERT("Radix sort simple key_val sorted wrong",
-			key_vals_to_sort[1][i] == i);
+			key_vals_to_sort[1][i] == 12345 - 1 - i);
 	return (0);
 }
