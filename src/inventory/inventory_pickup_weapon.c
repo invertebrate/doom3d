@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inventory_pickup_weapon.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:26:50 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/22 18:00:54 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:58:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void			inventory_pickup_weapon_object(t_doom3d *app,
 		{
 			app->player.can_fly = true;
 			ft_printf("Picked up jetpack\n");
-			object_set_for_deletion(app, weapon_drop_obj);
+			doom3d_push_event(app, event_delete_object,
+				weapon_drop_obj, NULL);
 		}
 	if (weapon)
 	{
@@ -49,7 +50,8 @@ void			inventory_pickup_weapon_object(t_doom3d *app,
 		app->player.weapons[weapon->id].ammo += weapon->ammo;
 		ft_printf("Picked up %s %d ammo", weapon_id,
 			app->player.weapons[weapon->id].ammo);
-		object_set_for_deletion(app, weapon_drop_obj);
+		doom3d_push_event(app, event_delete_object,
+			weapon_drop_obj, NULL);
 	}
 }
 
@@ -61,7 +63,8 @@ void			inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj)
 	if (key->key_id < MAX_KEYS && app->player.keys[key->key_id] == false)
 	{
 		app->player.keys[key->key_id] = true;
-		object_set_for_deletion(app, key_obj);
+		doom3d_push_event(app, event_delete_object,
+			key_obj, NULL);
 		ft_printf("picked up key %d\n", key->key_id);
 	}
 }

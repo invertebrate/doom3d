@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/12 01:40:16 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:07:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include "sprite_animation.h"
 # include "animations_3d.h"
 # include "sound.h"
+# include "events.h"
 
 /*
 ** ------------------------
@@ -77,9 +78,7 @@
 # define CONST_SPEED 0.1
 # define CONST_GRAVITY 1.06
 
-/*
-** // ToDo: Create toggleable settings
-*/
+# define NUM_CUSTOM_EVENTS 64
 
 typedef struct				s_settings
 {
@@ -123,6 +122,8 @@ typedef struct				s_doom3d
 	t_weapon				weapons_data[NUM_WEAPONS];
 	t_sprite_anim			animations[NUM_PLAYER_ANIMATIONS];
 	t_mp					mp;
+	uint32_t				custom_event_type;
+	t_hash_table			*custom_event_handles;
 }							t_doom3d;
 
 /*
@@ -225,7 +226,14 @@ void						forces_update_player(t_doom3d *app);
 /*
 ** Events
 */
-void						doom3d_events_handle(t_doom3d *app);
+void						doom3d_push_event(t_doom3d *app,
+								t_doom3d_event code,
+								void* data1,
+								void* data2);
+void						doom3d_register_custom_events(t_doom3d *app);
+void						doom3d_events_handle(t_doom3d *app,
+								SDL_Event event);
+void						events_handle(t_doom3d *app);
 void						mouse_state_handle(t_doom3d *app);
 void						keyboard_state_handle(t_doom3d *app);
 void						general_input_events_handle(t_doom3d *app,
@@ -349,7 +357,7 @@ const char					*texture_file_key(char *filename, t_doom3d *app);
 void						place_scene_object(t_doom3d *app,
 								const char *filenames[3],
 								t_vec3 pos);
-void						object_set_for_deletion(t_doom3d *app,
+void						handle_object_deletion(t_doom3d *app,
 								t_3d_object *object);
 void						place_procedural_scene_object(t_doom3d *app,
 								t_3d_object *model,

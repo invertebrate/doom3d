@@ -123,8 +123,10 @@ SOURCES = main.c \
 			window/buttons/button.c \
 			window/buttons/button_popup_menu.c \
 			window/buttons/button_popup_menu_events.c \
+			events/event_handling/object_events.c \
 			events/mouse_state.c \
 			events/events.c \
+			events/doom3d_events.c \
 			events/editor_events.c \
 			events/keyboard_state.c \
 			events/general_input_events.c \
@@ -169,6 +171,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/render
 	@mkdir -p temp/render/debug
 	@mkdir -p temp/events
+	@mkdir -p temp/events/event_handling
 	@mkdir -p temp/player
 	@mkdir -p temp/animations
 	@mkdir -p temp/npc

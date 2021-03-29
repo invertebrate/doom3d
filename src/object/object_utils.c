@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/22 21:56:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:07:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,29 +65,6 @@ static uint32_t	next_object_index(t_doom3d *app)
 	app->active_scene->num_objects++;
 	app->active_scene->last_object_index = next_index;
 	return (next_index);
-}
-
-void			object_set_for_deletion(t_doom3d *app, t_3d_object *object)
-{
-	int32_t		i;
-	uint32_t	del_index;
-	int32_t		sum;
-
-	i = -1;
-	sum = (int32_t)(app->active_scene->num_objects +
-		app->active_scene->num_deleted);
-	while (++i < sum)
-	{
-		if (app->active_scene->objects[i] != NULL &&
-			app->active_scene->objects[i]->id == object->id)
-		{
-			app->active_scene->num_deleted++;
-			app->active_scene->num_objects--;
-			del_index = app->active_scene->num_deleted - 1;
-			app->active_scene->deleted_object_i[del_index] = i;
-			break ;
-		}
-	}
 }
 
 /*

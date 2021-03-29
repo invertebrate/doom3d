@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/09 09:56:19 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:40:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,19 @@ void			doom3d_game_input_events_handle(t_doom3d *app, SDL_Event event)
 	}
 }
 
-/*
-** Main API for event handling
-** 1. Poll state and handle keyboard & mouse state (in-game actions mostly
-** where there should not be any lag)
-** 2. General input events, e.g. debug mode, set normal map shading, set
-** full screen etc.
-** 3. Game input events: menu options, pausing, etc.
-*/
+void			input_events_handle(t_doom3d *app, SDL_Event event)
+{
+	general_input_events_handle(app, event);
+	if (app->active_scene->scene_id == scene_id_main_game &&
+		!app->active_scene->is_paused)
+		doom3d_game_input_events_handle(app, event);
+	if (app->active_scene->scene_id == scene_id_editor3d &&
+		!editor_popup_menu_open(app))
+		editor_input_events_handle(app, event);
+	doom3d_button_events_handle(app, event);
+}
 
-void			doom3d_events_handle(t_doom3d *app)
+void			events_handle(t_doom3d *app)
 {
 	SDL_Event	event;
 
@@ -89,13 +92,9 @@ void			doom3d_events_handle(t_doom3d *app)
 	}
 	while (SDL_PollEvent(&event))
 	{
-		general_input_events_handle(app, event);
-		if (app->active_scene->scene_id == scene_id_main_game &&
-			!app->active_scene->is_paused)
-			doom3d_game_input_events_handle(app, event);
-		if (app->active_scene->scene_id == scene_id_editor3d &&
-			!editor_popup_menu_open(app))
-			editor_input_events_handle(app, event);
-		doom3d_button_events_handle(app, event);
+		if (event.type == app->custom_event_type)
+			doom3d_events_handle(app, event);
+		else
+			input_events_handle(app, event);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 16:39:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 15:56:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void			on_delete_menu_button_click(t_button *self, void *params)
 					delete_path_object_connections(
 						app->editor.selected_objects[i]->params);
 				object_to_delete = app->editor.selected_objects[i];
-				object_set_for_deletion(app, object_to_delete);
+				doom3d_push_event(app, event_delete_object,
+					object_to_delete, NULL);
 			}
 			app->editor.is_saved = false;
 			editor_deselect_all(app);
