@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 16:05:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:14:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,50 +59,4 @@ void			doom3d_performance_counter_end(uint64_t start_time,
 		(float)SDL_GetPerformanceFrequency();
 	if (delta_limit == 0.0 || delta_time > delta_limit)
 		ft_printf("%s: Profiler time: %f\n", task_name, delta_time);
-}
-
-void			doom3d_notifications_update(t_doom3d *app)
-{
-	t_notification	*last_notification;
-	t_list			**last_node;
-
-	last_node = &app->notifications;
-	if (!*last_node)
-		return ;
-	while ((*last_node)->next)
-		last_node = &(*last_node)->next;
-	last_notification = (*last_node)->content;
-	last_notification->time -= app->info.delta_time;
-	if (last_notification->time <= 0)
-	{
-		free(last_notification);
-		free(*last_node);
-		*last_node = NULL;
-	}
-}
-
-void			doom3d_notification_add(t_doom3d *app,
-					t_notification notification)
-{
-	if (app->notifications == NULL)
-		app->notifications = ft_lstnew(&notification, sizeof(t_notification));
-	else
-		ft_lstadd(&app->notifications,
-			ft_lstnew(&notification, sizeof(t_notification)));
-}
-
-void			doom3d_notifications_delete_all(t_doom3d *app)
-{
-	t_list		*node;
-	t_list		*tmp;
-
-	node = app->notifications;
-	while (node)
-	{
-		tmp = node;
-		free((t_notification*)node->content);
-		node = node->next;
-		free(tmp);
-	}
-	app->notifications = NULL;
 }

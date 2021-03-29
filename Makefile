@@ -83,6 +83,7 @@ SOURCES = main.c \
 			physics/forces_update.c \
 			camera.c \
 			utils.c \
+			notifications/notifications.c \
 			scene/menus/editor3d_menu.c \
 			scene/menus/settings_menu.c \
 			scene/menus/main_menu.c \
@@ -184,6 +185,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/projectile
 	@mkdir -p temp/projectile/projectile_data
 	@mkdir -p temp/sound
+	@mkdir -p temp/notifications
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)

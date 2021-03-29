@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 16:12:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:16:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		doom3d_events_handle(t_doom3d *app, SDL_Event event)
 	if (handle != NULL)
 	{
 		doom3d_custom_event_to_str(event_str, event.user.code);
-		ft_printf("CustomEvent: %s\n", event_str);
+		ft_printf("ReceiveCustomEvent: %s\n", event_str);
 		handle(app, event.user.data1, event.user.data2);
 	}
 }
