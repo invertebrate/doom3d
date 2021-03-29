@@ -1,60 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   editor_events.c                                    :+:      :+:    :+:   */
+/*   editor_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 16:03:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 17:42:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void		handle_editor_saving(t_doom3d *app, SDL_Event event)
+void		handle_editor_saving_inputs(t_doom3d *app, SDL_Event event)
 {
-	int32_t		length;
-
 	if (event.type == SDL_TEXTINPUT)
 	{
-		app->editor.is_saved = false;
-		ft_strcat(app->editor.editor_savename, event.text.text);
+		doom3d_push_event(app, event_editor_save_type, event.text.text, NULL);
 	}
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
 	{
-		SDL_StopTextInput();
-		app->editor.is_saving = false;
-		if (!find_one_object_by_type(app, object_type_trigger,
-			trigger_player_start) ||
-			!find_one_object_by_type(app, object_type_trigger,
-			trigger_player_end))
-		{
-			doom3d_notification_add(app, (t_notification){
-			.message = "You need to add start and end before savind!",
-			.type = notification_type_info, .time = 2000});
-			return ;
-		}
-		ft_memcpy(app->editor.editor_filename, app->editor.editor_savename,
-			ft_strlen(app->editor.editor_savename));
-		editor_objects_invisible_unhighlight(app);
-		save_map(app);
-		editor_objects_invisible_highlight(app);
-		doom3d_notification_add(app, (t_notification){
-			.message = "Saved level!",
-			.type = notification_type_info, .time = 2000});
-		app->editor.is_saved = true;
+		doom3d_push_event(app, event_editor_end_save, NULL, NULL);
 	}
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKSPACE)
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKSPACE)
 	{
-		app->editor.is_saved = false;
-		length = ft_strlen(app->editor.editor_savename);
-		if (length > 0)
-			app->editor.editor_savename[length - 1] = '\0';
+		doom3d_push_event(app, event_editor_save_type_backspace,
+			event.text.text, NULL);
 	}
 }
 
-void		handle_editor_selection(t_doom3d *app, SDL_Event event)
+void		handle_editor_selection_inputs(t_doom3d *app, SDL_Event event)
 {
 	if (app->editor.is_saving)
 		return ;

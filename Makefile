@@ -129,9 +129,9 @@ SOURCES = main.c \
 			events/event_handling/menus.c \
 			events/event_handling/editor.c \
 			events/mouse_state.c \
-			events/events.c \
+			events/input.c \
 			events/doom3d_events.c \
-			events/editor_events.c \
+			events/editor_input.c \
 			events/keyboard_state.c \
 			events/general_input_events.c \
 			sound/sound.c\

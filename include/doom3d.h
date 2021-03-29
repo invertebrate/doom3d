@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 17:23:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 17:43:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,9 +238,9 @@ void						mouse_state_handle(t_doom3d *app);
 void						keyboard_state_handle(t_doom3d *app);
 void						general_input_events_handle(t_doom3d *app,
 								SDL_Event event);
-void						handle_editor_selection(t_doom3d *app,
+void						handle_editor_selection_inputs(t_doom3d *app,
 								SDL_Event event);
-void						handle_editor_saving(t_doom3d *app,
+void						handle_editor_saving_inputs(t_doom3d *app,
 								SDL_Event event);
 t_bool						editor_popup_menu_open(t_doom3d *app);
 
@@ -262,6 +262,10 @@ void						handle_window_resize(t_doom3d *app,
 void						handle_scene_change(t_doom3d *app,
 								t_scene_id scene_id);
 void						handle_quit(t_doom3d *app);
+void						handle_editor_save_end(t_doom3d *app);
+void						handle_editor_save_start(t_doom3d *app);
+void						handle_editor_save_type_backspace(t_doom3d *app);
+void						handle_editor_save_type(t_doom3d *app, char *text);
 
 /*
 ** 3D Animations

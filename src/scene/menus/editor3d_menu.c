@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 17:07:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 17:36:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,9 @@ static void			on_delete_menu_button_click(t_button *self, void *params)
 	}
 }
 
-static void			on_editor_save(t_doom3d *app)
+static void			on_editor_save_button_click(t_doom3d *app)
 {
-	if (!app->editor.is_saving)
-	{
-		editor_deselect_all(app);
-		app->editor.is_saving = true;
-		SDL_StartTextInput();
-		doom3d_notification_add(app, (t_notification){
-			.message = "Write name to save",
-			.type = notification_type_info, .time = 2000});
-	}
-	else
-	{
-		doom3d_notification_add(app, (t_notification){
-			.message = "Press enter to save",
-			.type = notification_type_info, .time = 2000});
-	}
+	doom3d_push_event(app, event_editor_start_save, NULL, NULL);
 }
 
 static void			on_editor_exit(t_doom3d *app)
@@ -406,7 +392,7 @@ static void			on_editor_menu_button_click(t_button *self, void *params)
 	if (self->id == 0)
 		on_editor_exit(app);
 	else if (self->id == 1)
-		on_editor_save(app);
+		on_editor_save_button_click(app);
 	else
 	{
 		if (self->id == 2)

@@ -6,11 +6,27 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 17:14:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 17:48:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+static void	match_editor_event_to_str(char *str, t_doom3d_event code)
+{
+	if (code == event_editor_start_placement)
+		ft_sprintf(str, "EventEditorStartPlacement");
+	else if (code == event_editor_start_placement)
+		ft_sprintf(str, "EventEditorEndPlacement");
+	else if (code == event_editor_start_save)
+		ft_sprintf(str, "EventEditorStartSave");
+	else if (code == event_editor_end_save)
+		ft_sprintf(str, "EventEditorEndSave");
+	else if (code == event_editor_save_type)
+		ft_sprintf(str, "EventEditorType");
+	else if (code == event_editor_save_type_backspace)
+		ft_sprintf(str, "EventEditorTypeBackspace");
+}
 
 static void	doom3d_custom_event_to_str(char *str, t_doom3d_event code)
 {
@@ -26,10 +42,23 @@ static void	doom3d_custom_event_to_str(char *str, t_doom3d_event code)
 		ft_sprintf(str, "EventQuit");
 	else if (code == event_window_resize)
 		ft_sprintf(str, "EventWindowResize");
-	else if (code == event_editor_start_placement)
-		ft_sprintf(str, "EventEditorStartPlacement");
-	else if (code == event_editor_start_placement)
-		ft_sprintf(str, "EventEditorEndPlacement");
+	match_editor_event_to_str(str, code);
+}
+
+void		register_editor_events(t_doom3d *app)
+{
+	hash_map_add(app->custom_event_handles, event_editor_start_placement,
+		(void*)handle_editor_placement_start);
+	hash_map_add(app->custom_event_handles, event_editor_end_placement,
+		(void*)handle_editor_placement_end);
+	hash_map_add(app->custom_event_handles, event_editor_start_save,
+		(void*)handle_editor_save_start);
+	hash_map_add(app->custom_event_handles, event_editor_end_save,
+		(void*)handle_editor_save_end);
+	hash_map_add(app->custom_event_handles, event_editor_save_type,
+		(void*)handle_editor_save_type);
+	hash_map_add(app->custom_event_handles, event_editor_save_type_backspace,
+		(void*)handle_editor_save_type_backspace);
 }
 
 /*
@@ -53,10 +82,7 @@ void		doom3d_register_custom_events(t_doom3d *app)
 		(void*)handle_scene_change);
 	hash_map_add(app->custom_event_handles, event_quit,
 		(void*)handle_quit);
-	hash_map_add(app->custom_event_handles, event_editor_start_placement,
-		(void*)handle_editor_placement_start);
-	hash_map_add(app->custom_event_handles, event_editor_end_placement,
-		(void*)handle_editor_placement_end);
+	register_editor_events(app);
 }
 
 void		doom3d_push_event(t_doom3d *app,
@@ -91,7 +117,7 @@ void		doom3d_events_handle(t_doom3d *app, SDL_Event event)
 	if (handle != NULL)
 	{
 		doom3d_custom_event_to_str(event_str, event.user.code);
-		ft_printf("ReceiveCustomEvent: %s\n", event_str);
+		ft_printf("Event: %s\n", event_str);
 		handle(app, event.user.data1, event.user.data2);
 	}
 }
