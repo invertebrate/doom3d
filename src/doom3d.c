@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 17:10:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 17:25:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ static void		resize_dependent_recreate(t_doom3d *app)
 	}
 }
 
+/*
+** Scene switch should be the first thing we do if next scene id has changed
+** in main loop (before event handling).
+*/
+
 static void		handle_scene_switch(t_doom3d *app)
 {
 	if (app->active_scene->scene_id != app->next_scene_id ||
@@ -40,18 +45,18 @@ static void		doom3d_main_loop(t_doom3d *app)
 	while (app->is_running)
 	{
 		app->info.performance_start = SDL_GetPerformanceCounter();
-		update_app_ticks(app);
 		if (app->window->resized)
 			resize_dependent_recreate(app);
 		window_frame_clear(app->window);
 		handle_scene_switch(app);
-		events_handle(app);
+		handle_events(app);
 		doom3d_player_update(app);
 		doom3d_update_objects(app);
 		doom3d_render(app);
 		window_frame_draw(app->window);
 		doom3d_notifications_update(app);
-		doom3d_debug_info_capture(app);
+		doom3d_fps_capture(app);
+		update_app_ticks(app);
 	}
 }
 

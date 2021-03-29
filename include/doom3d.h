@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 17:00:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 17:23:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ void						doom3d_push_event(t_doom3d *app,
 void						doom3d_register_custom_events(t_doom3d *app);
 void						doom3d_events_handle(t_doom3d *app,
 								SDL_Event event);
-void						events_handle(t_doom3d *app);
+void						handle_events(t_doom3d *app);
 void						mouse_state_handle(t_doom3d *app);
 void						keyboard_state_handle(t_doom3d *app);
 void						general_input_events_handle(t_doom3d *app,
@@ -436,7 +436,7 @@ void						scene_menus_destroy(t_scene *scene);
 ** Utils
 */
 void						doom3d_debug_info_render(t_doom3d *app);
-void						doom3d_debug_info_capture(t_doom3d *app);
+void						doom3d_fps_capture(t_doom3d *app);
 uint64_t					doom3d_performance_counter_start(void);
 void						doom3d_performance_counter_end(uint64_t start_time,
 								char *task_name, float delta_limit);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 15:40:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 17:21:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void			input_events_handle(t_doom3d *app, SDL_Event event)
 	doom3d_button_events_handle(app, event);
 }
 
-void			events_handle(t_doom3d *app)
+void			handle_events(t_doom3d *app)
 {
 	SDL_Event	event;
 
