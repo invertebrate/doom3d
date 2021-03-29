@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:11:36 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 16:02:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:42:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef enum				e_editor_menu_index
 
 typedef struct 				s_editor
 {
+	t_bool					is_placing;
 	t_bool					is_saving;
 	t_bool					is_saved;
 	t_bool					is_moving;

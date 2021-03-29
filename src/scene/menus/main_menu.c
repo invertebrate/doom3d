@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 15:51:38 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 17:08:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,16 @@ static void			on_main_menu_button_click(t_button *self, void *params)
 
 	app = params;
 	if (self->id == 0)
-	{
-		app->next_scene_id = scene_id_main_game;
-	}
+		doom3d_push_event(app, event_scene_change,
+			(void*)scene_id_main_game, NULL);
 	else if (self->id == 1)
-	{
-		app->next_scene_id = scene_id_editor3d;
-	}
+		doom3d_push_event(app, event_scene_change,
+			(void*)scene_id_editor3d, NULL);
 	else if (self->id == 2)
-	{
-		app->next_scene_id = scene_id_main_menu_settings;
-	}
+		doom3d_push_event(app, event_scene_change,
+			(void*)scene_id_main_menu_settings, NULL);
 	else if (self->id == 3)
-		app->is_running = false;
+		doom3d_push_event(app, event_quit, NULL, NULL);
 }
 
 void				main_menu_create(t_doom3d *app)

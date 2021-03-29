@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:41:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/18 17:19:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 17:08:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,14 @@ static void			on_settings_menu_button_click(t_button *self, void *params)
 
 	app = params;
 	if (self->id == 0)
-	{
-		app->settings.width = 960;
-		app->settings.height = 540;
-		window_resize(app->window, app->settings.width, app->settings.height);
-	}
+		doom3d_push_event(app, event_window_resize, (void*)960, (void*)540);
 	else if (self->id == 1)
-	{
-		app->settings.width = 1280;
-		app->settings.height = 720;
-		window_resize(app->window, app->settings.width, app->settings.height);
-	}
+		doom3d_push_event(app, event_window_resize, (void*)1280, (void*)720);
 	else if (self->id == 2)
-	{
-		app->settings.width = 1920;
-		app->settings.height = 1080;
-		window_resize(app->window, app->settings.width, app->settings.height);
-	}
+		doom3d_push_event(app, event_window_resize, (void*)1920, (void*)1080);
 	else if (self->id == 3)
-	{
-		app->next_scene_id = scene_id_main_menu;
-	}
+		doom3d_push_event(app, event_scene_change,
+			(void*)scene_id_main_menu, NULL);
 }
 
 void				settings_menu_create(t_doom3d *app)

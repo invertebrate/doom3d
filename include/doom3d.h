@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 16:29:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 17:00:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,25 @@ void						handle_editor_saving(t_doom3d *app,
 t_bool						editor_popup_menu_open(t_doom3d *app);
 
 /*
+** Event handling
+*/
+
+int							handle_play_effect(t_doom3d *app,
+								int ind, t_sound *new);
+int							handle_play_music(t_doom3d *app,
+								int ind, t_sound *new);
+void						handle_object_deletion(t_doom3d *app,
+								t_3d_object *object);
+void						handle_editor_placement_end(t_doom3d *app);
+void						handle_editor_placement_start(t_doom3d *app);
+void						handle_window_resize(t_doom3d *app,
+								uint32_t width,
+								uint32_t height);
+void						handle_scene_change(t_doom3d *app,
+								t_scene_id scene_id);
+void						handle_quit(t_doom3d *app);
+
+/*
 ** 3D Animations
 */
 
@@ -357,8 +376,6 @@ const char					*texture_file_key(char *filename, t_doom3d *app);
 void						place_scene_object(t_doom3d *app,
 								const char *filenames[3],
 								t_vec3 pos);
-void						handle_object_deletion(t_doom3d *app,
-								t_3d_object *object);
 void						place_procedural_scene_object(t_doom3d *app,
 								t_3d_object *model,
 								const char *filenames[2], t_vec3 pos);
@@ -459,10 +476,6 @@ void						player_vitals_render(t_doom3d *app);
 /*
 ** Sounds
 */
-int							handle_play_effect(t_doom3d *app,
-								int ind, t_sound *new);
-int							handle_play_music(t_doom3d *app,
-								int ind, t_sound *new);
 void						mp_init(t_doom3d *app);
 t_mp						mix_chan_swap(t_doom3d *app, int channels);
 t_mp						mix_init(t_doom3d *app, int channels);

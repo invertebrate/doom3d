@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 16:19:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 17:07:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void			on_editor_save(t_doom3d *app)
 static void			on_editor_exit(t_doom3d *app)
 {
 	app->next_scene_id = scene_id_main_menu;
+	doom3d_push_event(app, event_scene_change, (void*)scene_id_main_menu, NULL);
 	editor_deselect_all(app);
 	SDL_StopTextInput();
 	app->editor.is_saving = false;

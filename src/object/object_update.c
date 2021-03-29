@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/26 18:12:01 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:07:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static void		finish_level(t_doom3d *app)
 	else
 	{
 		app->current_level = 0;
-		app->next_scene_id = scene_id_main_menu;
+		doom3d_push_event(app, event_scene_change,
+			(void*)scene_id_main_menu, NULL);
 		doom3d_notification_add(app, (t_notification){
 			.message =
 				"Game over!",

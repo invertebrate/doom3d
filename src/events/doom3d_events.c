@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 16:30:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 17:14:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ static void	doom3d_custom_event_to_str(char *str, t_doom3d_event code)
 		ft_sprintf(str, "EventMusicPlay");
 	else if (code == event_effect_play)
 		ft_sprintf(str, "EventEffectPlay");
+	else if (code == event_scene_change)
+		ft_sprintf(str, "EventSceneChange");
+	else if (code == event_quit)
+		ft_sprintf(str, "EventQuit");
+	else if (code == event_window_resize)
+		ft_sprintf(str, "EventWindowResize");
+	else if (code == event_editor_start_placement)
+		ft_sprintf(str, "EventEditorStartPlacement");
+	else if (code == event_editor_start_placement)
+		ft_sprintf(str, "EventEditorEndPlacement");
 }
 
 /*
@@ -37,6 +47,16 @@ void		doom3d_register_custom_events(t_doom3d *app)
 		(void*)handle_play_effect);
 	hash_map_add(app->custom_event_handles, event_music_play,
 		(void*)handle_play_music);
+	hash_map_add(app->custom_event_handles, event_window_resize,
+		(void*)handle_window_resize);
+	hash_map_add(app->custom_event_handles, event_scene_change,
+		(void*)handle_scene_change);
+	hash_map_add(app->custom_event_handles, event_quit,
+		(void*)handle_quit);
+	hash_map_add(app->custom_event_handles, event_editor_start_placement,
+		(void*)handle_editor_placement_start);
+	hash_map_add(app->custom_event_handles, event_editor_end_placement,
+		(void*)handle_editor_placement_end);
 }
 
 void		doom3d_push_event(t_doom3d *app,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_input_events.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 18:42:59 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:19:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ void			general_input_events_handle(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_QUIT)
 	{
-		app->is_running = false;
+		doom3d_push_event(app, event_quit, NULL, NULL);
 	}
 	if (!SDL_IsTextInputActive() && !app->editor.is_saving)
 	{
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
-			app->is_running = false;
+			doom3d_push_event(app, event_quit, NULL, NULL);
 		if (event.type == SDL_KEYUP)
 			handle_general_keyup_events(app, event);
 	}

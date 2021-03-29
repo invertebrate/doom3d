@@ -126,6 +126,8 @@ SOURCES = main.c \
 			window/buttons/button_popup_menu_events.c \
 			events/event_handling/objects.c \
 			events/event_handling/media.c \
+			events/event_handling/menus.c \
+			events/event_handling/editor.c \
 			events/mouse_state.c \
 			events/events.c \
 			events/doom3d_events.c \
