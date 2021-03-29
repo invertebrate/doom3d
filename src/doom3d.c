@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 15:40:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:28:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ void			doom3d_run(t_doom3d *app)
 	settings_init(app);
 	window_create(&app->window, app->settings.width, app->settings.height);
 	doom3d_init(app);
-	mp_play_music(app, mu_main, s_ini(1, 10, st_main_menu, 0.6));
+	doom3d_push_event(app,
+		event_music_play, (void*)mu_main, s_ini(1, 10, st_main_menu, 0.6));
 	doom3d_main_loop(app);
 	doom3d_cleanup(app);
 }

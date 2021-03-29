@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 16:16:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:30:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 static void	doom3d_custom_event_to_str(char *str, t_doom3d_event code)
 {
-	if (code == event_delete_object)
+	if (code == event_object_delete)
 		ft_sprintf(str, "EventObjectDelete");
+	else if (code == event_music_play)
+		ft_sprintf(str, "EventMusicPlay");
+	else if (code == event_effect_play)
+		ft_sprintf(str, "EventEffectPlay");
 }
 
 /*
@@ -27,8 +31,12 @@ void		doom3d_register_custom_events(t_doom3d *app)
 {
 	app->custom_event_type = SDL_RegisterEvents(1);
 	app->custom_event_handles = hash_map_create(NUM_CUSTOM_EVENTS);
-	hash_map_add(app->custom_event_handles, event_delete_object,
+	hash_map_add(app->custom_event_handles, event_object_delete,
 		(void*)handle_object_deletion);
+	hash_map_add(app->custom_event_handles, event_effect_play,
+		(void*)handle_play_effect);
+	hash_map_add(app->custom_event_handles, event_music_play,
+		(void*)handle_play_music);
 }
 
 void		doom3d_push_event(t_doom3d *app,

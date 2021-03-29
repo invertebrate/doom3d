@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:35:16 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/29 15:57:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:19:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 	{
 		npc->state = state_death_anim;
 		// ft_printf("npc killed!\n"); //test
-		doom3d_push_event(app, event_delete_object,
+		doom3d_push_event(app, event_object_delete,
 			obj, NULL);
 	}
 	// ft_printf("npc hit for %d damage! current hp: %d\n",

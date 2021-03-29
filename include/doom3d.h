@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 16:07:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:29:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -459,7 +459,10 @@ void						player_vitals_render(t_doom3d *app);
 /*
 ** Sounds
 */
-
+int							handle_play_effect(t_doom3d *app,
+								int ind, t_sound *new);
+int							handle_play_music(t_doom3d *app,
+								int ind, t_sound *new);
 void						mp_init(t_doom3d *app);
 t_mp						mix_chan_swap(t_doom3d *app, int channels);
 t_mp						mix_init(t_doom3d *app, int channels);
@@ -467,9 +470,8 @@ t_track						*read_sound(char *file, t_doom3d *app);
 void						mp_close(t_doom3d *app);
 void						mp_au_mix(void *para, Uint8 *stream, int len);
 t_sound						*s_ini(char loop, char priority, char type, float vol);
-int							mp_play_eff(t_doom3d *app, int ind, t_sound *new);
-int							mp_play_music(t_doom3d *app, int ind, t_sound *new);
 void						mp_typec(t_doom3d *app, char type, char sound, char state);
-void						mp_print(t_mp *mp);//
+void						mp_print(t_mp *mp);
+void						mp_reorder(t_sound **start, t_sound *new);
 
 #endif
