@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 18:08:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_button		*button_create(t_window *window, uint32_t id, const char *text)
 	button->id = id;
 	button->window = window;
 	button->text = text;
+	button->is_active = true;
 	return (button);
 }
 

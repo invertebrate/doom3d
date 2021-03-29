@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:09:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 17:41:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 18:37:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,14 @@ typedef enum				e_doom3d_event
 	event_editor_end_save = 4321,
 	event_editor_save_type = 1212,
 	event_editor_save_type_backspace = 1313,
+	event_editor_delete = 1414,
+	event_editor_select = 1818,
+	event_editor_deselect = 1919,
+	event_editor_level_switch = 2020,
+	event_editor_exit = 1515,
 	event_window_resize = 666,
 	event_scene_change = 777,
+	event_scene_reload = 888,
 	event_quit = 999,
 }							t_doom3d_event;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   button_group_events.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:38:19 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/23 13:48:43 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/29 18:09:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void			button_group_events_handle(t_button_group *button_group,
 {
 	int32_t		i;
 
+	if (!button_group->is_active)
+		return ;
 	i = -1;
 	if (!button_group->is_selector)
 	{

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 18:07:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_button_group		*button_group_create(t_button **buttons,
 	button_group->num_buttons = num_buttons;
 	button_group->buttons = buttons;
 	button_group->is_horizontal = false;
+	button_group->is_active = true;
 	set_button_group_button_dimensions(buttons, num_buttons);
 	button_group_update_position(button_group, button_group->pos);
 	return (button_group);

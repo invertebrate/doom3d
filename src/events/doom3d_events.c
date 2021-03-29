@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 17:48:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 18:40:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,45 @@
 static void	match_editor_event_to_str(char *str, t_doom3d_event code)
 {
 	if (code == event_editor_start_placement)
-		ft_sprintf(str, "EventEditorStartPlacement");
+		ft_sprintf(str, "EditorStartPlacement");
 	else if (code == event_editor_start_placement)
-		ft_sprintf(str, "EventEditorEndPlacement");
+		ft_sprintf(str, "EditorEndPlacement");
 	else if (code == event_editor_start_save)
-		ft_sprintf(str, "EventEditorStartSave");
+		ft_sprintf(str, "EditorStartSave");
 	else if (code == event_editor_end_save)
-		ft_sprintf(str, "EventEditorEndSave");
+		ft_sprintf(str, "EditorEndSave");
 	else if (code == event_editor_save_type)
-		ft_sprintf(str, "EventEditorType");
+		ft_sprintf(str, "EditorType");
 	else if (code == event_editor_save_type_backspace)
-		ft_sprintf(str, "EventEditorTypeBackspace");
+		ft_sprintf(str, "EditorTypeBackspace");
+	else if (code == event_editor_delete)
+		ft_sprintf(str, "EditorDelete");
+	else if (code == event_editor_select)
+		ft_sprintf(str, "EditorSelect");
+	else if (code == event_editor_deselect)
+		ft_sprintf(str, "EditorDeselect");
+	else if (code == event_editor_level_switch)
+		ft_sprintf(str, "EditorLevelSwitch");
+	else if (code == event_editor_exit)
+		ft_sprintf(str, "EditorExit");
 }
 
 static void	doom3d_custom_event_to_str(char *str, t_doom3d_event code)
 {
 	if (code == event_object_delete)
-		ft_sprintf(str, "EventObjectDelete");
+		ft_sprintf(str, "ObjectDelete");
 	else if (code == event_music_play)
-		ft_sprintf(str, "EventMusicPlay");
+		ft_sprintf(str, "MusicPlay");
 	else if (code == event_effect_play)
-		ft_sprintf(str, "EventEffectPlay");
+		ft_sprintf(str, "EffectPlay");
 	else if (code == event_scene_change)
-		ft_sprintf(str, "EventSceneChange");
+		ft_sprintf(str, "SceneChange");
+	else if (code == event_scene_reload)
+		ft_sprintf(str, "SceneReload");
 	else if (code == event_quit)
-		ft_sprintf(str, "EventQuit");
+		ft_sprintf(str, "Quit");
 	else if (code == event_window_resize)
-		ft_sprintf(str, "EventWindowResize");
+		ft_sprintf(str, "WindowResize");
 	match_editor_event_to_str(str, code);
 }
 
@@ -59,6 +71,16 @@ void		register_editor_events(t_doom3d *app)
 		(void*)handle_editor_save_type);
 	hash_map_add(app->custom_event_handles, event_editor_save_type_backspace,
 		(void*)handle_editor_save_type_backspace);
+	hash_map_add(app->custom_event_handles, event_editor_delete,
+		(void*)handle_editor_delete);
+	hash_map_add(app->custom_event_handles, event_editor_exit,
+		(void*)handle_editor_exit);
+	hash_map_add(app->custom_event_handles, event_editor_select,
+		(void*)handle_editor_select);
+	hash_map_add(app->custom_event_handles, event_editor_deselect,
+		(void*)handle_editor_deselect);
+	hash_map_add(app->custom_event_handles, event_editor_level_switch,
+		(void*)handle_editor_level_switch);
 }
 
 /*
@@ -80,6 +102,8 @@ void		doom3d_register_custom_events(t_doom3d *app)
 		(void*)handle_window_resize);
 	hash_map_add(app->custom_event_handles, event_scene_change,
 		(void*)handle_scene_change);
+	hash_map_add(app->custom_event_handles, event_scene_reload,
+		(void*)handle_scene_reload);
 	hash_map_add(app->custom_event_handles, event_quit,
 		(void*)handle_quit);
 	register_editor_events(app);

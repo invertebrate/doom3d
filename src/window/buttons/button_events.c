@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   button_events.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/23 13:48:35 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/29 18:09:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_bool			button_is_down(t_button *button, t_mouse mouse,
 {
 	t_bool		res;
 
+	if (!button->is_active)
+		return (false);
 	res = false;
 	if (mouse.x >= button->pos[0] &&
 		mouse.x < button->pos[0] + button->width &&
@@ -36,6 +38,8 @@ t_bool			button_is_clicked(t_button *button, t_mouse mouse,
 {
 	t_bool		res;
 
+	if (!button->is_active)
+		return (false);
 	res = false;
 	if (mouse.x >= button->pos[0] &&
 		mouse.x < button->pos[0] + button->width &&
@@ -54,6 +58,8 @@ t_bool			button_is_hovered(t_button *button, t_mouse mouse,
 {
 	t_bool		res;
 
+	if (!button->is_active)
+		return (false);
 	res = false;
 	if (mouse.x >= button->pos[0] &&
 		mouse.x < button->pos[0] + button->width &&

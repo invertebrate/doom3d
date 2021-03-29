@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 17:43:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 18:40:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,18 +254,26 @@ int							handle_play_music(t_doom3d *app,
 								int ind, t_sound *new);
 void						handle_object_deletion(t_doom3d *app,
 								t_3d_object *object);
-void						handle_editor_placement_end(t_doom3d *app);
-void						handle_editor_placement_start(t_doom3d *app);
 void						handle_window_resize(t_doom3d *app,
 								uint32_t width,
 								uint32_t height);
 void						handle_scene_change(t_doom3d *app,
 								t_scene_id scene_id);
+void						handle_scene_reload(t_doom3d *app);
 void						handle_quit(t_doom3d *app);
+void						handle_editor_placement_end(t_doom3d *app);
+void						handle_editor_placement_start(t_doom3d *app);
 void						handle_editor_save_end(t_doom3d *app);
 void						handle_editor_save_start(t_doom3d *app);
 void						handle_editor_save_type_backspace(t_doom3d *app);
 void						handle_editor_save_type(t_doom3d *app, char *text);
+void						handle_editor_delete(t_doom3d *app);
+void						handle_editor_exit(t_doom3d *app);
+void						handle_editor_deselect(t_doom3d *app);
+void						handle_editor_deselect_all(t_doom3d *app);
+void						handle_editor_select(t_doom3d *app);
+void						handle_editor_level_switch(t_doom3d *app);
+
 
 /*
 ** 3D Animations
@@ -392,6 +400,7 @@ t_3d_object					*place_procedural_temp_object(t_doom3d *app,
 								t_vec3 pos, int32_t lifetime_and_delay[2]);
 void						select_object(t_doom3d *app, t_3d_object *object);
 void						editor_select(t_doom3d *app);
+void						editor_deselect(t_doom3d *app);
 void						editor_deselect_all(t_doom3d *app);
 void						after_editor_transform(t_doom3d *app,
 								uint32_t *last_changed);

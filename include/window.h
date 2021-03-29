@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 15:55:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 18:07:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ struct						s_button
 	void					*on_click_params;
 	void					*on_hover_params;
 	t_window				*window;
+	t_bool					is_active;
 };
 
 typedef struct				s_button_group
@@ -115,6 +116,7 @@ typedef struct				s_button_group
 	t_bool					is_horizontal;
 	t_bool					is_selector;
 	uint32_t				selected_index;
+	t_bool					is_active;
 }							t_button_group;
 
 typedef struct				s_button_menu

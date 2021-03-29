@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 16:40:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 18:39:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,11 +175,56 @@ void			editor_select(t_doom3d *app)
 		}
 		l3d_delete_hits(&hits);
 	}
+}
+
+static void		deselect_one(t_doom3d *app, t_3d_object *hit_obj)
+{
+	t_3d_object		*selected_objects[MAX_SELECTED_OBJECTS];
+	int32_t			i;
+	int32_t			j;
+
+	i = -1;
+	j = 0;
+	while (++i < app->editor.num_selected_objects)
+	{
+		if (hit_obj->id != selected_objects[i]->id)
+		{
+			selected_objects[j] = app->editor.selected_objects[i];
+			j++;
+		}
+	}
+	app->editor.num_selected_objects = j;
+	j = -1;
+	while (++j < app->editor.num_selected_objects)
+	{
+		app->editor.selected_objects[j] = selected_objects[j];
+	}
+}
+
+void			editor_deselect(t_doom3d *app)
+{
+	t_vec3			mouse_world_pos;
+	t_vec3			dir;
+	t_hits			*hits;
+	t_hit			*closest_triangle_hit;
+
+	hits = NULL;
+	get_mouse_world_position(app, mouse_world_pos);
+	ml_vector3_sub(mouse_world_pos, app->player.pos, dir);
+	ml_vector3_normalize(dir, dir);
+	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, app->player.pos,
+		dir, &hits))
+	{
+		l3d_get_closest_hit(hits, &closest_triangle_hit, -1);
+		if (closest_triangle_hit != NULL)
+			deselect_one(app, closest_triangle_hit->triangle->parent);
+		l3d_delete_hits(&hits);
+	}
 	else
 	{
 		if (app->editor.num_selected_objects > 0)
 			doom3d_notification_add(app, (t_notification){
-			.message = "Deselected!",
+			.message = "Deselected all!",
 			.type = notification_type_info, .time = 2000});
 		editor_deselect_all(app);
 	}

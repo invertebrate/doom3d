@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 17:36:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 18:20:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,13 @@
 
 static void			on_delete_menu_button_click(t_button *self, void *params)
 {
-	t_doom3d			*app;
-	t_3d_object			*object_to_delete;
-	int32_t				i;
+	t_doom3d	*app;
 
 	app = params;
 	if (self->id == 0)
 	{
-		if (app->editor.num_selected_objects > 0)
-		{
-			i = -1;
-			while (++i < app->editor.num_selected_objects)
-			{
-				if (app->editor.selected_objects[i]->type == object_type_path)
-					delete_path_object_connections(
-						app->editor.selected_objects[i]->params);
-				object_to_delete = app->editor.selected_objects[i];
-				doom3d_push_event(app, event_object_delete,
-					object_to_delete, NULL);
-			}
-			app->editor.is_saved = false;
-			editor_deselect_all(app);
-			doom3d_notification_add(app, (t_notification){
-			.message = "Deleted!",
-			.type = notification_type_info, .time = 2000});
-		}
+		ft_printf("Delete menu button click\n");
+		doom3d_push_event(app, event_editor_delete, NULL, NULL);
 	}
 }
 
@@ -47,13 +29,9 @@ static void			on_editor_save_button_click(t_doom3d *app)
 	doom3d_push_event(app, event_editor_start_save, NULL, NULL);
 }
 
-static void			on_editor_exit(t_doom3d *app)
+static void			on_editor_exit_button_click(t_doom3d *app)
 {
-	app->next_scene_id = scene_id_main_menu;
-	doom3d_push_event(app, event_scene_change, (void*)scene_id_main_menu, NULL);
-	editor_deselect_all(app);
-	SDL_StopTextInput();
-	app->editor.is_saving = false;
+	doom3d_push_event(app, event_editor_exit, NULL, NULL);
 }
 
 static void			on_objects_menu_button_click(t_button *self, void *params)
@@ -390,7 +368,7 @@ static void			on_editor_menu_button_click(t_button *self, void *params)
 	app = params;
 	new_menu_id = editor_menu_none;
 	if (self->id == 0)
-		on_editor_exit(app);
+		on_editor_exit_button_click(app);
 	else if (self->id == 1)
 		on_editor_save_button_click(app);
 	else
@@ -428,9 +406,9 @@ static void			on_new_level_menu_button_click(t_button *self, void *params)
 				.type = notification_type_info, .time = 2000});
 			return ;
 		}
-		app->is_scene_reload = true;
 		editor_init(app, app->editor.editor_level +
 			app->num_levels - app->editor.editor_level);
+		doom3d_push_event(app, event_scene_reload, NULL, NULL);
 	}
 	else if (self->id == 0 && app->editor.editor_level == MAX_LEVELS)
 		doom3d_notification_add(app, (t_notification){
