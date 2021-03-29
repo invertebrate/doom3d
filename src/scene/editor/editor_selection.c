@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 18:39:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/29 19:00:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,15 +182,20 @@ static void		deselect_one(t_doom3d *app, t_3d_object *hit_obj)
 	t_3d_object		*selected_objects[MAX_SELECTED_OBJECTS];
 	int32_t			i;
 	int32_t			j;
+	t_3d_object		*obj;
 
 	i = -1;
 	j = 0;
 	while (++i < app->editor.num_selected_objects)
 	{
-		if (hit_obj->id != selected_objects[i]->id)
+		if (hit_obj->id != app->editor.selected_objects[i]->id)
+			selected_objects[j++] = app->editor.selected_objects[i];
+		else
 		{
-			selected_objects[j] = app->editor.selected_objects[i];
-			j++;
+			obj = app->editor.selected_objects[i];
+			obj->material->shading_opts = (obj->material->shading_opts &
+				~(e_shading_select));
+			app->editor.selected_objects[i] = NULL;
 		}
 	}
 	app->editor.num_selected_objects = j;
