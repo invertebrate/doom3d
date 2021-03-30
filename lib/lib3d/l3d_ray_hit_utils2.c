@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:49:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 17:30:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 23:38:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
-void			l3d_get_smallest_dist_hit(t_hits *hits, t_hit **closest)
+void			l3d_get_closest_hit(t_hits *hits, t_hit **closest)
 {
 	t_hits	*head;
 	t_hit	*hit;

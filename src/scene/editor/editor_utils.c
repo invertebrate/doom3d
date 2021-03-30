@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 18:09:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 23:54:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,6 +268,35 @@ t_3d_object		*editor_object_by_mouse(t_doom3d *app)
 	return (hit_obj);
 }
 
+static void		editor_point_on_target_offset(t_doom3d *app,
+					t_vec3 target_point, t_vec3 normal, t_vec3 offset)
+{
+	t_ray			ray;
+	t_hits			*hits;
+	t_hit			*closest;
+	t_box3d			aabb;
+
+	ml_vector3_copy(target_point, aabb.center);
+	ml_vector3_copy(app->editor.selected_objects[0]->aabb.size, aabb.size);
+	ml_vector3_mul(aabb.size, 0.5, aabb.size);
+	ml_vector3_add(aabb.center, aabb.size, aabb.xyz_max);
+	ml_vector3_sub(aabb.center, aabb.size, aabb.xyz_min);
+	ml_vector3_mul(aabb.size, 1.0, aabb.size);
+	ml_vector3_normalize(normal, ray.dir);
+	ml_vector3_copy((t_vec3){
+		1.0 / ray.dir[0], 1.0 / ray.dir[1], 1.0 / ray.dir[2]}, ray.dir_inv);
+	ml_vector3_copy(target_point, ray.origin);
+	hits = NULL;
+	closest = NULL;
+	if (l3d_bounding_box_ray_hit(&aabb, &ray, &hits, true))
+	{
+		l3d_get_closest_hit(hits, &closest);
+		if (closest != NULL)
+			ml_vector3_sub(target_point, closest->hit_point, offset);
+		l3d_delete_hits(&hits);
+	}
+}
+
 /*
 ** Returns hit point by mouse, but ignores the currently selected one,
 ** Useful when e.g. placing a new object.
@@ -280,6 +309,7 @@ void			editor_point_on_target(t_doom3d *app,
 	t_vec3			dir;
 	t_hits			*hits;
 	t_hit			*closest_triangle_hit;
+	t_vec3			add;
 
 	if (app->editor.num_selected_objects == 0)
 		return ;
@@ -293,7 +323,12 @@ void			editor_point_on_target(t_doom3d *app,
 		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit,
 			app->editor.selected_objects[0]->id);
 		if (closest_triangle_hit != NULL)
-			ml_vector3_copy(closest_triangle_hit->hit_point, placement_point);
+		{
+			editor_point_on_target_offset(app, closest_triangle_hit->hit_point,
+				closest_triangle_hit->normal, add);
+			ml_vector3_add(closest_triangle_hit->hit_point,
+				add, placement_point);
+		}
 		l3d_delete_hits(&hits);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 18:28:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 23:53:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ void	handle_editor_placement_start(t_doom3d *app,
 	else if (obj_type == object_type_trigger)
 		obj = editor_place_trigger_object(app, param_type);
 	if (obj)
+	{
+		active_scene_update_after_objects(app->active_scene);	
+		editor_objects_invisible_highlight(app);
 		select_object(app, obj);
+	}
 	else
 		app->editor.is_placing = false;
 }
