@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 16:24:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 18:28:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	handle_editor_placement_start(t_doom3d *app,
 	editor_deselect_all(app);
 	if (obj_type == object_type_light)
 		obj = editor_place_light_object(app);
+	else if (obj_type == object_type_trigger)
+		obj = editor_place_trigger_object(app, param_type);
 	if (obj)
 		select_object(app, obj);
 	else
@@ -37,6 +39,9 @@ void	handle_editor_placement_cancel(t_doom3d *app)
 void	handle_editor_placement_end(t_doom3d *app)
 {
 	app->editor.is_placing = false;
+	doom3d_notification_add(app, (t_notification){
+		.message = "Placed!",
+		.type = notification_type_info, .time = 2000});
 }
 
 void	handle_editor_save_start(t_doom3d *app)

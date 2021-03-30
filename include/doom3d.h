@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 17:43:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 18:28:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -388,6 +388,8 @@ void						active_scene_popup_menu_destroy(t_doom3d *app);
 /*
 ** Editor
 */
+void						editor_objects_invisible_unhighlight(t_doom3d *app);
+void						editor_objects_invisible_highlight(t_doom3d *app);
 void						save_map(t_doom3d *app);
 void						read_map(t_doom3d *app, const char *map_name);
 const char					*normal_map_file_key(char *filename, t_doom3d *app);
@@ -423,8 +425,6 @@ void						patrol_path_link_node(t_3d_object *node_obj, t_3d_object *obj, int slo
 void						editor_pos_camera_front(t_doom3d *app ,
 								t_vec3 result);
 void						patrol_path_highlight(t_render_work *work);
-void						place_elevator_switch(t_doom3d *app);
-void						place_drop_key(t_doom3d *app);
 void						trigger_update_key_id(t_doom3d *app,
 								t_3d_object *key);
 void						draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
@@ -435,6 +435,8 @@ char						*get_object_normal_map_filename(t_scene *scene,
 char						*get_object_texture_filename(t_scene *scene,
 								t_3d_object *obj);
 t_3d_object					*editor_place_light_object(t_doom3d *app);
+t_3d_object					*editor_place_trigger_object(t_doom3d *app,
+								t_trigger_type type);
 
 /*
 ** Level
@@ -498,12 +500,12 @@ void						doom3d_notifications_delete_all(t_doom3d *app);
 /*
 ** Triggers
 */
-void						place_player_end(t_doom3d *app);
-void						place_player_start(t_doom3d *app);
-void						place_drop_shotgun(t_doom3d *app);
-void						place_drop_jetpack(t_doom3d *app);
-void						editor_objects_invisible_unhighlight(t_doom3d *app);
-void						editor_objects_invisible_highlight(t_doom3d *app);
+t_3d_object					*place_player_end(t_doom3d *app);
+t_3d_object					*place_player_start(t_doom3d *app);
+t_3d_object					*place_drop_shotgun(t_doom3d *app);
+t_3d_object					*place_drop_jetpack(t_doom3d *app);
+t_3d_object					*place_elevator_switch(t_doom3d *app);
+t_3d_object					*place_drop_key(t_doom3d *app);
 void						trigger_activate(t_doom3d *app, t_3d_object *obj);
 void						trigger_link_object_to_npc(t_3d_object *trigger,
 								t_3d_object *target);
