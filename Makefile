@@ -85,7 +85,7 @@ SOURCES = main.c \
 			utils.c \
 			notifications/notifications.c \
 			scene/menus/editor3d_menu.c \
-			scene/menus/editor3d_menu_buttons.c \
+			scene/menus/editor3d_menu_events.c \
 			scene/menus/settings_menu.c \
 			scene/menus/main_menu.c \
 			scene/menus/pause_menu.c \
@@ -129,7 +129,11 @@ SOURCES = main.c \
 			events/event_handling/objects.c \
 			events/event_handling/media.c \
 			events/event_handling/menus.c \
-			events/event_handling/editor.c \
+			events/event_handling/editor/menu.c \
+			events/event_handling/editor/selection.c \
+			events/event_handling/editor/placement.c \
+			events/event_handling/editor/save.c \
+			events/event_handling/editor/textures.c \
 			events/mouse_state.c \
 			events/input.c \
 			events/doom3d_events.c \
@@ -178,6 +182,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/render/debug
 	@mkdir -p temp/events
 	@mkdir -p temp/events/event_handling
+	@mkdir -p temp/events/event_handling/editor
 	@mkdir -p temp/player
 	@mkdir -p temp/animations
 	@mkdir -p temp/npc
