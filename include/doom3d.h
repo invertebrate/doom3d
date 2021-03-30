@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 18:40:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 14:33:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,8 @@ void						handle_editor_deselect(t_doom3d *app);
 void						handle_editor_deselect_all(t_doom3d *app);
 void						handle_editor_select(t_doom3d *app);
 void						handle_editor_level_switch(t_doom3d *app);
-
+void						handle_editor_open_popup_menu(t_doom3d *app,
+								t_editor_menu_index menu_id, t_vec3 pos);
 
 /*
 ** 3D Animations
@@ -440,10 +441,39 @@ t_button_group				*button_menu_create(t_doom3d *app,
 								t_button_menu_params menu_params);
 void						main_menu_create(t_doom3d *app);
 void						editor3d_menu_create(t_doom3d *app);
+void						editor_popup_menu_create(t_doom3d *app,
+								t_editor_menu_index new_menu,
+								t_vec2 pos);
 void						pause_menu_create(t_doom3d *app);
 void						settings_menu_create(t_doom3d *app);
 void						active_scene_menu_recreate(t_doom3d *app);
 void						scene_menus_destroy(t_scene *scene);
+
+/*
+** Button clicks
+*/
+void						on_delete_menu_button_click(t_button *self,
+								void *params);
+void						on_editor_save_button_click(t_doom3d *app);
+void						on_editor_exit_button_click(t_doom3d *app);
+void						on_objects_menu_button_click(t_button *self,
+								void *params);
+void						on_textures_menu_button_click(t_button *self,
+								void *params);
+void						on_normmaps_menu_button_click(t_button *self,
+								void *params);
+void						on_npc_menu_button_click(t_button *self,
+								void *params);
+void						on_prefab_menu_button_click(t_button *self,
+								void *params);
+void						on_trigger_menu_button_click(t_button *self,
+								void *params);
+void						on_light_menu_button_click(t_button *self,
+								void *params);
+void						on_editor_menu_button_click(t_button *self,
+								void *params);
+void						on_new_level_menu_button_click(t_button *self,
+								void *params);
 
 /*
 ** Utils

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 18:40:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 14:36:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void	match_editor_event_to_str(char *str, t_doom3d_event code)
 		ft_sprintf(str, "EditorDeselect");
 	else if (code == event_editor_level_switch)
 		ft_sprintf(str, "EditorLevelSwitch");
+	else if (code == event_editor_open_popup_menu)
+		ft_sprintf(str, "EditorOpenPopupMenu");
 	else if (code == event_editor_exit)
 		ft_sprintf(str, "EditorExit");
 }
@@ -81,6 +83,8 @@ void		register_editor_events(t_doom3d *app)
 		(void*)handle_editor_deselect);
 	hash_map_add(app->custom_event_handles, event_editor_level_switch,
 		(void*)handle_editor_level_switch);
+	hash_map_add(app->custom_event_handles, event_editor_open_popup_menu,
+		(void*)handle_editor_open_popup_menu);
 }
 
 /*

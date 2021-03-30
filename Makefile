@@ -85,6 +85,7 @@ SOURCES = main.c \
 			utils.c \
 			notifications/notifications.c \
 			scene/menus/editor3d_menu.c \
+			scene/menus/editor3d_menu_buttons.c \
 			scene/menus/settings_menu.c \
 			scene/menus/main_menu.c \
 			scene/menus/pause_menu.c \

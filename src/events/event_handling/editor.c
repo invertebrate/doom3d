@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 14:17:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 14:34:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,4 +160,17 @@ void	handle_editor_level_switch(t_doom3d *app)
 		app->editor.editor_level = (int32_t)app->num_levels - 1;
 	editor_init(app, app->editor.editor_level);
 	doom3d_push_event(app, event_scene_reload, NULL, NULL);
+}
+
+void	handle_editor_open_popup_menu(t_doom3d *app,
+			t_editor_menu_index menu_id, t_vec2 pos)
+{
+	if (app->editor.editor_menu_id != menu_id)
+	{
+		if (app->editor.editor_menu != NULL)
+			button_popup_menu_destroy(app->editor.editor_menu);
+		editor_popup_menu_create(app, menu_id, pos);
+	}
+	app->editor.editor_menu->is_open = true;
+	app->editor.editor_menu_id = menu_id;
 }
