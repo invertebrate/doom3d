@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 15:22:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 15:35:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	handle_editor_placement_start(t_doom3d *app,
 	app->editor.is_placing = true;
 	obj = NULL;
 	(void)param_type;
+	editor_deselect_all(app);
 	if (obj_type == object_type_light)
 		obj = editor_place_light_object(app);
 	if (obj)

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 16:15:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 15:34:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,14 @@ static void				mouse_editor_state_handle(t_doom3d *app)
 		SDL_ShowCursor(SDL_ENABLE);
 		SDL_SetRelativeMouseMode(SDL_FALSE);
 		SDL_GetRelativeMouseState(&xrel, &yrel);
-		if (app->editor.num_selected_objects > 0 &&
-			app->keyboard.state[SDL_SCANCODE_R])
+		if (app->editor.is_placing)
 		{
-			object_rotation_handle(app, xrel, yrel);
+			// editor_selected_object_to_ray(app);
+		}
+		if (app->editor.num_selected_objects > 0)
+		{
+			if (app->keyboard.state[SDL_SCANCODE_R])
+				object_rotation_handle(app, xrel, yrel);
 		}
 	}
 }
@@ -119,8 +123,7 @@ void					mouse_state_handle(t_doom3d *app)
 	if (app->active_scene->scene_id == scene_id_main_game &&
 		!app->active_scene->is_paused)
 		mouse_game_state_handle(app);
-	if (app->active_scene->scene_id == scene_id_editor3d &&
-		!editor_popup_menu_open(app))
+	if (app->active_scene->scene_id == scene_id_editor3d)
 	{
 		mouse_editor_state_handle(app);
 	}
