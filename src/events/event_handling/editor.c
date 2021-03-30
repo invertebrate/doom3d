@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 18:44:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 14:17:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +135,17 @@ void	handle_editor_select(t_doom3d *app)
 			app->window->editor_pos[1] +
 			app->window->editor_framebuffer->height)
 		editor_select(app);
+	if (app->editor.num_selected_objects == 0)
+		app->active_scene->menus[1]->is_active = false;
+	else
+		app->active_scene->menus[1]->is_active = true;
 }
 
 void	handle_editor_deselect(t_doom3d *app)
 {
-	editor_deselect(app);	
+	editor_deselect(app);
+	if (app->editor.num_selected_objects == 0)
+		app->active_scene->menus[1]->is_active = false;	
 }
 
 void	handle_editor_level_switch(t_doom3d *app)

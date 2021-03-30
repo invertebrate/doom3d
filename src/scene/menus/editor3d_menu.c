@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 18:20:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 14:16:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -444,6 +444,7 @@ void				editor3d_menu_create(t_doom3d *app)
 			.on_click = on_delete_menu_button_click,
 			.button_font = app->window->main_font,
 		});
+	app->active_scene->menus[1]->is_active = false;
 	app->active_scene->menus[2] = button_menu_create(app,
 		(t_button_menu_params){
 			.button_names = (const char*[1]){
