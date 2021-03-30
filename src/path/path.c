@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 22:21:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 17:43:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:10:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,14 @@ void				path_node_init(t_3d_object *path_obj)
 ** Place path object in scene (via editor)
 */
 
-void				place_path_object(t_doom3d *app)
+t_3d_object			*place_path_object(t_doom3d *app)
 {
 	t_3d_object		*path_obj;
 	t_vec3			pos;
 
 	editor_pos_camera_front(app, pos);
-	place_scene_object(app, (const char*[3]){
+	path_obj = place_scene_object(app, (const char*[3]){
 		"assets/models/box.obj", NULL,  NULL}, pos);
-	path_obj =
-		app->active_scene->objects[app->active_scene->last_object_index];
 	l3d_object_set_shading_opts(path_obj, e_shading_invisible);
 	path_obj->type = object_type_path;
 	l3d_3d_object_scale(path_obj, 0.3, 0.3, 0.3);
@@ -50,6 +48,7 @@ void				place_path_object(t_doom3d *app)
 		app->editor.selected_objects[0]->type == object_type_path &&
 		app->keyboard.state[SDL_SCANCODE_LCTRL])
 		path_objects_set_neighbour(app, path_obj);
+	return (path_obj);
 }
 
 static void			path_draw_individual_node_connections(t_render_work *work, t_3d_object *obj)

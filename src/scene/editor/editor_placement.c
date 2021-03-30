@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:50:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:00:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:11:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_3d_object		*editor_place_light_object(t_doom3d *app)
 	return (light);
 }
 
-static void		trigger_notification(t_doom3d *app, char *txt)
+static void		placement_notification(t_doom3d *app, char *txt)
 {
 	doom3d_notification_add(app, (t_notification){
 			.message = txt,
@@ -42,39 +42,65 @@ t_3d_object		*editor_place_trigger_object(t_doom3d *app,
 	trigger = NULL;
 	if (trigger_type == trigger_player_start &&
 		find_one_object_by_type(app, object_type_trigger, trigger_player_start))
-		trigger_notification(app, "Player Start exists, delete it first!");
+		placement_notification(app, "Player Start exists, delete it first!");
 	else if (trigger_type == trigger_player_start)
 	{
 		trigger = place_player_start(app);
-		trigger_notification(app, "Placing Player Start!");
+		placement_notification(app, "Placing Player Start!");
 	}
 	else if (trigger_type == trigger_player_end &&
 		find_one_object_by_type(app, object_type_trigger, trigger_player_end))
-		trigger_notification(app, "Player End exists, delete it first!");
+		placement_notification(app, "Player End exists, delete it first!");
 	else if (trigger_type == trigger_player_end)
 	{
 		trigger = place_player_end(app);
-		trigger_notification(app, "Placing Player End!");
+		placement_notification(app, "Placing Player End!");
 	}
 	else if (trigger_type == trigger_weapon_drop_shotgun)
 	{
 		trigger = place_drop_shotgun(app);
-		trigger_notification(app, "Placing shotgun trigger");
+		placement_notification(app, "Placing shotgun trigger");
 	}
 	else if (trigger_type == trigger_item_jetpack)
 	{
 		trigger = place_drop_jetpack(app);
-		trigger_notification(app, "Placing jetpack trigger");
+		placement_notification(app, "Placing jetpack trigger");
 	}
 	else if (trigger_type == trigger_item_key)
 	{
 		trigger = place_drop_key(app);
-		trigger_notification(app, "Placing key trigger");
+		placement_notification(app, "Placing key trigger");
 	}
 	else if (trigger_type == trigger_elevator_switch)
 	{
 		trigger = place_elevator_switch(app);
-		trigger_notification(app, "Placing door/elevator switch");
+		placement_notification(app, "Placing door/elevator switch");
 	}
 	return (trigger);
+}
+
+t_3d_object		*editor_place_prefab_object(t_doom3d *app, t_prefab_type type)
+{
+	t_3d_object		*model;
+	t_3d_object		*object;
+	t_vec3			pos;
+
+	object = NULL;
+	if (type == prefab_plane)
+	{
+		editor_pos_camera_front(app, pos);
+		model = l3d_plane_create(NULL, NULL);
+		object = place_procedural_scene_object(app, model, (const char*[2]){
+			"assets/textures/lava.bmp",
+			"assets/textures/lava_normal.bmp"
+		}, pos);
+		l3d_3d_object_destroy(model);
+		placement_notification(app, "Placing plane!");
+	}
+	else if (type == prefab_path_node)
+	{
+		object = place_path_object(app);
+		placement_notification(app, "Placed Path Node!");
+	}
+	return (object);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 18:28:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:11:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,7 +414,7 @@ void						editor_deselect_all(t_doom3d *app);
 void						after_editor_transform(t_doom3d *app,
 								uint32_t *last_changed);
 void    					editor_init(t_doom3d *app, int32_t editor_level);
-void						place_path_object(t_doom3d *app);
+t_3d_object					*place_path_object(t_doom3d *app);
 void						path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj);
 void						path_node_init(t_3d_object *path_obj);
 void						path_draw_connections(t_render_work *work);
@@ -437,6 +437,8 @@ char						*get_object_texture_filename(t_scene *scene,
 t_3d_object					*editor_place_light_object(t_doom3d *app);
 t_3d_object					*editor_place_trigger_object(t_doom3d *app,
 								t_trigger_type type);
+t_3d_object					*editor_place_prefab_object(t_doom3d *app,
+								t_prefab_type type);
 
 /*
 ** Level

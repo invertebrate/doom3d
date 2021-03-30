@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 23:54:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:17:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,6 +268,12 @@ t_3d_object		*editor_object_by_mouse(t_doom3d *app)
 	return (hit_obj);
 }
 
+/*
+** Find an offset that is half of the bounding box and return that to be applied
+** for placement. (t_vec3){0.02, 0.02, 0.02} is a small vector added to aabb
+** size for the case of e.g. planes (0 width)
+*/
+
 static void		editor_point_on_target_offset(t_doom3d *app,
 					t_vec3 target_point, t_vec3 normal, t_vec3 offset)
 {
@@ -278,6 +284,7 @@ static void		editor_point_on_target_offset(t_doom3d *app,
 
 	ml_vector3_copy(target_point, aabb.center);
 	ml_vector3_copy(app->editor.selected_objects[0]->aabb.size, aabb.size);
+	ml_vector3_add(aabb.size, (t_vec3){0.02, 0.02, 0.02}, aabb.size);
 	ml_vector3_mul(aabb.size, 0.5, aabb.size);
 	ml_vector3_add(aabb.center, aabb.size, aabb.xyz_max);
 	ml_vector3_sub(aabb.center, aabb.size, aabb.xyz_min);

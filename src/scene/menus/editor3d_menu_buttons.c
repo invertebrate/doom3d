@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 18:17:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:08:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,20 +108,6 @@ void			on_normmaps_menu_button_click(t_button *self, void *params)
 	}
 }
 
-static void			prefab_spawn_plane(t_doom3d *app)
-{
-	t_3d_object		*model;
-	t_vec3			pos;
-
-	editor_pos_camera_front(app, pos);
-	model = l3d_plane_create(NULL, NULL);
-	place_procedural_scene_object(app, model, (const char*[2]){
-		"assets/textures/lava.bmp",
-		"assets/textures/lava_normal.bmp"
-	}, pos);
-	l3d_3d_object_destroy(model);
-}
-
 void			on_npc_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d		*app;
@@ -147,30 +133,13 @@ void			on_npc_menu_button_click(t_button *self, void *params)
 void			on_prefab_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d		*app;
-	uint32_t		prefab_type;
 	void			*get_res;
 
 	app = params;
 	get_res = hash_map_get(app->active_scene->prefab_map,
 		(int64_t)self->text);
-	ft_memcpy(&prefab_type, &get_res, sizeof(uint32_t));
-	if (prefab_type == (uint32_t)prefab_plane)
-	{
-		prefab_spawn_plane(app);
-		doom3d_notification_add(app, (t_notification){
-			.message = "Placed plane!",
-			.type = notification_type_info, .time = 2000});
-	}
-	else if (prefab_type == (uint32_t)prefab_path_node)
-	{
-		place_path_object(app);
-		doom3d_notification_add(app, (t_notification){
-			.message = "Placed Path Node!",
-			.type = notification_type_info, .time = 2000});
-		editor_objects_invisible_highlight(app);
-	}
-	active_scene_update_after_objects(app->active_scene);
-	app->editor.is_saved = false;
+	doom3d_push_event(app, event_editor_start_placement,
+			(void*)object_type_default, (void*)get_res);
 }
 
 void			on_trigger_menu_button_click(t_button *self, void *params)
