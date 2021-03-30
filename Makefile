@@ -126,20 +126,20 @@ SOURCES = main.c \
 			window/buttons/button.c \
 			window/buttons/button_popup_menu.c \
 			window/buttons/button_popup_menu_events.c \
-			events/event_handling/objects.c \
-			events/event_handling/media.c \
-			events/event_handling/menus.c \
-			events/event_handling/editor/menu.c \
-			events/event_handling/editor/selection.c \
-			events/event_handling/editor/placement.c \
-			events/event_handling/editor/save.c \
-			events/event_handling/editor/textures.c \
+			events/custom_event_handling/objects.c \
+			events/custom_event_handling/media.c \
+			events/custom_event_handling/menus.c \
+			events/custom_event_handling/editor/menu.c \
+			events/custom_event_handling/editor/selection.c \
+			events/custom_event_handling/editor/placement.c \
+			events/custom_event_handling/editor/save.c \
+			events/custom_event_handling/editor/textures.c \
 			events/mouse_state.c \
 			events/input.c \
-			events/doom3d_events.c \
+			events/custom_events.c \
 			events/editor_input.c \
 			events/keyboard_state.c \
-			events/general_input_events.c \
+			events/control_flow.c \
 			sound/sound.c\
 			sound/sound_controls.c\
 			sound/sound_init.c\
@@ -181,8 +181,8 @@ $(DIR_OBJ):
 	@mkdir -p temp/render
 	@mkdir -p temp/render/debug
 	@mkdir -p temp/events
-	@mkdir -p temp/events/event_handling
-	@mkdir -p temp/events/event_handling/editor
+	@mkdir -p temp/events/custom_event_handling
+	@mkdir -p temp/events/custom_event_handling/editor
 	@mkdir -p temp/player
 	@mkdir -p temp/animations
 	@mkdir -p temp/npc

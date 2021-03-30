@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   doom3d_events.c                                    :+:      :+:    :+:   */
+/*   custom_events.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:56:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 01:29:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void		doom3d_push_event(t_doom3d *app,
 ** 3. All handlers must have been registered at the beginning of the app
 */
 
-void		doom3d_events_handle(t_doom3d *app, SDL_Event event)
+void		custom_events_handle(t_doom3d *app, SDL_Event event)
 {
 	void		(*handle)(void*, void*, void*);
 	char		event_str[64];

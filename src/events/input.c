@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 15:26:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 01:36:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_bool			editor_popup_menu_open(t_doom3d *app)
 			app->editor.editor_menu->is_open);
 }
 
-static void		editor_input_events_handle(t_doom3d *app, SDL_Event event)
+static void		handle_editor_input_events(t_doom3d *app, SDL_Event event)
 {
 	if (app->active_scene->scene_id == scene_id_editor3d)
 	{
@@ -31,7 +31,7 @@ static void		editor_input_events_handle(t_doom3d *app, SDL_Event event)
 	}
 }
 
-static void		doom3d_button_events_handle(t_doom3d *app, SDL_Event event)
+static void		handle_menu_button_events(t_doom3d *app, SDL_Event event)
 {
 	int32_t	i;
 
@@ -55,28 +55,41 @@ static void		doom3d_button_events_handle(t_doom3d *app, SDL_Event event)
 	}
 }
 
-void			doom3d_game_input_events_handle(t_doom3d *app, SDL_Event event)
+void			handle_game_input_events(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE)
 		player_jump(app);
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_9)
-	{
-		app->player.can_fly = (app->player.can_fly + 1) % 2;
-		ft_printf("player can fly = %d\n", app->player.can_fly);//test
-	}
+		app->player.can_fly = !app->player.can_fly;
 }
 
-void			input_events_handle(t_doom3d *app, SDL_Event event)
+/*
+** Handle control flow events (exit etc. pausing)
+** Handle game input events if inside game
+** Handle editor input events if inside editor
+** Tie buttons to receive events
+*/
+
+void			handle_input_events(t_doom3d *app, SDL_Event event)
 {
-	general_input_events_handle(app, event);
+	handle_control_flow_events(app, event);
 	if (app->active_scene->scene_id == scene_id_main_game &&
 		!app->active_scene->is_paused)
-		doom3d_game_input_events_handle(app, event);
+		handle_game_input_events(app, event);
 	if (app->active_scene->scene_id == scene_id_editor3d &&
 		mouse_inside_editor_view(app))
-		editor_input_events_handle(app, event);
-	doom3d_button_events_handle(app, event);
+		handle_editor_input_events(app, event);
+	handle_menu_button_events(app, event);
 }
+
+/*
+** Root of all event handling
+** 1. Update event queue by pumping events
+** 2. Update mouse and key state
+** 3. Handle mouse & key state dependent actions
+** 4. Handle custom events
+** 5. Handle input events (for game, for editor, and for button clicks)
+*/
 
 void			handle_events(t_doom3d *app)
 {
@@ -93,8 +106,8 @@ void			handle_events(t_doom3d *app)
 	while (SDL_PollEvent(&event))
 	{
 		if (event.type == app->custom_event_type)
-			doom3d_events_handle(app, event);
+			custom_events_handle(app, event);
 		else
-			input_events_handle(app, event);
+			handle_input_events(app, event);
 	}
 }
