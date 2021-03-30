@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 18:18:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 01:51:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void			settings_init(t_doom3d *app)
 
 void			doom3d_init(t_doom3d *app)
 {
-	doom3d_register_custom_events(app);
+	register_custom_events(app);
 	mp_init(app);
 	app->active_scene = NULL;
 	app->is_running = true;

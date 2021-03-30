@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 01:36:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 01:39:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ void			handle_events(t_doom3d *app)
 	app->keyboard.state = SDL_GetKeyboardState(NULL);
 	if (!app->active_scene->is_paused)
 	{
-		mouse_state_handle(app);
-		keyboard_state_handle(app);
+		handle_mouse_state(app);
+		handle_keyboard_state(app);
 	}
 	while (SDL_PollEvent(&event))
 	{

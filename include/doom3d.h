@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 01:29:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 01:51:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,12 +230,19 @@ void						doom3d_push_event(t_doom3d *app,
 								t_doom3d_event code,
 								void* data1,
 								void* data2);
-void						doom3d_register_custom_events(t_doom3d *app);
+void						register_custom_events(t_doom3d *app);
+void						register_editor_custom_events(t_doom3d *app);
+void						editor_event_to_str(char *str, t_doom3d_event code);
 void						custom_events_handle(t_doom3d *app,
 								SDL_Event event);
+void						handle_player_rotation(t_doom3d *app,
+								int32_t xrel, int32_t yrel);
 void						handle_events(t_doom3d *app);
-void						mouse_state_handle(t_doom3d *app);
-void						keyboard_state_handle(t_doom3d *app);
+void						handle_mouse_state(t_doom3d *app);
+void						handle_editor_mouse_state(t_doom3d *app);
+void						handle_keyboard_state(t_doom3d *app);
+void						handle_editor_keyboard_state(t_doom3d *app);
+t_bool						handle_editor_duplication(t_doom3d *app);
 void						handle_control_flow_events(t_doom3d *app,
 								SDL_Event event);
 void						handle_editor_selection_inputs(t_doom3d *app,

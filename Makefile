@@ -137,9 +137,12 @@ SOURCES = main.c \
 			events/mouse_state.c \
 			events/input.c \
 			events/custom_events.c \
-			events/editor_input.c \
 			events/keyboard_state.c \
 			events/control_flow.c \
+			events/editor/editor_custom_events.c \
+			events/editor/editor_input.c \
+			events/editor/editor_keyboard_state.c \
+			events/editor/editor_mouse_state.c \
 			sound/sound.c\
 			sound/sound_controls.c\
 			sound/sound_init.c\
@@ -181,6 +184,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/render
 	@mkdir -p temp/render/debug
 	@mkdir -p temp/events
+	@mkdir -p temp/events/editor
 	@mkdir -p temp/events/custom_event_handling
 	@mkdir -p temp/events/custom_event_handling/editor
 	@mkdir -p temp/player
