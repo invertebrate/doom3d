@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 22:21:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/09 16:15:37 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/30 17:43:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void				place_path_object(t_doom3d *app)
 	t_3d_object		*path_obj;
 	t_vec3			pos;
 
-	editor_place_position(app, pos);
+	editor_pos_camera_front(app, pos);
 	place_scene_object(app, (const char*[3]){
 		"assets/models/box.obj", NULL,  NULL}, pos);
 	path_obj =

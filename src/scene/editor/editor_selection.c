@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 15:40:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 17:47:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void			editor_deselect(t_doom3d *app)
 	}
 }
 
-void			editor_place_position(t_doom3d *app , t_vec3 result)
+void			editor_pos_camera_front(t_doom3d *app , t_vec3 result)
 {
 	t_vec3	add;
 

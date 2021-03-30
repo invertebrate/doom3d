@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 14:55:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 17:43:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void			place_drop_shotgun(t_doom3d *app)
 	t_vec3		pos;
 	t_trigger	trigger_params;
 
-	editor_place_position(app, pos);
+	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	place_scene_object(app,
 		(const char*[3]){"assets/models/shotgun.obj",
@@ -38,7 +38,7 @@ void			place_drop_jetpack(t_doom3d *app)
 	t_vec3		pos;
 	t_trigger	trigger_params;
 
-	editor_place_position(app, pos);
+	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	place_scene_object(app,
 		(const char*[3]){NPC_DEFAULT_MODEL,
@@ -59,7 +59,7 @@ void			place_drop_key(t_doom3d *app)
 	t_vec3		pos;
 	t_trigger	trigger_params;
 
-	editor_place_position(app, pos);
+	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	place_scene_object(app,
 		(const char*[3]){NPC_DEFAULT_MODEL,
@@ -85,7 +85,7 @@ void			place_elevator_switch(t_doom3d *app)
 	t_vec3		pos;
 	t_trigger	trigger_params;
 
-	editor_place_position(app, pos);
+	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	place_scene_object(app,
 		(const char*[3]){NPC_DEFAULT_MODEL,
@@ -173,7 +173,7 @@ void			place_player_start(t_doom3d *app)
 	t_vec3		pos;
 	t_trigger	trigger_params;
 
-	editor_place_position(app, pos);
+	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	place_scene_object(app,
 		(const char*[3]){"assets/models/box.obj", NULL, NULL}, pos);
@@ -193,7 +193,7 @@ void			place_player_end(t_doom3d *app)
 	t_vec3		pos;
 	t_trigger	trigger_params;
 
-	editor_place_position(app, pos);
+	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	place_scene_object(app,
 		(const char*[3]){"assets/models/box.obj", NULL, NULL}, pos);

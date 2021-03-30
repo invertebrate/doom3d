@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 15:41:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 18:09:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,7 @@ t_3d_object		*editor_object_by_mouse(t_doom3d *app)
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, app->player.pos,
 		dir, &hits))
 	{
-		l3d_get_closest_hit(hits, &closest_triangle_hit, -1);
+		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit, -1);
 		if (closest_triangle_hit != NULL)
 		{
 			hit_obj = closest_triangle_hit->triangle->parent;
@@ -266,4 +266,34 @@ t_3d_object		*editor_object_by_mouse(t_doom3d *app)
 		l3d_delete_hits(&hits);
 	}
 	return (hit_obj);
+}
+
+/*
+** Returns hit point by mouse, but ignores the currently selected one,
+** Useful when e.g. placing a new object.
+*/
+
+void			editor_point_on_target(t_doom3d *app,
+					t_vec3 placement_point)
+{
+	t_vec3			mouse_world_pos;
+	t_vec3			dir;
+	t_hits			*hits;
+	t_hit			*closest_triangle_hit;
+
+	if (app->editor.num_selected_objects == 0)
+		return ;
+	hits = NULL;
+	get_mouse_world_position(app, mouse_world_pos);
+	ml_vector3_sub(mouse_world_pos, app->player.pos, dir);
+	ml_vector3_normalize(dir, dir);
+	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, app->player.pos,
+		dir, &hits))
+	{
+		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit,
+			app->editor.selected_objects[0]->id);
+		if (closest_triangle_hit != NULL)
+			ml_vector3_copy(closest_triangle_hit->hit_point, placement_point);
+		l3d_delete_hits(&hits);
+	}
 }

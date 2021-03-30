@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:53:57 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 12:39:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 16:48:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void			l3d_delete_hits(t_hits **hits)
 	ft_lstdel(hits, l3d_delete_hit);
 }
 
-void			l3d_get_closest_hit(t_hits *hits, t_hit **closest,
+void			l3d_get_closest_triangle_hit(t_hits *hits, t_hit **closest,
 					uint32_t ignore_id)
 {
 	t_hits	*head;

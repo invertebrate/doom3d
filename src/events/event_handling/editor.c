@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 15:35:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 16:24:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ void	handle_editor_exit(t_doom3d *app)
 			.type = notification_type_info, .time = 2000});
 		return ;
 	}
+	if (app->editor.is_placing)
+		doom3d_push_event(app, event_editor_cancel_placement, NULL, NULL);
 	doom3d_push_event(app, event_scene_change, (void*)scene_id_main_menu, NULL);
 	editor_deselect_all(app);
 	SDL_StopTextInput();

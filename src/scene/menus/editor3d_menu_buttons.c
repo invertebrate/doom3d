@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 15:09:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 17:43:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void			on_objects_menu_button_click(t_button *self, void *params)
 	t_vec3		pos;
 
 	app = params;
-	editor_place_position(app, pos);
+	editor_pos_camera_front(app, pos);
 	place_scene_object(app, (const char *[3]){self->text, NULL, NULL}, pos);
 	active_scene_update_after_objects(app->active_scene);
 	app->editor.is_saved = false;
@@ -113,7 +113,7 @@ static void			prefab_spawn_plane(t_doom3d *app)
 	t_3d_object		*model;
 	t_vec3			pos;
 
-	editor_place_position(app, pos);
+	editor_pos_camera_front(app, pos);
 	model = l3d_plane_create(NULL, NULL);
 	place_procedural_scene_object(app, model, (const char*[2]){
 		"assets/textures/lava.bmp",
@@ -130,7 +130,7 @@ void			on_npc_menu_button_click(t_button *self, void *params)
 	t_vec3			pos;
 
 	app = params;
-	editor_place_position(app, pos);
+	editor_pos_camera_front(app, pos);
 	get_res = hash_map_get(app->active_scene->npc_map,
 		(int64_t)self->text);
 	ft_memcpy(&npc_type, &get_res, sizeof(uint32_t));

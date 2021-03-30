@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/29 16:27:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 16:48:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void		player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, origin,
 		dir, &hits))
 	{
-		l3d_get_closest_hit(hits, &closest_triangle_hit, -1);
+		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit, -1);
 		if (closest_triangle_hit != NULL)
 		{
 			ml_vector3_sub(closest_triangle_hit->hit_point, origin, dist);

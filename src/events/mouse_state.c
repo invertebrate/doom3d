@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 15:34:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 18:14:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,12 @@ static void				object_rotation_handle(t_doom3d *app,
 
 static void				mouse_editor_state_handle(t_doom3d *app)
 {
-	int32_t	xrel;
-	int32_t	yrel;
+	int32_t		xrel;
+	int32_t		yrel;
+	t_vec3		new_pos;
+	t_3d_object	*place_object;
 
-	if ((app->mouse.state & SDL_BUTTON_RMASK))
+	if ((app->mouse.state & SDL_BUTTON_MMASK))
 	{
 		app->editor.is_moving = true;
 		SDL_ShowCursor(SDL_DISABLE);
@@ -106,9 +108,15 @@ static void				mouse_editor_state_handle(t_doom3d *app)
 		SDL_ShowCursor(SDL_ENABLE);
 		SDL_SetRelativeMouseMode(SDL_FALSE);
 		SDL_GetRelativeMouseState(&xrel, &yrel);
-		if (app->editor.is_placing)
+		if (app->editor.is_placing && app->editor.num_selected_objects > 0
+			&& mouse_inside_editor_view(app))
 		{
-			// editor_selected_object_to_ray(app);
+			place_object = app->editor.selected_objects[0];
+			editor_pos_camera_front(app, new_pos);
+			editor_point_on_target(app, new_pos);
+			ml_vector3_sub(new_pos, place_object->position, new_pos);
+			l3d_3d_object_translate(place_object,
+				new_pos[0], new_pos[1], new_pos[2]);
 		}
 		if (app->editor.num_selected_objects > 0)
 		{

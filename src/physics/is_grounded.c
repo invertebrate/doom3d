@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_grounded.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/11 13:24:26 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/30 16:48:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_3d_object	*object_under(t_doom3d *app,
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, origin,
 		(t_vec3){0, Y_DIR, 0}, &hits))
 	{
-		l3d_get_closest_hit(hits, &closest_hit, self_id);
+		l3d_get_closest_triangle_hit(hits, &closest_hit, self_id);
 		if (!closest_hit)
 		{
 			l3d_delete_hits(&hits);
