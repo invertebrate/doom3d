@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:06:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:26:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	handle_editor_placement_start(t_doom3d *app,
 	t_3d_object	*obj;
 	app->editor.is_placing = true;
 	obj = NULL;
-	(void)param_type;
 	editor_deselect_all(app);
 	if (obj_type == object_type_light)
 		obj = editor_place_light_object(app);
@@ -26,6 +25,8 @@ void	handle_editor_placement_start(t_doom3d *app,
 		obj = editor_place_trigger_object(app, param_type);
 	else if (obj_type == object_type_default)
 		obj = editor_place_prefab_object(app, param_type);
+	else if (obj_type == object_type_npc)
+		obj = editor_place_npc_object(app, param_type);
 	if (obj)
 	{
 		active_scene_update_after_objects(app->active_scene);	

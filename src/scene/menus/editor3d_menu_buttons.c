@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:08:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:25:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void			on_normmaps_menu_button_click(t_button *self, void *params)
 void			on_npc_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d		*app;
-	uint32_t		npc_type;
 	void			*get_res;
 	t_vec3			pos;
 
@@ -119,13 +118,8 @@ void			on_npc_menu_button_click(t_button *self, void *params)
 	editor_pos_camera_front(app, pos);
 	get_res = hash_map_get(app->active_scene->npc_map,
 		(int64_t)self->text);
-	ft_memcpy(&npc_type, &get_res, sizeof(uint32_t));
-	npc_spawn(app, pos, 0, npc_type);
-	active_scene_update_after_objects(app->active_scene);
-	app->editor.is_saved = false;
-	doom3d_notification_add(app, (t_notification){
-			.message = "Placed npc!",
-			.type = notification_type_info, .time = 2000});
+	doom3d_push_event(app, event_editor_start_placement,
+		(void*)object_type_npc, get_res);
 }
 
 

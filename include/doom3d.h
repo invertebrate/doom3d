@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:11:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:24:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ void						place_projectile_object_in_scene(t_doom3d *app,
 /*
 ** Npcs
 */
-void						npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
+t_3d_object					*npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
 								int type);
 void						npc_update_state(t_doom3d *app, t_3d_object *npc_obj);
 void						npc_execute_behavior(t_doom3d *app,
@@ -421,7 +421,8 @@ void						path_draw_connections(t_render_work *work);
 void						path_delete_connection(t_path_node *path_obj,
 													t_path_node *delete);
 void						delete_path_object_connections(t_path_node *node);
-void						patrol_path_link_node(t_3d_object *node_obj, t_3d_object *obj, int slot);
+void						patrol_path_link_node(t_3d_object *node_obj,
+								t_3d_object *obj, int slot);
 void						editor_pos_camera_front(t_doom3d *app ,
 								t_vec3 result);
 void						patrol_path_highlight(t_render_work *work);
@@ -439,6 +440,8 @@ t_3d_object					*editor_place_trigger_object(t_doom3d *app,
 								t_trigger_type type);
 t_3d_object					*editor_place_prefab_object(t_doom3d *app,
 								t_prefab_type type);
+t_3d_object					*editor_place_npc_object(t_doom3d *app,
+								t_npc_type type);
 
 /*
 ** Level

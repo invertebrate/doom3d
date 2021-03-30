@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:50:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:11:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:23:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,18 @@ t_3d_object		*editor_place_prefab_object(t_doom3d *app, t_prefab_type type)
 	else if (type == prefab_path_node)
 	{
 		object = place_path_object(app);
-		placement_notification(app, "Placed Path Node!");
+		placement_notification(app, "Placing Path Node!");
 	}
+	return (object);
+}
+
+t_3d_object		*editor_place_npc_object(t_doom3d *app, t_npc_type type)
+{
+	t_vec3			pos;
+	t_3d_object		*object;
+
+	editor_pos_camera_front(app, pos);
+	object = npc_spawn(app, pos, 0, type);
+	placement_notification(app, "Placing Npc!");
 	return (object);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 18:14:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:30:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static void				object_rotation_handle(t_doom3d *app,
 			app->editor.is_saved = false;
 			after_editor_transform(app, &last_rotated);
 		}
+		l3d_object_aabb_update(app->editor.selected_objects[i]);
 	}
 }
 
@@ -108,7 +109,8 @@ static void				mouse_editor_state_handle(t_doom3d *app)
 		SDL_ShowCursor(SDL_ENABLE);
 		SDL_SetRelativeMouseMode(SDL_FALSE);
 		SDL_GetRelativeMouseState(&xrel, &yrel);
-		if (app->editor.is_placing && app->editor.num_selected_objects > 0
+		if (!app->keyboard.state[SDL_SCANCODE_R] &&
+			app->editor.is_placing && app->editor.num_selected_objects > 0
 			&& mouse_inside_editor_view(app))
 		{
 			place_object = app->editor.selected_objects[0];

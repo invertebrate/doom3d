@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 15:56:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:31:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ static void		handle_editor_transform(t_doom3d *app)
 				1.1, 1.1, 1.1);
 			after_editor_transform(app, &last_changed);
 		}
+		l3d_object_aabb_update(app->editor.selected_objects[i]);
 	}
 	if (diff > 50 && app->keyboard.state[SDL_SCANCODE_KP_PLUS] &&
 		app->editor.patrol_slot < MAX_PATROL_NODES)
