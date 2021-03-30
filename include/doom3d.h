@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:24:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:49:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,7 +268,7 @@ void						handle_quit(t_doom3d *app);
 void						handle_editor_placement_end(t_doom3d *app);
 void						handle_editor_placement_cancel(t_doom3d *app);
 void						handle_editor_placement_start(t_doom3d *app,
-								uint32_t obj_type, uint32_t param_type);
+								uint32_t obj_type, void *data);
 void						handle_editor_save_end(t_doom3d *app);
 void						handle_editor_save_start(t_doom3d *app);
 void						handle_editor_save_type_backspace(t_doom3d *app);
@@ -438,8 +438,8 @@ char						*get_object_texture_filename(t_scene *scene,
 t_3d_object					*editor_place_light_object(t_doom3d *app);
 t_3d_object					*editor_place_trigger_object(t_doom3d *app,
 								t_trigger_type type);
-t_3d_object					*editor_place_prefab_object(t_doom3d *app,
-								t_prefab_type type);
+t_3d_object					*editor_place_default_object(t_doom3d *app,
+								void *data);
 t_3d_object					*editor_place_npc_object(t_doom3d *app,
 								t_npc_type type);
 

@@ -6,14 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:26:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:48:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
 void	handle_editor_placement_start(t_doom3d *app,
-			uint32_t obj_type, uint32_t param_type)
+			uint32_t obj_type, void* data)
 {
 	t_3d_object	*obj;
 	app->editor.is_placing = true;
@@ -22,11 +22,11 @@ void	handle_editor_placement_start(t_doom3d *app,
 	if (obj_type == object_type_light)
 		obj = editor_place_light_object(app);
 	else if (obj_type == object_type_trigger)
-		obj = editor_place_trigger_object(app, param_type);
+		obj = editor_place_trigger_object(app, (t_trigger_type)data);
 	else if (obj_type == object_type_default)
-		obj = editor_place_prefab_object(app, param_type);
+		obj = editor_place_default_object(app, data);
 	else if (obj_type == object_type_npc)
-		obj = editor_place_npc_object(app, param_type);
+		obj = editor_place_npc_object(app, (t_npc_type)data);
 	if (obj)
 	{
 		active_scene_update_after_objects(app->active_scene);	

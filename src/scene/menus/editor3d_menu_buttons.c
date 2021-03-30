@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:25:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:46:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 void			on_delete_menu_button_click(t_button *self, void *params)
 {
-	t_doom3d	*app;
-
 	(void)self;
-	app = params;
-	doom3d_push_event(app, event_editor_delete, NULL, NULL);
+	doom3d_push_event(params, event_editor_delete, NULL, NULL);
 }
 
 void			on_editor_save_button_click(t_doom3d *app)
@@ -34,16 +31,10 @@ void			on_editor_exit_button_click(t_doom3d *app)
 void			on_objects_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d	*app;
-	t_vec3		pos;
 
 	app = params;
-	editor_pos_camera_front(app, pos);
-	place_scene_object(app, (const char *[3]){self->text, NULL, NULL}, pos);
-	active_scene_update_after_objects(app->active_scene);
-	app->editor.is_saved = false;
-	doom3d_notification_add(app, (t_notification){
-			.message = "Placed object!",
-			.type = notification_type_info, .time = 2000});
+	doom3d_push_event(app, event_editor_start_placement,
+		(void*)object_type_default, (void*)self->text);
 }
 
 void			on_textures_menu_button_click(t_button *self, void *params)
