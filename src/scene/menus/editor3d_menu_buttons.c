@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 14:28:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 14:41:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,9 @@ void			on_delete_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d	*app;
 
+	(void)self;
 	app = params;
-	if (self->id == 0)
-	{
-		ft_printf("Delete menu button click\n");
-		doom3d_push_event(app, event_editor_delete, NULL, NULL);
-	}
+	doom3d_push_event(app, event_editor_delete, NULL, NULL);
 }
 
 void			on_editor_save_button_click(t_doom3d *app)

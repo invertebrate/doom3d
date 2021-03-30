@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 14:34:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 14:43:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	handle_editor_select(t_doom3d *app)
 		app->mouse.y > app->window->editor_pos[1] && app->mouse.y <
 			app->window->editor_pos[1] +
 			app->window->editor_framebuffer->height)
-		editor_select(app);
+	editor_select(app);
 	if (app->editor.num_selected_objects == 0)
 		app->active_scene->menus[1]->is_active = false;
 	else
