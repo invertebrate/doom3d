@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 17:56:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 02:08:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,3 +57,21 @@ void		handle_editor_selection_inputs(t_doom3d *app, SDL_Event event)
 	}
 }
 
+void		handle_editor_input_events(t_doom3d *app, SDL_Event event)
+{
+	if (app->active_scene->scene_id == scene_id_editor3d)
+	{
+		handle_editor_saving_inputs(app, event);
+		handle_editor_selection_inputs(app, event);
+	}
+	if (event.type == SDL_MOUSEWHEEL)
+	{
+		editor_vertical_move(app, -event.wheel.y * 30);
+	}
+}
+
+t_bool		editor_popup_menu_open(t_doom3d *app)
+{
+	return (app->editor.editor_menu != NULL &&
+			app->editor.editor_menu->is_open);
+}

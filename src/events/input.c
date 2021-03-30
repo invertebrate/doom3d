@@ -6,30 +6,16 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 01:39:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 02:14:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-t_bool			editor_popup_menu_open(t_doom3d *app)
-{
-	return (app->editor.editor_menu != NULL &&
-			app->editor.editor_menu->is_open);
-}
-
-static void		handle_editor_input_events(t_doom3d *app, SDL_Event event)
-{
-	if (app->active_scene->scene_id == scene_id_editor3d)
-	{
-		handle_editor_saving_inputs(app, event);
-		handle_editor_selection_inputs(app, event);
-	}
-	if (event.type == SDL_MOUSEWHEEL)
-	{
-		editor_vertical_move(app, -event.wheel.y * 30);
-	}
-}
+/*
+** This function is responsible for passing event info to buttons and button
+** groups (menus) so their on clicks are handled.
+*/
 
 static void		handle_menu_button_events(t_doom3d *app, SDL_Event event)
 {
@@ -55,12 +41,29 @@ static void		handle_menu_button_events(t_doom3d *app, SDL_Event event)
 	}
 }
 
+/*
+** Handle button events for game
+*/
+
 void			handle_game_input_events(t_doom3d *app, SDL_Event event)
 {
+	int32_t	weapon;
+	int32_t	add;
+
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE)
 		player_jump(app);
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_9)
 		app->player.can_fly = !app->player.can_fly;
+	if (event.type == SDL_MOUSEWHEEL)
+	{
+		add = event.wheel.y > 0 ? 1 : -1;
+		weapon = app->player.equipped_weapon->id + add;
+		if (weapon < 0)
+			weapon = 3;
+		if (weapon >= 4)
+			weapon = 0;
+		weapon_equip(app, weapon);
+	}
 }
 
 /*
