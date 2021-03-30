@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:49:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:55:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,10 @@ void						handle_editor_select(t_doom3d *app);
 void						handle_editor_level_switch(t_doom3d *app);
 void						handle_editor_open_popup_menu(t_doom3d *app,
 								t_editor_menu_index menu_id, t_vec3 pos);
+void						handle_editor_add_texture(t_doom3d *app,
+								char *filename);
+void						handle_editor_add_normal_map(t_doom3d *app,
+								char *filename);
 
 /*
 ** 3D Animations

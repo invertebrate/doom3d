@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 15:18:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:56:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ static void	match_editor_event_to_str(char *str, t_doom3d_event code)
 		ft_sprintf(str, "EditorEndPlacement");
 	else if (code == event_editor_cancel_placement)
 		ft_sprintf(str, "EditorCancelPlacement");
+	else if (code == event_editor_add_texture)
+		ft_sprintf(str, "EditorAddTexture");
+	else if (code == event_editor_add_normal_map)
+		ft_sprintf(str, "EditorAddNormalMap");
 	else if (code == event_editor_start_save)
 		ft_sprintf(str, "EditorStartSave");
 	else if (code == event_editor_end_save)
@@ -89,6 +93,10 @@ void		register_editor_events(t_doom3d *app)
 		(void*)handle_editor_level_switch);
 	hash_map_add(app->custom_event_handles, event_editor_open_popup_menu,
 		(void*)handle_editor_open_popup_menu);
+	hash_map_add(app->custom_event_handles, event_editor_add_texture,
+		(void*)handle_editor_add_texture);
+	hash_map_add(app->custom_event_handles, event_editor_add_normal_map,
+		(void*)handle_editor_add_normal_map);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:46:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 01:02:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,131 +30,52 @@ void			on_editor_exit_button_click(t_doom3d *app)
 
 void			on_objects_menu_button_click(t_button *self, void *params)
 {
-	t_doom3d	*app;
-
-	app = params;
-	doom3d_push_event(app, event_editor_start_placement,
+	doom3d_push_event(params, event_editor_start_placement,
 		(void*)object_type_default, (void*)self->text);
 }
 
 void			on_textures_menu_button_click(t_button *self, void *params)
 {
-	t_doom3d	*app;
-	int32_t		i;
-	t_surface	*texture;
-
-	app = params;
-	if (app->editor.num_selected_objects > 0)
-	{
-		texture =
-			hash_map_get(app->active_scene->textures, (int64_t)self->text);
-		i = -1;
-		while (++i < app->editor.num_selected_objects)
-		{
-			app->editor.selected_objects[i]->material->texture = texture;
-			hash_map_add(app->active_scene->object_textures,
-				app->editor.selected_objects[i]->id, (void*)self->text);
-		}
-		app->editor.is_saved = false;
-		doom3d_notification_add(app, (t_notification){
-			.message = "Texture set!",
-			.type = notification_type_info, .time = 2000});
-	}
-	else
-	{
-		doom3d_notification_add(app, (t_notification){
-			.message = "Select object first!",
-			.type = notification_type_info, .time = 2000});
-	}	
+	doom3d_push_event(params, event_editor_add_texture, (void*)self->text, NULL);
 }
 
 void			on_normmaps_menu_button_click(t_button *self, void *params)
 {
-	t_doom3d	*app;
-	int32_t		i;
-	t_surface	*normmap;
-
-	app = params;
-	if (app->editor.num_selected_objects > 0)
-	{
-		normmap =
-			hash_map_get(app->active_scene->normal_maps, (int64_t)self->text);
-		i = -1;
-		while (++i < app->editor.num_selected_objects)
-		{
-			app->editor.selected_objects[i]->material->normal_map = normmap;
-			hash_map_add(app->active_scene->object_normal_maps,
-				app->editor.selected_objects[i]->id, (void*)self->text);
-		}
-		app->editor.is_saved = false;
-		doom3d_notification_add(app, (t_notification){
-			.message = "Normal map set!",
-			.type = notification_type_info, .time = 2000});
-	}
-	else
-	{
-		doom3d_notification_add(app, (t_notification){
-			.message = "Select object first!",
-			.type = notification_type_info, .time = 2000});
-	}
+	doom3d_push_event(params, event_editor_add_normal_map, (void*)self->text,
+		NULL);
 }
 
 void			on_npc_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d		*app;
-	void			*get_res;
-	t_vec3			pos;
 
 	app = params;
-	editor_pos_camera_front(app, pos);
-	get_res = hash_map_get(app->active_scene->npc_map,
-		(int64_t)self->text);
 	doom3d_push_event(app, event_editor_start_placement,
-		(void*)object_type_npc, get_res);
+		(void*)object_type_npc, hash_map_get(app->active_scene->npc_map,
+		(int64_t)self->text));
 }
-
-
 
 void			on_prefab_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d		*app;
-	void			*get_res;
 
 	app = params;
-	get_res = hash_map_get(app->active_scene->prefab_map,
-		(int64_t)self->text);
 	doom3d_push_event(app, event_editor_start_placement,
-			(void*)object_type_default, (void*)get_res);
+			(void*)object_type_default,
+			hash_map_get(app->active_scene->prefab_map,
+		(int64_t)self->text));
 }
 
 void			on_trigger_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d		*app;
-	uint32_t		trigger_type;
 	void			*get_res;
 
 	app = params;
 	get_res = hash_map_get(app->active_scene->trigger_map,
 		(int64_t)self->text);
-	ft_memcpy(&trigger_type, &get_res, sizeof(uint32_t));
-	if (trigger_type == trigger_player_start)
-		doom3d_push_event(app, event_editor_start_placement,
-			(void*)object_type_trigger, (void*)trigger_player_start);
-	else if (trigger_type == trigger_player_end)
-		doom3d_push_event(app, event_editor_start_placement,
-			(void*)object_type_trigger, (void*)trigger_player_end);
-	else if (trigger_type == trigger_weapon_drop_shotgun)
-		doom3d_push_event(app, event_editor_start_placement,
-			(void*)object_type_trigger, (void*)trigger_weapon_drop_shotgun);
-	else if (trigger_type == trigger_item_jetpack)
-		doom3d_push_event(app, event_editor_start_placement,
-			(void*)object_type_trigger, (void*)trigger_item_jetpack);
-	else if (trigger_type == trigger_item_key)
-		doom3d_push_event(app, event_editor_start_placement,
-			(void*)object_type_trigger, (void*)trigger_item_key);
-	else if (trigger_type == trigger_elevator_switch)
-		doom3d_push_event(app, event_editor_start_placement,
-			(void*)object_type_trigger, (void*)trigger_elevator_switch);
+	doom3d_push_event(app, event_editor_start_placement,
+			(void*)object_type_trigger, get_res);
 }
 
 void			on_light_menu_button_click(t_button *self, void *params)

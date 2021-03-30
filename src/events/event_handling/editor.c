@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:48:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:59:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,4 +199,62 @@ void	handle_editor_open_popup_menu(t_doom3d *app,
 	}
 	app->editor.editor_menu->is_open = true;
 	app->editor.editor_menu_id = menu_id;
+}
+
+void	handle_editor_add_normal_map(t_doom3d *app, char *filename)
+{
+	int32_t		i;
+	t_surface	*normmap;
+
+	if (app->editor.num_selected_objects > 0)
+	{
+		normmap =
+			hash_map_get(app->active_scene->normal_maps, (int64_t)filename);
+		i = -1;
+		while (++i < app->editor.num_selected_objects)
+		{
+			app->editor.selected_objects[i]->material->normal_map = normmap;
+			hash_map_add(app->active_scene->object_normal_maps,
+				app->editor.selected_objects[i]->id, (void*)filename);
+		}
+		app->editor.is_saved = false;
+		doom3d_notification_add(app, (t_notification){
+			.message = "Normal map set!",
+			.type = notification_type_info, .time = 2000});
+	}
+	else
+	{
+		doom3d_notification_add(app, (t_notification){
+			.message = "Select object first!",
+			.type = notification_type_info, .time = 2000});
+	}
+}
+
+void	handle_editor_add_texture(t_doom3d *app, char *filename)
+{
+	int32_t		i;
+	t_surface	*texture;
+
+	if (app->editor.num_selected_objects > 0)
+	{
+		texture =
+			hash_map_get(app->active_scene->textures, (int64_t)filename);
+		i = -1;
+		while (++i < app->editor.num_selected_objects)
+		{
+			app->editor.selected_objects[i]->material->texture = texture;
+			hash_map_add(app->active_scene->object_textures,
+				app->editor.selected_objects[i]->id, (void*)filename);
+		}
+		app->editor.is_saved = false;
+		doom3d_notification_add(app, (t_notification){
+			.message = "Texture set!",
+			.type = notification_type_info, .time = 2000});
+	}
+	else
+	{
+		doom3d_notification_add(app, (t_notification){
+			.message = "Select object first!",
+			.type = notification_type_info, .time = 2000});
+	}
 }
