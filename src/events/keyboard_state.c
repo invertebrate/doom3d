@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 02:03:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 02:18:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static void		handle_weapon_equip(t_doom3d *app)
 
 static void		handle_game_keyboard_state(t_doom3d *app)
 {
-
 	if (app->player.is_grounded || app->player.can_fly)
 	{
 		handle_wasd_movement(app);
@@ -86,7 +85,6 @@ static void		handle_game_keyboard_state(t_doom3d *app)
 
 void			handle_keyboard_state(t_doom3d *app)
 {
-
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
 		handle_game_keyboard_state(app);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 01:51:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 02:16:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void		register_custom_events(t_doom3d *app)
 
 void		doom3d_push_event(t_doom3d *app,
 								t_doom3d_event code,
-								void* data1,
-								void* data2)
+								void *data1,
+								void *data2)
 {
 	SDL_Event event;
 

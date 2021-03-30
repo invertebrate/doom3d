@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 02:14:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 02:15:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		handle_menu_button_events(t_doom3d *app, SDL_Event event)
 }
 
 /*
-** Handle button events for game
+** Handle button events for game including weapon switch via mouse wheel
 */
 
 void			handle_game_input_events(t_doom3d *app, SDL_Event event)

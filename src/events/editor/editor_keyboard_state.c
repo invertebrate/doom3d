@@ -6,12 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:41:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 01:44:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 02:19:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
-
 
 static void		handle_editor_transform(t_doom3d *app)
 {

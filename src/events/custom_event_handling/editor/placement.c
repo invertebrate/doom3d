@@ -6,16 +6,17 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 01:10:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 02:19:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
 void	handle_editor_placement_start(t_doom3d *app,
-			uint32_t obj_type, void* data)
+			uint32_t obj_type, void *data)
 {
 	t_3d_object	*obj;
+
 	app->editor.is_placing = true;
 	obj = NULL;
 	editor_deselect_all(app);
@@ -29,7 +30,7 @@ void	handle_editor_placement_start(t_doom3d *app,
 		obj = editor_place_npc_object(app, (t_npc_type)data);
 	if (obj)
 	{
-		active_scene_update_after_objects(app->active_scene);	
+		active_scene_update_after_objects(app->active_scene);
 		editor_objects_invisible_highlight(app);
 		select_object(app, obj);
 	}
@@ -50,4 +51,3 @@ void	handle_editor_placement_end(t_doom3d *app)
 		.message = "Placed!",
 		.type = notification_type_info, .time = 2000});
 }
-

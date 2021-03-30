@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 02:08:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 02:18:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void		handle_editor_saving_inputs(t_doom3d *app, SDL_Event event)
 	{
 		doom3d_push_event(app, event_editor_end_save, NULL, NULL);
 	}
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKSPACE)
+	else if (event.type == SDL_KEYDOWN &&
+		event.key.keysym.sym == SDLK_BACKSPACE)
 	{
 		doom3d_push_event(app, event_editor_save_type_backspace,
 			event.text.text, NULL);
@@ -48,7 +49,8 @@ void		handle_editor_selection_inputs(t_doom3d *app, SDL_Event event)
 			if (app->mouse.state & SDL_BUTTON_LMASK)
 				doom3d_push_event(app, event_editor_end_placement, NULL, NULL);
 			else if (app->mouse.state & SDL_BUTTON_RMASK)
-				doom3d_push_event(app, event_editor_cancel_placement, NULL, NULL);
+				doom3d_push_event(app, event_editor_cancel_placement,
+					NULL, NULL);
 		}
 	}
 	if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_TAB)
