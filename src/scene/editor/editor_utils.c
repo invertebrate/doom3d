@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 16:04:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 15:22:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,14 @@ void			editor_duplicate_selected_objects(t_doom3d *app)
 	i = -1;
 	while (++i < num_selected)
 		duplicate_selected_object(app, old_selected[i]);
+}
+
+t_bool			mouse_inside_editor_view(t_doom3d *app)
+{
+	return (app->mouse.x > app->window->editor_pos[0] && app->mouse.x <
+			app->window->editor_pos[0] +
+			app->window->editor_framebuffer->width &&
+		app->mouse.y > app->window->editor_pos[1] && app->mouse.y <
+			app->window->editor_pos[1] +
+			app->window->editor_framebuffer->height);
 }

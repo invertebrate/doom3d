@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 19:00:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 14:59:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ static void		path_connect_selection(t_doom3d *app, t_3d_object *new)
 ** Add hit object to selected object.
 */
 
-void			editor_select(t_doom3d *app)
+void			editor_select_by_mouse(t_doom3d *app)
 {
 	t_vec3			mouse_world_pos;
 	t_vec3			dir;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events.c                                           :+:      :+:    :+:   */
+/*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 17:35:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 15:26:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			input_events_handle(t_doom3d *app, SDL_Event event)
 		!app->active_scene->is_paused)
 		doom3d_game_input_events_handle(app, event);
 	if (app->active_scene->scene_id == scene_id_editor3d &&
-		!editor_popup_menu_open(app))
+		mouse_inside_editor_view(app))
 		editor_input_events_handle(app, event);
 	doom3d_button_events_handle(app, event);
 }

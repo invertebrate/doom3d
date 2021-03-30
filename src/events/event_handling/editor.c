@@ -6,15 +6,31 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 14:43:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 15:22:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	handle_editor_placement_start(t_doom3d *app)
+void	handle_editor_placement_start(t_doom3d *app,
+			uint32_t obj_type, uint32_t param_type)
 {
+	t_3d_object	*obj;
 	app->editor.is_placing = true;
+	obj = NULL;
+	(void)param_type;
+	if (obj_type == object_type_light)
+		obj = editor_place_light_object(app);
+	if (obj)
+		select_object(app, obj);
+	else
+		app->editor.is_placing = false;
+}
+
+void	handle_editor_placement_cancel(t_doom3d *app)
+{
+	doom3d_push_event(app, event_editor_delete, NULL, NULL);
+	app->editor.is_placing = false;
 }
 
 void	handle_editor_placement_end(t_doom3d *app)
@@ -128,13 +144,8 @@ void	handle_editor_exit(t_doom3d *app)
 
 void	handle_editor_select(t_doom3d *app)
 {
-	if (app->mouse.x > app->window->editor_pos[0] && app->mouse.x <
-			app->window->editor_pos[0] +
-			app->window->editor_framebuffer->width &&
-		app->mouse.y > app->window->editor_pos[1] && app->mouse.y <
-			app->window->editor_pos[1] +
-			app->window->editor_framebuffer->height)
-	editor_select(app);
+	if (mouse_inside_editor_view(app))
+		editor_select_by_mouse(app);
 	if (app->editor.num_selected_objects == 0)
 		app->active_scene->menus[1]->is_active = false;
 	else

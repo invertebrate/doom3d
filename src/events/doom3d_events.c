@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 14:39:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 15:18:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ static void	match_editor_event_to_str(char *str, t_doom3d_event code)
 {
 	if (code == event_editor_start_placement)
 		ft_sprintf(str, "EditorStartPlacement");
-	else if (code == event_editor_start_placement)
+	else if (code == event_editor_end_placement)
 		ft_sprintf(str, "EditorEndPlacement");
+	else if (code == event_editor_cancel_placement)
+		ft_sprintf(str, "EditorCancelPlacement");
 	else if (code == event_editor_start_save)
 		ft_sprintf(str, "EditorStartSave");
 	else if (code == event_editor_end_save)
@@ -65,6 +67,8 @@ void		register_editor_events(t_doom3d *app)
 		(void*)handle_editor_placement_start);
 	hash_map_add(app->custom_event_handles, event_editor_end_placement,
 		(void*)handle_editor_placement_end);
+	hash_map_add(app->custom_event_handles, event_editor_cancel_placement,
+		(void*)handle_editor_placement_cancel);
 	hash_map_add(app->custom_event_handles, event_editor_start_save,
 		(void*)handle_editor_save_start);
 	hash_map_add(app->custom_event_handles, event_editor_end_save,
@@ -145,7 +149,7 @@ void		doom3d_events_handle(t_doom3d *app, SDL_Event event)
 	if (handle != NULL)
 	{
 		doom3d_custom_event_to_str(event_str, event.user.code);
-		ft_printf("Event: %s\n", event_str);
+		ft_printf("Event:%d: %s\n", event.user.code, event_str);
 		handle(app, event.user.data1, event.user.data2);
 	}
 }

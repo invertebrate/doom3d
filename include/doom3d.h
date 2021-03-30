@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 14:33:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 15:22:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,7 @@ void						handle_editor_selection_inputs(t_doom3d *app,
 void						handle_editor_saving_inputs(t_doom3d *app,
 								SDL_Event event);
 t_bool						editor_popup_menu_open(t_doom3d *app);
+t_bool						mouse_inside_editor_view(t_doom3d *app);
 
 /*
 ** Event handling
@@ -262,7 +263,9 @@ void						handle_scene_change(t_doom3d *app,
 void						handle_scene_reload(t_doom3d *app);
 void						handle_quit(t_doom3d *app);
 void						handle_editor_placement_end(t_doom3d *app);
-void						handle_editor_placement_start(t_doom3d *app);
+void						handle_editor_placement_cancel(t_doom3d *app);
+void						handle_editor_placement_start(t_doom3d *app,
+								uint32_t obj_type, uint32_t param_type);
 void						handle_editor_save_end(t_doom3d *app);
 void						handle_editor_save_start(t_doom3d *app);
 void						handle_editor_save_type_backspace(t_doom3d *app);
@@ -386,10 +389,10 @@ void						save_map(t_doom3d *app);
 void						read_map(t_doom3d *app, const char *map_name);
 const char					*normal_map_file_key(char *filename, t_doom3d *app);
 const char					*texture_file_key(char *filename, t_doom3d *app);
-void						place_scene_object(t_doom3d *app,
+t_3d_object					*place_scene_object(t_doom3d *app,
 								const char *filenames[3],
 								t_vec3 pos);
-void						place_procedural_scene_object(t_doom3d *app,
+t_3d_object					*place_procedural_scene_object(t_doom3d *app,
 								t_3d_object *model,
 								const char *filenames[2], t_vec3 pos);
 t_3d_object					*place_temp_object(t_doom3d *app,
@@ -400,7 +403,7 @@ t_3d_object					*place_procedural_temp_object(t_doom3d *app,
 								const char *filenames[2],
 								t_vec3 pos, int32_t lifetime_and_delay[2]);
 void						select_object(t_doom3d *app, t_3d_object *object);
-void						editor_select(t_doom3d *app);
+void						editor_select_by_mouse(t_doom3d *app);
 void						editor_deselect(t_doom3d *app);
 void						editor_deselect_all(t_doom3d *app);
 void						after_editor_transform(t_doom3d *app,
@@ -428,6 +431,7 @@ char						*get_object_normal_map_filename(t_scene *scene,
 								t_3d_object *obj);
 char						*get_object_texture_filename(t_scene *scene,
 								t_3d_object *obj);
+t_3d_object					*editor_place_light_object(t_doom3d *app);
 
 /*
 ** Level

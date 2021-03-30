@@ -93,6 +93,7 @@ SOURCES = main.c \
 			scene/editor/editor_selection.c \
 			scene/editor/editor_utils.c \
 			scene/editor/editor_init.c \
+			scene/editor/editor_placement.c \
 			scene/editor/save.c \
 			scene/editor/read.c \
 			scene/scene.c \

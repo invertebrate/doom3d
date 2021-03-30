@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 14:41:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 15:09:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,19 +257,11 @@ void			on_trigger_menu_button_click(t_button *self, void *params)
 void			on_light_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d		*app;
-	t_3d_object		*light;
-	t_vec3			pos;
 
 	(void)self;
 	app = params;
-	editor_place_position(app, pos);
-	place_scene_object(app, (const char*[3]){
-		"assets/models/box.obj", NULL,  NULL}, pos);
-	light = app->active_scene->objects[app->active_scene->last_object_index];
-	l3d_object_set_shading_opts(light, e_shading_invisible);
-	light->type = object_type_light;
-	light->params_type = object_type_light;
-	editor_objects_invisible_highlight(app);
+	doom3d_push_event(app, event_editor_start_placement,
+		(void*)object_type_light, NULL);
 }
 
 void			on_editor_menu_button_click(t_button *self, void *params)

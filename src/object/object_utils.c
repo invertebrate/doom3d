@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 16:07:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 15:05:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static uint32_t	next_object_index(t_doom3d *app)
 ** have been read into scene)
 */
 
-void			place_scene_object(t_doom3d *app, const char *filenames[3],
+t_3d_object		*place_scene_object(t_doom3d *app, const char *filenames[3],
 					t_vec3 pos)
 {
 	t_3d_object	*obj;
@@ -86,7 +86,7 @@ void			place_scene_object(t_doom3d *app, const char *filenames[3],
 		ft_dprintf(2, "No existing model file (%s) given to place object. "
 			"Add it in scene_assets.c\n",
 			filenames[0]);
-		return ;
+		return (NULL);
 	}
 	obj = l3d_object_instantiate(model, app->unit_size);
 	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[1]);
@@ -103,13 +103,14 @@ void			place_scene_object(t_doom3d *app, const char *filenames[3],
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
 	active_scene_update_after_objects(app->active_scene);
+	return (obj);
 }
 
 /*
 ** Place object from model (add textures from memory)
 */
 
-void			place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
+t_3d_object		*place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 					const char *filenames[2], t_vec3 pos)
 {
 	t_3d_object	*obj;
@@ -119,7 +120,7 @@ void			place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 	if (!model)
 	{
 		ft_dprintf(2, "No existing model object (NULL) given\n");
-		return ;
+		return (NULL);
 	}
 	obj = l3d_object_instantiate(model, app->unit_size);
 	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[0]);
@@ -136,6 +137,7 @@ void			place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
 	active_scene_update_after_objects(app->active_scene);
+	return (obj);
 }
 
 /*

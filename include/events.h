@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:09:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 14:38:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 14:49:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef enum				e_doom3d_event
 	event_music_play = 222,
 	event_effect_play = 333,
 	event_editor_start_placement = 444,
+	event_editor_cancel_placement = 551,
 	event_editor_end_placement = 555,
 	event_editor_start_save = 1234,
 	event_editor_end_save = 4321,
