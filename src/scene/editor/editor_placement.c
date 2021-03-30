@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:50:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 23:52:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 00:00:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ t_3d_object		*editor_place_light_object(t_doom3d *app)
 	return (light);
 }
 
+static void		trigger_notification(t_doom3d *app, char *txt)
+{
+	doom3d_notification_add(app, (t_notification){
+			.message = txt,
+			.type = notification_type_info, .time = 2000});
+}
 
 t_3d_object		*editor_place_trigger_object(t_doom3d *app,
 					t_trigger_type trigger_type)
@@ -34,61 +40,41 @@ t_3d_object		*editor_place_trigger_object(t_doom3d *app,
 	t_3d_object		*trigger;
 
 	trigger = NULL;
-	if (trigger_type == trigger_player_start)
+	if (trigger_type == trigger_player_start &&
+		find_one_object_by_type(app, object_type_trigger, trigger_player_start))
+		trigger_notification(app, "Player Start exists, delete it first!");
+	else if (trigger_type == trigger_player_start)
 	{
-		if (find_one_object_by_type(app, object_type_trigger, trigger_player_start))
-			doom3d_notification_add(app, (t_notification){
-			.message = "Player Start exists, delete it first!",
-			.type = notification_type_info, .time = 2000});
-		else
-		{
-			trigger = place_player_start(app);
-			doom3d_notification_add(app, (t_notification){
-			.message = "Placing Player Start!",
-			.type = notification_type_info, .time = 2000});
-		}
+		trigger = place_player_start(app);
+		trigger_notification(app, "Placing Player Start!");
 	}
+	else if (trigger_type == trigger_player_end &&
+		find_one_object_by_type(app, object_type_trigger, trigger_player_end))
+		trigger_notification(app, "Player End exists, delete it first!");
 	else if (trigger_type == trigger_player_end)
 	{
-		if (find_one_object_by_type(app, object_type_trigger, trigger_player_end))
-			doom3d_notification_add(app, (t_notification){
-			.message = "Player End exists, delete it first!",
-			.type = notification_type_info, .time = 2000});
-		else
-		{
-			trigger = place_player_end(app);
-			doom3d_notification_add(app, (t_notification){
-			.message = "Placing Player End!",
-			.type = notification_type_info, .time = 2000});
-		}
+		trigger = place_player_end(app);
+		trigger_notification(app, "Placing Player End!");
 	}
 	else if (trigger_type == trigger_weapon_drop_shotgun)
 	{
 		trigger = place_drop_shotgun(app);
-		doom3d_notification_add(app, (t_notification){
-			.message = "Placing shotgun trigger",
-			.type = notification_type_info, .time = 2000});
+		trigger_notification(app, "Placing shotgun trigger");
 	}
 	else if (trigger_type == trigger_item_jetpack)
 	{
 		trigger = place_drop_jetpack(app);
-		doom3d_notification_add(app, (t_notification){
-			.message = "Placing jetpack trigger",
-			.type = notification_type_info, .time = 2000});
+		trigger_notification(app, "Placing jetpack trigger");
 	}
 	else if (trigger_type == trigger_item_key)
 	{
 		trigger = place_drop_key(app);
-		doom3d_notification_add(app, (t_notification){
-			.message = "Placing key trigger",
-			.type = notification_type_info, .time = 2000});
+		trigger_notification(app, "Placing key trigger");
 	}
 	else if (trigger_type == trigger_elevator_switch)
 	{
 		trigger = place_elevator_switch(app);
-		doom3d_notification_add(app, (t_notification){
-			.message = "Placing door/elevator switch",
-			.type = notification_type_info, .time = 2000});
+		trigger_notification(app, "Placing door/elevator switch");
 	}
 	return (trigger);
 }
