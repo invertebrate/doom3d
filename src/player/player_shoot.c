@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_shoot.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/21 11:46:05 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/30 16:48:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void		player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, origin,
 		dir, &hits))
 	{
-		l3d_get_closest_hit(hits, &closest_triangle_hit, -1);
+		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit, -1);
 		if (closest_triangle_hit != NULL)
 		{
 			ml_vector3_sub(closest_triangle_hit->hit_point, origin, dist);
@@ -136,7 +136,8 @@ static void		shoot_shotgun(t_doom3d *app, t_vec3 origin)
 		ml_vector3_normalize(dir, dir);
 		player_shoot_ray(app, origin, dir);
 	}
-	mp_play_eff(app, sf_shtg_fire, s_ini(0, 1, st_game, 1.0));
+	doom3d_push_event(app,
+		event_effect_play, (void*)sf_shtg_fire, s_ini(0, 1, st_game, 1.0));
 }
 
 /*

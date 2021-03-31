@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 16:17:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 18:31:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void		editor_info_render(t_doom3d *app)
 	color = app->editor.is_saved ? 0x00ff00ff : 0xff0000ff;
 	l3d_u32_to_rgba(color, rgba);
 	get_editor_savename(app, filename);
-	window_text_render(app->window, (t_text_params){
+	window_text_render_shaded(app->window, (t_text_params){
 		.text = filename, .blend_ratio = 1.0,
 		.xy = (int[2]){10, app->window->framebuffer->height - 30},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
@@ -60,7 +60,7 @@ static void		editor_info_render(t_doom3d *app)
 	if (app->editor.is_saving)
 		draw_unsaved_underline(app, filename, color);
 	if (app->editor.num_selected_objects > 0)
-		window_text_render(app->window, (t_text_params){
+		window_text_render_shaded(app->window, (t_text_params){
 			.text = app->editor.selected_object_str, .blend_ratio = 1.0,
 			.xy = (int[2]){app->window->framebuffer->width - 200,
 				app->window->framebuffer->height - 30},
@@ -84,7 +84,7 @@ static void		editor_object_location_render(t_doom3d *app)
 		app->editor.selected_objects[0]->position[1] / app->unit_size,
 		app->editor.selected_objects[0]->position[2] / app->unit_size
 	);
-	window_text_render(app->window, (t_text_params){
+	window_text_render_shaded(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
 		.xy = (int[2]){app->window->framebuffer->width / 4,
 			app->window->framebuffer->height - 30},
@@ -94,14 +94,14 @@ static void		editor_object_location_render(t_doom3d *app)
 		app->editor.selected_objects[0]->scale[0][0] / app->unit_size,
 		app->editor.selected_objects[0]->scale[1][1] / app->unit_size,
 		app->editor.selected_objects[0]->scale[2][2] / app->unit_size);
-	window_text_render(app->window, (t_text_params){
+	window_text_render_shaded(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
 		.xy = (int[2]){app->window->framebuffer->width / 4 + 200,
 			app->window->framebuffer->height - 30},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->debug_font);
 	ft_sprintf(str, "unit_size: %.2f", app->unit_size);
-	window_text_render(app->window, (t_text_params){
+	window_text_render_shaded(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
 		.xy = (int[2]){app->window->framebuffer->width / 4 + 400,
 			app->window->framebuffer->height - 30},
@@ -109,33 +109,52 @@ static void		editor_object_location_render(t_doom3d *app)
 		app->window->debug_font);
 }
 
-void		editor_ui_render(t_doom3d *app)
+void		render_guide_on_popup(t_doom3d *app)
 {
-	char	guide[256];
+	char	guide[1024];
 
-	ft_sprintf(guide, "Tab: Switch level, "
-		"WASD: Move, "
-		"MouseR: Rotate, "
-		"(Shift+)MouseL: Select, "
-		"R (+ XYZ): Rotate selected, "
-		"Arrows: Move selected x, z, "
-		"O,L: Move selected y, "
-		"[, ]: Scale selected");
-	button_menu_render(app->active_scene->menus[0], (t_vec2){10, 0});
-	button_menu_render(app->active_scene->menus[2],
-		(t_vec2){app->active_scene->menus[0]->buttons[0]->width + 20,
-			app->active_scene->menus[0]->buttons[0]->pos[1]});
-	if (app->editor.num_selected_objects > 0)
-		button_menu_render(app->active_scene->menus[1], (t_vec2){10,
-			app->window->framebuffer->height - 100});
-	window_text_render(app->window, (t_text_params){
+	ft_sprintf(guide,
+		"Tab: Switch to next level in level list\n"
+		"Ctrl + Tab: Switch to previous level in level list\n"
+		"Button W | A | S | D: Move & Strafe\n"
+		"Mouse Middle / Alt + Mouse Move: Rotate view\n"
+		"Mouse Left: Select Target by mouse\n"
+		"Mouse Left + Shift: Select Multiple By mouse\n"
+		"Mouse Right on target: Deselect one\n"
+		"Mouse Right on empty: Deselect All\n"
+		"Mouse Right on path node: Connect to another node\n"
+		"Button R + X | Y | Z: Rotate selected\n"
+		"Button Right | Left | Up | Down: Move selected on x and z axis\n"
+		"Button O | L: Move selected target on y axis\n"
+		"Button [ | ]: Scale selected\n"
+		"Button =/+ | -: Inc/Decrement patrol path node slot\n");
+	window_text_render_wrapped_shaded(app->window, (t_text_params){
 			.text = guide, .blend_ratio = 1.0,
-			.xy = (int[2]){10,
-				app->window->framebuffer->height - 60},
+			.xy = (int[2]){app->editor.editor_menu->pos[0] + 10,
+				app->editor.editor_menu->pos[1] + 10},
 			.text_color = (SDL_Color){0, 255, 0, 255}},
 			app->window->debug_font);
+}
+
+void		editor_ui_render(t_doom3d *app)
+{
+	button_menu_render(app->active_scene->menus[0], (t_vec2){10, 0});
+	button_menu_render(app->active_scene->menus[2],
+		(t_vec2){app->active_scene->menus[0]->buttons[0]->width - 20,
+			app->active_scene->menus[0]->buttons[0]->pos[1]});
+	button_menu_render(app->active_scene->menus[3], (t_vec2){
+		10, app->window->framebuffer->height - 100});
+	if (app->active_scene->menus[1]->is_active)
+		button_menu_render(app->active_scene->menus[1], (t_vec2){
+			app->active_scene->menus[0]->buttons[0]->width - 20,
+			app->window->framebuffer->height - 100});
 	if (app->editor.editor_menu != NULL)
-		button_popup_menu_render(app->editor.editor_menu);
+	{
+		button_popup_menu_render(app->window, app->editor.editor_menu);
+		if (app->editor.editor_menu_id == editor_menu_guide &&
+			app->editor.editor_menu->is_open)
+			render_guide_on_popup(app);
+	}
 	editor_info_render(app);
 	editor_object_location_render(app);
 }

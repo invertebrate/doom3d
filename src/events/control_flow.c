@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_input_events.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 18:42:59 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/31 01:26:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ static void		set_objects_shading_opts(t_doom3d *app, t_shading_opts opts)
 			l3d_object_set_shading_opts(app->active_scene->objects[i], opts);
 }
 
-static void		handle_main_game_general_keyup_events(t_doom3d *app,
+/*
+** Handle normal map settings toggle inside main game
+*/
+
+static void		handle_normal_map_settings_toggle(t_doom3d *app,
 					SDL_Event event)
 {
 	if (event.key.keysym.sym == SDLK_n)
@@ -38,6 +42,14 @@ static void		handle_main_game_general_keyup_events(t_doom3d *app,
 				app->active_scene->objects[0]->material->shading_opts ^
 				e_shading_normal_map);
 	}
+}
+
+/*
+** Handle pausing inside main game
+*/
+
+static void		handle_main_game_pause(t_doom3d *app, SDL_Event event)
+{
 	if (event.key.keysym.sym == SDLK_p &&
 		app->active_scene->scene_id == scene_id_main_game)
 	{
@@ -56,10 +68,13 @@ static void		handle_main_game_general_keyup_events(t_doom3d *app,
 	}
 }
 
-static void		handle_general_keyup_events(t_doom3d *app, SDL_Event event)
+/*
+** Handle game pausing & normal map settings toggle inside main game
+*/
+
+static void		handle_debug_and_fullscreen_toggles(t_doom3d *app,
+					SDL_Event event)
 {
-	if (app->active_scene->scene_id == scene_id_main_game)
-		handle_main_game_general_keyup_events(app, event);
 	if (event.key.keysym.sym == SDLK_u)
 		app->is_debug = !app->is_debug;
 	if (event.key.keysym.sym == SDLK_f)
@@ -73,21 +88,28 @@ static void		handle_general_keyup_events(t_doom3d *app, SDL_Event event)
 }
 
 /*
-** Handle events that aren't related to menus or game, like exiting or esc
-** or setting to full screen, or disabling debug info
+** Handle events that aren't related to menu clicks or game interaction,
+** like exiting or esc or setting to full screen, or disabling debug info
 */
 
-void			general_input_events_handle(t_doom3d *app, SDL_Event event)
+void			handle_control_flow_events(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_QUIT)
 	{
-		app->is_running = false;
+		doom3d_push_event(app, event_quit, NULL, NULL);
 	}
 	if (!SDL_IsTextInputActive() && !app->editor.is_saving)
 	{
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
-			app->is_running = false;
+			doom3d_push_event(app, event_quit, NULL, NULL);
 		if (event.type == SDL_KEYUP)
-			handle_general_keyup_events(app, event);
+		{
+			if (app->active_scene->scene_id == scene_id_main_game)
+			{
+				handle_normal_map_settings_toggle(app, event);
+				handle_main_game_pause(app, event);
+			}
+			handle_debug_and_fullscreen_toggles(app, event);
+		}
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_content.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/11 11:43:53 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/31 00:23:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,27 +60,6 @@ void					active_scene_update_after_objects(t_scene *scene)
 		scene->triangle_ref, scene->num_triangles);
 }
 
-/*
-** //! Just an example how you can place test objects
-*/
-
-static void				place_test_objects(t_doom3d *app)
-{
-	//place_object(app, (const char*[3]){
-	//	"assets/models/box.obj",
-	//	"assets/textures/rock.bmp", NULL}, (t_vec3){0, app->unit_size, 0});
-	//ft_printf("Placed test objects\n");
-
-	/*
-	NPC TESTING (But also can be added via editor now :))
-	*/
-	(void)app;
-	// npc_spawn(app, (t_vec3){0, app->unit_size, 0}, 45, 0);
-	// npc_spawn(app, (t_vec3){app->unit_size * 6, app->unit_size * 5, 0}, 0, 0);
-	// npc_spawn(app, (t_vec3){app->unit_size * 8, 0, 0}, 90, 0);
-	// npc_spawn(app, (t_vec3){0, 0, app->unit_size * 6}, 45, 0);
-}
-
 static void		scene_game_init(t_doom3d *app)
 {
 	t_3d_object		*start;
@@ -97,7 +76,8 @@ static void		scene_game_init(t_doom3d *app)
 			.message =
 				"Map does not have Start or End locations, Add them in editor!",
 			.type = notification_type_info, .time = 2000});
-		app->next_scene_id = scene_id_main_menu;
+		doom3d_push_event(app, event_scene_change,
+			(void*)scene_id_main_menu, NULL);
 		return ;
 	}
 	player_init(app, start->position);
@@ -106,8 +86,6 @@ static void		scene_game_init(t_doom3d *app)
 	player_animations_init(app);
 	set_player_default_frame(app);
 	projectile_data_init(app);
-	// Add test objects for playing
-	place_test_objects(app);
 	active_scene_update_after_objects(app->active_scene);
 }
 

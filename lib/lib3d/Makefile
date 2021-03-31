@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#              #
-#    Updated: 2021/03/28 16:40:25 by ohakola          ###   ########.fr        #
+#    Updated: 2021/03/30 16:50:40 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SOURCES = l3d_triangle.c \
 			l3d_triangle_vector.c \
 			l3d_ray.c \
 			l3d_ray_hit.c \
-			l3d_ray_hit_utils.c \
+			l3d_ray_hit_utils1.c \
+			l3d_ray_hit_utils2.c \
 			l3d_rand.c \
 			l3d_obj_read.c \
 			l3d_obj_read_utils1.c \

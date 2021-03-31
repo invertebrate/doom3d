@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 11:47:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 22:48:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		ui_title_render(t_doom3d *app)
 {
-	window_text_render_centered(app->window, (t_text_params){
+	window_text_render_centered_shaded(app->window, (t_text_params){
 			.text = "Doom-3D", .blend_ratio = 1.0,
 			.xy = (int[2]){app->window->framebuffer->width / 2,
 				FONT_SIZE * 2 + 10},
@@ -82,7 +82,7 @@ void			ui_render(t_doom3d *app)
 void			loading_render(t_doom3d *app)
 {
 	ui_title_render(app);
-	window_text_render_centered(app->window, (t_text_params){
+	window_text_render_centered_shaded(app->window, (t_text_params){
 		.text = "Loading",
 		.blend_ratio = 1.0,
 		.xy = (int32_t[2]){app->window->framebuffer->width / 2,

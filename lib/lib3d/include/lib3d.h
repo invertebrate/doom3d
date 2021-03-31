@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/28 17:53:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/30 23:38:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,8 +318,11 @@ void						l3d_bounding_box_hit_record_set(float t[8],
 t_bool						l3d_plane_ray_hit(t_plane *plane, t_ray *ray,
 									t_vec3 hit_point);
 void						l3d_delete_hits(t_hits **hits);
-void						l3d_get_closest_hit(t_hits *hits, t_hit **closest,
+void						l3d_get_closest_triangle_hit(t_hits *hits,
+								t_hit **closest,
 								uint32_t ignore_id);
+void						l3d_get_closest_hit(t_hits *hits,
+								t_hit **closest);
 t_bool						l3d_kd_tree_ray_hits(t_kd_tree *triangle_tree,
 								t_vec3 origin, t_vec3 dir, t_hits **hits);
 

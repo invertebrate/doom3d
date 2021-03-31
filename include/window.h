@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 15:55:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 18:30:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define PIXEL_FORMAT SDL_PIXELFORMAT_RGBA8888
 # define GAME_FONT "assets/fonts/AmazDooMLeft.ttf"
 # define DEBUG_FONT "assets/fonts/Roboto-Regular.ttf"
-# define FONT_SIZE 36
+# define FONT_SIZE 38
 # define CLEAR_COLOR 0x700000FF
 
 /*
@@ -104,6 +104,7 @@ struct						s_button
 	void					*on_click_params;
 	void					*on_hover_params;
 	t_window				*window;
+	t_bool					is_active;
 };
 
 typedef struct				s_button_group
@@ -115,6 +116,7 @@ typedef struct				s_button_group
 	t_bool					is_horizontal;
 	t_bool					is_selector;
 	uint32_t				selected_index;
+	t_bool					is_active;
 }							t_button_group;
 
 typedef struct				s_button_menu
@@ -149,17 +151,25 @@ void						window_resize(t_window *window,
 void						window_text_render(t_window *window,
 								t_text_params params, TTF_Font *font);
 void						window_text_render_wrapped(t_window *window,
-								t_text_params params, TTF_Font *font,
-								uint32_t width);
+								t_text_params params, TTF_Font *font);
 void						window_text_render_centered(t_window *window,
 								t_text_params params, TTF_Font *font);
 void						window_text_render_centered_wrapped(t_window *window,
-									t_text_params params, TTF_Font *font,
-									uint32_t width);
-SDL_Surface					*surface_from_font_wrapped(t_text_params params,
-								TTF_Font *font, uint32_t width);
-SDL_Surface					*surface_from_font(t_text_params params,
+									t_text_params params, TTF_Font *font);
+SDL_Surface					*surface_from_font_shaded(t_text_params params,
 								TTF_Font *font);
+SDL_Surface					*surface_from_font_solid(t_text_params params,
+								TTF_Font *font);
+void						window_text_render_centered_wrapped_shaded(t_window
+								*window, t_text_params params, TTF_Font *font);
+void						window_text_render_centered_shaded(t_window
+								*window, t_text_params params, TTF_Font *font);
+void						window_text_render_shaded(t_window *window,
+								t_text_params params, TTF_Font *font);
+void						window_text_render_wrapped_shaded(t_window *window,
+								t_text_params params, TTF_Font *font);
+
+
 /*
 ** Utils
 */
@@ -220,9 +230,11 @@ void						button_popup_menu_destroy(
 t_button_menu				*button_popup_menu_create(t_button_group *menu,
 								t_vec2 pos, int32_t padding,
 								uint32_t bg_and_border_color[2]);
-void						button_popup_menu_render(t_button_menu *popup_menu);
+void						button_popup_menu_render(t_window *window,
+								t_button_menu *popup_menu);
 void						button_popup_menu_events_handle(
 								t_button_menu *button_menu,
 								t_mouse mouse, SDL_Event event);
+void						popup_menu_default_dims(t_vec2 dims);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/12 01:40:16 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/31 22:56:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include "sprite_animation.h"
 # include "animations_3d.h"
 # include "sound.h"
+# include "events.h"
 
 /*
 ** ------------------------
@@ -77,9 +78,7 @@
 # define CONST_SPEED 0.1
 # define CONST_GRAVITY 1.06
 
-/*
-** // ToDo: Create toggleable settings
-*/
+# define NUM_CUSTOM_EVENTS 64
 
 typedef struct				s_settings
 {
@@ -123,6 +122,8 @@ typedef struct				s_doom3d
 	t_weapon				weapons_data[NUM_WEAPONS];
 	t_sprite_anim			animations[NUM_PLAYER_ANIMATIONS];
 	t_mp					mp;
+	uint32_t				custom_event_type;
+	t_hash_table			*custom_event_handles;
 }							t_doom3d;
 
 /*
@@ -156,7 +157,6 @@ void						player_rotate_horizontal(t_doom3d *app,
 void						player_apply_gravity(t_doom3d *app);
 void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
-void						editor_vertical_move(t_doom3d *app, float speed);
 void						player_onhit(t_doom3d *app, int damage);
 void						player_jump(t_doom3d *app);
 void						player_crouch(t_doom3d *app, t_bool toggle);
@@ -192,7 +192,7 @@ void						place_projectile_object_in_scene(t_doom3d *app,
 /*
 ** Npcs
 */
-void						npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
+t_3d_object					*npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
 								int type);
 void						npc_update_state(t_doom3d *app, t_3d_object *npc_obj);
 void						npc_execute_behavior(t_doom3d *app,
@@ -225,16 +225,74 @@ void						forces_update_player(t_doom3d *app);
 /*
 ** Events
 */
-void						doom3d_events_handle(t_doom3d *app);
-void						mouse_state_handle(t_doom3d *app);
-void						keyboard_state_handle(t_doom3d *app);
-void						general_input_events_handle(t_doom3d *app,
+void						doom3d_push_event(t_doom3d *app,
+								t_doom3d_event code,
+								void* data1,
+								void* data2);
+void						register_custom_events(t_doom3d *app);
+void						register_editor_custom_events(t_doom3d *app);
+void						editor_event_to_str(char *str, t_doom3d_event code);
+void						custom_events_handle(t_doom3d *app,
 								SDL_Event event);
-void						handle_editor_selection(t_doom3d *app,
+void						handle_player_rotation(t_doom3d *app,
+								int32_t xrel, int32_t yrel);
+void						handle_events(t_doom3d *app);
+void						handle_mouse_state(t_doom3d *app);
+void						handle_editor_mouse_state(t_doom3d *app);
+void						handle_keyboard_state(t_doom3d *app);
+void						handle_editor_transform(t_doom3d *app);
+void						handle_editor_keyboard_state(t_doom3d *app);
+t_bool						handle_editor_duplication(t_doom3d *app);
+void						handle_control_flow_events(t_doom3d *app,
 								SDL_Event event);
-void						handle_editor_saving(t_doom3d *app,
+void						handle_editor_input_events(t_doom3d *app,
 								SDL_Event event);
 t_bool						editor_popup_menu_open(t_doom3d *app);
+t_bool						editor_popup_menu_open(t_doom3d *app);
+t_bool						mouse_inside_editor_view(t_doom3d *app);
+t_3d_object					*editor_object_by_mouse(t_doom3d *app);
+void						editor_point_on_target(t_doom3d
+								*app, t_vec3 hit_point);
+
+/*
+** Custom Event handling
+*/
+
+int							handle_play_effect(t_doom3d *app,
+								int ind, t_sound *new);
+int							handle_play_music(t_doom3d *app,
+								int ind, t_sound *new);
+void						handle_object_deletion(t_doom3d *app,
+								t_3d_object *object);
+void						handle_window_resize(t_doom3d *app,
+								uint32_t width,
+								uint32_t height);
+void						handle_scene_change(t_doom3d *app,
+								t_scene_id scene_id);
+void						handle_scene_reload(t_doom3d *app);
+void						handle_quit(t_doom3d *app);
+void						handle_editor_placement_end(t_doom3d *app);
+void						handle_editor_placement_cancel(t_doom3d *app);
+void						handle_editor_placement_start(t_doom3d *app,
+								uint32_t obj_type, void *data);
+void						handle_editor_save_end(t_doom3d *app);
+void						handle_editor_save_start(t_doom3d *app);
+void						handle_editor_save_type_backspace(t_doom3d *app);
+void						handle_editor_save_type(t_doom3d *app, char *text);
+void						handle_editor_delete(t_doom3d *app);
+void						handle_editor_exit(t_doom3d *app);
+void						handle_editor_deselect(t_doom3d *app);
+void						handle_editor_deselect_all(t_doom3d *app);
+void						handle_editor_select(t_doom3d *app);
+void						handle_editor_level_switch(t_doom3d *app);
+void						handle_editor_open_popup_menu(t_doom3d *app,
+								t_editor_menu_index menu_id, t_vec3 pos);
+void						handle_editor_add_texture(t_doom3d *app,
+								char *filename);
+void						handle_editor_add_normal_map(t_doom3d *app,
+								char *filename);
+void						handle_editor_patrol_slot_decrement(t_doom3d *app);
+void						handle_editor_patrol_slot_increment(t_doom3d *app);
 
 /*
 ** 3D Animations
@@ -342,16 +400,16 @@ void						active_scene_popup_menu_destroy(t_doom3d *app);
 /*
 ** Editor
 */
+void						editor_objects_invisible_unhighlight(t_doom3d *app);
+void						editor_objects_invisible_highlight(t_doom3d *app);
 void						save_map(t_doom3d *app);
 void						read_map(t_doom3d *app, const char *map_name);
 const char					*normal_map_file_key(char *filename, t_doom3d *app);
 const char					*texture_file_key(char *filename, t_doom3d *app);
-void						place_scene_object(t_doom3d *app,
+t_3d_object					*place_scene_object(t_doom3d *app,
 								const char *filenames[3],
 								t_vec3 pos);
-void						object_set_for_deletion(t_doom3d *app,
-								t_3d_object *object);
-void						place_procedural_scene_object(t_doom3d *app,
+t_3d_object					*place_procedural_scene_object(t_doom3d *app,
 								t_3d_object *model,
 								const char *filenames[2], t_vec3 pos);
 t_3d_object					*place_temp_object(t_doom3d *app,
@@ -362,24 +420,24 @@ t_3d_object					*place_procedural_temp_object(t_doom3d *app,
 								const char *filenames[2],
 								t_vec3 pos, int32_t lifetime_and_delay[2]);
 void						select_object(t_doom3d *app, t_3d_object *object);
-void						editor_select(t_doom3d *app);
+void						editor_select_by_mouse(t_doom3d *app);
+void						editor_deselect(t_doom3d *app);
 void						editor_deselect_all(t_doom3d *app);
 void						after_editor_transform(t_doom3d *app,
 								uint32_t *last_changed);
 void    					editor_init(t_doom3d *app, int32_t editor_level);
-void						place_path_object(t_doom3d *app);
+t_3d_object					*place_path_object(t_doom3d *app);
 void						path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj);
 void						path_node_init(t_3d_object *path_obj);
 void						path_draw_connections(t_render_work *work);
 void						path_delete_connection(t_path_node *path_obj,
 													t_path_node *delete);
 void						delete_path_object_connections(t_path_node *node);
-void						patrol_path_link_node(t_3d_object *node_obj, t_3d_object *obj, int slot);
-void						editor_place_position(t_doom3d *app ,
+void						patrol_path_link_node(t_3d_object *node_obj,
+								t_3d_object *obj, int slot);
+void						editor_pos_camera_front(t_doom3d *app ,
 								t_vec3 result);
 void						patrol_path_highlight(t_render_work *work);
-void						place_elevator_switch(t_doom3d *app);
-void						place_drop_key(t_doom3d *app);
 void						trigger_update_key_id(t_doom3d *app,
 								t_3d_object *key);
 void						draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
@@ -389,6 +447,13 @@ char						*get_object_normal_map_filename(t_scene *scene,
 								t_3d_object *obj);
 char						*get_object_texture_filename(t_scene *scene,
 								t_3d_object *obj);
+t_3d_object					*editor_place_light_object(t_doom3d *app);
+t_3d_object					*editor_place_trigger_object(t_doom3d *app,
+								t_trigger_type type);
+t_3d_object					*editor_place_default_object(t_doom3d *app,
+								void *data);
+t_3d_object					*editor_place_npc_object(t_doom3d *app,
+								t_npc_type type);
 
 /*
 ** Level
@@ -400,18 +465,61 @@ void						read_level_list(t_doom3d *app);
 */
 t_button_group				*button_menu_create(t_doom3d *app,
 								t_button_menu_params menu_params);
+t_button_group				*button_menu_create_shaded(t_doom3d *app,
+								t_button_menu_params menu_params);
 void						main_menu_create(t_doom3d *app);
 void						editor3d_menu_create(t_doom3d *app);
+void						editor_popup_menu_create(t_doom3d *app,
+								t_editor_menu_index new_menu,
+								t_vec2 pos);
 void						pause_menu_create(t_doom3d *app);
 void						settings_menu_create(t_doom3d *app);
 void						active_scene_menu_recreate(t_doom3d *app);
 void						scene_menus_destroy(t_scene *scene);
+void						editor_popup_menu_set(t_doom3d *app, t_vec2 pos,
+								t_button_menu_params params);
+t_surface					*menu_button_down_surface(const char *option,
+								TTF_Font *font);
+t_surface					*menu_button_surface(const char *option,
+								TTF_Font *font);
+t_surface					*menu_button_down_surface_shaded(const char *option,
+								TTF_Font *font);
+t_surface					*menu_button_surface_shaded(const char *option,
+								TTF_Font *font);
+
+/*
+** Button clicks
+*/
+void						on_delete_menu_button_click(t_button *self,
+								void *params);
+void						on_editor_save_button_click(t_doom3d *app);
+void						on_editor_exit_button_click(t_doom3d *app);
+void						on_objects_menu_button_click(t_button *self,
+								void *params);
+void						on_textures_menu_button_click(t_button *self,
+								void *params);
+void						on_normmaps_menu_button_click(t_button *self,
+								void *params);
+void						on_npc_menu_button_click(t_button *self,
+								void *params);
+void						on_prefab_menu_button_click(t_button *self,
+								void *params);
+void						on_trigger_menu_button_click(t_button *self,
+								void *params);
+void						on_light_menu_button_click(t_button *self,
+								void *params);
+void						on_editor_menu_button_click(t_button *self,
+								void *params);
+void						on_new_level_menu_button_click(t_button *self,
+								void *params);
+void						on_guide_menu_button_click(t_button *self,
+								void *params);
 
 /*
 ** Utils
 */
 void						doom3d_debug_info_render(t_doom3d *app);
-void						doom3d_debug_info_capture(t_doom3d *app);
+void						doom3d_fps_capture(t_doom3d *app);
 uint64_t					doom3d_performance_counter_start(void);
 void						doom3d_performance_counter_end(uint64_t start_time,
 								char *task_name, float delta_limit);
@@ -423,12 +531,12 @@ void						doom3d_notifications_delete_all(t_doom3d *app);
 /*
 ** Triggers
 */
-void						place_player_end(t_doom3d *app);
-void						place_player_start(t_doom3d *app);
-void						place_drop_shotgun(t_doom3d *app);
-void						place_drop_jetpack(t_doom3d *app);
-void						editor_objects_invisible_unhighlight(t_doom3d *app);
-void						editor_objects_invisible_highlight(t_doom3d *app);
+t_3d_object					*place_player_end(t_doom3d *app);
+t_3d_object					*place_player_start(t_doom3d *app);
+t_3d_object					*place_drop_shotgun(t_doom3d *app);
+t_3d_object					*place_drop_jetpack(t_doom3d *app);
+t_3d_object					*place_elevator_switch(t_doom3d *app);
+t_3d_object					*place_drop_key(t_doom3d *app);
 void						trigger_activate(t_doom3d *app, t_3d_object *obj);
 void						trigger_link_object_to_npc(t_3d_object *trigger,
 								t_3d_object *target);
@@ -451,7 +559,6 @@ void						player_vitals_render(t_doom3d *app);
 /*
 ** Sounds
 */
-
 void						mp_init(t_doom3d *app);
 t_mp						mix_chan_swap(t_doom3d *app, int channels);
 t_mp						mix_init(t_doom3d *app, int channels);
@@ -459,9 +566,8 @@ t_track						*read_sound(char *file, t_doom3d *app);
 void						mp_close(t_doom3d *app);
 void						mp_au_mix(void *para, Uint8 *stream, int len);
 t_sound						*s_ini(char loop, char priority, char type, float vol);
-int							mp_play_eff(t_doom3d *app, int ind, t_sound *new);
-int							mp_play_music(t_doom3d *app, int ind, t_sound *new);
 void						mp_typec(t_doom3d *app, char type, char sound, char state);
-void						mp_print(t_mp *mp);//
+void						mp_print(t_mp *mp);
+void						mp_reorder(t_sound **start, t_sound *new);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/22 20:13:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 14:59:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		forces_update_player(t_doom3d *app)
 	else
 		deceleration = 1.2;
 	if (app->active_scene->scene_id == scene_id_editor3d)
-		app->player.velocity[1] = 0;
+		app->player.velocity[1] = app->player.velocity[1] / deceleration;
 	ml_vector3_copy((t_vec3){app->player.velocity[0] / deceleration,
 		app->player.velocity[1], app->player.velocity[2] / deceleration},
 		app->player.velocity);

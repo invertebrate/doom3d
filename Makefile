@@ -83,14 +83,21 @@ SOURCES = main.c \
 			physics/forces_update.c \
 			camera.c \
 			utils.c \
+			notifications/notifications.c \
 			scene/menus/editor3d_menu.c \
+			scene/menus/editor3d_menu_button_clicks1.c \
+			scene/menus/editor3d_menu_button_clicks2.c \
+			scene/menus/editor3d_menu_button_clicks3.c \
 			scene/menus/settings_menu.c \
 			scene/menus/main_menu.c \
 			scene/menus/pause_menu.c \
 			scene/menus/menu_utils.c \
+			scene/menus/menu_button_utils.c \
+			scene/menus/popup_menu_utils.c \
 			scene/editor/editor_selection.c \
 			scene/editor/editor_utils.c \
 			scene/editor/editor_init.c \
+			scene/editor/editor_placement.c \
 			scene/editor/save.c \
 			scene/editor/read.c \
 			scene/scene.c \
@@ -123,11 +130,25 @@ SOURCES = main.c \
 			window/buttons/button.c \
 			window/buttons/button_popup_menu.c \
 			window/buttons/button_popup_menu_events.c \
+			events/custom_event_handling/objects.c \
+			events/custom_event_handling/media.c \
+			events/custom_event_handling/menus.c \
+			events/custom_event_handling/editor/menu.c \
+			events/custom_event_handling/editor/selection.c \
+			events/custom_event_handling/editor/placement.c \
+			events/custom_event_handling/editor/save.c \
+			events/custom_event_handling/editor/textures.c \
+			events/custom_event_handling/editor/path.c \
 			events/mouse_state.c \
-			events/events.c \
-			events/editor_events.c \
+			events/input.c \
+			events/custom_events.c \
 			events/keyboard_state.c \
-			events/general_input_events.c \
+			events/control_flow.c \
+			events/editor/editor_custom_events.c \
+			events/editor/editor_transform.c \
+			events/editor/editor_input.c \
+			events/editor/editor_keyboard_state.c \
+			events/editor/editor_mouse_state.c \
 			sound/sound.c\
 			sound/sound_controls.c\
 			sound/sound_init.c\
@@ -169,6 +190,9 @@ $(DIR_OBJ):
 	@mkdir -p temp/render
 	@mkdir -p temp/render/debug
 	@mkdir -p temp/events
+	@mkdir -p temp/events/editor
+	@mkdir -p temp/events/custom_event_handling
+	@mkdir -p temp/events/custom_event_handling/editor
 	@mkdir -p temp/player
 	@mkdir -p temp/animations
 	@mkdir -p temp/npc
@@ -181,6 +205,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/projectile
 	@mkdir -p temp/projectile/projectile_data
 	@mkdir -p temp/sound
+	@mkdir -p temp/notifications
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)

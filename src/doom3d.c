@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/22 09:15:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 15:18:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ static void		resize_dependent_recreate(t_doom3d *app)
 	}
 }
 
+/*
+** Scene switch should be the first thing we do if next scene id has changed
+** in main loop (before event handling).
+*/
+
 static void		handle_scene_switch(t_doom3d *app)
 {
 	if (app->active_scene->scene_id != app->next_scene_id ||
@@ -40,19 +45,18 @@ static void		doom3d_main_loop(t_doom3d *app)
 	while (app->is_running)
 	{
 		app->info.performance_start = SDL_GetPerformanceCounter();
-		update_app_ticks(app);
 		if (app->window->resized)
 			resize_dependent_recreate(app);
 		window_frame_clear(app->window);
 		handle_scene_switch(app);
-		doom3d_events_handle(app);
+		handle_events(app);
 		doom3d_player_update(app);
 		doom3d_update_objects(app);
 		doom3d_render(app);
 		window_frame_draw(app->window);
 		doom3d_notifications_update(app);
-		doom3d_debug_info_capture(app);
-		// ft_printf("%u\n", app->current_tick);
+		doom3d_fps_capture(app);
+		update_app_ticks(app);
 	}
 }
 
@@ -66,17 +70,18 @@ void			settings_init(t_doom3d *app)
 
 void			doom3d_init(t_doom3d *app)
 {
+	register_custom_events(app);
 	mp_init(app);
 	app->active_scene = NULL;
 	app->is_running = true;
 	app->is_debug = true;
 	app->is_scene_reload = false;
 	app->unit_size = app->window->width;
-	app->next_scene_id = scene_id_main_menu;
 	ft_memset(&app->notifications, 0, sizeof(app->notifications));
 	read_level_list(app);
 	app->current_level = 0;
 	editor_init(app, 0);
+	app->next_scene_id = scene_id_main_menu;
 	scene_next_select(app);
 }
 
@@ -109,7 +114,8 @@ void			doom3d_run(t_doom3d *app)
 	settings_init(app);
 	window_create(&app->window, app->settings.width, app->settings.height);
 	doom3d_init(app);
-	mp_play_music(app, mu_main, s_ini(1, 10, st_main_menu, 0.6));
+	doom3d_push_event(app,
+		event_music_play, (void*)mu_main, s_ini(1, 10, st_main_menu, 0.6));
 	doom3d_main_loop(app);
 	doom3d_cleanup(app);
 }
