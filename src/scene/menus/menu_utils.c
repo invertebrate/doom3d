@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:51:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 15:45:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 18:26:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static t_surface	*menu_button_surface(const char *option, TTF_Font *font)
 	SDL_Surface	*tmp_surface;
 	t_surface	*surface;
 
-	tmp_surface = surface_from_font(
+	tmp_surface = surface_from_font_shaded(
 		(t_text_params){.text = option, .blend_ratio = 1.0,
 		.text_color = (SDL_Color){255, 0, 0, 255}}, font);
 	surface = convert_sdl_surface_to_t_surface(tmp_surface);
@@ -46,7 +46,7 @@ static t_surface	*menu_button_down_surface(const char *option,
 	SDL_Surface	*tmp_surface;
 	t_surface	*down_surface;
 
-	tmp_surface = surface_from_font(
+	tmp_surface = surface_from_font_shaded(
 		(t_text_params){.text = option, .blend_ratio = 1.0,
 		.text_color = (SDL_Color){255, 255, 255, 255}},
 		font);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 17:25:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 18:31:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void		editor_info_render(t_doom3d *app)
 	color = app->editor.is_saved ? 0x00ff00ff : 0xff0000ff;
 	l3d_u32_to_rgba(color, rgba);
 	get_editor_savename(app, filename);
-	window_text_render(app->window, (t_text_params){
+	window_text_render_shaded(app->window, (t_text_params){
 		.text = filename, .blend_ratio = 1.0,
 		.xy = (int[2]){10, app->window->framebuffer->height - 30},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
@@ -60,7 +60,7 @@ static void		editor_info_render(t_doom3d *app)
 	if (app->editor.is_saving)
 		draw_unsaved_underline(app, filename, color);
 	if (app->editor.num_selected_objects > 0)
-		window_text_render(app->window, (t_text_params){
+		window_text_render_shaded(app->window, (t_text_params){
 			.text = app->editor.selected_object_str, .blend_ratio = 1.0,
 			.xy = (int[2]){app->window->framebuffer->width - 200,
 				app->window->framebuffer->height - 30},
@@ -84,7 +84,7 @@ static void		editor_object_location_render(t_doom3d *app)
 		app->editor.selected_objects[0]->position[1] / app->unit_size,
 		app->editor.selected_objects[0]->position[2] / app->unit_size
 	);
-	window_text_render(app->window, (t_text_params){
+	window_text_render_shaded(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
 		.xy = (int[2]){app->window->framebuffer->width / 4,
 			app->window->framebuffer->height - 30},
@@ -94,14 +94,14 @@ static void		editor_object_location_render(t_doom3d *app)
 		app->editor.selected_objects[0]->scale[0][0] / app->unit_size,
 		app->editor.selected_objects[0]->scale[1][1] / app->unit_size,
 		app->editor.selected_objects[0]->scale[2][2] / app->unit_size);
-	window_text_render(app->window, (t_text_params){
+	window_text_render_shaded(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
 		.xy = (int[2]){app->window->framebuffer->width / 4 + 200,
 			app->window->framebuffer->height - 30},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->debug_font);
 	ft_sprintf(str, "unit_size: %.2f", app->unit_size);
-	window_text_render(app->window, (t_text_params){
+	window_text_render_shaded(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
 		.xy = (int[2]){app->window->framebuffer->width / 4 + 400,
 			app->window->framebuffer->height - 30},
@@ -128,7 +128,7 @@ void		render_guide_on_popup(t_doom3d *app)
 		"Button O | L: Move selected target on y axis\n"
 		"Button [ | ]: Scale selected\n"
 		"Button =/+ | -: Inc/Decrement patrol path node slot\n");
-	window_text_render_wrapped(app->window, (t_text_params){
+	window_text_render_wrapped_shaded(app->window, (t_text_params){
 			.text = guide, .blend_ratio = 1.0,
 			.xy = (int[2]){app->editor.editor_menu->pos[0] + 10,
 				app->editor.editor_menu->pos[1] + 10},
