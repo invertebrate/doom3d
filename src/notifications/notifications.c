@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:14:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 16:14:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void			doom3d_notifications_update(t_doom3d *app)
 	}
 }
 
-void			doom3d_notification_add(t_doom3d *app,
+void			notify_user(t_doom3d *app,
 					t_notification notification)
 {
 	if (app->notifications == NULL)

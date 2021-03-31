@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 02:18:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	handle_editor_add_normal_map(t_doom3d *app, char *filename)
 				app->editor.selected_objects[i]->id, (void*)filename);
 		}
 		app->editor.is_saved = false;
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Normal map set!",
 			.type = notification_type_info, .time = 2000});
 	}
 	else
 	{
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Select object first!",
 			.type = notification_type_info, .time = 2000});
 	}
@@ -66,13 +66,13 @@ void	handle_editor_add_texture(t_doom3d *app, char *filename)
 				app->editor.selected_objects[i]->id, (void*)filename);
 		}
 		app->editor.is_saved = false;
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Texture set!",
 			.type = notification_type_info, .time = 2000});
 	}
 	else
 	{
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Select object first!",
 			.type = notification_type_info, .time = 2000});
 	}

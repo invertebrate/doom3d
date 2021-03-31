@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:50:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:50:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_3d_object		*editor_place_light_object(t_doom3d *app)
 
 static void		placement_notification(t_doom3d *app, char *txt)
 {
-	doom3d_notification_add(app, (t_notification){
+	notify_user(app, (t_notification){
 			.message = txt,
 			.type = notification_type_info, .time = 2000});
 }

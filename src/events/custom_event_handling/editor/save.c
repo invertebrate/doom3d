@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 01:15:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 01:10:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	handle_editor_save_start(t_doom3d *app)
 		editor_deselect_all(app);
 		app->editor.is_saving = true;
 		SDL_StartTextInput();
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Write name to save",
 			.type = notification_type_info, .time = 2000});
 	}
 	else
 	{
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Press enter to save",
 			.type = notification_type_info, .time = 2000});
 	}
@@ -41,25 +41,29 @@ void	handle_editor_save_start(t_doom3d *app)
 
 void	handle_editor_save_end(t_doom3d *app)
 {
-	SDL_StopTextInput();
-	app->editor.is_saving = false;
 	if (!find_one_object_by_type(app, object_type_trigger,
 		trigger_player_start) ||
 		!find_one_object_by_type(app, object_type_trigger,
 		trigger_player_end))
 	{
-		doom3d_notification_add(app, (t_notification){
-		.message = "You need to add start and end before savind!",
+		notify_user(app, (t_notification){
+		.message = "You need to add start and end before saving!",
 		.type = notification_type_info, .time = 2000});
 		return ;
 	}
-	ft_memcpy(app->editor.editor_filename, app->editor.editor_savename,
-		ft_strlen(app->editor.editor_savename));
+	else if (ft_strlen(app->editor.editor_savename) == 0)
+	{
+		notify_user(app, (t_notification){.message = "Name must not be empty",
+		.type = notification_type_info, .time = 2000});
+		return ;
+	}
+	SDL_StopTextInput();
+	app->editor.is_saving = false;
+	ft_strcpy(app->editor.editor_filename, app->editor.editor_savename);
 	editor_objects_invisible_unhighlight(app);
 	save_map(app);
 	editor_objects_invisible_highlight(app);
-	doom3d_notification_add(app, (t_notification){
-		.message = "Saved level!",
+	notify_user(app, (t_notification){.message = "Saved level!",
 		.type = notification_type_info, .time = 2000});
 	app->editor.is_saved = true;
 }

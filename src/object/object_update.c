@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void		finish_level(t_doom3d *app)
 	app->current_level++;
 	if (app->current_level < app->num_levels)
 	{
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "New level!",
 			.type = notification_type_story, .time = 4000});
 		push_custom_event(app, event_scene_reload, NULL, NULL);
@@ -70,7 +70,7 @@ static void		finish_level(t_doom3d *app)
 		app->current_level = 0;
 		push_custom_event(app, event_scene_change,
 			(void*)scene_id_main_menu, NULL);
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message =
 				"Game over!",
 			.type = notification_type_story, .time = 4000});

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -523,7 +523,7 @@ void						doom3d_fps_capture(t_doom3d *app);
 uint64_t					doom3d_performance_counter_start(void);
 void						doom3d_performance_counter_end(uint64_t start_time,
 								char *task_name, float delta_limit);
-void						doom3d_notification_add(t_doom3d *app,
+void						notify_user(t_doom3d *app,
 								t_notification notification);
 void						doom3d_notifications_update(t_doom3d *app);
 void						doom3d_notifications_delete_all(t_doom3d *app);

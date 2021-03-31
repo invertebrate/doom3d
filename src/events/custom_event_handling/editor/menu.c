@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:11:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	handle_editor_delete(t_doom3d *app)
 		}
 		app->editor.is_saved = false;
 		editor_deselect_all(app);
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 		.message = "Deleted!",
 		.type = notification_type_info, .time = 2000});
 	}
@@ -45,7 +45,7 @@ void	handle_editor_exit(t_doom3d *app)
 {
 	if (app->editor.is_saving)
 	{
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Save first by pressing enter!",
 			.type = notification_type_info, .time = 2000});
 		return ;

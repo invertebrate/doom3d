@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void			on_new_level_menu_button_click(t_button *self, void *params)
 	{
 		if (!app->level_list[app->editor.editor_level])
 		{
-			doom3d_notification_add(app, (t_notification){
+			notify_user(app, (t_notification){
 				.message =
 					"Save map first, and add it to assets/level_list.txt!!",
 				.type = notification_type_info, .time = 2000});
@@ -60,7 +60,7 @@ void			on_new_level_menu_button_click(t_button *self, void *params)
 		push_custom_event(app, event_scene_reload, NULL, NULL);
 	}
 	else if (self->id == 0 && app->editor.editor_level == MAX_LEVELS)
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Too many levels created!!",
 			.type = notification_type_info, .time = 2000});
 }

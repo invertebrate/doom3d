@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 17:47:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void			select_object(t_doom3d *app, t_3d_object *object)
 	}
 	if (app->editor.num_selected_objects >= MAX_SELECTED_OBJECTS)
 	{
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Selected max objects (64), can't select more!",
 			.type = notification_type_info, .time = 2000});
 		return ;
@@ -57,7 +57,7 @@ void			select_object(t_doom3d *app, t_3d_object *object)
 	}
 	else
 		ft_sprintf(app->editor.selected_object_str, "multiple");
-	doom3d_notification_add(app, (t_notification){.message = "Selected!",
+	notify_user(app, (t_notification){.message = "Selected!",
 		.type = notification_type_info, .time = 2000});
 }
 
@@ -144,7 +144,7 @@ void			editor_deselect(t_doom3d *app)
 	else
 	{
 		if (app->editor.num_selected_objects > 0)
-			doom3d_notification_add(app, (t_notification){
+			notify_user(app, (t_notification){
 			.message = "Deselected all!",
 			.type = notification_type_info, .time = 2000});
 		editor_deselect_all(app);

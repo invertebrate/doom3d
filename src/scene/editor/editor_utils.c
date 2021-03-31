@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:17:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,12 @@ static void		duplicate_selected_object(t_doom3d *app, t_3d_object *selected)
 				selected->material->shading_opts;
 		select_object(app,
 			app->active_scene->objects[app->active_scene->last_object_index]);
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Duplicated an object!", .time = 2000,
 			.type = notification_type_info});
 	}
 	else if (start_or_end)
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Can't duplicate start or end triggers!", .time = 2000,
 			.type = notification_type_info});
 }
@@ -157,7 +157,7 @@ void			editor_duplicate_selected_objects(t_doom3d *app)
 
 	if (app->editor.num_selected_objects == 0)
 	{
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Select an object first for duplication!", .time = 2000,
 			.type = notification_type_info});
 		return ;
