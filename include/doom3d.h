@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 03:13:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 03:53:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -475,6 +475,8 @@ void						pause_menu_create(t_doom3d *app);
 void						settings_menu_create(t_doom3d *app);
 void						active_scene_menu_recreate(t_doom3d *app);
 void						scene_menus_destroy(t_scene *scene);
+void						editor_popup_menu_set(t_doom3d *app, t_vec2 pos,
+								t_button_menu_params params);
 
 /*
 ** Button clicks
