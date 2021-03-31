@@ -25,7 +25,7 @@ make && ./doom3d
 
 ### WSL
 
-1. Install SDL2, SDL_image, SDL_ttf on WSL terminal on windows
+1. Install SDL2, SDL_image, SDL_ttf and SDL_mixer on WSL terminal on windows
 2. Install vcxsrv on Windows
 3. Run
 
@@ -36,6 +36,7 @@ sudo apt-get install xorg-dev # make sure x11 related stuff is installed
 sudo apt-get install libsdl2-dev
 sudo apt-get install libsdl2-ttf-dev
 sudo apt-get install libsdl2-image-dev
+sudo apt-get install libsdl2-mixer-dev
 # install vcxsrv on windows side & run it
 export DISPLAY=:0
 export LIBGL_ALWAYS_INDIRECT=1
@@ -46,7 +47,7 @@ make && ./doom3d
 
 ### Linux
 
-1. Install SDL2, SDL_image, SDL_ttf on Linux
+1. Install SDL2, SDL_image, SDL_ttf and SDL_mixer on Linux
 2. Run
 
 ```sh
@@ -55,6 +56,7 @@ sudo apt-get install xorg-dev # make sure x11 related stuff is installed
 sudo apt-get install libsdl2-dev
 sudo apt-get install libsdl2-ttf-dev
 sudo apt-get install libsdl2-image-dev
+sudo apt-get install libsdl2-mixer-dev
 git clone https://github.com/hakolao/doom3d && cd doom3d
 make && ./doom3d
 ```
