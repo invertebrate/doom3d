@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:37:44 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 14:29:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 14:33:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void				handle_editor_obj_placement(t_doom3d *app)
 static void				handle_editor_player_rotation(t_doom3d *app,
 							int32_t *xrel, int32_t *yrel)
 {
-	app->editor.is_moving = true;
+	app->editor.is_rotating = true;
 	SDL_ShowCursor(SDL_DISABLE);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_GetRelativeMouseState(xrel, yrel);
@@ -98,7 +98,7 @@ void					handle_editor_mouse_state(t_doom3d *app)
 		handle_editor_player_rotation(app, &xrel, &yrel);
 	else
 	{
-		app->editor.is_moving = false;
+		app->editor.is_rotating = false;
 		SDL_ShowCursor(SDL_ENABLE);
 		SDL_SetRelativeMouseMode(SDL_FALSE);
 		SDL_GetRelativeMouseState(&xrel, &yrel);
