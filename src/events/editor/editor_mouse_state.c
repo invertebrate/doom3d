@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:37:44 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 02:31:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 14:29:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void				handle_object_rotation(t_doom3d *app, int32_t xrel)
 	}
 }
 
-void					handle_editor_obj_placement(t_doom3d *app)
+static void				handle_editor_obj_placement(t_doom3d *app)
 {
 	t_vec3		new_pos;
 	t_3d_object	*place_object;
@@ -78,19 +78,24 @@ void					handle_editor_obj_placement(t_doom3d *app)
 		new_pos[0], new_pos[1], new_pos[2]);
 }
 
+static void				handle_editor_player_rotation(t_doom3d *app,
+							int32_t *xrel, int32_t *yrel)
+{
+	app->editor.is_moving = true;
+	SDL_ShowCursor(SDL_DISABLE);
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+	SDL_GetRelativeMouseState(xrel, yrel);
+	handle_player_rotation(app, *xrel, *yrel);
+}
+
 void					handle_editor_mouse_state(t_doom3d *app)
 {
 	int32_t		xrel;
 	int32_t		yrel;
 
-	if ((app->mouse.state & SDL_BUTTON_MMASK))
-	{
-		app->editor.is_moving = true;
-		SDL_ShowCursor(SDL_DISABLE);
-		SDL_SetRelativeMouseMode(SDL_TRUE);
-		SDL_GetRelativeMouseState(&xrel, &yrel);
-		handle_player_rotation(app, xrel, yrel);
-	}
+	if ((app->mouse.state & SDL_BUTTON_MMASK) ||
+		(app->keyboard.state[SDL_SCANCODE_LALT]))
+		handle_editor_player_rotation(app, &xrel, &yrel);
 	else
 	{
 		app->editor.is_moving = false;
