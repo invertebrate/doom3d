@@ -6,37 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:41:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 03:12:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 15:01:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
-
-static void		handle_wasd_movement(t_doom3d *app)
-{
-	t_vec3	dir;
-
-	if (app->keyboard.state[SDL_SCANCODE_W])
-	{
-		get_move_dir(app, move_forward, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
-	if (app->keyboard.state[SDL_SCANCODE_A])
-	{
-		get_move_dir(app, move_strafe_left, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
-	if (app->keyboard.state[SDL_SCANCODE_S])
-	{
-		get_move_dir(app, move_backward, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
-	if (app->keyboard.state[SDL_SCANCODE_D])
-	{
-		get_move_dir(app, move_strafe_right, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
-}
 
 static t_bool	wasd_is_pressed(t_doom3d *app)
 {
@@ -44,6 +18,34 @@ static t_bool	wasd_is_pressed(t_doom3d *app)
 		app->keyboard.state[SDL_SCANCODE_A] ||
 		app->keyboard.state[SDL_SCANCODE_S] ||
 		app->keyboard.state[SDL_SCANCODE_D]);
+}
+
+static void		handle_wasd_movement(t_doom3d *app)
+{
+	t_vec3	dir;
+	float	shift;
+
+	shift = app->keyboard.state[SDL_SCANCODE_LSHIFT] ? 5.0 : 1.0;
+	if (app->keyboard.state[SDL_SCANCODE_W])
+	{
+		ml_vector3_mul(app->player.forward, 1.0 * shift, dir);
+		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
+	}
+	if (app->keyboard.state[SDL_SCANCODE_A])
+	{
+		ml_vector3_mul(app->player.sideways, -1.0 * shift, dir);
+		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
+	}
+	if (app->keyboard.state[SDL_SCANCODE_S])
+	{
+		ml_vector3_mul(app->player.forward, -1.0 * shift, dir);
+		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
+	}
+	if (app->keyboard.state[SDL_SCANCODE_D])
+	{
+		ml_vector3_mul(app->player.sideways, 1.0 * shift, dir);
+		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
+	}
 }
 
 void			handle_editor_keyboard_state(t_doom3d *app)

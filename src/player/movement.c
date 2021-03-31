@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/02 14:07:35 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/31 14:56:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void		player_rotate(t_doom3d *app)
 	ml_matrix4_mul_vec3(rotation, (t_vec3){X_DIR, 0, 0}, app->player.sideways);
 	ml_matrix4_mul_vec3(rotation, (t_vec3){0, Y_DIR, 0}, app->player.up);
 	ml_matrix4_inverse(rotation, app->player.inv_rotation);
+	ml_matrix4_copy(rotation, app->player.rotation);
 }
 
 void			player_rotate_vertical(t_doom3d *app, float angle)
@@ -74,9 +75,6 @@ void			player_move(t_doom3d *app)
 	float		speed;
 
 	app->player.is_moving = true;
-	/*speed = (app->player.is_running && !app->player.is_jumping ?
-		app->player.speed * 1.5 : app->player.speed) *
-			app->info.delta_time * CONST_SPEED;*/
 	if (app->player.is_running && !app->player.is_jumping)
 		speed = app->player.speed * 1.5;
 	else if (app->player.is_crouching && !app->player.is_jumping)
@@ -85,7 +83,8 @@ void			player_move(t_doom3d *app)
 		speed = app->player.speed;
 	speed = speed * app->info.delta_time * CONST_SPEED;
 	ml_vector3_mul(app->player.velocity, speed, add);
-	collision_limit_player(app, add);
+	if (app->active_scene->scene_id == scene_id_main_game)
+		collision_limit_player(app, add);
 	ml_vector3_add(app->player.pos, add, app->player.pos);
 	ml_matrix4_translation(app->player.pos[0],
 		app->player.pos[1], app->player.pos[2], app->player.translation);
