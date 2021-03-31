@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 16:49:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 17:25:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ static void		editor_object_location_render(t_doom3d *app)
 void		render_guide_on_popup(t_doom3d *app)
 {
 	char	guide[1024];
-	t_vec2	dims;
 
 	ft_sprintf(guide,
 		"Tab: Switch to next level in level list\n"
@@ -129,13 +128,12 @@ void		render_guide_on_popup(t_doom3d *app)
 		"Button O | L: Move selected target on y axis\n"
 		"Button [ | ]: Scale selected\n"
 		"Button =/+ | -: Inc/Decrement patrol path node slot\n");
-	popup_menu_default_dims(dims);
 	window_text_render_wrapped(app->window, (t_text_params){
 			.text = guide, .blend_ratio = 1.0,
 			.xy = (int[2]){app->editor.editor_menu->pos[0] + 10,
 				app->editor.editor_menu->pos[1] + 10},
 			.text_color = (SDL_Color){0, 255, 0, 255}},
-			app->window->debug_font, dims[0] - 20);
+			app->window->debug_font);
 }
 
 void		editor_ui_render(t_doom3d *app)
