@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 01:15:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ void			doom3d_run(t_doom3d *app)
 {
 	int32_t	cpu_count;
 
-	cpu_count = SDL_GetCPUCount();
+	cpu_count = ft_max_int((int32_t[2]){
+		NUM_THREADS_DEFAULT, SDL_GetCPUCount()}, 2);
 	app->thread_pool = thread_pool_create(
 		cpu_count >= NUM_THREADS_DEFAULT ? cpu_count : NUM_THREADS_DEFAULT);
 	error_check(SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0, SDL_GetError());
