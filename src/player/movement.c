@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 14:56:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 15:02:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,19 +85,6 @@ void			player_move(t_doom3d *app)
 	ml_vector3_mul(app->player.velocity, speed, add);
 	if (app->active_scene->scene_id == scene_id_main_game)
 		collision_limit_player(app, add);
-	ml_vector3_add(app->player.pos, add, app->player.pos);
-	ml_matrix4_translation(app->player.pos[0],
-		app->player.pos[1], app->player.pos[2], app->player.translation);
-	ml_matrix4_inverse(app->player.translation, app->player.inv_translation);
-}
-
-void			editor_vertical_move(t_doom3d *app, float speed)
-{
-	t_vec3		add;
-	t_vec3		up;
-
-	ml_vector3_copy((t_vec3){0, Y_DIR, 0}, up);
-	ml_vector3_mul(up, speed, add);
 	ml_vector3_add(app->player.pos, add, app->player.pos);
 	ml_matrix4_translation(app->player.pos[0],
 		app->player.pos[1], app->player.pos[2], app->player.translation);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 03:00:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 15:04:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,15 @@ static void	handle_editor_key_inputs(t_doom3d *app, SDL_Event event)
 
 void		handle_editor_input_events(t_doom3d *app, SDL_Event event)
 {
+	t_vec3	dir;
+
 	if (mouse_inside_editor_view(app))
 		handle_editor_selection_inputs(app, event);
 	handle_editor_saving_inputs(app, event);
 	if (event.type == SDL_MOUSEWHEEL)
 	{
-		editor_vertical_move(app, -event.wheel.y * 30);
+		ml_vector3_mul(app->player.forward, -event.wheel.y * 10.0, dir);
+		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
 	}
 	handle_editor_key_inputs(app, event);
 }

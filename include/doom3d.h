@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 03:53:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 15:02:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,6 @@ void						player_rotate_horizontal(t_doom3d *app,
 void						player_apply_gravity(t_doom3d *app);
 void						collision_limit_player(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
-void						editor_vertical_move(t_doom3d *app, float speed);
 void						player_onhit(t_doom3d *app, int damage);
 void						player_jump(t_doom3d *app);
 void						player_crouch(t_doom3d *app, t_bool toggle);
