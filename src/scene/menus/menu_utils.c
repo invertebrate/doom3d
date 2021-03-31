@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:51:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 03:33:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,4 @@ void				scene_menus_destroy(t_scene *scene)
 	scene->num_button_menus = 0;
 	free(scene->menus);
 	scene->menus = NULL;
-}
-
-void				active_scene_popup_menu_destroy(t_doom3d *app)
-{
-	if (app->active_scene->scene_id == scene_id_editor3d)
-	{
-		if (app->editor.editor_menu != NULL)
-		{
-			button_popup_menu_destroy(app->editor.editor_menu);
-			app->editor.editor_menu_id = editor_menu_none;
-			app->editor.editor_menu = NULL;
-		}
-	}
 }

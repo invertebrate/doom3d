@@ -85,11 +85,14 @@ SOURCES = main.c \
 			utils.c \
 			notifications/notifications.c \
 			scene/menus/editor3d_menu.c \
-			scene/menus/editor3d_menu_events.c \
+			scene/menus/editor3d_menu_button_clicks1.c \
+			scene/menus/editor3d_menu_button_clicks2.c \
+			scene/menus/editor3d_menu_button_clicks3.c \
 			scene/menus/settings_menu.c \
 			scene/menus/main_menu.c \
 			scene/menus/pause_menu.c \
 			scene/menus/menu_utils.c \
+			scene/menus/popup_menu_utils.c \
 			scene/editor/editor_selection.c \
 			scene/editor/editor_utils.c \
 			scene/editor/editor_init.c \
