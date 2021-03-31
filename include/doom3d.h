@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 02:57:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 03:13:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,7 @@ void						handle_events(t_doom3d *app);
 void						handle_mouse_state(t_doom3d *app);
 void						handle_editor_mouse_state(t_doom3d *app);
 void						handle_keyboard_state(t_doom3d *app);
+void						handle_editor_transform(t_doom3d *app);
 void						handle_editor_keyboard_state(t_doom3d *app);
 t_bool						handle_editor_duplication(t_doom3d *app);
 void						handle_control_flow_events(t_doom3d *app,

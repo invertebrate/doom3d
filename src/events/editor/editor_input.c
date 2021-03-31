@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 02:59:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 03:00:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static void	handle_editor_selection_inputs(t_doom3d *app, SDL_Event event)
 					NULL, NULL);
 		}
 	}
-
 }
 
 static void	handle_editor_key_inputs(t_doom3d *app, SDL_Event event)
