@@ -134,12 +134,14 @@ SOURCES = main.c \
 			events/custom_event_handling/editor/placement.c \
 			events/custom_event_handling/editor/save.c \
 			events/custom_event_handling/editor/textures.c \
+			events/custom_event_handling/editor/path.c \
 			events/mouse_state.c \
 			events/input.c \
 			events/custom_events.c \
 			events/keyboard_state.c \
 			events/control_flow.c \
 			events/editor/editor_custom_events.c \
+			events/editor/editor_transform.c \
 			events/editor/editor_input.c \
 			events/editor/editor_keyboard_state.c \
 			events/editor/editor_mouse_state.c \

@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 02:18:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 02:59:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void		handle_editor_saving_inputs(t_doom3d *app, SDL_Event event)
+static void	handle_editor_saving_inputs(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_TEXTINPUT)
 	{
@@ -30,7 +30,7 @@ void		handle_editor_saving_inputs(t_doom3d *app, SDL_Event event)
 	}
 }
 
-void		handle_editor_selection_inputs(t_doom3d *app, SDL_Event event)
+static void	handle_editor_selection_inputs(t_doom3d *app, SDL_Event event)
 {
 	if (app->editor.is_saving)
 		return ;
@@ -53,23 +53,34 @@ void		handle_editor_selection_inputs(t_doom3d *app, SDL_Event event)
 					NULL, NULL);
 		}
 	}
-	if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_TAB)
+
+}
+
+static void	handle_editor_key_inputs(t_doom3d *app, SDL_Event event)
+{
+	if (event.type == SDL_KEYUP)
 	{
-		doom3d_push_event(app, event_editor_level_switch, NULL, NULL);
+		if (event.key.keysym.sym == SDLK_TAB)
+			doom3d_push_event(app, event_editor_level_switch, NULL, NULL);
+		else if (event.key.keysym.sym == SDLK_EQUALS)
+			doom3d_push_event(app,
+				event_editor_increment_patrol_slot, NULL, NULL);
+		else if (event.key.keysym.sym == SDLK_MINUS)
+			doom3d_push_event(app,
+				event_editor_decrement_patrol_slot, NULL, NULL);
 	}
 }
 
 void		handle_editor_input_events(t_doom3d *app, SDL_Event event)
 {
-	if (app->active_scene->scene_id == scene_id_editor3d)
-	{
-		handle_editor_saving_inputs(app, event);
+	if (mouse_inside_editor_view(app))
 		handle_editor_selection_inputs(app, event);
-	}
+	handle_editor_saving_inputs(app, event);
 	if (event.type == SDL_MOUSEWHEEL)
 	{
 		editor_vertical_move(app, -event.wheel.y * 30);
 	}
+	handle_editor_key_inputs(app, event);
 }
 
 t_bool		editor_popup_menu_open(t_doom3d *app)
