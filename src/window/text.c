@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 17:31:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 18:20:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ SDL_Surface			*surface_from_font(t_text_params params,
 	SDL_Surface		*text_surface;
 	SDL_Surface		*formatted_surface;
 
-	text_surface = TTF_RenderText_Shaded(font,
+	text_surface = TTF_RenderText_Solid(font,
 		params.text, params.text_color);
 	error_check(!text_surface, TTF_GetError());
 	formatted_surface = SDL_ConvertSurfaceFormat(text_surface,
