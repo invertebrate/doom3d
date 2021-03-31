@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 03:29:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 16:50:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,10 @@ void			on_new_level_menu_button_click(t_button *self, void *params)
 		doom3d_notification_add(app, (t_notification){
 			.message = "Too many levels created!!",
 			.type = notification_type_info, .time = 2000});
+}
+
+void			on_guide_menu_button_click(t_button *self, void *params)
+{
+	doom3d_push_event(params, event_editor_open_popup_menu,
+			(void*)editor_menu_guide, (void*)self->pos);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:11:36 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 14:33:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 15:43:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum				e_editor_menu_index
 	editor_menu_npcs = 5,
 	editor_menu_triggers = 6,
 	editor_menu_lights = 7,
+	editor_menu_guide = 8,
 }							t_editor_menu_index;
 
 /*

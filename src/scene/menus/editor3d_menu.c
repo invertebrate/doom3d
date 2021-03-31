@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:26:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 03:52:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 16:50:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void				editor_popup_menu_create(t_doom3d *app,
 						t_editor_menu_index new_menu,
 						t_vec2 pos)
 {
+	t_vec2	dims;
+
 	editor_popup_menu_create_sub1(app, new_menu, pos);
 	editor_popup_menu_create_sub2(app, new_menu, pos);
 	editor_popup_menu_create_sub3(app, new_menu, pos);
@@ -83,6 +85,14 @@ void				editor_popup_menu_create(t_doom3d *app,
 			.button_names = (const char*[1]){"Light Source"},
 			.num_buttons = 1, .on_click = on_light_menu_button_click,
 			.button_font = app->window->debug_font});
+	popup_menu_default_dims(dims);
+	if (new_menu == editor_menu_guide)
+		editor_popup_menu_set(app, (t_vec2){
+			app->window->framebuffer->width / 2 - dims[0] / 2.0,
+			app->window->framebuffer->height / 2 - dims[1] / 2.0},
+			(t_button_menu_params){
+			.button_names = NULL, .num_buttons = 0, .on_click = NULL,
+			.button_font = NULL});
 }
 
 void				editor3d_menu_create(t_doom3d *app)
@@ -103,10 +113,13 @@ void				editor3d_menu_create(t_doom3d *app)
 			.button_font = app->window->main_font});
 	app->active_scene->menus[1]->is_active = false;
 	app->active_scene->menus[2] = button_menu_create(app,
-		(t_button_menu_params){
-			.button_names = (const char*[1]){
-				"New"}, .num_buttons = 1,
+		(t_button_menu_params){.button_names = (const char*[1]){
+			"New"}, .num_buttons = 1,
 			.on_click = on_new_level_menu_button_click,
 			.button_font = app->window->main_font});
-	app->active_scene->num_button_menus = 3;
+	app->active_scene->menus[3] = button_menu_create(app,
+		(t_button_menu_params){.button_names = (const char*[1]){
+			"Guide"}, .num_buttons = 1, .on_click = on_guide_menu_button_click,
+			.button_font = app->window->main_font});
+	app->active_scene->num_button_menus = 4;
 }

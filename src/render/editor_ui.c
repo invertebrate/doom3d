@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 14:15:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 16:49:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,33 +109,54 @@ static void		editor_object_location_render(t_doom3d *app)
 		app->window->debug_font);
 }
 
+void		render_guide_on_popup(t_doom3d *app)
+{
+	char	guide[1024];
+	t_vec2	dims;
+
+	ft_sprintf(guide,
+		"Tab: Switch to next level in level list\n"
+		"Ctrl + Tab: Switch to previous level in level list\n"
+		"Button W | A | S | D: Move & Strafe\n"
+		"Mouse Middle / Alt + Mouse Move: Rotate view\n"
+		"Mouse Left: Select Target by mouse\n"
+		"Mouse Left + Shift: Select Multiple By mouse\n"
+		"Mouse Right on target: Deselect one\n"
+		"Mouse Right on empty: Deselect All\n"
+		"Mouse Right on path node: Connect to another node\n"
+		"Button R + X | Y | Z: Rotate selected\n"
+		"Button Right | Left | Up | Down: Move selected on x and z axis\n"
+		"Button O | L: Move selected target on y axis\n"
+		"Button [ | ]: Scale selected\n"
+		"Button =/+ | -: Inc/Decrement patrol path node slot\n");
+	popup_menu_default_dims(dims);
+	window_text_render_wrapped(app->window, (t_text_params){
+			.text = guide, .blend_ratio = 1.0,
+			.xy = (int[2]){app->editor.editor_menu->pos[0] + 10,
+				app->editor.editor_menu->pos[1] + 10},
+			.text_color = (SDL_Color){0, 255, 0, 255}},
+			app->window->debug_font, dims[0] - 20);
+}
+
 void		editor_ui_render(t_doom3d *app)
 {
-	char	guide[256];
-
-	ft_sprintf(guide, "Tab: Switch level, "
-		"WASD: Move, "
-		"MouseR: Rotate, "
-		"(Shift+)MouseL: Select, "
-		"R (+ XYZ): Rotate selected, "
-		"Arrows: Move selected x, z, "
-		"O,L: Move selected y, "
-		"[, ]: Scale selected");
 	button_menu_render(app->active_scene->menus[0], (t_vec2){10, 0});
 	button_menu_render(app->active_scene->menus[2],
-		(t_vec2){app->active_scene->menus[0]->buttons[0]->width + 20,
+		(t_vec2){app->active_scene->menus[0]->buttons[0]->width - 20,
 			app->active_scene->menus[0]->buttons[0]->pos[1]});
+	button_menu_render(app->active_scene->menus[3], (t_vec2){
+		10, app->window->framebuffer->height - 100});
 	if (app->active_scene->menus[1]->is_active)
-		button_menu_render(app->active_scene->menus[1], (t_vec2){10,
+		button_menu_render(app->active_scene->menus[1], (t_vec2){
+			app->active_scene->menus[0]->buttons[0]->width - 20,
 			app->window->framebuffer->height - 100});
-	window_text_render(app->window, (t_text_params){
-			.text = guide, .blend_ratio = 1.0,
-			.xy = (int[2]){10,
-				app->window->framebuffer->height - 60},
-			.text_color = (SDL_Color){0, 255, 0, 255}},
-			app->window->debug_font);
 	if (app->editor.editor_menu != NULL)
-		button_popup_menu_render(app->editor.editor_menu);
+	{
+		button_popup_menu_render(app->window, app->editor.editor_menu);
+		if (app->editor.editor_menu_id == editor_menu_guide &&
+			app->editor.editor_menu->is_open)
+			render_guide_on_popup(app);
+	}
 	editor_info_render(app);
 	editor_object_location_render(app);
 }

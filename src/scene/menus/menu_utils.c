@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:51:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 03:33:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 15:45:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ t_button_group		*button_menu_create(t_doom3d *app,
 	t_surface		*down_surfaces[menu_params.num_buttons];
 	t_button_group	*menu;
 
-	error_check(!(buttons = ft_calloc(sizeof(t_button*) *
-		menu_params.num_buttons)), "Failed to malloc buttons");
+	buttons = NULL;
+	if (menu_params.num_buttons > 0)
+		error_check(!(buttons = ft_calloc(sizeof(t_button*) *
+			menu_params.num_buttons)), "Failed to malloc buttons");
 	i = -1;
 	while (++i < menu_params.num_buttons)
 	{

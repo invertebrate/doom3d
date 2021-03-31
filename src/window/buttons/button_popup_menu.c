@@ -6,11 +6,17 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:34:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 16:47:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "window.h"
+
+void			popup_menu_default_dims(t_vec2 dims)
+{
+	dims[0] = 400;
+	dims[1] = 250;
+}
 
 static void		determine_menu_dimensions(t_button_menu *popup_menu,
 					t_vec2 dims)
@@ -19,6 +25,11 @@ static void		determine_menu_dimensions(t_button_menu *popup_menu,
 	float		max_x_pos;
 	float		max_y_pos;
 
+	if (popup_menu->menu == NULL)
+	{
+		popup_menu_default_dims(dims);
+		return ;
+	}
 	i = -1;
 	max_x_pos = 0;
 	max_y_pos = 0;
@@ -112,28 +123,29 @@ t_button_menu	*button_popup_menu_create(t_button_group *menu,
 	set_background(&popup_menu->background, popup_menu->border_size,
 		popup_menu->background_color, popup_menu->border_color);
 	ml_vector2_copy(pos, popup_menu->pos);
-	button_popup_menu_clamp_position_to_window(popup_menu);
+	if (menu)
+		button_popup_menu_clamp_position_to_window(popup_menu);
 	return (popup_menu);
 }
 
 void			button_popup_menu_destroy(t_button_menu *popup_menu)
 {
-	button_group_destroy(popup_menu->menu);
+	if (popup_menu->menu)
+		button_group_destroy(popup_menu->menu);
 	free(popup_menu->background.pixels);
 	free(popup_menu);
 }
 
-void			button_popup_menu_render(t_button_menu *popup_menu)
+void			button_popup_menu_render(t_window *window,
+					t_button_menu *popup_menu)
 {
-	t_window	*window;
-
-	if (popup_menu->menu->num_buttons == 0 || !popup_menu->is_open)
+	if (!popup_menu->is_open)
 		return ;
-	window = popup_menu->menu->buttons[0]->window;
 	l3d_image_place(&(t_surface){.h = window->framebuffer->height,
 		.w = window->framebuffer->width, .pixels = window->framebuffer->buffer},
 		&popup_menu->background,
 			(int32_t[2]){popup_menu->pos[0] - popup_menu->border_size,
 			popup_menu->pos[1] - popup_menu->border_size}, 1.0);
-	button_group_render(popup_menu->menu);
+	if (popup_menu->menu)
+		button_group_render(popup_menu->menu);
 }

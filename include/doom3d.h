@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 15:02:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 15:42:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -501,6 +501,8 @@ void						on_light_menu_button_click(t_button *self,
 void						on_editor_menu_button_click(t_button *self,
 								void *params);
 void						on_new_level_menu_button_click(t_button *self,
+								void *params);
+void						on_guide_menu_button_click(t_button *self,
 								void *params);
 
 /*
