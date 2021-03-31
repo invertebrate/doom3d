@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/29 16:19:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static void		projectile_handle_collision(t_doom3d *app,
 			l3d_aabb_collides(&obj->aabb, &projectile_obj->aabb))
 		{
 			projectile_explode_effect(app, projectile_obj);
-			doom3d_push_event(app, event_object_delete,
+			push_custom_event(app, event_object_delete,
 				projectile_obj, NULL);
 			projectile_on_hit(app, projectile_obj, obj);
 			return ;
@@ -128,7 +128,7 @@ void			projectile_update(t_doom3d *app, t_3d_object *projectile_obj)
 	projectile->traveled += ml_vector3_mag(add);
 	if (projectile_obj && projectile->traveled > projectile->range)
 	{
-		doom3d_push_event(app, event_object_delete,
+		push_custom_event(app, event_object_delete,
 			projectile_obj, NULL);
 		return ;
 	}

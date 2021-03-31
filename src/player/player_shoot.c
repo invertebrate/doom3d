@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/30 16:48:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ static void		shoot_shotgun(t_doom3d *app, t_vec3 origin)
 		ml_vector3_normalize(dir, dir);
 		player_shoot_ray(app, origin, dir);
 	}
-	doom3d_push_event(app,
+	push_custom_event(app,
 		event_effect_play, (void*)sf_shtg_fire, s_ini(0, 1, st_game, 1.0));
 }
 

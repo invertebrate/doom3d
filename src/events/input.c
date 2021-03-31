@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 14:34:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:35:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void			handle_events(t_doom3d *app)
 	while (SDL_PollEvent(&event))
 	{
 		if (event.type == app->custom_event_type)
-			custom_events_handle(app, event);
+			handle_custom_events(app, event);
 		else
 			handle_input_events(app, event);
 	}

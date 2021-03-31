@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   general_input_events.c                             :+:      :+:    :+:   */
+/*   control_flow.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 01:26:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ void			handle_control_flow_events(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_QUIT)
 	{
-		doom3d_push_event(app, event_quit, NULL, NULL);
+		push_custom_event(app, event_quit, NULL, NULL);
 	}
 	if (!SDL_IsTextInputActive() && !app->editor.is_saving)
 	{
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
-			doom3d_push_event(app, event_quit, NULL, NULL);
+			push_custom_event(app, event_quit, NULL, NULL);
 		if (event.type == SDL_KEYUP)
 		{
 			if (app->active_scene->scene_id == scene_id_main_game)

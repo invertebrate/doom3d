@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 22:56:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,14 +225,14 @@ void						forces_update_player(t_doom3d *app);
 /*
 ** Events
 */
-void						doom3d_push_event(t_doom3d *app,
+void						push_custom_event(t_doom3d *app,
 								t_doom3d_event code,
 								void* data1,
 								void* data2);
 void						register_custom_events(t_doom3d *app);
 void						register_editor_custom_events(t_doom3d *app);
 void						editor_event_to_str(char *str, t_doom3d_event code);
-void						custom_events_handle(t_doom3d *app,
+void						handle_custom_events(t_doom3d *app,
 								SDL_Event event);
 void						handle_player_rotation(t_doom3d *app,
 								int32_t xrel, int32_t yrel);

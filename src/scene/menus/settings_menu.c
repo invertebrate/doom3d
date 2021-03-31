@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:41:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 22:55:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static void			on_settings_menu_button_click(t_button *self, void *params)
 
 	app = params;
 	if (self->id == 0)
-		doom3d_push_event(app, event_window_resize, (void*)960, (void*)540);
+		push_custom_event(app, event_window_resize, (void*)960, (void*)540);
 	else if (self->id == 1)
-		doom3d_push_event(app, event_window_resize, (void*)1280, (void*)720);
+		push_custom_event(app, event_window_resize, (void*)1280, (void*)720);
 	else if (self->id == 2)
-		doom3d_push_event(app, event_window_resize, (void*)1920, (void*)1080);
+		push_custom_event(app, event_window_resize, (void*)1920, (void*)1080);
 	else if (self->id == 3)
-		doom3d_push_event(app, event_scene_change,
+		push_custom_event(app, event_scene_change,
 			(void*)scene_id_main_menu, NULL);
 }
 

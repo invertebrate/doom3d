@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/29 18:21:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ static void		finish_level(t_doom3d *app)
 		doom3d_notification_add(app, (t_notification){
 			.message = "New level!",
 			.type = notification_type_story, .time = 4000});
-		doom3d_push_event(app, event_scene_reload, NULL, NULL);
+		push_custom_event(app, event_scene_reload, NULL, NULL);
 	}
 	else
 	{
 		app->current_level = 0;
-		doom3d_push_event(app, event_scene_change,
+		push_custom_event(app, event_scene_change,
 			(void*)scene_id_main_menu, NULL);
 		doom3d_notification_add(app, (t_notification){
 			.message =

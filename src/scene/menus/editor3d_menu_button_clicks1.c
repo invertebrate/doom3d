@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 16:50:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void			on_editor_menu_button_click(t_button *self, void *params)
 	else if (self->id == 8)
 		new_menu_id = editor_menu_lights;
 	if (self->id > 1)
-		doom3d_push_event(params, event_editor_open_popup_menu,
+		push_custom_event(params, event_editor_open_popup_menu,
 			(void*)new_menu_id, (void*)self->pos);
 }
 
@@ -57,7 +57,7 @@ void			on_new_level_menu_button_click(t_button *self, void *params)
 		}
 		editor_init(app, app->editor.editor_level +
 			app->num_levels - app->editor.editor_level);
-		doom3d_push_event(app, event_scene_reload, NULL, NULL);
+		push_custom_event(app, event_scene_reload, NULL, NULL);
 	}
 	else if (self->id == 0 && app->editor.editor_level == MAX_LEVELS)
 		doom3d_notification_add(app, (t_notification){
@@ -67,6 +67,6 @@ void			on_new_level_menu_button_click(t_button *self, void *params)
 
 void			on_guide_menu_button_click(t_button *self, void *params)
 {
-	doom3d_push_event(params, event_editor_open_popup_menu,
+	push_custom_event(params, event_editor_open_popup_menu,
 			(void*)editor_menu_guide, (void*)self->pos);
 }

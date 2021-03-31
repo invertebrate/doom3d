@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:23:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void		scene_game_init(t_doom3d *app)
 			.message =
 				"Map does not have Start or End locations, Add them in editor!",
 			.type = notification_type_info, .time = 2000});
-		doom3d_push_event(app, event_scene_change,
+		push_custom_event(app, event_scene_change,
 			(void*)scene_id_main_menu, NULL);
 		return ;
 	}

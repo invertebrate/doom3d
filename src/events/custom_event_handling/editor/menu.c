@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:11:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 16:09:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	handle_editor_delete(t_doom3d *app)
 				delete_path_object_connections(
 					app->editor.selected_objects[i]->params);
 			object_to_delete = app->editor.selected_objects[i];
-			doom3d_push_event(app, event_object_delete,
+			push_custom_event(app, event_object_delete,
 				object_to_delete, NULL);
 		}
 		app->editor.is_saved = false;
@@ -51,8 +51,8 @@ void	handle_editor_exit(t_doom3d *app)
 		return ;
 	}
 	if (app->editor.is_placing)
-		doom3d_push_event(app, event_editor_cancel_placement, NULL, NULL);
-	doom3d_push_event(app, event_scene_change, (void*)scene_id_main_menu, NULL);
+		push_custom_event(app, event_editor_cancel_placement, NULL, NULL);
+	push_custom_event(app, event_scene_change, (void*)scene_id_main_menu, NULL);
 	editor_deselect_all(app);
 	SDL_StopTextInput();
 	app->editor.is_saving = false;
@@ -69,7 +69,7 @@ void	handle_editor_level_switch(t_doom3d *app)
 	else if (app->editor.editor_level < 0)
 		app->editor.editor_level = (int32_t)app->num_levels - 1;
 	editor_init(app, app->editor.editor_level);
-	doom3d_push_event(app, event_scene_reload, NULL, NULL);
+	push_custom_event(app, event_scene_reload, NULL, NULL);
 }
 
 void	handle_editor_open_popup_menu(t_doom3d *app,
