@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 03:33:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 16:08:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 22:56:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ void				editor_popup_menu_set(t_doom3d *app, t_vec2 pos,
 	bg_and_border_color[0] = CLEAR_COLOR;
 	bg_and_border_color[1] = 0xffffffff;
 	app->editor.editor_menu = button_popup_menu_create(
-			button_menu_create(app, params), pos, 3,
+			button_menu_create_shaded(app, params), pos, 3,
 			bg_and_border_color);
 }

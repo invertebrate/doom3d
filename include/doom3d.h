@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 15:42:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 22:56:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -465,6 +465,8 @@ void						read_level_list(t_doom3d *app);
 */
 t_button_group				*button_menu_create(t_doom3d *app,
 								t_button_menu_params menu_params);
+t_button_group				*button_menu_create_shaded(t_doom3d *app,
+								t_button_menu_params menu_params);
 void						main_menu_create(t_doom3d *app);
 void						editor3d_menu_create(t_doom3d *app);
 void						editor_popup_menu_create(t_doom3d *app,
@@ -476,6 +478,14 @@ void						active_scene_menu_recreate(t_doom3d *app);
 void						scene_menus_destroy(t_scene *scene);
 void						editor_popup_menu_set(t_doom3d *app, t_vec2 pos,
 								t_button_menu_params params);
+t_surface					*menu_button_down_surface(const char *option,
+								TTF_Font *font);
+t_surface					*menu_button_surface(const char *option,
+								TTF_Font *font);
+t_surface					*menu_button_down_surface_shaded(const char *option,
+								TTF_Font *font);
+t_surface					*menu_button_surface_shaded(const char *option,
+								TTF_Font *font);
 
 /*
 ** Button clicks

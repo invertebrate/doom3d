@@ -92,6 +92,7 @@ SOURCES = main.c \
 			scene/menus/main_menu.c \
 			scene/menus/pause_menu.c \
 			scene/menus/menu_utils.c \
+			scene/menus/menu_button_utils.c \
 			scene/menus/popup_menu_utils.c \
 			scene/editor/editor_selection.c \
 			scene/editor/editor_utils.c \
