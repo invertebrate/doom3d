@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 19:09:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 19:16:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ typedef struct				s_render_work
 }							t_render_work;
 
 void						doom3d_run(t_doom3d *app);
+void						settings_init(t_doom3d *app);
 
 /*
 ** Player
@@ -517,6 +518,7 @@ void						on_guide_menu_button_click(t_button *self,
 /*
 ** Utils
 */
+void						resize_dependent_recreate(t_doom3d *app);
 void						render_debug_info(t_doom3d *app);
 void						capture_fps(t_doom3d *app);
 uint64_t					performance_counter_start(void);

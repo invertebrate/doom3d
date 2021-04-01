@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 19:10:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 19:13:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,20 @@ void			performance_counter_end(uint64_t start_time,
 		(float)SDL_GetPerformanceFrequency();
 	if (delta_limit == 0.0 || delta_time > delta_limit)
 		ft_printf("%s: Profiler time: %f\n", task_name, delta_time);
+}
+
+
+void			resize_dependent_recreate(t_doom3d *app)
+{
+	app->window->resized = false;
+	if (app->window->is_hidden)
+	{
+		while (app->window->is_hidden)
+			SDL_PollEvent(NULL);
+	}
+	else
+	{
+		window_frame_recreate(app->window);
+		active_scene_menu_recreate(app);
+	}
 }

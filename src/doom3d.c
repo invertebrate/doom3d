@@ -6,26 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 19:08:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 19:16:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
-
-static void		resize_dependent_recreate(t_doom3d *app)
-{
-	app->window->resized = false;
-	if (app->window->is_hidden)
-	{
-		while (app->window->is_hidden)
-			SDL_PollEvent(NULL);
-	}
-	else
-	{
-		window_frame_recreate(app->window);
-		active_scene_menu_recreate(app);
-	}
-}
 
 /*
 ** Scene switch should be the first thing we do if next scene id has changed
@@ -39,35 +24,7 @@ static void		handle_scene_switch(t_doom3d *app)
 		select_next_scene(app);
 }
 
-static void		main_loop(t_doom3d *app)
-{
-	while (app->is_running)
-	{
-		app->info.performance_start = SDL_GetPerformanceCounter();
-		if (app->window->resized)
-			resize_dependent_recreate(app);
-		window_frame_clear(app->window);
-		handle_scene_switch(app);
-		handle_events(app);
-		update_player(app);
-		update_objects(app);
-		render_to_framebuffer(app);
-		draw_window_frame(app->window);
-		update_notifications(app);
-		capture_fps(app);
-		update_app_ticks(app);
-	}
-}
-
-void			settings_init(t_doom3d *app)
-{
-	app->settings.is_normal_map = false;
-	app->settings.is_skybox = true;
-	app->settings.width = 960;
-	app->settings.height = 540;
-}
-
-void			app_init(t_doom3d *app)
+static void		app_init(t_doom3d *app)
 {
 	register_custom_events(app);
 	mp_init(app);
@@ -99,6 +56,27 @@ static void		cleanup(t_doom3d *app)
 	while (++i < (int32_t)app->num_levels)
 		ft_strdel(&app->level_list[i]);
 	delete_notifications(app);
+}
+
+
+static void		main_loop(t_doom3d *app)
+{
+	while (app->is_running)
+	{
+		app->info.performance_start = SDL_GetPerformanceCounter();
+		if (app->window->resized)
+			resize_dependent_recreate(app);
+		window_frame_clear(app->window);
+		handle_scene_switch(app);
+		handle_events(app);
+		update_player(app);
+		update_objects(app);
+		render_to_framebuffer(app);
+		draw_window_frame(app->window);
+		update_notifications(app);
+		capture_fps(app);
+		update_app_ticks(app);
+	}
 }
 
 void			doom3d_run(t_doom3d *app)

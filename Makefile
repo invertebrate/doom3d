@@ -43,6 +43,7 @@ INCLUDES = -I ./include \
 CFLAGS =-Wall -Wextra -Werror -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
 			doom3d.c \
+			settings.c \
 			player/player.c \
 			player/player_jump.c \
 			player/player_shoot.c \
