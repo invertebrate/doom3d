@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/22 21:58:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 22:01:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static void			l3d_plane_set_vertices(t_3d_object *plane)
 {
 	plane->triangles[0].vtc_indices[0] = 0;
 	plane->triangles[0].vtc_indices[1] = 1;
-	plane->triangles[0].vtc_indices[2] = 3;
-	plane->triangles[1].vtc_indices[0] = 3;
-	plane->triangles[1].vtc_indices[1] = 1;
-	plane->triangles[1].vtc_indices[2] = 2;
+	plane->triangles[0].vtc_indices[2] = 2;
+	plane->triangles[1].vtc_indices[0] = 0;
+	plane->triangles[1].vtc_indices[1] = 2;
+	plane->triangles[1].vtc_indices[2] = 3;
 	l3d_triangle_set(&plane->triangles[0], (t_vertex*[3]){
 		plane->vertices[0], plane->vertices[1], plane->vertices[3]}, plane);
 	l3d_triangle_set(&plane->triangles[1], (t_vertex*[3]){
