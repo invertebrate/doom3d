@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 01:15:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 16:11:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static void		handle_scene_switch(t_doom3d *app)
 {
 	if (app->active_scene->scene_id != app->next_scene_id ||
 		app->is_scene_reload)
-		scene_next_select(app);
+		select_next_scene(app);
 }
 
-static void		doom3d_main_loop(t_doom3d *app)
+static void		main_loop(t_doom3d *app)
 {
 	while (app->is_running)
 	{
@@ -50,12 +50,12 @@ static void		doom3d_main_loop(t_doom3d *app)
 		window_frame_clear(app->window);
 		handle_scene_switch(app);
 		handle_events(app);
-		doom3d_player_update(app);
-		doom3d_update_objects(app);
-		doom3d_render(app);
-		window_frame_draw(app->window);
-		doom3d_notifications_update(app);
-		doom3d_fps_capture(app);
+		update_player(app);
+		update_objects(app);
+		render_to_framebuffer(app);
+		draw_window_frame(app->window);
+		update_notifications(app);
+		capture_fps(app);
 		update_app_ticks(app);
 	}
 }
@@ -68,7 +68,7 @@ void			settings_init(t_doom3d *app)
 	app->settings.height = 540;
 }
 
-void			doom3d_init(t_doom3d *app)
+void			app_init(t_doom3d *app)
 {
 	register_custom_events(app);
 	mp_init(app);
@@ -82,10 +82,10 @@ void			doom3d_init(t_doom3d *app)
 	app->current_level = 0;
 	editor_init(app, 0);
 	app->next_scene_id = scene_id_main_menu;
-	scene_next_select(app);
+	select_next_scene(app);
 }
 
-static void		doom3d_cleanup(t_doom3d *app)
+static void		cleanup(t_doom3d *app)
 {
 	int32_t		i;
 
@@ -99,7 +99,7 @@ static void		doom3d_cleanup(t_doom3d *app)
 	i = -1;
 	while (++i < (int32_t)app->num_levels)
 		ft_strdel(&app->level_list[i]);
-	doom3d_notifications_delete_all(app);
+	delete_notifications(app);
 }
 
 void			doom3d_run(t_doom3d *app)
@@ -114,9 +114,9 @@ void			doom3d_run(t_doom3d *app)
 	error_check(TTF_Init() == -1, TTF_GetError());
 	settings_init(app);
 	window_create(&app->window, app->settings.width, app->settings.height);
-	doom3d_init(app);
+	app_init(app);
 	push_custom_event(app,
 		event_music_play, (void*)mu_main, s_ini(1, 10, st_main_menu, 0.6));
-	doom3d_main_loop(app);
-	doom3d_cleanup(app);
+	main_loop(app);
+	cleanup(app);
 }

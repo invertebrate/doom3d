@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 18:32:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 16:10:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			doom3d_debug_info_render(t_doom3d *app)
 		app->window->debug_font);
 }
 
-void			doom3d_fps_capture(t_doom3d *app)
+void			capture_fps(t_doom3d *app)
 {
 	app->info.performance_end = SDL_GetPerformanceCounter();
 	app->info.delta_time =

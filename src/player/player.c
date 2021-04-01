@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/08 18:04:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 16:09:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	SDL_GetRelativeMouseState(NULL, NULL);
 }
 
-void			doom3d_player_update(t_doom3d *app)
+void			update_player(t_doom3d *app)
 {
 	if ((app->active_scene->scene_id == scene_id_main_game &&
 		!app->active_scene->is_paused) ||

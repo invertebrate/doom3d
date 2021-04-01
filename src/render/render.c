@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 15:49:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 16:09:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void			render_editor_3d_view(t_doom3d *app)
 				app->window->editor_pos[1]} ,1.0);
 }
 
-void			doom3d_render(t_doom3d *app)
+void			render_to_framebuffer(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{

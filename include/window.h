@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 18:30:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 16:09:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void						window_destroy(t_window *window);
 void						window_create(t_window **window_ref,
 								int32_t width, int32_t height);
 void						window_frame_recreate(t_window *window);
-void						window_frame_draw(t_window *window);
+void						draw_window_frame(t_window *window);
 void						window_frame_clear(t_window *window);
 void						window_resize(t_window *window,
 								int32_t width, int32_t height);

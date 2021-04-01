@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 16:09:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 ** to objects & player
 */
 
-void			doom3d_update_objects(t_doom3d *app)
+void			update_objects(t_doom3d *app)
 {
 	int32_t			i;
 	t_bool			is_npc_update;

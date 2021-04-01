@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:14:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 16:10:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void			doom3d_notifications_update(t_doom3d *app)
+void			update_notifications(t_doom3d *app)
 {
 	t_notification	*last_notification;
 	t_list			**last_node;
@@ -42,7 +42,7 @@ void			notify_user(t_doom3d *app,
 			ft_lstnew(&notification, sizeof(t_notification)));
 }
 
-void			doom3d_notifications_delete_all(t_doom3d *app)
+void			delete_notifications(t_doom3d *app)
 {
 	t_list		*node;
 	t_list		*tmp;
