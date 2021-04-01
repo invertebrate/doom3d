@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:04:36 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/15 22:04:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 19:29:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static uint32_t	fragment_shade_normal(t_vec3 light_vector, t_vec3 frag_normal,
 	{
 		rgba[i] *= fabs(dot);
 	}
-	rgba[3] = 255;
 	return (l3d_rgba_to_u32(rgba));
 }
 

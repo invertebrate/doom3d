@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 23:38:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 19:55:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define L3D_MAX_OBJ_VERTICES 16384
 
 # define L3D_DEFAULT_COLOR 0xFF00FFFF
+# define L3D_DEFAULT_COLOR_TRANSPARENT 0xFF00FF64
 
 # define L3D_MAX_LIGHTS 4
 
@@ -91,6 +92,7 @@ typedef enum				e_shading_opts
 	e_shading_blue = 1 << 8,
 	e_shading_yellow = 1 << 9,
 	e_shading_cyan = 1 << 10,
+	e_shading_transparent = 1 << 11,
 }							t_shading_opts;
 
 typedef struct				s_surface
@@ -460,9 +462,12 @@ uint32_t					l3d_pixel_normal_shaded(uint32_t pixel,
 uint32_t					l3d_pixel_selection_shaded(uint32_t pixel);
 void						l3d_clamp_uv(t_vec2 uv);
 void						l3d_raster_draw_pixel(t_sub_framebuffer *buffers,
-									int32_t xy[2],
-									t_triangle *triangle);
-
+								int32_t xy[2],
+								t_triangle *triangle);
+void						l3d_raster_draw_pixel_trans(t_sub_framebuffer
+								*buffers,
+								int32_t xy[2],
+								t_triangle *triangle);
 /*
 ** Plot pixel
 */
@@ -524,6 +529,8 @@ t_surface					*l3d_image_scaled(t_surface *image,
 uint32_t					l3d_rgba_to_u32(uint32_t rgba[4]);
 uint32_t					l3d_color_blend_u32(uint32_t color1,
 								uint32_t color2, float ratio);
+uint32_t					l3d_color_alpha_blend_u32(uint32_t color1,
+								uint32_t color2);
 void						l3d_u32_to_rgba(uint32_t color, uint32_t rgba[4]);
 uint32_t					l3d_triangle_normal_color(t_triangle *triangle);
 
