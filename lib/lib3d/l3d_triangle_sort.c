@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 15:49:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 22:20:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 00:18:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static unsigned int		morton_3d(t_vec3 normalized_pos)
 		expand_bits((unsigned int)z));
 }
 
-static t_box3d			triangle_bounding_box(t_triangle *triangle)
+t_box3d					triangle_bounding_box(t_triangle *triangle)
 {
 	int32_t	i;
 	t_box3d	aabb;
@@ -72,7 +72,7 @@ static t_box3d			triangle_bounding_box(t_triangle *triangle)
 	return (aabb);
 }
 
-static void				normalize_by_world_box(t_vec3 position,
+void					normalize_by_world_box(t_vec3 position,
 							t_box3d *world_box)
 {
 	int32_t		i;

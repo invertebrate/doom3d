@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 22:17:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 00:15:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,13 +156,16 @@ void			destroy_render_triangles(t_tri_vec **render_triangles)
 }
 
 /*
-** Prepares triangles for parallel rendering. Sort them in z order curve,
+** Prepares triangles for parallel rendering.
 ** but ignore skybox.
+** Sort transparent triangles in z order curve inside world box
 */
 
 t_tri_vec		**prepare_render_triangles(t_doom3d *app)
 {
 	t_tri_vec			**render_triangles;
+	t_box3d				centered_world;
+	int32_t				i;
 
 	error_check(!(render_triangles = ft_calloc(sizeof(*render_triangles) * 2)),
 		"Failed to allocate render triangle pointers");
@@ -174,7 +177,18 @@ t_tri_vec		**prepare_render_triangles(t_doom3d *app)
 		add_skybox_render_triangles(app, render_triangles);
 	add_objects_render_triangles(app, render_triangles);
 	if (render_triangles[1]->size > 0)
-		triangle_sort_by_morton_code(render_triangles[1], app->thread_pool,
-			&app->active_scene->triangle_tree->root->bounding_box);
+	{
+		ft_memcpy(&centered_world,
+			&app->active_scene->triangle_tree->root->bounding_box,
+			sizeof(t_box3d));
+		i = -1;
+		while (++i < 3)
+		{
+			centered_world.xyz_min[i] -= centered_world.center[i];
+			centered_world.xyz_max[i] -= centered_world.center[i];
+		}
+		triangle_sort_by_depth(render_triangles[1], app->thread_pool,
+			&centered_world);
+	}
 	return (render_triangles);
 }

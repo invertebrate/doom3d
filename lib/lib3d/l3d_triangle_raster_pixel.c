@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 22:21:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 23:21:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,5 @@ void			l3d_raster_draw_pixel_transparent(t_sub_framebuffer *buffers,
 			(uint32_t[2]){buffers->width, buffers->height}, offset_xy), pixel);
 		l3d_pixel_plot(buffers->buffer, (uint32_t[2]){buffers->width,
 				buffers->height}, offset_xy, pixel);
-		// if (!(triangle->material->shading_opts & e_shading_ignore_zpass))
-		// 	l3d_pixel_plot_float(buffers->zbuffer,
-		// 		(uint32_t[2]){buffers->width, buffers->height},
-		// 		offset_xy, z_val);
 	}
 }

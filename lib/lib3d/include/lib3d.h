@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 22:13:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 00:17:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -360,6 +360,10 @@ t_triangle					*l3d_triangle_copy(t_triangle *src,
 								t_bool new_vertices);
 void						triangle_sort_by_morton_code(t_tri_vec *triangles,
 								t_thread_pool *pool, t_box3d *world_box);
+void						triangle_sort_by_depth(t_tri_vec *triangles,
+								t_thread_pool *pool, t_box3d *world_box);
+void						normalize_by_world_box(t_vec3 position,
+								t_box3d *world_box);
 
 /*
 **	Triangle clipping
@@ -379,6 +383,7 @@ int							l3d_triangle_clipping_case(t_triangle *triangle,
 ** Bounding box
 */
 
+t_box3d						triangle_bounding_box(t_triangle *triangle);
 t_axis						l3d_bounding_box_longest_axis(t_box3d bounding_box);
 void						l3d_bounding_box_set(t_tri_vec *triangles,
 								t_box3d *res);
