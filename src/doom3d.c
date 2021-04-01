@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 16:11:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 16:33:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void		resize_dependent_recreate(t_doom3d *app)
 	{
 		window_frame_recreate(app->window);
 		active_scene_menu_recreate(app);
-		app->is_first_render = true;
 	}
 }
 

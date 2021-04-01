@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 16:38:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,14 @@ void		push_custom_event(t_doom3d *app,
 void		handle_custom_events(t_doom3d *app, SDL_Event event)
 {
 	void		(*handle)(void*, void*, void*);
-	char		event_str[64];
+	char		event_str[128];
 
 	handle = hash_map_get(app->custom_event_handles, event.user.code);
 	if (handle != NULL)
 	{
 		custom_event_to_str(event_str, event.user.code);
-		ft_printf("Event:%d: %s\n", event.user.code, event_str);
+		ft_printf("Event:%d: %s(app, %p, %p)\n",
+			event.user.code, event_str, event.user.data1, event.user.data2);
 		handle(app, event.user.data1, event.user.data2);
 	}
 }

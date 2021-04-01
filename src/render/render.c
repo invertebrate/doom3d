@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 16:09:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 16:33:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ static void		render_work_parallel(t_doom3d *app, t_framebuffer *framebuffer)
 	}
 	thread_pool_wait(app->thread_pool);
 	destroy_render_triangles(render_triangles);
-	app->is_first_render = false;
 }
 
 void			render_editor_3d_view(t_doom3d *app)
