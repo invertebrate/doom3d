@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 21:41:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 22:17:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,5 +173,8 @@ t_tri_vec		**prepare_render_triangles(t_doom3d *app)
 	if (app->active_scene->scene_id != scene_id_editor3d)
 		add_skybox_render_triangles(app, render_triangles);
 	add_objects_render_triangles(app, render_triangles);
+	if (render_triangles[1]->size > 0)
+		triangle_sort_by_morton_code(render_triangles[1], app->thread_pool,
+			&app->active_scene->triangle_tree->root->bounding_box);
 	return (render_triangles);
 }
