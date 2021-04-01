@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 21:29:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 00:40:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void		app_init(t_doom3d *app)
 	register_custom_events(app);
 	mp_init(app);
 	app->active_scene = NULL;
+	app->triangles_in_view = 0;
 	app->is_running = true;
 	app->is_debug = true;
 	app->is_scene_reload = false;
