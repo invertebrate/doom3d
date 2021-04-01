@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phakakos <phakakos@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:59:45 by phakakos          #+#    #+#             */
-/*   Updated: 2021/03/12 17:59:47 by phakakos         ###   ########.fr       */
+/*   Updated: 2021/04/01 18:46:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 ** SOUND MACROS
 */
 
+# define PREF_SAMPLES 1024
 # define NUM_SOUNDS 10
 # define NUM_MUSIC 1
 # define NUM_SEFFECTS 20

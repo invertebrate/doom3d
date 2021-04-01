@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:51:15 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/01 18:18:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 18:44:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_mp		mix_init(t_doom3d *app, int channels)
 	app->mp.auspec.freq = PREF_FREQ;
 	app->mp.auspec.format = PREF_AUDIO;
 	app->mp.auspec.channels = app->mp.channels;
-	app->mp.auspec.samples = 128;
+	app->mp.auspec.samples = PREF_SAMPLES;
 	app->mp.auspec.callback = mp_au_mix;
 	app->mp.auspec.userdata = &app->mp;
 
