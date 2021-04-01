@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:26:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 22:56:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 17:32:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void				editor_popup_menu_create(t_doom3d *app,
 void				editor3d_menu_create(t_doom3d *app)
 {
 	error_check(!(app->active_scene->menus =
-		ft_calloc(sizeof(t_button_group*) * 3)), "Failed to malloc menus");
+		ft_calloc(sizeof(t_button_group*) * 4)), "Failed to malloc menus");
 	app->active_scene->menus[0] = button_menu_create_shaded(app,
 		(t_button_menu_params){
 			.button_names = (const char*[9]){"Exit", "Save",
