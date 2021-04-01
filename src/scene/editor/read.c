@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 16:39:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 18:33:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,11 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 	t_npc		npc;
 	t_trigger	trigger;
 
+	if (!obj)
+		return ;
 	if (obj->type == object_type_npc)
 	{
+		ft_memset(&npc, 0, sizeof(t_npc));
 		if (obj->params_type == npc_type_default)
 		{
 			npc_default(app, &npc, obj);
@@ -129,9 +132,11 @@ static int32_t	read_objects(t_doom3d *app, char *contents)
 
 	i = -1;
 	offset = 0;
+	obj = NULL;
 	while (++i < (int32_t)app->active_scene->num_objects)
 	{
-		obj = l3d_3d_object_shallow_copy((t_3d_object*)(contents + offset));
+		error_check(!(obj = l3d_3d_object_shallow_copy((t_3d_object*)(contents + offset))),
+			"Failed to read object from map byte offset");
 		offset += sizeof(t_3d_object);
 		j = -1;
 		while (++j < (int32_t)obj->num_vertices)
@@ -357,11 +362,9 @@ void			read_map(t_doom3d *app, const char *map_name)
 		"Invalid file, not a map file. First 4 bytes must be MAP\0");
 	ft_memcpy(&app->active_scene->num_objects, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
-	offset += read_objects(app, file->buf + offset);//here sfault
+	offset += read_objects(app, file->buf + offset);
 	offset += read_path_information(app, file->buf + offset);
-	// (void)read_path_information;
-	// (void)read_patrol_path_information;
-	offset += read_patrol_path_information(app, file->buf + offset);//here segfault, read objects causes something that crashes map read later
+	offset += read_patrol_path_information(app, file->buf + offset);
 	offset += read_trigger_link_information(app, file->buf + offset);
 	offset += read_key_id_information(app, file->buf + offset);
 	destroy_file_contents(file);

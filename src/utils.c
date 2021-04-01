@@ -6,16 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 16:10:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 19:08:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void			doom3d_debug_info_render(t_doom3d *app)
+static void		set_debug_info(t_doom3d *app, char *debug_info, char *pos)
 {
-	char	debug_info[1024];
-	char	pos[128];
 	t_vec3	unit_pos;
 
 	if (app->active_scene->scene_id == scene_id_main_game ||
@@ -29,6 +27,16 @@ void			doom3d_debug_info_render(t_doom3d *app)
 	else
 		ft_sprintf(debug_info, "fps: %u\ndelta time: %u",
 			app->info.fps, app->info.delta_time);
+}
+
+void			doom3d_debug_info_render(t_doom3d *app)
+{
+	char	debug_info[1024];
+	char	pos[128];
+
+	ft_memset(debug_info, 0, sizeof(debug_info));
+	ft_memset(pos, 0, sizeof(pos));
+	set_debug_info(app, debug_info, pos);
 	window_text_render_wrapped(app->window, (t_text_params){
 		.text = debug_info, .blend_ratio = 1.0, .xy = (int[2]){5, 5},
 		.text_color = (SDL_Color){255, 255, 255, 0}},

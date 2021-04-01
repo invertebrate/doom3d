@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:51:05 by phakakos          #+#    #+#             */
-/*   Updated: 2021/03/29 16:28:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 18:07:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,26 +92,26 @@ void	mp_print(t_mp *mp)
 t_track		*read_sound(char *file, t_doom3d *app)
 {
 	t_track			*ret;
-    SDL_AudioSpec	wave;
-    Uint8			*data;
-    Uint32			dlen;
-    SDL_AudioCVT	cvt;
+	SDL_AudioSpec	wave;
+	Uint8			*data;
+	Uint32			dlen;
+	SDL_AudioCVT	cvt;
 
-    if ( SDL_LoadWAV(file, &wave, &data, &dlen) == NULL ) {
-        fprintf(stderr, "Couldn't load %s: %s\n", file, SDL_GetError());
-        return (NULL);
-    }
-    if (SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq, 
+	if ( SDL_LoadWAV(file, &wave, &data, &dlen) == NULL ) {
+		ft_dprintf(2, "Couldn't load %s: %s\n", file, SDL_GetError());
+		return (NULL);
+	}
+	if (SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq, 
 		app->mp.auspec.format, app->mp.auspec.channels, app->mp.auspec.freq)
 		== -1)
 		return (NULL);
-    if (!(cvt.buf = (Uint8*)malloc(dlen * cvt.len_mult)))
+	if (!(cvt.buf = (Uint8*)malloc(dlen * cvt.len_mult)))
 		return (NULL);
-    ft_memcpy(cvt.buf, data, dlen);
-    cvt.len = dlen;
-    SDL_ConvertAudio(&cvt);
-    SDL_FreeWAV(data);
-    if (!(ret = (t_track*)malloc(sizeof(t_track))))
+	ft_memcpy(cvt.buf, data, dlen);
+	cvt.len = dlen;
+	SDL_ConvertAudio(&cvt);
+	SDL_FreeWAV(data);
+	if (!(ret = (t_track*)malloc(sizeof(t_track))))
 		return (NULL);
 	ret->data = cvt.buf;
 	ret->len = cvt.len_cvt;
