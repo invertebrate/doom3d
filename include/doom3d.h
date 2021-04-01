@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 21:19:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 21:38:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ typedef struct				s_render_work
 	uint32_t				sub_buffer_i;
 	t_tri_vec				*render_triangles;
 	uint32_t				pass;
+	uint32_t				num_passes;
 }							t_render_work;
 
 void						doom3d_run(t_doom3d *app);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 21:20:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 21:44:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		clear_buffers(t_render_work *work)
 		sub_buffer->width * sub_buffer->height, FLT_MAX);
 }
 
-static void		draw_buffers(t_render_work *work)
+static void		draw_buffers_to_framebuffer(t_render_work *work)
 {
 	t_sub_framebuffer	*sub_buffer;
 	t_framebuffer		*framebuffer;
@@ -73,19 +73,21 @@ static void		render_work(void *params)
 				patrol_path_highlight(work);
 		}
 		// Draw placement cursor only on last pass
-		else if (work->pass == 1)
+		else if (work->pass == work->num_passes - 1)
 			draw_editor_placement_position(work);
 	}
 	else if (work->app->active_scene->scene_id == scene_id_main_game)
 	{
 		draw_npc_dirs(work);
 	}
-	draw_buffers(work);
+	// Draw buffers only on last pass
+	if (work->pass == work->num_passes - 1)
+		draw_buffers_to_framebuffer(work);
 	free(work);
 }
 
 static void		render_pass(t_doom3d *app, t_framebuffer *framebuffer,
-					t_tri_vec **render_triangles, uint32_t pass)
+					t_tri_vec **render_triangles, uint32_t pass_num_passes[2])
 {
 	int32_t				i;
 	t_render_work		*work;
@@ -98,9 +100,10 @@ static void		render_pass(t_doom3d *app, t_framebuffer *framebuffer,
 		work->framebuffer = framebuffer;
 		work->sub_buffer_i = i;
 		work->app = app;
-		work->render_triangles = pass == 0 ? render_triangles[0] :
+		work->num_passes = pass_num_passes[1];
+		work->pass = pass_num_passes[0];
+		work->render_triangles = work->pass == 0 ? render_triangles[0] :
 			render_triangles[1];
-		work->pass = pass;
 		thread_pool_add_work(app->thread_pool, render_work, work);
 	}
 }
@@ -125,15 +128,26 @@ static void		render_parallel(t_doom3d *app, t_framebuffer *framebuffer)
 {
 
 	t_tri_vec			**render_triangles;
+	uint32_t			num_passes;
 
 	update_camera(app);
 	render_triangles = prepare_render_triangles(app);
 	app->triangles_in_view = render_triangles[0]->size +
 		render_triangles[1]->size;
-	render_pass(app, framebuffer, render_triangles, 0);
+	if (render_triangles[1]->size > 0)
+		num_passes = 2;
+	else
+		num_passes = 1;
+	render_pass(app, framebuffer, render_triangles,
+		(uint32_t[2]){0, num_passes});
 	thread_pool_wait(app->thread_pool);
-	render_pass(app, framebuffer, render_triangles, 1);
-	thread_pool_wait(app->thread_pool);
+	// Transparency pass
+	if (num_passes == 2)
+	{
+		render_pass(app, framebuffer, render_triangles,
+		(uint32_t[2]){1, num_passes});
+		thread_pool_wait(app->thread_pool);	
+	}
 	destroy_render_triangles(render_triangles);
 }
 
