@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 19:54:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 20:30:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void			l3d_raster_draw_pixel(t_sub_framebuffer *buffers, int32_t xy[2],
 	}
 }
 
-void			l3d_raster_draw_pixel_trans(t_sub_framebuffer *buffers,
+void			l3d_raster_draw_pixel_transparent(t_sub_framebuffer *buffers,
 											int32_t xy[2],
 											t_triangle *triangle)
 {
