@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 16:33:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 19:09:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -517,10 +517,10 @@ void						on_guide_menu_button_click(t_button *self,
 /*
 ** Utils
 */
-void						doom3d_debug_info_render(t_doom3d *app);
+void						render_debug_info(t_doom3d *app);
 void						capture_fps(t_doom3d *app);
-uint64_t					doom3d_performance_counter_start(void);
-void						doom3d_performance_counter_end(uint64_t start_time,
+uint64_t					performance_counter_start(void);
+void						performance_counter_end(uint64_t start_time,
 								char *task_name, float delta_limit);
 void						notify_user(t_doom3d *app,
 								t_notification notification);

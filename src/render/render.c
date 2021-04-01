@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 16:33:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 19:08:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,5 @@ void			render_to_framebuffer(t_doom3d *app)
 	}
 	ui_render(app);
 	if (app->is_debug)
-		doom3d_debug_info_render(app);
+		render_debug_info(app);
 }

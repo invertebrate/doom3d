@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 19:08:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 19:10:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		set_debug_info(t_doom3d *app, char *debug_info, char *pos)
 			app->info.fps, app->info.delta_time);
 }
 
-void			doom3d_debug_info_render(t_doom3d *app)
+void			render_debug_info(t_doom3d *app)
 {
 	char	debug_info[1024];
 	char	pos[128];
@@ -52,12 +52,21 @@ void			capture_fps(t_doom3d *app)
 	app->info.fps = window_framerate_capture(app->info.delta_time);
 }
 
-uint64_t		doom3d_performance_counter_start(void)
+uint64_t		performance_counter_start(void)
 {
 	return (SDL_GetPerformanceCounter());
 }
 
-void			doom3d_performance_counter_end(uint64_t start_time,
+/*
+** Usage:
+** uint64_t	start = performance_counter_start();
+** // Do stuff here
+** performance_counter_end(start, "What I did?", 10.0); // where
+** // 10.0 is to only print out a result when time diff is > 10ms
+** // At 0.0, result is always printed
+*/
+
+void			performance_counter_end(uint64_t start_time,
 					char *task_name, float delta_limit)
 {
 	float			delta_time;
