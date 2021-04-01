@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 20:29:40 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 21:18:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 21:35:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		scan_line_transparent(t_sub_framebuffer *buffers,
 	y = floor(limits[2]);
 	x = floor(limits[0]);
 	end_x = floor(limits[1]);
-	while (x < end_x && (x + buffers->x_offset < buffers->width))
+	while (x < end_x - 1 && (x + buffers->x_offset < buffers->width))
 	{
 		if (x + buffers->x_offset < 0)
 		{
