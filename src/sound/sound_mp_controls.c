@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound_mp_controls.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phakakos <phakakos@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:51:41 by phakakos          #+#    #+#             */
-/*   Updated: 2021/03/12 15:51:44 by phakakos         ###   ########.fr       */
+/*   Updated: 2021/04/01 18:13:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ void	mp_close(t_doom3d *app)
 	i = -1;
 	ft_printf("freeing library\n");
 	while (++i < SOUNDS)
+	{
 		free(app->mp.library[i]->data);
+		free(app->mp.library[i]);
+		app->mp.library[i] = NULL;
+	}
 	curr = app->mp.tracks;
 	ft_printf("freeing music\n");
 	while (curr)
