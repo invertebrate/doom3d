@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 19:16:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 21:19:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef struct				s_render_work
 	t_framebuffer			*framebuffer;
 	uint32_t				sub_buffer_i;
 	t_tri_vec				*render_triangles;
+	uint32_t				pass;
 }							t_render_work;
 
 void						doom3d_run(t_doom3d *app);
@@ -322,13 +323,15 @@ t_bool						is_rendered(t_doom3d *app, t_triangle *triangle);
 void						ui_render(t_doom3d *app);
 void						render_to_framebuffer(t_doom3d *app);
 void						loading_render(t_doom3d *app);
-t_tri_vec					*prepare_render_triangles(t_doom3d *app);
+t_tri_vec					**prepare_render_triangles(t_doom3d *app);
 void						destroy_render_triangles(
-								t_tri_vec *render_triangles);
+								t_tri_vec **render_triangles);
 void						clip_and_add_to_render_triangles(t_doom3d *app,
-								t_tri_vec *r_triangle_vec,
+								t_tri_vec **r_triangle_vecs,
 								t_triangle *triangle);
 void						rasterize_triangles(t_render_work *work);
+void						rasterize_triangles_transparent(t_render_work
+								*work);
 t_bool						triangle_inside_viewbox(t_doom3d *app,
 								t_triangle *triangle);
 t_bool						triangle_too_far(t_doom3d *app,

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 18:29:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 20:54:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ t_3d_object		*place_player_start(t_doom3d *app)
 		(const char*[3]){"assets/models/box.obj", NULL, NULL}, pos);
 	l3d_object_set_shading_opts(
 		app->active_scene->objects[app->active_scene->last_object_index],
-		e_shading_invisible);
+		e_shading_invisible | e_shading_transparent);
 	app->active_scene->objects[app->active_scene->last_object_index]->type =
 		object_type_trigger;
 	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
@@ -210,7 +210,7 @@ t_3d_object		*place_player_end(t_doom3d *app)
 		(const char*[3]){"assets/models/box.obj", NULL, NULL}, pos);
 	l3d_object_set_shading_opts(
 		app->active_scene->objects[app->active_scene->last_object_index],
-		e_shading_invisible);
+		e_shading_invisible | e_shading_transparent);
 	app->active_scene->objects[app->active_scene->last_object_index]->type =
 		object_type_trigger;
 	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];

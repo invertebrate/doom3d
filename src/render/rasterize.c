@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/02 18:53:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 21:18:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,22 @@ void			rasterize_triangles(t_render_work *work)
 		//temp copy triangle material, change light source origin so that it's position is in relation to player
 		//
 		l3d_triangle_raster(sub_buffer, triangle);
+	}
+}
+
+void			rasterize_triangles_transparent(t_render_work *work)
+{
+	t_sub_framebuffer	*sub_buffer;
+	t_triangle			*triangle;
+	int32_t				i;
+
+	sub_buffer = work->framebuffer->sub_buffers[work->sub_buffer_i];
+	i = -1;
+	while (++i < (int32_t)work->render_triangles->size)
+	{
+		triangle = work->render_triangles->triangles[i];
+		if (triangle_outside_frame(triangle, sub_buffer))
+			continue ;
+		l3d_triangle_raster_transparent(sub_buffer, triangle);
 	}
 }

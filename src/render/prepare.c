@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 16:20:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 20:53:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_bool	object_too_far(t_doom3d *app, t_3d_object *obj)
 }
 
 static void		add_temp_object_render_triangles(t_doom3d *app,
-					t_tri_vec *render_triangles)
+					t_tri_vec **render_triangles)
 {
 	t_temp_object 			*tmp;
 	t_temp_objects			*node;
@@ -68,7 +68,7 @@ static void		add_temp_object_render_triangles(t_doom3d *app,
 */
 
 static void		add_objects_render_triangles(t_doom3d *app,
-					t_tri_vec *render_triangles)
+					t_tri_vec **render_triangles)
 {
 	int32_t					i;
 	int32_t					j;
@@ -114,7 +114,7 @@ static void		add_objects_render_triangles(t_doom3d *app,
 }
 
 static void		add_skybox_render_triangles(t_doom3d *app,
-					t_tri_vec *render_triangles)
+					t_tri_vec **render_triangles)
 {
 	int					i;
 	int					j;
@@ -136,16 +136,23 @@ static void		add_skybox_render_triangles(t_doom3d *app,
 	}
 }
 
-void			destroy_render_triangles(t_tri_vec *render_triangles)
+void			destroy_render_triangles(t_tri_vec **render_triangles)
 {
 	int32_t		i;
 
 	i = -1;
-	while (++i < (int32_t)render_triangles->size)
+	while (++i < (int32_t)render_triangles[0]->size)
 	{
-		l3d_triangle_destroy(render_triangles->triangles[i], true);
+		l3d_triangle_destroy(render_triangles[0]->triangles[i], true);
 	}
-	l3d_triangle_vec_delete(render_triangles);
+	i = -1;
+	while (++i < (int32_t)render_triangles[1]->size)
+	{
+		l3d_triangle_destroy(render_triangles[1]->triangles[i], true);
+	}
+	l3d_triangle_vec_delete(render_triangles[0]);
+	l3d_triangle_vec_delete(render_triangles[1]);
+	free(render_triangles);
 }
 
 /*
@@ -153,12 +160,16 @@ void			destroy_render_triangles(t_tri_vec *render_triangles)
 ** but ignore skybox.
 */
 
-t_tri_vec		*prepare_render_triangles(t_doom3d *app)
+t_tri_vec		**prepare_render_triangles(t_doom3d *app)
 {
-	t_tri_vec			*render_triangles;
+	t_tri_vec			**render_triangles;
 
-	render_triangles =
+	error_check(!(render_triangles = ft_calloc(sizeof(*render_triangles) * 2)),
+		"Failed to allocate render triangle pointers");
+	render_triangles[0] =
 		l3d_triangle_vec_with_capacity(app->active_scene->num_triangles + 12);
+	render_triangles[1] =
+		l3d_triangle_vec_with_capacity(512);
 	if (app->active_scene->scene_id != scene_id_editor3d)
 		add_skybox_render_triangles(app, render_triangles);
 	add_objects_render_triangles(app, render_triangles);
