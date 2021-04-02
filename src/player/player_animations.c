@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_animations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 18:09:28 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/02 21:07:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void			set_anim_frame_info(t_doom3d *app,
 		anim->frames[i - index_offset].x_offset = i * app->settings.width;
 		anim->frames[i - index_offset].y_offset = 0;
 	}
-	anim->interruptable = true;
+	anim->interruptable = false;
 	anim->frame_time = 40;
 }
 
@@ -109,14 +109,19 @@ static void			player_default_animations_init(t_doom3d *app)
 {
 	set_anim_frame_info(app,
 		&app->animations[anim_shotgun_default], 0, 1);
+	app->animations[anim_shotgun_default].interruptable = true;
 	set_anim_frame_info(app,
 		&app->animations[anim_glock_default], 0, 1);
+	app->animations[anim_glock_default].interruptable = true;
 	set_anim_frame_info(app,
 		&app->animations[anim_rpg_default], 0, 1);
+	app->animations[anim_rpg_default].interruptable = true;
 	set_anim_frame_info(app,
 		&app->animations[anim_rpg_special], 4, 1);
+	app->animations[anim_rpg_special].interruptable = true;
 	set_anim_frame_info(app,
 		&app->animations[anim_fist_default], 0, 1);
+	app->animations[anim_fist_default].interruptable = true;
 }
 
 /*
