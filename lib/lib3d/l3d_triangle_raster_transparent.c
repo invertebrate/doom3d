@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 20:29:40 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 17:21:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 19:40:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,12 @@ static void		scan_line_transparent(t_sub_framebuffer *buffers,
 
 	y = floor(limits[2]);
 	x = floor(limits[0]);
+	if (x + buffers->x_offset < 0)
+		x = -buffers->x_offset;
 	end_x = floor(limits[1]);
 	while (x < end_x - 1 && (x + buffers->x_offset < buffers->width))
-	{
-		if (x + buffers->x_offset < 0)
-		{
-			x = -buffers->x_offset;
-			continue ;
-		}
 		l3d_raster_draw_pixel_transparent(buffers,
-			(int32_t[2]){x, y}, triangle);
-		x++;
-	}
+			(int32_t[2]){x++, y}, triangle);
 }
 
 static void		raster_upper_transparent(t_sub_framebuffer *bufs,
