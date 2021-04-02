@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 20:29:40 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 23:06:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:21:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void		scan_line_transparent(t_sub_framebuffer *buffers,
 			x = -buffers->x_offset;
 			continue ;
 		}
-		l3d_raster_draw_pixel_transparent(buffers, (int32_t[2]){x, y}, triangle);
+		l3d_raster_draw_pixel_transparent(buffers,
+			(int32_t[2]){x, y}, triangle);
 		x++;
 	}
 }
