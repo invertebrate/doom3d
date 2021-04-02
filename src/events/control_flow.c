@@ -6,22 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 20:16:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
-
-static void		set_objects_shading_opts(t_doom3d *app, t_shading_opts opts)
-{
-	int32_t	i;
-
-	i = -1;
-	while (++i < (int32_t)(app->active_scene->num_objects +
-		app->active_scene->num_deleted))
-		if (app->active_scene->objects[i])
-			l3d_object_set_shading_opts(app->active_scene->objects[i], opts);
-}
 
 /*
 ** Handle normal map settings toggle inside main game
@@ -34,11 +23,11 @@ static void		handle_normal_map_settings_toggle(t_doom3d *app,
 	{
 		app->settings.is_normal_map = !app->settings.is_normal_map;
 		if (app->settings.is_normal_map)
-			set_objects_shading_opts(app,
+			set_all_objects_shading_opts(app,
 				app->active_scene->objects[0]->material->shading_opts |
 				e_shading_normal_map);
 		else
-			set_objects_shading_opts(app,
+			set_all_objects_shading_opts(app,
 				app->active_scene->objects[0]->material->shading_opts ^
 				e_shading_normal_map);
 	}

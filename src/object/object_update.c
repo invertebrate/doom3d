@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 16:09:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 20:19:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,8 @@ void			update_objects(t_doom3d *app)
 	if (!(app->active_scene->scene_id == scene_id_main_game ||
 		app->active_scene->scene_id == scene_id_editor3d))
 		return ;
+	if (app->active_scene->scene_id == scene_id_main_game)
+		set_all_objects_shading_opts(app, e_shading_depth);
 	if (!app->active_scene->is_paused &&
 		app->active_scene->scene_id == scene_id_main_game)
 	{
