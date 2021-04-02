@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   item_data_fist.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:54:55 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/12 21:39:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 16:06:21 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_weapon	weapon_data_fist(t_doom3d *app)
 
 	item.id = weapon_fist;
 	item.ammo = 1;
+	item.clip = 1;
+	item.clip_size = 0;
 	item.fire_rate = 2;
 	item.range = 5 * app->unit_size;
 	item.projectile = projectile_type_none;

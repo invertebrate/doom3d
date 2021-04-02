@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/22 17:11:40 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/02 16:13:45 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,10 @@ typedef enum				e_player_animation
 	anim_rpg_default = 7,
 	anim_rpg_shoot = 8,
 	anim_rpg_reload = 9,
-	anim_fist_default = 10,
-	anim_fist_shoot = 11,
-	anim_fist_reload = 12,
+	anim_rpg_special = 10,
+	anim_fist_default = 12,
+	anim_fist_shoot = 13,
+	anim_fist_reload = 14,
 }							t_player_animation;
 
 /*
