@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_state.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 01:53:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 15:54:30 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void				handle_game_mouse_state(t_doom3d *app)
 		app->player.is_shooting = false;
 		set_player_default_frame(app);
 	}
-	if (app->player.is_shooting)
+	if (app->player.is_shooting && !app->player.is_reloading)
 	{
 		player_shoot(app, SDL_GetTicks());
 	}

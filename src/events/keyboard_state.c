@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_state.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 02:34:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 15:33:41 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static void		handle_game_keyboard_state(t_doom3d *app)
 			(!app->keyboard.state[SDL_SCANCODE_LSHIFT] &&
 				app->player.is_grounded))
 			app->player.is_running = false;
+		if (app->keyboard.state[SDL_SCANCODE_R])
+			player_reload(app);
 	}
 	handle_weapon_equip(app);
 }

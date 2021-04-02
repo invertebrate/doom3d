@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 20:26:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 21:11:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ void						player_jump(t_doom3d *app);
 void						player_crouch(t_doom3d *app, t_bool toggle);
 void						player_shoot(t_doom3d *app,
 								uint32_t curr_time);
+void						player_reload(t_doom3d *app);
+void						player_reload_finish(t_doom3d *app);
 
 /*
 ** Player items

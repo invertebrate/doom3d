@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_objects.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:39:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 15:05:10 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,8 @@ typedef struct				s_weapon
 {
 	t_weapon_id				id;
 	int						ammo;
+	int						clip;
+	int						clip_size;
 	float					fire_rate;
 	float					range;
 	t_projectile_type		projectile;
