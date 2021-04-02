@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 22:01:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 20:37:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static void			l3d_plane_set_vertices(t_3d_object *plane)
 	plane->triangles[1].vtc_indices[1] = 2;
 	plane->triangles[1].vtc_indices[2] = 3;
 	l3d_triangle_set(&plane->triangles[0], (t_vertex*[3]){
-		plane->vertices[0], plane->vertices[1], plane->vertices[3]}, plane);
+		plane->vertices[0], plane->vertices[1], plane->vertices[2]}, plane);
 	l3d_triangle_set(&plane->triangles[1], (t_vertex*[3]){
-		plane->vertices[3], plane->vertices[1], plane->vertices[2]}, plane);
+		plane->vertices[0], plane->vertices[2], plane->vertices[3]}, plane);
 }
 
 t_3d_object			*l3d_plane_create(t_surface *texture, t_surface *normal_map)
@@ -40,10 +40,10 @@ t_3d_object			*l3d_plane_create(t_surface *texture, t_surface *normal_map)
 	l3d_plane_set_vertices(plane);
 	ml_vector2_copy((t_vec2){0, 0}, plane->triangles[0].uvs[0]);
 	ml_vector2_copy((t_vec2){1, 0}, plane->triangles[0].uvs[1]);
-	ml_vector2_copy((t_vec2){0, 1}, plane->triangles[0].uvs[2]);
-	ml_vector2_copy((t_vec2){0, 1}, plane->triangles[1].uvs[0]);
-	ml_vector2_copy((t_vec2){1, 0}, plane->triangles[1].uvs[1]);
-	ml_vector2_copy((t_vec2){1, 1}, plane->triangles[1].uvs[2]);
+	ml_vector2_copy((t_vec2){1, 1}, plane->triangles[0].uvs[2]);
+	ml_vector2_copy((t_vec2){0, 0}, plane->triangles[1].uvs[0]);
+	ml_vector2_copy((t_vec2){1, 1}, plane->triangles[1].uvs[1]);
+	ml_vector2_copy((t_vec2){0, 1}, plane->triangles[1].uvs[2]);
 	l3d_object_aabb_update(plane);
 	return (plane);
 }
