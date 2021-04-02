@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 21:07:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 21:10:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,19 +142,15 @@ void	player_animations_init(t_doom3d *app)
 	set_anim_frame_info(app,
 		&app->animations[anim_shotgun_reload], 5, 8);
 	app->animations[anim_shotgun_reload].frame_time = 120;
-	app->animations[anim_shotgun_reload].interruptable = false;
 	set_anim_frame_info(app,
 		&app->animations[anim_glock_reload], 5, 8);
 	app->animations[anim_glock_reload].frame_time = 120;
-	app->animations[anim_glock_reload].interruptable = false;
 	set_anim_frame_info(app,
 		&app->animations[anim_rpg_reload], 5, 8);
 	app->animations[anim_rpg_reload].frame_time = 120;
-	app->animations[anim_rpg_reload].interruptable = false;
 	set_anim_frame_info(app,
 		&app->animations[anim_fist_reload], 5, 8);
 	app->animations[anim_fist_reload].frame_time = 120;
-	app->animations[anim_fist_reload].interruptable = false;
 }
 
 /*
