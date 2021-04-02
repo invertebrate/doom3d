@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 14:43:04 by ohakola           #+#    #+#              #
-#    Updated: 2021/03/28 01:47:01 by ohakola          ###   ########.fr        #
+#    Updated: 2021/04/02 19:00:19 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -147,7 +147,7 @@ DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))
 
 INC=-I./include/
 
-CFLAGS = -Wall -Wextra -Werror -O3 -flto
+CFLAGS = -Wall -Wextra -Werror -march=native -O3 -flto
 
 all: $(DIR_OBJ) $(NAME)
 

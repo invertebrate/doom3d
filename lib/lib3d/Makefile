@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#              #
-#    Updated: 2021/04/02 00:17:56 by ohakola          ###   ########.fr        #
+#    Updated: 2021/04/02 19:00:28 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ SOURCES = l3d_triangle.c \
 SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 INCLUDES = -I ./include -I $(LIBFT)/include -I $(LIBGMATRIX)/include
-CFLAGS = -Wall -Wextra -Werror -O3 -flto
+CFLAGS = -Wall -Wextra -Werror -march=native -O3 -flto
 
 all: $(DIR_OBJ) $(NAME)
 

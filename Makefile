@@ -40,7 +40,7 @@ INCLUDES = -I ./include \
 		-I$(LIBGMATRIX)/include \
 		$(SDL_INCLUDES)
 
-CFLAGS =-Wall -Wextra -Werror -O3 -flto $(LINUX_IGNOREW)
+CFLAGS =-Wall -Wextra -Werror -march=native -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
 			doom3d.c \
 			settings.c \
