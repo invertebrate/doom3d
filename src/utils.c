@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 19:13:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 00:40:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ static void		set_debug_info(t_doom3d *app, char *debug_info, char *pos)
 	{
 		ml_vector3_mul(app->player.pos, 1.0 / app->unit_size, unit_pos);
 		ml_vector3_to_str(unit_pos, pos);
-		ft_sprintf(debug_info, "fps: %u\ndelta time: %u\nunit_pos: %s",
-			app->info.fps, app->info.delta_time, pos);
+		ft_sprintf(debug_info, "fps: %u\ndelta time: %u\nunit_pos: %s\n"
+			"triangles in view: %d",
+			app->info.fps, app->info.delta_time, pos, app->triangles_in_view);
 	}
 	else
 		ft_sprintf(debug_info, "fps: %u\ndelta time: %u",

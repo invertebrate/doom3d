@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 19:16:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 00:40:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void		app_init(t_doom3d *app)
 	register_custom_events(app);
 	mp_init(app);
 	app->active_scene = NULL;
+	app->triangles_in_view = 0;
 	app->is_running = true;
 	app->is_debug = true;
 	app->is_scene_reload = false;
@@ -92,8 +93,9 @@ void			doom3d_run(t_doom3d *app)
 	settings_init(app);
 	window_create(&app->window, app->settings.width, app->settings.height);
 	app_init(app);
-	push_custom_event(app,
-		event_music_play, (void*)mu_main, s_ini(1, 10, st_main_menu, 0.6));
+	// This song has given me brain tumor :D
+	// push_custom_event(app,
+	// 	event_music_play, (void*)mu_main, s_ini(1, 10, st_main_menu, 0.6));
 	main_loop(app);
 	cleanup(app);
 }

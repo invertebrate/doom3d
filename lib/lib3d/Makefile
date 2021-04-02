@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#              #
-#    Updated: 2021/03/30 16:50:40 by ohakola          ###   ########.fr        #
+#    Updated: 2021/04/02 19:00:28 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,9 +46,11 @@ SOURCES = l3d_triangle.c \
 			l3d_color.c \
 			l3d_image_read.c \
 			l3d_triangle_raster.c \
+			l3d_triangle_raster_transparent.c \
 			l3d_triangle_raster_utils.c \
 			l3d_triangle_raster_pixel.c \
 			l3d_triangle_sort.c \
+			l3d_triangle_sort_depth.c \
 			l3d_shading.c \
 			l3d_shading_utils.c \
 			l3d_uv.c \
@@ -64,7 +66,7 @@ SOURCES = l3d_triangle.c \
 SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 INCLUDES = -I ./include -I $(LIBFT)/include -I $(LIBGMATRIX)/include
-CFLAGS = -Wall -Wextra -Werror -O3 -flto
+CFLAGS = -Wall -Wextra -Werror -march=native -O3 -flto
 
 all: $(DIR_OBJ) $(NAME)
 

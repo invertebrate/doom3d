@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   l3d_triangle_raster.c                              :+:      :+:    :+:   */
+/*   l3d_triangle_raster_transparent.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 20:05:34 by ohakola          ###   ########.fr       */
+/*   Created: 2021/04/01 20:29:40 by ohakola           #+#    #+#             */
+/*   Updated: 2021/04/02 20:05:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d_internals.h"
 
-static void		scan_line(t_sub_framebuffer *buffers,
+static void		scan_line_transparent(t_sub_framebuffer *buffers,
 							float *limits, t_triangle *triangle)
 {
 	int32_t			x;
@@ -24,10 +24,11 @@ static void		scan_line(t_sub_framebuffer *buffers,
 	end_x = fmin(floor(limits[1]) - 1,
 		buffers->width - buffers->x_offset);
 	while (x < end_x)
-		l3d_raster_draw_pixel(buffers, (int32_t[2]){x++, y}, triangle);
+		l3d_raster_draw_pixel_transparent(buffers,
+			(int32_t[2]){x++, y}, triangle);
 }
 
-static void		raster_upper(t_sub_framebuffer *bufs,
+static void		raster_upper_transparent(t_sub_framebuffer *bufs,
 								t_triangle *tri, t_raster_data *data)
 {
 	float		x;
@@ -45,12 +46,12 @@ static void		raster_upper(t_sub_framebuffer *bufs,
 		limits[0] = fmin(x, end_x);
 		limits[1] = fmax(x, end_x) + 1;
 		limits[2] = y;
-		scan_line(bufs, limits, tri);
+		scan_line_transparent(bufs, limits, tri);
 		y++;
 	}
 }
 
-static void		raster_lower(t_sub_framebuffer *bufs,
+static void		raster_lower_transparent(t_sub_framebuffer *bufs,
 								t_triangle *tri, t_raster_data *data)
 {
 	float		x;
@@ -68,12 +69,12 @@ static void		raster_lower(t_sub_framebuffer *bufs,
 		limits[0] = fmin(x, end_x);
 		limits[1] = fmax(x, end_x) + 1;
 		limits[2] = y;
-		scan_line(bufs, limits, tri);
+		scan_line_transparent(bufs, limits, tri);
 		y++;
 	}
 }
 
-void			l3d_triangle_raster(t_sub_framebuffer *buffers,
+void			l3d_triangle_raster_transparent(t_sub_framebuffer *buffers,
 					t_triangle *triangle)
 {
 	t_raster_data	data;
@@ -91,6 +92,6 @@ void			l3d_triangle_raster(t_sub_framebuffer *buffers,
 	data.slope_bc = (data.x3 - data.x2) / (data.y3 - data.y2);
 	data.slope_ac = (data.x3 - data.x1) / (data.y3 - data.y1);
 	data.slope_ab = (data.x2 - data.x1) / (data.y2 - data.y1);
-	raster_upper(buffers, triangle, &data);
-	raster_lower(buffers, triangle, &data);
+	raster_upper_transparent(buffers, triangle, &data);
+	raster_lower_transparent(buffers, triangle, &data);
 }

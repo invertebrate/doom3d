@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 18:00:05 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/02 21:11:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@
 # define WIDTH 960
 # define HEIGHT 540
 # define NAME "Doom3D"
+
+# define GAME_VIEW_DIST_UNITS 200
+# define EDITOR_VIEW_DIST_UNITS 500
 
 /*
 ** Defines how many levels can be created, otherwise the app will remind
@@ -138,6 +141,8 @@ typedef struct				s_render_work
 	t_framebuffer			*framebuffer;
 	uint32_t				sub_buffer_i;
 	t_tri_vec				*render_triangles;
+	uint32_t				pass;
+	uint32_t				num_passes;
 }							t_render_work;
 
 void						doom3d_run(t_doom3d *app);
@@ -324,13 +329,15 @@ t_bool						is_rendered(t_doom3d *app, t_triangle *triangle);
 void						ui_render(t_doom3d *app);
 void						render_to_framebuffer(t_doom3d *app);
 void						loading_render(t_doom3d *app);
-t_tri_vec					*prepare_render_triangles(t_doom3d *app);
+t_tri_vec					**prepare_render_triangles(t_doom3d *app);
 void						destroy_render_triangles(
-								t_tri_vec *render_triangles);
+								t_tri_vec **render_triangles);
 void						clip_and_add_to_render_triangles(t_doom3d *app,
-								t_tri_vec *r_triangle_vec,
+								t_tri_vec **r_triangle_vecs,
 								t_triangle *triangle);
 void						rasterize_triangles(t_render_work *work);
+void						rasterize_triangles_transparent(t_render_work
+								*work);
 t_bool						triangle_inside_viewbox(t_doom3d *app,
 								t_triangle *triangle);
 t_bool						triangle_too_far(t_doom3d *app,
@@ -398,6 +405,8 @@ void						scene_assets_destroy(t_scene *scene);
 void						scene_textures_destroy(t_scene *scene);
 void						scene_normal_maps_destroy(t_scene *scene);
 void						active_scene_popup_menu_destroy(t_doom3d *app);
+void						set_all_objects_shading_opts(t_doom3d *app,
+								t_shading_opts opts);
 
 /*
 ** Editor

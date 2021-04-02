@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/17 13:09:18 by ohakola           #+#    #+#              #
-#    Updated: 2020/12/10 19:47:35 by ohakola          ###   ########.fr        #
+#    Updated: 2021/04/02 19:00:09 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))
 INCLUDES = -I ./include -I $(LIBFT)/include
-CFLAGS = -Wall -Wextra -Werror -O3 -flto
+CFLAGS = -Wall -Wextra -Werror -march=native -O3 -flto
 
 all: $(DIR_OBJ) $(NAME)
 

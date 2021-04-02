@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:50:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 20:54:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_3d_object		*editor_place_light_object(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	light = place_scene_object(app, (const char*[3]){
 		"assets/models/box.obj", NULL,  NULL}, pos);
-	l3d_object_set_shading_opts(light, e_shading_invisible);
+	l3d_object_set_shading_opts(light,
+		e_shading_invisible | e_shading_transparent);
 	light->type = object_type_light;
 	light->params_type = object_type_light;
 	editor_objects_invisible_highlight(app);\

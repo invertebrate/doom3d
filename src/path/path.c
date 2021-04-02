@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 22:21:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 00:10:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 21:04:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ t_3d_object			*place_path_object(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	path_obj = place_scene_object(app, (const char*[3]){
 		"assets/models/box.obj", NULL,  NULL}, pos);
-	l3d_object_set_shading_opts(path_obj, e_shading_invisible);
+	l3d_object_set_shading_opts(path_obj, e_shading_invisible |
+		e_shading_cyan | e_shading_transparent);
 	path_obj->type = object_type_path;
 	l3d_3d_object_scale(path_obj, 0.3, 0.3, 0.3);
 	path_node_init(path_obj);

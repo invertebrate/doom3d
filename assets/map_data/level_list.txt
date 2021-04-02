@@ -1,4 +1,5 @@
 testpathfinding3
+PlaneTest
 pathfinding testions
 texturetestingations
 testmap1o
