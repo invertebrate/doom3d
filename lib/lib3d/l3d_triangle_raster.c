@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 19:56:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 20:05:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void		raster_upper(t_sub_framebuffer *bufs,
 	float		y;
 	float		end_x;
 	float		end_y;
+	float		limits[3];
 
 	y = fmax(data->y1, -bufs->y_offset);
 	end_y = fmin(data->y2, bufs->height - bufs->y_offset);
@@ -41,10 +42,10 @@ static void		raster_upper(t_sub_framebuffer *bufs,
 	{
 		x = data->x2 + data->slope_ab * (y - data->y2);
 		end_x = data->x1 + data->slope_ac * (y - data->y1);
-		if (x < end_x)
-			scan_line(bufs, (float[3]){x, end_x + 1, y}, tri);
-		else if (x > end_x)
-			scan_line(bufs, (float[3]){end_x, x + 1, y}, tri);
+		limits[0] = fmin(x, end_x);
+		limits[1] = fmax(x, end_x) + 1;
+		limits[2] = y;
+		scan_line(bufs, limits, tri);
 		y++;
 	}
 }
@@ -56,6 +57,7 @@ static void		raster_lower(t_sub_framebuffer *bufs,
 	float		y;
 	float		end_x;
 	float		end_y;
+	float		limits[3];
 
 	y = fmax(data->y2, -bufs->y_offset);
 	end_y = fmin(data->y3, bufs->height - bufs->y_offset);
@@ -63,10 +65,10 @@ static void		raster_lower(t_sub_framebuffer *bufs,
 	{
 		x = data->x2 + data->slope_bc * (y - data->y2);
 		end_x = data->x1 + data->slope_ac * (y - data->y1);
-		if (x < end_x)
-			scan_line(bufs, (float[3]){x, end_x + 1, y}, tri);
-		else if (x > end_x)
-			scan_line(bufs, (float[3]){end_x, x + 1, y}, tri);
+		limits[0] = fmin(x, end_x);
+		limits[1] = fmax(x, end_x) + 1;
+		limits[2] = y;
+		scan_line(bufs, limits, tri);
 		y++;
 	}
 }
