@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 20:14:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 20:26:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@
 # define WIDTH 960
 # define HEIGHT 540
 # define NAME "Doom3D"
+
+# define GAME_VIEW_DIST_UNITS 200
+# define EDITOR_VIEW_DIST_UNITS 500
 
 /*
 ** Defines how many levels can be created, otherwise the app will remind
