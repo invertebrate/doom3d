@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:54:55 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/02 15:06:14 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/02 16:06:21 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_weapon	weapon_data_fist(t_doom3d *app)
 
 	item.id = weapon_fist;
 	item.ammo = 1;
-	item.clip = 0;
+	item.clip = 1;
 	item.clip_size = 0;
 	item.fire_rate = 2;
 	item.range = 5 * app->unit_size;

@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/19 14:20:30 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/02 18:09:28 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void			set_anim_frame_info(t_doom3d *app,
 		anim->frames[i - index_offset].x_offset = i * app->settings.width;
 		anim->frames[i - index_offset].y_offset = 0;
 	}
-	anim->interruptable = false;
+	anim->interruptable = true;
 	anim->frame_time = 40;
 }
 
@@ -109,16 +109,14 @@ static void			player_default_animations_init(t_doom3d *app)
 {
 	set_anim_frame_info(app,
 		&app->animations[anim_shotgun_default], 0, 1);
-	app->animations[anim_shotgun_default].interruptable = true;
 	set_anim_frame_info(app,
 		&app->animations[anim_glock_default], 0, 1);
-	app->animations[anim_glock_default].interruptable = true;
 	set_anim_frame_info(app,
 		&app->animations[anim_rpg_default], 0, 1);
-	app->animations[anim_rpg_default].interruptable = true;
+	set_anim_frame_info(app,
+		&app->animations[anim_rpg_special], 4, 1);
 	set_anim_frame_info(app,
 		&app->animations[anim_fist_default], 0, 1);
-	app->animations[anim_fist_default].interruptable = true;
 }
 
 /*
@@ -138,12 +136,20 @@ void	player_animations_init(t_doom3d *app)
 		&app->animations[anim_fist_shoot], 0, 5);
 	set_anim_frame_info(app,
 		&app->animations[anim_shotgun_reload], 5, 8);
+	app->animations[anim_shotgun_reload].frame_time = 120;
+	app->animations[anim_shotgun_reload].interruptable = false;
 	set_anim_frame_info(app,
 		&app->animations[anim_glock_reload], 5, 8);
+	app->animations[anim_glock_reload].frame_time = 120;
+	app->animations[anim_glock_reload].interruptable = false;
 	set_anim_frame_info(app,
 		&app->animations[anim_rpg_reload], 5, 8);
+	app->animations[anim_rpg_reload].frame_time = 120;
+	app->animations[anim_rpg_reload].interruptable = false;
 	set_anim_frame_info(app,
 		&app->animations[anim_fist_reload], 5, 8);
+	app->animations[anim_fist_reload].frame_time = 120;
+	app->animations[anim_fist_reload].interruptable = false;
 }
 
 /*
@@ -156,6 +162,11 @@ static void				set_player_animation(t_doom3d *app, uint32_t animation_id)
 	t_sprite_anim *curr_player_anim;
 
 	curr_player_anim = &app->animations[app->player_hud.curr_animation];
+	if (app->player.is_reloading && curr_player_anim->is_finished)
+	{
+		app->player.is_reloading = false;
+		player_reload_finish(app);
+	}
 	if (!(curr_player_anim->is_finished || curr_player_anim->interruptable))
 		return ;
 	app->animations[app->player_hud.curr_animation].current_frame = 0;
@@ -196,7 +207,12 @@ void					set_player_default_frame(t_doom3d *app)
 	else if (app->player.equipped_weapon->id == weapon_fist)
 		set_player_animation(app, anim_fist_default);
 	else if (app->player.equipped_weapon->id == weapon_rpg)
-		set_player_animation(app, anim_rpg_default);
+	{
+		if (app->player.equipped_weapon->clip == 0)
+			set_player_animation(app, anim_rpg_special);
+		else
+			set_player_animation(app, anim_rpg_default);
+	}
 }
 
 /*
