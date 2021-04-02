@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_shoot.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 15:42:30 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,9 +159,9 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 			(1.0 / app->player.equipped_weapon->fire_rate))
 		return ;
 	}
-	if (app->player.equipped_weapon->ammo > 0)
+	if (app->player.equipped_weapon->clip > 0)
 		set_player_shoot_frame(app);
-	else if (app->player.equipped_weapon->ammo == 0)
+	else if (app->player.equipped_weapon->clip == 0)
 	{
 		ft_printf("Out of ammo\n");
 		set_player_default_frame(app);
@@ -178,6 +178,9 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 	else if (app->player.equipped_weapon->id == weapon_shotgun)
 		shoot_shotgun(app, origin);
 	if (app->player.equipped_weapon->id != weapon_fist)
+	{
+		app->player.equipped_weapon->clip--;
 		app->player.equipped_weapon->ammo--;
+	}
 	prev_shot_weapon_id = app->player.equipped_weapon->id;
 }

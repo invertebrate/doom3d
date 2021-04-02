@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 19:16:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 15:32:11 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ void						player_jump(t_doom3d *app);
 void						player_crouch(t_doom3d *app, t_bool toggle);
 void						player_shoot(t_doom3d *app,
 								uint32_t curr_time);
+void						player_reload(t_doom3d *app);
 
 /*
 ** Player items
