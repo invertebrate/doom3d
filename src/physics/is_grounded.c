@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_grounded.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/30 16:48:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 20:06:38 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ t_bool	obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj)
 			ret = true;
 			if (!l3d_aabb_collides(&obj_under->aabb, &falling_obj->aabb))
 			{
+				lift_step[1] = -((obj_under->aabb.xyz_min[1] -
+								falling_obj->aabb.xyz_max[1]) + 1);
 				l3d_3d_object_translate(falling_obj, -lift_step[0], -lift_step[1], -lift_step[2]);
 				l3d_object_aabb_update(falling_obj);
 			}
@@ -113,7 +115,8 @@ t_bool	player_is_grounded(t_doom3d *app)
 	obj_under = object_under_aabb(app, &app->player.aabb, -1);
 	if (obj_under)
 	{
-		ml_vector3_copy((t_vec3) {0, -app->unit_size / 16, 0}, lift_step);
+		ml_vector3_copy((t_vec3) {0, -app->player.player_height / 16, 0}, 
+																lift_step);
 		if (l3d_aabb_collides(&obj_under->aabb, &app->player.aabb))
 		{
 			ml_vector3_add(app->player.pos, lift_step, app->player.pos);
@@ -121,6 +124,8 @@ t_bool	player_is_grounded(t_doom3d *app)
 			ret = true;
 			if (!l3d_aabb_collides(&obj_under->aabb, &app->player.aabb))
 			{
+				lift_step[1] = -((obj_under->aabb.xyz_min[1] -
+								app->player.aabb.xyz_max[1]) + 1);
 				ml_vector3_sub(app->player.pos, lift_step, app->player.pos);
 				player_update_aabb(&app->player);
 			}
