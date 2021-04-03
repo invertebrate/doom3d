@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:32:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 00:26:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 01:28:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void			handle_object_deletion(t_doom3d *app, t_3d_object *object)
 			break ;
 		}
 	}
-	if (app->editor.num_selected_objects == 0)
+	if (app->active_scene->scene_id == scene_id_editor3d &&
+		app->editor.num_selected_objects == 0)
 		app->active_scene->menus[1]->is_active = false;
 }
