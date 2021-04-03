@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 01:13:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 01:18:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,9 @@ void		handle_editor_snap_to_grid(t_doom3d *app)
 	{
 		selected_obj = app->editor.selected_objects[i];
 		find_snap_pos(app, selected_obj->position, snap_pos);
-		ml_vector3_print(selected_obj->position);
 		l3d_3d_object_translate(selected_obj, -selected_obj->position[0],
 			-selected_obj->position[1], -selected_obj->position[2]);
-		ml_vector3_print(selected_obj->position);
 		l3d_3d_object_translate(selected_obj, snap_pos[0],
 			snap_pos[1], snap_pos[2]);
-		ml_vector3_print(selected_obj->position);
 	}
 }
