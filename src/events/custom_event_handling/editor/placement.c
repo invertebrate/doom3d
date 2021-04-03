@@ -6,14 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 00:40:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 01:13:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	handle_editor_placement_start(t_doom3d *app,
-			uint32_t obj_type, void *data)
+void		handle_editor_placement_start(t_doom3d *app,
+				uint32_t obj_type, void *data)
 {
 	t_3d_object	*obj;
 
@@ -38,13 +38,13 @@ void	handle_editor_placement_start(t_doom3d *app,
 		app->editor.is_placing = false;
 }
 
-void	handle_editor_placement_cancel(t_doom3d *app)
+void		handle_editor_placement_cancel(t_doom3d *app)
 {
 	push_custom_event(app, event_editor_delete, NULL, NULL);
 	app->editor.is_placing = false;
 }
 
-void	handle_editor_placement_end(t_doom3d *app)
+void		handle_editor_placement_end(t_doom3d *app)
 {
 	app->editor.is_placing = false;
 	notify_user(app, (t_notification){
@@ -53,24 +53,36 @@ void	handle_editor_placement_end(t_doom3d *app)
 	push_custom_event(app, event_editor_select, NULL, NULL);
 }
 
-void	handle_editor_snap_to_grid(t_doom3d *app)
+static void	find_snap_pos(t_doom3d *app, t_vec3 old_pos, t_vec3 snap_pos)
+{
+	int32_t		i;
+
+	i = -1;
+	while (++i < 3)
+		snap_pos[i] = roundf(old_pos[i] / app->unit_size) * app->unit_size;
+}
+
+void		handle_editor_snap_to_grid(t_doom3d *app)
 {
 	int32_t		i;
 	t_3d_object	*selected_obj;
-	t_vec3		snap_amount;
+	t_vec3		snap_pos;
+	int32_t		unit_size_int;
 
 	if (app->editor.num_selected_objects == 0)
 		return ;
 	i = -1;
+	unit_size_int = app->unit_size;
 	while (++i < app->editor.num_selected_objects)
 	{
 		selected_obj = app->editor.selected_objects[i];
-		ml_vector3_sub(selected_obj->position, (t_vec3){
-			(int32_t)selected_obj->position[0] / (int32_t)app->unit_size,
-			(int32_t)selected_obj->position[1] / (int32_t)app->unit_size,
-			(int32_t)selected_obj->position[2] / (int32_t)app->unit_size
-		}, snap_amount);
-		l3d_3d_object_translate(selected_obj,
-			snap_amount[0], snap_amount[1], snap_amount[2]);
+		find_snap_pos(app, selected_obj->position, snap_pos);
+		ml_vector3_print(selected_obj->position);
+		l3d_3d_object_translate(selected_obj, -selected_obj->position[0],
+			-selected_obj->position[1], -selected_obj->position[2]);
+		ml_vector3_print(selected_obj->position);
+		l3d_3d_object_translate(selected_obj, snap_pos[0],
+			snap_pos[1], snap_pos[2]);
+		ml_vector3_print(selected_obj->position);
 	}
 }
