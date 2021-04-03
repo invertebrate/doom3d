@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 20:19:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 00:21:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		handle_object_deletions(t_doom3d *app)
+static void		delete_objects_set_for_deletion(t_doom3d *app)
 {
 	int32_t		i;
 	int32_t		del_index;
@@ -162,6 +162,6 @@ void			update_objects(t_doom3d *app)
 		l3d_temp_objects_update_time(&app->active_scene->temp_objects,
 			app->info.delta_time);
 	}
-	handle_object_deletions(app);
+	delete_objects_set_for_deletion(app);
 	active_scene_update_after_objects(app->active_scene);
 }

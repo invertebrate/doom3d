@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 00:15:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ void	handle_editor_placement_end(t_doom3d *app)
 	notify_user(app, (t_notification){
 		.message = "Placed!",
 		.type = notification_type_info, .time = 2000});
+	push_custom_event(app, event_editor_select, NULL, NULL);
 }

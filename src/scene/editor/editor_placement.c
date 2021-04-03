@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:50:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 20:54:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 00:04:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,30 @@ t_3d_object		*editor_place_trigger_object(t_doom3d *app,
 					t_trigger_type trigger_type)
 {
 	t_3d_object		*trigger;
+	t_3d_object		*old_trigger;
 
 	trigger = NULL;
-	if (trigger_type == trigger_player_start &&
-		find_one_object_by_type(app, object_type_trigger, trigger_player_start))
-		placement_notification(app, "Player Start exists, delete it first!");
-	else if (trigger_type == trigger_player_start)
+	if (trigger_type == trigger_player_start)
 	{
+		old_trigger =
+			find_one_object_by_type(app, object_type_trigger, trigger_player_start);
+		if (old_trigger)
+		{
+			placement_notification(app, "Old Start Trigger found, deleting it!");
+			push_custom_event(app, event_object_delete, old_trigger, NULL);
+		}
 		trigger = place_player_start(app);
 		placement_notification(app, "Placing Player Start!");
 	}
-	else if (trigger_type == trigger_player_end &&
-		find_one_object_by_type(app, object_type_trigger, trigger_player_end))
-		placement_notification(app, "Player End exists, delete it first!");
 	else if (trigger_type == trigger_player_end)
 	{
+		old_trigger =
+			find_one_object_by_type(app, object_type_trigger, trigger_player_end);
+		if (old_trigger)
+		{
+			placement_notification(app, "Old End Trigger found, deleting it!");
+			push_custom_event(app, event_object_delete, old_trigger, NULL);
+		}
 		trigger = place_player_end(app);
 		placement_notification(app, "Placing Player End!");
 	}

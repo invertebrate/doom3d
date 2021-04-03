@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 00:28:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static void	handle_editor_saving_inputs(t_doom3d *app, SDL_Event event)
 
 static void	handle_editor_selection_inputs(t_doom3d *app, SDL_Event event)
 {
-	if (app->editor.is_saving)
-		return ;
 	if (event.type == SDL_MOUSEBUTTONDOWN)
 	{
 		if (!app->editor.is_placing)

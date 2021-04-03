@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 21:11:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 00:20:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -431,6 +431,7 @@ t_3d_object					*place_procedural_temp_object(t_doom3d *app,
 								const char *filenames[2],
 								t_vec3 pos, int32_t lifetime_and_delay[2]);
 void						select_object(t_doom3d *app, t_3d_object *object);
+void						deselect_object(t_doom3d *app, t_3d_object *obj);
 void						editor_select_by_mouse(t_doom3d *app);
 void						editor_deselect(t_doom3d *app);
 void						editor_deselect_all(t_doom3d *app);
