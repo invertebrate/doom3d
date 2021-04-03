@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:50:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 02:55:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 00:32:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void	editor_event_to_str_sub(char *str, t_doom3d_event code)
 		ft_sprintf(str, "EditorTypeBackspace");
 	else if (code == event_editor_exit)
 		ft_sprintf(str, "EditorExit");
+	else if (code == event_editor_snap_to_grid)
+		ft_sprintf(str, "EditorSnapToGrid");
 }
 
 void		editor_event_to_str(char *str, t_doom3d_event code)
@@ -71,6 +73,8 @@ static void	register_editor_custom_events_sub(t_doom3d *app)
 		(void*)handle_editor_save_type);
 	hash_map_add(app->custom_event_handles, event_editor_save_type_backspace,
 		(void*)handle_editor_save_type_backspace);
+	hash_map_add(app->custom_event_handles, event_editor_snap_to_grid,
+		(void*)handle_editor_snap_to_grid);
 }
 
 /*

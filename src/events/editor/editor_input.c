@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 00:28:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 00:49:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static void	handle_editor_selection_inputs(t_doom3d *app, SDL_Event event)
 	{
 		if (!app->editor.is_placing)
 		{
-			if (app->mouse.state & SDL_BUTTON_LMASK)
+			if ((app->mouse.state & SDL_BUTTON_LMASK) &&
+				!editor_popup_menu_open(app))
 				push_custom_event(app, event_editor_select, NULL, NULL);
 			else if ((app->mouse.state & SDL_BUTTON_RMASK) &&
 				app->editor.num_selected_objects > 0)
@@ -65,6 +66,14 @@ static void	handle_editor_key_inputs(t_doom3d *app, SDL_Event event)
 		else if (event.key.keysym.sym == SDLK_MINUS)
 			push_custom_event(app,
 				event_editor_decrement_patrol_slot, NULL, NULL);
+		else if (event.key.keysym.sym == SDLK_SPACE)
+			push_custom_event(app,
+				event_editor_snap_to_grid, NULL, NULL);
+		else if (!app->editor.is_saving &&
+			(event.key.keysym.sym == SDLK_DELETE ||
+			event.key.keysym.sym == SDLK_BACKSPACE))
+			push_custom_event(app,
+				event_editor_delete, NULL, NULL);
 	}
 }
 
@@ -74,7 +83,8 @@ void		handle_editor_input_events(t_doom3d *app, SDL_Event event)
 
 	if (mouse_inside_editor_view(app))
 		handle_editor_selection_inputs(app, event);
-	handle_editor_saving_inputs(app, event);
+	if (app->editor.is_saving)
+		handle_editor_saving_inputs(app, event);
 	if (event.type == SDL_MOUSEWHEEL)
 	{
 		ml_vector3_mul(app->player.forward, -event.wheel.y * 10.0, dir);

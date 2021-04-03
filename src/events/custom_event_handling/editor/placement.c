@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 00:15:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 00:40:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,26 @@ void	handle_editor_placement_end(t_doom3d *app)
 		.message = "Placed!",
 		.type = notification_type_info, .time = 2000});
 	push_custom_event(app, event_editor_select, NULL, NULL);
+}
+
+void	handle_editor_snap_to_grid(t_doom3d *app)
+{
+	int32_t		i;
+	t_3d_object	*selected_obj;
+	t_vec3		snap_amount;
+
+	if (app->editor.num_selected_objects == 0)
+		return ;
+	i = -1;
+	while (++i < app->editor.num_selected_objects)
+	{
+		selected_obj = app->editor.selected_objects[i];
+		ml_vector3_sub(selected_obj->position, (t_vec3){
+			(int32_t)selected_obj->position[0] / (int32_t)app->unit_size,
+			(int32_t)selected_obj->position[1] / (int32_t)app->unit_size,
+			(int32_t)selected_obj->position[2] / (int32_t)app->unit_size
+		}, snap_amount);
+		l3d_3d_object_translate(selected_obj,
+			snap_amount[0], snap_amount[1], snap_amount[2]);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:09:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 03:56:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 00:31:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ typedef enum				e_doom3d_event
 	event_window_resize = 21,
 	event_scene_change = 22,
 	event_scene_reload = 23,
-	event_quit = 24,
+	event_editor_snap_to_grid = 24,
+	event_quit = 25,
 }							t_doom3d_event;
 
 # endif

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 00:20:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 00:33:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,7 @@ void						handle_editor_add_normal_map(t_doom3d *app,
 								char *filename);
 void						handle_editor_patrol_slot_decrement(t_doom3d *app);
 void						handle_editor_patrol_slot_increment(t_doom3d *app);
+void						handle_editor_snap_to_grid(t_doom3d *app);
 
 /*
 ** 3D Animations
