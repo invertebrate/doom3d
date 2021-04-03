@@ -1,3 +1,4 @@
+demomap
 testpathfinding3
 PlaneTest
 pathfinding testions

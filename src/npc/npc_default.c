@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/12 03:27:10 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/03 18:33:48 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->atk_dur = 500;
 	npc->vision_range = app->unit_size * 10;
 	npc->interest = 0;
-	npc->max_interest = 10000;
+	npc->max_interest = 100;
 	npc->model_scale = 0.01;
 	npc->model_key = NPC_DEFAULT_MODEL;
 	npc->texture_key = NPC_DEFAULT_TEXTURE;
