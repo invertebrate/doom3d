@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:37:44 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 02:01:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 02:37:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ static void				handle_editor_player_rotation_input(t_doom3d *app,
 	SDL_ShowCursor(SDL_DISABLE);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_GetRelativeMouseState(xrel, yrel);
-	handle_player_rotation_input(app, *xrel, *yrel);
+	push_custom_event(app, event_editor_rotate_view,
+		(void*)(intptr_t)*xrel, (void*)(intptr_t)*yrel);
 }
 
 void					handle_editor_mouse_state_input(t_doom3d *app)

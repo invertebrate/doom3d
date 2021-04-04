@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:50:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 02:13:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 02:39:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ static void	editor_event_to_str_sub(char *str, t_doom3d_event code)
 		ft_sprintf(str, "EditorExit");
 	else if (code == event_editor_snap_to_grid)
 		ft_sprintf(str, "EditorSnapToGrid");
+	else if (code == event_editor_move_view_forward)
+		ft_sprintf(str, "EditorMoveViewForward");
+	else if (code == event_editor_move_view_sideways)
+		ft_sprintf(str, "EditorMoveViewSideways");
+	else if (code == event_editor_rotate_view)
+		ft_sprintf(str, "EditorRotateView");
 }
 
 void		editor_custom_event_to_str(char *str, t_doom3d_event code)
@@ -63,7 +69,7 @@ void		editor_custom_event_to_str(char *str, t_doom3d_event code)
 		ft_sprintf(str, "EditorZoom");
 }
 
-static void	register_editor_custom_events_sub(t_doom3d *app)
+static void	register_editor_custom_events_sub1(t_doom3d *app)
 {
 	hash_map_add(app->custom_event_handles, event_editor_start_placement,
 		(void*)handle_editor_placement_start);
@@ -89,6 +95,16 @@ static void	register_editor_custom_events_sub(t_doom3d *app)
 		(void*)handle_editor_zoom);
 }
 
+static void	register_editor_custom_events_sub2(t_doom3d *app)
+{
+	hash_map_add(app->custom_event_handles, event_editor_move_view_forward,
+		(void*)handle_editor_move_view_forward);
+	hash_map_add(app->custom_event_handles, event_editor_move_view_sideways,
+		(void*)handle_editor_move_view_sideways);
+	hash_map_add(app->custom_event_handles, event_editor_rotate_view,
+		(void*)handle_editor_rotate_view);
+}
+
 /*
 ** Register all custom events that correspond to an action in app and their
 ** respecting handle functions
@@ -96,7 +112,8 @@ static void	register_editor_custom_events_sub(t_doom3d *app)
 
 void		register_editor_custom_events(t_doom3d *app)
 {
-	register_editor_custom_events_sub(app);
+	register_editor_custom_events_sub1(app);
+	register_editor_custom_events_sub2(app);
 	hash_map_add(app->custom_event_handles, event_editor_delete,
 		(void*)handle_editor_delete);
 	hash_map_add(app->custom_event_handles, event_editor_exit,

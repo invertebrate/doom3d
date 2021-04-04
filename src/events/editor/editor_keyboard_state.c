@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:41:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 02:08:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 02:37:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,21 @@ static t_bool	wasd_is_pressed(t_doom3d *app)
 
 static void		handle_wasd_input(t_doom3d *app)
 {
-	t_vec3	dir;
-	float	shift;
+	int32_t	shift;
 
-	shift = app->keyboard.state[SDL_SCANCODE_LSHIFT] ? 5.0 : 1.0;
+	shift = app->keyboard.state[SDL_SCANCODE_LSHIFT] ? 5 : 1;
 	if (app->keyboard.state[SDL_SCANCODE_W])
-	{
-		ml_vector3_mul(app->player.forward, 1.0 * shift, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
+		push_custom_event(app, event_editor_move_view_forward,
+			(void*)(intptr_t)shift, NULL);
 	if (app->keyboard.state[SDL_SCANCODE_A])
-	{
-		ml_vector3_mul(app->player.sideways, -1.0 * shift, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
+		push_custom_event(app, event_editor_move_view_sideways,
+			(void*)(intptr_t)-shift, NULL);
 	if (app->keyboard.state[SDL_SCANCODE_S])
-	{
-		ml_vector3_mul(app->player.forward, -1.0 * shift, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
+		push_custom_event(app, event_editor_move_view_forward,
+			(void*)(intptr_t)-shift, NULL);
 	if (app->keyboard.state[SDL_SCANCODE_D])
-	{
-		ml_vector3_mul(app->player.sideways, 1.0 * shift, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
+		push_custom_event(app, event_editor_move_view_sideways,
+			(void*)(intptr_t)shift, NULL);
 }
 
 void			handle_editor_keyboard_state_input(t_doom3d *app)

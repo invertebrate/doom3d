@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 02:13:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 02:33:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,6 +316,12 @@ void						handle_editor_add_texture(t_doom3d *app,
 void						handle_editor_add_normal_map(t_doom3d *app,
 								char *filename);
 void						handle_editor_zoom(t_doom3d *app, int32_t zoom_amount);
+void						handle_editor_move_view_forward(t_doom3d *app,
+								int32_t amount);
+void						handle_editor_move_view_sideways(t_doom3d *app,
+								int32_t amount);
+void						handle_editor_rotate_view(t_doom3d *app,
+								int32_t xrel, int32_t yrel);
 void						handle_editor_duplication(t_doom3d *app);
 void						handle_editor_patrol_slot_decrement(t_doom3d *app);
 void						handle_editor_patrol_slot_increment(t_doom3d *app);

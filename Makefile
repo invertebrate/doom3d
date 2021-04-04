@@ -143,7 +143,7 @@ SOURCES = main.c \
 			events/custom_event_handling/editor/selection.c \
 			events/custom_event_handling/editor/placement1.c \
 			events/custom_event_handling/editor/placement2.c \
-			events/custom_event_handling/editor/zoom.c \
+			events/custom_event_handling/editor/movement.c \
 			events/custom_event_handling/editor/save.c \
 			events/custom_event_handling/editor/textures.c \
 			events/custom_event_handling/editor/path.c \
