@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 00:34:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 00:47:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 static void	custom_event_to_str(char *str, t_doom3d_event code)
 {
-	if (code == event_object_delete)
-		ft_sprintf(str, "ObjectDelete");
-	else if (code == event_music_play)
+	if (code == event_music_play)
 		ft_sprintf(str, "MusicPlay");
 	else if (code == event_effect_play)
 		ft_sprintf(str, "EffectPlay");
@@ -36,7 +34,8 @@ static void	custom_event_to_str(char *str, t_doom3d_event code)
 		ft_sprintf(str, "ToggleNormalMapMode");
 	else if (code == event_window_resize)
 		ft_sprintf(str, "WindowResize");
-	editor_event_to_str(str, code);
+	editor_custom_event_to_str(str, code);
+	object_custom_event_to_str(str, code);
 }
 
 void		register_control_flow_custom_events(t_doom3d *app)
@@ -62,8 +61,6 @@ void		register_custom_events(t_doom3d *app)
 {
 	app->custom_event_type = SDL_RegisterEvents(1);
 	app->custom_event_handles = hash_map_create(NUM_CUSTOM_EVENTS);
-	hash_map_add(app->custom_event_handles, event_object_delete,
-		(void*)handle_object_deletion);
 	hash_map_add(app->custom_event_handles, event_effect_play,
 		(void*)handle_play_effect);
 	hash_map_add(app->custom_event_handles, event_music_play,
@@ -76,6 +73,7 @@ void		register_custom_events(t_doom3d *app)
 		(void*)handle_scene_reload);
 	register_control_flow_custom_events(app);
 	register_editor_custom_events(app);
+	register_object_custom_events(app);
 }
 
 void		push_custom_event(t_doom3d *app,

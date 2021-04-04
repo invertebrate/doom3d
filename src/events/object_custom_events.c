@@ -1,0 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   object_custom_events.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/05 00:43:13 by ohakola           #+#    #+#             */
+/*   Updated: 2021/04/05 01:26:15 by ohakola          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "doom3d.h"
+
+void		object_custom_event_to_str(char *str, t_doom3d_event code)
+{
+	if (code == event_object_delete)
+		ft_sprintf(str, "ObjectDelete");
+	else if (code == event_object_scale)
+		ft_sprintf(str, "ObjectScale");
+	else if (code == event_object_translate_x)
+		ft_sprintf(str, "ObjectTranslateX");
+	else if (code == event_object_translate_y)
+		ft_sprintf(str, "ObjectTranslateY");
+	else if (code == event_object_translate_z)
+		ft_sprintf(str, "ObjectTranslateZ");
+	else if (code == event_object_rotate_x)
+		ft_sprintf(str, "ObjectRotateX");
+	else if (code == event_object_rotate_y)
+		ft_sprintf(str, "ObjectRotateY");
+	else if (code == event_object_rotate_z)
+		ft_sprintf(str, "ObjectRotateZ");
+}
+
+void		register_object_custom_events(t_doom3d *app)
+{
+	hash_map_add(app->custom_event_handles, event_object_scale,
+		(void*)handle_object_scale);
+	hash_map_add(app->custom_event_handles, event_object_translate_x,
+		(void*)handle_object_translate_x);
+	hash_map_add(app->custom_event_handles, event_object_translate_y,
+		(void*)handle_object_translate_y);
+	hash_map_add(app->custom_event_handles, event_object_translate_z,
+		(void*)handle_object_translate_z);
+	hash_map_add(app->custom_event_handles, event_object_rotate_x,
+		(void*)handle_object_rotate_x);
+	hash_map_add(app->custom_event_handles, event_object_rotate_y,
+		(void*)handle_object_rotate_y);
+	hash_map_add(app->custom_event_handles, event_object_rotate_z,
+		(void*)handle_object_rotate_z);
+	hash_map_add(app->custom_event_handles, event_object_delete,
+		(void*)handle_object_deletion);
+}

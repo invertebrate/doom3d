@@ -6,60 +6,58 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 03:12:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 23:44:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 01:53:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		handle_horizontal_translation(t_doom3d *app, float shift,
+static void		handle_horizontal_translation(t_doom3d *app, int32_t amount,
 					int32_t i, uint32_t *last_changed)
 {
+	t_3d_object	*obj;
+
+	obj = app->editor.selected_objects[i];
 	if (app->keyboard.state[SDL_SCANCODE_UP])
-	{
-		l3d_3d_object_translate(app->editor.selected_objects[i],
-			0, 0, 0.1 * app->unit_size * shift);
-		*last_changed = SDL_GetTicks();
-	}
+		push_custom_event(app, event_object_translate_z, obj,
+			(void *)(intptr_t)amount);
 	if (app->keyboard.state[SDL_SCANCODE_RIGHT])
-	{
-		l3d_3d_object_translate(app->editor.selected_objects[i],
-			0.1 * app->unit_size * shift, 0, 0);
-		*last_changed = SDL_GetTicks();
-	}
+		push_custom_event(app, event_object_translate_x, obj,
+			(void *)(intptr_t)amount);
 	if (app->keyboard.state[SDL_SCANCODE_DOWN])
-	{
-		l3d_3d_object_translate(app->editor.selected_objects[i],
-			0, 0, -0.1 * app->unit_size * shift);
-		*last_changed = SDL_GetTicks();
-	}
+		push_custom_event(app, event_object_translate_z, obj,
+			(void *)(intptr_t)-amount);
 	if (app->keyboard.state[SDL_SCANCODE_LEFT])
-	{
-		l3d_3d_object_translate(app->editor.selected_objects[i],
-			-0.1 * app->unit_size * shift, 0, 0);
+		push_custom_event(app, event_object_translate_x, obj,
+			(void *)(intptr_t)-amount);
+	if (app->keyboard.state[SDL_SCANCODE_LEFT] ||
+		app->keyboard.state[SDL_SCANCODE_DOWN] ||
+		app->keyboard.state[SDL_SCANCODE_RIGHT] ||
+		app->keyboard.state[SDL_SCANCODE_UP])
 		*last_changed = SDL_GetTicks();
-	}
 }
 
 static void		handle_object_translation_input(t_doom3d *app,
 					int32_t i, uint32_t *last_changed)
 {
 	float				shift;
+	int32_t				amount;
 
 	shift = 1.0 * app->info.delta_time * CONST_SPEED;
 	if (app->keyboard.state[SDL_SCANCODE_LSHIFT])
 		shift = 10.0 * app->info.delta_time * CONST_SPEED;
-	handle_horizontal_translation(app, shift, i, last_changed);
+	amount = 0.1 * app->unit_size * shift;
+	handle_horizontal_translation(app, amount, i, last_changed);
 	if (app->keyboard.state[SDL_SCANCODE_O])
 	{
-		l3d_3d_object_translate(app->editor.selected_objects[i],
-			0, -0.1 * app->unit_size * shift, 0);
+		push_custom_event(app, event_object_translate_y,
+			app->editor.selected_objects[i], (void *)(intptr_t)-amount);
 		*last_changed = SDL_GetTicks();
 	}
 	if (app->keyboard.state[SDL_SCANCODE_L])
 	{
-		l3d_3d_object_translate(app->editor.selected_objects[i],
-			0, 0.1 * app->unit_size * shift, 0);
+		push_custom_event(app, event_object_translate_y,
+			app->editor.selected_objects[i], (void *)(intptr_t)amount);
 		*last_changed = SDL_GetTicks();
 	}
 }
@@ -69,14 +67,14 @@ static void		handle_object_scaling_input(t_doom3d *app,
 {
 	if (app->keyboard.state[SDL_SCANCODE_LEFTBRACKET])
 	{
-		l3d_3d_object_scale(app->editor.selected_objects[i],
-			1.0 / 1.1, 1.0 / 1.1, 1.0 / 1.1);
+		push_custom_event(app, event_object_scale,
+			app->editor.selected_objects[i], (void *)(intptr_t)1);
 		*last_changed = SDL_GetTicks();
 	}
 	if (app->keyboard.state[SDL_SCANCODE_RIGHTBRACKET])
 	{
-		l3d_3d_object_scale(app->editor.selected_objects[i],
-			1.1, 1.1, 1.1);
+		push_custom_event(app, event_object_scale,
+			app->editor.selected_objects[i], (void *)(intptr_t)-1);
 		*last_changed = SDL_GetTicks();
 	}
 }

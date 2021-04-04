@@ -6,14 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 00:36:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 01:56:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
 /*
-** Handle events that aren't related to menu clicks or game interaction,
+** Trigger custom events that aren't related to menu clicks or game interaction,
 ** like exiting or esc or setting to full screen, or disabling debug info
 */
 
@@ -30,7 +30,8 @@ void			handle_control_flow_events(t_doom3d *app, SDL_Event event)
 		if (event.type == SDL_KEYUP)
 		{
 			if (event.key.keysym.sym == SDLK_n)
-				push_custom_event(app, event_toggle_normal_map_mode, NULL, NULL);
+				push_custom_event(app, event_toggle_normal_map_mode,
+					NULL, NULL);
 			if (event.key.keysym.sym == SDLK_p &&
 				app->active_scene->scene_id == scene_id_main_game)
 				push_custom_event(app, event_toggle_pause_game, NULL, NULL);

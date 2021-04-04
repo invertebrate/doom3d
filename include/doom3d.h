@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 00:27:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 01:36:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@ void						push_custom_event(t_doom3d *app,
 								void* data2);
 void						register_custom_events(t_doom3d *app);
 void						register_editor_custom_events(t_doom3d *app);
-void						editor_event_to_str(char *str, t_doom3d_event code);
+void						editor_custom_event_to_str(char *str, t_doom3d_event code);
 void						handle_custom_events(t_doom3d *app,
 								SDL_Event event);
 void						handle_player_rotation_input(t_doom3d *app,
@@ -265,12 +265,29 @@ void						editor_point_on_target(t_doom3d
 ** Custom Event handling
 */
 
+void						register_object_custom_events(t_doom3d *app);
+void						object_custom_event_to_str(char *str,
+								t_doom3d_event code);
 int							handle_play_effect(t_doom3d *app,
 								int ind, t_sound *new);
 int							handle_play_music(t_doom3d *app,
 								int ind, t_sound *new);
 void						handle_object_deletion(t_doom3d *app,
 								t_3d_object *object);
+void						handle_object_translate_x(t_doom3d *app, t_3d_object *object,
+								int32_t amount);
+void						handle_object_translate_y(t_doom3d *app, t_3d_object *object,
+								int32_t amount);
+void						handle_object_translate_z(t_doom3d *app, t_3d_object *object,
+								int32_t amount);
+void						handle_object_scale(t_doom3d *app, t_3d_object *object,
+								int32_t direction);
+void						handle_object_rotate_x(t_doom3d *app, t_3d_object *object,
+								int32_t amount);
+void						handle_object_rotate_y(t_doom3d *app, t_3d_object *object,
+								int32_t amount);
+void						handle_object_rotate_z(t_doom3d *app, t_3d_object *object,
+								int32_t amount);
 void						handle_window_resize(t_doom3d *app,
 								uint32_t width,
 								uint32_t height);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:50:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 00:32:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 00:47:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	editor_event_to_str_sub(char *str, t_doom3d_event code)
 		ft_sprintf(str, "EditorSnapToGrid");
 }
 
-void		editor_event_to_str(char *str, t_doom3d_event code)
+void		editor_custom_event_to_str(char *str, t_doom3d_event code)
 {
 	editor_event_to_str_sub(str, code);
 	if (code == event_editor_add_texture)

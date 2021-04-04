@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:37:44 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 23:58:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 01:56:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 static void				xyz_rotation_input(t_doom3d *app, int32_t i,
 							int32_t x, uint32_t *last_rotated)
 {
-	float				angle;
+	int32_t				angle;
+	t_3d_object			*obj;
+	void				*angle_pass;
 
+	obj = app->editor.selected_objects[i];
+	angle = (x > 0 ? 1 : -1) * 10;
+	angle_pass = (void*)(intptr_t)angle;
 	if (app->keyboard.state[SDL_SCANCODE_Y] && ft_abs(x) > 2)
 	{
-		angle = (x > 0 ? 1 : -1) * 10;
-		l3d_3d_object_rotate(app->editor.selected_objects[i], 0, angle, 0);
+		push_custom_event(app, event_object_rotate_y, obj, angle_pass);
 		*last_rotated = SDL_GetTicks();
 		if (app->editor.selected_objects[i]->type == object_type_npc)
 			((t_npc*)app->editor.selected_objects[i]->params)->angle += angle;
@@ -28,19 +32,18 @@ static void				xyz_rotation_input(t_doom3d *app, int32_t i,
 	else if (app->keyboard.state[SDL_SCANCODE_Z] &&
 		ft_abs(x) > 2)
 	{
-		l3d_3d_object_rotate(app->editor.selected_objects[i],
-			0, 0, (x > 0 ? 1 : -1) * 10);
+		push_custom_event(app, event_object_rotate_z, obj, angle_pass);
 		*last_rotated = SDL_GetTicks();
 	}
 	else if (app->keyboard.state[SDL_SCANCODE_X] && ft_abs(x) > 2)
 	{
-		l3d_3d_object_rotate(app->editor.selected_objects[i],
-			(x > 0 ? 1 : -1) * 10, 0, 0);
+		push_custom_event(app, event_object_rotate_x, obj, angle_pass);
 		*last_rotated = SDL_GetTicks();
 	}
 }
 
-static void				handle_object_rotation_input(t_doom3d *app, int32_t xrel)
+static void				handle_object_rotation_input(t_doom3d *app,
+							int32_t xrel)
 {
 	static uint32_t		last_rotated;
 	uint32_t			prev_rotated;
