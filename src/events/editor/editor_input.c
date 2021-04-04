@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 23:48:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 02:14:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,20 @@ static void	handle_editor_key_input(t_doom3d *app, SDL_Event event)
 			event.key.keysym.sym == SDLK_BACKSPACE))
 			push_custom_event(app,
 				event_editor_delete, NULL, NULL);
+		else if (event.key.keysym.sym == SDLK_b)
+			push_custom_event(app, event_editor_duplicate, NULL, NULL);
 	}
 }
 
 void		handle_editor_input_events(t_doom3d *app, SDL_Event event)
 {
-	t_vec3	dir;
-
 	if (mouse_inside_editor_view(app))
 		handle_editor_selection_input(app, event);
 	if (app->editor.is_saving)
 		handle_editor_saving_input(app, event);
 	if (event.type == SDL_MOUSEWHEEL)
-	{
-		ml_vector3_mul(app->player.forward, -event.wheel.y * 10.0, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
+		push_custom_event(app, event_editor_zoom,
+			(void*)(intptr_t)(-event.wheel.y * 10), NULL);
 	handle_editor_key_input(app, event);
 }
 

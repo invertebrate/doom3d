@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 02:01:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 02:13:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,7 +249,6 @@ void						handle_editor_mouse_state_input(t_doom3d *app);
 void						handle_keyboard_state_input(t_doom3d *app);
 void						handle_editor_transform_input(t_doom3d *app);
 void						handle_editor_keyboard_state_input(t_doom3d *app);
-t_bool						handle_editor_duplication_input(t_doom3d *app);
 void						handle_control_flow_events(t_doom3d *app,
 								SDL_Event event);
 void						handle_editor_input_events(t_doom3d *app,
@@ -316,6 +315,8 @@ void						handle_editor_add_texture(t_doom3d *app,
 								char *filename);
 void						handle_editor_add_normal_map(t_doom3d *app,
 								char *filename);
+void						handle_editor_zoom(t_doom3d *app, int32_t zoom_amount);
+void						handle_editor_duplication(t_doom3d *app);
 void						handle_editor_patrol_slot_decrement(t_doom3d *app);
 void						handle_editor_patrol_slot_increment(t_doom3d *app);
 void						handle_editor_snap_to_grid(t_doom3d *app);

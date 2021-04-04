@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 23:49:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 02:08:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ void			handle_keyboard_state_input(t_doom3d *app)
 	else if (app->active_scene->scene_id == scene_id_editor3d &&
 		!SDL_IsTextInputActive() && !app->editor.is_saving)
 	{
-		if (handle_editor_duplication_input(app))
-			return ;
 		handle_editor_keyboard_state_input(app);
 	}
 }

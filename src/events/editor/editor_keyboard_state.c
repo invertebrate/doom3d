@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:41:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 23:46:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 02:08:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,4 @@ void			handle_editor_keyboard_state_input(t_doom3d *app)
 	else
 		app->editor.is_moving = false;
 	handle_editor_transform_input(app);
-}
-
-t_bool			handle_editor_duplication_input(t_doom3d *app)
-{
-	static t_bool	b_down_prev;
-	t_bool			b_down;
-	t_bool			b_up;
-	t_bool			duplicated;
-
-	b_down = app->keyboard.state[SDL_SCANCODE_B];
-	b_up = b_down_prev && !b_down;
-	duplicated = false;
-	if (b_up)
-	{
-		editor_duplicate_selected_objects(app);
-		duplicated = true;
-	}
-	b_down_prev = b_down;
-	return (duplicated);
 }
