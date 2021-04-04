@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 03:12:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 03:15:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 23:44:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void		handle_horizontal_translation(t_doom3d *app, float shift,
 	}
 }
 
-static void		handle_object_translation(t_doom3d *app,
+static void		handle_object_translation_input(t_doom3d *app,
 					int32_t i, uint32_t *last_changed)
 {
 	float				shift;
@@ -64,7 +64,7 @@ static void		handle_object_translation(t_doom3d *app,
 	}
 }
 
-static void		handle_object_scaling(t_doom3d *app,
+static void		handle_object_scaling_input(t_doom3d *app,
 					int32_t i, uint32_t *last_changed)
 {
 	if (app->keyboard.state[SDL_SCANCODE_LEFTBRACKET])
@@ -85,7 +85,7 @@ static void		handle_object_scaling(t_doom3d *app,
 ** Handle object transformation in editor
 */
 
-void			handle_editor_transform(t_doom3d *app)
+void			handle_editor_transform_input(t_doom3d *app)
 {
 	static uint32_t		last_changed;
 	uint32_t			prev_changed;
@@ -100,13 +100,10 @@ void			handle_editor_transform(t_doom3d *app)
 	{
 		prev_changed = last_changed;
 		if (diff > 10)
-			handle_object_translation(app, i, &last_changed);
+			handle_object_translation_input(app, i, &last_changed);
 		if (diff > 40)
-			handle_object_scaling(app, i, &last_changed);
+			handle_object_scaling_input(app, i, &last_changed);
 		if (prev_changed != last_changed)
-		{
-			after_editor_transform(app, &last_changed);
-			l3d_object_aabb_update(app->editor.selected_objects[i]);
-		}
+			app->editor.is_saved = false;
 	}
 }

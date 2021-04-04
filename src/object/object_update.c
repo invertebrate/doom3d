@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 00:21:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 23:53:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,8 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 
 /*
 ** Updates objects every frame. In addition applies gravity / physics
-** to objects & player
+** to objects & player. Handles object deletion
+** Also keeps scene structures up to date (triangle tree)
 */
 
 void			update_objects(t_doom3d *app)

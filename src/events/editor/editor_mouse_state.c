@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:37:44 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 14:33:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 23:58:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void				xyz_rotation(t_doom3d *app, int32_t i,
+static void				xyz_rotation_input(t_doom3d *app, int32_t i,
 							int32_t x, uint32_t *last_rotated)
 {
 	float				angle;
@@ -40,7 +40,7 @@ static void				xyz_rotation(t_doom3d *app, int32_t i,
 	}
 }
 
-static void				handle_object_rotation(t_doom3d *app, int32_t xrel)
+static void				handle_object_rotation_input(t_doom3d *app, int32_t xrel)
 {
 	static uint32_t		last_rotated;
 	uint32_t			prev_rotated;
@@ -55,17 +55,13 @@ static void				handle_object_rotation(t_doom3d *app, int32_t xrel)
 	{
 		prev_rotated = last_rotated;
 		if (diff > 50)
-			xyz_rotation(app, i, xrel, &last_rotated);
+			xyz_rotation_input(app, i, xrel, &last_rotated);
 		if (prev_rotated != last_rotated)
-		{
 			app->editor.is_saved = false;
-			after_editor_transform(app, &last_rotated);
-			l3d_object_aabb_update(app->editor.selected_objects[i]);
-		}
 	}
 }
 
-static void				handle_editor_obj_placement(t_doom3d *app)
+static void				handle_editor_obj_placement_input(t_doom3d *app)
 {
 	t_vec3		new_pos;
 	t_3d_object	*place_object;
@@ -78,24 +74,24 @@ static void				handle_editor_obj_placement(t_doom3d *app)
 		new_pos[0], new_pos[1], new_pos[2]);
 }
 
-static void				handle_editor_player_rotation(t_doom3d *app,
+static void				handle_editor_player_rotation_input(t_doom3d *app,
 							int32_t *xrel, int32_t *yrel)
 {
 	app->editor.is_rotating = true;
 	SDL_ShowCursor(SDL_DISABLE);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_GetRelativeMouseState(xrel, yrel);
-	handle_player_rotation(app, *xrel, *yrel);
+	handle_player_rotation_input(app, *xrel, *yrel);
 }
 
-void					handle_editor_mouse_state(t_doom3d *app)
+void					handle_editor_mouse_state_input(t_doom3d *app)
 {
 	int32_t		xrel;
 	int32_t		yrel;
 
 	if ((app->mouse.state & SDL_BUTTON_MMASK) ||
 		(app->keyboard.state[SDL_SCANCODE_LALT]))
-		handle_editor_player_rotation(app, &xrel, &yrel);
+		handle_editor_player_rotation_input(app, &xrel, &yrel);
 	else
 	{
 		app->editor.is_rotating = false;
@@ -105,9 +101,9 @@ void					handle_editor_mouse_state(t_doom3d *app)
 		if (!app->keyboard.state[SDL_SCANCODE_R] &&
 			app->editor.is_placing && app->editor.num_selected_objects > 0
 			&& mouse_inside_editor_view(app))
-			handle_editor_obj_placement(app);
+			handle_editor_obj_placement_input(app);
 		if (app->editor.num_selected_objects > 0 &&
 			app->keyboard.state[SDL_SCANCODE_R])
-			handle_object_rotation(app, xrel);
+			handle_object_rotation_input(app, xrel);
 	}
 }

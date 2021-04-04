@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 00:33:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 23:58:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,15 +241,15 @@ void						register_editor_custom_events(t_doom3d *app);
 void						editor_event_to_str(char *str, t_doom3d_event code);
 void						handle_custom_events(t_doom3d *app,
 								SDL_Event event);
-void						handle_player_rotation(t_doom3d *app,
+void						handle_player_rotation_input(t_doom3d *app,
 								int32_t xrel, int32_t yrel);
 void						handle_events(t_doom3d *app);
-void						handle_mouse_state(t_doom3d *app);
-void						handle_editor_mouse_state(t_doom3d *app);
-void						handle_keyboard_state(t_doom3d *app);
-void						handle_editor_transform(t_doom3d *app);
-void						handle_editor_keyboard_state(t_doom3d *app);
-t_bool						handle_editor_duplication(t_doom3d *app);
+void						handle_mouse_state_input(t_doom3d *app);
+void						handle_editor_mouse_state_input(t_doom3d *app);
+void						handle_keyboard_state_input(t_doom3d *app);
+void						handle_editor_transform_input(t_doom3d *app);
+void						handle_editor_keyboard_state_input(t_doom3d *app);
+t_bool						handle_editor_duplication_input(t_doom3d *app);
 void						handle_control_flow_events(t_doom3d *app,
 								SDL_Event event);
 void						handle_editor_input_events(t_doom3d *app,
@@ -436,8 +436,6 @@ void						deselect_object(t_doom3d *app, t_3d_object *obj);
 void						editor_select_by_mouse(t_doom3d *app);
 void						editor_deselect(t_doom3d *app);
 void						editor_deselect_all(t_doom3d *app);
-void						after_editor_transform(t_doom3d *app,
-								uint32_t *last_changed);
 void    					editor_init(t_doom3d *app, int32_t editor_level);
 t_3d_object					*place_path_object(t_doom3d *app);
 void						path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj);

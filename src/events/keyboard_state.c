@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_state.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 15:33:41 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/04 23:49:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		handle_wasd_movement(t_doom3d *app)
+static void		handle_wasd_input(t_doom3d *app)
 {
 	t_vec3	dir;
 
@@ -62,7 +62,7 @@ static void		handle_game_keyboard_state(t_doom3d *app)
 {
 	if (app->player.is_grounded || app->player.can_fly)
 	{
-		handle_wasd_movement(app);
+		handle_wasd_input(app);
 		if (wasd_not_pressed(app))
 			app->player.is_moving = false;
 		if (app->keyboard.state[SDL_SCANCODE_LSHIFT])
@@ -85,7 +85,7 @@ static void		handle_game_keyboard_state(t_doom3d *app)
 ** Keyboard state handling, both editor & game
 */
 
-void			handle_keyboard_state(t_doom3d *app)
+void			handle_keyboard_state_input(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
@@ -94,8 +94,8 @@ void			handle_keyboard_state(t_doom3d *app)
 	else if (app->active_scene->scene_id == scene_id_editor3d &&
 		!SDL_IsTextInputActive() && !app->editor.is_saving)
 	{
-		if (handle_editor_duplication(app))
+		if (handle_editor_duplication_input(app))
 			return ;
-		handle_editor_keyboard_state(app);
+		handle_editor_keyboard_state_input(app);
 	}
 }

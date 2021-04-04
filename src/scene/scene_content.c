@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 23:55:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,21 @@ static void				active_scene_triangle_refs_set(t_scene *scene)
 	}
 }
 
+/*
+** Update object bounding boxes
+** Update triangle tree
+*/
+
 void					active_scene_update_after_objects(t_scene *scene)
 {
+	int32_t		i;
+
+	i = -1;
+	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
+	{
+		if (scene->objects[i])
+			l3d_object_aabb_update(scene->objects[i]);
+	}
 	active_scene_triangle_refs_set(scene);
 	l3d_kd_tree_create_or_update(&scene->triangle_tree,
 		scene->triangle_ref, scene->num_triangles);
