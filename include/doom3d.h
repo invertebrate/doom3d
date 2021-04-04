@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 01:36:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 02:01:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,6 +299,7 @@ void						handle_editor_placement_end(t_doom3d *app);
 void						handle_editor_placement_cancel(t_doom3d *app);
 void						handle_editor_placement_start(t_doom3d *app,
 								uint32_t obj_type, void *data);
+void						handle_editor_in_placement_move(t_doom3d *app);
 void						handle_editor_save_end(t_doom3d *app);
 void						handle_editor_save_start(t_doom3d *app);
 void						handle_editor_save_type_backspace(t_doom3d *app);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:50:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 00:47:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 02:01:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void		editor_custom_event_to_str(char *str, t_doom3d_event code)
 		ft_sprintf(str, "EditorIncrementPatrolSlot");
 	else if (code == event_editor_decrement_patrol_slot)
 		ft_sprintf(str, "EditorDecrementPatrolSlot");
+	else if (code == event_editor_in_placement_move)
+		ft_sprintf(str, "EditorInPlacementMove");
 }
 
 static void	register_editor_custom_events_sub(t_doom3d *app)
@@ -75,6 +77,8 @@ static void	register_editor_custom_events_sub(t_doom3d *app)
 		(void*)handle_editor_save_type_backspace);
 	hash_map_add(app->custom_event_handles, event_editor_snap_to_grid,
 		(void*)handle_editor_snap_to_grid);
+	hash_map_add(app->custom_event_handles, event_editor_in_placement_move,
+		(void*)handle_editor_in_placement_move);
 }
 
 /*

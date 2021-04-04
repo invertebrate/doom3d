@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:37:44 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 01:56:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 02:01:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,6 @@ static void				handle_object_rotation_input(t_doom3d *app,
 	}
 }
 
-static void				handle_editor_obj_placement_input(t_doom3d *app)
-{
-	t_vec3		new_pos;
-	t_3d_object	*place_object;
-
-	place_object = app->editor.selected_objects[0];
-	editor_pos_camera_front(app, new_pos);
-	editor_point_on_target(app, new_pos);
-	ml_vector3_sub(new_pos, place_object->position, new_pos);
-	l3d_3d_object_translate(place_object,
-		new_pos[0], new_pos[1], new_pos[2]);
-}
-
 static void				handle_editor_player_rotation_input(t_doom3d *app,
 							int32_t *xrel, int32_t *yrel)
 {
@@ -104,7 +91,7 @@ void					handle_editor_mouse_state_input(t_doom3d *app)
 		if (!app->keyboard.state[SDL_SCANCODE_R] &&
 			app->editor.is_placing && app->editor.num_selected_objects > 0
 			&& mouse_inside_editor_view(app))
-			handle_editor_obj_placement_input(app);
+			push_custom_event(app, event_editor_in_placement_move, NULL, NULL);
 		if (app->editor.num_selected_objects > 0 &&
 			app->keyboard.state[SDL_SCANCODE_R])
 			handle_object_rotation_input(app, xrel);
