@@ -134,7 +134,9 @@ SOURCES = main.c \
 			window/buttons/button_popup_menu_events.c \
 			events/custom_event_handling/objects.c \
 			events/custom_event_handling/media.c \
-			events/custom_event_handling/menus.c \
+			events/custom_event_handling/scene.c \
+			events/custom_event_handling/control_flow.c \
+			events/custom_event_handling/player.c \
 			events/custom_event_handling/editor/menu.c \
 			events/custom_event_handling/editor/selection.c \
 			events/custom_event_handling/editor/placement.c \

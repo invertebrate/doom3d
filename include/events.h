@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:09:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 00:31:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 00:18:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,27 @@ typedef enum				e_doom3d_event
 	event_editor_increment_patrol_slot = 18,
 	event_editor_decrement_patrol_slot = 19,
 	event_editor_exit = 20,
-	event_window_resize = 21,
-	event_scene_change = 22,
-	event_scene_reload = 23,
-	event_editor_snap_to_grid = 24,
+	event_editor_snap_to_grid = 21,
+	event_window_resize = 22,
+	event_scene_change = 23,
+	event_scene_reload = 24,
 	event_quit = 25,
+	event_editor_duplicate = 26,
+	event_editor_zoom = 27,
+	event_player_rotate = 28,
+	event_player_shoot = 29,
+	event_player_reload = 30,
+	event_player_crouch = 31,
+	event_player_weapon_equip = 32,
+	event_player_move = 33,
+	event_player_jump = 34,
+	event_object_scale = 35,
+	event_object_translate = 36,
+	event_object_rotate = 37,
+	event_toggle_fullscreen = 38,
+	event_toggle_debug_mode = 39,
+	event_toggle_pause_game = 40,
+	event_toggle_normal_map_mode= 41,
 }							t_doom3d_event;
 
 # endif

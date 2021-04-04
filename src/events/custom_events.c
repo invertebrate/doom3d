@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 16:38:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 00:34:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,31 @@ static void	custom_event_to_str(char *str, t_doom3d_event code)
 		ft_sprintf(str, "SceneReload");
 	else if (code == event_quit)
 		ft_sprintf(str, "Quit");
+	else if (code == event_toggle_fullscreen)
+		ft_sprintf(str, "ToggleFullScreen");
+	else if (code == event_toggle_debug_mode)
+		ft_sprintf(str, "ToggleDebugMode");
+	else if (code == event_toggle_pause_game)
+		ft_sprintf(str, "TogglePauseGame");
+	else if (code == event_toggle_normal_map_mode)
+		ft_sprintf(str, "ToggleNormalMapMode");
 	else if (code == event_window_resize)
 		ft_sprintf(str, "WindowResize");
 	editor_event_to_str(str, code);
+}
+
+void		register_control_flow_custom_events(t_doom3d *app)
+{
+	hash_map_add(app->custom_event_handles, event_quit,
+		(void*)handle_quit);
+	hash_map_add(app->custom_event_handles, event_toggle_fullscreen,
+		(void*)handle_toggle_fullscreen);
+	hash_map_add(app->custom_event_handles, event_toggle_debug_mode,
+		(void*)handle_toggle_debug_mode);
+	hash_map_add(app->custom_event_handles, event_toggle_pause_game,
+		(void*)handle_toggle_pause_game);
+	hash_map_add(app->custom_event_handles, event_toggle_normal_map_mode,
+		(void*)handle_toggle_normal_map_mode);
 }
 
 /*
@@ -52,8 +74,7 @@ void		register_custom_events(t_doom3d *app)
 		(void*)handle_scene_change);
 	hash_map_add(app->custom_event_handles, event_scene_reload,
 		(void*)handle_scene_reload);
-	hash_map_add(app->custom_event_handles, event_quit,
-		(void*)handle_quit);
+	register_control_flow_custom_events(app);
 	register_editor_custom_events(app);
 }
 

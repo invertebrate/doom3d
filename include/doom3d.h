@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 23:58:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 00:27:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,6 +301,10 @@ void						handle_editor_add_normal_map(t_doom3d *app,
 void						handle_editor_patrol_slot_decrement(t_doom3d *app);
 void						handle_editor_patrol_slot_increment(t_doom3d *app);
 void						handle_editor_snap_to_grid(t_doom3d *app);
+void						handle_toggle_pause_game(t_doom3d *app);
+void						handle_toggle_fullscreen(t_doom3d *app);
+void						handle_toggle_normal_map_mode(t_doom3d *app);
+void						handle_toggle_debug_mode(t_doom3d *app);
 
 /*
 ** 3D Animations
@@ -406,8 +410,10 @@ void						scene_assets_destroy(t_scene *scene);
 void						scene_textures_destroy(t_scene *scene);
 void						scene_normal_maps_destroy(t_scene *scene);
 void						active_scene_popup_menu_destroy(t_doom3d *app);
-void						set_all_objects_shading_opts(t_doom3d *app,
-								t_shading_opts opts);
+void						extend_all_objects_shading_opts(t_doom3d *app,
+								t_shading_opts opts_to_add);
+void						remove_all_objects_shading_opts(t_doom3d *app,
+								t_shading_opts opts_to_remove);
 
 /*
 ** Editor
