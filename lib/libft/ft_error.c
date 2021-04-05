@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:15:42 by ohakola           #+#    #+#             */
-/*   Updated: 2020/09/29 15:15:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 16:08:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void				error_check(int test, const char *message)
 {
 	if (test)
 	{
-		ft_dprintf(2, "%s\n", message);
+		LOG_ERROR("%s\n", message);
 		exit(1);
 	}
 }

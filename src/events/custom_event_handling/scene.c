@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_jump.c                                      :+:      :+:    :+:   */
+/*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/15 18:47:01 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 18:24:46 by ohakola          ###   ########.fr       */
+/*   Created: 2021/03/29 16:51:15 by ohakola           #+#    #+#             */
+/*   Updated: 2021/04/05 01:56:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	player_jump(t_doom3d *app)
+void		handle_window_resize(t_doom3d *app, uint32_t width,
+								uint32_t height)
 {
-	if (app->player.is_grounded)
-	{
-		app->player.is_grounded = false;
-		app->player.is_jumping = true;
-		app->player.is_falling = false;
-		app->player.velocity[1] -= PLAYER_JUMP_FORCE * 1.25;
-	}
-	if (!app->player.is_grounded && app->player.can_fly)
-	{
-		app->player.is_flying = (app->player.is_flying + 1) % 2;
-		if (app->is_debug)
-			LOG_DEBUG("Player is flying: %d", app->player.is_flying);
-	}
+	app->settings.width = width;
+	app->settings.height = height;
+	window_resize(app->window, width, height);
+}
+
+void		handle_scene_change(t_doom3d *app, t_scene_id scene_id)
+{
+	app->next_scene_id = scene_id;
+}
+
+void		handle_scene_reload(t_doom3d *app)
+{
+	app->is_scene_reload = true;
 }

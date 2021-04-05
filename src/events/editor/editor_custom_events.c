@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:50:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 00:32:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 14:06:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,49 +15,61 @@
 static void	editor_event_to_str_sub(char *str, t_doom3d_event code)
 {
 	if (code == event_editor_start_placement)
-		ft_sprintf(str, "EditorStartPlacement");
+		ft_sprintf(str, "event_editor_start_placement");
 	else if (code == event_editor_end_placement)
-		ft_sprintf(str, "EditorEndPlacement");
+		ft_sprintf(str, "event_editor_end_placement");
 	else if (code == event_editor_cancel_placement)
-		ft_sprintf(str, "EditorCancelPlacement");
+		ft_sprintf(str, "event_editor_cancel_placement");
 	else if (code == event_editor_start_save)
-		ft_sprintf(str, "EditorStartSave");
+		ft_sprintf(str, "event_editor_start_save");
 	else if (code == event_editor_end_save)
-		ft_sprintf(str, "EditorEndSave");
+		ft_sprintf(str, "event_editor_end_save");
 	else if (code == event_editor_save_type)
-		ft_sprintf(str, "EditorType");
+		ft_sprintf(str, "event_editor_save_type");
 	else if (code == event_editor_save_type_backspace)
-		ft_sprintf(str, "EditorTypeBackspace");
+		ft_sprintf(str, "event_editor_save_type_backspace");
 	else if (code == event_editor_exit)
-		ft_sprintf(str, "EditorExit");
+		ft_sprintf(str, "event_editor_exit");
 	else if (code == event_editor_snap_to_grid)
-		ft_sprintf(str, "EditorSnapToGrid");
+		ft_sprintf(str, "event_editor_snap_to_grid");
+	else if (code == event_editor_move_view_forward)
+		ft_sprintf(str, "event_editor_move_view_forward");
+	else if (code == event_editor_move_view_sideways)
+		ft_sprintf(str, "event_editor_move_view_sideways");
+	else if (code == event_editor_rotate_view)
+		ft_sprintf(str, "event_editor_rotate_view");
 }
 
-void		editor_event_to_str(char *str, t_doom3d_event code)
+void		editor_custom_event_to_str(char *str, t_doom3d_event code)
 {
 	editor_event_to_str_sub(str, code);
 	if (code == event_editor_add_texture)
-		ft_sprintf(str, "EditorAddTexture");
+		ft_sprintf(str, "event_editor_add_texture");
 	else if (code == event_editor_add_normal_map)
-		ft_sprintf(str, "EditorAddNormalMap");
+		ft_sprintf(str, "event_editor_add_normal_map");
 	else if (code == event_editor_delete)
-		ft_sprintf(str, "EditorDelete");
+		ft_sprintf(str, "event_editor_delete");
 	else if (code == event_editor_select)
-		ft_sprintf(str, "EditorSelect");
+		ft_sprintf(str, "event_editor_select");
 	else if (code == event_editor_deselect)
-		ft_sprintf(str, "EditorDeselect");
+		ft_sprintf(str, "event_editor_deselect");
 	else if (code == event_editor_level_switch)
-		ft_sprintf(str, "EditorLevelSwitch");
+		ft_sprintf(str, "event_editor_level_switch");
 	else if (code == event_editor_open_popup_menu)
-		ft_sprintf(str, "EditorOpenPopupMenu");
+		ft_sprintf(str, "event_editor_open_popup_menu");
 	else if (code == event_editor_increment_patrol_slot)
-		ft_sprintf(str, "EditorIncrementPatrolSlot");
+		ft_sprintf(str, "event_editor_increment_patrol_slot");
 	else if (code == event_editor_decrement_patrol_slot)
-		ft_sprintf(str, "EditorDecrementPatrolSlot");
+		ft_sprintf(str, "event_editor_decrement_patrol_slot");
+	else if (code == event_editor_in_placement_move)
+		ft_sprintf(str, "event_editor_in_placement_move");
+	else if (code == event_editor_duplicate)
+		ft_sprintf(str, "event_editor_duplicate");
+	else if (code == event_editor_zoom)
+		ft_sprintf(str, "event_editor_zoom");
 }
 
-static void	register_editor_custom_events_sub(t_doom3d *app)
+static void	register_editor_custom_events_sub1(t_doom3d *app)
 {
 	hash_map_add(app->custom_event_handles, event_editor_start_placement,
 		(void*)handle_editor_placement_start);
@@ -75,6 +87,22 @@ static void	register_editor_custom_events_sub(t_doom3d *app)
 		(void*)handle_editor_save_type_backspace);
 	hash_map_add(app->custom_event_handles, event_editor_snap_to_grid,
 		(void*)handle_editor_snap_to_grid);
+	hash_map_add(app->custom_event_handles, event_editor_in_placement_move,
+		(void*)handle_editor_in_placement_move);
+	hash_map_add(app->custom_event_handles, event_editor_duplicate,
+		(void*)handle_editor_duplication);
+	hash_map_add(app->custom_event_handles, event_editor_zoom,
+		(void*)handle_editor_zoom);
+}
+
+static void	register_editor_custom_events_sub2(t_doom3d *app)
+{
+	hash_map_add(app->custom_event_handles, event_editor_move_view_forward,
+		(void*)handle_editor_move_view_forward);
+	hash_map_add(app->custom_event_handles, event_editor_move_view_sideways,
+		(void*)handle_editor_move_view_sideways);
+	hash_map_add(app->custom_event_handles, event_editor_rotate_view,
+		(void*)handle_editor_rotate_view);
 }
 
 /*
@@ -84,7 +112,8 @@ static void	register_editor_custom_events_sub(t_doom3d *app)
 
 void		register_editor_custom_events(t_doom3d *app)
 {
-	register_editor_custom_events_sub(app);
+	register_editor_custom_events_sub1(app);
+	register_editor_custom_events_sub2(app);
 	hash_map_add(app->custom_event_handles, event_editor_delete,
 		(void*)handle_editor_delete);
 	hash_map_add(app->custom_event_handles, event_editor_exit,

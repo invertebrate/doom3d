@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_jump.c                                      :+:      :+:    :+:   */
+/*   placement2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/15 18:47:01 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 18:24:46 by ohakola          ###   ########.fr       */
+/*   Created: 2021/04/05 01:57:50 by ohakola           #+#    #+#             */
+/*   Updated: 2021/04/05 02:02:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	player_jump(t_doom3d *app)
+void		handle_editor_in_placement_move(t_doom3d *app)
 {
-	if (app->player.is_grounded)
-	{
-		app->player.is_grounded = false;
-		app->player.is_jumping = true;
-		app->player.is_falling = false;
-		app->player.velocity[1] -= PLAYER_JUMP_FORCE * 1.25;
-	}
-	if (!app->player.is_grounded && app->player.can_fly)
-	{
-		app->player.is_flying = (app->player.is_flying + 1) % 2;
-		if (app->is_debug)
-			LOG_DEBUG("Player is flying: %d", app->player.is_flying);
-	}
+	t_vec3		new_pos;
+	t_3d_object	*place_object;
+
+	place_object = app->editor.selected_objects[0];
+	editor_pos_camera_front(app, new_pos);
+	editor_point_on_target(app, new_pos);
+	ml_vector3_sub(new_pos, place_object->position, new_pos);
+	l3d_3d_object_translate(place_object,
+		new_pos[0], new_pos[1], new_pos[2]);
 }

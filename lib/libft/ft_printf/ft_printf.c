@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:00:25 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 20:49:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 15:39:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,23 @@ int						ft_printf(const char *format, ...)
 	if (!(init_printf(&data, 1)))
 		return (false);
 	va_start(data.variables, format);
+	if (!parse_input(&data, (char*)format))
+		return (false);
+	va_end(data.variables);
+	if (write(data.fd, data.buffer, data.len))
+	{
+	}
+	ft_strdel(&data.buffer);
+	return (data.len);
+}
+
+int						ft_printf_internal(const char *format, va_list args)
+{
+	t_printf	data;
+
+	if (!(init_printf(&data, 1)))
+		return (false);
+	va_copy(data.variables, args);
 	if (!parse_input(&data, (char*)format))
 		return (false);
 	va_end(data.variables);

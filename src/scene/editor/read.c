@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 18:33:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 16:21:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ static int32_t	read_path_information(t_doom3d *app, char *contents)
 ** is not set even if the patrol path information is found in map data
 */
 
-static int32_t	read_patrol_path_information(t_doom3d *app, char *contents)
+static int32_t	read_path_neighbor_information(t_doom3d *app, char *contents)
 {
 	int32_t		offset;
 	uint32_t	object_id;
@@ -353,19 +353,29 @@ void			read_map(t_doom3d *app, const char *map_name)
 	int32_t			offset;
 
 	ft_sprintf(filename, "assets/map_data/%s", map_name);
+	LOG_INFO("Read map %s", filename);
 	file = read_file(filename);
 	if (!file)
+	{
+		LOG_INFO("Failed to read map %s", filename);
 		exit(EXIT_FAILURE);
+	}
 	ft_memcpy(&header, file->buf, (offset = 4));
 	if (!ft_strequ(header, "MAP\0"))
 		error_check(true,
 		"Invalid file, not a map file. First 4 bytes must be MAP\0");
 	ft_memcpy(&app->active_scene->num_objects, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
+	LOG_INFO("Read objects");
 	offset += read_objects(app, file->buf + offset);
+	LOG_INFO("Read path information");
 	offset += read_path_information(app, file->buf + offset);
-	offset += read_patrol_path_information(app, file->buf + offset);
+	LOG_INFO("Read path neighbors");
+	offset += read_path_neighbor_information(app, file->buf + offset);
+	LOG_INFO("Read trigger links");
 	offset += read_trigger_link_information(app, file->buf + offset);
+	LOG_INFO("Read key ids");
 	offset += read_key_id_information(app, file->buf + offset);
 	destroy_file_contents(file);
+	LOG_INFO("Map reading successful");
 }

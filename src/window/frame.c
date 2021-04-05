@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:32:17 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 16:09:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 17:49:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void		window_editor_framebuffer_recreate(t_window *window)
 
 void			window_frame_recreate(t_window *window)
 {
+	LOG_INFO("Recreate frame %d %d", window->width, window->height);
 	if (window->frame != NULL)
 		SDL_DestroyTexture(window->frame);
 	window->frame = SDL_CreateTexture(window->renderer,

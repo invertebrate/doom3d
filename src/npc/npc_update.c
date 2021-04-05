@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_update.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/11 19:17:12 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/05 18:24:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,17 @@ static void	handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj)
 	npc->atk_timer += new_time - npc->atk_start;
 	if (npc->atk_timer > npc->atk_dur)
 	{
-		// ft_printf("atk pattern = %d, at index %d\n", npc->atk_pattern[npc->atk_pattern_index], npc->atk_pattern_index);//test
 		if (npc->atk_pattern[npc->atk_pattern_index] == action_melee_basic)
 		{
-			// ft_printf("npc %d attacked!\n", npc_obj->id);//test
 			ml_vector3_sub(app->player.pos, npc_obj->position, dist);
 			if (ml_vector3_mag(dist) < npc->atk_range)
 				player_onhit(app, npc->atk_dmg);
 		}
 		if (npc->atk_pattern[npc->atk_pattern_index] == action_projectile_rpg)
 		{
-			// ft_printf("npc %d shot a rocket!\n", npc_obj->id);//test
 			npc_shoot_projectile(app, npc_obj->aabb.center, npc->dir);
+			if (app->is_debug)
+				LOG_DEBUG("Npc %d shot projectile", npc_obj->id);
 		}
 		npc->state = state_attack;
 	}
@@ -88,7 +87,6 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 		if (dist >= npc->vision_range || !npc_has_line_of_sight(app, npc_obj))
 		{
 			npc->interest--;
-			//ft_printf("npc %d interest = %d\n", npc_obj->id, npc->interest);//test
 			if (npc->interest < 0)
 			{
 				npc->atk_pattern_index = 0;

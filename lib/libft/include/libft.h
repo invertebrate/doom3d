@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:15:47 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/28 16:27:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 15:17:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "hash_map.h"
 # include "thread_pool.h"
 # include "radix_sort.h"
+# include "logger.h"
 
 typedef struct	s_list
 {

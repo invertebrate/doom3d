@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 00:33:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:11:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,6 @@ void						weapon_equip(t_doom3d *app, t_weapon_id slot);
 void						inventory_pickup_weapon_object(t_doom3d *app,
 								t_3d_object *weapon_drop_obj);
 void						inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj);
-void						inventory_throw_weapon(t_doom3d *app);
 t_weapon					weapon_data_fist(t_doom3d *app);
 t_weapon					weapon_data_glock(t_doom3d *app);
 t_weapon					weapon_data_rpg(t_doom3d *app);
@@ -238,18 +237,19 @@ void						push_custom_event(t_doom3d *app,
 								void* data2);
 void						register_custom_events(t_doom3d *app);
 void						register_editor_custom_events(t_doom3d *app);
-void						editor_event_to_str(char *str, t_doom3d_event code);
+void						register_player_custom_events(t_doom3d *app);
+void						player_custom_event_to_str(char *str, t_doom3d_event code);
+void						editor_custom_event_to_str(char *str, t_doom3d_event code);
 void						handle_custom_events(t_doom3d *app,
 								SDL_Event event);
-void						handle_player_rotation(t_doom3d *app,
+void						handle_player_rotation_input(t_doom3d *app,
 								int32_t xrel, int32_t yrel);
 void						handle_events(t_doom3d *app);
-void						handle_mouse_state(t_doom3d *app);
-void						handle_editor_mouse_state(t_doom3d *app);
-void						handle_keyboard_state(t_doom3d *app);
-void						handle_editor_transform(t_doom3d *app);
-void						handle_editor_keyboard_state(t_doom3d *app);
-t_bool						handle_editor_duplication(t_doom3d *app);
+void						handle_mouse_state_input(t_doom3d *app);
+void						handle_editor_mouse_state_input(t_doom3d *app);
+void						handle_keyboard_state_input(t_doom3d *app);
+void						handle_editor_transform_input(t_doom3d *app);
+void						handle_editor_keyboard_state_input(t_doom3d *app);
 void						handle_control_flow_events(t_doom3d *app,
 								SDL_Event event);
 void						handle_editor_input_events(t_doom3d *app,
@@ -265,12 +265,29 @@ void						editor_point_on_target(t_doom3d
 ** Custom Event handling
 */
 
+void						register_object_custom_events(t_doom3d *app);
+void						object_custom_event_to_str(char *str,
+								t_doom3d_event code);
 int							handle_play_effect(t_doom3d *app,
 								int ind, t_sound *new);
 int							handle_play_music(t_doom3d *app,
 								int ind, t_sound *new);
 void						handle_object_deletion(t_doom3d *app,
 								t_3d_object *object);
+void						handle_object_translate_x(t_doom3d *app, t_3d_object *object,
+								int32_t amount);
+void						handle_object_translate_y(t_doom3d *app, t_3d_object *object,
+								int32_t amount);
+void						handle_object_translate_z(t_doom3d *app, t_3d_object *object,
+								int32_t amount);
+void						handle_object_scale(t_doom3d *app, t_3d_object *object,
+								int32_t direction);
+void						handle_object_rotate_x(t_doom3d *app, t_3d_object *object,
+								int32_t amount);
+void						handle_object_rotate_y(t_doom3d *app, t_3d_object *object,
+								int32_t amount);
+void						handle_object_rotate_z(t_doom3d *app, t_3d_object *object,
+								int32_t amount);
 void						handle_window_resize(t_doom3d *app,
 								uint32_t width,
 								uint32_t height);
@@ -282,6 +299,7 @@ void						handle_editor_placement_end(t_doom3d *app);
 void						handle_editor_placement_cancel(t_doom3d *app);
 void						handle_editor_placement_start(t_doom3d *app,
 								uint32_t obj_type, void *data);
+void						handle_editor_in_placement_move(t_doom3d *app);
 void						handle_editor_save_end(t_doom3d *app);
 void						handle_editor_save_start(t_doom3d *app);
 void						handle_editor_save_type_backspace(t_doom3d *app);
@@ -298,9 +316,33 @@ void						handle_editor_add_texture(t_doom3d *app,
 								char *filename);
 void						handle_editor_add_normal_map(t_doom3d *app,
 								char *filename);
+void						handle_editor_zoom(t_doom3d *app, int32_t zoom_amount);
+void						handle_editor_move_view_forward(t_doom3d *app,
+								int32_t amount);
+void						handle_editor_move_view_sideways(t_doom3d *app,
+								int32_t amount);
+void						handle_editor_rotate_view(t_doom3d *app,
+								int32_t xrel, int32_t yrel);
+void						handle_editor_duplication(t_doom3d *app);
 void						handle_editor_patrol_slot_decrement(t_doom3d *app);
 void						handle_editor_patrol_slot_increment(t_doom3d *app);
 void						handle_editor_snap_to_grid(t_doom3d *app);
+void						handle_toggle_pause_game(t_doom3d *app);
+void						handle_toggle_fullscreen(t_doom3d *app);
+void						handle_toggle_normal_map_mode(t_doom3d *app);
+void						handle_toggle_debug_mode(t_doom3d *app);
+void						handle_player_toggle_flight(t_doom3d *app);
+void						handle_player_jump(t_doom3d *app);
+void						handle_player_move(t_doom3d *app,
+								t_move move_dir, int32_t amount);
+void						handle_player_rotate(t_doom3d *app,
+								int32_t xrel, int32_t yrel);
+void						handle_player_crouch(t_doom3d *app,
+								t_bool is_crouching);
+void						handle_player_weapon_equip(t_doom3d *app,
+								t_weapon_id weapon);
+void						handle_player_reload(t_doom3d *app);
+void						handle_player_shoot(t_doom3d *app);
 
 /*
 ** 3D Animations
@@ -406,8 +448,10 @@ void						scene_assets_destroy(t_scene *scene);
 void						scene_textures_destroy(t_scene *scene);
 void						scene_normal_maps_destroy(t_scene *scene);
 void						active_scene_popup_menu_destroy(t_doom3d *app);
-void						set_all_objects_shading_opts(t_doom3d *app,
-								t_shading_opts opts);
+void						extend_all_objects_shading_opts(t_doom3d *app,
+								t_shading_opts opts_to_add);
+void						remove_all_objects_shading_opts(t_doom3d *app,
+								t_shading_opts opts_to_remove);
 
 /*
 ** Editor
@@ -436,8 +480,6 @@ void						deselect_object(t_doom3d *app, t_3d_object *obj);
 void						editor_select_by_mouse(t_doom3d *app);
 void						editor_deselect(t_doom3d *app);
 void						editor_deselect_all(t_doom3d *app);
-void						after_editor_transform(t_doom3d *app,
-								uint32_t *last_changed);
 void    					editor_init(t_doom3d *app, int32_t editor_level);
 t_3d_object					*place_path_object(t_doom3d *app);
 void						path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj);

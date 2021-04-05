@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   menus.c                                            :+:      :+:    :+:   */
+/*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/29 16:51:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 02:16:49 by ohakola          ###   ########.fr       */
+/*   Created: 2021/04/05 01:29:21 by ohakola           #+#    #+#             */
+/*   Updated: 2021/04/05 01:36:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void		handle_window_resize(t_doom3d *app, uint32_t width,
-								uint32_t height)
+void			handle_object_rotate_x(t_doom3d *app, t_3d_object *object,
+					int32_t amount)
 {
-	app->settings.width = width;
-	app->settings.height = height;
-	window_resize(app->window, width, height);
+	(void)app;
+	l3d_3d_object_rotate(object, amount, 0, 0);
 }
 
-void		handle_scene_change(t_doom3d *app, t_scene_id scene_id)
+void			handle_object_rotate_y(t_doom3d *app, t_3d_object *object,
+					int32_t amount)
 {
-	app->next_scene_id = scene_id;
+	(void)app;
+	l3d_3d_object_rotate(object, 0, amount, 0);
 }
 
-void		handle_scene_reload(t_doom3d *app)
+void			handle_object_rotate_z(t_doom3d *app, t_3d_object *object,
+					int32_t amount)
 {
-	app->is_scene_reload = true;
-}
-
-void		handle_quit(t_doom3d *app)
-{
-	app->is_running = false;
+	(void)app;
+	l3d_3d_object_rotate(object, 0, 0, amount);
 }

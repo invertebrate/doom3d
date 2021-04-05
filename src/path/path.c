@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 22:21:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 21:04:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:06:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_3d_object			*place_path_object(t_doom3d *app)
 		app->editor.selected_objects[0]->type == object_type_path &&
 		app->keyboard.state[SDL_SCANCODE_LCTRL])
 		path_objects_set_neighbour(app, path_obj);
+	LOG_INFO("Placed path object %d", path_obj->id);
 	return (path_obj);
 }
 
@@ -144,7 +145,8 @@ void				path_delete_connection(t_path_node *src,
 		dst->neighbors[j - 1] = dst->neighbors[j];
 	src->num_neighbors--;
 	dst->num_neighbors--;;
-	ft_printf("deleted connection between obj %d and obj %d!\n", src->parent_obj->id, dst->parent_obj->id);//test
+	LOG_INFO("Deleted connection between obj %d and obj %d!",
+		src->parent_obj->id, dst->parent_obj->id);
 }
 
 /*
@@ -164,11 +166,11 @@ void				path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj)
 	path_obj = obj->params;
 	dest = app->editor.selected_objects[0]->params;
 	if (path_obj->num_neighbors >= PATH_NEIGHBOUR_MAX)
-		ft_printf("path connection limit reached on source!\n");
+		LOG_INFO("Path connection limit reached on source %d", obj->id);
 	else if (dest->num_neighbors >= PATH_NEIGHBOUR_MAX)
-		ft_printf("path connection limit reached on destination!\n");
+		LOG_INFO("Path connection limit reached on destination %d", obj->id);
 	else if (path_obj == dest)
-		ft_printf("cannot connect to itself!\n");
+		LOG_INFO("Cannot connect path node to itself %d", obj->id);
 	else if ((delete = path_check_existing(app, path_obj)) != NULL)
 		path_delete_connection(path_obj, delete);
 	else
@@ -177,6 +179,6 @@ void				path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj)
 		dest->neighbors[dest->num_neighbors] = obj;
 		path_obj->num_neighbors++;
 		dest->num_neighbors++;
-		ft_printf("nodes connected successfully!\n");
+		LOG_INFO("Nodes connected successfully %d", obj->id);
 	}
 }

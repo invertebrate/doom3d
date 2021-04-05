@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:24:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** groups (menus) so their on clicks are handled.
 */
 
-static void		handle_menu_button_events(t_doom3d *app, SDL_Event event)
+static void		handle_all_button_events(t_doom3d *app, SDL_Event event)
 {
 	int32_t	i;
 
@@ -43,6 +43,7 @@ static void		handle_menu_button_events(t_doom3d *app, SDL_Event event)
 
 /*
 ** Handle button events for game including weapon switch via mouse wheel
+** See keyboard_state.c and mouse_state.c for movement
 */
 
 void			handle_game_input_events(t_doom3d *app, SDL_Event event)
@@ -51,9 +52,9 @@ void			handle_game_input_events(t_doom3d *app, SDL_Event event)
 	int32_t	add;
 
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE)
-		player_jump(app);
+		push_custom_event(app, event_player_jump, NULL, NULL);
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_9)
-		app->player.can_fly = !app->player.can_fly;
+		push_custom_event(app, event_player_toggle_flight, NULL, NULL);
 	if (event.type == SDL_MOUSEWHEEL)
 	{
 		add = event.wheel.y > 0 ? 1 : -1;
@@ -62,7 +63,8 @@ void			handle_game_input_events(t_doom3d *app, SDL_Event event)
 			weapon = 3;
 		if (weapon >= 4)
 			weapon = 0;
-		weapon_equip(app, weapon);
+		push_custom_event(app, event_player_weapon_equip,
+			(void*)(intptr_t)weapon, NULL);
 	}
 }
 
@@ -75,13 +77,25 @@ void			handle_game_input_events(t_doom3d *app, SDL_Event event)
 
 void			handle_input_events(t_doom3d *app, SDL_Event event)
 {
+	if (app->is_debug)
+	{
+		if (event.type == SDL_KEYDOWN)
+			LOG_DEBUG("Key %s pressed", SDL_GetKeyName(event.key.keysym.sym));
+		if (event.type == SDL_KEYUP)
+			LOG_DEBUG("Key %s released", SDL_GetKeyName(event.key.keysym.sym));
+		if (event.type == SDL_MOUSEBUTTONDOWN)
+			LOG_DEBUG("Mouse %d pressed", event.button.button);
+		if (event.type == SDL_MOUSEBUTTONUP)
+			LOG_DEBUG("Mouse %d released", event.button.button);
+		if (event.type == SDL_MOUSEWHEEL)
+			LOG_DEBUG("Mouse wheel scrolled %d", event.wheel.y);
+	}
 	handle_control_flow_events(app, event);
 	if (app->active_scene->scene_id == scene_id_main_game &&
 		!app->active_scene->is_paused)
 		handle_game_input_events(app, event);
 	if (app->active_scene->scene_id == scene_id_editor3d)
 		handle_editor_input_events(app, event);
-	handle_menu_button_events(app, event);
 }
 
 /*
@@ -102,14 +116,17 @@ void			handle_events(t_doom3d *app)
 	app->keyboard.state = SDL_GetKeyboardState(NULL);
 	if (!app->active_scene->is_paused)
 	{
-		handle_mouse_state(app);
-		handle_keyboard_state(app);
+		handle_mouse_state_input(app);
+		handle_keyboard_state_input(app);
 	}
 	while (SDL_PollEvent(&event))
 	{
 		if (event.type == app->custom_event_type)
 			handle_custom_events(app, event);
 		else
+		{
 			handle_input_events(app, event);
+			handle_all_button_events(app, event);
+		}
 	}
 }
