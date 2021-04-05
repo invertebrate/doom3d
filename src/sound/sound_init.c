@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:51:15 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/05 16:28:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:17:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,5 @@ void		mp_init(t_doom3d *app)
 		error_check(true, "Failed to init sound");
 	SDL_PauseAudioDevice(app->mp.audev, 0);
 	SDL_UnlockAudioDevice(app->mp.audev);
-	ft_printf("audio status %d\n", SDL_GetAudioDeviceStatus(app->mp.audev));
+	LOG_INFO("Audio status %d", SDL_GetAudioDeviceStatus(app->mp.audev));
 }

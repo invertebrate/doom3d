@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 00:25:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:18:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void		delete_objects_set_for_deletion(t_doom3d *app)
 		{
 			id = app->active_scene->objects[del_index]->id;
 			object_type_to_str(app->active_scene->objects[del_index], obj_type);
-			ft_printf("Deleted %s, id %u\n", obj_type, id);
+			if (app->is_debug)
+				LOG_INFO("Deleted object %s, id %u", obj_type, id);
 			l3d_3d_object_destroy(app->active_scene->objects[del_index]);
 			app->active_scene->objects[del_index] = NULL;
 		}
@@ -109,7 +110,7 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 		{
 			if (obj->params_type == trigger_player_end)
 			{
-				ft_printf("Hit End Trigger, finish level\n");
+				LOG_INFO("Hit End Trigger, finish level");
 				finish_level(app);
 			}
 			else if (obj->params_type == trigger_weapon_drop_shotgun ||
@@ -124,7 +125,7 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 					app->player.keys[((t_trigger *)obj->params)->key_id] == true)
 					elevator_go_to_next_node(app, ((t_trigger *)obj->params)->linked_obj[0]);
 				else
-					ft_printf("Missing key!\n");
+					LOG_INFO("Player is missing key!");
 			}
 		}
 	}

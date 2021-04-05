@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:26:50 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:13:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void			inventory_pickup_weapon_object(t_doom3d *app,
 	else if (weapon_drop_obj->params_type == trigger_item_jetpack)
 		{
 			app->player.can_fly = true;
-			ft_printf("Picked up jetpack\n");
+			if (app->is_debug)
+				LOG_INFO("Picked up Jetpack");
 			push_custom_event(app, event_object_delete,
 				weapon_drop_obj, NULL);
 		}
@@ -48,8 +49,9 @@ void			inventory_pickup_weapon_object(t_doom3d *app,
 	{
 		weapon_id_to_str(weapon_id, weapon->id);
 		app->player.weapons[weapon->id].ammo += weapon->ammo;
-		ft_printf("Picked up %s %d ammo", weapon_id,
-			app->player.weapons[weapon->id].ammo);
+		if (app->is_debug)
+			LOG_INFO("Picked up %s %d ammo", weapon_id,
+				app->player.weapons[weapon->id].ammo);
 		push_custom_event(app, event_object_delete,
 			weapon_drop_obj, NULL);
 	}
@@ -65,6 +67,7 @@ void			inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj)
 		app->player.keys[key->key_id] = true;
 		push_custom_event(app, event_object_delete,
 			key_obj, NULL);
-		ft_printf("picked up key %d\n", key->key_id);
+		if (app->is_debug)
+			LOG_INFO("Picked up key %d",key->key_id);
 	}
 }

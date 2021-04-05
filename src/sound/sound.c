@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:51:05 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/01 18:07:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:01:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_track		*read_sound(char *file, t_doom3d *app)
 	SDL_AudioCVT	cvt;
 
 	if ( SDL_LoadWAV(file, &wave, &data, &dlen) == NULL ) {
-		ft_dprintf(2, "Couldn't load %s: %s\n", file, SDL_GetError());
+		LOG_ERROR("Couldn't load %s: %s\n", file, SDL_GetError());
 		return (NULL);
 	}
 	if (SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq, 

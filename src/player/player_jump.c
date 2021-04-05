@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_jump.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 18:47:01 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/09 10:02:22 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/05 18:15:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	player_jump(t_doom3d *app)
 	if (!app->player.is_grounded && app->player.can_fly)
 	{
 		app->player.is_flying = (app->player.is_flying + 1) % 2;
-		ft_printf("player.is_flying = %d\n", app->player.is_flying);//test
+		if (app->is_debug)
+			LOG_INFO("Player is flying: %d", app->player.is_flying);
 	}
 }

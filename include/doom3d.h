@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 03:17:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:11:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,6 @@ void						weapon_equip(t_doom3d *app, t_weapon_id slot);
 void						inventory_pickup_weapon_object(t_doom3d *app,
 								t_3d_object *weapon_drop_obj);
 void						inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj);
-void						inventory_throw_weapon(t_doom3d *app);
 t_weapon					weapon_data_fist(t_doom3d *app);
 t_weapon					weapon_data_glock(t_doom3d *app);
 t_weapon					weapon_data_rpg(t_doom3d *app);
