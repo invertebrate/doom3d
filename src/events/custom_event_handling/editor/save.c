@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 01:10:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 00:32:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	handle_editor_save_type(t_doom3d *app, char *text)
 {
 	app->editor.is_saved = false;
 	ft_strcat(app->editor.editor_savename, text);
+	ft_strdel(&text);
 }
 
 /*

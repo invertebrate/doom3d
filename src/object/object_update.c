@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 18:11:50 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/06 01:08:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,54 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 	}
 }
 
+void			update_light_sources(t_doom3d *app, t_3d_object *object)
+{
+	int32_t	i;
+	float	radius;
+	float	intensity;
+	float	radius_scale;
+	t_vec3	light_pos;
+
+	if (!(object->material->shading_opts & e_shading_invisible) &&
+		object->type != object_type_light)
+	{
+		radius = app->unit_size * 25.0;
+		intensity = 0.5;
+		ft_memset(object->material->light_sources, 0,
+			sizeof(object->material->light_sources));
+		object->material->num_lights = 0;
+		i = -1;
+		while (++i < (int32_t)app->active_scene->num_scene_lights)
+		{
+			radius_scale =
+				app->active_scene->scene_lights[i]->scale[0][0] /
+					app->unit_size;
+			ml_matrix4_mul_vec3(app->player.inv_translation,
+				app->active_scene->scene_lights[i]->position, light_pos);
+			ml_matrix4_mul_vec3(app->player.inv_rotation,
+				light_pos, light_pos);
+			l3d_3d_object_add_light_source(object,
+				light_pos, radius * radius_scale, intensity);
+		}		
+	}
+}
+
+void			update_editor_light_sources(t_doom3d *app)
+{
+	int32_t			i;
+	t_3d_object		*obj;
+
+	i = -1;
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
+	{
+		obj = app->active_scene->objects[i];
+		if (!obj)
+			continue ;
+		update_light_sources(app, obj);
+	}
+}
+
 /*
 ** Updates objects every frame. In addition applies gravity / physics
 ** to objects & player. Handles object deletion
@@ -149,7 +197,9 @@ void			update_objects(t_doom3d *app)
 		return ;
 	if (app->active_scene->scene_id == scene_id_main_game)
 		extend_all_objects_shading_opts(app, e_shading_depth);
-	if (!app->active_scene->is_paused &&
+	if (app->active_scene->scene_id == scene_id_editor3d)
+		update_editor_light_sources(app);
+	else if (!app->active_scene->is_paused &&
 		app->active_scene->scene_id == scene_id_main_game)
 	{
 		is_npc_update = should_update_npc_state(app);
@@ -160,6 +210,7 @@ void			update_objects(t_doom3d *app)
 			obj = app->active_scene->objects[i];
 			if (!obj)
 				continue ;
+			update_light_sources(app, obj);
 			update_object_by_type(app, obj, is_npc_update);
 		}
 		l3d_temp_objects_update_time(&app->active_scene->temp_objects,

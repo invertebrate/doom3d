@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 02:14:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 00:32:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,14 @@ static void	handle_editor_saving_input(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_TEXTINPUT)
 	{
-		push_custom_event(app, event_editor_save_type, event.text.text, NULL);
+		push_custom_event(app, event_editor_save_type,
+			ft_strdup(event.text.text), NULL);
 	}
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
-	{
 		push_custom_event(app, event_editor_end_save, NULL, NULL);
-	}
 	else if (event.type == SDL_KEYDOWN &&
 		event.key.keysym.sym == SDLK_BACKSPACE)
-	{
-		push_custom_event(app, event_editor_save_type_backspace,
-			event.text.text, NULL);
-	}
+		push_custom_event(app, event_editor_save_type_backspace, NULL, NULL);
 }
 
 static void	handle_editor_selection_input(t_doom3d *app, SDL_Event event)
