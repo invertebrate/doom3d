@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:51:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 22:55:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 20:59:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_button_group		*button_menu_create(t_doom3d *app,
 		button_set_handles(buttons[i], menu_params.on_click, NULL);
 		button_set_handle_params(buttons[i], app, NULL);
 	}
-	menu = button_group_create(buttons, menu_params.num_buttons);
+	menu = button_group_create(buttons, menu_params.num_buttons, false);
 	return (menu);
 }
 
@@ -66,7 +66,7 @@ t_button_group		*button_menu_create_shaded(t_doom3d *app,
 		button_set_handles(buttons[i], pms.on_click, NULL);
 		button_set_handle_params(buttons[i], app, NULL);
 	}
-	menu = button_group_create(buttons, pms.num_buttons);
+	menu = button_group_create(buttons, pms.num_buttons, false);
 	return (menu);
 }
 

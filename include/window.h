@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 16:09:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 21:00:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ typedef struct				s_button_group
 	t_bool					is_selector;
 	uint32_t				selected_index;
 	t_bool					is_active;
+	uint32_t				max_width;
+	uint32_t				max_height;
 }							t_button_group;
 
 typedef struct				s_button_menu
@@ -185,10 +187,8 @@ void						button_group_destroy(t_button_group *button_group);
 void						button_group_update_position(
 								t_button_group *button_group,
 								t_vec2 pos);
-void						button_group_set_horizontal(
-								t_button_group *button_group);
 t_button_group				*button_group_create(t_button **buttons,
-								uint32_t num_buttons);
+								uint32_t num_buttons, t_bool is_horizontal);
 void						button_destroy(t_button *button);
 void						button_update_position(t_button *button,
 								t_vec2 pos);

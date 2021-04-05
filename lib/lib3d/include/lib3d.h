@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 00:17:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 20:43:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,19 @@ typedef struct				s_surface
 	uint32_t		h;
 }							t_surface;
 
+typedef struct				s_light_source
+{
+	t_vec3		pos;
+	float		radius;
+	float		intensity;
+}							t_light_source;
+
 typedef struct				s_material
 {
 	t_surface		*texture;
 	t_surface		*normal_map;
 	t_shading_opts	shading_opts;
-	t_vec3			light_sources[L3D_MAX_LIGHTS];
+	t_light_source	light_sources[L3D_MAX_LIGHTS];
 	uint32_t		num_lights;
 }							t_material;
 
@@ -423,7 +430,8 @@ void						l3d_3d_object_set_params(t_3d_object *object,
 								void *params, uint32_t params_size,
 								uint32_t params_type);
 void						l3d_3d_object_add_light_source(t_3d_object *object,
-								t_vec3 light_pos);
+								t_vec3 light_pos,
+								float radius, float intensity);
 
 /*
 ** OBJ reading
@@ -475,6 +483,8 @@ void						l3d_raster_draw_pixel_transparent(t_sub_framebuffer
 								*buffers,
 								int32_t xy[2],
 								t_triangle *triangle);
+uint32_t					l3d_pixel_light_shaded(t_triangle *triangle,
+									t_vec3 baryc, uint32_t pixel);
 /*
 ** Plot pixel
 */

@@ -6,17 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 14:57:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 20:58:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "window.h"
-
-void			button_group_set_horizontal(t_button_group *button_group)
-{
-	button_group->is_horizontal = true;
-	button_group_update_position(button_group, button_group->pos);
-}
 
 void			button_group_set_space_between(t_button_group *button_group,
 					int32_t space_between)

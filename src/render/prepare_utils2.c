@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 23:33:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 19:45:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ t_bool			screen_intersection(t_doom3d *app, t_triangle *triangle)
 		if (!(l3d_plane_ray_hit(&app->active_scene->main_camera->screen,
 			&rays[k], hits[k])))
 		{
-			ft_dprintf(2, "Error in screen_intersection: "
-					"Degenerate or badly defined triangles."
-					"Or plane is exactly aligned with view\n");
+			LOG_WARN("Screen intersection from degenerate triangles");
 			ml_vector3_set_all(hits[k], 0);
 		}
 	}
