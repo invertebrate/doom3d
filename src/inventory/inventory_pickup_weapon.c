@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inventory_pickup_weapon.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:26:50 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 18:24:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:12:01 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void		weapon_id_to_str(char *str, t_weapon_id weapon_id)
 {
 	if (weapon_id == weapon_shotgun)
 		ft_sprintf(str, "Shotgun");
-	else if (weapon_id == weapon_glock)
-		ft_sprintf(str, "Glock");
+	else if (weapon_id == weapon_pistol)
+		ft_sprintf(str, "pistol");
 	else if (weapon_id == weapon_rpg)
 		ft_sprintf(str, "Rpg");
 	else
@@ -33,8 +33,8 @@ void			inventory_pickup_weapon_object(t_doom3d *app,
 	weapon = NULL;
 	if (weapon_drop_obj->params_type == trigger_weapon_drop_shotgun)
 		weapon = &app->weapons_data[weapon_shotgun];
-	else if (weapon_drop_obj->params_type == trigger_weapon_drop_glock)
-		weapon = &app->weapons_data[weapon_glock];
+	else if (weapon_drop_obj->params_type == trigger_weapon_drop_pistol)
+		weapon = &app->weapons_data[weapon_pistol];
 	else if (weapon_drop_obj->params_type == trigger_weapon_drop_rpg)
 		weapon = &app->weapons_data[weapon_rpg];
 	else if (weapon_drop_obj->params_type == trigger_item_jetpack)

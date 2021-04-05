@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 00:54:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 01:08:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 				finish_level(app);
 			}
 			else if (obj->params_type == trigger_weapon_drop_shotgun ||
+					obj->params_type == trigger_weapon_drop_pistol ||
 					obj->params_type == trigger_item_jetpack)
 				inventory_pickup_weapon_object(app, obj);
 			else if (obj->params_type == trigger_item_key)
