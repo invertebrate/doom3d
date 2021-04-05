@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 16:33:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 16:13:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ static void		select_scene(t_doom3d *app)
 {
 	SDL_StopTextInput();
 	if (app->active_scene != NULL)
+	{
+		LOG_INFO("Destroy previous scene %d", app->active_scene->scene_id);
 		scene_destroy(app);
+	}
 	app->active_scene = scene_new(app->next_scene_id);
+	LOG_INFO("Set Scene Content");
 	active_scene_content_set(app);
 	app->is_scene_reload = false;
 }
@@ -46,6 +50,7 @@ t_scene			*scene_new(t_scene_id scene_id)
 
 void			select_next_scene(t_doom3d *app)
 {
+	LOG_INFO("Select Scene %d", app->next_scene_id);
 	window_frame_clear(app->window);
 	loading_render(app);
 	draw_window_frame(app->window);

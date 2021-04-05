@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 23:55:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 16:22:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,10 +133,14 @@ static void		active_scene_init(t_doom3d *app)
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
 		scene_game_init(app);
+		LOG_INFO("Initialized Game Scene at %d objects\n",
+			app->active_scene->num_objects);
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
 		scene_editor_init(app);
+		LOG_INFO("Initialized Editor Scene at %d objects\n",
+			app->active_scene->num_objects);
 	}
 	if (app->active_scene->main_camera)
 		update_camera(app);
@@ -175,14 +179,21 @@ void		active_scene_content_set(t_doom3d *app)
 	if (app->active_scene->scene_id == scene_id_main_game ||
 		app->active_scene->scene_id == scene_id_editor3d)
 	{
+		LOG_INFO("Create Texture Hash Map");
 		app->active_scene->object_textures =
 			hash_map_create(MAX_NUM_OBJECTS);
+		LOG_INFO("Create Normal Map Hash Map");
 		app->active_scene->object_normal_maps =
 			hash_map_create(MAX_NUM_OBJECTS);
+		LOG_INFO("Create Camera");
 		app->active_scene->main_camera = new_camera();
+		if (!app->active_scene->main_camera)
+			LOG_FATAL("Camera NULL");
+		LOG_INFO("Load Assets");
 		scene_assets_load(app->active_scene);
 	}
 	active_scene_mouse_mode_set(app);
 	active_scene_init(app);
+	LOG_INFO("Create Scene Menus");
 	active_scene_menu_recreate(app);
 }

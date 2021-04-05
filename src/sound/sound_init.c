@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:51:15 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/01 18:44:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 16:28:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ t_mp		mix_init(t_doom3d *app, int channels)
 	app->mp.audev = SDL_OpenAudioDevice(NULL, 0, &app->mp.auspec, &cando,
 		SDL_AUDIO_ALLOW_ANY_CHANGE);
 	if (app->mp.audev == 0)
-   		SDL_Log("Failed to open audio: %s", SDL_GetError());
+		LOG_ERROR("Failed to open audio: %s", SDL_GetError());
 	else
 	{
 		app->mp.auspec.format = cando.format;
 		app->mp.auspec.freq = cando.freq;
 		app->mp.auspec.channels = cando.channels;
-		ft_printf("audev %d wanted %x got %x\n", app->mp.audev,
+		LOG_INFO("Audio device %d wanted %x got %x", app->mp.audev,
 			PREF_AUDIO, cando.format);
 		SDL_LockAudioDevice(app->mp.audev);
 	}
