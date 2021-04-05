@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/15 22:01:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:51:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ void			l3d_3d_object_add_light_source(t_3d_object *object,
 		ml_vector3_copy(light_pos,
 			object->material->light_sources[object->material->num_lights++]);
 	else
-		ft_printf("Too many lights set for object %d, max: %d\n",
+		LOG_WARN("Too many lights set for object %d, max: %d",
 			object->id, L3D_MAX_LIGHTS);
 }
