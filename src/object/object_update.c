@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 18:24:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 19:34:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,29 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 	}
 }
 
+void			update_light_sources(t_doom3d *app, t_3d_object *object)
+{
+	int32_t	i;
+	float	radius;
+	float	intensity;
+
+	if (!(object->material->shading_opts & e_shading_invisible))
+	{
+		radius = app->unit_size * 50.0;
+		intensity = 1.0;
+		ft_memset(object->material->light_sources, 0,
+			sizeof(object->material->light_sources));
+				object->material->num_lights = 0;
+		i = -1;
+		while (++i < (int32_t)app->active_scene->num_scene_lights)
+		{
+			l3d_3d_object_add_light_source(object,
+				app->active_scene->scene_lights[i]->position,
+				radius, intensity);
+		}		
+	}
+}
+
 /*
 ** Updates objects every frame. In addition applies gravity / physics
 ** to objects & player. Handles object deletion
@@ -159,6 +182,7 @@ void			update_objects(t_doom3d *app)
 			obj = app->active_scene->objects[i];
 			if (!obj)
 				continue ;
+			update_light_sources(app, obj);
 			update_object_by_type(app, obj, is_npc_update);
 		}
 		l3d_temp_objects_update_time(&app->active_scene->temp_objects,
