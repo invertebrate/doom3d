@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:00:25 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 15:39:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 01:51:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int						ft_printf(const char *format, ...)
 	return (data.len);
 }
 
-int						ft_printf_internal(const char *format, va_list args)
+int						ft_vprintf(const char *format, va_list args)
 {
 	t_printf	data;
 

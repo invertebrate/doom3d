@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:03:32 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 15:45:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 01:51:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void				logger_log(int32_t level,
 		file,
 		line);
 	va_start(args, fmt);
-	ft_printf_internal(fmt, args);
+	ft_vprintf(fmt, args);
 	ft_putchar('\n');
 	va_end(args);
 }
