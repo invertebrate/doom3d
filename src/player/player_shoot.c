@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 18:02:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:24:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void			place_projectile_object_in_scene(t_doom3d *app,
 	l3d_3d_object_rotate(obj, rot[0], rot[1], rot[2]);
 	l3d_3d_object_scale(obj, 0.1, 0.1, 0.1);
 	if (app->is_debug)
-		LOG_INFO("Spawned projectile id: %d", obj->id);
+		LOG_DEBUG("Spawned projectile id: %d", obj->id);
 }
 
 static void		player_shoot_projectile(t_doom3d *app, t_vec3 origin)
@@ -163,7 +163,7 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 	else if (app->player.equipped_weapon->clip == 0)
 	{
 		if (app->is_debug)
-			LOG_INFO("Out of Ammo");
+			LOG_DEBUG("Out of Ammo");
 		set_player_default_frame(app);
 		return ;
 	}

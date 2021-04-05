@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 16:26:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:23:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		handle_scene_switch(t_doom3d *app)
 		app->is_scene_reload)
 	{
 		if (app->is_debug)
-			LOG_INFO("Scen change detected, selecting next");
+			LOG_DEBUG("Scen change detected, selecting next");
 		select_next_scene(app);
 	}
 }

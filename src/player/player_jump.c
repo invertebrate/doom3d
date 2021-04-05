@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 18:47:01 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 18:15:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:24:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	player_jump(t_doom3d *app)
 	{
 		app->player.is_flying = (app->player.is_flying + 1) % 2;
 		if (app->is_debug)
-			LOG_INFO("Player is flying: %d", app->player.is_flying);
+			LOG_DEBUG("Player is flying: %d", app->player.is_flying);
 	}
 }

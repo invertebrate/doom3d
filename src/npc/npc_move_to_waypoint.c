@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:07:07 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 18:18:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:24:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	npc_get_dir_to_next_waypoint(t_doom3d *app, t_3d_object *obj)
 		if (npc_get_dir_to_next_attack_waypoint(app, obj))
 		{
 			if (app->is_debug)
-				LOG_INFO("Npc patrol path index %d", npc->patrol_path_index);
+				LOG_DEBUG("Npc patrol path index %d", npc->patrol_path_index);
 			npc->patrol_path_index++;
 		}
 	}

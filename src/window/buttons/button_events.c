@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 17:49:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:26:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void			button_state_handle(t_button *button, t_mouse mouse,
 			button->on_click(button, button->on_click_params);
 		button->is_down = false;
 		button->is_hovered = true;
-		LOG_INFO("Button clicked id: %d", button->id);
 	}
 	else if (button_is_hovered(button, mouse, event))
 	{
@@ -90,7 +89,6 @@ void			button_state_handle(t_button *button, t_mouse mouse,
 			button->on_hover(button, button->on_hover_params);
 		button->is_hovered = true;
 		button->is_down = false;
-		LOG_INFO("Button hovered id: %d", button->id);
 	}
 	else if (button_is_down(button, mouse, event))
 	{

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 16:01:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:23:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void		handle_custom_events(t_doom3d *app, SDL_Event event)
 		if (app->is_debug)
 		{
 			custom_event_to_str(event_str, event.user.code);
-			LOG_INFO("Received User Event:%d(%s) with: data1: %p, data2: %p",
+			LOG_DEBUG("Received User Event:%d(%s) with: data1: %p, data2: %p",
 				event.user.code, event_str, event.user.data1, event.user.data2);
 		}
 		handle(app, event.user.data1, event.user.data2);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 18:20:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:29:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_3d_object		*place_scene_object(t_doom3d *app, const char *filenames[3],
 	app->active_scene->objects[next_object_index(app)] = obj;
 	active_scene_update_after_objects(app->active_scene);
 	if (app->is_debug)
-		LOG_INFO("New object id %d", obj->id);
+		LOG_DEBUG("New object id %d", obj->id);
 	return (obj);
 }
 
@@ -140,7 +140,7 @@ t_3d_object		*place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 	app->active_scene->objects[next_object_index(app)] = obj;
 	active_scene_update_after_objects(app->active_scene);
 	if (app->is_debug)
-		LOG_INFO("New procedural object id %d", obj->id);
+		LOG_DEBUG("New procedural object id %d", obj->id);
 	return (obj);
 }
 
@@ -180,7 +180,7 @@ t_3d_object			*place_temp_object(t_doom3d *app, const char *filenames[3],
 	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
 		lifetime_and_delay);
 	if (app->is_debug)
-		LOG_INFO("New temp object id %d", obj->id);
+		LOG_DEBUG("New temp object id %d", obj->id);
 	return (obj);
 }
 
@@ -218,7 +218,7 @@ t_3d_object			*place_procedural_temp_object(t_doom3d *app,
 	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
 		lifetime_and_delay);
 	if (app->is_debug)
-		LOG_INFO("New procedural temp object id %d", obj->id);
+		LOG_DEBUG("New procedural temp object id %d", obj->id);
 	return (obj);
 }
 
@@ -250,8 +250,6 @@ void			extend_all_objects_shading_opts(t_doom3d *app,
 			l3d_object_set_shading_opts(app->active_scene->objects[i],
 				app->active_scene->objects[i]->material->shading_opts |
 					opts_to_add);
-	if (app->is_debug)
-		LOG_INFO("Append shading opts with %b", opts_to_add);
 }
 
 void			remove_all_objects_shading_opts(t_doom3d *app,
@@ -266,6 +264,4 @@ void			remove_all_objects_shading_opts(t_doom3d *app,
 			l3d_object_set_shading_opts(app->active_scene->objects[i],
 				app->active_scene->objects[i]->material->shading_opts ^
 					opts_to_remove);
-	if (app->is_debug)
-		LOG_INFO("Remove shading opts with %b", opts_to_remove);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 22:33:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 18:15:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:24:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ void	weapon_equip(t_doom3d *app, t_weapon_id slot)
 	if (app->player.equipped_weapon->id == weapon_fist)
 	{
 		if (app->is_debug)
-			LOG_INFO("Equipped item |weapon_fist|");
+			LOG_DEBUG("Equipped item |weapon_fist|");
 	}
 	if (app->player.equipped_weapon->id == weapon_glock)
 	{
 		if (app->is_debug)
-			LOG_INFO("Equipped item |weapon_glock|");
+			LOG_DEBUG("Equipped item |weapon_glock|");
 	}
 	if (app->player.equipped_weapon->id == weapon_rpg)
 	{
 		if (app->is_debug)
-			LOG_INFO("Equipped item |weapon_rpg|");
+			LOG_DEBUG("Equipped item |weapon_rpg|");
 	}
 	if (app->player.equipped_weapon->id == weapon_shotgun)
 	{
 		if (app->is_debug)
-			LOG_INFO("Equipped item |weapon_shotgun|");
+			LOG_DEBUG("Equipped item |weapon_shotgun|");
 	}
 }

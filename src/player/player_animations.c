@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 21:10:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:31:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ void					set_player_shoot_frame(t_doom3d *app)
 		set_player_animation(app, anim_fist_shoot);
 	else if (app->player.equipped_weapon->id == weapon_rpg)
 		set_player_animation(app, anim_rpg_shoot);
+	if (app->is_debug)
+		LOG_DEBUG("Set player shoot sprite frame");
 }
 
 /*
@@ -231,6 +233,8 @@ void					set_player_reload_frame(t_doom3d *app)
 		set_player_animation(app, anim_fist_reload);
 	else if (app->player.equipped_weapon->id == weapon_rpg)
 		set_player_animation(app, anim_rpg_reload);
+	if (app->is_debug)
+		LOG_DEBUG("Set player reload sprite frame");
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 18:10:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:24:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj)
 		{
 			npc_shoot_projectile(app, npc_obj->aabb.center, npc->dir);
 			if (app->is_debug)
-				LOG_INFO("Npc %d shot projectile", npc_obj->id);
+				LOG_DEBUG("Npc %d shot projectile", npc_obj->id);
 		}
 		npc->state = state_attack;
 	}
