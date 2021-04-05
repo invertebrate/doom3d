@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_state.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 03:21:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 17:59:46 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void		handle_weapon_equip_input(t_doom3d *app)
 			(void*)weapon_shotgun, NULL);
 	else if (app->keyboard.state[SDL_SCANCODE_2])
 		push_custom_event(app, event_player_weapon_equip,
-			(void*)weapon_glock, NULL);
+			(void*)weapon_pistol, NULL);
 	else if (app->keyboard.state[SDL_SCANCODE_1])
 		push_custom_event(app, event_player_weapon_equip,
 			(void*)weapon_fist, NULL);

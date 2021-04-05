@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 15:05:10 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/05 17:59:46 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef enum				e_trigger_type
 	trigger_player_start = 1,
 	trigger_player_end = 2,
 	trigger_weapon_drop_shotgun = 3,
-	trigger_weapon_drop_glock = 4,
+	trigger_weapon_drop_pistol = 4,
 	trigger_weapon_drop_rpg = 5,
 	trigger_item_jetpack,
 	trigger_item_key,
@@ -147,7 +147,7 @@ typedef enum				e_projectile_type
 typedef enum				e_weapon_id
 {
 	weapon_fist = 0,
-	weapon_glock = 1,
+	weapon_pistol = 1,
 	weapon_shotgun = 2,
 	weapon_rpg = 3,
 }							t_weapon_id;

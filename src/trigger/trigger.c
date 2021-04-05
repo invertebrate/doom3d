@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trigger.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 17:54:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:10:44 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,30 @@ t_3d_object		*place_drop_shotgun(t_doom3d *app)
 		app->active_scene->objects[app->active_scene->last_object_index],
 		0.2, 0.2, 0.2);
 	LOG_INFO("Shotgun placed %d", trigger->id);
+	return (trigger);
+}
+
+t_3d_object		*place_drop_pistol(t_doom3d *app)
+{
+	t_vec3		pos;
+	t_trigger	trigger_params;
+	t_3d_object	*trigger;
+
+	editor_pos_camera_front(app, pos);
+	ft_memset(&trigger_params, 0, sizeof(t_trigger));
+	trigger = place_scene_object(app,
+		(const char*[3]){"assets/models/pistol.obj",
+			"assets/textures/pistol_texture.bmp", NULL}, pos);
+	app->active_scene->objects[app->active_scene->last_object_index]->type =
+		object_type_trigger;
+	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
+	l3d_3d_object_set_params(
+		app->active_scene->objects[app->active_scene->last_object_index],
+		&trigger_params, sizeof(t_trigger), trigger_weapon_drop_pistol);
+	l3d_3d_object_scale(
+		app->active_scene->objects[app->active_scene->last_object_index],
+		0.2, 0.2, 0.2);
+	LOG_INFO("Pistol placed %d", trigger->id);
 	return (trigger);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inventory_equip.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 22:33:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 18:24:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 17:59:46 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	weapon_equip(t_doom3d *app, t_weapon_id slot)
 		if (app->is_debug)
 			LOG_DEBUG("Equipped item |weapon_fist|");
 	}
-	if (app->player.equipped_weapon->id == weapon_glock)
+	if (app->player.equipped_weapon->id == weapon_pistol)
 	{
 		if (app->is_debug)
-			LOG_DEBUG("Equipped item |weapon_glock|");
+			LOG_DEBUG("Equipped item |weapon_pistol|");
 	}
 	if (app->player.equipped_weapon->id == weapon_rpg)
 	{
