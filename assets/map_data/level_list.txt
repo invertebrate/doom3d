@@ -1,3 +1,4 @@
+PlaneForLights
 demomap
 testpathfinding3
 PlaneTest
