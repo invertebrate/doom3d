@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 23:21:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 20:44:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void		shade_pixel(t_triangle *triangle, t_vec2 uv,
 }
 
 static uint32_t	pixel_trans(t_triangle *triangle, t_vec2 uv,
-					float z_val)
+					t_vec3 baryc, float z_val)
 {
 	uint32_t	pixel;
 
@@ -45,11 +45,12 @@ static uint32_t	pixel_trans(t_triangle *triangle, t_vec2 uv,
 		(pixel & 255) == 0)
 		return (UINT32_MAX);
 	shade_pixel(triangle, uv, z_val, &pixel);
+	pixel = l3d_pixel_light_shaded(triangle, baryc, pixel);
 	return (pixel);
 }
 
 static uint32_t	pixel_color(t_triangle *triangle, t_vec2 uv,
-					float z_val)
+					t_vec3 baryc, float z_val)
 {
 	uint32_t	pixel;
 
@@ -69,6 +70,7 @@ static uint32_t	pixel_color(t_triangle *triangle, t_vec2 uv,
 		(pixel & 255) == 0)
 		return (UINT32_MAX);
 	shade_pixel(triangle, uv, z_val, &pixel);
+	pixel = l3d_pixel_light_shaded(triangle, baryc, pixel);
 	return (pixel);
 }
 
@@ -90,7 +92,7 @@ void			l3d_raster_draw_pixel(t_sub_framebuffer *buffers, int32_t xy[2],
 	{
 		l3d_interpolate_uv(triangle, baryc, uv);
 		l3d_clamp_uv(uv);
-		if ((pixel = pixel_color(triangle, uv, z_val)) == UINT32_MAX)
+		if ((pixel = pixel_color(triangle, uv, baryc, z_val)) == UINT32_MAX)
 			return ;
 		l3d_pixel_plot(buffers->buffer, (uint32_t[2]){buffers->width,
 				buffers->height}, offset_xy, pixel);
@@ -119,7 +121,8 @@ void			l3d_raster_draw_pixel_transparent(t_sub_framebuffer *buffers,
 	{
 		l3d_interpolate_uv(triangle, brc_uv[0], brc_uv[1]);
 		l3d_clamp_uv(brc_uv[1]);
-		if ((pixel = pixel_trans(triangle, brc_uv[1], z_val)) == UINT32_MAX)
+		if ((pixel = pixel_trans(triangle,
+			brc_uv[1], brc_uv[0], z_val)) == UINT32_MAX)
 			return ;
 		pixel = l3d_color_alpha_blend_u32(l3d_pixel_get(buffers->buffer,
 			(uint32_t[2]){buffers->width, buffers->height}, offset_xy), pixel);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 18:29:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 19:51:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ t_3d_object		*place_scene_object(t_doom3d *app, const char *filenames[3],
 	model = hash_map_get(app->active_scene->models, (int64_t)filenames[0]);
 	if (!model)
 	{
-		ft_dprintf(2, "No existing model file (%s) given to place object. "
-			"Add it in scene_assets.c\n",
+		LOG_ERROR("No existing model file (%s) given to place object. "
+			"Add it in scene_assets.c",
 			filenames[0]);
 		return (NULL);
 	}
@@ -121,7 +121,7 @@ t_3d_object		*place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 
 	if (!model)
 	{
-		ft_dprintf(2, "No existing model object (NULL) given\n");
+		LOG_ERROR("No existing model object (NULL) given");
 		return (NULL);
 	}
 	obj = l3d_object_instantiate(model, app->unit_size);
@@ -159,9 +159,8 @@ t_3d_object			*place_temp_object(t_doom3d *app, const char *filenames[3],
 	model = hash_map_get(app->active_scene->models, (int64_t)filenames[0]);
 	if (!model)
 	{
-		ft_dprintf(2, "No existing model file (%s) given to place object. "
-			"Add it in scene_assets.c\n",
-			filenames[0]);
+		LOG_ERROR("No existing model file (%s) given to place object. "
+			"Add it in scene_assets.c", filenames[0]);
 		return (NULL);
 	}
 	obj = l3d_object_instantiate(model, app->unit_size);
@@ -199,7 +198,7 @@ t_3d_object			*place_procedural_temp_object(t_doom3d *app,
 
 	if (!model)
 	{
-		ft_dprintf(2, "No existing model object (NULL) given\n");
+		LOG_ERROR("No existing model object (NULL) given");
 		return (NULL);
 	}
 	obj = l3d_object_instantiate(model, app->unit_size);

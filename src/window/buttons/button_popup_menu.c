@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:34:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 01:14:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 21:06:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static void		determine_menu_dimensions(t_button_menu *popup_menu,
 			popup_menu->menu->buttons[i]->pos[1] : max_y_pos;
 	}
 	max_x_pos += -popup_menu->menu->pos[0] +
-		popup_menu->menu->buttons[0]->width + popup_menu->menu->space_between;
+		popup_menu->menu->max_width + popup_menu->menu->space_between;
 	max_y_pos += -popup_menu->menu->pos[1] +
-		popup_menu->menu->buttons[0]->height + popup_menu->menu->space_between;
+		popup_menu->menu->max_height + popup_menu->menu->space_between;
 	dims[0] = max_x_pos;
 	dims[1] = max_y_pos;
 }

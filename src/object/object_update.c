@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 19:34:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 20:52:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,8 @@ void			update_light_sources(t_doom3d *app, t_3d_object *object)
 	float	radius;
 	float	intensity;
 
-	if (!(object->material->shading_opts & e_shading_invisible))
+	if (!(object->material->shading_opts & e_shading_invisible) &&
+		object->type != object_type_light)
 	{
 		radius = app->unit_size * 50.0;
 		intensity = 1.0;
@@ -151,6 +152,22 @@ void			update_light_sources(t_doom3d *app, t_3d_object *object)
 				app->active_scene->scene_lights[i]->position,
 				radius, intensity);
 		}		
+	}
+}
+
+void			update_editor_light_sources(t_doom3d *app)
+{
+	int32_t			i;
+	t_3d_object		*obj;
+
+	i = -1;
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
+	{
+		obj = app->active_scene->objects[i];
+		if (!obj)
+			continue ;
+		update_light_sources(app, obj);
 	}
 }
 
@@ -171,7 +188,9 @@ void			update_objects(t_doom3d *app)
 		return ;
 	if (app->active_scene->scene_id == scene_id_main_game)
 		extend_all_objects_shading_opts(app, e_shading_depth);
-	if (!app->active_scene->is_paused &&
+	if (app->active_scene->scene_id == scene_id_editor3d)
+		update_editor_light_sources(app);
+	else if (!app->active_scene->is_paused &&
 		app->active_scene->scene_id == scene_id_main_game)
 	{
 		is_npc_update = should_update_npc_state(app);

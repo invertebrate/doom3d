@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 19:18:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 20:43:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -483,6 +483,8 @@ void						l3d_raster_draw_pixel_transparent(t_sub_framebuffer
 								*buffers,
 								int32_t xy[2],
 								t_triangle *triangle);
+uint32_t					l3d_pixel_light_shaded(t_triangle *triangle,
+									t_vec3 baryc, uint32_t pixel);
 /*
 ** Plot pixel
 */
