@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 01:56:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 16:05:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void			handle_control_flow_events(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_QUIT)
 	{
+		LOG_INFO("Quit input");
 		push_custom_event(app, event_quit, NULL, NULL);
 	}
 	if (!SDL_IsTextInputActive() && !app->editor.is_saving)

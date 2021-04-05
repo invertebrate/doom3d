@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 03:12:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 16:03:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,19 @@ void			handle_game_input_events(t_doom3d *app, SDL_Event event)
 
 void			handle_input_events(t_doom3d *app, SDL_Event event)
 {
+	if (app->is_debug)
+	{
+		if (event.type == SDL_KEYDOWN)
+			LOG_INFO("Key %s pressed", SDL_GetKeyName(event.key.keysym.sym));
+		if (event.type == SDL_KEYUP)
+			LOG_INFO("Key %s released", SDL_GetKeyName(event.key.keysym.sym));
+		if (event.type == SDL_MOUSEBUTTONDOWN)
+			LOG_INFO("Mouse %d pressed", event.button.button);
+		if (event.type == SDL_MOUSEBUTTONUP)
+			LOG_INFO("Mouse %d released", event.button.button);
+		if (event.type == SDL_MOUSEWHEEL)
+			LOG_INFO("Mouse wheel scrolled %d", event.wheel.y);
+	}
 	handle_control_flow_events(app, event);
 	if (app->active_scene->scene_id == scene_id_main_game &&
 		!app->active_scene->is_paused)
