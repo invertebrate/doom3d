@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_shoot.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 18:24:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 17:59:46 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 	ml_vector3_mul(app->player.forward, NEAR_CLIP_DIST, add);
 	ml_vector3_add(app->player.pos, add, origin);
 	if (app->player.equipped_weapon->id == weapon_fist ||
-		app->player.equipped_weapon->id == weapon_glock)
+		app->player.equipped_weapon->id == weapon_pistol)
 		player_shoot_ray(app, origin, app->player.forward);
 	else if (app->player.equipped_weapon->id == weapon_rpg)
 		player_shoot_projectile(app, origin);

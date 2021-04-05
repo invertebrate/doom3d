@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_placement.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:50:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 00:04:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:09:46 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ t_3d_object		*editor_place_trigger_object(t_doom3d *app,
 	{
 		trigger = place_drop_shotgun(app);
 		placement_notification(app, "Placing shotgun trigger");
+	}
+	else if (trigger_type == trigger_weapon_drop_pistol)
+	{
+		trigger = place_drop_pistol(app);
+		placement_notification(app, "Placing pistol trigger");
 	}
 	else if (trigger_type == trigger_item_jetpack)
 	{

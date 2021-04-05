@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 18:11:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:12:57 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void						inventory_pickup_weapon_object(t_doom3d *app,
 								t_3d_object *weapon_drop_obj);
 void						inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj);
 t_weapon					weapon_data_fist(t_doom3d *app);
-t_weapon					weapon_data_glock(t_doom3d *app);
+t_weapon					weapon_data_pistol(t_doom3d *app);
 t_weapon					weapon_data_rpg(t_doom3d *app);
 t_weapon					weapon_data_shotgun(t_doom3d *app);
 
@@ -590,6 +590,7 @@ void						delete_notifications(t_doom3d *app);
 t_3d_object					*place_player_end(t_doom3d *app);
 t_3d_object					*place_player_start(t_doom3d *app);
 t_3d_object					*place_drop_shotgun(t_doom3d *app);
+t_3d_object					*place_drop_pistol(t_doom3d *app);
 t_3d_object					*place_drop_jetpack(t_doom3d *app);
 t_3d_object					*place_elevator_switch(t_doom3d *app);
 t_3d_object					*place_drop_key(t_doom3d *app);
