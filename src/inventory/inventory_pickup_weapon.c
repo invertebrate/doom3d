@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inventory_pickup_weapon.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:26:50 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:12:01 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void		weapon_id_to_str(char *str, t_weapon_id weapon_id)
 {
 	if (weapon_id == weapon_shotgun)
 		ft_sprintf(str, "Shotgun");
-	else if (weapon_id == weapon_glock)
-		ft_sprintf(str, "Glock");
+	else if (weapon_id == weapon_pistol)
+		ft_sprintf(str, "pistol");
 	else if (weapon_id == weapon_rpg)
 		ft_sprintf(str, "Rpg");
 	else
@@ -33,14 +33,15 @@ void			inventory_pickup_weapon_object(t_doom3d *app,
 	weapon = NULL;
 	if (weapon_drop_obj->params_type == trigger_weapon_drop_shotgun)
 		weapon = &app->weapons_data[weapon_shotgun];
-	else if (weapon_drop_obj->params_type == trigger_weapon_drop_glock)
-		weapon = &app->weapons_data[weapon_glock];
+	else if (weapon_drop_obj->params_type == trigger_weapon_drop_pistol)
+		weapon = &app->weapons_data[weapon_pistol];
 	else if (weapon_drop_obj->params_type == trigger_weapon_drop_rpg)
 		weapon = &app->weapons_data[weapon_rpg];
 	else if (weapon_drop_obj->params_type == trigger_item_jetpack)
 		{
 			app->player.can_fly = true;
-			ft_printf("Picked up jetpack\n");
+			if (app->is_debug)
+				LOG_DEBUG("Picked up Jetpack");
 			push_custom_event(app, event_object_delete,
 				weapon_drop_obj, NULL);
 		}
@@ -48,8 +49,9 @@ void			inventory_pickup_weapon_object(t_doom3d *app,
 	{
 		weapon_id_to_str(weapon_id, weapon->id);
 		app->player.weapons[weapon->id].ammo += weapon->ammo;
-		ft_printf("Picked up %s %d ammo", weapon_id,
-			app->player.weapons[weapon->id].ammo);
+		if (app->is_debug)
+			LOG_DEBUG("Picked up %s %d ammo", weapon_id,
+				app->player.weapons[weapon->id].ammo);
 		push_custom_event(app, event_object_delete,
 			weapon_drop_obj, NULL);
 	}
@@ -65,6 +67,7 @@ void			inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj)
 		app->player.keys[key->key_id] = true;
 		push_custom_event(app, event_object_delete,
 			key_obj, NULL);
-		ft_printf("picked up key %d\n", key->key_id);
+		if (app->is_debug)
+			LOG_DEBUG("Picked up key %d",key->key_id);
 	}
 }

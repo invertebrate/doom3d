@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 22:44:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 20:49:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,28 +63,31 @@ static void		add_one_clipped_triangles(t_doom3d *app,
 */
 
 void			clip_and_add_to_render_triangles(t_doom3d *app,
-					t_tri_vec *render_triangles,
+					t_tri_vec **render_triangles,
 					t_triangle *triangle)
 {
 	t_triangle	clipped_triangles[2];
 	t_vertex	vtc[6];
 	int32_t		test_clip;
 	t_plane		near;
+	t_tri_vec	*render_vec;
 
 	l3d_set_clipped_triangles(vtc, triangle, clipped_triangles);
 	ml_vector3_copy((t_vec3){0, 0, NEAR_CLIP_DIST}, near.origin);
 	ml_vector3_copy((t_vec3){0, 0, Z_DIR}, near.normal);
 	near.d = NEAR_CLIP_DIST;
 	test_clip = l3d_clip_triangle(triangle, &near, clipped_triangles);
+	render_vec = !(triangle->material->shading_opts & e_shading_transparent) ?
+		render_triangles[0] : render_triangles[1];
 	if (test_clip == 2)
-		add_two_clipped_triangles(app, render_triangles, clipped_triangles);
+		add_two_clipped_triangles(app, render_vec, clipped_triangles);
 	else if (test_clip == 1)
-		add_one_clipped_triangles(app, render_triangles, clipped_triangles);
+		add_one_clipped_triangles(app, render_vec, clipped_triangles);
 	else
 	{
 		screen_intersection(app, triangle);
 		update_triangle_vertex_zvalues(triangle, app->unit_size);
-		l3d_triangle_vec_push(render_triangles,
+		l3d_triangle_vec_push(render_vec,
 			l3d_triangle_copy(triangle, true));
 	}
 }

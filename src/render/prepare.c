@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 16:20:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 01:26:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static t_bool	object_too_far(t_doom3d *app, t_3d_object *obj)
 	t_vec3		player_to_obj;
 
 	if (app->active_scene->scene_id == scene_id_main_game)
-		too_far = app->unit_size * 50;
+		too_far = app->unit_size * GAME_VIEW_DIST_UNITS;
 	else
-		too_far = app->unit_size * 500;
+		too_far = app->unit_size * EDITOR_VIEW_DIST_UNITS;
 	ml_vector3_sub(obj->position, app->player.pos,
 		player_to_obj);
 	if (ml_vector3_mag(player_to_obj) > too_far)
@@ -29,7 +29,7 @@ static t_bool	object_too_far(t_doom3d *app, t_3d_object *obj)
 }
 
 static void		add_temp_object_render_triangles(t_doom3d *app,
-					t_tri_vec *render_triangles)
+					t_tri_vec **render_triangles)
 {
 	t_temp_object 			*tmp;
 	t_temp_objects			*node;
@@ -68,7 +68,7 @@ static void		add_temp_object_render_triangles(t_doom3d *app,
 */
 
 static void		add_objects_render_triangles(t_doom3d *app,
-					t_tri_vec *render_triangles)
+					t_tri_vec **render_triangles)
 {
 	int32_t					i;
 	int32_t					j;
@@ -114,7 +114,7 @@ static void		add_objects_render_triangles(t_doom3d *app,
 }
 
 static void		add_skybox_render_triangles(t_doom3d *app,
-					t_tri_vec *render_triangles)
+					t_tri_vec **render_triangles)
 {
 	int					i;
 	int					j;
@@ -136,31 +136,98 @@ static void		add_skybox_render_triangles(t_doom3d *app,
 	}
 }
 
-void			destroy_render_triangles(t_tri_vec *render_triangles)
+void			destroy_render_triangles(t_tri_vec **render_triangles)
 {
 	int32_t		i;
 
 	i = -1;
-	while (++i < (int32_t)render_triangles->size)
+	while (++i < (int32_t)render_triangles[0]->size)
 	{
-		l3d_triangle_destroy(render_triangles->triangles[i], true);
+		l3d_triangle_destroy(render_triangles[0]->triangles[i], true);
 	}
-	l3d_triangle_vec_delete(render_triangles);
+	i = -1;
+	while (++i < (int32_t)render_triangles[1]->size)
+	{
+		l3d_triangle_destroy(render_triangles[1]->triangles[i], true);
+	}
+	l3d_triangle_vec_delete(render_triangles[0]);
+	l3d_triangle_vec_delete(render_triangles[1]);
+	free(render_triangles);
+}
+
+static t_box3d	origo_centered_world_box(t_doom3d *app)
+{
+	t_box3d				centered_world;
+	int32_t				i;
+
+	ft_memcpy(&centered_world,
+		&app->active_scene->triangle_tree->root->bounding_box,
+		sizeof(t_box3d));
+	i = -1;
+	while (++i < 3)
+	{
+		centered_world.xyz_min[i] -= centered_world.center[i];
+		centered_world.xyz_max[i] -= centered_world.center[i];
+	}
+	ml_vector3_copy(centered_world.center, (t_vec3){0, 0, 0});
+	return (centered_world);
 }
 
 /*
-** Prepares triangles for parallel rendering. Sort them in z order curve,
-** but ignore skybox.
+** Sorts all but skybox triangles to be ordered by z depth relative to
+** world box (will speed up depth testing and allow transparent rendering)
+** render_triangles[0] = normal triangles,
+** render_triangles[1] = transparent ones
+** offsets render triangles by skybox triangles and reverts back after sort
 */
 
-t_tri_vec		*prepare_render_triangles(t_doom3d *app)
+static void		sort_render_triangles_by_depth(t_doom3d *app,
+					t_tri_vec **render_triangles)
 {
-	t_tri_vec			*render_triangles;
+	t_box3d				centered_world;
+	t_bool				skybox_offset;
 
-	render_triangles =
+	centered_world = origo_centered_world_box(app);
+	skybox_offset = app->active_scene->scene_id != scene_id_editor3d;
+	if (skybox_offset)
+	{
+		render_triangles[0]->triangles = render_triangles[0]->triangles + 12;
+		render_triangles[0]->size = render_triangles[0]->size - 12;
+	}
+	triangle_sort_by_depth(render_triangles[0], app->thread_pool,
+		&centered_world);
+	if (skybox_offset)
+	{
+		render_triangles[0]->triangles = render_triangles[0]->triangles - 12;
+		render_triangles[0]->size = render_triangles[0]->size + 12;
+	}
+	if (render_triangles[1]->size > 0)
+		triangle_sort_by_depth(render_triangles[1], app->thread_pool,
+			&centered_world);
+}
+
+/*
+** Prepares triangles for parallel rendering.
+** but ignore skybox.
+** Sort triangles in z order curve inside world box to speed up render &
+** allow transparent render in proper order
+*/
+
+t_tri_vec		**prepare_render_triangles(t_doom3d *app)
+{
+	t_tri_vec			**render_triangles;
+	uint32_t			initial_transp_cap;
+
+	initial_transp_cap = 512;
+	error_check(!(render_triangles = ft_calloc(sizeof(*render_triangles) * 2)),
+		"Failed to allocate render triangle pointers");
+	render_triangles[0] =
 		l3d_triangle_vec_with_capacity(app->active_scene->num_triangles + 12);
+	render_triangles[1] =
+		l3d_triangle_vec_with_capacity(initial_transp_cap);
 	if (app->active_scene->scene_id != scene_id_editor3d)
 		add_skybox_render_triangles(app, render_triangles);
 	add_objects_render_triangles(app, render_triangles);
+	sort_render_triangles_by_depth(app, render_triangles);
 	return (render_triangles);
 }

@@ -40,7 +40,7 @@ INCLUDES = -I ./include \
 		-I$(LIBGMATRIX)/include \
 		$(SDL_INCLUDES)
 
-CFLAGS =-Wall -Wextra -Werror -O3 -flto $(LINUX_IGNOREW)
+CFLAGS =-Wall -Wextra -Werror -march=native -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
 			doom3d.c \
 			settings.c \
@@ -58,14 +58,13 @@ SOURCES = main.c \
 			projectile/projectile_data/projectile_data_rpg.c \
 			player/player_animations.c \
 			inventory/item_data/item_data_fist.c \
-			inventory/item_data/item_data_glock.c \
+			inventory/item_data/item_data_pistol.c \
 			inventory/item_data/item_data_rpg.c \
 			inventory/item_data/item_data_shotgun.c \
 			inventory/inventory_equip.c \
 			inventory/inventory_init.c \
 			inventory/inventory_init_items.c \
 			inventory/inventory_pickup_weapon.c \
-			inventory/inventory_throw_weapon.c \
 			npc/npc_default.c \
 			npc/npc_elevator.c \
 			npc/npc_execute_behavior.c \
@@ -132,18 +131,27 @@ SOURCES = main.c \
 			window/buttons/button.c \
 			window/buttons/button_popup_menu.c \
 			window/buttons/button_popup_menu_events.c \
-			events/custom_event_handling/objects.c \
 			events/custom_event_handling/media.c \
-			events/custom_event_handling/menus.c \
+			events/custom_event_handling/scene.c \
+			events/custom_event_handling/control_flow.c \
+			events/custom_event_handling/player/movement.c \
+			events/custom_event_handling/player/weapons.c \
+			events/custom_event_handling/objects/translate.c \
+			events/custom_event_handling/objects/rotate.c \
+			events/custom_event_handling/objects/objects.c \
 			events/custom_event_handling/editor/menu.c \
 			events/custom_event_handling/editor/selection.c \
-			events/custom_event_handling/editor/placement.c \
+			events/custom_event_handling/editor/placement1.c \
+			events/custom_event_handling/editor/placement2.c \
+			events/custom_event_handling/editor/movement.c \
 			events/custom_event_handling/editor/save.c \
 			events/custom_event_handling/editor/textures.c \
 			events/custom_event_handling/editor/path.c \
 			events/mouse_state.c \
 			events/input.c \
 			events/custom_events.c \
+			events/object_custom_events.c \
+			events/player_custom_events.c \
 			events/keyboard_state.c \
 			events/control_flow.c \
 			events/editor/editor_custom_events.c \
@@ -195,6 +203,8 @@ $(DIR_OBJ):
 	@mkdir -p temp/events/editor
 	@mkdir -p temp/events/custom_event_handling
 	@mkdir -p temp/events/custom_event_handling/editor
+	@mkdir -p temp/events/custom_event_handling/objects
+	@mkdir -p temp/events/custom_event_handling/player
 	@mkdir -p temp/player
 	@mkdir -p temp/animations
 	@mkdir -p temp/npc

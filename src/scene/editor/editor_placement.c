@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_placement.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:50:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:09:46 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_3d_object		*editor_place_light_object(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	light = place_scene_object(app, (const char*[3]){
 		"assets/models/box.obj", NULL,  NULL}, pos);
-	l3d_object_set_shading_opts(light, e_shading_invisible);
+	l3d_object_set_shading_opts(light,
+		e_shading_invisible | e_shading_transparent);
 	light->type = object_type_light;
 	light->params_type = object_type_light;
 	editor_objects_invisible_highlight(app);\
@@ -38,21 +39,30 @@ t_3d_object		*editor_place_trigger_object(t_doom3d *app,
 					t_trigger_type trigger_type)
 {
 	t_3d_object		*trigger;
+	t_3d_object		*old_trigger;
 
 	trigger = NULL;
-	if (trigger_type == trigger_player_start &&
-		find_one_object_by_type(app, object_type_trigger, trigger_player_start))
-		placement_notification(app, "Player Start exists, delete it first!");
-	else if (trigger_type == trigger_player_start)
+	if (trigger_type == trigger_player_start)
 	{
+		old_trigger =
+			find_one_object_by_type(app, object_type_trigger, trigger_player_start);
+		if (old_trigger)
+		{
+			placement_notification(app, "Old Start Trigger found, deleting it!");
+			push_custom_event(app, event_object_delete, old_trigger, NULL);
+		}
 		trigger = place_player_start(app);
 		placement_notification(app, "Placing Player Start!");
 	}
-	else if (trigger_type == trigger_player_end &&
-		find_one_object_by_type(app, object_type_trigger, trigger_player_end))
-		placement_notification(app, "Player End exists, delete it first!");
 	else if (trigger_type == trigger_player_end)
 	{
+		old_trigger =
+			find_one_object_by_type(app, object_type_trigger, trigger_player_end);
+		if (old_trigger)
+		{
+			placement_notification(app, "Old End Trigger found, deleting it!");
+			push_custom_event(app, event_object_delete, old_trigger, NULL);
+		}
 		trigger = place_player_end(app);
 		placement_notification(app, "Placing Player End!");
 	}
@@ -60,6 +70,11 @@ t_3d_object		*editor_place_trigger_object(t_doom3d *app,
 	{
 		trigger = place_drop_shotgun(app);
 		placement_notification(app, "Placing shotgun trigger");
+	}
+	else if (trigger_type == trigger_weapon_drop_pistol)
+	{
+		trigger = place_drop_pistol(app);
+		placement_notification(app, "Placing pistol trigger");
 	}
 	else if (trigger_type == trigger_item_jetpack)
 	{

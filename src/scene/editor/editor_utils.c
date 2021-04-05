@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 23:43:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ const char	*normal_map_file_key(char *filename, t_doom3d *app)
 	return (NULL);
 }
 
-void		after_editor_transform(t_doom3d *app, uint32_t *last_changed)
-{
-	app->editor.is_saved = false;
-	*last_changed = SDL_GetTicks();
-	active_scene_update_after_objects(app->active_scene);
-}
-
 void		editor_objects_invisible_highlight(t_doom3d *app)
 {
 	t_3d_object	*obj;
@@ -66,13 +59,13 @@ void		editor_objects_invisible_highlight(t_doom3d *app)
 				obj->material->shading_opts = (obj->material->shading_opts &
 					~(e_shading_invisible));
 				if (obj->params_type == trigger_player_start)
-					obj->material->shading_opts = e_shading_green;
+					obj->material->shading_opts = e_shading_green | e_shading_transparent;
 				if (obj->params_type == trigger_player_end)
-					obj->material->shading_opts = e_shading_red;
+					obj->material->shading_opts = e_shading_red | e_shading_transparent;
 				if (obj->params_type == object_type_light)
-					obj->material->shading_opts = e_shading_yellow;
+					obj->material->shading_opts = e_shading_yellow | e_shading_transparent;
 				if (obj->params_type == object_type_path)
-					obj->material->shading_opts = e_shading_cyan;
+					obj->material->shading_opts = e_shading_cyan | e_shading_transparent;
 			}
 		}
 	}

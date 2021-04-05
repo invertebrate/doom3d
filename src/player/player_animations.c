@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 18:09:28 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/05 17:59:46 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_surface	*get_1080p_animation_source(t_doom3d *app)
 	if (app->player.equipped_weapon->id == weapon_shotgun)
 		return (hash_map_get(app->active_scene->animation_textures,
 			(int64_t)"assets/animations/shotgun_anim_1080p.bmp"));
-	else if (app->player.equipped_weapon->id == weapon_glock)
+	else if (app->player.equipped_weapon->id == weapon_pistol)
 		return (hash_map_get(app->active_scene->animation_textures,
 			(int64_t)"assets/animations/pistol_anim_1080p.bmp"));
 	else if (app->player.equipped_weapon->id == weapon_fist)
@@ -34,7 +34,7 @@ static t_surface	*get_720p_animation_source(t_doom3d *app)
 	if (app->player.equipped_weapon->id == weapon_shotgun)
 		return (hash_map_get(app->active_scene->animation_textures,
 			(int64_t)"assets/animations/shotgun_anim_720p.bmp"));
-	else if (app->player.equipped_weapon->id == weapon_glock)
+	else if (app->player.equipped_weapon->id == weapon_pistol)
 		return (hash_map_get(app->active_scene->animation_textures,
 			(int64_t)"assets/animations/pistol_anim_720p.bmp"));
 	else if (app->player.equipped_weapon->id == weapon_fist)
@@ -51,7 +51,7 @@ static t_surface	*get_540p_animation_source(t_doom3d *app)
 	if (app->player.equipped_weapon->id == weapon_shotgun)
 		return (hash_map_get(app->active_scene->animation_textures,
 			(int64_t)"assets/animations/shotgun_anim_540p.bmp"));
-	else if (app->player.equipped_weapon->id == weapon_glock)
+	else if (app->player.equipped_weapon->id == weapon_pistol)
 		return (hash_map_get(app->active_scene->animation_textures,
 			(int64_t)"assets/animations/pistol_anim_540p.bmp"));
 	else if (app->player.equipped_weapon->id == weapon_fist)
@@ -101,7 +101,7 @@ static void			set_anim_frame_info(t_doom3d *app,
 		anim->frames[i - index_offset].x_offset = i * app->settings.width;
 		anim->frames[i - index_offset].y_offset = 0;
 	}
-	anim->interruptable = true;
+	anim->interruptable = false;
 	anim->frame_time = 40;
 }
 
@@ -109,14 +109,19 @@ static void			player_default_animations_init(t_doom3d *app)
 {
 	set_anim_frame_info(app,
 		&app->animations[anim_shotgun_default], 0, 1);
+	app->animations[anim_shotgun_default].interruptable = true;
 	set_anim_frame_info(app,
-		&app->animations[anim_glock_default], 0, 1);
+		&app->animations[anim_pistol_default], 0, 1);
+	app->animations[anim_pistol_default].interruptable = true;
 	set_anim_frame_info(app,
 		&app->animations[anim_rpg_default], 0, 1);
+	app->animations[anim_rpg_default].interruptable = true;
 	set_anim_frame_info(app,
 		&app->animations[anim_rpg_special], 4, 1);
+	app->animations[anim_rpg_special].interruptable = true;
 	set_anim_frame_info(app,
 		&app->animations[anim_fist_default], 0, 1);
+	app->animations[anim_fist_default].interruptable = true;
 }
 
 /*
@@ -129,7 +134,7 @@ void	player_animations_init(t_doom3d *app)
 	set_anim_frame_info(app,
 		&app->animations[anim_shotgun_shoot], 0, 5);
 	set_anim_frame_info(app,
-		&app->animations[anim_glock_shoot], 0, 5);
+		&app->animations[anim_pistol_shoot], 0, 5);
 	set_anim_frame_info(app,
 		&app->animations[anim_rpg_shoot], 0, 5);
 	set_anim_frame_info(app,
@@ -137,19 +142,15 @@ void	player_animations_init(t_doom3d *app)
 	set_anim_frame_info(app,
 		&app->animations[anim_shotgun_reload], 5, 8);
 	app->animations[anim_shotgun_reload].frame_time = 120;
-	app->animations[anim_shotgun_reload].interruptable = false;
 	set_anim_frame_info(app,
-		&app->animations[anim_glock_reload], 5, 8);
-	app->animations[anim_glock_reload].frame_time = 120;
-	app->animations[anim_glock_reload].interruptable = false;
+		&app->animations[anim_pistol_reload], 5, 8);
+	app->animations[anim_pistol_reload].frame_time = 120;
 	set_anim_frame_info(app,
 		&app->animations[anim_rpg_reload], 5, 8);
 	app->animations[anim_rpg_reload].frame_time = 120;
-	app->animations[anim_rpg_reload].interruptable = false;
 	set_anim_frame_info(app,
 		&app->animations[anim_fist_reload], 5, 8);
 	app->animations[anim_fist_reload].frame_time = 120;
-	app->animations[anim_fist_reload].interruptable = false;
 }
 
 /*
@@ -185,12 +186,14 @@ void					set_player_shoot_frame(t_doom3d *app)
 {
 	if (app->player.equipped_weapon->id == weapon_shotgun)
 		set_player_animation(app, anim_shotgun_shoot);
-	else if (app->player.equipped_weapon->id == weapon_glock)
-		set_player_animation(app, anim_glock_shoot);
+	else if (app->player.equipped_weapon->id == weapon_pistol)
+		set_player_animation(app, anim_pistol_shoot);
 	else if (app->player.equipped_weapon->id == weapon_fist)
 		set_player_animation(app, anim_fist_shoot);
 	else if (app->player.equipped_weapon->id == weapon_rpg)
 		set_player_animation(app, anim_rpg_shoot);
+	if (app->is_debug)
+		LOG_DEBUG("Set player shoot sprite frame");
 }
 
 /*
@@ -202,8 +205,8 @@ void					set_player_default_frame(t_doom3d *app)
 {
 	if (app->player.equipped_weapon->id == weapon_shotgun)
 		set_player_animation(app, anim_shotgun_default);
-	else if (app->player.equipped_weapon->id == weapon_glock)
-		set_player_animation(app, anim_glock_default);
+	else if (app->player.equipped_weapon->id == weapon_pistol)
+		set_player_animation(app, anim_pistol_default);
 	else if (app->player.equipped_weapon->id == weapon_fist)
 		set_player_animation(app, anim_fist_default);
 	else if (app->player.equipped_weapon->id == weapon_rpg)
@@ -224,12 +227,14 @@ void					set_player_reload_frame(t_doom3d *app)
 {
 	if (app->player.equipped_weapon->id == weapon_shotgun)
 		set_player_animation(app, anim_shotgun_reload);
-	else if (app->player.equipped_weapon->id == weapon_glock)
-		set_player_animation(app, anim_glock_reload);
+	else if (app->player.equipped_weapon->id == weapon_pistol)
+		set_player_animation(app, anim_pistol_reload);
 	else if (app->player.equipped_weapon->id == weapon_fist)
 		set_player_animation(app, anim_fist_reload);
 	else if (app->player.equipped_weapon->id == weapon_rpg)
 		set_player_animation(app, anim_rpg_reload);
+	if (app->is_debug)
+		LOG_DEBUG("Set player reload sprite frame");
 }
 
 /*

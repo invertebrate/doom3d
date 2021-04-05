@@ -6,36 +6,29 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 15:33:41 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/05 17:59:46 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		handle_wasd_movement(t_doom3d *app)
+static void		handle_wasd_input(t_doom3d *app)
 {
-	t_vec3	dir;
+	int32_t		amount;
 
+	amount = 1;
 	if (app->keyboard.state[SDL_SCANCODE_W])
-	{
-		get_move_dir(app, move_forward, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
+		push_custom_event(app, event_player_move, (void*)move_forward,
+			(void*)(intptr_t)amount);
 	if (app->keyboard.state[SDL_SCANCODE_A])
-	{
-		get_move_dir(app, move_strafe_left, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
+		push_custom_event(app, event_player_move, (void*)move_strafe_left,
+			(void*)(intptr_t)amount);
 	if (app->keyboard.state[SDL_SCANCODE_S])
-	{
-		get_move_dir(app, move_backward, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
+		push_custom_event(app, event_player_move, (void*)move_backward,
+			(void*)(intptr_t)amount);
 	if (app->keyboard.state[SDL_SCANCODE_D])
-	{
-		get_move_dir(app, move_strafe_right, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
+		push_custom_event(app, event_player_move, (void*)move_strafe_right,
+			(void*)(intptr_t)amount);
 }
 
 static t_bool	wasd_not_pressed(t_doom3d *app)
@@ -46,46 +39,51 @@ static t_bool	wasd_not_pressed(t_doom3d *app)
 			!(app->keyboard.state[SDL_SCANCODE_D]));
 }
 
-static void		handle_weapon_equip(t_doom3d *app)
+static void		handle_weapon_equip_input(t_doom3d *app)
 {
 	if (app->keyboard.state[SDL_SCANCODE_4])
-		weapon_equip(app, weapon_rpg);
+		push_custom_event(app, event_player_weapon_equip,
+			(void*)weapon_rpg, NULL);
 	else if (app->keyboard.state[SDL_SCANCODE_3])
-		weapon_equip(app, weapon_shotgun);
+		push_custom_event(app, event_player_weapon_equip,
+			(void*)weapon_shotgun, NULL);
 	else if (app->keyboard.state[SDL_SCANCODE_2])
-		weapon_equip(app, weapon_glock);
+		push_custom_event(app, event_player_weapon_equip,
+			(void*)weapon_pistol, NULL);
 	else if (app->keyboard.state[SDL_SCANCODE_1])
-		weapon_equip(app, weapon_fist);
+		push_custom_event(app, event_player_weapon_equip,
+			(void*)weapon_fist, NULL);
 }
 
 static void		handle_game_keyboard_state(t_doom3d *app)
 {
 	if (app->player.is_grounded || app->player.can_fly)
 	{
-		handle_wasd_movement(app);
+		handle_wasd_input(app);
 		if (wasd_not_pressed(app))
 			app->player.is_moving = false;
 		if (app->keyboard.state[SDL_SCANCODE_LSHIFT])
 			app->player.is_running = true;
 		if (app->keyboard.state[SDL_SCANCODE_LCTRL] && app->player.is_grounded)
-			player_crouch(app, true);
-		if (!app->keyboard.state[SDL_SCANCODE_LCTRL])
-			player_crouch(app, false);
+			push_custom_event(app, event_player_crouch, (void*)true, NULL);
+		if (app->player.is_crouching &&
+			!app->keyboard.state[SDL_SCANCODE_LCTRL])
+			push_custom_event(app, event_player_crouch, (void*)false, NULL);
 		if (app->player.is_crouching ||
 			(!app->keyboard.state[SDL_SCANCODE_LSHIFT] &&
 				app->player.is_grounded))
 			app->player.is_running = false;
 		if (app->keyboard.state[SDL_SCANCODE_R])
-			player_reload(app);
+			push_custom_event(app, event_player_reload, NULL, NULL);
 	}
-	handle_weapon_equip(app);
+	handle_weapon_equip_input(app);
 }
 
 /*
 ** Keyboard state handling, both editor & game
 */
 
-void			handle_keyboard_state(t_doom3d *app)
+void			handle_keyboard_state_input(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
@@ -94,8 +92,6 @@ void			handle_keyboard_state(t_doom3d *app)
 	else if (app->active_scene->scene_id == scene_id_editor3d &&
 		!SDL_IsTextInputActive() && !app->editor.is_saving)
 	{
-		if (handle_editor_duplication(app))
-			return ;
-		handle_editor_keyboard_state(app);
+		handle_editor_keyboard_state_input(app);
 	}
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   object_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 16:09:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:11:50 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		handle_object_deletions(t_doom3d *app)
+static void		delete_objects_set_for_deletion(t_doom3d *app)
 {
 	int32_t		i;
 	int32_t		del_index;
@@ -28,7 +28,8 @@ static void		handle_object_deletions(t_doom3d *app)
 		{
 			id = app->active_scene->objects[del_index]->id;
 			object_type_to_str(app->active_scene->objects[del_index], obj_type);
-			ft_printf("Deleted %s, id %u\n", obj_type, id);
+			if (app->is_debug)
+				LOG_DEBUG("Deleted object %s, id %u", obj_type, id);
 			l3d_3d_object_destroy(app->active_scene->objects[del_index]);
 			app->active_scene->objects[del_index] = NULL;
 		}
@@ -109,10 +110,11 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 		{
 			if (obj->params_type == trigger_player_end)
 			{
-				ft_printf("Hit End Trigger, finish level\n");
+				LOG_INFO("Hit End Trigger, finish level");
 				finish_level(app);
 			}
 			else if (obj->params_type == trigger_weapon_drop_shotgun ||
+					obj->params_type == trigger_weapon_drop_pistol ||
 					obj->params_type == trigger_item_jetpack)
 				inventory_pickup_weapon_object(app, obj);
 			else if (obj->params_type == trigger_item_key)
@@ -124,7 +126,7 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 					app->player.keys[((t_trigger *)obj->params)->key_id] == true)
 					elevator_go_to_next_node(app, ((t_trigger *)obj->params)->linked_obj[0]);
 				else
-					ft_printf("Missing key!\n");
+					LOG_INFO("Player is missing key!");
 			}
 		}
 	}
@@ -132,7 +134,8 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 
 /*
 ** Updates objects every frame. In addition applies gravity / physics
-** to objects & player
+** to objects & player. Handles object deletion
+** Also keeps scene structures up to date (triangle tree)
 */
 
 void			update_objects(t_doom3d *app)
@@ -144,6 +147,8 @@ void			update_objects(t_doom3d *app)
 	if (!(app->active_scene->scene_id == scene_id_main_game ||
 		app->active_scene->scene_id == scene_id_editor3d))
 		return ;
+	if (app->active_scene->scene_id == scene_id_main_game)
+		extend_all_objects_shading_opts(app, e_shading_depth);
 	if (!app->active_scene->is_paused &&
 		app->active_scene->scene_id == scene_id_main_game)
 	{
@@ -160,6 +165,6 @@ void			update_objects(t_doom3d *app)
 		l3d_temp_objects_update_time(&app->active_scene->temp_objects,
 			app->info.delta_time);
 	}
-	handle_object_deletions(app);
+	delete_objects_set_for_deletion(app);
 	active_scene_update_after_objects(app->active_scene);
 }

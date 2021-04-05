@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 15:49:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/28 22:42:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/02 00:18:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static unsigned int		morton_3d(t_vec3 normalized_pos)
 		expand_bits((unsigned int)z));
 }
 
-static t_box3d			triangle_bounding_box(t_triangle *triangle)
+t_box3d					triangle_bounding_box(t_triangle *triangle)
 {
 	int32_t	i;
 	t_box3d	aabb;
@@ -72,35 +72,46 @@ static t_box3d			triangle_bounding_box(t_triangle *triangle)
 	return (aabb);
 }
 
+void					normalize_by_world_box(t_vec3 position,
+							t_box3d *world_box)
+{
+	int32_t		i;
+
+	i = -1;
+	while (++i < 3)
+	{
+		position[i] = (position[i] - world_box->xyz_min[i]) /
+			(world_box->xyz_max[i] - world_box->xyz_min[i]);
+	}
+}
+
 /*
 ** Sort triangle vector by morton codes as keys, indices as values.
 ** Use temp array to place triangles in right order back to the vector.
-** Start and end offsets are used to leave space for triangles that are not
-** part of sorting.
+** Sorts relative to world box
 */
 
 void					triangle_sort_by_morton_code(t_tri_vec *triangles,
-							t_thread_pool *pool, uint32_t start,
-							uint32_t end)
+							t_thread_pool *pool, t_box3d *world_box)
 {
 	uint32_t	i;
-	t_triangle	*tmp[end - start];
-	uint32_t	morton_codes[end - start];
-	uint32_t	triangle_indices[end - start];
+	t_triangle	*tmp[triangles->size];
+	uint32_t	morton_codes[triangles->size];
+	uint32_t	triangle_indices[triangles->size];
 	t_box3d		aabb;
 
 	i = -1;
-	while (++i < end - start)
+	while (++i < triangles->size)
 	{
-		tmp[i] = triangles->triangles[start + i];
-		aabb = triangle_bounding_box(triangles->triangles[start + i]);
-		ml_vector3_normalize(aabb.center, aabb.center);
+		tmp[i] = triangles->triangles[i];
+		aabb = triangle_bounding_box(triangles->triangles[i]);
+		normalize_by_world_box(aabb.center, world_box);
 		morton_codes[i] = morton_3d(aabb.center);
 		triangle_indices[i] = i;
 	}
 	radix_sort_key_val(pool, (uint32_t*[2]){morton_codes, triangle_indices},
-		end - start);
+		triangles->size);
 	i = -1;
-	while (++i < end - start)
-		triangles->triangles[start + i] = tmp[triangle_indices[i]];
+	while (++i < triangles->size)
+		triangles->triangles[i] = tmp[triangle_indices[i]];
 }

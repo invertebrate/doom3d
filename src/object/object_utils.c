@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/30 15:05:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:29:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ t_3d_object		*place_scene_object(t_doom3d *app, const char *filenames[3],
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
 	active_scene_update_after_objects(app->active_scene);
+	if (app->is_debug)
+		LOG_DEBUG("New object id %d", obj->id);
 	return (obj);
 }
 
@@ -137,6 +139,8 @@ t_3d_object		*place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
 	active_scene_update_after_objects(app->active_scene);
+	if (app->is_debug)
+		LOG_DEBUG("New procedural object id %d", obj->id);
 	return (obj);
 }
 
@@ -175,6 +179,8 @@ t_3d_object			*place_temp_object(t_doom3d *app, const char *filenames[3],
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
 		lifetime_and_delay);
+	if (app->is_debug)
+		LOG_DEBUG("New temp object id %d", obj->id);
 	return (obj);
 }
 
@@ -211,6 +217,8 @@ t_3d_object			*place_procedural_temp_object(t_doom3d *app,
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
 		lifetime_and_delay);
+	if (app->is_debug)
+		LOG_DEBUG("New procedural temp object id %d", obj->id);
 	return (obj);
 }
 
@@ -228,4 +236,32 @@ void			object_type_to_str(t_3d_object *obj, char *str)
 		ft_sprintf(str, "%s", "Light");
 	else if (obj->type == object_type_path)
 		ft_sprintf(str, "%s", "Path");
+}
+
+void			extend_all_objects_shading_opts(t_doom3d *app,
+					t_shading_opts opts_to_add)
+{
+	int32_t	i;
+
+	i = -1;
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
+		if (app->active_scene->objects[i])
+			l3d_object_set_shading_opts(app->active_scene->objects[i],
+				app->active_scene->objects[i]->material->shading_opts |
+					opts_to_add);
+}
+
+void			remove_all_objects_shading_opts(t_doom3d *app,
+					t_shading_opts opts_to_remove)
+{
+	int32_t	i;
+
+	i = -1;
+	while (++i < (int32_t)(app->active_scene->num_objects +
+		app->active_scene->num_deleted))
+		if (app->active_scene->objects[i])
+			l3d_object_set_shading_opts(app->active_scene->objects[i],
+				app->active_scene->objects[i]->material->shading_opts ^
+					opts_to_remove);
 }
