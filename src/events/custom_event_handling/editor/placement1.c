@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   placement.c                                        :+:      :+:    :+:   */
+/*   placement1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 01:18:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:46:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,10 @@ void		handle_editor_snap_to_grid(t_doom3d *app)
 	int32_t		i;
 	t_3d_object	*selected_obj;
 	t_vec3		snap_pos;
-	int32_t		unit_size_int;
 
 	if (app->editor.num_selected_objects == 0)
 		return ;
 	i = -1;
-	unit_size_int = app->unit_size;
 	while (++i < app->editor.num_selected_objects)
 	{
 		selected_obj = app->editor.selected_objects[i];
