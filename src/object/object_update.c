@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 00:45:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 00:54:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void			update_light_sources(t_doom3d *app, t_3d_object *object)
 		intensity = 0.5;
 		ft_memset(object->material->light_sources, 0,
 			sizeof(object->material->light_sources));
-				object->material->num_lights = 0;
+		object->material->num_lights = 0;
 		i = -1;
 		while (++i < (int32_t)app->active_scene->num_scene_lights)
 		{
