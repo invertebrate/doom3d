@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 02:08:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 03:13:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,18 @@
 
 static void		handle_wasd_input(t_doom3d *app)
 {
-	t_vec3	dir;
-
 	if (app->keyboard.state[SDL_SCANCODE_W])
-	{
-		get_move_dir(app, move_forward, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
+		push_custom_event(app, event_player_move, (void*)move_forward,
+			(void*)(intptr_t)1);
 	if (app->keyboard.state[SDL_SCANCODE_A])
-	{
-		get_move_dir(app, move_strafe_left, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
+		push_custom_event(app, event_player_move, (void*)move_strafe_left,
+			(void*)(intptr_t)1);
 	if (app->keyboard.state[SDL_SCANCODE_S])
-	{
-		get_move_dir(app, move_backward, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
+		push_custom_event(app, event_player_move, (void*)move_backward,
+			(void*)(intptr_t)1);
 	if (app->keyboard.state[SDL_SCANCODE_D])
-	{
-		get_move_dir(app, move_strafe_right, dir);
-		ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-	}
+		push_custom_event(app, event_player_move, (void*)move_strafe_right,
+			(void*)(intptr_t)1);
 }
 
 static t_bool	wasd_not_pressed(t_doom3d *app)
@@ -46,16 +36,20 @@ static t_bool	wasd_not_pressed(t_doom3d *app)
 			!(app->keyboard.state[SDL_SCANCODE_D]));
 }
 
-static void		handle_weapon_equip(t_doom3d *app)
+static void		handle_weapon_equip_input(t_doom3d *app)
 {
 	if (app->keyboard.state[SDL_SCANCODE_4])
-		weapon_equip(app, weapon_rpg);
+		push_custom_event(app, event_player_weapon_equip,
+			(void*)weapon_rpg, NULL);
 	else if (app->keyboard.state[SDL_SCANCODE_3])
-		weapon_equip(app, weapon_shotgun);
+		push_custom_event(app, event_player_weapon_equip,
+			(void*)weapon_shotgun, NULL);
 	else if (app->keyboard.state[SDL_SCANCODE_2])
-		weapon_equip(app, weapon_glock);
+		push_custom_event(app, event_player_weapon_equip,
+			(void*)weapon_glock, NULL);
 	else if (app->keyboard.state[SDL_SCANCODE_1])
-		weapon_equip(app, weapon_fist);
+		push_custom_event(app, event_player_weapon_equip,
+			(void*)weapon_fist, NULL);
 }
 
 static void		handle_game_keyboard_state(t_doom3d *app)
@@ -68,17 +62,18 @@ static void		handle_game_keyboard_state(t_doom3d *app)
 		if (app->keyboard.state[SDL_SCANCODE_LSHIFT])
 			app->player.is_running = true;
 		if (app->keyboard.state[SDL_SCANCODE_LCTRL] && app->player.is_grounded)
-			player_crouch(app, true);
-		if (!app->keyboard.state[SDL_SCANCODE_LCTRL])
-			player_crouch(app, false);
+			push_custom_event(app, event_player_crouch, (void*)true, NULL);
+		if (app->player.is_crouching &&
+			!app->keyboard.state[SDL_SCANCODE_LCTRL])
+			push_custom_event(app, event_player_crouch, (void*)false, NULL);
 		if (app->player.is_crouching ||
 			(!app->keyboard.state[SDL_SCANCODE_LSHIFT] &&
 				app->player.is_grounded))
 			app->player.is_running = false;
 		if (app->keyboard.state[SDL_SCANCODE_R])
-			player_reload(app);
+			push_custom_event(app, event_player_reload, NULL, NULL);
 	}
-	handle_weapon_equip(app);
+	handle_weapon_equip_input(app);
 }
 
 /*

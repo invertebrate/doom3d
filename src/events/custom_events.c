@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 00:47:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 03:18:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	custom_event_to_str(char *str, t_doom3d_event code)
 		ft_sprintf(str, "WindowResize");
 	editor_custom_event_to_str(str, code);
 	object_custom_event_to_str(str, code);
+	player_custom_event_to_str(str, code);
 }
 
 void		register_control_flow_custom_events(t_doom3d *app)
@@ -74,6 +75,7 @@ void		register_custom_events(t_doom3d *app)
 	register_control_flow_custom_events(app);
 	register_editor_custom_events(app);
 	register_object_custom_events(app);
+	register_player_custom_events(app);
 }
 
 void		push_custom_event(t_doom3d *app,

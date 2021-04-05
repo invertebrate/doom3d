@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:09:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 02:27:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 02:39:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef enum				e_doom3d_event
 	event_player_weapon_equip = 32,
 	event_player_move = 33,
 	event_player_jump = 34,
+	event_player_toggle_flight = 341,
 	event_object_scale = 35,
 	event_object_translate_x = 361,
 	event_object_translate_y = 362,

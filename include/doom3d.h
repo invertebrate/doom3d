@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 02:33:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 03:17:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,8 @@ void						push_custom_event(t_doom3d *app,
 								void* data2);
 void						register_custom_events(t_doom3d *app);
 void						register_editor_custom_events(t_doom3d *app);
+void						register_player_custom_events(t_doom3d *app);
+void						player_custom_event_to_str(char *str, t_doom3d_event code);
 void						editor_custom_event_to_str(char *str, t_doom3d_event code);
 void						handle_custom_events(t_doom3d *app,
 								SDL_Event event);
@@ -330,6 +332,18 @@ void						handle_toggle_pause_game(t_doom3d *app);
 void						handle_toggle_fullscreen(t_doom3d *app);
 void						handle_toggle_normal_map_mode(t_doom3d *app);
 void						handle_toggle_debug_mode(t_doom3d *app);
+void						handle_player_toggle_flight(t_doom3d *app);
+void						handle_player_jump(t_doom3d *app);
+void						handle_player_move(t_doom3d *app,
+								t_move move_dir, int32_t amount);
+void						handle_player_rotate(t_doom3d *app,
+								int32_t xrel, int32_t yrel);
+void						handle_player_crouch(t_doom3d *app,
+								t_bool is_crouching);
+void						handle_player_weapon_equip(t_doom3d *app,
+								t_weapon_id weapon);
+void						handle_player_reload(t_doom3d *app);
+void						handle_player_shoot(t_doom3d *app);
 
 /*
 ** 3D Animations

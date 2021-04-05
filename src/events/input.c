@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 23:51:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 03:12:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void			handle_game_input_events(t_doom3d *app, SDL_Event event)
 	int32_t	add;
 
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE)
-		player_jump(app);
+		push_custom_event(app, event_player_jump, NULL, NULL);
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_9)
-		app->player.can_fly = !app->player.can_fly;
+		push_custom_event(app, event_player_toggle_flight, NULL, NULL);
 	if (event.type == SDL_MOUSEWHEEL)
 	{
 		add = event.wheel.y > 0 ? 1 : -1;
@@ -63,7 +63,8 @@ void			handle_game_input_events(t_doom3d *app, SDL_Event event)
 			weapon = 3;
 		if (weapon >= 4)
 			weapon = 0;
-		weapon_equip(app, weapon);
+		push_custom_event(app, event_player_weapon_equip,
+			(void*)(intptr_t)weapon, NULL);
 	}
 }
 
