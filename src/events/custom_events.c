@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 14:05:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 15:49:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void		handle_custom_events(t_doom3d *app, SDL_Event event)
 	if (handle != NULL)
 	{
 		custom_event_to_str(event_str, event.user.code);
-		ft_printf("Event:%d: %s(app, %p, %p)\n",
+		LOG_INFO("Received Event:%d(%s) with: data1: %p, data2: %p",
 			event.user.code, event_str, event.user.data1, event.user.data2);
 		handle(app, event.user.data1, event.user.data2);
 	}

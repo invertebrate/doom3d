@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:01:12 by ohakola           #+#    #+#             */
-/*   Updated: 2020/08/27 16:36:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 15:39:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ enum				e_lengths
 int					ft_dprintf(int fd, const char *format, ...);
 int					ft_sprintf(char *str, const char *format, ...);
 int					ft_printf(const char *format, ...);
+int					ft_printf_internal(const char *format, va_list args);
 
 /*
 ** Validation

@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 14:43:04 by ohakola           #+#    #+#              #
-#    Updated: 2021/04/02 19:00:19 by ohakola          ###   ########.fr        #
+#    Updated: 2021/04/05 15:20:36 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -136,6 +136,7 @@ SOURCES = ft_atoi.c \
 		radix_sort/radix_sort_utils.c \
 		ft_rand.c \
 		read_file.c \
+		logger.c \
 		ft_atod.c \
 		ft_scroll.c \
 		ft_error.c \
