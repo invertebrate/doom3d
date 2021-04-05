@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 03:13:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 03:21:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 
 static void		handle_wasd_input(t_doom3d *app)
 {
+	int32_t		amount;
+
+	amount = 1;
 	if (app->keyboard.state[SDL_SCANCODE_W])
 		push_custom_event(app, event_player_move, (void*)move_forward,
-			(void*)(intptr_t)1);
+			(void*)(intptr_t)amount);
 	if (app->keyboard.state[SDL_SCANCODE_A])
 		push_custom_event(app, event_player_move, (void*)move_strafe_left,
-			(void*)(intptr_t)1);
+			(void*)(intptr_t)amount);
 	if (app->keyboard.state[SDL_SCANCODE_S])
 		push_custom_event(app, event_player_move, (void*)move_backward,
-			(void*)(intptr_t)1);
+			(void*)(intptr_t)amount);
 	if (app->keyboard.state[SDL_SCANCODE_D])
 		push_custom_event(app, event_player_move, (void*)move_strafe_right,
-			(void*)(intptr_t)1);
+			(void*)(intptr_t)amount);
 }
 
 static t_bool	wasd_not_pressed(t_doom3d *app)
