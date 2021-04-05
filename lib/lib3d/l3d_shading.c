@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:27:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 20:53:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 21:40:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,13 @@ uint32_t		l3d_pixel_selection_shaded(uint32_t pixel)
 static void		get_world_pos(t_triangle *triangle, t_vec3 baryc,
 					t_vec3 world_pos)
 {
-	t_vec3	weighted_corners[3];
 	int32_t	i;
 
-	ml_vector3_set(world_pos, 0, 0, 0);
 	i = -1;
 	while (++i < 3)
-	{
-		ml_vector3_mul(triangle->vtc[i]->pos, baryc[i], weighted_corners[i]);
-		ml_vector3_add(world_pos, weighted_corners[i], world_pos);
-	}
+		world_pos[i] = triangle->vtc[0]->pos[i] * baryc[i] +
+			triangle->vtc[1]->pos[i] * baryc[i] +
+			triangle->vtc[2]->pos[i] * baryc[i];
 }
 
 void			point_light_calculation(t_triangle *triangle, t_vec3 baryc,
@@ -50,15 +47,25 @@ void			point_light_calculation(t_triangle *triangle, t_vec3 baryc,
 	float		distance;
 	float		attenuation;
 	float		intensity;
+	uint32_t	light_add[4];
 
 	get_world_pos(triangle, baryc, world_pos);
+	l3d_u32_to_rgba(0xffff80ff, light_add);
 	i = -1;
 	while (++i < (int32_t)triangle->material->num_lights)
 	{
 		ml_vector3_sub(world_pos,
 			triangle->material->light_sources[i].pos, light_dir);
 		distance = ml_vector3_mag(light_dir);
-		LOG_ERROR("Dist %f", distance);
+		LOG_ERROR("bary: %f %f %f, corner pos: %f %f %f barypos: %f %f %f, Dist %f light pos: %f %f %f, radius: %f",
+			baryc[0], baryc[1], baryc[2],
+		triangle->vtc[0]->pos[0], triangle->vtc[0]->pos[1], triangle->vtc[0]->pos[2],
+		world_pos[0], world_pos[1], world_pos[2],
+			distance,
+			triangle->material->light_sources[i].pos[0],
+			triangle->material->light_sources[i].pos[1],
+			triangle->material->light_sources[i].pos[2],
+			triangle->material->light_sources[i].radius);
 		ml_vector3_normalize(light_dir, light_dir);
 		if (distance < triangle->material->light_sources[i].radius)
 		{
@@ -66,9 +73,9 @@ void			point_light_calculation(t_triangle *triangle, t_vec3 baryc,
 				1.0 - distance / triangle->material->light_sources[i].radius;
 			intensity = attenuation *
 				triangle->material->light_sources[i].intensity / 255.0;
-			light[0] += intensity;
-			light[1] += intensity;
-			light[2] += intensity;
+			light[0] += intensity * light_add[0];
+			light[1] += intensity * light_add[1];
+			light[2] += intensity * light_add[2];
 		}
 	}
 	light[3] = 255;
