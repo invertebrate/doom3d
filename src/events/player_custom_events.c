@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 02:40:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 03:17:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 14:04:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 void		player_custom_event_to_str(char *str, t_doom3d_event code)
 {
 	if (code == event_player_rotate)
-		ft_sprintf(str, "PlayerRotate");
+		ft_sprintf(str, "event_player_rotate");
 	else if (code == event_player_shoot)
-		ft_sprintf(str, "PlayerShoot");
+		ft_sprintf(str, "event_player_shoot");
 	else if (code == event_player_reload)
-		ft_sprintf(str, "PlayerReload");
+		ft_sprintf(str, "event_player_reload");
 	else if (code == event_player_crouch)
-		ft_sprintf(str, "PlayerCrouch");
+		ft_sprintf(str, "event_player_crouch");
 	else if (code == event_player_weapon_equip)
-		ft_sprintf(str, "PlayerEquipWeapon");
+		ft_sprintf(str, "event_player_weapon_equip");
 	else if (code == event_player_move)
-		ft_sprintf(str, "PlayerMove");
+		ft_sprintf(str, "event_player_move");
 	else if (code == event_player_jump)
-		ft_sprintf(str, "PlayerJump");
+		ft_sprintf(str, "event_player_jump");
 	else if (code == event_player_toggle_flight)
-		ft_sprintf(str, "PlayerToggleFlight");
+		ft_sprintf(str, "event_player_toggle_flight");
 }
 
 void		register_player_custom_events(t_doom3d *app)

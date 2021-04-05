@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 03:18:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 14:05:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,25 @@
 static void	custom_event_to_str(char *str, t_doom3d_event code)
 {
 	if (code == event_music_play)
-		ft_sprintf(str, "MusicPlay");
+		ft_sprintf(str, "event_music_play");
 	else if (code == event_effect_play)
-		ft_sprintf(str, "EffectPlay");
+		ft_sprintf(str, "event_effect_play");
 	else if (code == event_scene_change)
-		ft_sprintf(str, "SceneChange");
+		ft_sprintf(str, "event_scene_change");
 	else if (code == event_scene_reload)
-		ft_sprintf(str, "SceneReload");
+		ft_sprintf(str, "event_scene_reload");
 	else if (code == event_quit)
-		ft_sprintf(str, "Quit");
+		ft_sprintf(str, "event_quit");
 	else if (code == event_toggle_fullscreen)
-		ft_sprintf(str, "ToggleFullScreen");
+		ft_sprintf(str, "event_toggle_fullscreen");
 	else if (code == event_toggle_debug_mode)
-		ft_sprintf(str, "ToggleDebugMode");
+		ft_sprintf(str, "event_toggle_debug_mode");
 	else if (code == event_toggle_pause_game)
-		ft_sprintf(str, "TogglePauseGame");
+		ft_sprintf(str, "event_toggle_pause_game");
 	else if (code == event_toggle_normal_map_mode)
-		ft_sprintf(str, "ToggleNormalMapMode");
+		ft_sprintf(str, "event_toggle_normal_map_mode");
 	else if (code == event_window_resize)
-		ft_sprintf(str, "WindowResize");
+		ft_sprintf(str, "event_window_resize");
 	editor_custom_event_to_str(str, code);
 	object_custom_event_to_str(str, code);
 	player_custom_event_to_str(str, code);
