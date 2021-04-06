@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/07 00:00:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/07 00:15:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void		handle_weapon_equip_input(t_doom3d *app)
 static void		handle_game_keyboard_state(t_doom3d *app)
 {
 	if (app->player.physics_state == physics_state_grounded ||
-		app->player.physics_state == physics_state_flying)
+		app->player.can_fly)
 	{
 		handle_wasd_input(app);
 		if (wasd_not_pressed(app))

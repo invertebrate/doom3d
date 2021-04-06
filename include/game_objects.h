@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 22:55:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/07 00:16:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ typedef enum				e_physics_state
 	physics_state_falling = 1,
 	physics_state_grounded = 2,
 	physics_state_jumping = 3,
-	physics_state_flying = 4,
-	physics_state_editor_fly = 5,
+	physics_state_not_applied = 5,
 }							t_physics_state;
 
 /*

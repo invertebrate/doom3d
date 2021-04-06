@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 23:47:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/07 00:21:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,40 +78,33 @@ void			update_player_physics_state(t_doom3d *app)
 
 	if (app->active_scene->scene_id == scene_id_editor3d)
 	{
-		app->player.physics_state = physics_state_editor_fly;
+		app->player.physics_state = physics_state_not_applied;
 		return ;
 	}
 	prev_state = app->player.physics_state;
 	if (app->player.velocity[1] < 0)
-	{
-		if (app->player.can_fly)
-			app->player.physics_state = physics_state_flying;
-		else
-			app->player.physics_state = physics_state_jumping;
-	}
+		app->player.physics_state = physics_state_jumping;
 	else
 	{
 		is_grounded = player_is_grounded(app);
-		if (!is_grounded && !app->player.can_fly)
+		if (!is_grounded)
 			app->player.physics_state = physics_state_falling;
-		else if (is_grounded && app->player.physics_state != physics_state_jumping)
+		else if (is_grounded)
 		{
 			app->player.physics_state = physics_state_grounded;
 			nudge_player_up(app);
 		}
 	}
-	if (app->player.physics_state != prev_state && app->is_debug)
+	if (app->player.physics_state != prev_state)
 	{
 		physics_state = "UNKNOWN";
 		if (app->player.physics_state == physics_state_jumping)
-			physics_state = "JUMPING(or moving up but not flying)";
-		else if (app->player.physics_state == physics_state_flying)
-			physics_state = "FLYING";
+			physics_state = "JUMPING(or flying if can fly)";
 		else if (app->player.physics_state == physics_state_falling)
 			physics_state = "FALLING";
 		else if (app->player.physics_state == physics_state_grounded)
 			physics_state = "GROUNDED";
-		LOG_DEBUG("Player physics state %s", physics_state);
+		LOG_INFO("Player physics state %s", physics_state);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:13:24 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/06 23:04:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/07 00:16:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	npc_elevator(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->state = 0;
 	npc->hp = 1000;
 	npc->advance = false;
-	npc->physics_state = physics_state_flying;
+	npc->physics_state = physics_state_not_applied;
 	npc->atk_range = 0;
 	npc->atk_dmg = 0;
 	npc->atk_dur = 0;
