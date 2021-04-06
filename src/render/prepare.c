@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 19:22:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/07 01:10:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,24 +170,29 @@ static t_box3d	origo_centered_world_box(t_doom3d *app)
 */
 
 static void		sort_render_triangles_by_depth(t_doom3d *app,
-					t_tri_vec **render_triangles)
+					t_tri_vec **render_triangles,
+					int32_t skybox_offset)
 {
 	t_box3d				centered_world;
-	t_bool				skybox_offset;
+	t_bool				is_skybox_offset;
 
 	centered_world = origo_centered_world_box(app);
-	skybox_offset = app->active_scene->scene_id != scene_id_editor3d;
-	if (skybox_offset)
+	is_skybox_offset = app->active_scene->scene_id != scene_id_editor3d;
+	if (is_skybox_offset)
 	{
-		render_triangles[0]->triangles = render_triangles[0]->triangles + 12;
-		render_triangles[0]->size = render_triangles[0]->size - 12;
+		render_triangles[0]->triangles =
+			render_triangles[0]->triangles + skybox_offset;
+		render_triangles[0]->size =
+			render_triangles[0]->size - skybox_offset;
 	}
 	triangle_sort_by_depth(render_triangles[0], app->thread_pool,
 		&centered_world);
-	if (skybox_offset)
+	if (is_skybox_offset)
 	{
-		render_triangles[0]->triangles = render_triangles[0]->triangles - 12;
-		render_triangles[0]->size = render_triangles[0]->size + 12;
+		render_triangles[0]->triangles =
+			render_triangles[0]->triangles - skybox_offset;
+		render_triangles[0]->size =
+			render_triangles[0]->size + skybox_offset;
 	}
 	if (render_triangles[1]->size > 0)
 		triangle_sort_by_depth(render_triangles[1], app->thread_pool,
@@ -205,6 +210,7 @@ t_tri_vec		**prepare_render_triangles(t_doom3d *app)
 {
 	t_tri_vec			**render_triangles;
 	uint32_t			initial_transp_cap;
+	int32_t				skybox_offset;
 
 	reset_render_triangle_pool(app);
 	initial_transp_cap = 512;
@@ -216,7 +222,8 @@ t_tri_vec		**prepare_render_triangles(t_doom3d *app)
 		l3d_triangle_vec_with_capacity(initial_transp_cap);
 	if (app->active_scene->scene_id != scene_id_editor3d)
 		add_skybox_render_triangles(app, render_triangles);
+	skybox_offset = render_triangles[0]->size;
 	add_objects_render_triangles(app, render_triangles);
-	sort_render_triangles_by_depth(app, render_triangles);
+	sort_render_triangles_by_depth(app, render_triangles, skybox_offset);
 	return (render_triangles);
 }
