@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 23:26:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 17:07:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,6 @@ void			rasterize_triangles(t_render_work *work)
 		triangle = work->render_triangles->triangles[i];
 		if (triangle_outside_frame(triangle, sub_buffer))
 			continue ;
-		//calculate light position;
-		//temp copy triangle material, change light source origin so that it's position is in relation to player
-		//
 		l3d_triangle_raster(sub_buffer, triangle);
 	}
 }
