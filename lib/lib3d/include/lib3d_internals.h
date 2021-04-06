@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/15 22:27:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 21:12:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,10 @@ int32_t						l3d_triangle_clipping_case(t_triangle *triangle,
 								t_plane *near, int32_t *point_indices);
 t_bool						create_one_clipped_triangle(t_triangle *triangle,
 								t_plane *plane, int32_t *indices,
-								t_triangle *result_tris);
+								t_triangle *result_tris[2]);
 t_bool						create_two_clipped_triangles(t_triangle *triangle,
 								t_plane *plane, int32_t *indices,
-								t_triangle *result_tris);
+								t_triangle *result_tris[2]);
 
 /*
 ** Line draw helpers

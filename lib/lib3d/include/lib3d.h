@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 20:43:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 21:28:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,8 +363,9 @@ void						l3d_triangle_normal_update(t_triangle *triangle);
 void						l3d_triangle_tangent_update(t_triangle *triangle);
 void						l3d_triangle_destroy(t_triangle *triangle,
 								t_bool with_vertices);
-t_triangle					*l3d_triangle_copy(t_triangle *src,
+t_triangle					*l3d_triangle_clone(t_triangle *src,
 								t_bool new_vertices);
+void						*l3d_triangle_copy(t_triangle *dst, t_triangle *src);
 void						triangle_sort_by_morton_code(t_tri_vec *triangles,
 								t_thread_pool *pool, t_box3d *world_box);
 void						triangle_sort_by_depth(t_tri_vec *triangles,
@@ -378,11 +379,10 @@ void						normalize_by_world_box(t_vec3 position,
 
 int							l3d_clip_triangle(t_triangle *triangle,
 											t_plane *plane,
-											t_triangle *result_triangles);
-void						l3d_set_clipped_triangles(t_vertex *vtc,
-													t_triangle *source,
-													t_triangle *dest_tris);
-int							l3d_triangle_clipping_case(t_triangle *triangle,
+											t_triangle *result_triangles[2]);
+void						l3d_init_clipped_triangles(t_triangle
+								*clipped_tris[2]);
+int							l3d_triangle_test_clip(t_triangle *triangle,
 														t_plane *plane,
 														int *point_indices);
 

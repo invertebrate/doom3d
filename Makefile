@@ -119,6 +119,7 @@ SOURCES = main.c \
 			render/debug/debug.c \
 			render/debug/debug_line.c \
 			render/notifications.c \
+			render/render_triangle_pool.c \
 			window/text.c \
 			window/window.c \
 			window/frame.c \
