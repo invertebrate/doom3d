@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 22:16:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 23:33:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	app->player.aabb.size[0] = app->unit_size / 2.0;
 	app->player.aabb.size[1] = app->player.player_height;
 	app->player.aabb.size[2] = app->unit_size / 2.0;
-	app->player.hp = 100; //test
-	app->player.is_jumping = false;
-	app->player.is_falling = false;
+	app->player.hp = 100;
+	app->player.physics_state = physics_state_grounded;
 	app->player.jump_force = PLAYER_JUMP_FORCE;
+	app->player.can_fly = false;
 	ml_vector3_set(app->player.velocity, 0, 0, 0);
 	ml_matrix4_id(app->player.rotation);
 	ml_matrix4_id(app->player.inv_rotation);
@@ -56,6 +56,48 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	SDL_GetRelativeMouseState(NULL, NULL);
 }
 
+void			update_player_physics_state(t_doom3d *app)
+{
+	t_physics_state	prev_state;
+	const char		*physics_state;
+	t_bool			is_grounded;
+
+	if (app->active_scene->scene_id == scene_id_editor3d)
+	{
+		app->player.physics_state = physics_state_editor_fly;
+		return ;
+	}
+	prev_state = app->player.physics_state;
+	if (app->player.velocity[1] < 0)
+	{
+		if (app->player.can_fly)
+			app->player.physics_state = physics_state_flying;
+		else
+			app->player.physics_state = physics_state_jumping;
+	}
+	else
+	{
+		is_grounded = player_is_grounded(app);
+		if (!is_grounded && !app->player.can_fly)
+			app->player.physics_state = physics_state_falling;
+		else if (is_grounded && app->player.physics_state != physics_state_jumping)
+			app->player.physics_state = physics_state_grounded;
+	}
+	if (app->player.physics_state != prev_state && app->is_debug)
+	{
+		physics_state = "UNKNOWN";
+		if (app->player.physics_state == physics_state_jumping)
+			physics_state = "JUMPING(or moving up but not flying)";
+		else if (app->player.physics_state == physics_state_flying)
+			physics_state = "FLYING";
+		else if (app->player.physics_state == physics_state_falling)
+			physics_state = "FALLING";
+		else if (app->player.physics_state == physics_state_grounded)
+			physics_state = "GROUNDED";
+		LOG_DEBUG("Player physics state %s", physics_state);
+	}
+}
+
 void			update_player(t_doom3d *app)
 {
 	if ((app->active_scene->scene_id == scene_id_main_game &&
@@ -64,6 +106,7 @@ void			update_player(t_doom3d *app)
 		player_move(app);
 	else
 		return ;
+	update_player_physics_state(app);
 	forces_update_player(app);
 	player_update_aabb(&app->player);
 	player_animation_update(app);

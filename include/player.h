@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 17:59:46 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:42:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ typedef struct				s_player
 	t_bool					is_reloading;
 	t_bool					is_moving;
 	t_bool					is_rotating;
-	t_bool					is_jumping;
-	t_bool					is_falling;
-	t_bool					is_grounded;
-	t_bool					is_flying;
+	t_physics_state			physics_state;
 	t_bool					can_fly;
 	float					jump_force;
 	float					speed;
