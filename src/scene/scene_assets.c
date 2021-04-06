@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 18:08:27 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/06 20:20:29 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,12 @@ static void		triggers_load(t_scene *scene)
 			scene->asset_files.num_triggers++],
 			(void*)trigger_weapon_drop_pistol);
 	scene->asset_files.trigger_names[scene->asset_files.num_triggers] =
+		"RPG Drop";
+	hash_map_add(scene->trigger_map,
+		(int64_t)scene->asset_files.trigger_names[
+			scene->asset_files.num_triggers++],
+			(void*)trigger_weapon_drop_rpg);
+	scene->asset_files.trigger_names[scene->asset_files.num_triggers] =
 		"Jetpack Drop";
 	hash_map_add(scene->trigger_map,
 		(int64_t)scene->asset_files.trigger_names[
@@ -242,6 +248,8 @@ static void		scene_texture_files_set(t_asset_files *data)
 	data->texture_files[data->num_textures++] =
 		"assets/textures/pistol_texture.bmp";
 	data->texture_files[data->num_textures++] =
+		"assets/textures/rpg_texture.bmp";
+	data->texture_files[data->num_textures++] =
 		"assets/textures/explosion1.bmp";
 	data->texture_files[data->num_textures++] =
 		"assets/textures/explosion2.bmp";
@@ -288,6 +296,7 @@ static void		scene_model_files_set(t_asset_files *data)
 	data->model_files[data->num_models++] = "assets/models/monster_02/monster_02_basemodel_000.obj";
 	data->model_files[data->num_models++] = "assets/models/shotgun.obj";
 	data->model_files[data->num_models++] = "assets/models/pistol.obj";
+	data->model_files[data->num_models++] = "assets/models/rpg.obj";
 	data->model_files[data->num_models++] = "assets/models/missile.obj";
 }
 

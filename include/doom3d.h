@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 18:12:57 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/06 20:26:15 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -591,6 +591,7 @@ t_3d_object					*place_player_end(t_doom3d *app);
 t_3d_object					*place_player_start(t_doom3d *app);
 t_3d_object					*place_drop_shotgun(t_doom3d *app);
 t_3d_object					*place_drop_pistol(t_doom3d *app);
+t_3d_object					*place_drop_rpg(t_doom3d *app);
 t_3d_object					*place_drop_jetpack(t_doom3d *app);
 t_3d_object					*place_elevator_switch(t_doom3d *app);
 t_3d_object					*place_drop_key(t_doom3d *app);
