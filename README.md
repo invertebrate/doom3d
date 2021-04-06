@@ -1,18 +1,28 @@
 # Doom3D
 
-Features:
+Software rasterized game engine with 3d editor and demo maps
 
-- Raycasted 3D
-- Parallel rendering
-- Depth shading
-- Option for simple normal mapping
+Features:
+- Raycasted 3D (ray to triangle corners, screen intersection for rasterization)
+- Parallel rendering with z-sorted triangles
+- Depth shading + Simple Lights
+- Normal mapping capability
 - `.obj` file import and usage for world generation
   - homemade 3d models :)
+- Full 3D map / scene editor
+- Kd tree for raycast intersections & collision help
 - AABB collision (player)
-- AABB viewbox occulsion
+- AABB viewbox occulsion for objects & triangles
 - Skybox
+- A* path finding and node-based npc paths
+- 3D animations (from frames)
+- 2D sprite effects
+- Music & effects with SDL_mixer
+- Fancy logs
+- Debug lines
+- Custom events for engine logic with SDL user events
 
-## Install
+## Installation
 
 ### Mac
 

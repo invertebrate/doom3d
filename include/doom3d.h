@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 21:48:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 22:16:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -628,7 +628,7 @@ void						trigger_link_object_to_npc(t_3d_object *trigger,
 ** Player animations
 */
 void						player_animations_init(t_doom3d *app);
-void						doom3d_player_animation_update(t_doom3d *app);
+void						player_animation_update(t_doom3d *app);
 void						set_player_shoot_frame(t_doom3d *app);
 void						set_player_reload_frame(t_doom3d *app);
 void						set_player_default_frame(t_doom3d *app);

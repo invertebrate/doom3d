@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_animations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 17:59:46 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:16:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ void					set_player_reload_frame(t_doom3d *app)
 ** frame is reached, animation is set to be finished.
 */
 
-void	doom3d_player_animation_update(t_doom3d *app)
+void	player_animation_update(t_doom3d *app)
 {
 	t_sprite_anim *curr_player_anim;
 

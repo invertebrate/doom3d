@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 16:09:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 22:16:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ void			update_player(t_doom3d *app)
 		return ;
 	forces_update_player(app);
 	player_update_aabb(&app->player);
-	doom3d_player_animation_update(app);
+	player_animation_update(app);
 }
