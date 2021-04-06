@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 02:46:11 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 03:01:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/07 00:26:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ void		handle_player_move(t_doom3d *app, t_move move_dir, int32_t amount)
 	t_vec3	dir;
 
 	get_move_dir(app, move_dir, dir);
-	ml_vector3_mul(dir, amount, dir);
+	if (app->player.physics_state != physics_state_grounded &&
+		app->player.can_fly)
+		ml_vector3_mul(dir, (float)amount / 5.0, dir);
+	else
+		ml_vector3_mul(dir, amount, dir);
 	ml_vector3_add(app->player.velocity, dir, app->player.velocity);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_default.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/03 18:33:48 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/06 23:04:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->state = 0;
 	npc->hp = 100;
 	npc->advance = false;
-	npc->is_flying = false;
+	npc->physics_state = physics_state_grounded;
 	ml_vector3_set_all(npc->dir, 0.0);
 	npc->atk_range = app->unit_size * 5;
 	npc->atk_dmg = 10;
@@ -87,7 +87,7 @@ void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->state = 0;
 	npc->hp = 100;
 	npc->advance = false;
-	npc->is_flying = false;
+	npc->physics_state = physics_state_grounded;
 	ml_vector3_set_all(npc->dir, 0.0);
 	npc->atk_range = app->unit_size * 5;
 	npc->atk_dmg = 10;

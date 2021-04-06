@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 15:02:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/07 00:12:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,11 @@ void			player_move(t_doom3d *app)
 	float		speed;
 
 	app->player.is_moving = true;
-	if (app->player.is_running && !app->player.is_jumping)
+	if (app->player.is_running &&
+		app->player.physics_state != physics_state_jumping)
 		speed = app->player.speed * 1.5;
-	else if (app->player.is_crouching && !app->player.is_jumping)
+	else if (app->player.is_crouching &&
+		app->player.physics_state != physics_state_jumping)
 		speed = app->player.speed * 0.5;
 	else
 		speed = app->player.speed;

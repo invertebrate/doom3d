@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 22:16:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/07 01:13:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,8 +245,10 @@ void						npc_find_path(t_doom3d *app, t_npc *npc, t_vec3	start, t_vec3 end);
 
 t_bool						obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj);
 t_bool						player_is_grounded(t_doom3d *app);
-void						forces_update_object(t_doom3d *app,
+void						update_object_forces(t_doom3d *app,
 								t_3d_object *tested);
+void						update_object_physics_state(t_doom3d *app,
+								t_3d_object *obj);
 void						forces_update_player(t_doom3d *app);
 
 /*

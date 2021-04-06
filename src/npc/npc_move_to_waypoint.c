@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:07:07 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 18:24:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/07 00:14:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj)
 
 	(void)app; //delete this later
 	npc = obj->params;
-	if (npc->is_flying)
+	if (obj->params_type == npc_type_elevator)
 	{
 		l3d_3d_object_translate(obj, npc->dir[0], npc->dir[1], npc->dir[2]);
 		l3d_object_aabb_update(obj);

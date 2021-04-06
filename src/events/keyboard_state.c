@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_state.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 17:59:46 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/07 00:15:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,23 @@ static void		handle_weapon_equip_input(t_doom3d *app)
 
 static void		handle_game_keyboard_state(t_doom3d *app)
 {
-	if (app->player.is_grounded || app->player.can_fly)
+	if (app->player.physics_state == physics_state_grounded ||
+		app->player.can_fly)
 	{
 		handle_wasd_input(app);
 		if (wasd_not_pressed(app))
 			app->player.is_moving = false;
 		if (app->keyboard.state[SDL_SCANCODE_LSHIFT])
 			app->player.is_running = true;
-		if (app->keyboard.state[SDL_SCANCODE_LCTRL] && app->player.is_grounded)
+		if (app->keyboard.state[SDL_SCANCODE_LCTRL] &&
+			app->player.physics_state == physics_state_grounded)
 			push_custom_event(app, event_player_crouch, (void*)true, NULL);
 		if (app->player.is_crouching &&
 			!app->keyboard.state[SDL_SCANCODE_LCTRL])
 			push_custom_event(app, event_player_crouch, (void*)false, NULL);
 		if (app->player.is_crouching ||
 			(!app->keyboard.state[SDL_SCANCODE_LSHIFT] &&
-				app->player.is_grounded))
+				app->player.physics_state == physics_state_grounded))
 			app->player.is_running = false;
 		if (app->keyboard.state[SDL_SCANCODE_R])
 			push_custom_event(app, event_player_reload, NULL, NULL);

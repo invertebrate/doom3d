@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 20:21:05 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/06 23:06:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 {
 	if (has_forces(obj))
 	{
-		forces_update_object(app, obj);
+		update_object_physics_state(app, obj);
+		update_object_forces(app, obj);
 	}
 	if (obj->type == object_type_npc)
 	{

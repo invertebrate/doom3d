@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_elevator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:13:24 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/17 12:27:14 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/07 00:16:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	npc_elevator(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->state = 0;
 	npc->hp = 1000;
 	npc->advance = false;
-	npc->is_flying = true;
+	npc->physics_state = physics_state_not_applied;
 	npc->atk_range = 0;
 	npc->atk_dmg = 0;
 	npc->atk_dur = 0;
