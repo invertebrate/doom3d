@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 21:29:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 21:44:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void		push_two_clipped_triangles(t_doom3d *app,
 {
 	l3d_triangle_update(clipped_triangles[0]);
 	l3d_triangle_update(clipped_triangles[1]);
-	ml_vector3_print(clipped_triangles[0]->vtc[0]->pos);
 	screen_intersection(app, clipped_triangles[0]);
 	screen_intersection(app, clipped_triangles[1]);
 	update_triangle_vertex_zvalues(clipped_triangles[0], app->unit_size);
