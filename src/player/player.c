@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 23:33:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 23:47:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,20 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	SDL_GetRelativeMouseState(NULL, NULL);
 }
 
+static void		nudge_player_up(t_doom3d *app)
+{
+	while (player_is_grounded(app))
+	{
+		app->player.pos[1] -= 10;
+		player_update_aabb(&app->player);
+	}
+	if (!player_is_grounded(app))
+	{
+		app->player.pos[1] += 10;
+		player_update_aabb(&app->player);
+	}
+}
+
 void			update_player_physics_state(t_doom3d *app)
 {
 	t_physics_state	prev_state;
@@ -81,7 +95,10 @@ void			update_player_physics_state(t_doom3d *app)
 		if (!is_grounded && !app->player.can_fly)
 			app->player.physics_state = physics_state_falling;
 		else if (is_grounded && app->player.physics_state != physics_state_jumping)
+		{
 			app->player.physics_state = physics_state_grounded;
+			nudge_player_up(app);
+		}
 	}
 	if (app->player.physics_state != prev_state && app->is_debug)
 	{
