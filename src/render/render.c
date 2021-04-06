@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 19:21:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 21:35:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,32 +131,24 @@ static void		render_parallel(t_doom3d *app, t_framebuffer *framebuffer)
 	uint32_t			num_passes;
 
 	update_camera(app);
-	uint64_t	start = performance_counter_start();
 	render_triangles = prepare_render_triangles(app);
 	app->triangles_in_view = render_triangles[0]->size +
 		render_triangles[1]->size;
-	performance_counter_end(start, "Prepare triangles", 0.0);
 	if (render_triangles[1]->size > 0)
 		num_passes = 2;
 	else
 		num_passes = 1;
-	start = performance_counter_start();
 	render_pass(app, framebuffer, render_triangles,
 		(uint32_t[2]){0, num_passes});
 	thread_pool_wait(app->thread_pool);
-	performance_counter_end(start, "Render pass 1", 0.0);
 	// Transparency pass
 	if (num_passes == 2)
 	{
-		start = performance_counter_start();
 		render_pass(app, framebuffer, render_triangles,
 		(uint32_t[2]){1, num_passes});
 		thread_pool_wait(app->thread_pool);
-		performance_counter_end(start, "Render pass 2", 0.0);
 	}
-	start = performance_counter_start();	
 	destroy_render_triangle_vecs(render_triangles);
-	performance_counter_end(start, "Destroy render tris", 0.0);
 }
 
 void			render_editor_3d_view(t_doom3d *app)
