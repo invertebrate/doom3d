@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 01:26:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 19:22:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,20 +136,8 @@ static void		add_skybox_render_triangles(t_doom3d *app,
 	}
 }
 
-void			destroy_render_triangles(t_tri_vec **render_triangles)
+void			destroy_render_triangle_vecs(t_tri_vec **render_triangles)
 {
-	int32_t		i;
-
-	i = -1;
-	while (++i < (int32_t)render_triangles[0]->size)
-	{
-		l3d_triangle_destroy(render_triangles[0]->triangles[i], true);
-	}
-	i = -1;
-	while (++i < (int32_t)render_triangles[1]->size)
-	{
-		l3d_triangle_destroy(render_triangles[1]->triangles[i], true);
-	}
 	l3d_triangle_vec_delete(render_triangles[0]);
 	l3d_triangle_vec_delete(render_triangles[1]);
 	free(render_triangles);
@@ -218,9 +206,10 @@ t_tri_vec		**prepare_render_triangles(t_doom3d *app)
 	t_tri_vec			**render_triangles;
 	uint32_t			initial_transp_cap;
 
+	reset_render_triangle_pool(app);
 	initial_transp_cap = 512;
 	error_check(!(render_triangles = ft_calloc(sizeof(*render_triangles) * 2)),
-		"Failed to allocate render triangle pointers");
+		"Failed to allocate render triangle vector pointers");
 	render_triangles[0] =
 		l3d_triangle_vec_with_capacity(app->active_scene->num_triangles + 12);
 	render_triangles[1] =

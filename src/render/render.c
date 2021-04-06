@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 23:18:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 21:35:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,9 @@ static void		render_parallel(t_doom3d *app, t_framebuffer *framebuffer)
 	{
 		render_pass(app, framebuffer, render_triangles,
 		(uint32_t[2]){1, num_passes});
-		thread_pool_wait(app->thread_pool);	
+		thread_pool_wait(app->thread_pool);
 	}
-	destroy_render_triangles(render_triangles);
+	destroy_render_triangle_vecs(render_triangles);
 }
 
 void			render_editor_3d_view(t_doom3d *app)

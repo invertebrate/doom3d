@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#              #
-#    Updated: 2021/04/02 19:00:28 by ohakola          ###   ########.fr        #
+#    Updated: 2021/04/06 19:47:10 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIBGMATRIX = ../libgmatrix
 DIR_SRC = ./
 DIR_OBJ = temp
 SOURCES = l3d_triangle.c \
-			l3d_triangle_copy.c \
+			l3d_triangle_clone.c \
 			l3d_triangle_update.c \
 			l3d_triangle_vector.c \
 			l3d_ray.c \

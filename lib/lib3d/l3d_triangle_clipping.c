@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 18:49:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 21:28:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 */
 
 int32_t			l3d_clip_triangle(t_triangle *triangle, t_plane *plane,
-									t_triangle *result_triangles)
+									t_triangle *result_triangles[2])
 {
 	int		clip_case;
 	int		indices[2];
@@ -50,21 +50,16 @@ int32_t			l3d_clip_triangle(t_triangle *triangle, t_plane *plane,
 	}
 }
 
-void			l3d_set_clipped_triangles(t_vertex *vtc, t_triangle *source,
-											t_triangle *dest_tris)
+void			l3d_init_clipped_triangles(t_triangle *clipped_tris[2])
 {
 	int32_t		i;
 
 	i = -1;
-	ft_memcpy(&dest_tris[0], source, sizeof(t_triangle));
-	ft_memcpy(&dest_tris[1], source, sizeof(t_triangle));
 	while (++i < 3)
 	{
-		vtc[i].color = 0;
-		vtc[3 + i].color = 0;
-		ml_vector3_set_all(vtc[i].pos, 0.0);
-		ml_vector3_set_all(vtc[3 + i].pos, 0.0);
-		dest_tris[0].vtc[i] = &vtc[i];
-		dest_tris[1].vtc[i] = &vtc[3 + i];
+		clipped_tris[0]->vtc[i]->color = 0;
+		clipped_tris[1]->vtc[i]->color = 0;
+		ml_vector3_set_all(clipped_tris[0]->vtc[i]->pos, 0.0);
+		ml_vector3_set_all(clipped_tris[1]->vtc[i]->pos, 0.0);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 20:26:15 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/06 21:48:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,21 @@
 
 # define GAME_VIEW_DIST_UNITS 200
 # define EDITOR_VIEW_DIST_UNITS 500
+
+
+/*
+** Allocation space for render triangles used in rasterization
+** Increase if needed (error encountered)
+*/
+
+# define RENDER_TRIANGLE_POOL_SIZE 65536
+
+/*
+** Allocation space for clipped vertices pool used in rasterization
+** Increase if needed (error encountered)
+*/
+
+# define RENDER_VERTEX_POOL_SIZE RENDER_TRIANGLE_POOL_SIZE * 3
 
 /*
 ** Defines how many levels can be created, otherwise the app will remind
@@ -126,6 +141,12 @@ typedef struct				s_doom3d
 	t_mp					mp;
 	uint32_t				custom_event_type;
 	t_hash_table			*custom_event_handles;
+	t_triangle				*render_triangle_pool;
+	t_vertex				*render_vertex_pool;
+	uint32_t				num_render_triangles;
+	uint32_t				num_render_vertices;
+	uint32_t				render_triangle_pool_size;
+	uint32_t				render_vertex_pool_size;
 }							t_doom3d;
 
 /*
@@ -373,7 +394,7 @@ void						ui_render(t_doom3d *app);
 void						render_to_framebuffer(t_doom3d *app);
 void						loading_render(t_doom3d *app);
 t_tri_vec					**prepare_render_triangles(t_doom3d *app);
-void						destroy_render_triangles(
+void						destroy_render_triangle_vecs(
 								t_tri_vec **render_triangles);
 void						clip_and_add_to_render_triangles(t_doom3d *app,
 								t_tri_vec **r_triangle_vecs,
@@ -419,6 +440,10 @@ void						notifications_render(t_doom3d *app, t_vec2 pos);
 void						draw_triangle_tree_bounding_boxes(
 								t_render_work *work);
 void						draw_editor_placement_position(t_render_work *work);
+t_triangle					*get_render_triangle_from_pool(t_doom3d *app);
+void						destroy_render_triangle_pool(t_doom3d *app);
+void						reset_render_triangle_pool(t_doom3d *app);
+void						allocate_render_triangle_pool(t_doom3d *app);
 
 /*
 ** Objects
