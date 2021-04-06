@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 00:07:48 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 00:28:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 16:27:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ void		handle_toggle_fullscreen(t_doom3d *app)
 {
 	app->window->is_fullscreen = !app->window->is_fullscreen;
 	if (app->window->is_fullscreen)
-		SDL_SetWindowFullscreen(app->window->window, SDL_WINDOW_FULLSCREEN);
+	{
+		SDL_SetWindowFullscreen(app->window->window,
+			SDL_WINDOW_FULLSCREEN);
+		window_resize(app->window, app->settings.width, app->settings.height);
+	}
 	else
 		SDL_SetWindowFullscreen(app->window->window, 0);
 }
