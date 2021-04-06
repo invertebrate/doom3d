@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 19:27:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 17:40:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,21 @@ void			performance_counter_end(uint64_t start_time,
 
 void			resize_dependent_recreate(t_doom3d *app)
 {
+	SDL_Event	event;
+
 	app->window->resized = false;
 	if (app->window->is_hidden)
 	{
+		LOG_INFO("Window hidden, ignoring all but quit event");
 		while (app->window->is_hidden)
-			SDL_PollEvent(NULL);
+		{
+			SDL_PollEvent(&event);
+			if (event.type == SDL_QUIT)
+			{
+				push_custom_event(app, event_quit, NULL, NULL);
+				break ;
+			}
+		}
 	}
 	else
 	{
