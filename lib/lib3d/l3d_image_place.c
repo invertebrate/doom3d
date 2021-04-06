@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/15 21:58:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 17:03:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,26 @@ void				l3d_image_place(t_surface *frame,
 {
 	uint32_t		frame_pixel;
 	uint32_t		layer_pixel;
-	int32_t			x;
-	int32_t			y;
+	int32_t			maxes[2];
+	int32_t			mins[2];
+	int32_t			xy[2];
 
-	y = pos_xy[1] - 1;
-	while (++y < pos_xy[1] + (int32_t)image->h)
+	mins[0] = (int32_t)fmax(pos_xy[0] - 1, 0);
+	mins[1] = (int32_t)fmax(pos_xy[1] - 1, 0);
+	maxes[0] = (int32_t)fmin(pos_xy[0] + (int32_t)image->w, (int32_t)frame->w);
+	maxes[1] = (int32_t)fmin(pos_xy[1] + (int32_t)image->h, (int32_t)frame->h);
+	xy[1] = mins[1];
+	while (++xy[1] < maxes[1])
 	{
-		x = pos_xy[0] - 1;
-		while (++x < pos_xy[0] + (int32_t)image->w)
+		xy[0] = mins[0];
+		while (++xy[0] < maxes[0])
 		{
-			layer_pixel = ((uint32_t*)image->pixels)[(y - pos_xy[1]) *
-					image->w + (x - pos_xy[0])];
+			layer_pixel = ((uint32_t*)image->pixels)[(xy[1] - pos_xy[1]) *
+					image->w + (xy[0] - pos_xy[0])];
 			frame_pixel =
-				frame->pixels[y * frame->w + x];
-			if (x < (int32_t)frame->w && y < (int32_t)frame->h &&
-				x >= 0 && y >= 0)
-				frame->pixels[y * (int32_t)frame->w + x] =
-					l3d_color_blend_u32(frame_pixel, layer_pixel, blend_ratio);
+				frame->pixels[xy[1] * frame->w + xy[0]];
+			frame->pixels[xy[1] * (int32_t)frame->w + xy[0]] =
+				l3d_color_blend_u32(frame_pixel, layer_pixel, blend_ratio);
 		}
 	}
 }
