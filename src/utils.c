@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 17:40:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 18:29:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void			performance_counter_end(uint64_t start_time,
 		start_time) * 1000.0 /
 		(float)SDL_GetPerformanceFrequency();
 	if (delta_limit == 0.0 || delta_time > delta_limit)
-		ft_printf("%s: Profiler time: %f\n", task_name, delta_time);
+		LOG_TRACE("%s: Profiler time: %f", task_name, delta_time);
 }
 
 
