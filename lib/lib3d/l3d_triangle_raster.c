@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 20:05:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 17:08:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void		scan_line(t_sub_framebuffer *buffers,
 
 	y = floor(limits[2]);
 	x = fmax(floor(limits[0]), -buffers->x_offset);
-	end_x = fmin(floor(limits[1]) - 1,
+	end_x = fmin(floor(limits[1]),
 		buffers->width - buffers->x_offset);
 	while (x < end_x)
 		l3d_raster_draw_pixel(buffers, (int32_t[2]){x++, y}, triangle);
@@ -43,7 +43,7 @@ static void		raster_upper(t_sub_framebuffer *bufs,
 		x = data->x2 + data->slope_ab * (y - data->y2);
 		end_x = data->x1 + data->slope_ac * (y - data->y1);
 		limits[0] = fmin(x, end_x);
-		limits[1] = fmax(x, end_x) + 1;
+		limits[1] = fmax(x, end_x);
 		limits[2] = y;
 		scan_line(bufs, limits, tri);
 		y++;
@@ -66,7 +66,7 @@ static void		raster_lower(t_sub_framebuffer *bufs,
 		x = data->x2 + data->slope_bc * (y - data->y2);
 		end_x = data->x1 + data->slope_ac * (y - data->y1);
 		limits[0] = fmin(x, end_x);
-		limits[1] = fmax(x, end_x) + 1;
+		limits[1] = fmax(x, end_x);
 		limits[2] = y;
 		scan_line(bufs, limits, tri);
 		y++;
