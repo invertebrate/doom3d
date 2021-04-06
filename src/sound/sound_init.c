@@ -49,15 +49,11 @@ t_mp		mix_init(t_doom3d *app, int channels)
 ** Store all the music into memory
 */
 
-static int	mp_music_init(t_doom3d *app)
+static int	mp_all_init(t_doom3d *app)
 {
 	int	i;
 
-	i = 0;
-	app->mp.library[i++] = read_sound(TRACK1, app);
-	app->mp.library[i++] = read_sound(TRACK2, app);
-	app->mp.library[i++] = read_sound(EFFECT1, app);
-	app->mp.library[i++] = read_sound(EFFECT2, app);
+	mp_music_init(app);
 	i = -1;
 	while (++i < SOUNDS)
 		if (!app->mp.library[i])
@@ -79,7 +75,7 @@ void		mp_init(t_doom3d *app)
 	app->mp.st_vol = 1;
 	app->mp.sf_vol = 1;
 	app->mp = mix_init(app, app->mp.channels);
-	if ((ret = mp_music_init(app)) != 1)
+	if ((ret = mp_all_init(app)) != 1)
 		error_check(true, "Failed to init sound");
 	SDL_PauseAudioDevice(app->mp.audev, 0);
 	SDL_UnlockAudioDevice(app->mp.audev);
