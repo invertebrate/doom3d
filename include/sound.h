@@ -31,13 +31,22 @@
 # define PREF_AUDIO AUDIO_F32
 # define PREF_CHAN 2
 # define PREF_FREQ 44100
-# define SOUNDS 4
+# define SOUNDS 12 // MUSIC + SEFFECT
 # define MUSIC 2
-# define SEFFECT 2
+# define SEFFECT 10
 # define TRACK1 "assets/sounds/basic_music.wav"
 # define TRACK2 "assets/sounds/doom_music.wav"
-# define EFFECT1 "assets/sounds/shotgun_fire.wav"
-# define EFFECT2 "assets/sounds/boom.wav"
+# define SF_SHTG_FIRE "assets/sounds/shotgun_fire.wav"
+# define SF_EXPLSION "assets/sounds/boom.wav"
+# define SF_PSTL_FIRE "assets/sounds/pistol.wav"
+# define SF_GUN_EMPT "assets/sounds/empty_clip.wav"
+# define SF_GUN_REL "assets/sounds/reload.wav"
+# define SF_RPG_FIRE "assets/sounds/rpg.wav"
+# define SF_FIST_FIRE "assets/sounds/melee_attack.wav"
+# define SF_FIST_HIT "assets/sounds/fist.wav"
+# define SF_EXPLSION2 "assets/sounds/explosion.wav"
+# define SF_LANDING "assets/sounds/landing.wav"
+
 # define SPLAYING 1
 # define SPAUSED 2
 # define SSTOPPED 0
@@ -89,6 +98,7 @@ typedef struct			s_mp
 ** mu_ prefix for music, sf_ for sound effects
 ** gun prefixes:
 ** shotgun = shtg_
+** pistol = pstl_
 */
 
 typedef enum			e_sounds
@@ -97,6 +107,17 @@ typedef enum			e_sounds
 	mu_doom,
 	sf_shtg_fire,
 	sf_explsion,
+	sf_pstl_fire,
+	sf_gun_empt,
+	sf_gun_rel,
+	sf_rpg_fire,
+	sf_fist_fire,
+	sf_fist_hit,
+	sf_explsion2,
+	sf_landing,
+	
+
+
 }						t_sounds;
 
 /*

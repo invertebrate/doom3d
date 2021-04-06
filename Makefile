@@ -162,6 +162,8 @@ SOURCES = main.c \
 			sound/sound.c\
 			sound/sound_controls.c\
 			sound/sound_init.c\
+			sound/sound_music_init.c\
+			sound/sound_effect_init.c\
 			sound/sound_loop.c\
 			sound/sound_mp_controls.c\
 			animations/animation.c
