@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 18:23:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 17:13:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,14 @@ static void		main_loop(t_doom3d *app)
 void			doom3d_run(t_doom3d *app)
 {
 	int32_t	cpu_count;
+	int32_t	num_threads;
 
-	cpu_count = ft_max_int((int32_t[2]){
-		NUM_THREADS_DEFAULT, SDL_GetCPUCount()}, 2);
-	LOG_INFO("Create thread pool");
-	app->thread_pool = thread_pool_create(
-		cpu_count >= NUM_THREADS_DEFAULT ? cpu_count : NUM_THREADS_DEFAULT);
+	cpu_count = SDL_GetCPUCount();
+	num_threads = ft_max_int((int32_t[2]){
+		NUM_THREADS_DEFAULT, cpu_count}, 2);
+	app->thread_pool = thread_pool_create(num_threads);
+	LOG_INFO("Created thread pool with %d threads for %d logical cpus",
+		num_threads, cpu_count);
 	LOG_INFO("Initialize SDL");
 	error_check(SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0, SDL_GetError());
 	error_check(TTF_Init() == -1, TTF_GetError());
