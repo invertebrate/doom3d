@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:26:50 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 18:12:01 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:18:58 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ static void		weapon_id_to_str(char *str, t_weapon_id weapon_id)
 		ft_sprintf(str, "Unknown");
 }
 
+static void		give_jetpack(t_doom3d *app, t_3d_object *weapon_drop_obj)
+{
+	app->player.can_fly = true;
+	if (app->is_debug)
+		LOG_DEBUG("Picked up Jetpack");
+	push_custom_event(app, event_object_delete,
+		weapon_drop_obj, NULL);
+}
+
 void			inventory_pickup_weapon_object(t_doom3d *app,
 					t_3d_object *weapon_drop_obj)
 {
@@ -38,13 +47,7 @@ void			inventory_pickup_weapon_object(t_doom3d *app,
 	else if (weapon_drop_obj->params_type == trigger_weapon_drop_rpg)
 		weapon = &app->weapons_data[weapon_rpg];
 	else if (weapon_drop_obj->params_type == trigger_item_jetpack)
-		{
-			app->player.can_fly = true;
-			if (app->is_debug)
-				LOG_DEBUG("Picked up Jetpack");
-			push_custom_event(app, event_object_delete,
-				weapon_drop_obj, NULL);
-		}
+		give_jetpack(app, weapon_drop_obj);
 	if (weapon)
 	{
 		weapon_id_to_str(weapon_id, weapon->id);
@@ -68,6 +71,6 @@ void			inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj)
 		push_custom_event(app, event_object_delete,
 			key_obj, NULL);
 		if (app->is_debug)
-			LOG_DEBUG("Picked up key %d",key->key_id);
+			LOG_DEBUG("Picked up key %d", key->key_id);
 	}
 }
