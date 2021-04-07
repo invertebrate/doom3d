@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/07 00:16:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/07 10:49:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,11 @@ static void		nudge_object_up(t_doom3d *app, t_3d_object *obj)
 void			update_object_physics_state(t_doom3d *app, t_3d_object *obj)
 {
 	t_npc			*npc;
-	t_physics_state	prev_state;
 	t_bool			is_grounded;
 
 	if (obj->type == object_type_npc)
 	{
 		npc = obj->params;
-		prev_state = npc->physics_state;
 		if (npc->velocity[1] < 0)
 			npc->physics_state = physics_state_jumping;
 		else
