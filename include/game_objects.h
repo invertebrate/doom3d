@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_objects.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/07 00:16:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/08 14:04:16 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,9 @@ typedef enum				e_npc_type
 typedef enum				e_projectile_type
 {
 	projectile_type_rpg = 0,
-	projectile_type_bullet = 1,
-	projectile_type_none = 2,
+	projectile_type_fireball = 1,
+	projectile_type_bullet = 2,
+	projectile_type_none = 3,
 }							t_projectile_type;
 
 /*
