@@ -27,7 +27,9 @@ void	player_reload(t_doom3d *app)
 	if (app->player.equipped_weapon->clip <
 		app->player.equipped_weapon->clip_size &&
 		app->player.equipped_weapon->clip !=
-		app->player.equipped_weapon->ammo)
+		app->player.equipped_weapon->ammo &&
+		!app->player.is_reloading &&
+		player_animation_state(app) == anim_state_default)
 	{
 		app->player.is_reloading = true;
 		set_player_reload_frame(app);

@@ -43,7 +43,8 @@ static void				handle_game_mouse_state_input(t_doom3d *app)
 		app->player.is_shooting = false;
 		set_player_default_frame(app);
 	}
-	if (app->player.is_shooting && !app->player.is_reloading)
+	if (app->player.is_shooting && !app->player.is_reloading &&
+		player_animation_state(app) != anim_state_reload)
 	{
 		player_shoot(app, SDL_GetTicks());
 	}
