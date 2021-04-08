@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 17:59:46 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/08 15:43:45 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,9 @@ static void		player_shoot_projectile(t_doom3d *app, t_vec3 origin)
 	rot[2] = 90;
 	ml_vector3_copy(rot, projectile.euler_angles);
 	place_projectile_object_in_scene(app, &projectile, origin, rot);
+	if (app->player.equipped_weapon->id == weapon_rpg)
+		push_custom_event(app,
+		event_effect_play, (void*)sf_rpg_fire, s_ini(0, 1, st_game, 1.0));
 }
 
 static void		shoot_shotgun(t_doom3d *app, t_vec3 origin)
