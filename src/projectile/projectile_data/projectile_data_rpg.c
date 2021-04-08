@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile_data_rpg.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 13:17:24 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/01/19 17:04:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/08 14:48:55 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

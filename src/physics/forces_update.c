@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forces_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/07 10:49:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/08 15:14:38 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ void			update_object_physics_state(t_doom3d *app, t_3d_object *obj)
 	t_npc			*npc;
 	t_bool			is_grounded;
 
-	if (obj->type == object_type_npc)
+	if (obj->type == object_type_npc &&
+		((t_npc *)(obj->params))->type != npc_type_elevator)
 	{
 		npc = obj->params;
 		if (npc->velocity[1] < 0)
