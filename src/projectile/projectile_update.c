@@ -56,6 +56,9 @@ static void		projectile_explode_effect(t_doom3d *app,
 	while (++i < 4)
 		transform_explosion_plane(app, projectile_obj->params,
 			explosions[i]);
+	LOG_INFO("hit distance test | unit %f | %f => %f\n", app->unit_size, sound_mag(app->player.pos, projectile_obj->position), distance_vol(app, 1, sound_mag(app->player.pos, projectile_obj->position), -1));
+	push_custom_event(app,
+		event_effect_play, (void*)sf_explsion2, s_ini(0, 1, st_game, distance_vol(app, 1, sound_mag(app->player.pos, projectile_obj->position), -1)));
 }
 
 static void		projectile_on_hit(t_doom3d *app,
@@ -77,7 +80,7 @@ static void		projectile_on_hit(t_doom3d *app,
 			npc_trigger_onhit(app, hit_obj, damage);
 		}
 	}
-	ml_vector3_sub(hit_obj->position, app->player.pos, dist);
+	ml_vector3_sub(projectile_obj->position, app->player.pos, dist);
 	if ((mag = ml_vector3_mag(dist)) < projectile->radius)
 	{
 		damage = projectile->damage /

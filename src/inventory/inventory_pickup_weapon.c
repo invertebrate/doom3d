@@ -55,6 +55,8 @@ void			inventory_pickup_weapon_object(t_doom3d *app,
 		push_custom_event(app, event_object_delete,
 			weapon_drop_obj, NULL);
 	}
+	push_custom_event(app,
+		event_effect_play, (void*)sf_gun_rel, s_ini(0, 1, st_game, 1.0));
 }
 
 void			inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj)

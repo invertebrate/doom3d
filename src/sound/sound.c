@@ -182,3 +182,39 @@ t_sound			*s_ini(char loop, char priority, char type, float vol)
 	ret->next = NULL;
 	return (ret);
 }
+
+/*
+** Calculate distance mag in one function for distance volume distance
+*/
+
+float			sound_mag(t_vec3 v1, t_vec3 v2)
+{
+	t_vec3	sub;
+
+	ml_vector3_sub(v1, v2, sub);
+	return (ml_vector3_mag(sub));
+}
+
+/*
+** Scale sound volume based on the call distance from player
+** vol_max = max volume 0-1
+** dist = distance from player (using ml_vector3_mag())
+** mdist = max distance from the sound. If -1 will use SOUND_DIST instead
+*/
+
+float			distance_vol(float vol_max, float dist, float mdist)
+{
+	float	max_dist;
+	float	ret;
+
+	max_dist = mdist != -1 ? mdist : SOUND_DIST;
+	vol_max = vol_max > 1.0f ? 1.0f : vol_max;
+	vol_max = vol_max < 0.0f ? 0 : vol_max;
+	if (dist >= max_dist || (!max_dist && dist) || !vol_max)
+		return (0.0f);
+	else if (!max_dist && !dist)
+		return (vol_max);
+	ret = vol_max * (1 - dist / max_dist);
+	ret = ret > 1 ? 1 : ret;
+	return (ret);
+}

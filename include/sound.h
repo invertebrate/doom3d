@@ -31,6 +31,7 @@
 # define PREF_AUDIO AUDIO_F32
 # define PREF_CHAN 2
 # define PREF_FREQ 44100
+# define SOUND_DIST 75000
 # define SOUNDS 12 // MUSIC + SEFFECT
 # define MUSIC 2
 # define SEFFECT 10
