@@ -104,6 +104,18 @@ typedef enum				e_player_animation
 }							t_player_animation;
 
 /*
+** Animation general state
+** 
+*/
+
+typedef enum				e_player_anim_state
+{
+	anim_state_default = 1,
+	anim_state_shoot = 2,
+	anim_state_reload = 3,
+}							t_player_anim_state;
+
+/*
 ** Data which defines different things that belong to player hud.
 ** // ToDo: Might be unnecessary, let's see
 */

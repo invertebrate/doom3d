@@ -635,6 +635,7 @@ void						set_player_shoot_frame(t_doom3d *app);
 void						set_player_reload_frame(t_doom3d *app);
 void						set_player_default_frame(t_doom3d *app);
 t_surface					*get_animation_source(t_doom3d *app);
+t_player_anim_state			player_animation_state(t_doom3d *app);
 
 /*
 ** Player HUD
