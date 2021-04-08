@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_update.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/05 18:24:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/08 15:00:54 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 
 	ft_memset(&projectile, 0, sizeof(t_projectile));
 	ft_memcpy(&projectile,
-		&app->projectile_data[projectile_type_rpg],
+		&app->projectile_data[projectile_type_fireball],
 		sizeof(t_projectile));
 	rot[0] = 0; //todo - proper angles if not replacing with fireball projectile
 	rot[1] = 0; 
@@ -30,7 +30,7 @@ static void		npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 	ml_vector3_copy(rot, projectile.euler_angles);
 	ml_vector3_normalize(dir, newdir);
 	ml_vector3_copy(newdir, projectile.dir);
-	ml_vector3_mul(newdir, app->unit_size * 10, add);
+	ml_vector3_mul(newdir, app->unit_size * 3, add);
 	ml_vector3_add(origin, add, neworigin);
 	place_projectile_object_in_scene(app, &projectile, neworigin, rot);
 }
@@ -70,7 +70,7 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 	float	dist;
 
 	npc = npc_obj->params;
-	ml_vector3_sub(npc_obj->position, app->player.pos, diff);
+	ml_vector3_sub(npc_obj->aabb.center, app->player.aabb.center, diff);
 	dist = ml_vector3_mag(diff);
 	if (npc->state == state_idle)
 	{

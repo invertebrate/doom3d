@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/07 01:13:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/08 14:03:13 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,7 @@ t_weapon					weapon_data_shotgun(t_doom3d *app);
 */
 void						projectile_data_init(t_doom3d *app);
 t_projectile				projectile_data_rpg(t_doom3d *app);
+t_projectile				projectile_data_fireball(t_doom3d *app);
 void						projectile_update(t_doom3d *app, t_3d_object *obj);
 void						projectile_explosion(t_doom3d *app, t_vec3 pos,
 								t_projectile *projectile);

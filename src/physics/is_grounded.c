@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_grounded.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/06 23:38:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/08 15:10:22 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ t_bool	obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj)
 	ret = false;
 	obj_under = object_under_aabb(app, &falling_obj->aabb, falling_obj->id);
 	if (obj_under)
-		if (l3d_aabb_collides(&obj_under->aabb, &falling_obj->aabb))
+		if (l3d_aabb_collides(&obj_under->aabb, &falling_obj->aabb) &&
+							obj_under->type != object_type_npc)
 			ret = true;
 	return (ret);
 }
@@ -97,7 +98,11 @@ t_bool	player_is_grounded(t_doom3d *app)
 	ret = false;
 	obj_under = object_under_aabb(app, &app->player.aabb, -1);
 	if (obj_under)
-		if (l3d_aabb_collides(&obj_under->aabb, &app->player.aabb))
+	{
+		if (l3d_aabb_collides(&obj_under->aabb, &app->player.aabb) &&
+							obj_under->type != object_type_projectile &&
+							obj_under->type != object_type_npc)
 			ret = true;
+	}
 	return (ret);
 }

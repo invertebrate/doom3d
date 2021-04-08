@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/07 15:10:14 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/08 14:59:37 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void		projectile_on_hit(t_doom3d *app,
 	projectile = projectile_obj->params;
 	if (hit_obj && hit_obj->type == object_type_npc)
 	{
-		ml_vector3_sub(hit_obj->position, projectile_obj->position, dist);
+		ml_vector3_sub(hit_obj->aabb.center, projectile_obj->aabb.center, dist);
 		if ((mag = ml_vector3_mag(dist)) < projectile->radius)
 		{
 			damage = projectile->damage /
@@ -87,13 +87,27 @@ static void		projectile_on_hit(t_doom3d *app,
 			npc_trigger_onhit(app, hit_obj, damage);
 		}
 	}
-	ml_vector3_sub(projectile_obj->position, app->player.pos, dist);
+	ml_vector3_sub(projectile_obj->aabb.center, app->player.aabb.center, dist);
 	if ((mag = ml_vector3_mag(dist)) < projectile->radius)
 	{
 		damage = projectile->damage /
 			(1 + (mag / (app->unit_size * 10))) + 0.5 * projectile->damage;
 		player_onhit(app, damage);
 	}
+}
+
+static int		check_projectile_collision_with_player(t_doom3d *app,
+											t_3d_object *projectile_obj)
+{
+	if (l3d_aabb_collides(&app->player.aabb, &projectile_obj->aabb))
+	{
+		projectile_explode_effect(app, projectile_obj);
+		push_custom_event(app, event_object_delete,
+		projectile_obj, NULL);
+		projectile_on_hit(app, projectile_obj, NULL);
+		return (1);
+	}
+	return (0);
 }
 
 static void		projectile_handle_collision(t_doom3d *app,
@@ -104,6 +118,8 @@ static void		projectile_handle_collision(t_doom3d *app,
 	t_3d_object	*obj;
 
 	i = -1;
+	if (check_projectile_collision_with_player(app, projectile_obj))
+		return ;
 	while (++i < (int32_t)(app->active_scene->num_objects +
 							app->active_scene->num_deleted))
 	{
@@ -112,8 +128,7 @@ static void		projectile_handle_collision(t_doom3d *app,
 				obj->type == object_type_trigger)
 			continue ;
 		ml_vector3_sub(obj->position, projectile_obj->position, dist);
-		if (ml_vector3_mag(dist) <
-			((t_projectile*)projectile_obj->params)->radius * 2 &&
+		if (ml_vector3_mag(dist) < app->unit_size * 5 &&
 			l3d_aabb_collides(&obj->aabb, &projectile_obj->aabb))
 		{
 			projectile_explode_effect(app, projectile_obj);
