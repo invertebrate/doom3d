@@ -28,5 +28,7 @@ void		handle_player_reload(t_doom3d *app)
 
 void		handle_player_weapon_equip(t_doom3d *app, t_weapon_id weapon)
 {
+	if (player_animation_state(app) != anim_state_default)
+		return ;
 	weapon_equip(app, weapon);
 }
