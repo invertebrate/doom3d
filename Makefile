@@ -77,6 +77,7 @@ SOURCES = main.c \
 			npc/npc_move_to_waypoint.c \
 			trigger/trigger.c \
 			path/path.c \
+			path/path2.c \
 			path/patrol_path.c \
 			object/object_utils.c \
 			object/object_update.c \
