@@ -31,5 +31,7 @@ void	player_reload(t_doom3d *app)
 	{
 		app->player.is_reloading = true;
 		set_player_reload_frame(app);
+		push_custom_event(app,
+		event_effect_play, (void*)sf_gun_rel, s_ini(0, 1, st_game, 1.0));
 	}
 }

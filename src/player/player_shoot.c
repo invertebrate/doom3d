@@ -52,6 +52,9 @@ static void		handle_shoot_hit(t_doom3d *app, t_hit *closest_triangle_hit,
 	{
 		trigger_activate(app, closest_triangle_hit->triangle->parent);
 	}
+	if (app->player.equipped_weapon->id == weapon_fist)
+		push_custom_event(app,
+		event_effect_play, (void*)sf_fist_hit, s_ini(0, 1, st_game, 1.0));
 }
 
 static void		player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
@@ -73,6 +76,12 @@ static void		player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 		}
 		l3d_delete_hits(&hits);
 	}
+	if (app->player.equipped_weapon->id == weapon_pistol)
+		push_custom_event(app,
+		event_effect_play, (void*)sf_pstl_fire, s_ini(0, 1, st_game, 1.0));
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		push_custom_event(app,
+		event_effect_play, (void*)sf_fist_fire, s_ini(0, 1, st_game, 1.0));
 }
 
 void			place_projectile_object_in_scene(t_doom3d *app,
@@ -165,6 +174,8 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 		if (app->is_debug)
 			LOG_DEBUG("Out of Ammo");
 		set_player_default_frame(app);
+		push_custom_event(app,
+		event_effect_play, (void*)sf_gun_empt, s_ini(0, 1, st_game, 1.0));
 		return ;
 	}
 	prev_shot_time = SDL_GetTicks();

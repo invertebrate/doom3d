@@ -93,6 +93,9 @@ void			update_player_physics_state(t_doom3d *app)
 		{
 			app->player.physics_state = physics_state_grounded;
 			nudge_player_up(app);
+			if (app->player.physics_state != prev_state)
+				push_custom_event(app, event_effect_play,
+				(void*)sf_landing, s_ini(0, 1, st_game, 1.0));
 		}
 	}
 	if (app->player.physics_state != prev_state)
