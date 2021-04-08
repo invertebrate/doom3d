@@ -238,13 +238,44 @@ void					set_player_reload_frame(t_doom3d *app)
 }
 
 /*
+**
+*/
+
+t_player_anim_state		player_animation_state(t_doom3d *app)
+{
+	int	current;
+
+	current = app->player_hud.curr_animation;
+	if (current == anim_shotgun_default ||
+	current == anim_pistol_default ||
+	current == anim_shotgun_default ||
+	current == anim_rpg_default ||
+	current == anim_rpg_special ||
+	current == anim_fist_default)
+		return (anim_state_default);
+	else if (current == anim_shotgun_shoot ||
+	current == anim_pistol_shoot ||
+	current == anim_shotgun_shoot ||
+	current == anim_rpg_shoot ||
+	current == anim_fist_shoot)
+		return (anim_state_shoot);
+	else if (current == anim_shotgun_reload ||
+	current == anim_pistol_reload ||
+	current == anim_shotgun_reload ||
+	current == anim_rpg_reload)
+		return (anim_state_reload);
+	return (0);
+}
+
+
+/*
 ** Moves on animation frames if they should be moved on. If An animation frame
 ** is finished, the frames don't get incremented. Frame time left is decreased
 ** by delta time until it's <= 0. Current frame moves to next. Once last
 ** frame is reached, animation is set to be finished.
 */
 
-void	player_animation_update(t_doom3d *app)
+void					player_animation_update(t_doom3d *app)
 {
 	t_sprite_anim *curr_player_anim;
 
