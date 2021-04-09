@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/08 15:43:45 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/09 15:57:37 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void		shoot_bullet_effect(t_doom3d *app,
 static void		handle_shoot_hit(t_doom3d *app, t_hit *closest_triangle_hit,
 					t_vec3 dir)
 {
+	check_npc_hearing(app, closest_triangle_hit->hit_point);
 	if (app->player.equipped_weapon->id != weapon_fist &&
 		closest_triangle_hit->triangle->parent->type != object_type_npc)
 		shoot_bullet_effect(app, closest_triangle_hit, dir,
@@ -181,6 +182,8 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 		event_effect_play, (void*)sf_gun_empt, s_ini(0, 1, st_game, 1.0));
 		return ;
 	}
+	if (app->player.equipped_weapon->id != weapon_fist)
+		check_npc_hearing(app, app->player.aabb.center);
 	prev_shot_time = SDL_GetTicks();
 	ml_vector3_mul(app->player.forward, NEAR_CLIP_DIST, add);
 	ml_vector3_add(app->player.pos, add, origin);
