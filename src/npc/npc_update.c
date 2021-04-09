@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/08 15:00:54 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/09 14:55:15 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 		}
 		else
 			npc->interest = npc->max_interest;
-		if (dist < npc->atk_range 
+		if (dist < npc->atk_range / 2
 		&& npc->atk_pattern[npc->atk_pattern_index] == action_melee_basic)
 		{
 			npc->atk_timer = 0;

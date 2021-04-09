@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/08 14:03:13 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/09 15:19:36 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,6 +239,7 @@ void						elevator_go_to_next_node(t_doom3d *app, t_3d_object *obj);
 t_bool						npc_has_line_of_sight(t_doom3d *app, t_3d_object *npc_obj);
 void						path_node_network_init(t_doom3d *app);
 void						npc_find_path(t_doom3d *app, t_npc *npc, t_vec3	start, t_vec3 end);
+void						check_npc_hearing(t_doom3d *app, t_vec3 hit);
 
 /*
 ** Physics

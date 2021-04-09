@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/08 14:04:16 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/09 15:02:47 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ typedef struct				s_npc
 	t_vec3					dir;
 	float					angle;
 	float					vision_range;
+	float					hearing_range;
 	int						interest;
 	int						max_interest;
 	t_bool					advance;

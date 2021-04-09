@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 13:59:58 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/08 14:49:01 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/08 16:28:29 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_projectile	projectile_data_fireball(t_doom3d *app)
 	t_projectile projectile;
 
 	projectile.type = projectile_type_fireball;
-	projectile.damage = 20;
+	projectile.damage = 10;
 	projectile.speed = 100.0;
 	projectile.range = 100 * app->unit_size;
 	projectile.traveled = 0;
