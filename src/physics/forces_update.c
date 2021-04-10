@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/09 14:46:32 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/10 14:57:41 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	forces_update_npc(t_3d_object *npc_object)
 	{
 		if (npc->physics_state == physics_state_grounded)
 			npc->velocity[1] = 0;
-		if ((npc->physics_state == physics_state_jumping ||
+		else if ((npc->physics_state == physics_state_jumping ||
 			npc->physics_state == physics_state_falling) &&
 			npc->velocity[1] < PLAYER_MAX_SPEED)
 			npc->velocity[1] += 0.2;
@@ -93,9 +93,9 @@ void		update_object_forces(t_doom3d *app, t_3d_object *obj)
 static void		nudge_object_up(t_doom3d *app, t_3d_object *obj)
 {
 	while (obj_is_grounded(app, obj))
-		l3d_3d_object_translate(obj, 0, -1, 0);
+		l3d_3d_object_translate(obj, 0, -25, 0);
 	if (!obj_is_grounded(app, obj))
-		l3d_3d_object_translate(obj, 0, 1, 0);
+		l3d_3d_object_translate(obj, 0, 25, 0);
 }
 
 void			update_object_physics_state(t_doom3d *app, t_3d_object *obj)

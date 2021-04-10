@@ -6,14 +6,14 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/08 15:10:22 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/10 17:39:31 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
 static t_3d_object	*object_under(t_doom3d *app,
-					t_vec3 origin, uint32_t self_id)
+					t_vec3 origin, uint32_t self_id, t_vec3 *hit_point)
 {
 	t_hits		*hits;
 	t_hit		*closest_hit;
@@ -30,37 +30,10 @@ static t_3d_object	*object_under(t_doom3d *app,
 			return (NULL);
 		}
 		hit_parent = closest_hit->triangle->parent;
+		ml_vector3_copy(closest_hit->hit_point, *hit_point);
 		l3d_delete_hits(&hits);
 		return (hit_parent);
 	}
-	return (NULL);
-}
-
-static t_3d_object	*object_under_aabb(t_doom3d *app, t_box3d *aabb,
-						uint32_t ignore_id)
-{
-	t_vec3		origin;
-	t_3d_object	*obj_under;
-
-	ml_vector3_copy(
-		(t_vec3){aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]}, origin);
-	ml_vector3_copy(
-		(t_vec3){aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]}, origin);
-	if ((obj_under = object_under(app, origin, ignore_id)))
-		return (obj_under);
-	ml_vector3_copy(
-		(t_vec3){aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]}, origin);
-	if ((obj_under = object_under(app, origin, ignore_id)))
-		return (obj_under);
-	ml_vector3_copy(
-		(t_vec3){aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]}, origin);
-	if ((obj_under = object_under(app, origin, ignore_id)))
-		return (obj_under);
-	ml_vector3_copy(
-		(t_vec3){aabb->center[0], aabb->center[1] + aabb->size[1] / 2.0,
-			aabb->center[2]}, origin);
-	if ((obj_under = object_under(app, origin, ignore_id)))
-		return (obj_under);
 	return (NULL);
 }
 
@@ -73,14 +46,23 @@ static t_3d_object	*object_under_aabb(t_doom3d *app, t_box3d *aabb,
 t_bool	obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj)
 {
 	t_3d_object	*obj_under;
+	t_vec3		origin;
+	t_vec3		hit_point;
 	t_bool		ret;
 
 	ret = false;
-	obj_under = object_under_aabb(app, &falling_obj->aabb, falling_obj->id);
+	ml_vector3_copy((t_vec3){falling_obj->aabb.center[0],
+				falling_obj->aabb.center[1] + falling_obj->aabb.size[1] / 2.0,
+				falling_obj->aabb.center[2]}, origin);
+	obj_under = object_under(app, origin, falling_obj->id, &hit_point);
 	if (obj_under)
-		if (l3d_aabb_collides(&obj_under->aabb, &falling_obj->aabb) &&
-							obj_under->type != object_type_npc)
+	{
+		if (hit_point[1] <= origin[1] &&
+			hit_point[1] >= origin[1] - falling_obj->aabb.size[1] * 1.5 &&
+						obj_under->type != object_type_projectile &&
+						obj_under->type != object_type_npc)
 			ret = true;
+	}
 	return (ret);
 }
 
@@ -93,16 +75,86 @@ t_bool	obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj)
 t_bool	player_is_grounded(t_doom3d *app)
 {
 	t_3d_object	*obj_under;
+	t_vec3		origin;
+	t_vec3		hit_point;
 	t_bool		ret;
 
 	ret = false;
-	obj_under = object_under_aabb(app, &app->player.aabb, -1);
+	ml_vector3_copy((t_vec3){app->player.aabb.center[0],
+				app->player.aabb.center[1] + app->player.aabb.size[1] / 2.0,
+				app->player.aabb.center[2]}, origin);
+	obj_under = object_under(app, origin, -1, &hit_point);
 	if (obj_under)
 	{
-		if (l3d_aabb_collides(&obj_under->aabb, &app->player.aabb) &&
-							obj_under->type != object_type_projectile &&
-							obj_under->type != object_type_npc)
+		if (hit_point[1] <= origin[1] &&
+			hit_point[1] >= origin[1] - app->player.aabb.size[1] &&
+						obj_under->type != object_type_projectile &&
+						obj_under->type != object_type_npc)
 			ret = true;
+	}
+	return (ret);
+}
+
+static void		nudge_player_down(t_doom3d *app)
+{
+	while (!player_is_grounded(app))
+	{
+		app->player.pos[1] += 10;
+		player_update_aabb(&app->player);
+	}
+	if (player_is_grounded(app))
+	{
+		app->player.pos[1] -= 10;
+		player_update_aabb(&app->player);
+	}
+}
+
+static t_3d_object	*object_under_nudge(t_doom3d *app,
+					t_vec3 origin, uint32_t self_id, t_vec3 *hit_point)
+{
+	t_hits		*hits;
+	t_hit		*closest_hit;
+	t_3d_object	*hit_parent;
+
+	hits = NULL;
+	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, origin,
+		(t_vec3){0, -Y_DIR, 0}, &hits))
+	{
+		l3d_get_closest_triangle_hit(hits, &closest_hit, self_id);
+		if (!closest_hit)
+		{
+			l3d_delete_hits(&hits);
+			return (NULL);
+		}
+		hit_parent = closest_hit->triangle->parent;
+		ml_vector3_copy(closest_hit->hit_point, *hit_point);
+		l3d_delete_hits(&hits);
+		return (hit_parent);
+	}
+	return (NULL);
+}
+
+t_bool	player_check_nudge_to_ground(t_doom3d *app)
+{
+	t_3d_object	*obj_under;
+	t_vec3		origin;
+	t_vec3		hit_point;
+	t_bool		ret;
+
+	ret = false;
+	ml_vector3_copy((t_vec3){app->player.aabb.center[0],
+				app->player.aabb.center[1] + app->player.aabb.size[1] / 2.0,
+				app->player.aabb.center[2]}, origin);
+	obj_under = object_under_nudge(app, origin, -1, &hit_point);
+	if (obj_under)
+	{
+		if (hit_point[1] - origin[1] < app->player.aabb.size[1] / 2 &&
+						obj_under->type != object_type_projectile &&
+						obj_under->type != object_type_npc)
+		{
+			nudge_player_down(app);
+			ret = true;
+		}
 	}
 	return (ret);
 }

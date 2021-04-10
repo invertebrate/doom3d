@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/07 00:21:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/10 15:40:58 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ void			update_player_physics_state(t_doom3d *app)
 	{
 		is_grounded = player_is_grounded(app);
 		if (!is_grounded)
-			app->player.physics_state = physics_state_falling;
+		{
+			if (!player_check_nudge_to_ground(app))
+				app->player.physics_state = physics_state_falling;
+		}
 		else if (is_grounded)
 		{
 			app->player.physics_state = physics_state_grounded;
