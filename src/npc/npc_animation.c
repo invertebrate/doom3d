@@ -23,10 +23,10 @@ void		npc_default_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	i = -1;
 	anim_data->anim_count = 5;
 	anim_data->clip_lengths[0] = 1;
-	anim_data->clip_lengths[1] = 24;
-	anim_data->clip_lengths[2] = 24;
-	anim_data->clip_lengths[3] = 24;
-	anim_data->clip_lengths[4] = 44;
+	anim_data->clip_lengths[1] = 65;
+	anim_data->clip_lengths[2] = 17;
+	anim_data->clip_lengths[3] = 31;
+	anim_data->clip_lengths[4] = 49;
 	anim_data->frame_count = anim_data->clip_lengths[0] + anim_data->clip_lengths[1] +
 							anim_data->clip_lengths[2] + anim_data->clip_lengths[3] +
 							anim_data->clip_lengths[4];
@@ -57,13 +57,13 @@ void		npc_ranged_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	anim_data->anim_count = 5;
 	anim_data->clip_lengths[0] = 1;
 	anim_data->clip_lengths[1] = 59;
-	anim_data->clip_lengths[2] = 18;
-	anim_data->clip_lengths[3] = 19;
-	anim_data->clip_lengths[4] = 28;
+	anim_data->clip_lengths[2] = 20;
+	anim_data->clip_lengths[3] = 20;
+	anim_data->clip_lengths[4] = 32;
 	anim_data->frame_count = anim_data->clip_lengths[0] + anim_data->clip_lengths[1] +
 							anim_data->clip_lengths[2] + anim_data->clip_lengths[3] +
 							anim_data->clip_lengths[4];
-	anim_data->frames_start_idx = 117;//global animation frame array index// needs to be hardcoded, cumulative number of all anim frames
+	anim_data->frames_start_idx = 163;//global animation frame array index// needs to be hardcoded, cumulative number of all anim frames
 	anim_data->anim_clip_start_indices[0] = anim_data->frames_start_idx;
 	anim_data->anim_clip_start_indices[1] = anim_data->frames_start_idx + anim_data->clip_lengths[0];
 	anim_data->anim_clip_start_indices[2] = anim_data->frames_start_idx + anim_data->clip_lengths[0] +
@@ -179,7 +179,7 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 	npc->animation_3d->base_object = obj;
 	npc_anim_3d_frames_set(app, obj, npc);
 	c = c % 4;//only for animation showcasing
-	npc->animation_3d->current_clip = anim_3d_type_idle;
+	npc->animation_3d->current_clip = anim_3d_type_idle + c;
 	c++;//
 	anim->start_frame =
 		anim->anim_clip_start_indices[

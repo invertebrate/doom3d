@@ -95,6 +95,11 @@ static void		add_objects_render_triangles(t_doom3d *app,
 				((t_npc*)app->active_scene->objects[i]->params)->animation_3d != NULL)
 			//^this could be more elegant as in to take into account multiple types
 			{
+				error_check(((t_npc*)app->active_scene->objects[i]->params)->
+							animation_3d->current_object->num_triangles !=
+								app->active_scene->objects[i]->num_triangles,
+								"Frame object triangle count different from "
+								"base object triangle count!");
 				triangle = ((t_npc*)app->active_scene->objects[i]->params)->
 							animation_3d->current_object->triangles + j;
 			}
@@ -111,6 +116,7 @@ static void		add_objects_render_triangles(t_doom3d *app,
 					render_triangles, &r_triangle);
 		}
 	}
+
 	add_temp_object_render_triangles(app, render_triangles);
 }
 

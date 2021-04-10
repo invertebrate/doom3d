@@ -244,9 +244,9 @@ static void		scene_texture_files_set(t_asset_files *data)
 	data->texture_files[data->num_textures++] =
 		"assets/textures/blood.bmp";
 	data->texture_files[data->num_textures++] =
-		"assets/textures/monster_01/monster_01_diffuse.bmp";
+		"assets/textures/monster_01/monster01_diffuse.bmp";
 	data->texture_files[data->num_textures++] =
-		"assets/textures/monster_02/monster_02_diffuse.bmp";
+		"assets/textures/monster_02/monster02_diffuse.bmp";
 }
 
 static void		scene_normal_files_set(t_asset_files *data)
@@ -268,16 +268,16 @@ static void		scene_normal_files_set(t_asset_files *data)
 	data->normal_map_files[data->num_normal_maps++] =
 		"assets/textures/floor_metal4_box_nmm.bmp";
 	data->normal_map_files[data->num_normal_maps++] =
-		"assets/textures/monster_01/monster_01_normal.bmp";
+		"assets/textures/monster_01/monster01_normal.bmp";
 	data->normal_map_files[data->num_normal_maps++] =
-		"assets/textures/monster_02/monster_02_normal.bmp";
+		"assets/textures/monster_02/monster02_normal.bmp";
 }
 
 static void		scene_model_files_set(t_asset_files *data)
 {
 	data->model_files[data->num_models++] = "assets/models/box.obj";
-	data->model_files[data->num_models++] = "assets/models/monster_01/monster_01_basemodel_000.obj";
-	data->model_files[data->num_models++] = "assets/models/monster_02/monster_02_basemodel_000.obj";
+	data->model_files[data->num_models++] = "assets/models/monster_01/monster01_basemodel_000.obj";
+	data->model_files[data->num_models++] = "assets/models/monster_02/monster02_basemodel_000.obj";
 	data->model_files[data->num_models++] = "assets/models/shotgun.obj";
 	data->model_files[data->num_models++] = "assets/models/missile.obj";
 }
@@ -315,17 +315,17 @@ static void		scene_animation_3d_frames_set(t_asset_files *data,
 
 static void		scene_animation_3d_files_set(t_asset_files *data)
 {
-	scene_animation_3d_frames_set(data, "assets/models/monster_01/monster_01_basemodel", 1);
-	scene_animation_3d_frames_set(data, "assets/models/monster_01/idle/monster_idle", 24);
-	scene_animation_3d_frames_set(data, "assets/models/monster_01/move/monster_move", 24);
-	scene_animation_3d_frames_set(data, "assets/models/monster_01/attack/monster_attack", 24);
-	scene_animation_3d_frames_set(data, "assets/models/monster_01/death/monster_death", 44);
+	scene_animation_3d_frames_set(data, "assets/models/monster_01/monster01_basemodel", 1);
+	scene_animation_3d_frames_set(data, "assets/models/monster_01/idle/monster01_idle", 65);
+	scene_animation_3d_frames_set(data, "assets/models/monster_01/move/monster01_move", 17);
+	scene_animation_3d_frames_set(data, "assets/models/monster_01/attack/monster01_attack", 31);
+	scene_animation_3d_frames_set(data, "assets/models/monster_01/death/monster01_death", 49);
 
-	scene_animation_3d_frames_set(data, "assets/models/monster_02/monster_02_basemodel", 1);
+	scene_animation_3d_frames_set(data, "assets/models/monster_02/monster02_basemodel", 1);
 	scene_animation_3d_frames_set(data, "assets/models/monster_02/idle/monster02_idle", 59);
-	scene_animation_3d_frames_set(data, "assets/models/monster_02/move/monster02_move", 18);
-	scene_animation_3d_frames_set(data, "assets/models/monster_02/attack/monster02_attack", 19);
-	scene_animation_3d_frames_set(data, "assets/models/monster_02/death/monster02_death", 28);
+	scene_animation_3d_frames_set(data, "assets/models/monster_02/move/monster02_move", 20);
+	scene_animation_3d_frames_set(data, "assets/models/monster_02/attack/monster02_attack", 20);
+	scene_animation_3d_frames_set(data, "assets/models/monster_02/death/monster02_death", 32);
 	//call the above function for each animation clip separately;
 }
 
