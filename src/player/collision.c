@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/10 14:27:04 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/11 03:47:26 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,26 @@ static void		limit_movement_add_by_collision(t_vec3 collision_normal,
 	ml_vector3_sub(dir_add, direction_wall_part, dir_add);
 }
 
+static t_hit	*l3d_get_aabb_hit_record_point(t_vec3 origin, t_box3d *target)
+{
+	t_vec3		dir;
+	t_ray		ray;
+	t_hits		*hits;
+	t_hit		*hit;
+
+	ml_vector3_sub(target->center, origin, dir);
+	l3d_ray_set(dir, origin, &ray);
+	hits = NULL;
+	if (l3d_bounding_box_ray_hit(target, &ray, &hits, true))
+	{
+		error_check(!(hit = ft_calloc(sizeof(t_hit))), "Failed to malloc hit");
+		ft_memcpy(hit, ((t_hit*)hits->content), sizeof(t_hit));
+		l3d_delete_hits(&hits);
+		return (hit);
+	}
+	return (NULL);
+}
+
 static void		set_future_player(t_doom3d *app, t_vec3 add,
 					t_player *future_player)
 {
@@ -43,32 +63,36 @@ static void		set_future_player(t_doom3d *app, t_vec3 add,
 
 void			collision_limit_player(t_doom3d *app, t_vec3 add)
 {
-	int32_t		i;
-	t_3d_object	*obj;
 	t_player	future_player;
-	t_vec3		diff;
+	t_hit		*closest_hit;
 	t_hit		*hit;
+	t_hits		*hits;
+	t_vec3		dir;
 
+	if (ml_vector3_mag(add) == 0)
+		return ;
 	set_future_player(app, add, &future_player);
-	i = -1;
-	while (++i < (int32_t)(app->active_scene->num_objects +
-		app->active_scene->num_deleted))
+	ml_vector3_normalize(add, dir);
+	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, app->player.pos,
+		dir, &hits))
 	{
-		obj = app->active_scene->objects[i];
-		if (obj == NULL)
-			continue ;
-		ml_vector3_sub(obj->position, future_player.pos, diff);
-		if (ml_vector3_mag(diff) > app->unit_size * 10 || obj->type == object_type_trigger || obj->type == object_type_path)
-			continue ;
-		if (l3d_aabb_collides(&obj->aabb, &future_player.aabb))
+		l3d_get_closest_triangle_hit(hits, &closest_hit, -1);
+		if (closest_hit)
 		{
-			hit = l3d_get_aabb_hit_record(&future_player.aabb, &obj->aabb);
-			if (hit != NULL)
+			if (l3d_point_inside_aabb(&future_player.aabb,
+											closest_hit->hit_point))
 			{
-				if (!obj->aabb.is_collider)
+				hit = l3d_get_aabb_hit_record_point(closest_hit->hit_point,
+													&future_player.aabb);
+				if (hit && closest_hit->triangle->parent->type != object_type_projectile &&
+					closest_hit->triangle->parent->type != object_type_trigger &&
+					closest_hit->triangle->parent->type != object_type_path)
+				{
 					limit_movement_add_by_collision(hit->normal, add);
-				free(hit);
+					free(hit);
+				}
 			}
 		}
+		l3d_delete_hits(&hits);
 	}
 }
