@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound_mp_controls.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phakakos <phakakos@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:51:41 by phakakos          #+#    #+#             */
-/*   Updated: 2021/03/12 15:51:44 by phakakos         ###   ########.fr       */
+/*   Updated: 2021/04/05 16:27:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,33 @@ t_mp	mix_chan_swap(t_doom3d *app, int channels)
 */
 
 void	mp_close(t_doom3d *app)
-{	ft_printf("mp_close()\n");
+{
 	int		i;
 	t_sound	*curr;
 	t_sound	*next;
 
-	ft_printf("audio locked\n");
+	LOG_INFO("Locking audio");
 	SDL_LockAudioDevice(app->mp.audev);
 	SDL_PauseAudioDevice(app->mp.audev, 1);
+	LOG_INFO("Closing audio device %d", app->mp.audev);
+	SDL_CloseAudioDevice(app->mp.audev);
 	i = -1;
-	ft_printf("freeing library\n");
+	LOG_INFO("Freeing audio library");
 	while (++i < SOUNDS)
+	{
 		free(app->mp.library[i]->data);
+		free(app->mp.library[i]);
+		app->mp.library[i] = NULL;
+	}
 	curr = app->mp.tracks;
-	ft_printf("freeing music\n");
+	LOG_INFO("Freeing music");
 	while (curr)
 	{
 		next = curr->next;
 		free(curr);
 		curr = next;
 	}
-	ft_printf("freeing effects\n");
+	LOG_INFO("Freeing effects");
 	curr = app->mp.effects;
 	while (curr)
 	{
@@ -58,7 +64,5 @@ void	mp_close(t_doom3d *app)
 		free(curr);
 		curr = next;
 	}
-	ft_printf("closing audio\n");
-	SDL_CloseAudioDevice(app->mp.audev);
-	ft_printf("audio closed\n");
+	LOG_INFO("Audio closed");
 }

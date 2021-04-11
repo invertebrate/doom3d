@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 16:02:10 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,10 @@ static void			on_pause_menu_button_click(t_button *self, void *params)
 
 	app = params;
 	if (self->id == 0)
-	{
-		app->next_scene_id = scene_id_main_menu;
-	}
+		push_custom_event(app, event_scene_change,
+			(void*)scene_id_main_menu, NULL);
 	else if (self->id == 1)
-	{
-		app->is_running = false;
-	}
+		push_custom_event(app, event_quit, NULL, NULL);
 }
 
 void				pause_menu_create(t_doom3d *app)

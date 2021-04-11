@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 16:04:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/04 23:43:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ const char	*normal_map_file_key(char *filename, t_doom3d *app)
 	return (NULL);
 }
 
-void		after_editor_transform(t_doom3d *app, uint32_t *last_changed)
-{
-	app->editor.is_saved = false;
-	*last_changed = SDL_GetTicks();
-	active_scene_update_after_objects(app->active_scene);
-}
-
 void		editor_objects_invisible_highlight(t_doom3d *app)
 {
 	t_3d_object	*obj;
@@ -66,13 +59,13 @@ void		editor_objects_invisible_highlight(t_doom3d *app)
 				obj->material->shading_opts = (obj->material->shading_opts &
 					~(e_shading_invisible));
 				if (obj->params_type == trigger_player_start)
-					obj->material->shading_opts = e_shading_green;
+					obj->material->shading_opts = e_shading_green | e_shading_transparent;
 				if (obj->params_type == trigger_player_end)
-					obj->material->shading_opts = e_shading_red;
+					obj->material->shading_opts = e_shading_red | e_shading_transparent;
 				if (obj->params_type == object_type_light)
-					obj->material->shading_opts = e_shading_yellow;
+					obj->material->shading_opts = e_shading_yellow | e_shading_transparent;
 				if (obj->params_type == object_type_path)
-					obj->material->shading_opts = e_shading_cyan;
+					obj->material->shading_opts = e_shading_cyan | e_shading_transparent;
 			}
 		}
 	}
@@ -132,12 +125,12 @@ static void		duplicate_selected_object(t_doom3d *app, t_3d_object *selected)
 				selected->material->shading_opts;
 		select_object(app,
 			app->active_scene->objects[app->active_scene->last_object_index]);
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Duplicated an object!", .time = 2000,
 			.type = notification_type_info});
 	}
 	else if (start_or_end)
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Can't duplicate start or end triggers!", .time = 2000,
 			.type = notification_type_info});
 }
@@ -157,7 +150,7 @@ void			editor_duplicate_selected_objects(t_doom3d *app)
 
 	if (app->editor.num_selected_objects == 0)
 	{
-		doom3d_notification_add(app, (t_notification){
+		notify_user(app, (t_notification){
 			.message = "Select an object first for duplication!", .time = 2000,
 			.type = notification_type_info});
 		return ;
@@ -170,4 +163,172 @@ void			editor_duplicate_selected_objects(t_doom3d *app)
 	i = -1;
 	while (++i < num_selected)
 		duplicate_selected_object(app, old_selected[i]);
+}
+
+t_bool			mouse_inside_editor_view(t_doom3d *app)
+{
+	return (app->mouse.x > app->window->editor_pos[0] && app->mouse.x <
+			app->window->editor_pos[0] +
+			app->window->editor_framebuffer->width &&
+		app->mouse.y > app->window->editor_pos[1] && app->mouse.y <
+			app->window->editor_pos[1] +
+			app->window->editor_framebuffer->height);
+}
+
+/*
+** Transform mouse x & mouse y on window between 0.0 - 1.0 inside
+** editor view.
+*/
+
+static void		get_mouse_editor_scale(t_doom3d *app, t_vec2 mouse_editor_pos)
+{
+	t_vec2	mouse_pos;
+
+	ml_vector2_copy((t_vec2){app->mouse.x, app->mouse.y}, mouse_pos);
+	ml_vector2_sub(mouse_pos, app->window->editor_pos, mouse_pos);
+	ml_vector2_copy((t_vec2){
+		(mouse_pos[0] / app->window->framebuffer->width),
+		(mouse_pos[1] / app->window->framebuffer->height)}, mouse_pos);
+	ml_vector2_copy((t_vec2){
+		((float)app->window->framebuffer->width /
+			(float)app->window->editor_framebuffer->width) *
+			mouse_pos[0],
+		((float)app->window->framebuffer->height /
+			(float)app->window->editor_framebuffer->height) *
+			mouse_pos[1]}, mouse_editor_pos);
+}
+
+/*
+** 1. Go to screen origin
+** 2. Use vectors to get to left top corner
+** 3. Multiply sideways & down vectors by mouse editor scale
+** 4. Got it!
+*/
+
+static void		get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
+{
+	t_vec2	mouse_editor_scale;
+	t_vec3	screen_origin;
+	t_vec3	add;
+	t_vec3	dirs[4];
+	float	dims[2];
+
+	dims[0] = app->window->editor_framebuffer->width / 2.0;
+	dims[1] = app->window->editor_framebuffer->height / 2.0;
+	ml_vector3_mul(app->player.forward,
+		ml_vector3_mag(app->active_scene->main_camera->screen.origin), add);
+	ml_vector3_add(app->player.pos, add, screen_origin);
+	ml_vector3_mul(app->player.up, dims[1], dirs[0]);
+	ml_vector3_mul(app->player.sideways, dims[0], dirs[1]);
+	ml_vector3_mul(app->player.up, -dims[1], dirs[2]);
+	ml_vector3_mul(app->player.sideways, -dims[0], dirs[3]);
+	ml_vector3_add(screen_origin, dirs[3], mouse_world_pos);
+	ml_vector3_add(mouse_world_pos, dirs[0], mouse_world_pos);
+	get_mouse_editor_scale(app, mouse_editor_scale);
+	ml_vector3_mul(app->player.sideways,
+		app->window->editor_framebuffer->width, add);
+	ml_vector3_mul(add, mouse_editor_scale[0], add);
+	ml_vector3_add(mouse_world_pos, add, mouse_world_pos);
+	ml_vector3_mul(app->player.up,
+		-app->window->editor_framebuffer->height, add);
+	ml_vector3_mul(add, mouse_editor_scale[1], add);
+	ml_vector3_add(mouse_world_pos, add, mouse_world_pos);
+}
+
+t_3d_object		*editor_object_by_mouse(t_doom3d *app)
+{
+	t_vec3			mouse_world_pos;
+	t_vec3			dir;
+	t_hits			*hits;
+	t_hit			*closest_triangle_hit;
+	t_3d_object		*hit_obj;
+
+	hits = NULL;
+	hit_obj = NULL;
+	get_mouse_world_position(app, mouse_world_pos);
+	ml_vector3_sub(mouse_world_pos, app->player.pos, dir);
+	ml_vector3_normalize(dir, dir);
+	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, app->player.pos,
+		dir, &hits))
+	{
+		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit, -1);
+		if (closest_triangle_hit != NULL)
+		{
+			hit_obj = closest_triangle_hit->triangle->parent;
+		}
+		l3d_delete_hits(&hits);
+	}
+	return (hit_obj);
+}
+
+/*
+** Find an offset that is half of the bounding box and return that to be applied
+** for placement. (t_vec3){0.02, 0.02, 0.02} is a small vector added to aabb
+** size for the case of e.g. planes (0 width)
+*/
+
+static void		editor_point_on_target_offset(t_doom3d *app,
+					t_vec3 target_point, t_vec3 normal, t_vec3 offset)
+{
+	t_ray			ray;
+	t_hits			*hits;
+	t_hit			*closest;
+	t_box3d			aabb;
+
+	ml_vector3_copy(target_point, aabb.center);
+	ml_vector3_copy(app->editor.selected_objects[0]->aabb.size, aabb.size);
+	ml_vector3_add(aabb.size, (t_vec3){0.02, 0.02, 0.02}, aabb.size);
+	ml_vector3_mul(aabb.size, 0.5, aabb.size);
+	ml_vector3_add(aabb.center, aabb.size, aabb.xyz_max);
+	ml_vector3_sub(aabb.center, aabb.size, aabb.xyz_min);
+	ml_vector3_mul(aabb.size, 1.0, aabb.size);
+	ml_vector3_normalize(normal, ray.dir);
+	ml_vector3_copy((t_vec3){
+		1.0 / ray.dir[0], 1.0 / ray.dir[1], 1.0 / ray.dir[2]}, ray.dir_inv);
+	ml_vector3_copy(target_point, ray.origin);
+	hits = NULL;
+	closest = NULL;
+	if (l3d_bounding_box_ray_hit(&aabb, &ray, &hits, true))
+	{
+		l3d_get_closest_hit(hits, &closest);
+		if (closest != NULL)
+			ml_vector3_sub(target_point, closest->hit_point, offset);
+		l3d_delete_hits(&hits);
+	}
+}
+
+/*
+** Returns hit point by mouse, but ignores the currently selected one,
+** Useful when e.g. placing a new object.
+*/
+
+void			editor_point_on_target(t_doom3d *app,
+					t_vec3 placement_point)
+{
+	t_vec3			mouse_world_pos;
+	t_vec3			dir;
+	t_hits			*hits;
+	t_hit			*closest_triangle_hit;
+	t_vec3			add;
+
+	if (app->editor.num_selected_objects == 0)
+		return ;
+	hits = NULL;
+	get_mouse_world_position(app, mouse_world_pos);
+	ml_vector3_sub(mouse_world_pos, app->player.pos, dir);
+	ml_vector3_normalize(dir, dir);
+	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, app->player.pos,
+		dir, &hits))
+	{
+		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit,
+			app->editor.selected_objects[0]->id);
+		if (closest_triangle_hit != NULL)
+		{
+			editor_point_on_target_offset(app, closest_triangle_hit->hit_point,
+				closest_triangle_hit->normal, add);
+			ml_vector3_add(closest_triangle_hit->hit_point,
+				add, placement_point);
+		}
+		l3d_delete_hits(&hits);
+	}
 }

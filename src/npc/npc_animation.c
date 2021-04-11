@@ -6,7 +6,7 @@
 /*   By: veilo     <veilo@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/02/15 21:41:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/07 14:22:09 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 	npc->animation_3d->base_object = obj;
 	npc_anim_3d_frames_set(app, obj, npc);
 	c = c % 4;//only for animation showcasing
-	npc->animation_3d->current_clip = anim_3d_type_idle + c;
+	npc->animation_3d->current_clip = anim_3d_type_idle;
 	c++;//
 	anim->start_frame =
 		anim->anim_clip_start_indices[

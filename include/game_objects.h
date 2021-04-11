@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/11 11:38:12 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/09 15:02:47 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@
 # define MAX_PATROL_NODES 16
 # define MAX_TRIGGER_LINKS 16
 # define MAX_PATH_NODE_NETWORK_SIZE 256
+
+typedef enum				e_physics_state
+{
+	physics_state_falling = 1,
+	physics_state_grounded = 2,
+	physics_state_jumping = 3,
+	physics_state_not_applied = 5,
+}							t_physics_state;
 
 /*
 ** A list defining what kind of objects the doom3d app contains in its scene /
@@ -96,7 +104,7 @@ typedef enum				e_trigger_type
 	trigger_player_start = 1,
 	trigger_player_end = 2,
 	trigger_weapon_drop_shotgun = 3,
-	trigger_weapon_drop_glock = 4,
+	trigger_weapon_drop_pistol = 4,
 	trigger_weapon_drop_rpg = 5,
 	trigger_item_jetpack,
 	trigger_item_key,
@@ -124,8 +132,9 @@ typedef enum				e_npc_type
 typedef enum				e_projectile_type
 {
 	projectile_type_rpg = 0,
-	projectile_type_bullet = 1,
-	projectile_type_none = 2,
+	projectile_type_fireball = 1,
+	projectile_type_bullet = 2,
+	projectile_type_none = 3,
 }							t_projectile_type;
 
 /*
@@ -147,7 +156,7 @@ typedef enum				e_projectile_type
 typedef enum				e_weapon_id
 {
 	weapon_fist = 0,
-	weapon_glock = 1,
+	weapon_pistol = 1,
 	weapon_shotgun = 2,
 	weapon_rpg = 3,
 }							t_weapon_id;
@@ -161,6 +170,8 @@ typedef struct				s_weapon
 {
 	t_weapon_id				id;
 	int						ammo;
+	int						clip;
+	int						clip_size;
 	float					fire_rate;
 	float					range;
 	t_projectile_type		projectile;
@@ -234,13 +245,11 @@ typedef enum				e_npc_action
 typedef struct				s_npc
 {
 	t_3d_object				*parent;
-	t_bool					is_jumping;
-	t_bool					is_falling;
-	t_bool					is_grounded;
-	t_bool					is_flying;
+	t_physics_state			physics_state;
 	t_vec3					dir;
 	float					angle;
 	float					vision_range;
+	float					hearing_range;
 	int						interest;
 	int						max_interest;
 	t_bool					advance;

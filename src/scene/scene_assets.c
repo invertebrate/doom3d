@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/01 15:40:59 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/08 14:12:32 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,18 @@ static void		triggers_load(t_scene *scene)
 			scene->asset_files.num_triggers++],
 			(void*)trigger_weapon_drop_shotgun);
 	scene->asset_files.trigger_names[scene->asset_files.num_triggers] =
+		"Pistol Drop";
+	hash_map_add(scene->trigger_map,
+		(int64_t)scene->asset_files.trigger_names[
+			scene->asset_files.num_triggers++],
+			(void*)trigger_weapon_drop_pistol);
+	scene->asset_files.trigger_names[scene->asset_files.num_triggers] =
+		"RPG Drop";
+	hash_map_add(scene->trigger_map,
+		(int64_t)scene->asset_files.trigger_names[
+			scene->asset_files.num_triggers++],
+			(void*)trigger_weapon_drop_rpg);
+	scene->asset_files.trigger_names[scene->asset_files.num_triggers] =
 		"Jetpack Drop";
 	hash_map_add(scene->trigger_map,
 		(int64_t)scene->asset_files.trigger_names[
@@ -234,6 +246,10 @@ static void		scene_texture_files_set(t_asset_files *data)
 	data->texture_files[data->num_textures++] =
 		"assets/textures/shotgun_texture.bmp";
 	data->texture_files[data->num_textures++] =
+		"assets/textures/pistol_texture.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/rpg_texture.bmp";
+	data->texture_files[data->num_textures++] =
 		"assets/textures/explosion1.bmp";
 	data->texture_files[data->num_textures++] =
 		"assets/textures/explosion2.bmp";
@@ -247,6 +263,8 @@ static void		scene_texture_files_set(t_asset_files *data)
 		"assets/textures/monster_01/monster01_diffuse.bmp";
 	data->texture_files[data->num_textures++] =
 		"assets/textures/monster_02/monster02_diffuse.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/npc_projectile_texture.bmp";
 }
 
 static void		scene_normal_files_set(t_asset_files *data)
@@ -279,7 +297,10 @@ static void		scene_model_files_set(t_asset_files *data)
 	data->model_files[data->num_models++] = "assets/models/monster_01/monster01_basemodel_000.obj";
 	data->model_files[data->num_models++] = "assets/models/monster_02/monster02_basemodel_000.obj";
 	data->model_files[data->num_models++] = "assets/models/shotgun.obj";
+	data->model_files[data->num_models++] = "assets/models/pistol.obj";
+	data->model_files[data->num_models++] = "assets/models/rpg.obj";
 	data->model_files[data->num_models++] = "assets/models/missile.obj";
+	data->model_files[data->num_models++] = "assets/models/npc_projectile.obj";
 }
 
 /*

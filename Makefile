@@ -22,7 +22,8 @@ else
 	SDL_FLAGS = -rpath $(LIBSDL2) \
 					-framework SDL2 -F$(LIBSDL2)/ \
 					-framework SDL2_image -F$(LIBSDL2)/ \
-					-framework SDL2_ttf -F$(LIBSDL2)/
+					-framework SDL2_ttf -F$(LIBSDL2)/ \
+					-framework SDL2_mixer -F$(LIBSDL2)/
 	SDL_INCLUDES = -I$(LIBSDL2)/SDL2.framework/Headers \
 			-I$(LIBSDL2)/SDL2_image.framework/Headers \
 			-I$(LIBSDL2)/SDL2_ttf.framework/Headers \
@@ -39,12 +40,14 @@ INCLUDES = -I ./include \
 		-I$(LIBGMATRIX)/include \
 		$(SDL_INCLUDES)
 
-CFLAGS =-Wall -Wextra -Werror -O3 -flto $(LINUX_IGNOREW)
+CFLAGS =-Wall -Wextra -Werror -march=native -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
 			doom3d.c \
+			settings.c \
 			player/player.c \
 			player/player_jump.c \
 			player/player_shoot.c \
+			player/player_reload.c \
 			player/collision.c \
 			player/crouch.c \
 			player/movement.c \
@@ -53,17 +56,19 @@ SOURCES = main.c \
 			projectile/projectile_init.c \
 			projectile/projectile_update.c \
 			projectile/projectile_data/projectile_data_rpg.c \
+			projectile/projectile_data/projectile_data_fireball.c \
 			player/player_animations.c \
 			inventory/item_data/item_data_fist.c \
-			inventory/item_data/item_data_glock.c \
+			inventory/item_data/item_data_pistol.c \
 			inventory/item_data/item_data_rpg.c \
 			inventory/item_data/item_data_shotgun.c \
 			inventory/inventory_equip.c \
 			inventory/inventory_init.c \
 			inventory/inventory_init_items.c \
 			inventory/inventory_pickup_weapon.c \
-			inventory/inventory_throw_weapon.c \
 			npc/npc_default.c \
+			npc/npc_ranged.c \
+			npc/npc_hearing.c \
 			npc/npc_elevator.c \
 			npc/npc_execute_behavior.c \
 			npc/npc_spawn.c \
@@ -76,6 +81,7 @@ SOURCES = main.c \
 			npc/npc_destroy.c \
 			trigger/trigger.c \
 			path/path.c \
+			path/path2.c \
 			path/patrol_path.c \
 			object/object_utils.c \
 			object/object_update.c \
@@ -83,14 +89,21 @@ SOURCES = main.c \
 			physics/forces_update.c \
 			camera.c \
 			utils.c \
+			notifications/notifications.c \
 			scene/menus/editor3d_menu.c \
+			scene/menus/editor3d_menu_button_clicks1.c \
+			scene/menus/editor3d_menu_button_clicks2.c \
+			scene/menus/editor3d_menu_button_clicks3.c \
 			scene/menus/settings_menu.c \
 			scene/menus/main_menu.c \
 			scene/menus/pause_menu.c \
 			scene/menus/menu_utils.c \
+			scene/menus/menu_button_utils.c \
+			scene/menus/popup_menu_utils.c \
 			scene/editor/editor_selection.c \
 			scene/editor/editor_utils.c \
 			scene/editor/editor_init.c \
+			scene/editor/editor_placement.c \
 			scene/editor/save.c \
 			scene/editor/read.c \
 			scene/scene.c \
@@ -111,6 +124,7 @@ SOURCES = main.c \
 			render/debug/debug.c \
 			render/debug/debug_line.c \
 			render/notifications.c \
+			render/render_triangle_pool.c \
 			window/text.c \
 			window/window.c \
 			window/frame.c \
@@ -123,14 +137,39 @@ SOURCES = main.c \
 			window/buttons/button.c \
 			window/buttons/button_popup_menu.c \
 			window/buttons/button_popup_menu_events.c \
+			events/custom_event_handling/media.c \
+			events/custom_event_handling/scene.c \
+			events/custom_event_handling/control_flow.c \
+			events/custom_event_handling/player/movement.c \
+			events/custom_event_handling/player/weapons.c \
+			events/custom_event_handling/objects/translate.c \
+			events/custom_event_handling/objects/rotate.c \
+			events/custom_event_handling/objects/objects.c \
+			events/custom_event_handling/editor/menu.c \
+			events/custom_event_handling/editor/selection.c \
+			events/custom_event_handling/editor/placement1.c \
+			events/custom_event_handling/editor/placement2.c \
+			events/custom_event_handling/editor/movement.c \
+			events/custom_event_handling/editor/save.c \
+			events/custom_event_handling/editor/textures.c \
+			events/custom_event_handling/editor/path.c \
 			events/mouse_state.c \
-			events/events.c \
-			events/editor_events.c \
+			events/input.c \
+			events/custom_events.c \
+			events/object_custom_events.c \
+			events/player_custom_events.c \
 			events/keyboard_state.c \
-			events/general_input_events.c \
+			events/control_flow.c \
+			events/editor/editor_custom_events.c \
+			events/editor/editor_transform.c \
+			events/editor/editor_input.c \
+			events/editor/editor_keyboard_state.c \
+			events/editor/editor_mouse_state.c \
 			sound/sound.c\
 			sound/sound_controls.c\
 			sound/sound_init.c\
+			sound/sound_music_init.c\
+			sound/sound_effect_init.c\
 			sound/sound_loop.c\
 			sound/sound_mp_controls.c\
 			animations/animation.c
@@ -169,6 +208,11 @@ $(DIR_OBJ):
 	@mkdir -p temp/render
 	@mkdir -p temp/render/debug
 	@mkdir -p temp/events
+	@mkdir -p temp/events/editor
+	@mkdir -p temp/events/custom_event_handling
+	@mkdir -p temp/events/custom_event_handling/editor
+	@mkdir -p temp/events/custom_event_handling/objects
+	@mkdir -p temp/events/custom_event_handling/player
 	@mkdir -p temp/player
 	@mkdir -p temp/animations
 	@mkdir -p temp/npc
@@ -181,6 +225,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/projectile
 	@mkdir -p temp/projectile/projectile_data
 	@mkdir -p temp/sound
+	@mkdir -p temp/notifications
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)

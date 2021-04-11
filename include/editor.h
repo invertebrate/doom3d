@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:11:36 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 16:02:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 15:43:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum				e_editor_menu_index
 	editor_menu_npcs = 5,
 	editor_menu_triggers = 6,
 	editor_menu_lights = 7,
+	editor_menu_guide = 8,
 }							t_editor_menu_index;
 
 /*
@@ -40,9 +41,11 @@ typedef enum				e_editor_menu_index
 
 typedef struct 				s_editor
 {
+	t_bool					is_placing;
 	t_bool					is_saving;
 	t_bool					is_saved;
 	t_bool					is_moving;
+	t_bool					is_rotating;
 	t_editor_menu_index		editor_menu_id;
 	t_button_menu			*editor_menu;
 	int32_t					editor_level;

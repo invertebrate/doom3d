@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 15:48:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/01 20:58:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,52 +97,40 @@ void		draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
 {
 	draw_debug_line(app, buffers, (t_vec3[2]){
 		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_min[2]},
-		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_max[2]}
-	}, color);
+		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_max[2]}}, color);
 	draw_debug_line(app, buffers, (t_vec3[2]){
 		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_max[2]},
-		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_max[2]},
-	}, color);
+		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_max[2]}}, color);
 	draw_debug_line(app, buffers, (t_vec3[2]){
 		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_max[2]},
-		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_min[2]},
-	}, color);
+		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_min[2]}}, color);
 	draw_debug_line(app, buffers, (t_vec3[2]){
 		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_min[2]},
-		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_min[2]},
-	}, color);
+		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_min[2]}}, color);
 	draw_debug_line(app, buffers, (t_vec3[2]){
 		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]},
-		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]}
-	}, color);
+		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
 	draw_debug_line(app, buffers, (t_vec3[2]){
 		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]},
-		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]},
-	}, color);
+		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
 	draw_debug_line(app, buffers, (t_vec3[2]){
 		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]},
-		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]},
-	}, color);
+		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
 	draw_debug_line(app, buffers, (t_vec3[2]){
 		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]},
-		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]},
-	}, color);
+		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
 	draw_debug_line(app, buffers, (t_vec3[2]){
 		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_min[2]},
-		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]}
-	}, color);
+		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
 	draw_debug_line(app, buffers, (t_vec3[2]){
 		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_max[2]},
-		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]},
-	}, color);
+		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
 	draw_debug_line(app, buffers, (t_vec3[2]){
 		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_min[2]},
-		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]},
-	}, color);
+		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
 	draw_debug_line(app, buffers, (t_vec3[2]){
 		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_max[2]},
-		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]},
-	}, color);
+		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
 }
 
 void			draw_selected_aabb(t_render_work *work)
@@ -242,7 +230,7 @@ void			draw_editor_placement_position(t_render_work *work)
 	t_vec3		edge3[2];
 
 	app = work->app;
-	editor_place_position(app, place_pos);
+	editor_pos_camera_front(app, place_pos);
 	ml_vector3_add(place_pos, (t_vec3){0, 0, app->unit_size * 0.3}, edge1[0]);
 	ml_vector3_sub(place_pos, (t_vec3){0, 0, app->unit_size * 0.3}, edge1[1]);
 	ml_vector3_add(place_pos, (t_vec3){app->unit_size * 0.3, 0, 0}, edge2[0]);

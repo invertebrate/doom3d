@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 19:23:49 by ohakola           #+#    #+#             */
-/*   Updated: 2020/10/19 15:37:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/28 01:47:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_test_state g_test_states[MAX_TESTS];
 
 static void		all_tests(void)
 {
+	t_thread_pool	*pool;
+
 	ft_printf("Hash_map tests:\n");
 	OH_RUN_TEST(test_hash_map_create);
 	OH_RUN_TEST(test_hash_map_add);
@@ -32,6 +34,14 @@ static void		all_tests(void)
 	ft_printf("ft_memset tests:\n");
 	OH_RUN_TEST(test_ft_memset);
 	OH_RUN_TEST(test_ft_memset_ints);
+	ft_printf("Radix Sort tests:\n");
+	pool = thread_pool_create(4);
+	OH_RUN_TEST_POOLED(test_radix_sort_simple, pool);
+	OH_RUN_TEST_POOLED(test_radix_sort_randomized_small, pool);
+	OH_RUN_TEST_POOLED(test_radix_sort_randomized_large, pool);
+	OH_RUN_TEST_POOLED(test_radix_sort_simple_key_val, pool);
+	OH_RUN_TEST_POOLED(test_radix_sort_large_key_val, pool);
+	thread_pool_destroy(pool);
 }
 
 int				main(void)

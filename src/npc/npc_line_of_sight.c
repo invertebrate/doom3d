@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_line_of_sight.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 14:24:25 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/11 19:01:10 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/03/30 16:48:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_bool	npc_ray_to_npc(t_doom3d *app, t_vec3 origin, t_vec3 dir,
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, origin,
 		dir, &hits))
 	{
-		l3d_get_closest_hit(hits, &closest_triangle_hit, -1);
+		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit, -1);
 		if (closest_triangle_hit != NULL)
 		{
 			if (closest_triangle_hit->triangle->parent == npc_obj)

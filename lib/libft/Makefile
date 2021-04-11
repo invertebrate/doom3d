@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 14:43:04 by ohakola           #+#    #+#              #
-#    Updated: 2021/01/08 22:02:31 by ohakola          ###   ########.fr        #
+#    Updated: 2021/04/05 15:20:36 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -131,8 +131,12 @@ SOURCES = ft_atoi.c \
 		hash_map/hash_map_delete_free.c \
 		thread_pool/thread_pool.c \
 		thread_pool/thread_pool_utils.c \
+		radix_sort/radix_sort.c \
+		radix_sort/radix_sort_work.c \
+		radix_sort/radix_sort_utils.c \
 		ft_rand.c \
 		read_file.c \
+		logger.c \
 		ft_atod.c \
 		ft_scroll.c \
 		ft_error.c \
@@ -144,7 +148,7 @@ DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))
 
 INC=-I./include/
 
-CFLAGS = -Wall -Wextra -Werror -O3 -flto
+CFLAGS = -Wall -Wextra -Werror -march=native -O3 -flto
 
 all: $(DIR_OBJ) $(NAME)
 
@@ -157,6 +161,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/ft_dtoa
 	@mkdir -p temp/hash_map
 	@mkdir -p temp/thread_pool
+	@mkdir -p temp/radix_sort
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) $(CFLAGS) $(INC) -c -o $@ $<

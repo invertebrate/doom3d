@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/02 16:03:58 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/10 14:27:04 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ static void		limit_movement_add_by_collision(t_vec3 collision_normal,
 static void		set_future_player(t_doom3d *app, t_vec3 add,
 					t_player *future_player)
 {
+	t_vec3	new_add;
+
+	ml_vector3_add(add, 
+			(t_vec3) {0, -app->player.player_height / 4, 0}, new_add);
 	ft_memcpy(future_player, &app->player, sizeof(t_player));
-	ml_vector3_add(future_player->pos, add, future_player->pos);
+	ml_vector3_add(future_player->pos, new_add, future_player->pos);
 	player_update_aabb(future_player);
 }
 

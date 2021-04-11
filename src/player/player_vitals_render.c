@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 16:43:34 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/22 18:09:10 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:29:21 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void	vitals_ammo(t_doom3d *app)
 	color = 0xb08d5700;
 	l3d_u32_to_rgba(color, rgba);
 	ft_memset(str, 0, sizeof(str));
-	ft_sprintf(str, "Ammo: %d", app->player.equipped_weapon->ammo);
+	ft_sprintf(str, "Ammo: %d | %d", app->player.equipped_weapon->clip, 
+										app->player.equipped_weapon->ammo);
 	window_text_render(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
 		.xy = (int[2]){300,

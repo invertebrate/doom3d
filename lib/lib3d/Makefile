@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#              #
-#    Updated: 2021/02/15 22:26:40 by ohakola          ###   ########.fr        #
+#    Updated: 2021/04/06 19:47:10 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,13 @@ LIBGMATRIX = ../libgmatrix
 DIR_SRC = ./
 DIR_OBJ = temp
 SOURCES = l3d_triangle.c \
-			l3d_triangle_copy.c \
+			l3d_triangle_clone.c \
 			l3d_triangle_update.c \
 			l3d_triangle_vector.c \
 			l3d_ray.c \
 			l3d_ray_hit.c \
-			l3d_ray_hit_utils.c \
+			l3d_ray_hit_utils1.c \
+			l3d_ray_hit_utils2.c \
 			l3d_rand.c \
 			l3d_obj_read.c \
 			l3d_obj_read_utils1.c \
@@ -45,8 +46,11 @@ SOURCES = l3d_triangle.c \
 			l3d_color.c \
 			l3d_image_read.c \
 			l3d_triangle_raster.c \
+			l3d_triangle_raster_transparent.c \
 			l3d_triangle_raster_utils.c \
 			l3d_triangle_raster_pixel.c \
+			l3d_triangle_sort.c \
+			l3d_triangle_sort_depth.c \
 			l3d_shading.c \
 			l3d_shading_utils.c \
 			l3d_uv.c \
@@ -62,7 +66,7 @@ SOURCES = l3d_triangle.c \
 SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 INCLUDES = -I ./include -I $(LIBFT)/include -I $(LIBGMATRIX)/include
-CFLAGS = -Wall -Wextra -Werror -O3 -flto
+CFLAGS = -Wall -Wextra -Werror -march=native -O3 -flto
 
 all: $(DIR_OBJ) $(NAME)
 

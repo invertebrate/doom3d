@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/15 22:07:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 21:28:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define L3D_MAX_OBJ_VERTICES 16384
 
 # define L3D_DEFAULT_COLOR 0xFF00FFFF
+# define L3D_DEFAULT_COLOR_TRANSPARENT 0xFF00FF64
 
 # define L3D_MAX_LIGHTS 4
 
@@ -91,6 +92,7 @@ typedef enum				e_shading_opts
 	e_shading_blue = 1 << 8,
 	e_shading_yellow = 1 << 9,
 	e_shading_cyan = 1 << 10,
+	e_shading_transparent = 1 << 11,
 }							t_shading_opts;
 
 typedef struct				s_surface
@@ -100,12 +102,19 @@ typedef struct				s_surface
 	uint32_t		h;
 }							t_surface;
 
+typedef struct				s_light_source
+{
+	t_vec3		pos;
+	float		radius;
+	float		intensity;
+}							t_light_source;
+
 typedef struct				s_material
 {
 	t_surface		*texture;
 	t_surface		*normal_map;
 	t_shading_opts	shading_opts;
-	t_vec3			light_sources[L3D_MAX_LIGHTS];
+	t_light_source	light_sources[L3D_MAX_LIGHTS];
 	uint32_t		num_lights;
 }							t_material;
 
@@ -318,8 +327,11 @@ void						l3d_bounding_box_hit_record_set(float t[8],
 t_bool						l3d_plane_ray_hit(t_plane *plane, t_ray *ray,
 									t_vec3 hit_point);
 void						l3d_delete_hits(t_hits **hits);
-void						l3d_get_closest_hit(t_hits *hits, t_hit **closest,
+void						l3d_get_closest_triangle_hit(t_hits *hits,
+								t_hit **closest,
 								uint32_t ignore_id);
+void						l3d_get_closest_hit(t_hits *hits,
+								t_hit **closest);
 t_bool						l3d_kd_tree_ray_hits(t_kd_tree *triangle_tree,
 								t_vec3 origin, t_vec3 dir, t_hits **hits);
 
@@ -351,8 +363,15 @@ void						l3d_triangle_normal_update(t_triangle *triangle);
 void						l3d_triangle_tangent_update(t_triangle *triangle);
 void						l3d_triangle_destroy(t_triangle *triangle,
 								t_bool with_vertices);
-t_triangle					*l3d_triangle_copy(t_triangle *src,
+t_triangle					*l3d_triangle_clone(t_triangle *src,
 								t_bool new_vertices);
+void						*l3d_triangle_copy(t_triangle *dst, t_triangle *src);
+void						triangle_sort_by_morton_code(t_tri_vec *triangles,
+								t_thread_pool *pool, t_box3d *world_box);
+void						triangle_sort_by_depth(t_tri_vec *triangles,
+								t_thread_pool *pool, t_box3d *world_box);
+void						normalize_by_world_box(t_vec3 position,
+								t_box3d *world_box);
 
 /*
 **	Triangle clipping
@@ -360,11 +379,10 @@ t_triangle					*l3d_triangle_copy(t_triangle *src,
 
 int							l3d_clip_triangle(t_triangle *triangle,
 											t_plane *plane,
-											t_triangle *result_triangles);
-void						l3d_set_clipped_triangles(t_vertex *vtc,
-													t_triangle *source,
-													t_triangle *dest_tris);
-int							l3d_triangle_clipping_case(t_triangle *triangle,
+											t_triangle *result_triangles[2]);
+void						l3d_init_clipped_triangles(t_triangle
+								*clipped_tris[2]);
+int							l3d_triangle_test_clip(t_triangle *triangle,
 														t_plane *plane,
 														int *point_indices);
 
@@ -372,6 +390,7 @@ int							l3d_triangle_clipping_case(t_triangle *triangle,
 ** Bounding box
 */
 
+t_box3d						triangle_bounding_box(t_triangle *triangle);
 t_axis						l3d_bounding_box_longest_axis(t_box3d bounding_box);
 void						l3d_bounding_box_set(t_tri_vec *triangles,
 								t_box3d *res);
@@ -411,7 +430,8 @@ void						l3d_3d_object_set_params(t_3d_object *object,
 								void *params, uint32_t params_size,
 								uint32_t params_type);
 void						l3d_3d_object_add_light_source(t_3d_object *object,
-								t_vec3 light_pos);
+								t_vec3 light_pos,
+								float radius, float intensity);
 
 /*
 ** OBJ reading
@@ -436,6 +456,9 @@ uint32_t					l3d_random_uuid(void);
 
 void						l3d_triangle_raster(t_sub_framebuffer *buffers,
 												t_triangle *triangle);
+void						l3d_triangle_raster_transparent(t_sub_framebuffer
+												*buffers,
+												t_triangle *triangle);
 void						l3d_calculate_baryc(
 													t_vec2 *triangle_points_2d,
 													t_vec2 point,
@@ -454,9 +477,14 @@ uint32_t					l3d_pixel_normal_shaded(uint32_t pixel,
 uint32_t					l3d_pixel_selection_shaded(uint32_t pixel);
 void						l3d_clamp_uv(t_vec2 uv);
 void						l3d_raster_draw_pixel(t_sub_framebuffer *buffers,
-									int32_t xy[2],
-									t_triangle *triangle);
-
+								int32_t xy[2],
+								t_triangle *triangle);
+void						l3d_raster_draw_pixel_transparent(t_sub_framebuffer
+								*buffers,
+								int32_t xy[2],
+								t_triangle *triangle);
+uint32_t					l3d_pixel_light_shaded(t_triangle *triangle,
+									t_vec3 baryc, uint32_t pixel);
 /*
 ** Plot pixel
 */
@@ -518,6 +546,8 @@ t_surface					*l3d_image_scaled(t_surface *image,
 uint32_t					l3d_rgba_to_u32(uint32_t rgba[4]);
 uint32_t					l3d_color_blend_u32(uint32_t color1,
 								uint32_t color2, float ratio);
+uint32_t					l3d_color_alpha_blend_u32(uint32_t color1,
+								uint32_t color2);
 void						l3d_u32_to_rgba(uint32_t color, uint32_t rgba[4]);
 uint32_t					l3d_triangle_normal_color(t_triangle *triangle);
 

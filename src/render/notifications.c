@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:24:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/13 16:18:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/03/31 18:31:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void		notification_messages_render(t_doom3d *app, t_vec2 pos,
 		notification = node->content;
 		if (notification->type == notification_type_info)
 		{
-			window_text_render(app->window, (t_text_params){
+			window_text_render_shaded(app->window, (t_text_params){
 				.text = notification->message,
 				.text_color = (SDL_Color){255, 255, 0, 255}, .blend_ratio = 1.0,
 				.xy = (int32_t[2]){pos[0] + padding + 2,

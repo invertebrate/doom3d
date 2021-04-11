@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:14:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/12 01:38:10 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/06 18:55:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
 
+# define MAX_LIGHTS 64
 # define MAX_ASSETS 512
 # define MAX_NUM_OBJECTS 16384
 # define NEAR_CLIP_DIST 10
@@ -122,6 +123,8 @@ typedef struct				s_scene
 	t_surface				*skybox_textures[6];
 	t_3d_object				*skybox[6];
 	uint32_t				npc_update_timer;
+	t_3d_object				*scene_lights[MAX_LIGHTS];
+	uint32_t				num_scene_lights;
 }							t_scene;
 
 #endif

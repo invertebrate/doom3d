@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 14:06:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 17:08:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,11 @@ static void		scan_line(t_sub_framebuffer *buffers,
 	int32_t			end_x;
 
 	y = floor(limits[2]);
-	x = floor(limits[0]);
-	end_x = floor(limits[1]);
-	while (x < end_x && (x + buffers->x_offset < buffers->width))
-	{
-		if (x + buffers->x_offset < 0)
-		{
-			x = -buffers->x_offset;
-			continue ;
-		}
-		l3d_raster_draw_pixel(buffers, (int32_t[2]){x, y}, triangle);
-		x++;
-	}
+	x = fmax(floor(limits[0]), -buffers->x_offset);
+	end_x = fmin(floor(limits[1]),
+		buffers->width - buffers->x_offset);
+	while (x < end_x)
+		l3d_raster_draw_pixel(buffers, (int32_t[2]){x++, y}, triangle);
 }
 
 static void		raster_upper(t_sub_framebuffer *bufs,
@@ -40,21 +33,19 @@ static void		raster_upper(t_sub_framebuffer *bufs,
 	float		x;
 	float		y;
 	float		end_x;
+	float		end_y;
+	float		limits[3];
 
-	y = data->y1;
-	while (y < data->y2 && (y + bufs->y_offset < bufs->height))
+	y = fmax(data->y1, -bufs->y_offset);
+	end_y = fmin(data->y2, bufs->height - bufs->y_offset);
+	while (y < end_y)
 	{
-		if (y + bufs->y_offset < 0)
-		{
-			y = -bufs->y_offset;
-			continue ;
-		}
 		x = data->x2 + data->slope_ab * (y - data->y2);
 		end_x = data->x1 + data->slope_ac * (y - data->y1);
-		if (x < end_x)
-			scan_line(bufs, (float[3]){x, end_x + 1, y}, tri);
-		else if (x > end_x)
-			scan_line(bufs, (float[3]){end_x, x + 1, y}, tri);
+		limits[0] = fmin(x, end_x);
+		limits[1] = fmax(x, end_x);
+		limits[2] = y;
+		scan_line(bufs, limits, tri);
 		y++;
 	}
 }
@@ -65,21 +56,19 @@ static void		raster_lower(t_sub_framebuffer *bufs,
 	float		x;
 	float		y;
 	float		end_x;
+	float		end_y;
+	float		limits[3];
 
-	y = data->y2;
-	while (y < data->y3 && (y + bufs->y_offset < bufs->height))
+	y = fmax(data->y2, -bufs->y_offset);
+	end_y = fmin(data->y3, bufs->height - bufs->y_offset);
+	while (y < end_y)
 	{
-		if (y + bufs->y_offset < 0)
-		{
-			y = -bufs->y_offset;
-			continue ;
-		}
 		x = data->x2 + data->slope_bc * (y - data->y2);
 		end_x = data->x1 + data->slope_ac * (y - data->y1);
-		if (x < end_x)
-			scan_line(bufs, (float[3]){x, end_x + 1, y}, tri);
-		else if (x > end_x)
-			scan_line(bufs, (float[3]){end_x, x + 1, y}, tri);
+		limits[0] = fmin(x, end_x);
+		limits[1] = fmax(x, end_x);
+		limits[2] = y;
+		scan_line(bufs, limits, tri);
 		y++;
 	}
 }

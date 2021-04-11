@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/01/29 19:57:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/05 18:15:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void					anim_3d_clip_set(t_doom3d *app, t_3d_object *obj,
 
 	if (!(obj->type == object_type_npc && ((t_npc*)obj->params)->animation_3d != NULL))
 	{
-		ft_printf("Tried to set animation clip to an object with no animation_3d\n");//
+		LOG_ERROR("Tried to set animation clip to an object with no animation_3d");
 		return ;
 	}
 	anim = ((t_npc*)obj->params)->animation_3d;

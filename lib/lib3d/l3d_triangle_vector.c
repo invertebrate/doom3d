@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/15 22:06:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 18:43:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ t_tri_vec		*l3d_triangle_vec_with_capacity(uint32_t capacity)
 
 	error_check(capacity == 0, "Cant create triangle vec with 0 capacity");
 	if ((!(vector = ft_calloc(sizeof(t_tri_vec))) ||
-		!(vector->triangles = ft_calloc(sizeof(t_triangle*) * capacity))) &&
-		ft_dprintf(2, "Failed to malloc triangle vector\n"))
+		!(vector->triangles = ft_calloc(sizeof(t_triangle*) * capacity))))
+	{
+		LOG_ERROR("Failed to malloc triangle vector");
 		exit(1);
+	}
 	vector->size = 0;
 	vector->capacity = capacity;
 	return (vector);
@@ -36,9 +38,11 @@ t_tri_vec		*l3d_triangle_vec_empty(void)
 
 	if ((!(vector = ft_calloc(sizeof(t_tri_vec))) ||
 		!(vector->triangles = ft_calloc(sizeof(t_triangle*) *
-			L3D_TRI_VEC_INITIAL_CAPACITY))) &&
-		ft_dprintf(2, "Failed to malloc triangle vector\n"))
+			L3D_TRI_VEC_INITIAL_CAPACITY))))
+	{
+		LOG_ERROR("Failed to malloc triangle vector");
 		exit(1);
+	}
 	vector->size = 0;
 	vector->capacity = L3D_TRI_VEC_INITIAL_CAPACITY;
 	return (vector);
@@ -61,9 +65,11 @@ t_tri_vec		*l3d_triangle_vec(t_triangle **triangles,
 		num_triangles + L3D_TRI_VEC_INITIAL_CAPACITY :
 		L3D_TRI_VEC_INITIAL_CAPACITY;
 	if ((!(vector = ft_calloc(sizeof(t_tri_vec))) ||
-		!(vector->triangles = ft_calloc(sizeof(t_triangle*) * capacity))) &&
-		ft_dprintf(2, "Failed to malloc triangle vector\n"))
+		!(vector->triangles = ft_calloc(sizeof(t_triangle*) * capacity))))
+	{
+		LOG_ERROR("Failed to malloc triangle vector");
 		exit(1);
+	}
 	i = -1;
 	while (++i < (int)num_triangles)
 		vector->triangles[i] = triangles[i];
@@ -93,9 +99,11 @@ void			l3d_triangle_vec_push(t_tri_vec *vector, t_triangle *triangle)
 			temp[i] = vector->triangles[i];
 		free(vector->triangles);
 		if (!(vector->triangles =
-			ft_calloc(sizeof(t_triangle*) * new_capacity)) &&
-			ft_dprintf(2, "Failed to malloc triangle vector new size\n"))
+			ft_calloc(sizeof(t_triangle*) * new_capacity)))
+		{
+			LOG_ERROR("Failed to malloc triangle vector new size");
 			exit(1);
+		}
 		i = -1;
 		while (++i < (int)vector->size)
 			vector->triangles[i] = temp[i];

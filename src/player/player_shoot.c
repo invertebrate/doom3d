@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/21 11:46:05 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/09 15:57:37 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void		shoot_bullet_effect(t_doom3d *app,
 static void		handle_shoot_hit(t_doom3d *app, t_hit *closest_triangle_hit,
 					t_vec3 dir)
 {
+	check_npc_hearing(app, closest_triangle_hit->hit_point);
 	if (app->player.equipped_weapon->id != weapon_fist &&
 		closest_triangle_hit->triangle->parent->type != object_type_npc)
 		shoot_bullet_effect(app, closest_triangle_hit, dir,
@@ -52,6 +53,9 @@ static void		handle_shoot_hit(t_doom3d *app, t_hit *closest_triangle_hit,
 	{
 		trigger_activate(app, closest_triangle_hit->triangle->parent);
 	}
+	if (app->player.equipped_weapon->id == weapon_fist)
+		push_custom_event(app,
+		event_effect_play, (void*)sf_fist_hit, s_ini(0, 1, st_game, 1.0));
 }
 
 static void		player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
@@ -64,7 +68,7 @@ static void		player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, origin,
 		dir, &hits))
 	{
-		l3d_get_closest_hit(hits, &closest_triangle_hit, -1);
+		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit, -1);
 		if (closest_triangle_hit != NULL)
 		{
 			ml_vector3_sub(closest_triangle_hit->hit_point, origin, dist);
@@ -73,6 +77,12 @@ static void		player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 		}
 		l3d_delete_hits(&hits);
 	}
+	if (app->player.equipped_weapon->id == weapon_pistol)
+		push_custom_event(app,
+		event_effect_play, (void*)sf_pstl_fire, s_ini(0, 1, st_game, 1.0));
+	else if (app->player.equipped_weapon->id == weapon_fist)
+		push_custom_event(app,
+		event_effect_play, (void*)sf_fist_fire, s_ini(0, 1, st_game, 1.0));
 }
 
 void			place_projectile_object_in_scene(t_doom3d *app,
@@ -80,17 +90,16 @@ void			place_projectile_object_in_scene(t_doom3d *app,
 {
 	t_3d_object *obj;
 
-	place_scene_object(app,
+	obj = place_scene_object(app,
 		(const char*[3]){projectile->model_key, projectile->texture_key,
 					projectile->normal_map_key}, origin);
-	obj = app->active_scene->objects[app->active_scene->last_object_index];
 	obj->type = object_type_projectile;
 	l3d_3d_object_set_params(obj, projectile, sizeof(t_projectile),
 		projectile->type);
 	l3d_3d_object_rotate(obj, rot[0], rot[1], rot[2]);
 	l3d_3d_object_scale(obj, 0.1, 0.1, 0.1);
-	ft_printf("Spawned projectile, id = |%d|\n",
-		app->active_scene->objects[app->active_scene->last_object_index]->id); //test
+	if (app->is_debug)
+		LOG_DEBUG("Spawned projectile id: %d", obj->id);
 }
 
 static void		player_shoot_projectile(t_doom3d *app, t_vec3 origin)
@@ -108,6 +117,9 @@ static void		player_shoot_projectile(t_doom3d *app, t_vec3 origin)
 	rot[2] = 90;
 	ml_vector3_copy(rot, projectile.euler_angles);
 	place_projectile_object_in_scene(app, &projectile, origin, rot);
+	if (app->player.equipped_weapon->id == weapon_rpg)
+		push_custom_event(app,
+		event_effect_play, (void*)sf_rpg_fire, s_ini(0, 1, st_game, 1.0));
 }
 
 static void		shoot_shotgun(t_doom3d *app, t_vec3 origin)
@@ -136,7 +148,8 @@ static void		shoot_shotgun(t_doom3d *app, t_vec3 origin)
 		ml_vector3_normalize(dir, dir);
 		player_shoot_ray(app, origin, dir);
 	}
-	mp_play_eff(app, sf_shtg_fire, s_ini(0, 1, st_game, 1.0));
+	push_custom_event(app,
+		event_effect_play, (void*)sf_shtg_fire, s_ini(0, 1, st_game, 1.0));
 }
 
 /*
@@ -158,25 +171,33 @@ void			player_shoot(t_doom3d *app, uint32_t curr_time)
 			(1.0 / app->player.equipped_weapon->fire_rate))
 		return ;
 	}
-	if (app->player.equipped_weapon->ammo > 0)
+	if (app->player.equipped_weapon->clip > 0)
 		set_player_shoot_frame(app);
-	else if (app->player.equipped_weapon->ammo == 0)
+	else if (app->player.equipped_weapon->clip == 0)
 	{
-		ft_printf("Out of ammo\n");
+		if (app->is_debug)
+			LOG_DEBUG("Out of Ammo");
 		set_player_default_frame(app);
+		push_custom_event(app,
+		event_effect_play, (void*)sf_gun_empt, s_ini(0, 1, st_game, 1.0));
 		return ;
 	}
+	if (app->player.equipped_weapon->id != weapon_fist)
+		check_npc_hearing(app, app->player.aabb.center);
 	prev_shot_time = SDL_GetTicks();
 	ml_vector3_mul(app->player.forward, NEAR_CLIP_DIST, add);
 	ml_vector3_add(app->player.pos, add, origin);
 	if (app->player.equipped_weapon->id == weapon_fist ||
-		app->player.equipped_weapon->id == weapon_glock)
+		app->player.equipped_weapon->id == weapon_pistol)
 		player_shoot_ray(app, origin, app->player.forward);
 	else if (app->player.equipped_weapon->id == weapon_rpg)
 		player_shoot_projectile(app, origin);
 	else if (app->player.equipped_weapon->id == weapon_shotgun)
 		shoot_shotgun(app, origin);
 	if (app->player.equipped_weapon->id != weapon_fist)
+	{
+		app->player.equipped_weapon->clip--;
 		app->player.equipped_weapon->ammo--;
+	}
 	prev_shot_weapon_id = app->player.equipped_weapon->id;
 }

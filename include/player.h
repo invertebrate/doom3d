@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/22 17:11:40 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:42:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ typedef struct				s_player
 	t_bool					is_reloading;
 	t_bool					is_moving;
 	t_bool					is_rotating;
-	t_bool					is_jumping;
-	t_bool					is_falling;
-	t_bool					is_grounded;
-	t_bool					is_flying;
+	t_physics_state			physics_state;
 	t_bool					can_fly;
 	float					jump_force;
 	float					speed;
@@ -94,16 +91,29 @@ typedef enum				e_player_animation
 	anim_shotgun_default = 1,
 	anim_shotgun_shoot = 2,
 	anim_shotgun_reload = 3,
-	anim_glock_default = 4,
-	anim_glock_shoot = 5,
-	anim_glock_reload = 6,
+	anim_pistol_default = 4,
+	anim_pistol_shoot = 5,
+	anim_pistol_reload = 6,
 	anim_rpg_default = 7,
 	anim_rpg_shoot = 8,
 	anim_rpg_reload = 9,
-	anim_fist_default = 10,
-	anim_fist_shoot = 11,
-	anim_fist_reload = 12,
+	anim_rpg_special = 10,
+	anim_fist_default = 12,
+	anim_fist_shoot = 13,
+	anim_fist_reload = 14,
 }							t_player_animation;
+
+/*
+** Animation general state
+** 
+*/
+
+typedef enum				e_player_anim_state
+{
+	anim_state_default = 1,
+	anim_state_shoot = 2,
+	anim_state_reload = 3,
+}							t_player_anim_state;
 
 /*
 ** Data which defines different things that belong to player hud.

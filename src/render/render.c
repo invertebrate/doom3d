@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/27 15:49:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/06 21:35:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		clear_buffers(t_render_work *work)
 		sub_buffer->width * sub_buffer->height, FLT_MAX);
 }
 
-static void		draw_buffers(t_render_work *work)
+static void		draw_buffers_to_framebuffer(t_render_work *work)
 {
 	t_sub_framebuffer	*sub_buffer;
 	t_framebuffer		*framebuffer;
@@ -49,33 +49,63 @@ static void		render_work(void *params)
 	t_render_work		*work;
 
 	work = params;
-	clear_buffers(work);
-	if (work->app->active_scene->scene_id == scene_id_editor3d)
-		draw_editor_debug_grid(work);
-	rasterize_triangles(work);
+	// Grid should be first, so draw on pass 0
+	if (work->pass == 0)
+	{
+		clear_buffers(work);
+		if (work->app->active_scene->scene_id == scene_id_editor3d)
+			draw_editor_debug_grid(work);
+	}
+	if (work->pass == 0)
+		rasterize_triangles(work);
+	else if (work->pass == 1)
+		rasterize_triangles_transparent(work);
+	// Draw debug lines
 	if (work->app->active_scene->scene_id == scene_id_editor3d)
 	{
-		path_draw_connections(work); //might need to move
+		path_draw_connections(work);
 		if (work->app->editor.num_selected_objects > 0)
 		{
 			draw_selected_wireframe(work);
 			draw_selected_enemies_direction(work);
 			if (work->app->editor.num_selected_objects == 1 &&
 				work->app->editor.selected_objects[0]->type == object_type_npc)
-			{
 				patrol_path_highlight(work);
-			}
 		}
-		else
+		// Draw placement cursor only on last pass
+		else if (work->pass == work->num_passes - 1)
 			draw_editor_placement_position(work);
-		//!Debug bounding box with draw_selected_aabb(work);
 	}
 	else if (work->app->active_scene->scene_id == scene_id_main_game)
 	{
 		draw_npc_dirs(work);
 	}
-	draw_buffers(work);
+	// Draw buffers only on last pass
+	if (work->pass == work->num_passes - 1)
+		draw_buffers_to_framebuffer(work);
 	free(work);
+}
+
+static void		render_pass(t_doom3d *app, t_framebuffer *framebuffer,
+					t_tri_vec **render_triangles, uint32_t pass_num_passes[2])
+{
+	int32_t				i;
+	t_render_work		*work;
+
+	i = -1;
+	while (++i < framebuffer->num_x * framebuffer->num_y)
+	{
+		error_check(!(work = ft_calloc(sizeof(*work))),
+			"Failed to malloc rasterize work");
+		work->framebuffer = framebuffer;
+		work->sub_buffer_i = i;
+		work->app = app;
+		work->num_passes = pass_num_passes[1];
+		work->pass = pass_num_passes[0];
+		work->render_triangles = work->pass == 0 ? render_triangles[0] :
+			render_triangles[1];
+		thread_pool_add_work(app->thread_pool, render_work, work);
+	}
 }
 
 /*
@@ -94,35 +124,37 @@ static void		render_work(void *params)
 ** 4. Parallel work is waited to finish and render triangles are destroyed.
 */
 
-static void		render_work_parallel(t_doom3d *app, t_framebuffer *framebuffer)
+static void		render_parallel(t_doom3d *app, t_framebuffer *framebuffer)
 {
-	int32_t				i;
-	t_render_work		*work;
-	t_tri_vec			*render_triangles;
+
+	t_tri_vec			**render_triangles;
+	uint32_t			num_passes;
 
 	update_camera(app);
 	render_triangles = prepare_render_triangles(app);
-	app->triangles_in_view = render_triangles->size;
-	i = -1;
-	while (++i < framebuffer->num_x * framebuffer->num_y)
-	{
-		error_check(!(work = ft_calloc(sizeof(*work))),
-			"Failed to malloc rasterize work");
-		work->framebuffer = framebuffer;
-		work->sub_buffer_i = i;
-		work->app = app;
-		work->render_triangles = render_triangles;
-		thread_pool_add_work(app->thread_pool, render_work, work);
-	}
+	app->triangles_in_view = render_triangles[0]->size +
+		render_triangles[1]->size;
+	if (render_triangles[1]->size > 0)
+		num_passes = 2;
+	else
+		num_passes = 1;
+	render_pass(app, framebuffer, render_triangles,
+		(uint32_t[2]){0, num_passes});
 	thread_pool_wait(app->thread_pool);
-	destroy_render_triangles(render_triangles);
-	app->is_first_render = false;
+	// Transparency pass
+	if (num_passes == 2)
+	{
+		render_pass(app, framebuffer, render_triangles,
+		(uint32_t[2]){1, num_passes});
+		thread_pool_wait(app->thread_pool);
+	}
+	destroy_render_triangle_vecs(render_triangles);
 }
 
 void			render_editor_3d_view(t_doom3d *app)
 {
 
-	render_work_parallel(app, app->window->editor_framebuffer);
+	render_parallel(app, app->window->editor_framebuffer);
 	l3d_image_place(&(t_surface){.pixels = app->window->framebuffer->buffer,
 			.w = app->window->framebuffer->width,
 			.h = app->window->framebuffer->height},
@@ -133,11 +165,11 @@ void			render_editor_3d_view(t_doom3d *app)
 				app->window->editor_pos[1]} ,1.0);
 }
 
-void			doom3d_render(t_doom3d *app)
+void			render_to_framebuffer(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
-		render_work_parallel(app, app->window->framebuffer);
+		render_parallel(app, app->window->framebuffer);
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
@@ -145,5 +177,5 @@ void			doom3d_render(t_doom3d *app)
 	}
 	ui_render(app);
 	if (app->is_debug)
-		doom3d_debug_info_render(app);
+		render_debug_info(app);
 }

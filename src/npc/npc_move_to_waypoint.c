@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_move_to_waypoint.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:07:07 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/12 03:28:21 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/07 00:14:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	npc_get_dir_to_next_waypoint(t_doom3d *app, t_3d_object *obj)
 		}
 		if (npc_get_dir_to_next_attack_waypoint(app, obj))
 		{
-			ft_printf("npc patrol path index = %d\n", npc->patrol_path_index);//test
+			if (app->is_debug)
+				LOG_DEBUG("Npc patrol path index %d", npc->patrol_path_index);
 			npc->patrol_path_index++;
 		}
 	}
@@ -84,7 +85,7 @@ void	npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj)
 
 	(void)app; //delete this later
 	npc = obj->params;
-	if (npc->is_flying)
+	if (obj->params_type == npc_type_elevator)
 	{
 		l3d_3d_object_translate(obj, npc->dir[0], npc->dir[1], npc->dir[2]);
 		l3d_object_aabb_update(obj);

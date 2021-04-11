@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phakakos <phakakos@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:51:05 by phakakos          #+#    #+#             */
-/*   Updated: 2021/03/01 14:51:07 by phakakos         ###   ########.fr       */
+/*   Updated: 2021/04/05 18:01:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,26 +92,26 @@ void	mp_print(t_mp *mp)
 t_track		*read_sound(char *file, t_doom3d *app)
 {
 	t_track			*ret;
-    SDL_AudioSpec	wave;
-    Uint8			*data;
-    Uint32			dlen;
-    SDL_AudioCVT	cvt;
+	SDL_AudioSpec	wave;
+	Uint8			*data;
+	Uint32			dlen;
+	SDL_AudioCVT	cvt;
 
-    if ( SDL_LoadWAV(file, &wave, &data, &dlen) == NULL ) {
-        fprintf(stderr, "Couldn't load %s: %s\n", file, SDL_GetError());
-        return (NULL);
-    }
-    if (SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq, 
+	if ( SDL_LoadWAV(file, &wave, &data, &dlen) == NULL ) {
+		LOG_ERROR("Couldn't load %s: %s\n", file, SDL_GetError());
+		return (NULL);
+	}
+	if (SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq, 
 		app->mp.auspec.format, app->mp.auspec.channels, app->mp.auspec.freq)
 		== -1)
 		return (NULL);
-    if (!(cvt.buf = (Uint8*)malloc(dlen * cvt.len_mult)))
+	if (!(cvt.buf = (Uint8*)malloc(dlen * cvt.len_mult)))
 		return (NULL);
-    ft_memcpy(cvt.buf, data, dlen);
-    cvt.len = dlen;
-    SDL_ConvertAudio(&cvt);
-    SDL_FreeWAV(data);
-    if (!(ret = (t_track*)malloc(sizeof(t_track))))
+	ft_memcpy(cvt.buf, data, dlen);
+	cvt.len = dlen;
+	SDL_ConvertAudio(&cvt);
+	SDL_FreeWAV(data);
+	if (!(ret = (t_track*)malloc(sizeof(t_track))))
 		return (NULL);
 	ret->data = cvt.buf;
 	ret->len = cvt.len_cvt;
@@ -124,7 +124,7 @@ t_track		*read_sound(char *file, t_doom3d *app)
 ** Order track list by priority, and add a new to the chain. Previous ones with same prio hold the priority
 */
 
-static void	mp_reorder(t_sound **start, t_sound *new)
+void		mp_reorder(t_sound **start, t_sound *new)
 {
 	t_sound	*curr;
 	t_sound	*prev;
@@ -184,45 +184,37 @@ t_sound			*s_ini(char loop, char priority, char type, float vol)
 }
 
 /*
-** Play new sound effect. Returns 1 on success, 0 on fail
-** ind == song library index t_sounds
-** new is created by calling s_ini()
+** Calculate distance mag in one function for distance volume distance
 */
 
-int				mp_play_eff(t_doom3d *app, int ind, t_sound *new)
+float			sound_mag(t_vec3 v1, t_vec3 v2)
 {
-	//ind = ind < MUSIC ? MUSIC : ind;	// "SECURE" INDEXING?
-	//ind = ind >= MUSIC + SEFFECT ? MUSIC + SEFFECT - 1 : ind;
+	t_vec3	sub;
 
-	if (!new)
-		return (0);
-	new->sound = app->mp.library[ind];
-	SDL_LockAudioDevice(app->mp.audev);
-	mp_reorder(&app->mp.effects, new);
-	SDL_UnlockAudioDevice(app->mp.audev);
-	//sound_len(app->mp.effects);
-	return (1);
+	ml_vector3_sub(v1, v2, sub);
+	return (ml_vector3_mag(sub));
 }
 
 /*
-** Play new music. Returns 1 on success, 0 on fail
-** ind == song library index t_sounds
-** new is created by calling s_ini()
+** Scale sound volume based on the call distance from player
+** vol_max = max volume 0-1
+** dist = distance from player (using ml_vector3_mag())
+** mdist = max distance from the sound. If -1 will use SOUND_DIST instead
 */
 
-int				mp_play_music(t_doom3d *app, int ind, t_sound *new)
+float			distance_vol(float vol_max, float dist, float mdist)
 {
-	// ind = ind < 0 ? 0 : ind;	// "SECURE" INDEXING?
-	// ind = ind >= MUSIC ? MUSIC - 1 : ind;
-	// if (!new)
-	// 	return (0);
-	// new->sound = app->mp.library[ind];
-	// SDL_LockAudioDevice(app->mp.audev);
-	// mp_reorder(&app->mp.tracks, new);
-	// SDL_UnlockAudioDevice(app->mp.audev);
-	(void)app;
-	(void)ind;
-	(void)new;
-	return (1);
+	float	max_dist;
+	float	ret;
 
+	max_dist = mdist != -1 ? mdist : SOUND_DIST;
+	vol_max = vol_max > 1.0f ? 1.0f : vol_max;
+	vol_max = vol_max < 0.0f ? 0 : vol_max;
+	if (dist >= max_dist || (!max_dist && dist) || !vol_max)
+		return (0.0f);
+	else if (!max_dist && !dist)
+		return (vol_max);
+	ret = vol_max * (1 - dist / max_dist);
+	ret = ret > 1 ? 1 : ret;
+	return (ret);
 }
