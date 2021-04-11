@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/11 19:19:11 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/11 19:59:14 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,28 @@
 */
 
 static void		limit_movement_add_by_collision(t_doom3d *app,
-							t_hit *hit, t_vec3 dir, t_player future_player)
+							t_hit *hit, t_vec3 dir, t_player *future_player)
 {
-	while (l3d_point_inside_aabb(&future_player.aabb, hit->hit_point))
+	if (dir[0] > 0)
 	{
-		ml_vector3_sub(app->player.pos, dir, app->player.pos);
-		ml_vector3_sub(future_player.pos, dir, future_player.pos);
-		player_update_aabb(&future_player);
+		if (future_player->aabb.xyz_max[0] > hit->hit_point[0])
+			app->player.pos[0] -= future_player->aabb.xyz_max[0] - hit->hit_point[0];
 	}
-	ml_vector3_sub(app->player.pos, dir, app->player.pos);
+	else
+	{
+		if (future_player->aabb.xyz_min[0] < hit->hit_point[0])
+			app->player.pos[0] += future_player->aabb.xyz_min[0] - hit->hit_point[0];
+	}
+	if (dir[2] > 0)
+	{
+		if (future_player->aabb.xyz_max[2] > hit->hit_point[2])
+			app->player.pos[2] -= future_player->aabb.xyz_max[2] - hit->hit_point[2];
+	}
+	else
+	{
+		if (future_player->aabb.xyz_min[2] < hit->hit_point[2])
+			app->player.pos[2] += future_player->aabb.xyz_min[2] - hit->hit_point[2];
+	}
 	player_update_aabb(&app->player);
 }
 
@@ -74,7 +87,7 @@ void			collision_limit_player(t_doom3d *app, t_vec3 add)
 	{
 		l3d_get_closest_triangle_hit(hits, &closest_hit, -1);
 		if (closest_hit)
-			limit_movement_add_by_collision(app, closest_hit, dir, future_player);
+			limit_movement_add_by_collision(app, closest_hit, dir, &future_player);
 		l3d_delete_hits(&hits);
 	}
 }
