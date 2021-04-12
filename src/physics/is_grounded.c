@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_grounded.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/12 19:23:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/12 19:58:15 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,10 @@ t_bool	player_is_grounded(t_doom3d *app)
 
 static void		nudge_player_down(t_doom3d *app)
 {
-	while (!player_is_grounded(app))
+	int	i;
+
+	i = -1;
+	while (!player_is_grounded(app) && ++i < app->player.aabb.size[1] / 20)
 	{
 		app->player.pos[1] += 10;
 		player_update_aabb(&app->player);
@@ -141,6 +144,7 @@ t_bool	player_check_nudge_to_ground(t_doom3d *app)
 	t_vec3		origin;
 	t_vec3		hit_point;
 	t_bool		ret;
+	t_vec3		tmp;
 
 	ret = false;
 	ml_vector3_copy((t_vec3){app->player.aabb.center[0],
@@ -149,7 +153,8 @@ t_bool	player_check_nudge_to_ground(t_doom3d *app)
 	obj_under = object_under_nudge(app, origin, -1, hit_point);
 	if (obj_under)
 	{
-		if (hit_point[1] - origin[1] < app->player.aabb.size[1] / 2 &&
+		ml_vector3_sub(hit_point, origin, tmp);
+		if (ml_vector3_mag(tmp) < app->player.aabb.size[1] / 2 &&
 						obj_under->type != object_type_projectile &&
 						obj_under->type != object_type_npc)
 		{
