@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/10 15:15:54 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/12 16:52:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,6 @@
 */
 
 # define RENDER_TRIANGLE_POOL_SIZE 65536
-
-/*
-** Allocation space for clipped vertices pool used in rasterization
-** Increase if needed (error encountered)
-*/
-
-# define RENDER_VERTEX_POOL_SIZE RENDER_TRIANGLE_POOL_SIZE * 3
 
 /*
 ** Defines how many levels can be created, otherwise the app will remind
@@ -448,7 +441,8 @@ void						draw_editor_placement_position(t_render_work *work);
 t_triangle					*get_render_triangle_from_pool(t_doom3d *app);
 void						destroy_render_triangle_pool(t_doom3d *app);
 void						reset_render_triangle_pool(t_doom3d *app);
-void						allocate_render_triangle_pool(t_doom3d *app);
+void						allocate_render_triangle_pool(t_doom3d *app,
+								uint32_t size);
 
 /*
 ** Objects

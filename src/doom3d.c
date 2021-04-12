@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 21:19:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/12 16:51:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void		app_init(t_doom3d *app)
 	editor_init(app, 0);
 	LOG_INFO("Allocating render triangle pool of size %d "
 		"And clipped vertices pool of size %d",
-		RENDER_TRIANGLE_POOL_SIZE, RENDER_VERTEX_POOL_SIZE);
-	allocate_render_triangle_pool(app);
+		RENDER_TRIANGLE_POOL_SIZE, RENDER_TRIANGLE_POOL_SIZE * 3);
+	allocate_render_triangle_pool(app, RENDER_TRIANGLE_POOL_SIZE);
 	app->next_scene_id = scene_id_main_menu;
 	select_next_scene(app);
 }
