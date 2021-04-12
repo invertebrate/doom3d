@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/12 18:04:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/12 19:09:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,107 +42,74 @@ static void		set_future_player(t_doom3d *app, t_vec3 add,
 	player_update_aabb(future_player);
 }
 
-static void		rays_from_collider(t_player *future_player,
-					t_ray rays[32])
+/*
+** Shoot 32 rays from top and bottom corners of a cylinder collider on player.
+** Start half height below player position, and above.
+*/
+
+static void		cylinder_rays_from_aabb(t_player *future_player,
+					t_ray rays[64])
 {
-	// Corner xyz min
-	l3d_ray_set((t_vec3){-X_DIR, 0, 0}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->aabb.xyz_min[1], future_player->aabb.xyz_min[2]}, &rays[0]);
-	l3d_ray_set((t_vec3){0, Y_DIR, 0}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->aabb.xyz_min[1], future_player->aabb.xyz_min[2]}, &rays[1]);
-	l3d_ray_set((t_vec3){0, 0, -Z_DIR}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->aabb.xyz_min[1], future_player->aabb.xyz_min[2]}, &rays[2]);
-	// Corner xy min zmax
-	l3d_ray_set((t_vec3){-X_DIR, 0, 0}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->aabb.xyz_min[1], future_player->aabb.xyz_max[2]}, &rays[3]);
-	l3d_ray_set((t_vec3){0, Y_DIR, 0}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->aabb.xyz_min[1], future_player->aabb.xyz_max[2]}, &rays[4]);
-	l3d_ray_set((t_vec3){0, 0, Z_DIR}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->aabb.xyz_min[1], future_player->aabb.xyz_max[2]}, &rays[5]);
-	// Corner y min xz max
-	l3d_ray_set((t_vec3){X_DIR, 0, 0}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->aabb.xyz_min[1], future_player->aabb.xyz_max[2]}, &rays[6]);
-	l3d_ray_set((t_vec3){0, Y_DIR, 0}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->aabb.xyz_min[1], future_player->aabb.xyz_max[2]}, &rays[7]);
-	l3d_ray_set((t_vec3){0, 0, Z_DIR}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->aabb.xyz_min[1], future_player->aabb.xyz_max[2]}, &rays[8]);
-	// Corner yz min x max
-	l3d_ray_set((t_vec3){X_DIR, 0, 0}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->aabb.xyz_min[1], future_player->aabb.xyz_min[2]}, &rays[9]);
-	l3d_ray_set((t_vec3){0, Y_DIR, 0}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->aabb.xyz_min[1], future_player->aabb.xyz_min[2]}, &rays[10]);
-	l3d_ray_set((t_vec3){0, 0, -Z_DIR}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->aabb.xyz_min[1], future_player->aabb.xyz_min[2]}, &rays[11]);
-	// SAME FOR BOTTOM CORNERS (y max)
-	l3d_ray_set((t_vec3){-X_DIR, 0, 0}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->aabb.xyz_max[1], future_player->aabb.xyz_min[2]}, &rays[12]);
-	l3d_ray_set((t_vec3){0, -Y_DIR, 0}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->aabb.xyz_max[1], future_player->aabb.xyz_min[2]}, &rays[13]);
-	l3d_ray_set((t_vec3){0, 0, -Z_DIR}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->aabb.xyz_max[1], future_player->aabb.xyz_min[2]}, &rays[14]);
+	uint32_t	angle;
+	int32_t		i;
+	t_vec3		cylinder_start_down;
+	t_vec3		cylinder_start_up;
+	t_mat4		rotation_x;
 
-	l3d_ray_set((t_vec3){-X_DIR, 0, 0}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->aabb.xyz_max[1], future_player->aabb.xyz_max[2]}, &rays[15]);
-	l3d_ray_set((t_vec3){0, -Y_DIR, 0}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->aabb.xyz_max[1], future_player->aabb.xyz_max[2]}, &rays[16]);
-	l3d_ray_set((t_vec3){0, 0, Z_DIR}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->aabb.xyz_max[1], future_player->aabb.xyz_max[2]}, &rays[17]);
-
-	l3d_ray_set((t_vec3){X_DIR, 0, 0}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->aabb.xyz_max[1], future_player->aabb.xyz_max[2]}, &rays[18]);
-	l3d_ray_set((t_vec3){0, -Y_DIR, 0}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->aabb.xyz_max[1], future_player->aabb.xyz_max[2]}, &rays[19]);
-	l3d_ray_set((t_vec3){0, 0, Z_DIR}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->aabb.xyz_max[1], future_player->aabb.xyz_max[2]}, &rays[20]);
-		
-	l3d_ray_set((t_vec3){X_DIR, 0, 0}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->aabb.xyz_max[1], future_player->aabb.xyz_min[2]}, &rays[21]);
-	l3d_ray_set((t_vec3){0, -Y_DIR, 0}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->aabb.xyz_max[1], future_player->aabb.xyz_min[2]}, &rays[22]);
-	l3d_ray_set((t_vec3){0, 0, -Z_DIR}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->aabb.xyz_max[1], future_player->aabb.xyz_min[2]}, &rays[23]);
-
-	// SAME FOR middle part of aabb
-	l3d_ray_set((t_vec3){-X_DIR, 0, 0}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->pos[1], future_player->aabb.xyz_min[2]}, &rays[24]);
-	l3d_ray_set((t_vec3){0, 0, -Z_DIR}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->pos[1], future_player->aabb.xyz_min[2]}, &rays[25]);
-
-	l3d_ray_set((t_vec3){-X_DIR, 0, 0}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->pos[1], future_player->aabb.xyz_max[2]}, &rays[26]);
-	l3d_ray_set((t_vec3){0, 0, Z_DIR}, (t_vec3){future_player->aabb.xyz_min[0],
-		future_player->pos[1], future_player->aabb.xyz_max[2]}, &rays[27]);
-
-	l3d_ray_set((t_vec3){X_DIR, 0, 0}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->pos[1], future_player->aabb.xyz_max[2]}, &rays[28]);
-	l3d_ray_set((t_vec3){0, 0, Z_DIR}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->pos[1], future_player->aabb.xyz_max[2]}, &rays[29]);
-		
-	l3d_ray_set((t_vec3){X_DIR, 0, 0}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->pos[1], future_player->aabb.xyz_min[2]}, &rays[30]);
-	l3d_ray_set((t_vec3){0, 0, -Z_DIR}, (t_vec3){future_player->aabb.xyz_max[0],
-		future_player->pos[1], future_player->aabb.xyz_min[2]}, &rays[31]);
+	angle = 360 / 32;
+	ml_vector3_copy((t_vec3){future_player->aabb.xyz_min[0],
+		future_player->pos[1] + future_player->aabb.size[1] / 2.0,
+		future_player->aabb.xyz_min[2]}, cylinder_start_down);
+	ml_vector3_copy((t_vec3){future_player->aabb.xyz_min[0],
+		future_player->pos[1] - future_player->aabb.size[1] / 2.0,
+		future_player->aabb.xyz_min[2]}, cylinder_start_up);
+	i = -1;
+	while (++i < 32)
+	{
+		ml_matrix4_rotation_y(ml_rad(i * angle), rotation_x);
+		// Localize cylinder start into ray origin
+		ml_vector3_sub(cylinder_start_down, future_player->pos, rays[i].origin);
+		// Rotate origin by angle
+		ml_matrix4_mul_vec3(rotation_x, rays[i].origin, rays[i].origin);
+		// Place back where origin should be
+		ml_vector3_add(rays[i].origin, future_player->pos, rays[i].origin);
+		// Get direction from player center at same y height to ray origin
+		ml_vector3_sub(rays[i].origin, (t_vec3){future_player->pos[0],
+			rays[i].origin[1], future_player->pos[2]},
+			rays[i].dir);
+		// Set ray
+		l3d_ray_set(rays[i].dir, rays[i].origin, &rays[i]);
+		// Same for cylinder start up
+		ml_vector3_sub(cylinder_start_up, future_player->pos, rays[i + 32].origin);
+		ml_matrix4_mul_vec3(rotation_x, rays[i + 32].origin, rays[i + 32].origin);
+		ml_vector3_add(rays[i + 32].origin, future_player->pos, rays[i + 32].origin);
+		ml_vector3_sub(rays[i + 32].origin, (t_vec3){future_player->pos[0],
+			rays[i + 32].origin[1], future_player->pos[2]},
+			rays[i + 32].dir);
+		l3d_ray_set(rays[i + 32].dir, rays[i + 32].origin, &rays[i + 32]);
+	}
 }
 
 /*
-** Direct rays from bounding box corners and middle between corners
+** Direct rays from collider
 ** See if they hit & subtract movement add so we limit the movement by the hit
 ** triangles.
 */
 
-void			collision_limit_player(t_doom3d *app, t_vec3 add)
+void			collision_limit_player_horizontal(t_doom3d *app, t_vec3 add)
 {
 	int32_t		i;
 	t_player	future_player;
 	t_hits		*hits;
 	t_hit		*closest_triangle_hit;
-	t_ray		rays[32];
+	t_ray		rays[64];
 
 	set_future_player(app, add, &future_player);
-	rays_from_collider(&future_player, rays);
+	cylinder_rays_from_aabb(&future_player, rays);
 	i = -1;
-	while (++i < 32)
+	while (++i < 64)
 	{
+		l3d_ray_set(rays[i].dir, rays[i].origin, &rays[i]);
 		hits = NULL;
 		if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, rays[i].origin,
 			rays[i].dir, &hits))
@@ -152,13 +119,8 @@ void			collision_limit_player(t_doom3d *app, t_vec3 add)
 				&closest_triangle_hit, -1,
 				0.1 * app->unit_size);
 			if (closest_triangle_hit != NULL)
-			{
-				LOG_TRACE("Hit and close enough %d", i);
 				limit_movement_add_by_collision(closest_triangle_hit->normal,
 					add);
-				l3d_delete_hits(&hits);
-				return ;
-			}
 			l3d_delete_hits(&hits);
 		}
 	}
