@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/12 19:09:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/12 19:13:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,6 @@ void			collision_limit_player_horizontal(t_doom3d *app, t_vec3 add)
 					add);
 			l3d_delete_hits(&hits);
 		}
+		LOG_TRACE("%d hello", i);
 	}
 }
