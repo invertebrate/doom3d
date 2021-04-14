@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 23:06:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/14 23:14:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static void		delete_objects_set_for_deletion(t_doom3d *app)
 	char		obj_type[128];
 	t_3d_object	**objects;
 
-	objects = NULL;
-	if (app->active_scene->objects != NULL)
-		objects = app->active_scene->objects;
+	objects = app->active_scene->objects;
 	l3d_temp_objects_destroy_if_expired(&app->active_scene->temp_objects);
 	i = -1;
 	while (++i < (int32_t)app->active_scene->num_deleted)
@@ -32,13 +30,11 @@ static void		delete_objects_set_for_deletion(t_doom3d *app)
 		{
 			id = objects[del_index]->id;
 			object_type_to_str(objects[del_index], obj_type);
-			if (objects[del_index]->type == object_type_npc &&
-			(((t_npc*)objects[del_index]->params)->type == npc_type_default ||
-			((t_npc*)objects[del_index]->params)->type == npc_type_ranged))
+			if (objects[del_index]->type == object_type_npc)
 			{
 				npc_destroy(objects[del_index]);
 				if (app->is_debug)
-					LOG_DEBUG("Deleted object %s, id %u that had 3D animations", obj_type, id);
+					LOG_DEBUG("Deleted object %s, id %u that may have 3D animations", obj_type, id);
 			}
 			else
 			{

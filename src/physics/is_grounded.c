@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_grounded.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/14 16:05:10 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/14 23:16:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ void			nudge_player_down_ceiling(t_doom3d *app)
 	{
 		app->player.pos[1] += 10;
 		player_update_aabb(&app->player);
-		LOG_TRACE("nudge_player_down");
 	}
 }
 
@@ -165,7 +164,6 @@ static void		nudge_player_down(t_doom3d *app)
 	{
 		app->player.pos[1] += 10;
 		player_update_aabb(&app->player);
-		LOG_TRACE("nudge_player_down");
 	}
 	if (player_is_grounded(app))
 	{
