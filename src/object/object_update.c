@@ -18,20 +18,35 @@ static void		delete_objects_set_for_deletion(t_doom3d *app)
 	int32_t		del_index;
 	uint32_t	id;
 	char		obj_type[128];
+	t_3d_object	**objects;
 
+	objects = NULL;
+	if (app->active_scene->objects != NULL)
+		objects = app->active_scene->objects;
 	l3d_temp_objects_destroy_if_expired(&app->active_scene->temp_objects);
 	i = -1;
 	while (++i < (int32_t)app->active_scene->num_deleted)
 	{
 		del_index = app->active_scene->deleted_object_i[i];
-		if (app->active_scene->objects[del_index] != NULL)
+		if (objects[del_index] != NULL)
 		{
-			id = app->active_scene->objects[del_index]->id;
-			object_type_to_str(app->active_scene->objects[del_index], obj_type);
-			if (app->is_debug)
-				LOG_DEBUG("Deleted object %s, id %u", obj_type, id);
-			l3d_3d_object_destroy(app->active_scene->objects[del_index]);
-			app->active_scene->objects[del_index] = NULL;
+			id = objects[del_index]->id;
+			object_type_to_str(objects[del_index], obj_type);
+			if (objects[del_index]->type == object_type_npc &&
+			(((t_npc*)objects[del_index]->params)->type == npc_type_default ||
+			((t_npc*)objects[del_index]->params)->type == npc_type_ranged))
+			{
+				npc_destroy(objects[del_index]);
+				if (app->is_debug)
+					LOG_DEBUG("Deleted object %s, id %u that had 3D animations", obj_type, id);
+			}
+			else
+			{
+				l3d_3d_object_destroy(objects[del_index]);
+				if (app->is_debug)
+					LOG_DEBUG("Deleted object %s, id %u", obj_type, id);
+			}
+			objects[del_index] = NULL;
 		}
 	}
 }
@@ -95,6 +110,8 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 	{
 		if (((t_npc*)obj->params)->animation_3d != NULL)
 		{
+			// ft_printf("here\n");
+			// l3d_3d_object_rotate(obj, 0.0, 1.0, 0.0);
 			anim_3d_frame_update(app, ((t_npc*)obj->params)->animation_3d);
 		}
 		if (is_npc_update)

@@ -18,6 +18,10 @@ void					update_app_ticks(t_doom3d *app)
 						SDL_GetPerformanceFrequency();
 }
 
+/*
+**	Updates the npc position to current animation frame
+*/
+
 void		npc_anim_3d_position_update(t_3d_object *obj)
 {
 	t_animation_3d		*anim;
@@ -31,11 +35,29 @@ void		npc_anim_3d_position_update(t_3d_object *obj)
 							-anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][0],
 							-anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][1],
 							-anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame][2]);
-	ml_vector3_copy(obj->position, anim->current_object->position);
 	l3d_3d_object_translate(anim->current_object, obj->position[0],
 							obj->position[1], obj->position[2]);
 	ml_vector3_copy((t_vec3){obj->position[0], obj->position[1], obj->position[2]},
 						anim->frame_object_prev_translation[anim->frames_start_idx + anim->current_frame]);
+}
+
+/*
+**	Updates the npc position to current animation frame
+*/
+
+void		npc_anim_3d_rotation_update(t_3d_object *obj)
+{
+	t_animation_3d		*anim;
+	t_mat4				inverse_rot;
+
+	anim = NULL;
+	if (obj->type == object_type_npc && ((t_npc*)obj->params)->animation_3d != NULL)
+		anim = ((t_npc*)obj->params)->animation_3d;
+	else
+		return ;
+	ml_matrix4_inverse(anim->current_object->rotation , inverse_rot);
+	l3d_3d_object_rotate_matrix(anim->current_object, inverse_rot);
+	l3d_3d_object_rotate_matrix(anim->current_object, obj->rotation);
 }
 
 uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
@@ -45,6 +67,7 @@ uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 	if (animation->current_clip == anim_3d_type_null)
 	{
 		npc_anim_3d_position_update(animation->base_object);
+		npc_anim_3d_rotation_update(animation->base_object);
 		return (UINT32_MAX);
 	}
 	if (((app->current_tick - animation->tick_at_update) % (TICKS_PER_SEC)) > (TICKS_PER_SEC / ANIM_3D_FPS))
@@ -58,7 +81,7 @@ uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 	current_frame = animation->current_frame;
 	animation->current_object = animation->animation_frames[animation->current_frame];
 	npc_anim_3d_position_update(animation->base_object);
-	// npc_anim_3d_rotation_update(animation->base_object);
+	npc_anim_3d_rotation_update(animation->base_object);
 	return (current_frame);
 }
 
@@ -83,4 +106,5 @@ void					anim_3d_clip_set(t_doom3d *app, t_3d_object *obj,
 													ANIM_3D_TYPE_MOD]];
 	anim->tick_at_update = app->current_tick;
 	npc_anim_3d_position_update(obj);
+	npc_anim_3d_rotation_update(obj);
 }

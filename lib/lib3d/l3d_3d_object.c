@@ -55,13 +55,25 @@ void			l3d_3d_object_destroy(t_3d_object *object)
 {
 	int		i;
 
-	free(object->params);
-	free(object->triangles);
+	if (object == NULL)
+		return ;
+	if (object->params != NULL)
+		free(object->params);
+	if (object->triangles != NULL)
+		free(object->triangles);
 	i = -1;
-	while (++i < object->num_vertices)
-		free(object->vertices[i]);
-	free(object->material);
-	free(object->vertices);
+	if (object->vertices != NULL)
+	{
+		while (++i < object->num_vertices)
+		{
+			if (object->vertices[i] != NULL)
+				free(object->vertices[i]);
+		}
+	}
+	if (object->material != NULL)
+		free(object->material);
+	if (object->vertices != NULL)
+		free(object->vertices);
 	free(object);
 	object = NULL;
 }

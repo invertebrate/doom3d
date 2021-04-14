@@ -13,13 +13,13 @@
 #ifndef GAME_OBJECTS_H
 # define GAME_OBJECTS_H
 
-# define NPC_DEFAULT_MODEL "assets/models/monster_01/monster_01_basemodel_000.obj"
-# define NPC_DEFAULT_TEXTURE "assets/textures/monster_01/monster_01_diffuse.bmp"
-# define NPC_DEFAULT_NORMM "assets/textures/monster_01/monster_01_normal.bmp"
+# define NPC_DEFAULT_MODEL "assets/models/monster_01/monster01_basemodel_000.obj"
+# define NPC_DEFAULT_TEXTURE "assets/textures/monster_01/monster01_diffuse.bmp"
+# define NPC_DEFAULT_NORMM "assets/textures/monster_01/monster01_normal.bmp"
 
-# define NPC_RANGED_MODEL "assets/models/monster_02/monster_02_basemodel_000.obj"
-# define NPC_RANGED_TEXTURE "assets/textures/monster_02/monster_02_diffuse.bmp"
-# define NPC_RANGED_NORMM "assets/textures/monster_02/monster_02_normal.bmp"
+# define NPC_RANGED_MODEL "assets/models/monster_02/monster02_basemodel_000.obj"
+# define NPC_RANGED_TEXTURE "assets/textures/monster_02/monster02_diffuse.bmp"
+# define NPC_RANGED_NORMM "assets/textures/monster_02/monster02_normal.bmp"
 
 # define NPC_ELEVATOR_MODEL "assets/models/box.obj"
 # define NPC_ELEVATOR_TEXTURE "assets/textures/rock.bmp"

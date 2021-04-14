@@ -22,6 +22,7 @@ void		handle_player_move(t_doom3d *app, t_move move_dir, int32_t amount)
 {
 	t_vec3	dir;
 
+	ml_vector3_set_all(dir, 0.0);
 	get_move_dir(app, move_dir, dir);
 	if (app->player.physics_state != physics_state_grounded &&
 		app->player.can_fly)

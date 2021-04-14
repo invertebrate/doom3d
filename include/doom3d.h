@@ -68,7 +68,7 @@
 ** Increase if needed (error encountered)
 */
 
-# define RENDER_TRIANGLE_POOL_SIZE 65536
+# define RENDER_TRIANGLE_POOL_SIZE 131072
 
 /*
 ** Defines how many levels can be created, otherwise the app will remind
@@ -232,6 +232,7 @@ void						elevator_go_to_next_node(t_doom3d *app, t_3d_object *obj);
 t_bool						npc_has_line_of_sight(t_doom3d *app, t_3d_object *npc_obj);
 void						path_node_network_init(t_doom3d *app);
 void						npc_find_path(t_doom3d *app, t_npc *npc, t_vec3	start, t_vec3 end);
+t_bool        				npc_destroy(t_3d_object *npc_obj);
 void						check_npc_hearing(t_doom3d *app, t_vec3 hit);
 
 /*

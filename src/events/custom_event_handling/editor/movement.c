@@ -26,6 +26,8 @@ void		handle_editor_move_view_forward(t_doom3d *app,
 	t_vec3	dir;
 
 	ml_vector3_mul(app->player.forward, amount, dir);
+	dir[1] = 0.0;
+	ml_vector3_normalize(dir, dir);
 	ml_vector3_add(app->player.velocity, dir, app->player.velocity);
 }
 

@@ -75,6 +75,7 @@ typedef struct				s_animation_3d
 	t_3d_object				*current_object;
 	t_3d_object				*animation_frames[ANIM_3D_FRAME_MAX]; //contains the objects for each anim frame
 	t_vec3					frame_object_prev_translation[ANIM_3D_FRAME_MAX];
+	t_mat4					frame_object_prev_rotation[ANIM_3D_FRAME_MAX];
 	t_anim_3d_clip_info		clip_info[ANIM_3D_COUNT_MAX];	
 }							t_animation_3d;
 
