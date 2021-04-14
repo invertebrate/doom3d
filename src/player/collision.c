@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/12 20:02:37 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/14 16:08:17 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,45 @@
 ** https://gamedev.stackexchange.com/questions/49956/
 ** collision-detection-smooth-wall-sliding-no-bounce-effect
 */
+/*
+static void		nudge_away(t_doom3d *app, t_player *future_player,
+									t_3d_object *collider, t_vec3 hit_point)
+{
+	t_vec3	dist;
+	t_vec3	tmp;
+	t_vec3	nudge;
+	float	player_size;
+	int		i;
+
+	if (collider->type == object_type_projectile ||
+		collider->type == object_type_path ||
+		collider->type == object_type_trigger)
+		return ;
+	// define limit on when to stop nudge
+	ml_vector3_copy(app->player.aabb.size, tmp);
+	ml_vector3_mul(tmp, 0.5, tmp);
+	tmp[1] = 0;
+	player_size = ml_vector3_mag(tmp);
+	// define nudge
+	ml_vector3_sub(collider->aabb.center, future_player->aabb.center, tmp);
+	tmp[1] = 0;
+	ml_vector3_normalize(tmp, nudge);
+	ml_vector3_mul(nudge, 10, nudge);
+	//start nudging
+	LOG_TRACE("dist = %f, player_size = %f", ml_vector3_mag(dist), app->unit_size);//test
+	ml_vector3_sub(hit_point, future_player->aabb.center, dist);
+	i = -1;
+	while (ml_vector3_mag(dist) < app->unit_size && ++i < player_size / 10)
+	{
+		ml_vector3_sub(future_player->pos, nudge, future_player->pos);
+		ml_vector3_sub(app->player.pos, nudge, app->player.pos);
+		player_update_aabb(future_player);
+		ml_vector3_sub(hit_point, future_player->aabb.center, dist);
+		LOG_TRACE("nudge vector = {%f, %f, %f}", nudge[0], nudge[1], nudge[2]);//test
+		LOG_TRACE("nudge_player_away");
+	}
+	player_update_aabb(&app->player);
+}*/
 
 static void		limit_movement_add_by_collision(t_vec3 collision_normal,
 					t_vec3 dir_add)
@@ -25,8 +64,6 @@ static void		limit_movement_add_by_collision(t_vec3 collision_normal,
 	ml_vector3_normalize(collision_normal, collision_normal);
 	ml_vector3_mul(collision_normal,
 		ml_vector3_dot(dir_add, collision_normal), direction_wall_part);
-	if (direction_wall_part[1] > 0)
-		direction_wall_part[1] = 0;
 	ml_vector3_sub(dir_add, direction_wall_part, dir_add);
 }
 
@@ -107,7 +144,7 @@ void			collision_limit_player_horizontal(t_doom3d *app, t_vec3 add)
 	set_future_player(app, add, &future_player);
 	cylinder_rays_from_aabb(&future_player, rays);
 	i = -1;
-	while (++i < 64)
+	while (++i < 32)
 	{
 		l3d_ray_set(rays[i].dir, rays[i].origin, &rays[i]);
 		hits = NULL;
@@ -119,8 +156,11 @@ void			collision_limit_player_horizontal(t_doom3d *app, t_vec3 add)
 				&closest_triangle_hit, -1,
 				0.1 * app->unit_size);
 			if (closest_triangle_hit != NULL)
+			{
 				limit_movement_add_by_collision(closest_triangle_hit->normal,
 					add);
+				//nudge_away(app, &future_player, closest_triangle_hit->triangle->parent, closest_triangle_hit->hit_point);
+			}
 			l3d_delete_hits(&hits);
 		}
 	}

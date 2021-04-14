@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/12 18:35:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/14 15:54:13 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,8 @@ void						check_npc_hearing(t_doom3d *app, t_vec3 hit);
 t_bool						obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj);
 t_bool						player_is_grounded(t_doom3d *app);
 t_bool						player_check_nudge_to_ground(t_doom3d *app);
+t_bool						player_hits_ceiling(t_doom3d *app);
+void						nudge_player_down_ceiling(t_doom3d *app);
 void						update_object_forces(t_doom3d *app,
 								t_3d_object *tested);
 void						update_object_physics_state(t_doom3d *app,

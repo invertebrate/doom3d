@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/12 19:58:15 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/14 16:05:10 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,31 @@ static t_3d_object	*object_under(t_doom3d *app,
 	hits = NULL;
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, origin,
 		(t_vec3){0, Y_DIR, 0}, &hits))
+	{
+		l3d_get_closest_triangle_hit(hits, &closest_hit, self_id);
+		if (!closest_hit)
+		{
+			l3d_delete_hits(&hits);
+			return (NULL);
+		}
+		hit_parent = closest_hit->triangle->parent;
+		ml_vector3_copy(closest_hit->hit_point, hit_point);
+		l3d_delete_hits(&hits);
+		return (hit_parent);
+	}
+	return (NULL);
+}
+
+static t_3d_object	*object_above(t_doom3d *app,
+					t_vec3 origin, uint32_t self_id, t_vec3 hit_point)
+{
+	t_hits		*hits;
+	t_hit		*closest_hit;
+	t_3d_object	*hit_parent;
+
+	hits = NULL;
+	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, origin,
+		(t_vec3){0, -Y_DIR, 0}, &hits))
 	{
 		l3d_get_closest_triangle_hit(hits, &closest_hit, self_id);
 		if (!closest_hit)
@@ -90,6 +115,42 @@ t_bool	player_is_grounded(t_doom3d *app)
 			hit_point[1] >= origin[1] - app->player.aabb.size[1] &&
 						obj_under->type != object_type_projectile &&
 						obj_under->type != object_type_npc)
+			ret = true;
+	}
+	return (ret);
+}
+
+void			nudge_player_down_ceiling(t_doom3d *app)
+{
+	int	i;
+
+	i = -1;
+	while (player_hits_ceiling(app) && ++i < app->player.aabb.size[1] / 20)
+	{
+		app->player.pos[1] += 10;
+		player_update_aabb(&app->player);
+		LOG_TRACE("nudge_player_down");
+	}
+}
+
+t_bool			player_hits_ceiling(t_doom3d *app)
+{
+	t_3d_object	*obj_above;
+	t_vec3		origin;
+	t_vec3		hit_point;
+	t_bool		ret;
+
+	ret = false;
+	ml_vector3_copy((t_vec3){app->player.aabb.center[0],
+				app->player.aabb.center[1] - app->player.aabb.size[1] / 2.0,
+				app->player.aabb.center[2]}, origin);
+	obj_above = object_above(app, origin, -1, hit_point);
+	if (obj_above)
+	{
+		if (hit_point[1] >= origin[1] &&
+			hit_point[1] <= origin[1] + app->player.aabb.size[1] / 2 &&
+						obj_above->type != object_type_projectile &&
+						obj_above->type != object_type_npc)
 			ret = true;
 	}
 	return (ret);
