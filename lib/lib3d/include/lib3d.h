@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 21:28:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/12 17:58:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,6 +330,9 @@ void						l3d_delete_hits(t_hits **hits);
 void						l3d_get_closest_triangle_hit(t_hits *hits,
 								t_hit **closest,
 								uint32_t ignore_id);
+void						l3d_get_closest_triangle_hit_at_range(t_hits *hits,
+								t_hit **closest,
+								uint32_t ignore_id, float range);
 void						l3d_get_closest_hit(t_hits *hits,
 								t_hit **closest);
 t_bool						l3d_kd_tree_ray_hits(t_kd_tree *triangle_tree,
