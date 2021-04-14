@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_jump.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 18:47:01 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/07 00:02:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/12 19:32:15 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	player_jump(t_doom3d *app)
 {
-	if (!app->player.can_fly &&
-		app->player.physics_state == physics_state_grounded)
+	if (app->player.physics_state == physics_state_grounded)
 		app->player.velocity[1] -= PLAYER_JUMP_FORCE * 1.0;
 	if (app->player.can_fly)
 	{

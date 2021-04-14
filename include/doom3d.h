@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/10 15:15:54 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/14 15:54:13 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,6 @@
 */
 
 # define RENDER_TRIANGLE_POOL_SIZE 131072
-
-/*
-** Allocation space for clipped vertices pool used in rasterization
-** Increase if needed (error encountered)
-*/
-
-# define RENDER_VERTEX_POOL_SIZE RENDER_TRIANGLE_POOL_SIZE * 3
 
 /*
 ** Defines how many levels can be created, otherwise the app will remind
@@ -181,7 +174,7 @@ void						player_rotate_vertical(t_doom3d *app, float angle);
 void						player_rotate_horizontal(t_doom3d *app,
 								float angle);
 void						player_apply_gravity(t_doom3d *app);
-void						collision_limit_player(t_doom3d *app, t_vec3 add);
+void						collision_limit_player_horizontal(t_doom3d *app, t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						player_onhit(t_doom3d *app, int damage);
 void						player_jump(t_doom3d *app);
@@ -249,6 +242,8 @@ void						check_npc_hearing(t_doom3d *app, t_vec3 hit);
 t_bool						obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj);
 t_bool						player_is_grounded(t_doom3d *app);
 t_bool						player_check_nudge_to_ground(t_doom3d *app);
+t_bool						player_hits_ceiling(t_doom3d *app);
+void						nudge_player_down_ceiling(t_doom3d *app);
 void						update_object_forces(t_doom3d *app,
 								t_3d_object *tested);
 void						update_object_physics_state(t_doom3d *app,
@@ -449,7 +444,8 @@ void						draw_editor_placement_position(t_render_work *work);
 t_triangle					*get_render_triangle_from_pool(t_doom3d *app);
 void						destroy_render_triangle_pool(t_doom3d *app);
 void						reset_render_triangle_pool(t_doom3d *app);
-void						allocate_render_triangle_pool(t_doom3d *app);
+void						allocate_render_triangle_pool(t_doom3d *app,
+								uint32_t size);
 
 /*
 ** Objects
