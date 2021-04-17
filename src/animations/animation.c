@@ -155,11 +155,9 @@ void					anim_3d_clip_set(t_doom3d *app, t_3d_object *obj,
 	}
 	anim = ((t_npc*)obj->params)->animation_3d;
 	anim->current_clip = clip;
-	anim->current_frame = start_frame;
-	anim->current_object = anim->animation_frames[anim->anim_clip_start_indices[clip %
-													ANIM_3D_TYPE_MOD] + start_frame];
-	ft_printf("clip: %d start indices: %d\n", clip,  anim->anim_clip_start_indices[clip %
-													ANIM_3D_TYPE_MOD]);
+	anim->current_frame = anim->anim_clip_start_indices[clip % ANIM_3D_TYPE_MOD] + start_frame;
+	anim->current_object = anim->animation_frames[anim->current_frame];
+	ft_printf("clip: %d current_frame: %d\n", clip,  anim->current_frame);
 	anim->tick_at_update = app->current_tick;
 	npc_anim_3d_position_update(obj);
 	npc_anim_3d_rotation_update(obj);
