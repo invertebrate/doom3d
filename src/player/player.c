@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/14 15:58:16 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/17 19:01:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,14 @@ void			update_player_physics_state(t_doom3d *app)
 	}
 	prev_state = app->player.physics_state;
 	if (app->player.velocity[1] < 0)
+	{
 		app->player.physics_state = physics_state_jumping;
+		if (player_hits_ceiling(app))
+		{
+			nudge_player_down_ceiling(app);
+			app->player.velocity[1] = 0;
+		}
+	}
 	else
 	{
 		is_grounded = player_is_grounded(app);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forces_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/14 15:59:08 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/17 18:57:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ void		forces_update_player(t_doom3d *app)
 {
 	float		deceleration;
 
-	if (app->player.velocity[1] < 0)
-		if (player_hits_ceiling(app))
-		{
-			nudge_player_down_ceiling(app);
-			app->player.velocity[1] = 0;
-		}
 	if (app->player.physics_state != physics_state_not_applied)
 	{
 		if (app->player.physics_state == physics_state_grounded)

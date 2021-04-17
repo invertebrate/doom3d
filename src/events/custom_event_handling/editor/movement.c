@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 02:12:10 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 03:15:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/17 19:03:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void		handle_editor_move_view_forward(t_doom3d *app,
 	t_vec3	dir;
 
 	ml_vector3_mul(app->player.forward, amount, dir);
-	dir[1] = 0.0;
-	ml_vector3_normalize(dir, dir);
 	ml_vector3_add(app->player.velocity, dir, app->player.velocity);
 }
 
