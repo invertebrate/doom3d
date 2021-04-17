@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/17 18:57:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/17 19:10:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void		forces_update_player(t_doom3d *app)
 		if ((app->player.physics_state == physics_state_jumping ||
 			app->player.physics_state == physics_state_falling) &&
 			app->player.velocity[1] < PLAYER_MAX_SPEED)
-			app->player.velocity[1] += 0.2;
+			app->player.velocity[1] += CONST_GRAVITY;
 	}
 	if (app->player.physics_state != physics_state_grounded &&
 		app->player.physics_state != physics_state_not_applied)
-		deceleration = 1.005;
+		deceleration = 1.02;
 	else
-		deceleration = 1.2;
+		deceleration = 1.8;
 	ml_vector3_copy((t_vec3){app->player.velocity[0] / deceleration,
 		app->player.velocity[1], app->player.velocity[2] / deceleration},
 		app->player.velocity);
@@ -57,13 +57,13 @@ static void	forces_update_npc(t_3d_object *npc_object)
 		else if ((npc->physics_state == physics_state_jumping ||
 			npc->physics_state == physics_state_falling) &&
 			npc->velocity[1] < PLAYER_MAX_SPEED)
-			npc->velocity[1] += 0.2;
+			npc->velocity[1] += CONST_GRAVITY;
 	}
 	if (npc->physics_state != physics_state_grounded &&
 		npc->physics_state != physics_state_not_applied)
 		deceleration = 1.000;
 	else
-		deceleration = 1.2;
+		deceleration = 1.8;
 	ml_vector3_copy((t_vec3){npc->velocity[0] / deceleration,
 		npc->velocity[1], npc->velocity[2] / deceleration},
 		npc->velocity);
