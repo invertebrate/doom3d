@@ -153,7 +153,7 @@ static void			npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 			anim_data->anim_frame_numbers[i];
 		ml_vector3_copy((t_vec3){0.0, 0.0, 0.0},
 			npc->animation_3d->frame_object_prev_translation[i]);
-		ml_matrix4_copy(id_matrix, 
+		ml_matrix4_copy(id_matrix,
 			npc->animation_3d->frame_object_prev_rotation[i]);
 	}
 	i = -1;
@@ -166,6 +166,15 @@ static void			npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 	npc->animation_3d->frames_start_idx = anim_data->frames_start_idx;
 }
 
+static void			init_anim_instance(t_anim_3d_instance *anim_instance)
+{
+	anim_instance->active = false;
+	anim_instance->anim_clip = 0;
+	anim_instance->f_event = NULL;
+	anim_instance->start_frame = 0;
+	anim_instance->trigger_time = 0.0;
+}
+
 void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 								t_anim_metadata *anim_data)
 {
@@ -174,6 +183,9 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 
 	error_check(!(npc->animation_3d = (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
 		"Failed to malloc for npc animation in npc_animation_set.");
+	error_check(!(npc->animation_3d->current_anim_instance = (t_anim_3d_instance*)ft_calloc(sizeof(t_anim_3d_instance))),
+		"Failed to malloc for npc animation_instance in npc_animation_set.");
+	init_anim_instance(npc->animation_3d->current_anim_instance);
 	npc_animation_3d_data_copy(npc, anim_data);
 	anim = npc->animation_3d;
 	npc->animation_3d->base_object = obj;

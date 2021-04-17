@@ -377,7 +377,14 @@ void						update_app_ticks(t_doom3d *app);
 uint32_t					anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation);
 void						anim_3d_clip_set(t_doom3d *app, t_3d_object *obj,
 											t_animation_3d_type clip, uint32_t start_frame);
+t_bool						anim_3d_clip_play(t_doom3d *app, t_3d_object *obj,
+											t_anim_3d_instance *anim_instance);
 void						npc_anim_3d_position_update(t_3d_object *obj);
+t_bool						check_obj_3d_anim(t_3d_object *obj);
+t_bool						animation_3d_instance_destroy(t_anim_3d_instance *instance);
+
+
+
 
 /*
 ** Camera

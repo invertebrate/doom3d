@@ -114,7 +114,7 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 		{
 			npc_update_state(app, obj);
 		}
-		npc_execute_behavior(app, obj);//this causes cumulative displacement of animated objects to inf
+		// npc_execute_behavior(app, obj);//enable this!!!
 	}
 	else if (obj->type == object_type_projectile)
 		projectile_update(app, obj);

@@ -61,6 +61,28 @@ typedef struct				s_anim_3d_clip_info
 	uint32_t				clip_length;
 }							t_anim_3d_clip_info;
 
+/*
+**	Is used to pass data to play_3d_animation function to run a single play animation clip
+**	with an event function and trigger time. Trigger time is between 0-1 as a proportion of
+**	the entire clip length e.g. 0.25 meaning it will trigger when 25% of the clip has been played,
+**	accurate within 1/12 of a second. If the start frame is lower in time than the trigger time,
+**	the behaviour is undefined.
+*/
+
+typedef struct				s_anim_3d_instance
+{
+	void					(*f_event)(void*);
+	void					*params;
+	t_animation_3d_type		anim_clip;
+	float					trigger_time;
+	int32_t					start_frame;
+	t_bool					active;
+}							t_anim_3d_instance;
+
+/*
+**	Contains all the data required for running 3D animations for an object.
+*/
+
 typedef struct				s_animation_3d
 {
 	uint32_t				frame_count;
@@ -76,7 +98,8 @@ typedef struct				s_animation_3d
 	t_3d_object				*animation_frames[ANIM_3D_FRAME_MAX]; //contains the objects for each anim frame
 	t_vec3					frame_object_prev_translation[ANIM_3D_FRAME_MAX];
 	t_mat4					frame_object_prev_rotation[ANIM_3D_FRAME_MAX];
-	t_anim_3d_clip_info		clip_info[ANIM_3D_COUNT_MAX];	
+	t_anim_3d_clip_info		clip_info[ANIM_3D_COUNT_MAX];
+	t_anim_3d_instance		*current_anim_instance;
 }							t_animation_3d;
 
 #endif
