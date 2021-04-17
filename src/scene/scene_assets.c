@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/14 17:25:21 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:12:06 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,11 +266,19 @@ static void		scene_texture_files_set(t_asset_files *data)
 	data->texture_files[data->num_textures++] =
 		"assets/textures/npc_projectile_texture.bmp";
 	data->texture_files[data->num_textures++] =
+		"assets/textures/corridor_corner_floor.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/corridor_corner_inner.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/corridor_corner_outer.bmp";
+	data->texture_files[data->num_textures++] =
 		"assets/textures/corridor_straight_floor.bmp";
 	data->texture_files[data->num_textures++] =
-		"assets/textures/corridor_straight_ceiling.bmp";
-	data->texture_files[data->num_textures++] =
 		"assets/textures/corridor_straight_wall.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/corridor_t_floor.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/corridor_x_floor.bmp";
 }
 
 static void		scene_normal_files_set(t_asset_files *data)
@@ -307,8 +315,13 @@ static void		scene_model_files_set(t_asset_files *data)
 	data->model_files[data->num_models++] = "assets/models/rpg.obj";
 	data->model_files[data->num_models++] = "assets/models/missile.obj";
 	data->model_files[data->num_models++] = "assets/models/npc_projectile.obj";
+	data->model_files[data->num_models++] = "assets/models/corridor_corner_floor.obj";
+	data->model_files[data->num_models++] = "assets/models/corridor_corner_inner.obj";
+	data->model_files[data->num_models++] = "assets/models/corridor_corner_outer.obj";
 	data->model_files[data->num_models++] = "assets/models/corridor_straight_floor.obj";
 	data->model_files[data->num_models++] = "assets/models/corridor_straight_wall.obj";
+	data->model_files[data->num_models++] = "assets/models/corridor_t_floor.obj";
+	data->model_files[data->num_models++] = "assets/models/corridor_x_floor.obj";
 }
 
 /*
