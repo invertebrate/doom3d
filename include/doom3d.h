@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/14 15:54:13 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/17 20:13:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@
 # define Z_DIR 1
 
 # define CONST_SPEED 0.1
-# define CONST_GRAVITY 1.06
+# define CONST_GRAVITY 2.0
 
 # define NUM_CUSTOM_EVENTS 64
 
