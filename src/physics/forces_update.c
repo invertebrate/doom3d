@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/17 19:10:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/17 20:08:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,18 @@ static void	forces_update_npc(t_3d_object *npc_object)
 
 void		update_object_forces(t_doom3d *app, t_3d_object *obj)
 {
-	t_vec3	velocity;
-	t_vec3	add;
+	t_vec3			velocity;
+	t_vec3			add;
+	static uint64_t	dt_sum;
 
 	if (obj->type == object_type_npc)
 	{
-		forces_update_npc(obj);
+		if (dt_sum > 100)
+		{
+			forces_update_npc(obj);
+			dt_sum = 0;
+		}
+		dt_sum += app->info.delta_time;
 		ml_vector3_copy(((t_npc*)obj->params)->velocity, velocity);
 		ml_vector3_mul(velocity, app->info.delta_time * CONST_SPEED, add);
 		l3d_3d_object_translate(obj, add[0], add[1], add[2]);
