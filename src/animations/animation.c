@@ -128,14 +128,6 @@ uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 	animation->current_object = animation->animation_frames[animation->current_frame];
 	npc_anim_3d_position_update(animation->base_object);
 	npc_anim_3d_rotation_update(animation->base_object);
-	if (c == 500)
-	{
-	// 	// void					anim_3d_clip_set(t_doom3d *app, t_3d_object *obj,
-	// 	// 								t_animation_3d_type clip, uint32_t start_frame)
-		ft_printf("clip set\n");
-		anim_3d_clip_set(app, animation->base_object, anim_3d_type_death, 0);
-		// anim_3d_clip_play(app, animation->base_object, &inst);
-	}
 	return (current_frame);
 }
 
@@ -157,7 +149,6 @@ void					anim_3d_clip_set(t_doom3d *app, t_3d_object *obj,
 	anim->current_clip = clip;
 	anim->current_frame = anim->anim_clip_start_indices[clip % ANIM_3D_TYPE_MOD] + start_frame;
 	anim->current_object = anim->animation_frames[anim->current_frame];
-	ft_printf("clip: %d current_frame: %d\n", clip,  anim->current_frame);
 	anim->tick_at_update = app->current_tick;
 	npc_anim_3d_position_update(obj);
 	npc_anim_3d_rotation_update(obj);
