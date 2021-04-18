@@ -80,9 +80,15 @@ static t_bool			instance_status_check(t_animation_3d *animation,
 												float elapsed_time,
 												uint32_t clip_length)
 {
-	if (elapsed_time >= animation->current_anim_instance->trigger_time)
+	static t_bool	event_f_triggered = false;
+
+	if (elapsed_time >= animation->current_anim_instance->trigger_time &&
+		!event_f_triggered)
+	{
 		animation->current_anim_instance->
 			f_event(animation->current_anim_instance->params);
+		event_f_triggered = true;
+	}
 	if (elapsed_time >= (float)(clip_length - 1) / (float)clip_length)
 		{
 			ft_printf("instance ends %f / %f\n", elapsed_time,
@@ -114,11 +120,6 @@ uint32_t				anim_3d_instance_update(t_doom3d *app,
 		animation->animation_frames[animation->current_frame];
 	elapsed_time = (float)(animation->current_frame - clip_start_idx) /
 					(float)clip_length;
-// ft_printf("(%d - %d) / %d\n", animation->current_frame,
-// 	animation->anim_clip_start_indices[animation->current_anim_instance->anim_clip % ANIM_3D_TYPE_MOD],
-// 	animation->clip_info[animation->current_anim_instance->anim_clip % ANIM_3D_TYPE_MOD].clip_length);
-// ft_printf("current frame: %d\n", animation->current_frame);
-// ft_printf("elapsed time %f\n", elapsed_time);
 	instance_status_check(animation, elapsed_time, clip_length);
 	npc_anim_3d_position_update(animation);
 	npc_anim_3d_rotation_update(animation);
