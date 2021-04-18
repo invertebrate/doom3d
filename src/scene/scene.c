@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:16:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/19 00:15:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void			select_next_scene(t_doom3d *app)
 {
 	LOG_INFO("Select Scene %d", app->next_scene_id);
 	window_frame_clear(app->window);
-	loading_render(app);
+	render_loading_view(app);
 	draw_window_frame(app->window);
 	select_scene(app);
 }

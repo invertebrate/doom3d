@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 23:01:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/19 00:23:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,16 @@ void		render_guide_on_popup(t_doom3d *app)
 		.text_color = (SDL_Color){0, 255, 0, 255}}, app->window->debug_font);
 }
 
-void		editor_ui_render(t_doom3d *app)
+void		render_editor_ui(t_doom3d *app)
 {
-	button_menu_render(app->active_scene->menus[0], (t_vec2){10, 0});
-	button_menu_render(app->active_scene->menus[2],
+	render_button_menu(app->active_scene->menus[0], (t_vec2){10, 0});
+	render_button_menu(app->active_scene->menus[2],
 		(t_vec2){app->active_scene->menus[0]->max_width - 40,
 			app->active_scene->menus[0]->buttons[0]->pos[1]});
-	button_menu_render(app->active_scene->menus[3], (t_vec2){
+	render_button_menu(app->active_scene->menus[3], (t_vec2){
 		10, app->window->framebuffer->height - 100});
 	if (app->active_scene->menus[1]->is_active)
-		button_menu_render(app->active_scene->menus[1], (t_vec2){
+		render_button_menu(app->active_scene->menus[1], (t_vec2){
 			app->active_scene->menus[0]->max_width - 40,
 			app->window->framebuffer->height - 100});
 	if (app->editor.editor_menu != NULL)

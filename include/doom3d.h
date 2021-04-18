@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 23:40:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/19 00:42:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,10 +393,29 @@ void						update_camera(t_doom3d *app);
 t_bool						screen_intersection(t_doom3d *app,
 								t_triangle *triangle);
 t_bool						is_rendered(t_doom3d *app, t_triangle *triangle);
-void						ui_render(t_doom3d *app);
+void						render_ui(t_doom3d *app);
+void						render_ui_title(t_doom3d *app);
+void						render_button_menu(t_button_group *menu,
+								t_vec2 pos);
+void						framebuffer_dark_overlay(t_framebuffer *framebuffer,
+								int32_t width, int32_t height, t_vec2 pos);
+void						render_loading_view(t_doom3d *app);
 void						render_to_framebuffer(t_doom3d *app);
-void						loading_render(t_doom3d *app);
+void						render_work(void *params);
+void						render_parallel_3d_view(t_doom3d *app,
+								t_framebuffer *framebuffer);
+void						render_loading_view(t_doom3d *app);
 t_tri_vec					**prepare_render_triangles(t_doom3d *app);
+t_bool						object_too_far(t_doom3d *app, t_3d_object *obj);
+void						add_skybox_render_triangles(t_doom3d *app,
+								t_tri_vec **render_triangles);
+void						add_objects_render_triangles(t_doom3d *app,
+								t_tri_vec **render_triangles);
+void						add_temp_object_render_triangles(t_doom3d *app,
+								t_tri_vec **render_triangles);
+void						sort_render_triangles_by_depth(t_doom3d *app,
+								t_tri_vec **render_triangles,
+								int32_t skybox_offset);
 void						destroy_render_triangle_vecs(
 								t_tri_vec **render_triangles);
 void						clip_and_add_to_render_triangles(t_doom3d *app,
@@ -423,9 +442,9 @@ void						framebuffer_dark_overlay(
 								int32_t width, int32_t height, t_vec2 pos);
 void						set_aabb_origin_to_corners(t_3d_object *obj,
 								t_vec3 origin, t_vec3 origin_to_corner[8]);
-void						button_menu_render(t_button_group *menu,
+void						render_button_menu(t_button_group *menu,
 								t_vec2 pos);
-void						editor_ui_render(t_doom3d *app);
+void						render_editor_ui(t_doom3d *app);
 void						render_object_information(t_doom3d *app);
 void						draw_debug_line(t_doom3d *app,
 								t_sub_framebuffer *buffer, t_vec3 points[2],
