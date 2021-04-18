@@ -161,6 +161,7 @@ SOURCES = main.c \
 			events/keyboard_state.c \
 			events/control_flow.c \
 			events/editor/editor_custom_events.c \
+			events/editor/editor_custom_event_str.c \
 			events/editor/editor_transform.c \
 			events/editor/editor_input.c \
 			events/editor/editor_keyboard_state.c \

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:09:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 14:10:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 15:32:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef enum				e_doom3d_event
 	event_editor_move_view_sideways = 24,
 	event_editor_rotate_view = 25,
 	event_editor_zoom = 26,
+	event_editor_toggle_lock_vertical = 200,
 	event_player_rotate = 27,
 	event_player_shoot = 28,
 	event_player_reload = 29,

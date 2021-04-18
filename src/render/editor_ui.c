@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 21:03:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 17:10:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void		render_guide_on_popup(t_doom3d *app)
 		"Button [ | ]: Scale selected\n"
 		"Button Space: Snap selected to Grid\n"
 		"Button Delete: Delete selected\n"
+		"Button V: Toggle lock vertical movement\n"
 		"Button =/+ | -: Inc/Decrement patrol path node slot\n");
 	window_text_render_wrapped_shaded(app->window, (t_text_params){
 			.text = guide, .blend_ratio = 1.0,
