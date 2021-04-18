@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/12 17:58:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 18:35:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -415,6 +415,8 @@ void						l3d_3d_object_translate(t_3d_object *object,
 								float x, float y, float z);
 void						l3d_3d_object_scale(t_3d_object *object,
 								float x, float y, float z);
+void						l3d_3d_object_scale_with_uvs(t_3d_object *object,
+								float scale_amount);
 void						l3d_3d_object_rotate(t_3d_object *object,
 								float x, float y, float z);
 t_3d_object					*l3d_3d_object_create(uint32_t num_vertices,
@@ -478,7 +480,7 @@ uint32_t					l3d_pixel_depth_shaded(uint32_t pixel, float z_val);
 uint32_t					l3d_pixel_normal_shaded(uint32_t pixel,
 								t_triangle *triangle, t_vec2 uv);
 uint32_t					l3d_pixel_selection_shaded(uint32_t pixel);
-void						l3d_clamp_uv(t_vec2 uv);
+void						l3d_loop_uv(t_vec2 uv);
 void						l3d_raster_draw_pixel(t_sub_framebuffer *buffers,
 								int32_t xy[2],
 								t_triangle *triangle);

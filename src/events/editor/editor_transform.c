@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 03:12:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 01:53:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 18:33:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,20 @@ static void		handle_object_translation_input(t_doom3d *app,
 static void		handle_object_scaling_input(t_doom3d *app,
 					int32_t i, uint32_t *last_changed)
 {
-	if (app->keyboard.state[SDL_SCANCODE_LEFTBRACKET])
+	t_doom3d_event	scale_event;
+
+	scale_event = event_object_scale;
+	if (app->keyboard.state[SDL_SCANCODE_BACKSLASH])
+		scale_event = event_object_scale_with_uvs;
+	if (app->keyboard.state[SDL_SCANCODE_RIGHTBRACKET])
 	{
-		push_custom_event(app, event_object_scale,
+		push_custom_event(app, scale_event,
 			app->editor.selected_objects[i], (void *)(intptr_t)1);
 		*last_changed = SDL_GetTicks();
 	}
-	if (app->keyboard.state[SDL_SCANCODE_RIGHTBRACKET])
+	else if (app->keyboard.state[SDL_SCANCODE_LEFTBRACKET])
 	{
-		push_custom_event(app, event_object_scale,
+		push_custom_event(app, scale_event,
 			app->editor.selected_objects[i], (void *)(intptr_t)-1);
 		*last_changed = SDL_GetTicks();
 	}

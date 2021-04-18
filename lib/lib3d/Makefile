@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#              #
-#    Updated: 2021/04/06 19:47:10 by ohakola          ###   ########.fr        #
+#    Updated: 2021/04/18 18:20:50 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SOURCES = l3d_triangle.c \
 			l3d_obj_read_utils2.c \
 			l3d_3d_object.c \
 			l3d_3d_object_utils.c \
-			l3d_3d_object_transform.c \
+			l3d_3d_object_transform1.c \
+			l3d_3d_object_transform2.c \
 			l3d_temp_objects.c \
 			l3d_kd_tree.c \
 			l3d_kd_tree_node.c \

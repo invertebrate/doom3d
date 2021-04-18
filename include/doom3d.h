@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 15:36:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 18:27:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,6 +304,9 @@ void						handle_object_translate_z(t_doom3d *app, t_3d_object *object,
 								int32_t amount);
 void						handle_object_scale(t_doom3d *app, t_3d_object *object,
 								int32_t direction);
+void						handle_object_scale_with_uvs(t_doom3d *app,
+								t_3d_object *object,
+								int32_t dir);
 void						handle_object_rotate_x(t_doom3d *app, t_3d_object *object,
 								int32_t amount);
 void						handle_object_rotate_y(t_doom3d *app, t_3d_object *object,
