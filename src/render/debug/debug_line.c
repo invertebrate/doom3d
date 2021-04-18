@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:38:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:34:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 22:52:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,57 @@ void			draw_debug_line(t_doom3d *app,
 		buffer->width, buffer->height},
 		(int32_t[2][2]){{edge[0][0],edge[0][1]},
 		{edge[1][0], edge[1][1]}}, color);
+}
+
+void			draw_enemy_direction(t_doom3d *app,
+					t_sub_framebuffer *sub_buffer, t_3d_object *npc_object)
+{
+	t_npc				*npc;
+	t_vec3				add;
+	t_vec3				end;
+	t_vec3				forward;
+	t_mat4				rotation_x;
+
+	npc = npc_object->params;
+	ml_matrix4_rotation_y(ml_rad(npc->angle), rotation_x);
+	ml_matrix4_mul_vec3(rotation_x, (t_vec3){0, 0, Z_DIR}, forward);
+	ml_vector3_mul(forward, app->unit_size * 2, add);
+	ml_vector3_add(npc_object->position, add, end);
+	draw_debug_line(app, sub_buffer,
+		(t_vec3[2]){{npc_object->position[0], npc_object->position[1],
+			npc_object->position[2]},
+		{end[0], end[1], end[2]}}, 0xffff00ff);
+}
+
+/*
+** Draws debug grid to editor.
+** Use this as a "How to" example for drawing debug lines, e.g.
+** enemy direction vector.
+** (1. Access app through work, 2. Access your variables & draw)
+*/
+void			draw_editor_debug_grid(t_render_work *work)
+{
+	t_sub_framebuffer	*sub_buffer;
+	int32_t				i;
+	t_vec3				points[2];
+	float				length;
+	uint32_t			line_color;
+
+	sub_buffer = work->framebuffer->sub_buffers[work->sub_buffer_i];
+	length = 100;
+	line_color = 0x202020ff;
+	i = -length / 2 - 1;
+	while (++i <= length / 2)
+	{
+		ml_vector3_copy((t_vec3){i * work->app->unit_size, 0,
+			(-length / 2.0) * work->app->unit_size}, points[0]);
+		ml_vector3_copy((t_vec3){i * work->app->unit_size, 0,
+			(length / 2.0) * work->app->unit_size}, points[1]);
+		draw_debug_line(work->app, sub_buffer, points, line_color);
+		ml_vector3_copy((t_vec3){(-length / 2.0) * work->app->unit_size, 0,
+			i * work->app->unit_size}, points[0]);
+		ml_vector3_copy((t_vec3){(length / 2.0) * work->app->unit_size, 0,
+			i * work->app->unit_size}, points[1]);
+		draw_debug_line(work->app, sub_buffer, points, line_color);
+	}
 }

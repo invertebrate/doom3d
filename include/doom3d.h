@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:01:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 23:40:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -417,7 +417,7 @@ void						prepare_render_triangle(t_doom3d *app,
 								t_triangle *triangle, t_vertex *vtc);
 t_bool						object_inside_viewbox(t_doom3d *app,
 								t_3d_object *obj);
-void						hud_render(t_doom3d *app);
+void						render_hud(t_doom3d *app);
 void						framebuffer_dark_overlay(
 								t_framebuffer *framebuffer,
 								int32_t width, int32_t height, t_vec2 pos);
@@ -426,6 +426,7 @@ void						set_aabb_origin_to_corners(t_3d_object *obj,
 void						button_menu_render(t_button_group *menu,
 								t_vec2 pos);
 void						editor_ui_render(t_doom3d *app);
+void						render_object_information(t_doom3d *app);
 void						draw_debug_line(t_doom3d *app,
 								t_sub_framebuffer *buffer, t_vec3 points[2],
 								uint32_t color);
@@ -439,7 +440,13 @@ void						draw_enemy_direction(t_doom3d *app,
 								t_sub_framebuffer *sub_buffer,
 								t_3d_object *npc_object);
 void						draw_npc_dirs(t_render_work *work);
-void						notifications_render(t_doom3d *app, t_vec2 pos);
+void						render_notifications(t_doom3d *app, t_vec2 pos);
+void						render_notification_messages(t_doom3d *app,
+								t_vec2 pos,
+								int32_t	text_dims[2], int32_t padding);
+void						render_notifications_background(t_doom3d *app,
+								t_vec2 pos,
+								int32_t	dims[2], int32_t border_size);
 void						draw_triangle_tree_bounding_boxes(
 								t_render_work *work);
 void						draw_editor_placement_position(t_render_work *work);

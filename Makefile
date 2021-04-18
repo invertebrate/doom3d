@@ -121,9 +121,12 @@ SOURCES = main.c \
 			render/player_hud.c \
 			render/ui.c \
 			render/editor_ui.c \
+			render/editor_ui_object_info.c \
 			render/debug/debug.c \
 			render/debug/debug_line.c \
-			render/notifications.c \
+			render/debug/debug_aabb.c \
+			render/notifications1.c \
+			render/notifications2.c \
 			render/render_triangle_pool.c \
 			window/text.c \
 			window/window.c \

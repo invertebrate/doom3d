@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 22:48:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 23:40:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void			ui_render(t_doom3d *app)
 	}
 	else if (app->active_scene->scene_id == scene_id_main_game)
 	{
-		hud_render(app);
+		render_hud(app);
 		if (app->active_scene->is_paused)
 		{
 			framebuffer_dark_overlay(app->window->framebuffer,
@@ -75,7 +75,7 @@ void			ui_render(t_doom3d *app)
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 		editor_ui_render(app);
-	notifications_render(app,
+	render_notifications(app,
 		(t_vec2){app->window->framebuffer->width - 100, 10});
 }
 
