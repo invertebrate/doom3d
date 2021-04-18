@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 15:57:55 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:45:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ static void				thread_pool_worker(void *params)
 	pthread_mutex_unlock(&thread_pool->work_mutex);
 }
 
+/*
+** Creates a thread pool for @num_threads threads (at minimum 2 threads)
+** The thread pool is then ready to receive work
+*/
 t_thread_pool			*thread_pool_create(size_t num_threads)
 {
 	t_thread_pool	*thread_pool;
@@ -53,6 +57,9 @@ t_thread_pool			*thread_pool_create(size_t num_threads)
 	return (thread_pool);
 }
 
+/*
+** Destroy the threadpool
+*/
 void					thread_pool_destroy(t_thread_pool *thread_pool)
 {
 	t_thread_work	*work;
@@ -79,6 +86,11 @@ void					thread_pool_destroy(t_thread_pool *thread_pool)
 	thread_pool = NULL;
 }
 
+/*
+** Add work of t_thread_work_func (void*) with void *params
+** If contents of params have not been allocated, they probably should be and
+** then be freed at the end of work.
+*/
 t_bool					thread_pool_add_work(t_thread_pool *thread_pool,
 							t_thread_work_func func, void *params)
 {
@@ -106,6 +118,9 @@ t_bool					thread_pool_add_work(t_thread_pool *thread_pool,
 	return (true);
 }
 
+/*
+** Wait for previously added work to finish
+*/
 void					thread_pool_wait(t_thread_pool *thread_pool)
 {
 	if (thread_pool == NULL)

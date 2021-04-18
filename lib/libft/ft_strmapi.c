@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.helsinki.fi>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 20:08:59 by ohakola           #+#    #+#             */
-/*   Updated: 2019/10/28 14:08:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:49:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 ** “fresh” new string (with malloc(3)) resulting from the successive
 ** applications of f.
 */
-
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	char			*str;

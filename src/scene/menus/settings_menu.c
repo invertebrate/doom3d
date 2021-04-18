@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:41:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:19:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ static void			on_settings_menu_button_click(t_button *self, void *params)
 			(void*)scene_id_main_menu, NULL);
 }
 
+/*
+** Create settings menu
+*/
 void				settings_menu_create(t_doom3d *app)
 {
 	error_check(!(app->active_scene->menus =

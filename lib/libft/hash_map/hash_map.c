@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 15:53:35 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:40:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 ** Creates a hash table of given size.
 ** Each element in the table is set as NULL
 */
-
 t_hash_table		*hash_map_create(int size)
 {
 	t_hash_table	*table;
@@ -45,7 +44,6 @@ t_hash_table		*hash_map_create(int size)
 /*
 ** Hashing function used to quickly access areas inside the hash table
 */
-
 int					hash_map_hash(t_hash_table *table, int key)
 {
 	if (key < 0)
@@ -58,7 +56,6 @@ int					hash_map_hash(t_hash_table *table, int key)
 ** that value is replaced with inputted value.
 ** Else a new node is added.
 */
-
 void				hash_map_add(t_hash_table *table, int key, void *val)
 {
 	int			pos;
@@ -91,7 +88,6 @@ void				hash_map_add(t_hash_table *table, int key, void *val)
 /*
 ** Retrieve a value from the hash table. If value is not found, return NULL.
 */
-
 void				*hash_map_get(t_hash_table *table, int key)
 {
 	t_hash_node	*temp;
@@ -111,7 +107,6 @@ void				*hash_map_get(t_hash_table *table, int key)
 /*
 ** Retrieve a value from the hash table. If value is not found, return NULL.
 */
-
 t_bool				hash_map_has_key(t_hash_table *table, int key)
 {
 	t_hash_node	*temp;

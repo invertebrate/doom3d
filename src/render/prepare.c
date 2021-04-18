@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/07 01:10:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:33:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static void		add_temp_object_render_triangles(t_doom3d *app,
 ** The checks inside this function optimize the amount of triangles
 ** prepared for rendering.
 */
-
 static void		add_objects_render_triangles(t_doom3d *app,
 					t_tri_vec **render_triangles)
 {
@@ -175,7 +174,6 @@ static t_box3d	origo_centered_world_box(t_doom3d *app)
 ** render_triangles[1] = transparent ones
 ** offsets render triangles by skybox triangles and reverts back after sort
 */
-
 static void		sort_render_triangles_by_depth(t_doom3d *app,
 					t_tri_vec **render_triangles,
 					int32_t skybox_offset)
@@ -212,7 +210,6 @@ static void		sort_render_triangles_by_depth(t_doom3d *app,
 ** Sort triangles in z order curve inside world box to speed up render &
 ** allow transparent render in proper order
 */
-
 t_tri_vec		**prepare_render_triangles(t_doom3d *app)
 {
 	t_tri_vec			**render_triangles;

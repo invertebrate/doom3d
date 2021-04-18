@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 16:07:54 by ohakola           #+#    #+#             */
-/*   Updated: 2020/09/14 14:22:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:39:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Parses char * variables handling also the special null case
 */
-
 static char				*parse_string(t_printf *data)
 {
 	char	*res;
@@ -35,7 +34,6 @@ static char				*parse_string(t_printf *data)
 /*
 ** Parses char variables
 */
-
 static char				*parse_char(t_printf *data)
 {
 	char	*res;
@@ -51,7 +49,6 @@ static char				*parse_char(t_printf *data)
 ** Parses variable and based on t_printf *data mapped by parse_sub_specifiers
 ** outputs varialble to char *res to be later copied to buffer.
 */
-
 static char				*parse_variable(t_printf *data)
 {
 	char	*res;
@@ -84,7 +81,6 @@ static char				*parse_variable(t_printf *data)
 ** Parses spec from fmt, based on that parses variable input and outputs
 ** result to data->buffer.
 */
-
 int						parse_spec_variable_pair(t_printf *data, char *fmt)
 {
 	char	*variable;

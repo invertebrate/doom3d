@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 18:29:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:09:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
+/*
+** Create text surface with shaded font
+*/
 SDL_Surface			*surface_from_font_shaded(t_text_params params,
 						TTF_Font *font)
 {
@@ -31,6 +34,9 @@ SDL_Surface			*surface_from_font_shaded(t_text_params params,
 	return (formatted_surface);
 }
 
+/*
+** Create text surface with solid font
+*/
 SDL_Surface			*surface_from_font_solid(t_text_params params,
 						TTF_Font *font)
 {
@@ -47,6 +53,9 @@ SDL_Surface			*surface_from_font_solid(t_text_params params,
 	return (formatted_surface);
 }
 
+/*
+** Create text surface with wrapped (by line break) text
+*/
 void				window_text_render_wrapped(t_window *window,
 						t_text_params params, TTF_Font *font)
 {
@@ -77,6 +86,9 @@ void				window_text_render_wrapped(t_window *window,
 	free(parts);
 }
 
+/*
+** Render text on window
+*/
 void				window_text_render(t_window *window,
 						t_text_params params, TTF_Font *font)
 {
@@ -92,6 +104,9 @@ void				window_text_render(t_window *window,
 	SDL_FreeSurface(surface);
 }
 
+/*
+** Render text on window so it is centered
+*/
 void				window_text_render_centered(t_window *window,
 						t_text_params params, TTF_Font *font)
 {
@@ -109,6 +124,9 @@ void				window_text_render_centered(t_window *window,
 	SDL_FreeSurface(surface);
 }
 
+/*
+** Render text on window centered and wrapped by line breaks
+*/
 void				window_text_render_centered_wrapped(t_window *window,
 						t_text_params params, TTF_Font *font)
 {
@@ -139,6 +157,9 @@ void				window_text_render_centered_wrapped(t_window *window,
 	free(parts);
 }
 
+/*
+** Render shaded text on window wrapped by line breaks
+*/
 void				window_text_render_wrapped_shaded(t_window *window,
 						t_text_params params, TTF_Font *font)
 {
@@ -169,6 +190,9 @@ void				window_text_render_wrapped_shaded(t_window *window,
 	free(parts);
 }
 
+/*
+** Render shaded text on window
+*/
 void				window_text_render_shaded(t_window *window,
 						t_text_params params, TTF_Font *font)
 {
@@ -184,6 +208,9 @@ void				window_text_render_shaded(t_window *window,
 	SDL_FreeSurface(surface);
 }
 
+/*
+** Render centered shaded text on window
+*/
 void				window_text_render_centered_shaded(t_window *window,
 						t_text_params params, TTF_Font *font)
 {
@@ -201,6 +228,9 @@ void				window_text_render_centered_shaded(t_window *window,
 	SDL_FreeSurface(surface);
 }
 
+/*
+** Render shaded and centered text on window wrapped by line breaks
+*/
 void				window_text_render_centered_wrapped_shaded(t_window *window,
 						t_text_params params, TTF_Font *font)
 {

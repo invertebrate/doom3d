@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 15:49:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 00:18:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:33:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 ** Expands a 10-bit integer into 30 bits
 ** by inserting 2 zeros after each bit.
 */
-
 static unsigned int		expand_bits(unsigned int v)
 {
 	v = (v * 0x00010001u) & 0xFF0000FFu;
@@ -36,7 +35,6 @@ static unsigned int		expand_bits(unsigned int v)
 ** Calculates a 30-bit Morton code for the
 ** given 3D point located within the unit cube [0,1].
 */
-
 static unsigned int		morton_3d(t_vec3 normalized_pos)
 {
 	float	x;
@@ -51,6 +49,9 @@ static unsigned int		morton_3d(t_vec3 normalized_pos)
 		expand_bits((unsigned int)z));
 }
 
+/*
+** Return triangle's bounding box (axis aligned bounding box)
+*/
 t_box3d					triangle_bounding_box(t_triangle *triangle)
 {
 	int32_t	i;
@@ -72,6 +73,9 @@ t_box3d					triangle_bounding_box(t_triangle *triangle)
 	return (aabb);
 }
 
+/*
+** Normalize a position inside a bounded world box between 0 and 1
+*/
 void					normalize_by_world_box(t_vec3 position,
 							t_box3d *world_box)
 {
@@ -90,7 +94,6 @@ void					normalize_by_world_box(t_vec3 position,
 ** Use temp array to place triangles in right order back to the vector.
 ** Sorts relative to world box
 */
-
 void					triangle_sort_by_morton_code(t_tri_vec *triangles,
 							t_thread_pool *pool, t_box3d *world_box)
 {

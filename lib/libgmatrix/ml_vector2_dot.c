@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:18:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:00:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libgmatrix.h"
 
+/*
+** Dot product of two vector2s
+*/
 float		ml_vector2_dot(t_vec2 v1, t_vec2 v2)
 {
 	size_t		i;

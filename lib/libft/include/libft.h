@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:15:47 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 15:17:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:46:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # define BUFF_SIZE 50
 # define MAX_FD 65536
 # define FILE_READ_BUF 65536
+
+/*
+** Recreated functions of c std lib. And some useful ones on top of that.
+*/
 
 # include <fcntl.h>
 # include <unistd.h>
@@ -61,7 +65,6 @@ typedef struct	s_pixel_bounds
 /*
 ** Assumes little-endian machine.
 */
-
 typedef struct	s_float_bits {
 	unsigned long long int		fraction:52;
 	unsigned long long int		exp:11;

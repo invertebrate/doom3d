@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 18:29:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:05:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ uint64_t		performance_counter_start(void)
 ** // 10.0 is to only print out a result when time diff is > 10ms
 ** // At 0.0, result is always printed
 */
-
 void			performance_counter_end(uint64_t start_time,
 					char *task_name, float delta_limit)
 {

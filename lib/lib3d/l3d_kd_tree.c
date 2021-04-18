@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:22:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 ** Splits triangles by longest axis and until max depth has been reached or
 ** minimum number of node triangles have been reached.
 */
-
 static t_kd_node	*tree_create_recursive(t_tri_vec *triangles, uint32_t depth,
 					uint32_t *num_nodes)
 {
@@ -50,7 +49,6 @@ static t_kd_node	*tree_create_recursive(t_tri_vec *triangles, uint32_t depth,
 ** Creates a kd tree structure from triangles for faster bounding box & triangle
 ** hit search.
 */
-
 t_kd_tree			*l3d_kd_tree_create(t_triangle **triangles,
 					uint32_t num_triangles)
 {
@@ -68,7 +66,6 @@ t_kd_tree			*l3d_kd_tree_create(t_triangle **triangles,
 /*
 ** Destroys kd tree and frees it memory. Triangles stay intact.
 */
-
 void				l3d_kd_tree_destroy(t_kd_tree *tree)
 {
 	l3d_kd_node_destroy(tree->root);
@@ -80,7 +77,6 @@ void				l3d_kd_tree_destroy(t_kd_tree *tree)
 ** Destroys previous tree and creates a new one from updated triangles.
 ** This is to be used after triangle vertices have been changed.
 */
-
 void				l3d_kd_tree_create_or_update(t_kd_tree **tree,
 					t_triangle **triangles, uint32_t num_triangles)
 {

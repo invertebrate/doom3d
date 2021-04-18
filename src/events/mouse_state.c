@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 03:01:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:36:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Note that this is also used by the editor!
 */
-
 void					handle_player_rotation_input(t_doom3d *app,
 							int32_t xrel, int32_t yrel)
 {
@@ -53,7 +52,6 @@ static void				handle_game_mouse_state_input(t_doom3d *app)
 /*
 ** Mouse state handling, both editor & game
 */
-
 void					handle_mouse_state_input(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game &&

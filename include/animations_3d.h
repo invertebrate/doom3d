@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 19:52:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 19:58:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:01:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 **	The enum values are encoded with ANIM_3D_TYPE_MOD and can be decoded using
 **	% to get the array indices for referencing. 0 is basically static base_object
 */
-
 typedef enum				e_animation_3d_type
 {
 	anim_3d_type_null = 0 + ANIM_3D_TYPE_MOD,
@@ -54,13 +53,16 @@ typedef struct				s_anim_metadata
 **	Contains the info for each animation clip. anim_frame_numbers contains
 **	the indices for each frame in the clip in the animation_frames array;
 */
-
 typedef struct				s_anim_3d_clip_info
 {
 	uint32_t				anim_frame_numbers[ANIM_3D_CLIP_LENGTH_MAX];
 	uint32_t				clip_length;
 }							t_anim_3d_clip_info;
 
+/*
+** 3d animation struct containing required data to switch between rendered
+** 3d objects under the animated object owning this data.
+*/
 typedef struct				s_animation_3d
 {
 	uint32_t				frame_count;

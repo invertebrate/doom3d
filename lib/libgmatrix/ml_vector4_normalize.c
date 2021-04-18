@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:17:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:04:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libgmatrix.h"
 
+/*
+** Normalize a vector4
+*/
 void		ml_vector4_normalize(t_vec4 v, t_vec4 res)
 {
 	size_t		i;

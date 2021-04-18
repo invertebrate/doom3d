@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 18:26:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:14:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "window.h"
 
+/*
+** Checks whether button is down by sdl event and mouse state
+*/
 t_bool			button_is_down(t_button *button, t_mouse mouse,
 					SDL_Event event)
 {
@@ -33,6 +36,9 @@ t_bool			button_is_down(t_button *button, t_mouse mouse,
 	return (res);
 }
 
+/*
+** Checks whether button is clicked by sdl event and mouse state
+*/
 t_bool			button_is_clicked(t_button *button, t_mouse mouse,
 					SDL_Event event)
 {
@@ -53,6 +59,9 @@ t_bool			button_is_clicked(t_button *button, t_mouse mouse,
 	return (res);
 }
 
+/*
+** Checks whether button is hovered by sdl event and mouse state
+*/
 t_bool			button_is_hovered(t_button *button, t_mouse mouse,
 					SDL_Event event)
 {
@@ -73,6 +82,9 @@ t_bool			button_is_hovered(t_button *button, t_mouse mouse,
 	return (res);
 }
 
+/*
+** Handle button state with sdl event and mouse state
+*/
 void			button_state_handle(t_button *button, t_mouse mouse,
 					SDL_Event event)
 {

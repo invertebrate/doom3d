@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:27:50 by ohakola           #+#    #+#             */
-/*   Updated: 2020/09/01 12:09:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:37:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Exit dragon4 if mantissa is zero.
 */
-
 static int32_t		zero_if_zero(t_dragon4_params params)
 {
 	if (params.mantissa == 0)
@@ -31,7 +30,6 @@ static int32_t		zero_if_zero(t_dragon4_params params)
 ** Initial digit exponent calculation based on algorithm outlined in
 ** www.ryanjuckett.com/programming/printing-floating-point-numbers/part-2/
 */
-
 static int32_t		get_digit_exponent(t_dragon4_params params)
 {
 	int32_t		digit_exponent;
@@ -81,7 +79,6 @@ static int32_t		get_digit_exponent(t_dragon4_params params)
 **  // scale up so that first digit is in one's place
 **  value_numerator = value_numerator * 10
 */
-
 uint32_t			dragon4(t_dragon4_params params)
 {
 	t_big_int	scale;

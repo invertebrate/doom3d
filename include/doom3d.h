@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 18:27:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:01:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@
 ** Allocation space for render triangles used in rasterization
 ** Increase if needed (error encountered)
 */
-
 # define RENDER_TRIANGLE_POOL_SIZE 131072
 
 /*
@@ -102,7 +101,6 @@ typedef struct				s_settings
 /*
 ** Main struct, "The App".
 */
-
 typedef struct				s_doom3d
 {
 	t_bool					is_running;

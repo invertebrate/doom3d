@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.helsinki.fi>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 16:54:27 by ohakola           #+#    #+#             */
-/*   Updated: 2019/10/28 13:52:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:48:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** ft_putstr_fd() writes a given string into stdout.
 */
-
 void	ft_putstr(char const *str)
 {
 	int	len;

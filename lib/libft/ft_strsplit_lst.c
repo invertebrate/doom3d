@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit_lst.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.helsinki.fi>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 19:34:30 by ohakola           #+#    #+#             */
-/*   Updated: 2019/10/28 14:15:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:49:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-/*
-** Allocates (with malloc(3)) and returns a t_list of “fresh”
-** strings (all ending with ’\0’) obtained by spliting s using the
-** character c as a delimiter. If the allocation fails the function returns
-** NULL.
-*/
 
 static size_t		word_len(char *str, char c)
 {
@@ -54,6 +47,12 @@ static void			*add_word_to_node(const char *str, size_t s_len,
 	return ((void*)(1));
 }
 
+/*
+** Allocates (with malloc(3)) and returns a t_list of “fresh”
+** strings (all ending with ’\0’) obtained by spliting s using the
+** character c as a delimiter. If the allocation fails the function returns
+** NULL.
+*/
 t_list				*ft_strsplit_lst(char const *str, char c)
 {
 	t_list			*prev;

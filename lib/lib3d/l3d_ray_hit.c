@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 12:35:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:27:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 ** this function, because it'll only bloat the header files. In this case
 ** bundled arrays are better to beautify the api of triangle_ray_hit function.
 */
-
 static t_bool	l3d_determine_triangle_hit(t_vec3 hsq[3],
 				t_triangle *triangle, t_ray *ray, t_hits **hits)
 {
@@ -50,7 +49,6 @@ static t_bool	l3d_determine_triangle_hit(t_vec3 hsq[3],
 ** (back-face culling). False is returned if triangle is single sided.
 ** Hit distance is saved to hit record hit->t.
 */
-
 t_bool			l3d_triangle_ray_hit(t_triangle *triangle, t_ray *ray,
 				t_hits **hits)
 {
@@ -67,7 +65,6 @@ t_bool			l3d_triangle_ray_hit(t_triangle *triangle, t_ray *ray,
 ** kd tree partition ensures they are rare, they are possible when e.g.
 ** triangles materials are see-through.
 */
-
 static t_bool	l3d_kd_triangles_hit(t_kd_node *node, t_ray *ray,
 					t_hits **hits)
 {
@@ -108,7 +105,6 @@ static t_bool	l3d_kd_tree_ray_hit_recursive(t_kd_node *node, t_ray *ray,
 ** until there are no nodes left nor right. On the final node, test triangle
 ** hits.
 */
-
 t_bool			l3d_kd_tree_ray_hits(t_kd_tree *triangle_tree,
 					t_vec3 origin, t_vec3 dir, t_hits **hits)
 {

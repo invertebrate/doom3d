@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:49:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/12 17:58:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:27:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
+/*
+** Get closest hit whether triangle or not (aabb might be the other)
+*/
 void			l3d_get_closest_hit(t_hits *hits, t_hit **closest)
 {
 	t_hits	*head;
@@ -30,6 +33,9 @@ void			l3d_get_closest_hit(t_hits *hits, t_hit **closest)
 	}
 }
 
+/*
+** Get closest triangle hit within range `range`
+*/
 void			l3d_get_closest_triangle_hit_at_range(t_hits *hits,
 					t_hit **closest,
 					uint32_t ignore_id, float range)

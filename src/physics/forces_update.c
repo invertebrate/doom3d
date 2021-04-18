@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/17 20:08:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:35:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 ** groundedness.
 ** The forces (velocity) are applied to player position in player_move.
 */
-
 void		forces_update_player(t_doom3d *app)
 {
 	float		deceleration;
@@ -75,7 +74,6 @@ static void	forces_update_npc(t_3d_object *npc_object)
 ** groundedness.
 ** The forces (velocity) are then applied on the position of the object.
 */
-
 void		update_object_forces(t_doom3d *app, t_3d_object *obj)
 {
 	t_vec3			velocity;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/04/05 18:15:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:38:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void					update_app_ticks(t_doom3d *app)
 /*
 **	Updates the npc position to current animation frame
 */
-
 void		npc_anim_3d_position_update(t_3d_object *obj)
 {
 	t_animation_3d		*anim;
@@ -44,7 +43,6 @@ void		npc_anim_3d_position_update(t_3d_object *obj)
 /*
 **	Updates the npc position to current animation frame
 */
-
 void		npc_anim_3d_rotation_update(t_3d_object *obj)
 {
 	t_animation_3d		*anim;
@@ -88,7 +86,6 @@ uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 /*
 **	Changes the current playing animation clip of an object
 */
-
 void					anim_3d_clip_set(t_doom3d *app, t_3d_object *obj,
 										t_animation_3d_type clip, uint32_t start_frame)
 {

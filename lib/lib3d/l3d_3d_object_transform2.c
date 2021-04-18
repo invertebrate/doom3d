@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 18:21:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 18:24:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:12:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void		scale_uvs(t_3d_object *object, float scale_amount)
 }
 
 /*
-** Move object to 0, 0, 0, scale both vertices and uvs, move back
+** Move object to 0, 0, 0, scale both vertices and uvs, move back (local scale)
 */
 void			l3d_3d_object_scale_with_uvs(t_3d_object *object,
 					float scale_amount)

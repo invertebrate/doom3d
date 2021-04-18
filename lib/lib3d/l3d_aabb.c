@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/12 16:48:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:17:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ static void			l3d_aabb_set_size_and_center(t_box3d *aabb)
 	}, aabb->center);
 }
 
+/*
+** Update objects axis aligned bounding box (e.g. after translation)
+*/
 void				l3d_object_aabb_update(t_3d_object *obj)
 {
 	int		i;
@@ -48,6 +51,9 @@ void				l3d_object_aabb_update(t_3d_object *obj)
 	l3d_aabb_set_size_and_center(&obj->aabb);
 }
 
+/*
+** Check if aabb collides with another aabb
+*/
 t_bool				l3d_aabb_collides(t_box3d *left, t_box3d *right)
 {
 	return ((left->xyz_min[0] < right->xyz_max[0] &&
@@ -58,6 +64,9 @@ t_bool				l3d_aabb_collides(t_box3d *left, t_box3d *right)
 			left->xyz_max[2] > right->xyz_min[2]));
 }
 
+/*
+** Check if point is inside an aabb
+*/
 t_bool				l3d_point_inside_aabb(t_box3d *aabb, t_vec3 point)
 {
 	return ((point[0] < aabb->xyz_max[0] &&
@@ -68,6 +77,9 @@ t_bool				l3d_point_inside_aabb(t_box3d *aabb, t_vec3 point)
 			point[2] > aabb->xyz_min[2]));
 }
 
+/*
+** Return t_hit struct of an aabb hit
+*/
 t_hit				*l3d_get_aabb_hit_record(t_box3d *origin, t_box3d *target)
 {
 	t_vec3		dir;

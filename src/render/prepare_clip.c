@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 21:44:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:34:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 ** the number to a more reasonable range - to be more standard for rasterizer
 ** and e.g. depth shading.
 */
-
 static void		update_triangle_vertex_zvalues(t_triangle *triangle,
 					float unit_size)
 {
@@ -82,7 +81,6 @@ static void		set_clipped_triangles(t_doom3d *app,
 ** triangle vector. If not clipped, just add the inputted triangle to
 ** render triangles vector
 */
-
 void			clip_and_add_to_render_triangles(t_doom3d *app,
 					t_tri_vec **render_triangles,
 					t_triangle *triangle)

@@ -6,13 +6,16 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:09:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 18:26:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:02:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EVENTS_H
 # define EVENTS_H
 
+/*
+** Enums for all custom events taking place in runtime
+*/
 typedef enum				e_doom3d_event
 {
 	event_music_play = 1,

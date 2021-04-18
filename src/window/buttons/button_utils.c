@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/17 17:44:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:11:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "window.h"
 
+/*
+** Set texture of a button
+*/
 void			button_set_texture(t_button *button, t_surface *texture,
 					t_surface *texture_down)
 {
@@ -22,6 +25,9 @@ void			button_set_texture(t_button *button, t_surface *texture,
 	button->height = texture->h;
 }
 
+/*
+** Set event handles for a button
+*/
 void			button_set_handles(t_button *button,
 					void (*on_click)(t_button *, void *),
 					void (*on_hover)(t_button *, void *))
@@ -30,6 +36,9 @@ void			button_set_handles(t_button *button,
 	button->on_hover = on_hover;
 }
 
+/*
+** Set params to which event handles can access on a button
+*/
 void			button_set_handle_params(t_button *button,
 					void *on_click_params,
 					void *on_hover_params)
@@ -38,11 +47,17 @@ void			button_set_handle_params(t_button *button,
 	button->on_hover_params = on_hover_params;
 }
 
+/*
+** Update button render position
+*/
 void			button_update_position(t_button *button, t_vec2 pos)
 {
 	ml_vector2_copy(pos, button->pos);
 }
 
+/*
+** Render button
+*/
 void			button_render(t_button *button)
 {
 	int32_t		pos[2];

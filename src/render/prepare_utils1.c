@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/07 01:13:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 18:59:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ t_bool			triangle_too_far(t_doom3d *app, t_triangle *triangle)
 /*
 ** Apply rotation and translation to render triangle
 */
-
 void			prepare_render_triangle(t_doom3d *app,
 									t_triangle *r_triangle,
 									t_triangle *triangle, t_vertex *vtc)

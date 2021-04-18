@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:25:13 by ohakola           #+#    #+#             */
-/*   Updated: 2020/08/24 20:16:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:49:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 ** more than len characters are searched.
 ** Characters that appear after a `\0' character are not searched.
 */
-
 char	*ft_strnstr(const char *haystack, const char *needle, size_t slen)
 {
 	char	*src;

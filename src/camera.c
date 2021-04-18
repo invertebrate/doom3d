@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:06:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 ** Calculates plane normals for top, right, bottom and left.
 ** These are used in object culling. dot(player to aabb min & max, normal)
 */
-
 static void		set_side_plane_normals(t_doom3d *app, t_camera *camera,
 					t_vec3 corners[4])
 {
@@ -53,7 +52,6 @@ static void		set_side_plane_normals(t_doom3d *app, t_camera *camera,
 ** How?: Get screen origin, traverse to corners to get corner vectors,
 ** cross product nearby corners to get plane normals.
 */
-
 static void		set_camera_viewbox(t_doom3d *app, t_camera *camera)
 {
 	t_vec3	dirs[4];
@@ -83,6 +81,9 @@ static void		set_camera_viewbox(t_doom3d *app, t_camera *camera)
 	set_side_plane_normals(app, camera, corners);
 }
 
+/*
+** Update camera with player's location
+*/
 void			update_camera(t_doom3d *app)
 {
 	t_camera	*camera;
@@ -96,6 +97,9 @@ void			update_camera(t_doom3d *app)
 	set_camera_viewbox(app, camera);
 }
 
+/*
+** Create new camera
+*/
 t_camera		*new_camera(void)
 {
 	t_camera	*camera;
@@ -106,6 +110,9 @@ t_camera		*new_camera(void)
 	return (camera);
 }
 
+/*
+** Destroy camera
+*/
 void			scene_camera_destroy(t_scene *scene)
 {
 	if (scene->main_camera)

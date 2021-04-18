@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 17:08:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:32:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ static void		raster_lower(t_sub_framebuffer *bufs,
 	}
 }
 
+/*
+** Rasterize triangle
+*/
 void			l3d_triangle_raster(t_sub_framebuffer *buffers,
 					t_triangle *triangle)
 {

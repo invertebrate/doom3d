@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:14:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 18:55:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:03:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct				s_camera
 ** Defines game scenes that the game contains and to which the
 ** app can transition while playing.
 */
-
 typedef enum				e_scene_id
 {
 	scene_id_main_menu,
@@ -56,7 +55,6 @@ typedef enum				e_scene_id
 ** to a key in a hash map inside t_scene that are then reused by different
 ** game objects.
 */
-
 typedef struct				s_asset_files
 {
 	const char				*animation_3d_files[ANIM_3D_FRAME_MAX];
@@ -91,7 +89,6 @@ typedef struct				s_asset_files
 ** but also for mapping objects by id to their assets for map saving (e.g.
 ** object_textures: key: id, val: const char *filename)
 */
-
 typedef struct				s_scene
 {
 	t_3d_object				*objects[MAX_NUM_OBJECTS];

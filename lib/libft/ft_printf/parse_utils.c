@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 18:21:16 by ohakola           #+#    #+#             */
-/*   Updated: 2020/09/01 17:13:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:39:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Checks if zero flag (0) is found in between % and specifier
 */
-
 static int		check_zero_flag(t_printf *data,
 				int *index, int *found_zero)
 {
@@ -40,7 +39,6 @@ static int		check_zero_flag(t_printf *data,
 ** Checks if any flag (-+ 0#) is found in between % and specifier
 ** maps found flags to t_printf data*
 */
-
 int				check_flag(t_printf *data, int *index, int *found_zero)
 {
 	int		i;
@@ -69,7 +67,6 @@ int				check_flag(t_printf *data, int *index, int *found_zero)
 /*
 ** Checks for variable size flags and maps them to t_printf *data
 */
-
 int				check_length(t_printf *data, int *index, char s)
 {
 	int		i;
@@ -99,7 +96,6 @@ int				check_length(t_printf *data, int *index, char s)
 /*
 ** I do not remember the purpose of this :D (something to do with zerox flag)
 */
-
 int				check_parsed_zero(t_printf *data, char *res)
 {
 	int				i;

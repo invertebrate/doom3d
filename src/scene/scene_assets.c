@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/14 20:12:06 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/18 20:19:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void		animation_3d_frames_load(t_scene *scene, t_asset_files *data)
 ** Loads assets by keys and files set in scene_data.c
 ** Hashmap = dictionary
 */
-
 static void		assets_load(t_scene *scene, t_asset_files *data)
 {
 	int32_t		i;
@@ -184,7 +183,6 @@ static void		triggers_load(t_scene *scene)
 ** Set animation file paths (and they also work as keys when queried from
 ** hash_table)
 */
-
 static void		scene_animation_sprite_files_set(t_asset_files *data)
 {
 	data->animation_sprite_files[data->num_animations_sprite++] =
@@ -327,7 +325,6 @@ static void		scene_model_files_set(t_asset_files *data)
 /*
 **	Creates the file path for each frame in an animation clip
 */
-
 static void		scene_animation_3d_frames_set(t_asset_files *data,
 					char* file_path, uint32_t framecount)
 {
@@ -354,7 +351,6 @@ static void		scene_animation_3d_frames_set(t_asset_files *data,
 ** animation_frames_set function. The function call order is important:
 ** each object has their animations in a contiguous chunk in the array.
 */
-
 static void		scene_animation_3d_files_set(t_asset_files *data)
 {
 	scene_animation_3d_frames_set(data, "assets/models/monster_01/monster01_basemodel", 1);
@@ -374,7 +370,6 @@ static void		scene_animation_3d_files_set(t_asset_files *data)
 /*
 ** Load all imported assets here, rest should be done with the editor.
 */
-
 void			scene_assets_load(t_scene *scene)
 {
 	scene->asset_files.num_models = 0;

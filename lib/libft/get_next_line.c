@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 16:05:38 by ohakola           #+#    #+#             */
-/*   Updated: 2020/08/24 20:16:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:51:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 ** Saves the line by copying a length of next new line from remainder
 ** And scrolls remainder variable by that amount onwards.
 */
-
 static void		save_line_and_scroll(char **remainder,
 				char **line, int scroll_len)
 {
@@ -32,7 +31,6 @@ static void		save_line_and_scroll(char **remainder,
 ** Returns the new line & return value while finding next newline
 ** or end of file
 */
-
 static int		ret_new_line(char **remainder, char **line, int ret)
 {
 	size_t		len;
@@ -58,7 +56,6 @@ static int		ret_new_line(char **remainder, char **line, int ret)
 ** Appends buffer to remainder variable to be used to read lines
 ** from when file pointer is further due to having already read the lines
 */
-
 static void		append_to_remainder(char **remainder, char *buf)
 {
 	char	*tmp;
@@ -71,9 +68,9 @@ static void		append_to_remainder(char **remainder, char *buf)
 }
 
 /*
-** A function that returns saves a line read from a file descriptor
+** A function that saves a line read from a file descriptor. The next
+** call of this function will save the next line from that file.
 */
-
 int				get_next_line(const int fd, char **line)
 {
 	int					ret;

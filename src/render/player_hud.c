@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:12:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/20 14:44:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:34:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void		crosshair_render(t_doom3d *app, int32_t offset, int32_t length,
 ** and leave only bottom l3d_image_place once we've unified our
 ** weapon animations.
 */
-
 static void		player_animation_render(t_doom3d *app)
 {
 	t_surface			*anim_source;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 17:26:32 by ohakola           #+#    #+#             */
-/*   Updated: 2020/08/31 20:10:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:39:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Parses flags and maps that data to t_printf *data.
 */
-
 static int		parse_flags(t_printf *data)
 {
 	int		i;
@@ -34,7 +33,6 @@ static int		parse_flags(t_printf *data)
 /*
 ** Parses precision and maps that data to t_printf *data.
 */
-
 static int		parse_precision(t_printf *data, char *dot)
 {
 	unsigned	var;
@@ -56,7 +54,6 @@ static int		parse_precision(t_printf *data, char *dot)
 /*
 ** Parses width and maps that data to t_printf *data.
 */
-
 static int		parse_width(t_printf *data, int i)
 {
 	int			has_width;
@@ -88,7 +85,6 @@ static int		parse_width(t_printf *data, int i)
 /*
 ** Parses lengths and maps that data to t_printf *data.
 */
-
 static int		parse_lengths(t_printf *data)
 {
 	int			i;
@@ -107,7 +103,6 @@ static int		parse_lengths(t_printf *data)
 ** in fmt. Maps that data to t_printf *data.
 ** variables are consumed for * flag.
 */
-
 int				parse_sub_specifiers(t_printf *data)
 {
 	char		*dot;

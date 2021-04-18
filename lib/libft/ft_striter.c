@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.helsinki.fi>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 19:56:57 by ohakola           #+#    #+#             */
-/*   Updated: 2019/10/28 14:05:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:49:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 ** as argument. Each character is passed by address to f to be
 ** modified if necessary.
 */
-
 void	ft_striter(char *s, void (*f)(char *))
 {
 	if (s && f)

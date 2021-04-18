@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:51:05 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/05 18:01:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:15:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 ** DEBUG ONLY
 ** --------- REMOVE BELOW BEFORE SUBMISSION ---------
 */
-
 void	sound_len(t_sound *start)
 {
 	int		i;
@@ -88,7 +87,6 @@ void	mp_print(t_mp *mp)
 /*
 ** Reading WAV-files into t_track struct
 */
-
 t_track		*read_sound(char *file, t_doom3d *app)
 {
 	t_track			*ret;
@@ -123,7 +121,6 @@ t_track		*read_sound(char *file, t_doom3d *app)
 /*
 ** Order track list by priority, and add a new to the chain. Previous ones with same prio hold the priority
 */
-
 void		mp_reorder(t_sound **start, t_sound *new)
 {
 	t_sound	*curr;
@@ -166,7 +163,6 @@ void		mp_reorder(t_sound **start, t_sound *new)
 ** type == t_sound_types
 ** vol = 1 - 0
 */
-
 t_sound			*s_ini(char loop, char priority, char type, float vol)
 {
 	t_sound	*ret;
@@ -186,7 +182,6 @@ t_sound			*s_ini(char loop, char priority, char type, float vol)
 /*
 ** Calculate distance mag in one function for distance volume distance
 */
-
 float			sound_mag(t_vec3 v1, t_vec3 v2)
 {
 	t_vec3	sub;
@@ -201,7 +196,6 @@ float			sound_mag(t_vec3 v1, t_vec3 v2)
 ** dist = distance from player (using ml_vector3_mag())
 ** mdist = max distance from the sound. If -1 will use SOUND_DIST instead
 */
-
 float			distance_vol(float vol_max, float dist, float mdist)
 {
 	float	max_dist;

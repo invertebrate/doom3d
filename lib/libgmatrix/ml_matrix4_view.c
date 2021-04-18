@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:19:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:58:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ static void		view_matrix(t_vec3 axes[3], t_vec3 eye, t_mat4 res)
 	res[3][3] = 1.0f;
 }
 
+/*
+** Create a look at view matrix
+*/
 void			ml_matrix4_lookat(t_vec3 eye, t_vec3 center, t_vec3 up,
 				t_mat4 res)
 {
@@ -52,6 +55,9 @@ void			ml_matrix4_lookat(t_vec3 eye, t_vec3 center, t_vec3 up,
 	view_matrix(axes, eye, res);
 }
 
+/*
+** Create an fps view matrix
+*/
 void			ml_matrix4_fps(t_vec3 eye, float pitch, float yaw, t_mat4 res)
 {
 	t_vec3			zaxis;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strclr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.helsinki.fi>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 19:51:56 by ohakola           #+#    #+#             */
-/*   Updated: 2019/10/28 13:58:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:48:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** The ft_strclr() function sets all characters in a string to 0.
 */
-
 void	ft_strclr(char *s)
 {
 	if (s)

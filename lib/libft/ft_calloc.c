@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:31:06 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:02:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:45:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** The ft_calloc() allocates size of memory initialized with zeros
 */
-
 void	*ft_calloc(size_t size)
 {
 	unsigned char	*mem;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 23:40:28 by ohakola           #+#    #+#             */
-/*   Updated: 2020/08/31 20:35:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:36:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 ** Then fraction digits are moved by whole digits + 1 to account for
 ** the decimal dot.
 */
-
 static void		format_gte_one(t_dragon4_params params, int32_t print_exponent,
 				uint32_t *pos, uint32_t *fraction_digits)
 {
@@ -49,7 +48,6 @@ static void		format_gte_one(t_dragon4_params params, int32_t print_exponent,
 ** Zeros before the digit are filled based on inputted digit start index.
 ** And after 0. (this function is only used when double value is less than 1.0)
 */
-
 static void		fill_zeros_before_fraction(t_dragon4_params params,
 				uint32_t digits_start_i)
 {
@@ -65,7 +63,6 @@ static void		fill_zeros_before_fraction(t_dragon4_params params,
 ** digits start index starts (2: 0.) + (fraction zeros). Zeros before digit
 ** are filled. 0 and . are placed to the beginning of buffer.
 */
-
 static void		format_lt_one(t_dragon4_params params, int32_t print_exponent,
 				uint32_t *pos, uint32_t *fraction_digits)
 {
@@ -130,7 +127,6 @@ void			add_trailing_zeros(t_dragon4_params params, int32_t precision,
 ** whole digits and fraction digits are cut.
 ** Trailing zeros are added if precision is larger than fraction digits.
 */
-
 uint32_t		format_normal(t_dragon4_params params, int32_t precision)
 {
 	int32_t		exp;

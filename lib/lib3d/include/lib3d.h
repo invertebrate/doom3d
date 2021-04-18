@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 18:35:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:11:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@
 ** t_3d_obj form. These structs are easier to use in obj reading, but don't
 ** really fit to the rest of the 3d stuff.
 */
-
 typedef struct				s_obj
 {
 	t_vec3			*v;
@@ -60,7 +59,6 @@ typedef struct				s_obj
 /*
 ** Basic vertex struct with position, color and texture coordinates.
 */
-
 typedef struct				s_vertex
 {
 	t_vec4			pos;
@@ -71,7 +69,6 @@ typedef struct				s_vertex
 ** Ray with direction and origin. Dir_inv is precalculated for faster
 ** bounding box intersection calculations.
 */
-
 typedef struct				s_ray
 {
 	t_vec3			dir;
@@ -79,6 +76,11 @@ typedef struct				s_ray
 	t_vec3			dir_inv;
 }							t_ray;
 
+/*
+** Enums defining how to shade (in rasterization) the 3d object
+** E.g. e_shading_transparent = use alpha blending
+** E.g. e_shading_zero_alpha = if alpha == 0, render nothing on that pixel
+*/
 typedef enum				e_shading_opts
 {
 	e_shading_depth = 1,
@@ -95,6 +97,10 @@ typedef enum				e_shading_opts
 	e_shading_transparent = 1 << 11,
 }							t_shading_opts;
 
+/*
+** Surface describes width and height of an image and contains the pixel data
+** of the image
+*/
 typedef struct				s_surface
 {
 	uint32_t		*pixels;
@@ -102,6 +108,10 @@ typedef struct				s_surface
 	uint32_t		h;
 }							t_surface;
 
+/*
+** Light source defines how light is rendered in rasterization
+** if it's been set for material of the object
+*/
 typedef struct				s_light_source
 {
 	t_vec3		pos;
@@ -109,6 +119,10 @@ typedef struct				s_light_source
 	float		intensity;
 }							t_light_source;
 
+/*
+** Material contains object texture and normal map information and other
+** rendering related parameters such as shading opts and light sources
+*/
 typedef struct				s_material
 {
 	t_surface		*texture;
@@ -124,7 +138,6 @@ typedef struct s_3d_object	t_3d_object;
 ** Triangle contains pointers to vertices (which get transformed over time)
 ** Center and normal should be updated if vertices are transformed.
 */
-
 typedef struct				s_triangle
 {
 	t_bool			is_single_sided;
@@ -146,6 +159,10 @@ typedef struct				s_triangle
 	t_vec3			vtc_zvalue;
 }							t_triangle;
 
+/*
+** Sub framebuffer struct defining a portion of a main framebuffer used
+** in parallel rendering
+*/
 typedef struct				s_sub_framebuffer
 {
 	uint32_t		*buffer;
@@ -160,6 +177,10 @@ typedef struct				s_sub_framebuffer
 	float			y_offset;
 }							t_sub_framebuffer;
 
+/*
+** A main framebuffer containing sub parts (sub frame buffers) and the main
+** pixels to which the sub parts are then copied by threads
+*/
 typedef struct				s_framebuffer
 {
 	uint32_t			*buffer;
@@ -174,7 +195,6 @@ typedef struct				s_framebuffer
 ** Ray hit is saved to this hit record struct. Add params if needed.
 ** For example material information could be saved here.
 */
-
 typedef struct				s_hit
 {
 	float			t;
@@ -192,7 +212,6 @@ typedef t_list				t_hits;
 ** bounding box ray intersection calculations.
 ** center and size are useful in kd_tree / bvh structs.
 */
-
 typedef struct				s_box3d
 {
 	t_vec3			center;
@@ -205,7 +224,6 @@ typedef struct				s_box3d
 /*
 **	Describes an infinite plane in 3D. Origin is any point that is on the plane
 */
-
 typedef struct				s_plane
 {
 	t_vec3		origin;
@@ -217,7 +235,6 @@ typedef struct				s_plane
 ** Final 3d object struct to which obj file is transformed.
 ** This is the main struct to hold 3d object data.
 */
-
 struct						s_3d_object
 {
 	uint32_t		id;
@@ -239,7 +256,6 @@ struct						s_3d_object
 /*
 ** Utility enum for x y z axes.
 */
-
 typedef enum				e_axis
 {
 	l3d_axis_x,
@@ -253,7 +269,6 @@ typedef enum				e_axis
 ** can be used in isolation as well. Triangles can be pushed to an existing
 ** triangle vector.
 */
-
 typedef struct				s_tri_vec
 {
 	t_triangle		**triangles;
@@ -267,7 +282,6 @@ typedef struct s_kd_node	t_kd_node;
 ** Kd node is a single node in kd tree containing triangle information and
 ** bounding box information.
 */
-
 struct						s_kd_node
 {
 	uint32_t		uuid;
@@ -283,13 +297,16 @@ struct						s_kd_node
 ** BVH (kd tree) for fast ray intersection calculations (or collisions).
 ** It's used to partition triangle data into a fast searchable format.
 */
-
 typedef struct				s_kd_tree
 {
 	uint32_t		num_nodes;
 	t_kd_node		*root;
 }							t_kd_tree;
 
+/*
+** Temporary object is rendered with a delay and exists only during its
+** lifetime
+*/
 typedef struct				s_temp_object
 {
 	int32_t					lifetime;
@@ -297,6 +314,9 @@ typedef struct				s_temp_object
 	t_3d_object				*obj;
 }							t_temp_object;
 
+/*
+** A linked list of temp objects
+*/
 typedef	t_list				t_temp_objects;
 
 /*

@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:21:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:58:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libgmatrix.h"
 
+/*
+** Print matrix4
+*/
 void		ml_matrix4_print(t_mat4 m)
 {
 	size_t	c;
@@ -29,6 +32,9 @@ void		ml_matrix4_print(t_mat4 m)
 	}
 }
 
+/*
+** Stringify matrix4
+*/
 void		ml_matrix4_to_str(t_mat4 m, char *res)
 {
 	ft_sprintf(res,
@@ -43,16 +49,25 @@ void		ml_matrix4_to_str(t_mat4 m, char *res)
 		m[0][3], m[1][3], m[2][3], m[3][3]);
 }
 
+/*
+** Print vector4
+*/
 void		ml_vector4_print(t_vec4 v)
 {
 	ft_printf("Vec4[%.2f, %.2f, %.2f, %.2f]\n", v[0], v[1], v[2], v[3]);
 }
 
+/*
+** Print vector3
+*/
 void		ml_vector3_print(t_vec3 v)
 {
 	ft_printf("Vec3[%.2f, %.2f, %.2f]\n", v[0], v[1], v[2]);
 }
 
+/*
+** Print vector2
+*/
 void		ml_vector2_print(t_vec2 v)
 {
 	ft_printf("Vec2[%.2f, %.2f]\n", v[0], v[1]);

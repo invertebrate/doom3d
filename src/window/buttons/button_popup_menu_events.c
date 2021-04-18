@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 16:05:06 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 16:04:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:12:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
+/*
+** Handle button popup menu's events
+*/
 void	button_popup_menu_events_handle(t_button_menu *button_menu,
 			t_mouse mouse, SDL_Event event)
 {

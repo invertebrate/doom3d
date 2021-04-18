@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:01:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 18:40:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:35:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 **	Interpolates the uv coordinates for a 2d point based on barycentric
 **	coordinates
 */
-
 void			l3d_interpolate_uv(t_triangle *triangle, float *baryc,
 									t_vec2 uv)
 {
@@ -37,6 +36,10 @@ void			l3d_interpolate_uv(t_triangle *triangle, float *baryc,
 			(baryc[2] * triangle->uvs[2][1]) * cz) * inv_denom;
 }
 
+/*
+** Loop uvs so that they are always between 0 and 1. If they go above 1
+** they continue from 0 and vice versa.
+*/
 void			l3d_loop_uv(t_vec2 uv)
 {
 	float	uv_abs[2];

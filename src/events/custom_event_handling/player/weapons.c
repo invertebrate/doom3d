@@ -6,15 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 00:08:47 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 03:20:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:37:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
-
-/*
-** ToDo: Might add logging here, or open the functions up for logging purposes
-*/
 
 void		handle_player_shoot(t_doom3d *app)
 {

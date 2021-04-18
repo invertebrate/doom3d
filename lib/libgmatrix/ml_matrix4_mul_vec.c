@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:19:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:54:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libgmatrix.h"
 
+/*
+** Multiply vector3 with matrix4
+*/
 void		ml_matrix4_mul_vec3(t_mat4 m, t_vec3 v, t_vec3 res)
 {
 	size_t		r;
@@ -34,6 +37,9 @@ void		ml_matrix4_mul_vec3(t_mat4 m, t_vec3 v, t_vec3 res)
 		res[i] = res4[i];
 }
 
+/*
+** Multiply vector4 with matrix4
+*/
 void		ml_matrix4_mul_vec4(t_mat4 m, t_vec4 v, t_vec4 res)
 {
 	size_t		r;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:51:15 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/05 18:17:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:15:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Initiating sound device for the first time
 */
-
 t_mp		mix_init(t_doom3d *app, int channels)
 {
 	SDL_AudioSpec	cando;
@@ -48,7 +47,6 @@ t_mp		mix_init(t_doom3d *app, int channels)
 /*
 ** Store all the music into memory
 */
-
 static int	mp_all_init(t_doom3d *app)
 {
 	int	i;
@@ -64,7 +62,6 @@ static int	mp_all_init(t_doom3d *app)
 /*
 ** Starting up music player
 */
-
 void		mp_init(t_doom3d *app)
 {
 	int	ret;

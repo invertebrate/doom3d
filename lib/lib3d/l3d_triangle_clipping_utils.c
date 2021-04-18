@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:30:52 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 22:45:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:30:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 **	Uses the z coordinate (i = 2) to interpolate because that is the most likely
 **	one to have proper values for linear interpolation. X causes glitches.
 */
-
 t_bool			l3d_interpolate_clipped_uv(t_triangle *triangle,
 						int32_t *limits, t_vec3 hit, t_vec2 result)
 {
@@ -47,7 +46,6 @@ t_bool			l3d_interpolate_clipped_uv(t_triangle *triangle,
 **	vertices that are on the positive side of the plane if it is clipping.
 **	Return value is the number of vertices on the positive side of the plane.
 */
-
 static t_bool	behind(t_plane *near, t_vec3 point)
 {
 	t_vec3 near_to_point;

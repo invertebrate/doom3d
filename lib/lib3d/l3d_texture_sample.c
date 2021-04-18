@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:00:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/28 19:10:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:30:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 **	y = (floor(V * (height)));
 **	index = x + width * y;
 */
-
 uint32_t		l3d_sample_texture(t_surface *texture, t_vec2 uv_point)
 {
 	int			index;

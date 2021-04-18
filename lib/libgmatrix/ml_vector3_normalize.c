@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:18:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:02:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libgmatrix.h"
 
+/*
+** Normalize vector3
+*/
 void		ml_vector3_normalize(t_vec3 v, t_vec3 res)
 {
 	size_t		i;

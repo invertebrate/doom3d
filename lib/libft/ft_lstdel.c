@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.helsinki.fi>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 16:28:17 by ohakola           #+#    #+#             */
-/*   Updated: 2019/10/28 12:53:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:46:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 ** The ft_lstdel() function deletes an entire list
 ** using a given delete function
 */
-
 void	ft_lstdel(t_list **alst, void (*del)(void*, size_t))
 {
 	if ((*alst)->next)

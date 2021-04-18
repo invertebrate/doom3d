@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/02/15 21:55:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:19:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ static void					l3d_framebuffer_sub_destroy(
 	free(sub_buffer);
 }
 
+/*
+** Create framebuffer (with splits for threaded rendering)
+** L3D_BUFFER_SPLIT_SIZE_(X/Y) defines how the width and height are split
+*/
 t_framebuffer				*l3d_framebuffer_create(int32_t width,
 								int32_t height)
 {
@@ -79,6 +83,9 @@ t_framebuffer				*l3d_framebuffer_create(int32_t width,
 	return (fbuffer);
 }
 
+/*
+** Destroy framebuffer
+*/
 void						l3d_framebuffer_destroy(t_framebuffer *framebuffer)
 {
 	int32_t		i;
@@ -95,6 +102,9 @@ void						l3d_framebuffer_destroy(t_framebuffer *framebuffer)
 	}
 }
 
+/*
+** Recreate framebuffer (e.g. after resize of window)
+*/
 void						l3d_framebuffer_recreate(t_framebuffer **buffer,
 												int32_t width, int32_t height)
 {

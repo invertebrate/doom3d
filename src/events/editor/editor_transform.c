@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 03:12:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 18:33:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:37:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ static void		handle_object_scaling_input(t_doom3d *app,
 /*
 ** Handle object transformation in editor
 */
-
 void			handle_editor_transform_input(t_doom3d *app)
 {
 	static uint32_t		last_changed;

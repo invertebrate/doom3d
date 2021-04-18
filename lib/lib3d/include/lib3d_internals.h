@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 21:12:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:06:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 ** Don't use image size which can be zero for uncompressed bmps
 ** https://elcharolin.wordpress.com/2018/11/28/read-and-write-bmp-files-in-c-c/
 */
-
 typedef struct				s_bmp_file_header
 {
 	uint16_t	file_type;
@@ -49,6 +48,9 @@ typedef struct				s_bmp_file_header
 
 # pragma pack(pop)
 
+/*
+** Image data used in bmp reader
+*/
 typedef struct				s_image_data
 {
 	unsigned char	*pixels;
@@ -57,6 +59,9 @@ typedef struct				s_image_data
 	uint32_t		bytes_per_pixel;
 }							t_image_data;
 
+/*
+** A temporary struct to bundle in rasterization points and slope data
+*/
 typedef struct				s_raster_data
 {
 	float	x1;

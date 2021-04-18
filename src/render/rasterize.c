@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 17:07:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:33:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** If all points are on the same side outside screen bounds, don't render
 */
-
 t_bool			triangle_outside_frame(t_triangle *triangle,
 					t_sub_framebuffer *sub_buffer)
 {
@@ -44,7 +43,6 @@ t_bool			triangle_outside_frame(t_triangle *triangle,
 ** Thread loops through renderable triangles and
 ** finally filters out those that don't fit sub_buffer's limits
 */
-
 void			rasterize_triangles(t_render_work *work)
 {
 	t_sub_framebuffer	*sub_buffer;
@@ -62,6 +60,9 @@ void			rasterize_triangles(t_render_work *work)
 	}
 }
 
+/*
+** Rasterize transparent triangles
+*/
 void			rasterize_triangles_transparent(t_render_work *work)
 {
 	t_sub_framebuffer	*sub_buffer;

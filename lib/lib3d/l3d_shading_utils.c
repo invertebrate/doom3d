@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:04:36 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 19:29:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:28:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ static uint32_t	fragment_shade_normal(t_vec3 light_vector, t_vec3 frag_normal,
 	return (l3d_rgba_to_u32(rgba));
 }
 
+/*
+** Return pixel with shading for normal mapping
+*/
 uint32_t		l3d_pixel_normal_shaded(uint32_t pixel, t_triangle *triangle,
 					t_vec2 uv)
 {

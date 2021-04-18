@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.helsinki.fi>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 17:32:06 by ohakola           #+#    #+#             */
-/*   Updated: 2019/10/28 14:10:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:49:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 ** hold the result. The ft_strncat() function appends not more than n characters
 ** from s2, and then adds a terminating `\0'.
 */
-
 char	*ft_strncat(char *dst, const char *src, size_t n)
 {
 	char	*dstcpy;

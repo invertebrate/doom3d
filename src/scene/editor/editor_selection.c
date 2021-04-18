@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/04 00:23:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:30:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
+/*
+** Deslect all objects in editor
+*/
 void			editor_deselect_all(t_doom3d *app)
 {
 	int32_t		i;
@@ -29,6 +32,9 @@ void			editor_deselect_all(t_doom3d *app)
 	app->editor.selected_object_str[0] = '\0';
 }
 
+/*
+** Select an object in editor
+*/
 void			select_object(t_doom3d *app, t_3d_object *object)
 {	
 	char	object_type[128];
@@ -85,7 +91,6 @@ static void		path_connect_selection(t_doom3d *app, t_3d_object *new)
 ** and see which closest triangle intersects.
 ** Add hit object to selected object.
 */
-
 void			editor_select_by_mouse(t_doom3d *app)
 {
 	t_3d_object		*hit_obj;
@@ -105,6 +110,9 @@ void			editor_select_by_mouse(t_doom3d *app)
 	}
 }
 
+/*
+** Deselect a single object
+*/
 void			deselect_object(t_doom3d *app, t_3d_object *delete_object)
 {
 	t_3d_object		*selected_objects[MAX_SELECTED_OBJECTS];
@@ -134,6 +142,9 @@ void			deselect_object(t_doom3d *app, t_3d_object *delete_object)
 	}
 }
 
+/*
+** Deselect all or one object depending on where mouse hits
+*/
 void			editor_deselect(t_doom3d *app)
 {
 	t_3d_object		*hit_obj;
@@ -151,6 +162,10 @@ void			editor_deselect(t_doom3d *app)
 	}
 }
 
+/*
+** Get position in front of camera for placing objects not attached to other
+** objects.
+*/
 void			editor_pos_camera_front(t_doom3d *app , t_vec3 result)
 {
 	t_vec3	add;

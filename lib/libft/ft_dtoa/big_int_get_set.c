@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 22:10:19 by ohakola           #+#    #+#             */
-/*   Updated: 2020/09/01 00:51:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:38:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Sets t_big_int with value uint64_t.
 */
-
 void			big_int_set_u64(t_big_int *b, uint64_t val)
 {
 	if (val > 0xFFFFFFFF)
@@ -36,7 +35,6 @@ void			big_int_set_u64(t_big_int *b, uint64_t val)
 /*
 ** Sets t_big_int with value uint32_t.
 */
-
 void			big_int_set_u32(t_big_int *b, uint32_t val)
 {
 	if (val != 0)

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:19:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:55:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ static void		ml_matrix4_perspective(t_canvas c, t_mat4 res)
 	res[3][2] = (2 * c.near * c.far) / (c.near - c.far);
 }
 
+/*
+** Create a projectionmatrix of t_projection_type
+*/
 void			ml_matrix4_projection(t_projection_type type,
 				t_canvas c, t_mat4 res)
 {

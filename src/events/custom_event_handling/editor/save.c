@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 00:32:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:38:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Begins saving in editor (starts text input)
 */
-
 void	handle_editor_save_start(t_doom3d *app)
 {
 	if (!app->editor.is_saving)
@@ -38,7 +37,6 @@ void	handle_editor_save_start(t_doom3d *app)
 /*
 ** Ends saving in editor (stops text input & saves)
 */
-
 void	handle_editor_save_end(t_doom3d *app)
 {
 	if (!find_one_object_by_type(app, object_type_trigger,
@@ -71,7 +69,6 @@ void	handle_editor_save_end(t_doom3d *app)
 /*
 ** Updates filename during save
 */
-
 void	handle_editor_save_type(t_doom3d *app, char *text)
 {
 	app->editor.is_saved = false;
@@ -82,7 +79,6 @@ void	handle_editor_save_type(t_doom3d *app, char *text)
 /*
 ** Updates filename upon backspace
 */
-
 void	handle_editor_save_type_backspace(t_doom3d *app)
 {
 	int32_t		length;

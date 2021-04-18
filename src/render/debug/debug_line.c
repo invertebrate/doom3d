@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:38:59 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/30 23:20:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:34:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void		clip_3d_line_and_screen_intersect(t_doom3d *app,
 ** 3. Offset 2d lines by sub buffers offset
 ** 4. Draw 2d line
 */
-
 void			draw_debug_line(t_doom3d *app,
 					t_sub_framebuffer *buffer, t_vec3 edge[2],
 					uint32_t color)

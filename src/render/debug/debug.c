@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/01 20:58:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:34:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 ** enemy direction vector.
 ** (1. Access app through work, 2. Access your variables & draw)
 */
-
 void			draw_editor_debug_grid(t_render_work *work)
 {
 	t_sub_framebuffer	*sub_buffer;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 21:00:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:05:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@
 
 # define BYTES_PER_PIXEL 8
 
+/*
+** Define text's blend ratio between 0.0 and 1.0, text to render,
+** xy position and its color
+*/
 typedef struct				s_text_params
 {
 	const char				*text;
@@ -46,6 +50,9 @@ typedef struct				s_text_params
 	float					blend_ratio;
 }							t_text_params;
 
+/*
+** Information struct for fps and delta time
+*/
 typedef struct				s_info
 {
 	uint32_t				fps;
@@ -54,6 +61,9 @@ typedef struct				s_info
 	uint64_t				performance_end;
 }							t_info;
 
+/*
+** A wrapper for software rasterizer's framebuffer & window information
+*/
 typedef struct				s_window
 {
 	SDL_Renderer			*renderer;
@@ -74,6 +84,9 @@ typedef struct				s_window
 	t_bool					is_fullscreen;
 }							t_window;
 
+/*
+** Mouse state
+*/
 typedef struct				s_mouse
 {
 	int32_t				x;
@@ -81,11 +94,17 @@ typedef struct				s_mouse
 	uint32_t			state;
 }							t_mouse;
 
+/*
+** Keyboard state
+*/
 typedef struct				s_keyboard
 {
 	const uint8_t		*state;
 }							t_keyboard;
 
+/*
+** UI button
+*/
 typedef struct s_button		t_button;
 
 struct						s_button
@@ -107,6 +126,9 @@ struct						s_button
 	t_bool					is_active;
 };
 
+/*
+** UI Button group
+*/
 typedef struct				s_button_group
 {
 	t_vec2					pos;
@@ -121,6 +143,9 @@ typedef struct				s_button_group
 	uint32_t				max_height;
 }							t_button_group;
 
+/*
+** UI Button menu
+*/
 typedef struct				s_button_menu
 {
 	t_button_group			*menu;

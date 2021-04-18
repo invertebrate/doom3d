@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:59:46 by ohakola           #+#    #+#             */
-/*   Updated: 2020/09/14 14:23:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:39:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Handles precision per data type.
 */
-
 static char				*handle_precision(t_printf *data, char *res)
 {
 	if (is_int_specifier(data->c))
@@ -32,7 +31,6 @@ static char				*handle_precision(t_printf *data, char *res)
 /*
 ** Handles padding based on data->c (variable type from spec)
 */
-
 static char				*handle_padding(t_printf *data, char *res)
 {
 	if (is_int_specifier(data->c))
@@ -53,7 +51,6 @@ static char				*handle_padding(t_printf *data, char *res)
 /*
 ** Sets special case flags for int
 */
-
 static void				handle_int_flag_specials(t_printf *data)
 {
 	if (data->left_justify ||
@@ -76,7 +73,6 @@ static void				handle_int_flag_specials(t_printf *data)
 ** Handles formatting per given variable type (specified by data->c)
 ** and flags.
 */
-
 char					*handle_formatting(t_printf *data, char *res)
 {
 	if (is_int_specifier(data->c) || data->c == 'p')

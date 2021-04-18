@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 21:35:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:32:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ static void		render_work(void *params)
 	free(work);
 }
 
+/*
+** Parallel render pass creating work or each thread (square part of screen)
+*/
 static void		render_pass(t_doom3d *app, t_framebuffer *framebuffer,
 					t_tri_vec **render_triangles, uint32_t pass_num_passes[2])
 {
@@ -123,7 +126,6 @@ static void		render_pass(t_doom3d *app, t_framebuffer *framebuffer,
 ** framebuffer.
 ** 4. Parallel work is waited to finish and render triangles are destroyed.
 */
-
 static void		render_parallel(t_doom3d *app, t_framebuffer *framebuffer)
 {
 
@@ -151,6 +153,9 @@ static void		render_parallel(t_doom3d *app, t_framebuffer *framebuffer)
 	destroy_render_triangle_vecs(render_triangles);
 }
 
+/*
+** Render editor 3d view
+*/
 void			render_editor_3d_view(t_doom3d *app)
 {
 
@@ -165,6 +170,9 @@ void			render_editor_3d_view(t_doom3d *app)
 				app->window->editor_pos[1]} ,1.0);
 }
 
+/*
+** Render everything in app to framebuffer including 3d and UI
+*/
 void			render_to_framebuffer(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)

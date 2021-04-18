@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phakakos <phakakos@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:31:31 by phakakos          #+#    #+#             */
-/*   Updated: 2021/03/12 15:31:34 by phakakos         ###   ########.fr       */
+/*   Updated: 2021/04/18 20:15:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 ** Helper for the audio loop. Moves all active sounds by len.
 ** Pops fully played sounds and resets looping sounds
 */
-
 static void		mp_move(t_sound **start, int len)
 {
 	t_sound	*curr;
@@ -54,7 +53,6 @@ static void		mp_move(t_sound **start, int len)
 ** Music player mix loop helper, find the next sound to play
 ** Returns in order the next active track or NULL if none
 */
-
 static t_sound	*mp_mix_next(t_sound *start)
 {
 	t_sound	*curr;
@@ -74,7 +72,6 @@ static t_sound	*mp_mix_next(t_sound *start)
 /*
 ** Find playable sounds
 */
-
 static t_sound	*mp_mixing(t_sound *curr, t_mp *mp, float vol)
 {
 	Uint32	amount;
@@ -91,7 +88,6 @@ static t_sound	*mp_mixing(t_sound *curr, t_mp *mp, float vol)
 /*
 ** Loop thru sounds till max has been reached or no more sounds to play
 */
-
 static void		playing_audio(t_mp *mp, t_sound **start, int max, float vol)
 {
 	t_sound	*curr;
@@ -115,7 +111,6 @@ static void		playing_audio(t_mp *mp, t_sound **start, int max, float vol)
 /*
 ** Music player main loop
 */
-
 void			mp_au_mix(void *para, Uint8 *stream, int len)
 {
 	t_mp	*mp;

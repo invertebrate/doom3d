@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/14 23:16:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:35:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static t_3d_object	*object_above(t_doom3d *app,
 ** of aabb.
 ** 2. If object under exists, check it collides with self aabb.
 */
-
 t_bool	obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj)
 {
 	t_3d_object	*obj_under;
@@ -96,7 +95,6 @@ t_bool	obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj)
 ** of aabb.
 ** 2. If object under exists, check it collides with self aabb.
 */
-
 t_bool	player_is_grounded(t_doom3d *app)
 {
 	t_3d_object	*obj_under;

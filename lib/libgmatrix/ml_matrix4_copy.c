@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:19:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:54:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 **	Copies the elements of one matrix to another for t_mat4
 */
-
 void	ml_matrix4_copy(t_mat4 src, t_mat4 dest)
 {
 	int i;

@@ -6,14 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:53:15 by ohakola           #+#    #+#             */
-/*   Updated: 2019/11/21 17:03:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:45:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 ** ft_isqrt returns integer square root of num.
 */
-
 int	ft_isqrt(int num)
 {
 	int	n;
