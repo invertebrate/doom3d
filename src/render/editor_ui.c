@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 17:10:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 18:48:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void		render_guide_on_popup(t_doom3d *app)
 		"Button R + X | Y | Z: Rotate selected\n"
 		"Button Right | Left | Up | Down: Move selected on x and z axis\n"
 		"Button O | L: Move selected target on y axis\n"
-		"Button [ | ]: Scale selected\n"
+		"Button [ | ] + \\: Scale selected (with uvs if \\)\n"
 		"Button Space: Snap selected to Grid\n"
 		"Button Delete: Delete selected\n"
 		"Button V: Toggle lock vertical movement\n"
