@@ -61,6 +61,13 @@ void		npc_anim_3d_rotation_update(t_animation_3d *anim)
 								anim->base_object->rotation);
 }
 
+static t_bool			frame_time_expired(t_doom3d *app,
+											t_animation_3d *animation)
+{
+	return (((app->current_tick - animation->tick_at_update) %
+		(TICKS_PER_SEC)) > (TICKS_PER_SEC / ANIM_3D_FPS));
+}
+
 static t_bool			anim_3d_clip_ended(t_animation_3d *animation)
 {
 	return (animation->current_frame > animation->clip_info[animation->
@@ -98,8 +105,7 @@ uint32_t				anim_3d_instance_update(t_doom3d *app,
 					anim_clip % ANIM_3D_TYPE_MOD].clip_length;
 	clip_start_idx = animation->anim_clip_start_indices[
 			animation->current_anim_instance->anim_clip % ANIM_3D_TYPE_MOD];
-	if (((app->current_tick - animation->tick_at_update) % (TICKS_PER_SEC)) >
-			(TICKS_PER_SEC / ANIM_3D_FPS))
+	if (frame_time_expired(app, animation))
 	{
 		animation->current_frame++;
 		animation->tick_at_update = app->current_tick;
@@ -127,7 +133,7 @@ void test_print(void *params)
 
 uint32_t				anim_3d_loop_update(t_doom3d *app, t_animation_3d *animation)
 {
-	if (((app->current_tick - animation->tick_at_update) % (TICKS_PER_SEC)) > (TICKS_PER_SEC / ANIM_3D_FPS))
+	if (frame_time_expired(app, animation))
 	{
 		animation->current_frame++;
 		if (anim_3d_clip_ended(animation))
