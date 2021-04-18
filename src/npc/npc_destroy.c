@@ -35,17 +35,15 @@ static t_bool		animation_3d_destroy(t_animation_3d *anim)
 
 t_bool				animation_3d_instance_destroy(t_anim_3d_instance *instance)
 {
-	if (instance == NULL || instance->params == NULL)
+	if (instance == NULL)
 		return (false);
 	free(instance);
 	instance = NULL;
-	free(instance->params);
-	instance->params = NULL;
 	return (true);
 }
 
 t_bool				npc_destroy(t_3d_object *npc_obj)
-{	
+{
 	if (npc_obj == NULL || npc_obj->type != object_type_npc)
 		return (false);
 	if (((t_npc*)npc_obj->params)->type == npc_type_default ||

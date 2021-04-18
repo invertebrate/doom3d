@@ -20,6 +20,7 @@
 # define ANIM_3D_COUNT_MAX 512
 # define ANIM_3D_TYPE_MOD 1000
 
+# include "doom3d.h"
 # include "libft.h"
 # include "lib3d.h"
 
@@ -71,8 +72,9 @@ typedef struct				s_anim_3d_clip_info
 
 typedef struct				s_anim_3d_instance
 {
-	void					(*f_event)(void*);
-	void					*params;
+	struct s_doom3d			*app;
+	void					(*f_event)(struct s_doom3d*, void**);
+	void					*params[3];
 	t_animation_3d_type		anim_clip;
 	float					trigger_time;
 	int32_t					start_frame;
@@ -87,7 +89,7 @@ typedef struct				s_animation_3d
 {
 	uint32_t				frame_count;
 	uint32_t				frames_start_idx;
-	uint32_t				anim_clip_start_indices[ANIM_3D_COUNT_MAX];	
+	uint32_t				anim_clip_start_indices[ANIM_3D_COUNT_MAX];
 	uint32_t				anim_count;
 	uint32_t				current_frame;
 	t_animation_3d_type		current_clip;

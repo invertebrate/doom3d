@@ -24,8 +24,10 @@ void					update_app_ticks(t_doom3d *app)
 
 void		npc_anim_3d_position_update(t_animation_3d *anim)
 {
-	if (anim == NULL)
+	if (anim == NULL || anim->current_object == NULL || anim->base_object == NULL)
+	{
 		return ;
+	}
 	l3d_3d_object_translate(anim->current_object,
 				-anim->frame_object_prev_translation[anim->frames_start_idx +
 					anim->current_frame][0],
@@ -52,9 +54,11 @@ void		npc_anim_3d_rotation_update(t_animation_3d *anim)
 {
 	t_mat4				inverse_rot;
 
-	anim = NULL;
-	if (anim == NULL)
+	if (anim == NULL || anim->current_object == NULL ||
+		anim->base_object == NULL)
+	{
 		return ;
+	}
 	ml_matrix4_inverse(anim->current_object->rotation , inverse_rot);
 	l3d_3d_object_rotate_matrix(anim->current_object, inverse_rot);
 	l3d_3d_object_rotate_matrix(anim->current_object,
@@ -86,18 +90,23 @@ static t_bool			instance_status_check(t_animation_3d *animation,
 		!event_f_triggered)
 	{
 		animation->current_anim_instance->
-			f_event(animation->current_anim_instance->params);
+			f_event(animation->current_anim_instance->app,
+					animation->current_anim_instance->params);
 		event_f_triggered = true;
+	}
+	if (animation->base_object == NULL || animation == NULL)
+	{
+		return (false);
 	}
 	if (elapsed_time >= (float)(clip_length - 1) / (float)clip_length)
 		{
-			ft_printf("instance ends %f / %f\n", elapsed_time,
-				((float)(clip_length - 1) / (float)clip_length));
 			animation->current_anim_instance->active = false;
 			return (false);
 		}
 	else
+	{
 		return (true);
+	}
 }
 
 uint32_t				anim_3d_instance_update(t_doom3d *app,
@@ -121,8 +130,16 @@ uint32_t				anim_3d_instance_update(t_doom3d *app,
 	elapsed_time = (float)(animation->current_frame - clip_start_idx) /
 					(float)clip_length;
 	instance_status_check(animation, elapsed_time, clip_length);
-	npc_anim_3d_position_update(animation);
-	npc_anim_3d_rotation_update(animation);
+	if (animation != NULL && animation->base_object != NULL)
+	{
+		npc_anim_3d_position_update(animation);
+		npc_anim_3d_rotation_update(animation);
+	}
+	else
+	{
+		LOG_WARN("Tried to update animation instance of an invalid object!");
+		return (UINT32_MAX - 1);
+	}
 	return (animation->current_frame);
 }
 
@@ -145,13 +162,30 @@ uint32_t				anim_3d_loop_update(t_doom3d *app, t_animation_3d *animation)
 	}
 	animation->current_object =
 		animation->animation_frames[animation->current_frame];
-	npc_anim_3d_position_update(animation);
-	npc_anim_3d_rotation_update(animation);
+	if (animation != NULL && animation->base_object != NULL)
+	{
+		npc_anim_3d_position_update(animation);
+		npc_anim_3d_rotation_update(animation);
+	}
+	else
+	{
+		LOG_WARN("Tried to update animation clip loop of an invalid object!");
+		return (UINT32_MAX - 1);
+	}
 	return (animation->current_frame);
+}
+
+static void				test_event(t_doom3d *app, void** params)
+{
+	push_custom_event(app, event_object_delete, params[0], params[1]);
 }
 
 uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 {
+	if (animation == NULL || animation->base_object == NULL)
+	{
+		return (UINT32_MAX - 1);
+	}
 	if (animation->current_clip == anim_3d_type_null)
 	{
 		npc_anim_3d_position_update(animation);
@@ -163,9 +197,11 @@ uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 	t_anim_3d_instance inst;
 	inst.active = true;
 	inst.anim_clip = anim_3d_type_death;
-	// inst.f_event = (void*)npc_destroy;
-	inst.f_event = test_print;
-	inst.params = (t_npc*)animation->base_object->params;
+	inst.f_event = test_event;
+	// inst.f_event = test_print;
+	inst.params[0] = (t_3d_object*)(animation->base_object);
+	inst.params[1] = NULL;
+	inst.params[2] = NULL;
 	inst.start_frame = 0;
 	inst.trigger_time = 0.9;
 
@@ -186,23 +222,35 @@ uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 **	Changes the current playing animation clip of an object
 */
 
-void					anim_3d_clip_loop(t_doom3d *app, t_3d_object *obj,
-										t_animation_3d_type clip, uint32_t start_frame)
+uint32_t					anim_3d_clip_loop(t_doom3d *app, t_3d_object *obj,
+										t_animation_3d_type clip,
+										uint32_t start_frame)
 {
-	t_animation_3d		*anim;
+	t_animation_3d		*animation;
 
 	if (!(check_obj_3d_anim(obj)))
 	{
 		LOG_ERROR("Tried to set animation clip to an object with no animation_3d");
-		return ;
+		return (UINT32_MAX - 1);
 	}
-	anim = ((t_npc*)obj->params)->animation_3d;
-	anim->current_clip = clip;
-	anim->current_frame = anim->anim_clip_start_indices[clip % ANIM_3D_TYPE_MOD] + start_frame;
-	anim->current_object = anim->animation_frames[anim->current_frame];
-	anim->tick_at_update = app->current_tick;
-	npc_anim_3d_position_update(anim);
-	npc_anim_3d_rotation_update(anim);
+	animation = ((t_npc*)obj->params)->animation_3d;
+	animation->current_clip = clip;
+	animation->current_frame = animation->anim_clip_start_indices[
+								clip % ANIM_3D_TYPE_MOD] + start_frame;
+	animation->current_object = animation->animation_frames[
+								animation->current_frame];
+	animation->tick_at_update = app->current_tick;
+	if (animation != NULL && animation->base_object != NULL)
+	{
+		npc_anim_3d_position_update(animation);
+		npc_anim_3d_rotation_update(animation);
+	}
+	else
+	{
+		LOG_WARN("Tried to update animation clip loop of an invalid object!");
+		return (UINT32_MAX - 1);
+	}
+	return (animation->current_frame);
 }
 
 
@@ -226,7 +274,10 @@ void					copy_instance_data(t_animation_3d *anim,
 	anim->current_anim_instance->f_event = instance->f_event;
 	anim->current_anim_instance->start_frame = instance->start_frame;
 	anim->current_anim_instance->trigger_time = instance->trigger_time;
-	anim->current_anim_instance->params = instance->params;
+	anim->current_anim_instance->params[0] = instance->params[0];
+	anim->current_anim_instance->params[1] = instance->params[1];
+	anim->current_anim_instance->params[2] = instance->params[2];
+
 }
 
 t_bool					anim_3d_clip_play(t_doom3d *app, t_3d_object *obj,
@@ -245,7 +296,6 @@ t_bool					anim_3d_clip_play(t_doom3d *app, t_3d_object *obj,
 		LOG_ERROR("Tried to play animation clip with invalid instance data");
 		return false;
 	}
-	ft_printf("PLAY!\n");
 	anim = ((t_npc*)obj->params)->animation_3d;
 	copy_instance_data(anim, anim_instance);
 	anim->current_frame = anim->anim_clip_start_indices[anim_instance->anim_clip

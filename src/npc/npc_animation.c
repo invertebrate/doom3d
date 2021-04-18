@@ -166,13 +166,19 @@ static void			npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 	npc->animation_3d->frames_start_idx = anim_data->frames_start_idx;
 }
 
-static void			init_anim_instance(t_anim_3d_instance *anim_instance)
+static void			init_anim_instance(t_doom3d *app,
+										t_anim_3d_instance *anim_instance)
 {
+	anim_instance->app = app;
 	anim_instance->active = false;
 	anim_instance->anim_clip = 0;
 	anim_instance->f_event = NULL;
 	anim_instance->start_frame = 0;
 	anim_instance->trigger_time = 0.0;
+	anim_instance->params[0] = NULL;
+	anim_instance->params[1] = NULL;
+	anim_instance->params[2] = NULL;
+
 }
 
 void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
@@ -185,7 +191,7 @@ void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
 		"Failed to malloc for npc animation in npc_animation_set.");
 	error_check(!(npc->animation_3d->current_anim_instance = (t_anim_3d_instance*)ft_calloc(sizeof(t_anim_3d_instance))),
 		"Failed to malloc for npc animation_instance in npc_animation_set.");
-	init_anim_instance(npc->animation_3d->current_anim_instance);
+	init_anim_instance(app, npc->animation_3d->current_anim_instance);
 	npc_animation_3d_data_copy(npc, anim_data);
 	anim = npc->animation_3d;
 	npc->animation_3d->base_object = obj;
