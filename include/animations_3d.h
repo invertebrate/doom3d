@@ -75,6 +75,7 @@ typedef struct				s_anim_3d_instance
 	void					*params[3];
 	t_animation_3d_type		anim_clip;
 	float					trigger_time;
+	t_bool					event_triggered;
 	int32_t					start_frame;
 	t_bool					active;
 }							t_anim_3d_instance;
