@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:19:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/21 16:14:45 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,12 @@ static void		triggers_load(t_scene *scene)
 		(int64_t)scene->asset_files.trigger_names[
 			scene->asset_files.num_triggers++],
 			(void*)trigger_elevator_switch);
+	scene->asset_files.trigger_names[scene->asset_files.num_triggers] =
+		"Door/Elevator Timer Switch";
+	hash_map_add(scene->trigger_map,
+		(int64_t)scene->asset_files.trigger_names[
+			scene->asset_files.num_triggers++],
+			(void*)trigger_elevator_switch_timer);
 }
 
 /*

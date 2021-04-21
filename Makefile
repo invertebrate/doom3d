@@ -80,6 +80,7 @@ SOURCES = main.c \
 			npc/npc_move_to_waypoint.c \
 			npc/npc_destroy.c \
 			trigger/trigger.c \
+			trigger/trigger_timer.c \
 			path/path.c \
 			path/path2.c \
 			path/patrol_path.c \

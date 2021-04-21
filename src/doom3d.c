@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:05:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/21 16:04:43 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ static void		main_loop(t_doom3d *app)
 		handle_events(app);
 		update_player(app);
 		update_objects(app);
+		trigger_timer_update(app);
 		render_to_framebuffer(app);
 		draw_window_frame(app->window);
 		update_notifications(app);

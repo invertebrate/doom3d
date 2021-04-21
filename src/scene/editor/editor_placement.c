@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_placement.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:50:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:31:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/21 16:15:37 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ t_3d_object		*editor_place_trigger_object(t_doom3d *app,
 	{
 		trigger = place_elevator_switch(app);
 		placement_notification(app, "Placing door/elevator switch");
+	}
+	else if (trigger_type == trigger_elevator_switch_timer)
+	{
+		trigger = place_elevator_switch_timer(app);
+		placement_notification(app, "Placing door/elevator timer switch");
 	}
 	return (trigger);
 }
