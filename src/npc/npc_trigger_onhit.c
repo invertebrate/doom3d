@@ -39,17 +39,17 @@ void		npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 
 	npc = obj->params;
 	npc->hp -= damage;
+	if (npc->state == state_death_anim)
+		return ;
 	if (npc->type != npc_type_elevator)
 		npc->state = state_attack;
 	npc->interest = npc->max_interest;
-	if (npc->hp <= 0)
+	if (npc->hp <= 0 && npc->state)
 	{
+		ft_printf("enemy hp 0\n");
+		ft_printf("state: %d\n", npc->state);
 		init_anim_instance_death(obj, &anim_instance_death);
 		npc->state = state_death_anim;
-		// ft_printf("npc killed!\n"); //test
 		anim_3d_clip_play(app, obj, &anim_instance_death);
 	}
-	// ft_printf("npc hit for %d damage! current hp: %d\n",
-		// damage, npc->hp); //test
-		(void)app;
 }
