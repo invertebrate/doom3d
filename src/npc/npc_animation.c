@@ -175,6 +175,7 @@ static void			init_anim_instance(t_doom3d *app,
 	anim_instance->f_event = NULL;
 	anim_instance->start_frame = 0;
 	anim_instance->trigger_time = 0.0;
+	anim_instance->event_triggered = false;
 	anim_instance->params[0] = NULL;
 	anim_instance->params[1] = NULL;
 	anim_instance->params[2] = NULL;

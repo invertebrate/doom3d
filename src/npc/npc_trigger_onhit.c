@@ -12,9 +12,30 @@
 
 #include "doom3d.h"
 
-void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
+ void				npc_death_event_ontrigger(t_doom3d *app, void** params)
 {
-	t_npc	*npc;
+	LOG_INFO("NPC REMOVE ON DEATH TRIGGERED BY ANIMATION.");
+	push_custom_event(app, event_object_delete, params[0], params[1]);
+}
+
+ void	init_anim_instance_death(t_3d_object *obj, t_anim_3d_instance *inst)
+{
+
+	inst->active = true;
+	inst->anim_clip = anim_3d_type_death;
+	inst->f_event = npc_death_event_ontrigger;
+	inst->params[0] = obj;
+	inst->params[1] = NULL;
+	inst->params[2] = NULL;
+	inst->start_frame = 0;
+	inst->trigger_time = 1.0;
+	inst->event_triggered = false;
+}
+
+void		npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
+{
+	t_npc				*npc;
+	t_anim_3d_instance	anim_instance_death;
 
 	npc = obj->params;
 	npc->hp -= damage;
@@ -23,11 +44,12 @@ void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 	npc->interest = npc->max_interest;
 	if (npc->hp <= 0)
 	{
+		init_anim_instance_death(obj, &anim_instance_death);
 		npc->state = state_death_anim;
 		// ft_printf("npc killed!\n"); //test
-		push_custom_event(app, event_object_delete,
-			obj, NULL);
+		anim_3d_clip_play(app, obj, &anim_instance_death);
 	}
 	// ft_printf("npc hit for %d damage! current hp: %d\n",
 		// damage, npc->hp); //test
+		(void)app;
 }
