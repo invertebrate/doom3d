@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 20:44:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:31:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ static uint32_t	pixel_color(t_triangle *triangle, t_vec2 uv,
 	return (pixel);
 }
 
+/*
+** Draw the actual pixel color at the final stage of rasterization
+** Shade the pixel according to shading information
+*/
 void			l3d_raster_draw_pixel(t_sub_framebuffer *buffers, int32_t xy[2],
 							t_triangle *triangle)
 {
@@ -91,7 +95,7 @@ void			l3d_raster_draw_pixel(t_sub_framebuffer *buffers, int32_t xy[2],
 		buffers->width, buffers->height}, offset_xy))
 	{
 		l3d_interpolate_uv(triangle, baryc, uv);
-		l3d_clamp_uv(uv);
+		l3d_loop_uv(uv);
 		if ((pixel = pixel_color(triangle, uv, baryc, z_val)) == UINT32_MAX)
 			return ;
 		l3d_pixel_plot(buffers->buffer, (uint32_t[2]){buffers->width,
@@ -103,6 +107,9 @@ void			l3d_raster_draw_pixel(t_sub_framebuffer *buffers, int32_t xy[2],
 	}
 }
 
+/*
+** Draw pixel at the final stage of rasterization for transparent objects
+*/
 void			l3d_raster_draw_pixel_transparent(t_sub_framebuffer *buffers,
 											int32_t xy[2],
 											t_triangle *triangle)
@@ -120,7 +127,7 @@ void			l3d_raster_draw_pixel_transparent(t_sub_framebuffer *buffers,
 		buffers->width, buffers->height}, offset_xy))
 	{
 		l3d_interpolate_uv(triangle, brc_uv[0], brc_uv[1]);
-		l3d_clamp_uv(brc_uv[1]);
+		l3d_loop_uv(brc_uv[1]);
 		if ((pixel = pixel_trans(triangle,
 			brc_uv[1], brc_uv[0], z_val)) == UINT32_MAX)
 			return ;

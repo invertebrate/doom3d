@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 17:44:58 by ohakola           #+#    #+#             */
-/*   Updated: 2020/08/24 20:16:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:49:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 ** incorrect or that dst is not a proper string).
 ** If the src and dst strings overlap, the behavior is undefined.
 */
-
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	char		*dst_cpy;

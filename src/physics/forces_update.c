@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forces_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/14 15:59:08 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/18 20:35:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,10 @@
 ** groundedness.
 ** The forces (velocity) are applied to player position in player_move.
 */
-
 void		forces_update_player(t_doom3d *app)
 {
 	float		deceleration;
 
-	if (app->player.velocity[1] < 0)
-		if (player_hits_ceiling(app))
-		{
-			nudge_player_down_ceiling(app);
-			app->player.velocity[1] = 0;
-		}
 	if (app->player.physics_state != physics_state_not_applied)
 	{
 		if (app->player.physics_state == physics_state_grounded)
@@ -36,13 +29,13 @@ void		forces_update_player(t_doom3d *app)
 		if ((app->player.physics_state == physics_state_jumping ||
 			app->player.physics_state == physics_state_falling) &&
 			app->player.velocity[1] < PLAYER_MAX_SPEED)
-			app->player.velocity[1] += 0.2;
+			app->player.velocity[1] += CONST_GRAVITY;
 	}
 	if (app->player.physics_state != physics_state_grounded &&
 		app->player.physics_state != physics_state_not_applied)
-		deceleration = 1.005;
+		deceleration = 1.02;
 	else
-		deceleration = 1.2;
+		deceleration = 1.8;
 	ml_vector3_copy((t_vec3){app->player.velocity[0] / deceleration,
 		app->player.velocity[1], app->player.velocity[2] / deceleration},
 		app->player.velocity);
@@ -63,13 +56,13 @@ static void	forces_update_npc(t_3d_object *npc_object)
 		else if ((npc->physics_state == physics_state_jumping ||
 			npc->physics_state == physics_state_falling) &&
 			npc->velocity[1] < PLAYER_MAX_SPEED)
-			npc->velocity[1] += 0.2;
+			npc->velocity[1] += CONST_GRAVITY;
 	}
 	if (npc->physics_state != physics_state_grounded &&
 		npc->physics_state != physics_state_not_applied)
 		deceleration = 1.000;
 	else
-		deceleration = 1.2;
+		deceleration = 1.8;
 	ml_vector3_copy((t_vec3){npc->velocity[0] / deceleration,
 		npc->velocity[1], npc->velocity[2] / deceleration},
 		npc->velocity);
@@ -81,15 +74,20 @@ static void	forces_update_npc(t_3d_object *npc_object)
 ** groundedness.
 ** The forces (velocity) are then applied on the position of the object.
 */
-
 void		update_object_forces(t_doom3d *app, t_3d_object *obj)
 {
-	t_vec3	velocity;
-	t_vec3	add;
+	t_vec3			velocity;
+	t_vec3			add;
+	static uint64_t	dt_sum;
 
 	if (obj->type == object_type_npc)
 	{
-		forces_update_npc(obj);
+		if (dt_sum > 100)
+		{
+			forces_update_npc(obj);
+			dt_sum = 0;
+		}
+		dt_sum += app->info.delta_time;
 		ml_vector3_copy(((t_npc*)obj->params)->velocity, velocity);
 		ml_vector3_mul(velocity, app->info.delta_time * CONST_SPEED, add);
 		l3d_3d_object_translate(obj, add[0], add[1], add[2]);

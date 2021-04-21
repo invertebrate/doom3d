@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 21:44:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 23:47:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 ** the number to a more reasonable range - to be more standard for rasterizer
 ** and e.g. depth shading.
 */
-
 static void		update_triangle_vertex_zvalues(t_triangle *triangle,
 					float unit_size)
 {
@@ -53,19 +52,6 @@ static void		push_one_clipped_triangle(t_doom3d *app,
 	l3d_triangle_vec_push(render_triangles, clipped_triangles[0]);
 }
 
-static void		push_triangle(t_doom3d *app,
-					t_tri_vec *render_vec,
-					t_triangle *triangle)
-{
-	t_triangle	*render_triangle;
-
-	render_triangle = get_render_triangle_from_pool(app);
-	l3d_triangle_copy(render_triangle, triangle);
-	screen_intersection(app, render_triangle);
-	update_triangle_vertex_zvalues(render_triangle, app->unit_size);
-	l3d_triangle_vec_push(render_vec, render_triangle);
-}
-
 static void		set_clipped_triangles(t_doom3d *app,
 					t_triangle *clipped_triangles[2],
 					t_triangle *triangle)
@@ -82,7 +68,6 @@ static void		set_clipped_triangles(t_doom3d *app,
 ** triangle vector. If not clipped, just add the inputted triangle to
 ** render triangles vector
 */
-
 void			clip_and_add_to_render_triangles(t_doom3d *app,
 					t_tri_vec **render_triangles,
 					t_triangle *triangle)
@@ -91,6 +76,7 @@ void			clip_and_add_to_render_triangles(t_doom3d *app,
 	int32_t		test_clip;
 	t_plane		near;
 	t_tri_vec	*render_vec;
+	t_triangle	*render_triangle;
 
 	set_clipped_triangles(app, clipped_triangles, triangle);
 	ml_vector3_copy((t_vec3){0, 0, NEAR_CLIP_DIST}, near.origin);
@@ -104,5 +90,11 @@ void			clip_and_add_to_render_triangles(t_doom3d *app,
 	else if (test_clip == 1)
 		push_one_clipped_triangle(app, render_vec, clipped_triangles);
 	else
-		push_triangle(app, render_vec, triangle);
+	{
+		render_triangle = get_render_triangle_from_pool(app);
+		l3d_triangle_copy(render_triangle, triangle);
+		screen_intersection(app, render_triangle);
+		update_triangle_vertex_zvalues(render_triangle, app->unit_size);
+		l3d_triangle_vec_push(render_vec, render_triangle);
+	}
 }

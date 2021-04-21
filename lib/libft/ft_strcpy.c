@@ -16,7 +16,6 @@
 ** The ft_strcpy() function copies the string src to dst
 ** (including the terminating `\0' character.)
 */
-
 char	*ft_strcpy(char *dst, const char *src)
 {
 	return (ft_memcpy(dst, src, (size_t)(ft_strlen(src) + 1)));

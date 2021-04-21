@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:23:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:24:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static void				l3d_obj_parse_v_or_face(char **str, t_obj *obj)
 /*
 ** Parses obj data from obj string saving all objects into t_obj_content*
 */
-
 void					l3d_obj_str_parse(char *str, t_obj *obj)
 {
 	ft_memset(obj, 0, sizeof(*obj));

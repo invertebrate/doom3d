@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:24:39 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 02:17:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:37:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 ** ind == song library index t_sounds
 ** new is created by calling s_ini()
 */
-
 int				handle_play_effect(t_doom3d *app, int ind, t_sound *new)
 {
 	if (!new)
@@ -34,7 +33,6 @@ int				handle_play_effect(t_doom3d *app, int ind, t_sound *new)
 ** ind == song library index t_sounds
 ** new is created by calling s_ini()
 */
-
 int				handle_play_music(t_doom3d *app, int ind, t_sound *new)
 {
 	if (!new)

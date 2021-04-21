@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/07 01:13:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 23:46:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_bool			triangle_inside_viewbox(t_doom3d *app,
 					t_triangle *triangle)
 {
-	t_vec3		player_to_corner[3];
+	t_vec3		p_to_c[3];
 	int32_t		ij[2];
 	t_bool		is_outside;
 	t_vec3		add;
@@ -30,9 +30,8 @@ t_bool			triangle_inside_viewbox(t_doom3d *app,
 		ij[1] = -1;
 		while (++ij[1] < 3)
 		{
-			ml_vector3_sub(origin, triangle->vtc[ij[1]]->pos,
-				player_to_corner[ij[1]]);
-			if (ml_vector3_dot(player_to_corner[ij[1]],
+			ml_vector3_sub(origin, triangle->vtc[ij[1]]->pos, p_to_c[ij[1]]);
+			if (ml_vector3_dot(p_to_c[ij[1]],
 				app->active_scene->main_camera->viewplanes[ij[0]].normal) < 0
 				&& is_outside)
 				is_outside = false;
@@ -67,7 +66,6 @@ t_bool			triangle_too_far(t_doom3d *app, t_triangle *triangle)
 /*
 ** Apply rotation and translation to render triangle
 */
-
 void			prepare_render_triangle(t_doom3d *app,
 									t_triangle *r_triangle,
 									t_triangle *triangle, t_vertex *vtc)
@@ -92,7 +90,6 @@ void			prepare_render_triangle(t_doom3d *app,
 /*
 ** Skybox is rotated, but it is not translated unlike other objects in scene
 */
-
 void			prepare_skybox_render_triangle(t_doom3d *app,
 									t_triangle *r_triangle,
 									t_triangle *triangle, t_vertex *vtc)
@@ -116,7 +113,6 @@ void			prepare_skybox_render_triangle(t_doom3d *app,
 ** If any corner of aabb (axis aligned bounding box) is inside the viewbox
 ** the object should be considered to be inside viewbox.
 */
-
 t_bool			object_inside_viewbox(t_doom3d *app, t_3d_object *obj)
 {
 	int32_t		ij[2];

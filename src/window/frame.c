@@ -6,18 +6,24 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:32:17 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 17:49:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:10:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
+/*
+** Clear frame
+*/
 void			window_frame_clear(t_window *window)
 {
 	l3d_buffer_uint32_clear(window->framebuffer->buffer,
 		window->framebuffer->width * window->framebuffer->height, CLEAR_COLOR);
 }
 
+/*
+** Draw window frame onto window
+*/
 void			draw_window_frame(t_window *window)
 {
 	SDL_UpdateTexture(window->frame, NULL, window->framebuffer->buffer,
@@ -42,6 +48,9 @@ static void		window_editor_framebuffer_recreate(t_window *window)
 	window->editor_pos[1] = 10;
 }
 
+/*
+** Create frame after e.g. resize
+*/
 void			window_frame_recreate(t_window *window)
 {
 	LOG_INFO("Recreate frame %d %d", window->width, window->height);

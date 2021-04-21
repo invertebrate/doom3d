@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/14 15:58:16 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/17 20:07:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,14 @@ void			update_player_physics_state(t_doom3d *app)
 	}
 	prev_state = app->player.physics_state;
 	if (app->player.velocity[1] < 0)
+	{
 		app->player.physics_state = physics_state_jumping;
+		if (player_hits_ceiling(app))
+		{
+			nudge_player_down_ceiling(app);
+			app->player.velocity[1] = 0;
+		}
+	}
 	else
 	{
 		is_grounded = player_is_grounded(app);
@@ -116,6 +123,9 @@ void			update_player_physics_state(t_doom3d *app)
 
 void			update_player(t_doom3d *app)
 {
+	static uint64_t	dt_sum;
+
+	dt_sum = dt_sum > 0 ? dt_sum : 0;
 	if ((app->active_scene->scene_id == scene_id_main_game &&
 		!app->active_scene->is_paused) ||
 			app->active_scene->scene_id == scene_id_editor3d)
@@ -123,7 +133,12 @@ void			update_player(t_doom3d *app)
 	else
 		return ;
 	update_player_physics_state(app);
-	forces_update_player(app);
+	if (dt_sum > 100)
+	{
+		forces_update_player(app);
+		dt_sum = 0;
+	}
+	dt_sum += app->info.delta_time;
 	player_update_aabb(&app->player);
 	player_animation_update(app);
 }

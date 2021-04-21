@@ -112,6 +112,10 @@ SOURCES = main.c \
 			scene/scene_assets.c \
 			scene/scene_content.c \
 			render/render.c \
+			render/render_parallel.c \
+			render/render_parallel_work.c \
+			render/render_triangle_utils1.c \
+			render/render_triangle_utils2.c \
 			render/prepare.c \
 			render/prepare_utils1.c \
 			render/prepare_utils2.c \
@@ -120,10 +124,14 @@ SOURCES = main.c \
 			render/prepare_clip.c \
 			render/player_hud.c \
 			render/ui.c \
+			render/ui_utils.c \
 			render/editor_ui.c \
+			render/editor_ui_object_info.c \
 			render/debug/debug.c \
 			render/debug/debug_line.c \
-			render/notifications.c \
+			render/debug/debug_aabb.c \
+			render/notifications1.c \
+			render/notifications2.c \
 			render/render_triangle_pool.c \
 			window/text.c \
 			window/window.c \
@@ -161,6 +169,7 @@ SOURCES = main.c \
 			events/keyboard_state.c \
 			events/control_flow.c \
 			events/editor/editor_custom_events.c \
+			events/editor/editor_custom_event_str.c \
 			events/editor/editor_transform.c \
 			events/editor/editor_input.c \
 			events/editor/editor_keyboard_state.c \

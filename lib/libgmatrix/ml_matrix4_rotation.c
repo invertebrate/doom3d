@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:19:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:57:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libgmatrix.h"
 
+/*
+** Create a rotation matrix around x by rad angle
+*/
 void		ml_matrix4_rotation_x(float rad, t_mat4 res)
 {
 	ft_memset(res, 0, sizeof(t_mat4));
@@ -23,6 +26,9 @@ void		ml_matrix4_rotation_x(float rad, t_mat4 res)
 	res[2][2] = cos(rad);
 }
 
+/*
+** Create a rotation matrix around y by rad angle
+*/
 void		ml_matrix4_rotation_y(float rad, t_mat4 res)
 {
 	ft_memset(res, 0, sizeof(t_mat4));
@@ -34,6 +40,9 @@ void		ml_matrix4_rotation_y(float rad, t_mat4 res)
 	res[2][2] = cos(rad);
 }
 
+/*
+** Create a rotation matrix around z by rad angle
+*/
 void		ml_matrix4_rotation_z(float rad, t_mat4 res)
 {
 	ft_memset(res, 0, sizeof(t_mat4));
@@ -45,6 +54,9 @@ void		ml_matrix4_rotation_z(float rad, t_mat4 res)
 	res[1][1] = cos(rad);
 }
 
+/*
+** Create a rotation matrix around rad x, rad y, rad z
+*/
 void		ml_matrix4_rotation(float rad_x, float rad_y, float rad_z,
 			t_mat4 res)
 {

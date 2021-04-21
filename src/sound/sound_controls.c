@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound_controls.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phakakos <phakakos@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:22:55 by phakakos          #+#    #+#             */
-/*   Updated: 2021/03/12 16:22:56 by phakakos         ###   ########.fr       */
+/*   Updated: 2021/04/18 20:15:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Delete all the given type sounds from the queue
 */
-
 static void	sound_del(t_sound **start, char type)
 {
 	t_sound	*curr;
@@ -47,7 +46,6 @@ static void	sound_del(t_sound **start, char type)
 /*
 ** Edit all the matching type sounds to have the set state
 */
-
 static void	sound_edit(t_sound *start, char type, char state)
 {
 	t_sound	*curr;
@@ -69,7 +67,6 @@ static void	sound_edit(t_sound *start, char type, char state)
 ** sound = app->mp.tracks == 1 app->mp.effects == 2 both == 0;
 ** state = new state; SPLAYING, SPAUSED, SSTOPPED == remove
 */
-
 void		mp_typec(t_doom3d *app, char type, char sound, char state)
 {
 	SDL_LockAudioDevice(app->mp.audev);

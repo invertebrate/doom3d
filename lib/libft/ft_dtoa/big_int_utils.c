@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 22:08:52 by ohakola           #+#    #+#             */
-/*   Updated: 2020/09/01 00:42:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:37:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 ** (t_big_int){3, {1, 5, 3}} =
 ** 1 * (2^32 - 1)^0 + 2 * (2^32 - 1)^1 + 3 * (2^32 - 1)^2
 */
-
 void			big_int_retard_print(t_big_int *b)
 {
 	size_t		i;
@@ -35,7 +34,6 @@ void			big_int_retard_print(t_big_int *b)
 /*
 ** Performs a copy operation on big int.
 */
-
 void			big_int_copy(t_big_int *to_copy, t_big_int *res)
 {
 	size_t		i;
@@ -52,7 +50,6 @@ void			big_int_copy(t_big_int *to_copy, t_big_int *res)
 ** Compares big int similarly to ft_strcmp, lhs is larger if result is > 1
 ** lhs is smaller if result is < 1. Ints are equal if 0.
 */
-
 int32_t			big_int_cmp(t_big_int *lhs, t_big_int *rhs)
 {
 	int32_t		diff;
@@ -77,7 +74,6 @@ int32_t			big_int_cmp(t_big_int *lhs, t_big_int *rhs)
 /*
 ** Check if big int is zero -> Its length is zero.
 */
-
 t_bool			big_int_is_zero(t_big_int *b)
 {
 	return (b->length == 0);

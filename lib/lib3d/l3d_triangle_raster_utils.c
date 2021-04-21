@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:07:32 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 15:02:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:32:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
+/*
+** Order corners by their y value
+*/
 void			l3d_order_corners_y(t_vec2 *ordered_corners, t_vec2 *points_2d)
 {
 	size_t	indices[3];

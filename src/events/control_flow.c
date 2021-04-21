@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 16:05:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:37:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 ** Trigger custom events that aren't related to menu clicks or game interaction,
 ** like exiting or esc or setting to full screen, or disabling debug info
 */
-
 void			handle_control_flow_events(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_QUIT)

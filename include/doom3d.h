@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/14 15:54:13 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/19 00:42:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@
 ** Allocation space for render triangles used in rasterization
 ** Increase if needed (error encountered)
 */
-
 # define RENDER_TRIANGLE_POOL_SIZE 131072
 
 /*
@@ -87,7 +86,7 @@
 # define Z_DIR 1
 
 # define CONST_SPEED 0.1
-# define CONST_GRAVITY 1.06
+# define CONST_GRAVITY 2.0
 
 # define NUM_CUSTOM_EVENTS 64
 
@@ -102,7 +101,6 @@ typedef struct				s_settings
 /*
 ** Main struct, "The App".
 */
-
 typedef struct				s_doom3d
 {
 	t_bool					is_running;
@@ -304,6 +302,9 @@ void						handle_object_translate_z(t_doom3d *app, t_3d_object *object,
 								int32_t amount);
 void						handle_object_scale(t_doom3d *app, t_3d_object *object,
 								int32_t direction);
+void						handle_object_scale_with_uvs(t_doom3d *app,
+								t_3d_object *object,
+								int32_t dir);
 void						handle_object_rotate_x(t_doom3d *app, t_3d_object *object,
 								int32_t amount);
 void						handle_object_rotate_y(t_doom3d *app, t_3d_object *object,
@@ -339,6 +340,7 @@ void						handle_editor_add_texture(t_doom3d *app,
 void						handle_editor_add_normal_map(t_doom3d *app,
 								char *filename);
 void						handle_editor_zoom(t_doom3d *app, int32_t zoom_amount);
+void						handle_editor_toggle_vertical_lock(t_doom3d *app);
 void						handle_editor_move_view_forward(t_doom3d *app,
 								int32_t amount);
 void						handle_editor_move_view_sideways(t_doom3d *app,
@@ -398,10 +400,29 @@ void						update_camera(t_doom3d *app);
 t_bool						screen_intersection(t_doom3d *app,
 								t_triangle *triangle);
 t_bool						is_rendered(t_doom3d *app, t_triangle *triangle);
-void						ui_render(t_doom3d *app);
+void						render_ui(t_doom3d *app);
+void						render_ui_title(t_doom3d *app);
+void						render_button_menu(t_button_group *menu,
+								t_vec2 pos);
+void						framebuffer_dark_overlay(t_framebuffer *framebuffer,
+								int32_t width, int32_t height, t_vec2 pos);
+void						render_loading_view(t_doom3d *app);
 void						render_to_framebuffer(t_doom3d *app);
-void						loading_render(t_doom3d *app);
+void						render_work(void *params);
+void						render_parallel_3d_view(t_doom3d *app,
+								t_framebuffer *framebuffer);
+void						render_loading_view(t_doom3d *app);
 t_tri_vec					**prepare_render_triangles(t_doom3d *app);
+t_bool						object_too_far(t_doom3d *app, t_3d_object *obj);
+void						add_skybox_render_triangles(t_doom3d *app,
+								t_tri_vec **render_triangles);
+void						add_objects_render_triangles(t_doom3d *app,
+								t_tri_vec **render_triangles);
+void						add_temp_object_render_triangles(t_doom3d *app,
+								t_tri_vec **render_triangles);
+void						sort_render_triangles_by_depth(t_doom3d *app,
+								t_tri_vec **render_triangles,
+								int32_t skybox_offset);
 void						destroy_render_triangle_vecs(
 								t_tri_vec **render_triangles);
 void						clip_and_add_to_render_triangles(t_doom3d *app,
@@ -422,15 +443,16 @@ void						prepare_render_triangle(t_doom3d *app,
 								t_triangle *triangle, t_vertex *vtc);
 t_bool						object_inside_viewbox(t_doom3d *app,
 								t_3d_object *obj);
-void						hud_render(t_doom3d *app);
+void						render_hud(t_doom3d *app);
 void						framebuffer_dark_overlay(
 								t_framebuffer *framebuffer,
 								int32_t width, int32_t height, t_vec2 pos);
 void						set_aabb_origin_to_corners(t_3d_object *obj,
 								t_vec3 origin, t_vec3 origin_to_corner[8]);
-void						button_menu_render(t_button_group *menu,
+void						render_button_menu(t_button_group *menu,
 								t_vec2 pos);
-void						editor_ui_render(t_doom3d *app);
+void						render_editor_ui(t_doom3d *app);
+void						render_object_information(t_doom3d *app);
 void						draw_debug_line(t_doom3d *app,
 								t_sub_framebuffer *buffer, t_vec3 points[2],
 								uint32_t color);
@@ -444,7 +466,13 @@ void						draw_enemy_direction(t_doom3d *app,
 								t_sub_framebuffer *sub_buffer,
 								t_3d_object *npc_object);
 void						draw_npc_dirs(t_render_work *work);
-void						notifications_render(t_doom3d *app, t_vec2 pos);
+void						render_notifications(t_doom3d *app, t_vec2 pos);
+void						render_notification_messages(t_doom3d *app,
+								t_vec2 pos,
+								int32_t	text_dims[2], int32_t padding);
+void						render_notifications_background(t_doom3d *app,
+								t_vec2 pos,
+								int32_t	dims[2], int32_t border_size);
 void						draw_triangle_tree_bounding_boxes(
 								t_render_work *work);
 void						draw_editor_placement_position(t_render_work *work);

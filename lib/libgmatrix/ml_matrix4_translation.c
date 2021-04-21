@@ -6,12 +6,16 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:19:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:57:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libgmatrix.h"
 
+/*
+** Create a translation matrix which can be used to move vectors and matrices
+** by x, y, z
+*/
 void		ml_matrix4_translation(float to_x, float to_y, float to_z,
 			t_mat4 res)
 {

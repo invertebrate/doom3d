@@ -6,18 +6,16 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:19:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:54:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libgmatrix.h"
 
 /*
-** NOTE: USES THE MATH.H LIBRARY!
 ** Creates the rotation matrix for rotating around
 ** an arbitrary t_vec3 angle_deg degrees.
 */
-
 void		ml_matrix4_general_rotation(t_vec3 axis, float rad_angle,
 				t_mat4 res)
 {

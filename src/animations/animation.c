@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/04/05 18:15:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:43:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ uint32_t				anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation)
 }
 
 /*
-**	Changes the current playing animation clip of an object
+** Changes the current playing animation clip of an object
 */
 
 uint32_t					anim_3d_clip_loop(t_doom3d *app, t_3d_object *obj,

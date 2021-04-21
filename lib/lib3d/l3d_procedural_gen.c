@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 20:37:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:25:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ static void			l3d_plane_set_vertices(t_3d_object *plane)
 		plane->vertices[0], plane->vertices[2], plane->vertices[3]}, plane);
 }
 
+/*
+** Create a procedurally generate plane
+*/
 t_3d_object			*l3d_plane_create(t_surface *texture, t_surface *normal_map)
 {
 	t_3d_object		*plane;
@@ -52,7 +55,6 @@ t_3d_object			*l3d_plane_create(t_surface *texture, t_surface *normal_map)
 ** Order of skybox & textures,
 ** front, left, top, back, right, bottom
 */
-
 void				l3d_skybox_create(t_3d_object *skybox[6],
 										t_surface *skybox_textures[6],
 										float unit_size)
@@ -86,9 +88,8 @@ void				l3d_skybox_create(t_3d_object *skybox[6],
 
 /*
 ** Copies a 3d object / model and places it with given unit scale and position
-** Gets new id.
+** Creates a new id for the object.
 */
-
 t_3d_object			*l3d_object_instantiate(t_3d_object *model,
 						float unit_size)
 {

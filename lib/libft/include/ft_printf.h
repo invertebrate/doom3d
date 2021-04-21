@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:01:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 01:51:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:41:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 /*
 ** A data struct containing all flag & fmt token related information
 */
-
 typedef struct		s_printf
 {
 	va_list		variables;
@@ -49,7 +48,6 @@ typedef struct		s_printf
 ** A data struct used as a helper when looping through ft_printf specs and
 ** non-token characters (e.g. %u)
 */
-
 typedef struct		s_fmt_specs
 {
 	int			middle_len;
@@ -59,7 +57,6 @@ typedef struct		s_fmt_specs
 /*
 ** Enums for variable length type options in ft_printf spec fmt.
 */
-
 enum				e_lengths
 {
 	length_none,

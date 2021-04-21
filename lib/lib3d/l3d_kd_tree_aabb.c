@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:49:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:22:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 ** Initializes bounding box before finding min maxes (or nulls it if triangle
 ** size is 0)
 */
-
 static void			init_bounding_box(t_box3d *res, t_tri_vec *triangles)
 {
 	ml_vector3_copy((t_vec3){INT32_MIN, INT32_MIN, INT32_MIN}, res->xyz_max);
@@ -33,7 +32,6 @@ static void			init_bounding_box(t_box3d *res, t_tri_vec *triangles)
 /*
 ** Sets bounding box's size and center
 */
-
 static void			bounding_box_size_and_center_set(t_box3d *res)
 {
 	ml_vector3_copy((t_vec3){res->xyz_max[0] - res->xyz_min[0],
@@ -50,7 +48,6 @@ static void			bounding_box_size_and_center_set(t_box3d *res)
 ** Sets bounding box of triangle vector (list of triangles) by finding
 ** max xyzs and min xyzs
 */
-
 void				l3d_bounding_box_set(t_tri_vec *triangles, t_box3d *res)
 {
 	int		i;
@@ -81,7 +78,6 @@ void				l3d_bounding_box_set(t_tri_vec *triangles, t_box3d *res)
 /*
 ** Returns the longes axis of a bounding box.
 */
-
 t_axis				l3d_bounding_box_longest_axis(t_box3d bounding_box)
 {
 	float	longest;

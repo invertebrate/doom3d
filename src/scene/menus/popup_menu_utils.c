@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 03:33:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 22:56:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:20:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void				active_scene_popup_menu_destroy(t_doom3d *app)
 	}
 }
 
+/*
+** Create editor's active popup menu
+*/
 void				editor_popup_menu_set(t_doom3d *app, t_vec2 pos,
 						t_button_menu_params params)
 {

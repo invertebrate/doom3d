@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:04:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/07 14:50:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:19:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
+/*
+** Read map file list to be used as level for doom3d
+*/
 void			read_level_list(t_doom3d *app)
 {
 	int32_t		fd;

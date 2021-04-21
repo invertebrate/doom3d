@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:40:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:25:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
+/*
+** Plot pixel onto buffer
+*/
 void		l3d_pixel_plot(uint32_t *buffer, uint32_t dimensions_wh[2],
 			int32_t xy[2], uint32_t color)
 {
@@ -21,6 +24,9 @@ void		l3d_pixel_plot(uint32_t *buffer, uint32_t dimensions_wh[2],
 	buffer[xy[1] * dimensions_wh[0] + xy[0]] = color;
 }
 
+/*
+** Retrieve pixel from buffer
+*/
 uint32_t	l3d_pixel_get(uint32_t *buffer, uint32_t dimensions_wh[2],
 				int32_t xy[2])
 {
@@ -30,6 +36,9 @@ uint32_t	l3d_pixel_get(uint32_t *buffer, uint32_t dimensions_wh[2],
 	return (buffer[xy[1] * dimensions_wh[0] + xy[0]]);
 }
 
+/*
+** Retrieve float from buffer
+*/
 float		l3d_pixel_get_float(float *buffer, uint32_t dimensions_wh[2],
 								int32_t xy[2])
 {
@@ -39,6 +48,9 @@ float		l3d_pixel_get_float(float *buffer, uint32_t dimensions_wh[2],
 	return (buffer[xy[1] * dimensions_wh[0] + xy[0]]);
 }
 
+/*
+** Plot float onto buffer
+*/
 void		l3d_pixel_plot_float(float *buffer, uint32_t dimensions_wh[2],
 					int32_t xy[2], float value)
 {

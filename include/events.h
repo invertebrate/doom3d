@@ -6,13 +6,16 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:09:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 14:10:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:02:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EVENTS_H
 # define EVENTS_H
 
+/*
+** Enums for all custom events taking place in runtime
+*/
 typedef enum				e_doom3d_event
 {
 	event_music_play = 1,
@@ -41,6 +44,7 @@ typedef enum				e_doom3d_event
 	event_editor_move_view_sideways = 24,
 	event_editor_rotate_view = 25,
 	event_editor_zoom = 26,
+	event_editor_toggle_lock_vertical = 200,
 	event_player_rotate = 27,
 	event_player_shoot = 28,
 	event_player_reload = 29,
@@ -51,6 +55,7 @@ typedef enum				e_doom3d_event
 	event_player_toggle_flight = 34,
 	event_object_delete = 35,
 	event_object_scale = 36,
+	event_object_scale_with_uvs = 361,
 	event_object_translate_x = 37,
 	event_object_translate_y = 38,
 	event_object_translate_z = 39,

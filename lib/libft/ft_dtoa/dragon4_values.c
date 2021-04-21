@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 18:57:09 by ohakola           #+#    #+#             */
-/*   Updated: 2020/09/01 12:11:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:37:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 ** fractional cutoff, pull the digit back into legal range at which point we
 ** will round to the appropriate value."
 */
-
 void			scale_values_after_exponent_estimation(t_big_int *scale,
 				t_big_int *scaled_value, t_big_int **scaled_margins,
 				int32_t *digit_exponent)
@@ -55,7 +54,6 @@ void			scale_values_after_exponent_estimation(t_big_int *scale,
 ** value = scaled_value / scale in the case of normalized floating point
 ** values
 */
-
 void			normalized_initial_state(t_dragon4_params params,
 				t_big_int *scale, t_big_int *scaled_value,
 				t_big_int **scaled_margins)
@@ -84,7 +82,6 @@ void			normalized_initial_state(t_dragon4_params params,
 ** value = scaled_value / scale in the case of denormalized floating point
 ** values
 */
-
 void			denormalized_initial_state(t_dragon4_params params,
 				t_big_int *scale, t_big_int *scaled_value,
 				t_big_int **scaled_margins)
@@ -110,7 +107,6 @@ void			denormalized_initial_state(t_dragon4_params params,
 ** highest block is >= 8 and <= 429496729 (highest number that can be
 ** multiplied by 10 without overflowing the 32 bit block)
 */
-
 void			prepare_values_for_division(t_big_int *scale,
 				t_big_int *scaled_value, t_big_int **scaled_margins)
 {

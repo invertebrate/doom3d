@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:50:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:34:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Calculates & sets triangle's center. The center of mass to be more specific.
 */
-
 void				l3d_triangle_centroid_update(t_triangle *triangle)
 {
 	ml_vector3_copy((t_vec3){
@@ -31,7 +30,6 @@ void				l3d_triangle_centroid_update(t_triangle *triangle)
 /*
 ** Out of all triangles inputted, calculates their center of mass.
 */
-
 void				l3d_triangles_midpoint(t_triangle **triangles,
 					uint32_t num_triangles, t_vec3 res)
 {
@@ -51,7 +49,6 @@ void				l3d_triangles_midpoint(t_triangle **triangles,
 ** Out of all triangles inputted (as a triangle vector), calculates their
 ** center of mass.
 */
-
 void				l3d_triangle_vec_midpoint(t_tri_vec *triangles, t_vec3 res)
 {
 	int		i;
@@ -67,9 +64,8 @@ void				l3d_triangle_vec_midpoint(t_tri_vec *triangles, t_vec3 res)
 }
 
 /*
-** Sets triangle values
+** Sets triangle values for vertices, updates centroid and normals
 */
-
 void				l3d_triangle_set(t_triangle *triangle, t_vertex *vtc[3],
 						t_3d_object *obj)
 {
@@ -82,6 +78,9 @@ void				l3d_triangle_set(t_triangle *triangle, t_vertex *vtc[3],
 	l3d_triangle_normal_update(triangle);
 }
 
+/*
+** Destroy triangle
+*/
 void				l3d_triangle_destroy(t_triangle *triangle,
 						t_bool with_vertices)
 {

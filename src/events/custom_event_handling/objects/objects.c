@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:32:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 01:37:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 18:27:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,15 @@ void			handle_object_scale(t_doom3d *app, t_3d_object *object,
 		l3d_3d_object_scale(object, 1.1, 1.1, 1.1);
 	else
 		l3d_3d_object_scale(object, 1.0 / 1.1, 1.0 / 1.1, 1.0 / 1.1);
+}
+
+void			handle_object_scale_with_uvs(t_doom3d *app,
+					t_3d_object *object,
+					int32_t dir)
+{
+	(void)app;
+	if (dir > 0)
+		l3d_3d_object_scale_with_uvs(object, 1.1);
+	else
+		l3d_3d_object_scale_with_uvs(object, 1.0 / 1.1);
 }

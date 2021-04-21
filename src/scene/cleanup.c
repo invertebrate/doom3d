@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/29 20:44:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:19:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,3 @@ void		scene_objects_destroy(t_scene *scene)
 	}
 	l3d_temp_objects_destroy(&scene->temp_objects);
 }
-
-
-// scene->asset_files.num_anim_frames
-//cleanup frames function

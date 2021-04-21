@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.helsinki.fi>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 17:22:20 by ohakola           #+#    #+#             */
-/*   Updated: 2019/10/28 13:55:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:48:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 ** end of the null-terminated string s1, then add a terminating `\0'.
 ** The string s1 must have sufficient space to hold the result.
 */
-
 char	*ft_strcat(char *dst, const char *src)
 {
 	char	*dstcpy;

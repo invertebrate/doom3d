@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:22:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Corrects bmp pixel colors to RGBA
 */
-
 static void		l3d_bmp_pixel_correct(t_image_data *image, uint32_t i)
 {
 	unsigned char			rgb[3];
@@ -34,7 +33,6 @@ static void		l3d_bmp_pixel_correct(t_image_data *image, uint32_t i)
 ** If height is negative, vertical flip does not happen.
 ** ToDo if needed: Handle negative width (reverse row pixels)
 */
-
 static void		l3d_handle_bmp_pixels(t_image_data *image,
 					t_bmp_file_header *header)
 {
@@ -69,7 +67,6 @@ static void		l3d_handle_bmp_pixels(t_image_data *image,
 ** Reads a bmp image into t_image_data *image res result.
 ** Assumes all bmps are either 24 or 32 bit images (for our purposes)
 */
-
 static void		l3d_read_bmp_image(const char *filename,
 					t_image_data *image_res)
 {
@@ -99,7 +96,6 @@ static void		l3d_read_bmp_image(const char *filename,
 ** Reads bmp image into uint32_t **pixels_out data. Saves width and height.
 ** Replaces alpha with 255 if image was only 24 bit.
 */
-
 void			l3d_read_bmp_image_32bit_rgba(const char *filename,
 				uint32_t **pixels_out, uint32_t *width, uint32_t *height)
 {
@@ -128,6 +124,9 @@ void			l3d_read_bmp_image_32bit_rgba(const char *filename,
 	free(image.pixels);
 }
 
+/*
+** Read bmp image directly onto a t_surface struct
+*/
 t_surface		*l3d_read_bmp_32bit_rgba_surface(const char *filename)
 {
 	t_surface	*surface;

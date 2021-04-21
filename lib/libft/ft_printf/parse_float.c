@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 17:29:40 by ohakola           #+#    #+#             */
-/*   Updated: 2020/08/31 20:19:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:39:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 ** Insignificant (trailing zeros) are stripped unless # flag is used and
 ** precision is provided.
 */
-
 static char				*choose_g_output(t_printf *data, int *print_lens,
 						char *norm_buf, char *sci_buf)
 {
@@ -53,7 +52,6 @@ static char				*choose_g_output(t_printf *data, int *print_lens,
 ** Fill float buffers for both e and F to be chosen later by logic of g_mode
 ** See above.
 */
-
 static void				get_floats_for_g_mode(t_printf *data,
 						char *norm_buf, char *sci_buf, int print_lens[2])
 {
@@ -85,7 +83,6 @@ static void				get_floats_for_g_mode(t_printf *data,
 ** Parses float in either scientific or decimal format. Choosing out of those
 ** the shorter representation with significant digits.
 */
-
 static char				*parse_g_float(t_printf *data)
 {
 	char				norm_buf[DTOA_BUF_SIZE];
@@ -105,7 +102,6 @@ static char				*parse_g_float(t_printf *data)
 ** Floats are converted using ft_dtoa, which uses dragon4 algorithm under the
 ** hood.
 */
-
 static char				*parse_f_float(t_printf *data)
 {
 	char				*res;
@@ -138,7 +134,6 @@ static char				*parse_f_float(t_printf *data)
 ** Parses float in either scientific or decimal format. Or g mode which
 ** chooses the shortest format.
 */
-
 char					*parse_float(t_printf *data)
 {
 	if (data->c == 'f' || data->c == 'F' || data->c == 'e' || data->c == 'E')

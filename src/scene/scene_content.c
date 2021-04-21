@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 19:26:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:18:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ static t_bool			include_object_in_triangle_tree(t_scene *scene,
 			object->type != object_type_path);
 }
 
+/*
+** Sets active scene's triangle refs (pointers to scene triangles which are
+** used in triangle tree for collision and raycast detection)
+** This should be updated once per frame
+*/
 static void				active_scene_triangle_refs_set(t_scene *scene)
 {
 	int32_t		i;
@@ -56,9 +61,8 @@ static void				active_scene_triangle_refs_set(t_scene *scene)
 /*
 ** Update object bounding boxes
 ** Update scene light information
-** Update triangle tree
+** Update triangle tree (for collisions & raycasting)
 */
-
 void					active_scene_update_after_objects(t_scene *scene)
 {
 	int32_t		i;
@@ -80,6 +84,9 @@ void					active_scene_update_after_objects(t_scene *scene)
 		scene->triangle_ref, scene->num_triangles);
 }
 
+/*
+** Initialize scene_id_main_game
+*/
 static void		scene_game_init(t_doom3d *app)
 {
 	t_3d_object		*start;
@@ -109,6 +116,9 @@ static void		scene_game_init(t_doom3d *app)
 	active_scene_update_after_objects(app->active_scene);
 }
 
+/*
+** Initialize scene for editor
+*/
 static void		scene_editor_init(t_doom3d *app)
 {
 	editor_deselect_all(app);
@@ -167,6 +177,9 @@ static void		active_scene_mouse_mode_set(t_doom3d *app)
 	}
 }
 
+/*
+** Recreate menus for scene
+*/
 void		active_scene_menu_recreate(t_doom3d *app)
 {
 	scene_menus_destroy(app->active_scene);
@@ -180,6 +193,9 @@ void		active_scene_menu_recreate(t_doom3d *app)
 		settings_menu_create(app);
 }
 
+/*
+** Set textures, normal maps, and other assets for active scene
+*/
 void		active_scene_content_set(t_doom3d *app)
 {
 

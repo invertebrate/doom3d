@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itorgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.helsinki.fi>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:08:07 by ohakola           #+#    #+#             */
-/*   Updated: 2019/12/11 13:15:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:46:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 ** to an rgb struct with separate ints for
 ** all the separate colors.
 */
-
 t_rgb		*ft_itorgb(int rgb_val)
 {
 	t_rgb	*rgb;

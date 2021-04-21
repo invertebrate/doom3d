@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:11:06 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 02:07:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:38:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Selects object by mouse when select object event is called
 */
-
 void	handle_editor_select(t_doom3d *app)
 {
 	if (mouse_inside_editor_view(app))
@@ -29,7 +28,6 @@ void	handle_editor_select(t_doom3d *app)
 /*
 ** Deselects object when select object event is called
 */
-
 void	handle_editor_deselect(t_doom3d *app)
 {
 	editor_deselect(app);

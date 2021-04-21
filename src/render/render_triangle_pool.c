@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:55:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/12 17:09:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:33:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 ** renderer for rasterization
 ** Also allocates space for clipped vertices
 */
-
 void		allocate_render_triangle_pool(t_doom3d *app,
 				uint32_t size)
 {
@@ -40,7 +39,6 @@ void		allocate_render_triangle_pool(t_doom3d *app,
 ** At each frame we reset the number of render triangles so we can reuse
 ** the pool
 */
-
 void			reset_render_triangle_pool(t_doom3d *app)
 {
 	app->num_render_triangles = 0;
@@ -50,7 +48,6 @@ void			reset_render_triangle_pool(t_doom3d *app)
 /*
 ** Free the triangles in pool
 */
-
 void			destroy_render_triangle_pool(t_doom3d *app)
 {
 	free(app->render_triangle_pool);
@@ -76,7 +73,6 @@ static t_vertex	*get_vertex_from_pool(t_doom3d *app)
 ** Returns a triangle from pool containing its own vertices.
 ** Reallocates if size is too small.
 */
-
 t_triangle		*get_render_triangle_from_pool(t_doom3d *app)
 {
 	t_triangle	*render_triangle;

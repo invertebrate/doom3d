@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 15:13:32 by ohakola           #+#    #+#             */
-/*   Updated: 2020/09/01 16:58:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:40:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** This file contains helper functions to validate inputs.
 */
-
 int						is_int_specifier(char c)
 {
 	return (c == 'd' || c == 'D' || c == 'i' || c == 'u' || c == 'U' ||

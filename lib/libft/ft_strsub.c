@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.helsinki.fi>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 20:19:01 by ohakola           #+#    #+#             */
-/*   Updated: 2019/10/28 14:17:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:50:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 ** valid substring, the behavior is undefined. If the allocation fails,
 ** the function returns NULL.
 */
-
 char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
 	char			*str;

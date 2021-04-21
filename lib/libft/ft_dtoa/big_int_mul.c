@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 22:11:51 by ohakola           #+#    #+#             */
-/*   Updated: 2020/09/28 14:00:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:37:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void		perform_mul(t_big_int *small, t_big_int *large,
 ** Performs multiplication operation on t_big_int lhs and rhs saving it into
 ** result.
 */
-
 void			big_int_mul(t_big_int *lhs, t_big_int *rhs, t_big_int *res)
 {
 	t_big_int	*large;
@@ -70,7 +69,6 @@ void			big_int_mul(t_big_int *lhs, t_big_int *rhs, t_big_int *res)
 ** Performs multiplication operation on t_big_int lhs and uint32_t saving it
 ** into result.
 */
-
 void			big_int_mul_u32(t_big_int *lhs, uint32_t rhs, t_big_int *res)
 {
 	uint32_t	carry;
@@ -96,7 +94,6 @@ void			big_int_mul_u32(t_big_int *lhs, uint32_t rhs, t_big_int *res)
 /*
 ** Doubles a t_big_int saving it into result.
 */
-
 void			big_int_mul_2(t_big_int *lhs, t_big_int *res)
 {
 	uint32_t	carry;

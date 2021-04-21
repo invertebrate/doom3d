@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:08:35 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/15 15:10:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:03:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 ** Defines what type of notifications exist which then correspond to
 ** how the notification gets rendered.
 */
-
 typedef enum				e_nofitication_type
 {
 	notification_type_info,
@@ -30,7 +29,6 @@ typedef enum				e_nofitication_type
 ** Notifications that represent data info that gets displayed
 ** on screen to the player / user of the app.
 */
-
 typedef struct				e_notification
 {
 	const char				*message;

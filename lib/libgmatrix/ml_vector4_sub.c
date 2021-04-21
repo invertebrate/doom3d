@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:17:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:04:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libgmatrix.h"
 
+/*
+** Subtract vector4 v2 from vector4 v1
+*/
 void		ml_vector4_sub(t_vec4 v1, t_vec4 v2, t_vec4 res)
 {
 	size_t		i;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:37:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Adds given normal map to selected object (if any)
 */
-
 void	handle_editor_add_normal_map(t_doom3d *app, char *filename)
 {
 	int32_t		i;
@@ -48,7 +47,6 @@ void	handle_editor_add_normal_map(t_doom3d *app, char *filename)
 /*
 ** Adds given texture to selected object (if any)
 */
-
 void	handle_editor_add_texture(t_doom3d *app, char *filename)
 {
 	int32_t		i;

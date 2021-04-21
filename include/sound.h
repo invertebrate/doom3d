@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:59:45 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/01 18:46:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:03:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ typedef struct			s_mp
 ** shotgun = shtg_
 ** pistol = pstl_
 */
-
 typedef enum			e_sounds
 {
 	mu_main,
@@ -126,7 +125,6 @@ typedef enum			e_sounds
 ** used to differenciate different sound types, e.g. menu, in-game, death screen
 ** is used in functions to pause/clear all sounds of a set type
 */
-
 typedef enum			e_sound_type
 {
 	st_main_menu = 1,

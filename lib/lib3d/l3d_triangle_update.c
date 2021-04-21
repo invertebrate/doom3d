@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:52:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:33:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Updates triangle centroid, ab, ac and normals
 */
-
 void				l3d_triangle_update(t_triangle *triangle)
 {
 	ml_vector3_sub(triangle->vtc[1]->pos, triangle->vtc[0]->pos, triangle->ab);
@@ -28,7 +27,6 @@ void				l3d_triangle_update(t_triangle *triangle)
 /*
 ** Updates triangle normals. (Usually used after vertice pos changes)
 */
-
 void				l3d_triangle_normal_update(t_triangle *triangle)
 {
 	ml_vector3_cross(triangle->ab, triangle->ac, triangle->normal);

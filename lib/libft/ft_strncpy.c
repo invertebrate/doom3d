@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 16:50:08 by ohakola           #+#    #+#             */
-/*   Updated: 2020/08/17 00:11:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:49:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 ** source and destination strings should not overlap, as the behavior is
 ** undefined.
 */
-
 char	*ft_strncpy(char *dst, const char *src, size_t len)
 {
 	size_t	i;

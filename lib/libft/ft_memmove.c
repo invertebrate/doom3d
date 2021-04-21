@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.helsinki.fi>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:25:18 by ohakola           #+#    #+#             */
-/*   Updated: 2019/10/28 13:43:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:47:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 ** The two strings may overlap; the copy is always done in a non-destructive
 ** manner.
 */
-
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	char		*dstcopy;

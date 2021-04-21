@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 12:38:43 by ohakola           #+#    #+#             */
-/*   Updated: 2020/08/24 20:37:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:47:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** ft_putnbr_fd() writes a given integer into stdout.
 */
-
 void	ft_putnbr(int nb)
 {
 	int	digits[10];

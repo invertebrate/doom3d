@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.helsinki.fi>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 16:21:19 by ohakola           #+#    #+#             */
-/*   Updated: 2019/10/28 12:47:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:45:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 **     164 ``t''     165 ``u''     166 ``v''     167 ``w''     170 ``x''
 **     171 ``y''     172 ``z''
 */
-
 int	ft_isalnum(int c)
 {
 	return (ft_isalpha(c) || ft_isdigit(c));

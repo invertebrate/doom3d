@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 12:45:46 by ohakola           #+#    #+#             */
-/*   Updated: 2020/08/24 20:16:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:47:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** ft_putnbr_fd() writes a given integer into given file descriptor.
 */
-
 void	ft_putnbr_fd(int nb, int fd)
 {
 	int	digits[10];

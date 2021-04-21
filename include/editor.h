@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:11:36 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 15:43:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:01:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 /*
 ** A list of submenus under editor that open popup menus
 */
-
 typedef enum				e_editor_menu_index
 {
 	editor_menu_none = 0,
@@ -38,9 +37,9 @@ typedef enum				e_editor_menu_index
 ** A struct that represents editor state for the purpose of editing the game
 ** world.
 */
-
 typedef struct 				s_editor
 {
+	t_bool					is_locked_vertical_movement;
 	t_bool					is_placing;
 	t_bool					is_saving;
 	t_bool					is_saved;
@@ -61,7 +60,6 @@ typedef struct 				s_editor
 ** Params list containing parameters required for the creation of
 ** popup menus.
 */
-
 typedef struct				s_button_menu_params
 {
 	const char				**button_names;

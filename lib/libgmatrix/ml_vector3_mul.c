@@ -6,12 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:18:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 20:02:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libgmatrix.h"
 
+/*
+** Multiply vector3 with another
+*/
 void		ml_vector3_mul(t_vec3 v1, float k, t_vec3 res)
 {
 	size_t		i;

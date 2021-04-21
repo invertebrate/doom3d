@@ -6,18 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 20:51:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:49:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-/*
-** Allocates (with malloc(3)) and returns an array of “fresh”
-** strings (all ending with ’\0’, including last array elem)
-** obtained by spliting s using the character c as a delimiter.
-** If the allocation fails the function returns NULL.
-*/
 
 static size_t		split_len(char *s, char c)
 {
@@ -55,6 +48,12 @@ static size_t		word_len(char *str, char c)
 	return (i);
 }
 
+/*
+** Allocates (with malloc(3)) and returns an array of “fresh”
+** strings (all ending with ’\0’, including last array elem)
+** obtained by spliting s using the character c as a delimiter.
+** If the allocation fails the function returns NULL.
+*/
 char				**ft_strsplit(char const *str, char c)
 {
 	char			**arr;

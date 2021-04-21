@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.helsinki.fi>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 20:34:37 by ohakola           #+#    #+#             */
-/*   Updated: 2019/10/28 17:01:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:50:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static int	is_clearable(char c)
+{
+	return (c == ' ' || c == '\n' || c == '\t' ||
+			c == '\v' || c == '\f' || c == '\r');
+}
 
 /*
 ** Allocates (with malloc(3)) and returns a copy of the string
@@ -20,13 +26,6 @@
 ** the function returns a copy of s.
 ** If the allocation fails the function returns NULL.
 */
-
-static int	is_clearable(char c)
-{
-	return (c == ' ' || c == '\n' || c == '\t' ||
-			c == '\v' || c == '\f' || c == '\r');
-}
-
 char		*ft_strtrim(char const *s)
 {
 	size_t			start;

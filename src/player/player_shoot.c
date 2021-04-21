@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_shoot.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/09 15:57:37 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/18 20:34:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,10 +154,7 @@ static void		shoot_shotgun(t_doom3d *app, t_vec3 origin)
 
 /*
 ** 	Clicking shoots right away. Else, fired according to fire rate
-** // ToDo: Add various weapons & fire rates etc.
-** // ToDo: Add bullet temp objects to hit surface
 */
-
 void			player_shoot(t_doom3d *app, uint32_t curr_time)
 {
 	t_vec3			origin;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 17:05:31 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/14 16:04:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 23:55:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,21 @@ void		set_aabb_origin_to_corners(t_3d_object *obj,
 		obj->aabb.xyz_max[2]}, origin_to_corner[6]);
 	ml_vector3_sub(origin, (t_vec3){obj->aabb.xyz_min[0], obj->aabb.xyz_max[1],
 		obj->aabb.xyz_min[2]}, origin_to_corner[7]);
+}
+
+
+t_bool		object_too_far(t_doom3d *app, t_3d_object *obj)
+{
+	float		too_far;
+	t_vec3		player_to_obj;
+
+	if (app->active_scene->scene_id == scene_id_main_game)
+		too_far = app->unit_size * GAME_VIEW_DIST_UNITS;
+	else
+		too_far = app->unit_size * EDITOR_VIEW_DIST_UNITS;
+	ml_vector3_sub(obj->position, app->player.pos,
+		player_to_obj);
+	if (ml_vector3_mag(player_to_obj) > too_far)
+		return (true);
+	return (false);
 }

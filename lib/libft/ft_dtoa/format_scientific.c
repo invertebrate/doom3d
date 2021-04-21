@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 23:41:48 by ohakola           #+#    #+#             */
-/*   Updated: 2020/08/30 21:56:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:36:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Fraction digits are moved by one to give space for the decimal dot.
 */
-
 static void				move_fraction_digits(t_dragon4_params params,
 						uint32_t *fraction_digits, uint32_t *pos)
 {
@@ -37,7 +36,6 @@ static void				move_fraction_digits(t_dragon4_params params,
 ** After fraction digits, as many zeros as there are remaining after subtracting
 ** number of fraction digits from precision, are added.
 */
-
 static void				add_trailing_zeros(t_dragon4_params params,
 						uint32_t fraction_digits, int32_t precision,
 						uint32_t *pos)
@@ -73,7 +71,6 @@ static void				add_trailing_zeros(t_dragon4_params params,
 ** array. tens, hundreds and thousand digits are added in their corresponding
 ** place. Exp buf is memcopied after the digits.
 */
-
 static void				add_exp_notation(t_dragon4_params params,
 						int32_t exp, uint32_t *pos)
 {
@@ -103,7 +100,6 @@ static void				add_exp_notation(t_dragon4_params params,
 ** Trailing zeros are added.
 ** Lastly the exponent is placed at the end of buffer.
 */
-
 uint32_t				format_scientific(t_dragon4_params params,
 						int32_t precision)
 {
