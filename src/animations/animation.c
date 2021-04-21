@@ -137,7 +137,6 @@ uint32_t				anim_3d_instance_update(t_doom3d *app,
 		return (animation->current_frame);
 	animation->current_object =
 		animation->animation_frames[animation->current_frame];
-
 	if (animation != NULL && animation->base_object != NULL)
 	{
 		npc_anim_3d_position_update(animation);
