@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:24:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/22 19:18:15 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,10 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 		else if (obj->params_type == npc_type_elevator)
 		{
 			npc_elevator(app, &npc, obj);
+		}
+		else if (obj->params_type == npc_type_crate)
+		{
+			npc_crate(app, &npc, obj);
 		}
 		else
 			return ;

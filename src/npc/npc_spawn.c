@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_spawn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 09:35:21 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/31 00:23:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/22 19:17:46 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ void				parse_npc_type(t_doom3d *app, t_npc *npc, int type)
 	if (type == npc_type_elevator)
 	{
 		npc_elevator(app, npc, NULL);
+	}
+	if (type == npc_type_crate)
+	{
+		npc_crate(app, npc, NULL);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:50:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/21 16:15:37 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/22 18:42:25 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,11 @@ t_3d_object		*editor_place_trigger_object(t_doom3d *app,
 	{
 		trigger = place_drop_jetpack(app);
 		placement_notification(app, "Placing jetpack trigger");
+	}
+	else if (trigger_type == trigger_item_medkit)
+	{
+		trigger = place_drop_medkit(app);
+		placement_notification(app, "Placing medkit trigger");
 	}
 	else if (trigger_type == trigger_item_key)
 	{

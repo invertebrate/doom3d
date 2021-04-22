@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_trigger_onhit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:35:16 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/31 23:35:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/22 19:29:29 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void		npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 	if (npc->type != npc_type_elevator)
 		npc->state = state_attack;
 	npc->interest = npc->max_interest;
+	if (npc->hp <= 0 && npc->type == npc_type_crate)
+		push_custom_event(app, event_object_delete, obj, NULL);
 	if (npc->hp <= 0 && npc->state)
 	{
 		init_anim_instance_death(obj, &anim_instance_death);

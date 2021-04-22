@@ -71,6 +71,7 @@ SOURCES = main.c \
 			npc/npc_ranged.c \
 			npc/npc_hearing.c \
 			npc/npc_elevator.c \
+			npc/npc_crate.c \
 			npc/npc_execute_behavior.c \
 			npc/npc_spawn.c \
 			npc/npc_trigger_onhit.c \
