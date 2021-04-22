@@ -16,7 +16,7 @@
 ** NPC type specific function, each type has their own
 */
 
-void		npc_default_anim_3d_metadata_set(t_anim_metadata *anim_data)
+void		npc_monster01_anim_3d_metadata_set(t_anim_metadata *anim_data)
 {
 	int		i;
 
@@ -50,7 +50,7 @@ void		npc_default_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	}
 }
 
-void		npc_ranged_anim_3d_metadata_set(t_anim_metadata *anim_data)
+void		npc_monster02_anim_3d_metadata_set(t_anim_metadata *anim_data)
 {
 	int		i;
 	i = -1;
@@ -94,13 +94,13 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 			free(npc->animation_3d);
 			npc->animation_3d = NULL;
 		}
-	if (npc->type == npc_type_default)
+	if (npc->type == npc_type_monster01 || npc->type == npc_type_monster01_a || npc->type == npc_type_monster01_range)
 	{
-		npc_default_anim_3d_metadata_set(&anim_data);
+		npc_monster01_anim_3d_metadata_set(&anim_data);
 	}
-	else if (npc->type == npc_type_ranged)
+	else if (npc->type == npc_type_monster02)
 	{
-		npc_ranged_anim_3d_metadata_set(&anim_data);
+		npc_monster02_anim_3d_metadata_set(&anim_data);
 	}
 	else
 	{

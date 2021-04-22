@@ -46,8 +46,10 @@ t_bool				npc_destroy(t_3d_object *npc_obj)
 {
 	if (npc_obj == NULL || npc_obj->type != object_type_npc)
 		return (false);
-	if (((t_npc*)npc_obj->params)->type == npc_type_default ||
-		((t_npc*)npc_obj->params)->type == npc_type_ranged)
+	if (((t_npc*)npc_obj->params)->type == npc_type_monster01 ||
+	((t_npc*)npc_obj->params)->type == npc_type_monster01_a ||
+	((t_npc*)npc_obj->params)->type == npc_type_monster01_range ||
+		((t_npc*)npc_obj->params)->type == npc_type_monster02)
 	{
 		if (!animation_3d_instance_destroy((((t_npc*)npc_obj->params))->animation_3d->current_anim_instance))
 			LOG_WARN("Failed to delete anim 3D instance (NULL)");

@@ -45,7 +45,7 @@ void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	error_check(!(dummy= (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
 		"Failed to malloc for dummy in npc_ranged.");
 	npc->parent = obj;
-	npc->type = npc_type_ranged;
+	npc->type = npc_type_monster02;
 	npc->speed = app->unit_size / 8;
 	npc->rot_speed = 10;
 	npc->state = 0;
@@ -61,9 +61,9 @@ void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->interest = 0;
 	npc->max_interest = 100;
 	npc->model_scale = 0.0065;
-	npc->model_key = NPC_RANGED_MODEL;
-	npc->texture_key = NPC_RANGED_TEXTURE;
-	npc->normal_map_key = NPC_RANGED_NORMM;
+	npc->model_key = NPC_MONSTER02_MODEL;
+	npc->texture_key = NPC_MONSTER02_TEXTURE;
+	npc->normal_map_key = NPC_MONSTER02_NORMM;
 	npc->animation_3d = dummy;
 	ml_vector3_set(npc->velocity, 0, 0, 0);
 	set_attack_pattern(npc);

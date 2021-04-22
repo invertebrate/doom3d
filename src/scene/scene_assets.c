@@ -93,15 +93,25 @@ static void		npcs_load(t_scene *scene)
 {
 	scene->npc_map = hash_map_create(MAX_ASSETS);
 	scene->asset_files.npc_names[scene->asset_files.num_npcs] =
-		"Default Enemy";
+		"Monster01";
 	hash_map_add(scene->npc_map,
 		(int64_t)scene->asset_files.npc_names[scene->asset_files.num_npcs++],
-			(void*)npc_type_default);
+			(void*)npc_type_monster01);
 	scene->asset_files.npc_names[scene->asset_files.num_npcs] =
-		"Ranged Enemy";
+		"Monster01 A";
 	hash_map_add(scene->npc_map,
 		(int64_t)scene->asset_files.npc_names[scene->asset_files.num_npcs++],
-			(void*)npc_type_ranged);
+			(void*)npc_type_monster01_a);
+	scene->asset_files.npc_names[scene->asset_files.num_npcs] =
+		"Monster01 range";
+	hash_map_add(scene->npc_map,
+		(int64_t)scene->asset_files.npc_names[scene->asset_files.num_npcs++],
+			(void*)npc_type_monster01_range);
+	scene->asset_files.npc_names[scene->asset_files.num_npcs] =
+		"Monster02 range";
+	hash_map_add(scene->npc_map,
+		(int64_t)scene->asset_files.npc_names[scene->asset_files.num_npcs++],
+			(void*)npc_type_monster02);
 	scene->asset_files.npc_names[scene->asset_files.num_npcs] =
 		"Elevator Platform";
 	hash_map_add(scene->npc_map,
@@ -264,7 +274,11 @@ static void		scene_texture_files_set(t_asset_files *data)
 	data->texture_files[data->num_textures++] =
 		"assets/textures/blood.bmp";
 	data->texture_files[data->num_textures++] =
-		"assets/textures/monster_01/monster01_diffuse.bmp";
+		NPC_MONSTER01_TEXTURE;
+	data->texture_files[data->num_textures++] =
+		NPC_MONSTER01A_TEXTURE;
+	data->texture_files[data->num_textures++] =
+		NPC_MONSTER01B_TEXTURE;
 	data->texture_files[data->num_textures++] =
 		"assets/textures/monster_02/monster02_diffuse.bmp";
 	data->texture_files[data->num_textures++] =

@@ -13,13 +13,15 @@
 #ifndef GAME_OBJECTS_H
 # define GAME_OBJECTS_H
 
-# define NPC_DEFAULT_MODEL "assets/models/monster_01/monster01_basemodel_000.obj"
-# define NPC_DEFAULT_TEXTURE "assets/textures/monster_01/monster01_diffuse.bmp"
-# define NPC_DEFAULT_NORMM "assets/textures/monster_01/monster01_normal.bmp"
+# define NPC_MONSTER01_MODEL "assets/models/monster_01/monster01_basemodel_000.obj"
+# define NPC_MONSTER01_TEXTURE "assets/textures/monster_01/monster01_diffuse.bmp"
+# define NPC_MONSTER01A_TEXTURE "assets/textures/monster_01/monster01a_diffuse.bmp"
+# define NPC_MONSTER01B_TEXTURE "assets/textures/monster_01/monster01b_diffuse.bmp"
+# define NPC_MONSTER01_NORMM "assets/textures/monster_01/monster01_normal.bmp"
 
-# define NPC_RANGED_MODEL "assets/models/monster_02/monster02_basemodel_000.obj"
-# define NPC_RANGED_TEXTURE "assets/textures/monster_02/monster02_diffuse.bmp"
-# define NPC_RANGED_NORMM "assets/textures/monster_02/monster02_normal.bmp"
+# define NPC_MONSTER02_MODEL "assets/models/monster_02/monster02_basemodel_000.obj"
+# define NPC_MONSTER02_TEXTURE "assets/textures/monster_02/monster02_diffuse.bmp"
+# define NPC_MONSTER02_NORMM "assets/textures/monster_02/monster02_normal.bmp"
 
 # define NPC_ELEVATOR_MODEL "assets/models/box.obj"
 # define NPC_ELEVATOR_TEXTURE "assets/textures/rock.bmp"
@@ -118,8 +120,10 @@ typedef enum				e_trigger_type
 */
 typedef enum				e_npc_type
 {
-	npc_type_default,
-	npc_type_ranged,
+	npc_type_monster01,
+	npc_type_monster01_a,
+	npc_type_monster01_range,
+	npc_type_monster02,
 	npc_type_elevator,
 }							t_npc_type;
 

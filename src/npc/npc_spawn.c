@@ -24,7 +24,8 @@ static t_3d_object	*place_npc_object_in_scene(t_doom3d *app, t_npc *npc, t_vec3 
 	l3d_3d_object_scale(obj, npc->model_scale, npc->model_scale, npc->model_scale);
 	npc->parent = obj;
 	l3d_3d_object_set_params(obj, npc, sizeof(t_npc), npc->type);
-	if (npc->type == npc_type_default || npc->type == npc_type_ranged)
+	if (npc->type == npc_type_monster01 || npc->type == npc_type_monster02 ||
+		npc->type == npc_type_monster01_a || npc->type == npc_type_monster01_range)
 	{
 		l3d_3d_object_rotate(obj, 0, 180, 180);//hardcoded for specific model
 		// ml_matrix4_id(obj->rotation);
@@ -35,7 +36,7 @@ static t_3d_object	*place_npc_object_in_scene(t_doom3d *app, t_npc *npc, t_vec3 
 
 void				parse_npc_type(t_doom3d *app, t_npc *npc, int type)
 {
-	if (type == npc_type_default)
+	if (type == npc_type_monster01 || type == npc_type_monster01_a)
 	{
 		npc_default(app, npc, NULL);
 		if (npc->animation_3d != NULL)
@@ -44,7 +45,7 @@ void				parse_npc_type(t_doom3d *app, t_npc *npc, int type)
 			npc->animation_3d = NULL;
 		}
 	}
-	if (type == npc_type_ranged)
+	if (type == npc_type_monster02 || type == npc_type_monster01_range)
 	{
 		npc_ranged(app, npc, NULL);
 		if (npc->animation_3d != NULL)
@@ -53,6 +54,7 @@ void				parse_npc_type(t_doom3d *app, t_npc *npc, int type)
 			npc->animation_3d = NULL;
 		}
 	}
+	npc_monster01(app, npc, type);
 	if (type == npc_type_elevator)
 	{
 		npc_elevator(app, npc, NULL);
@@ -72,7 +74,8 @@ t_3d_object			*npc_spawn(t_doom3d *app, t_vec3 pos, float angle, int type)
 	npc.angle = angle;
 	parse_npc_type(app, &npc, type);
 	obj = place_npc_object_in_scene(app, &npc, pos);//mallocs and copies data from npc, sets params
-	if (npc.type == npc_type_default || npc.type == npc_type_ranged)
+	if (npc.type == npc_type_monster01 || npc.type == npc_type_monster02 ||
+		npc.type == npc_type_monster01_a || npc.type == npc_type_monster01_range)
 		npc_animation_3d_init(app, npc.parent);
 	if (npc.parent == NULL)
 			ft_printf("default npc parent was null\n");

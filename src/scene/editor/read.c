@@ -90,11 +90,11 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 	if (obj->type == object_type_npc)
 	{
 		ft_memset(&npc, 0, sizeof(t_npc));
-		if (obj->params_type == npc_type_default)
+		if (obj->params_type == npc_type_monster01 || obj->params_type == npc_type_monster01_a)
 		{
 			npc_default(app, &npc, obj);
 		}
-		else if (obj->params_type == npc_type_ranged)
+		else if (obj->params_type == npc_type_monster02 || obj->params_type == npc_type_monster01_range)
 		{
 			npc_ranged(app, &npc, obj);
 		}
@@ -104,9 +104,11 @@ static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 		}
 		else
 			return ;
+		npc_monster01(app, &npc, obj->params_type);
 		npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 		l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
-		if (obj->params_type == npc_type_default || obj->params_type == npc_type_ranged)
+		//if (obj->params_type == npc_type_monster01 || obj->params_type == npc_type_monster02)
+		if (obj->params_type != npc_type_elevator)
 			npc_animation_3d_init(app, obj);
 	}
 	else if (obj->type == object_type_trigger)
