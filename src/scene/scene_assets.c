@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 12:09:25 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/22 13:05:40 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,6 +329,7 @@ static void		scene_model_files_set(t_asset_files *data)
 	data->model_files[data->num_models++] = "assets/models/corridor_t_floor.obj";
 	data->model_files[data->num_models++] = "assets/models/corridor_x_floor.obj";
 	data->model_files[data->num_models++] = "assets/models/keypad.obj";
+	data->model_files[data->num_models++] = "assets/models/jetpack.obj";
 }
 
 /*

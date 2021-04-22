@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 12:10:57 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/22 13:06:45 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ t_3d_object		*place_drop_jetpack(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	trigger = place_scene_object(app,
-		(const char*[3]){NPC_DEFAULT_MODEL,
-			NPC_DEFAULT_TEXTURE, NULL}, pos);
+		(const char*[3]){"assets/models/jetpack.obj",
+			"assets/textures/keypad_texture.bmp", NULL}, pos);
 	app->active_scene->objects[app->active_scene->last_object_index]->type =
 		object_type_trigger;
 	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
