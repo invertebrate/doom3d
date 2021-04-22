@@ -37,8 +37,6 @@ t_mp		mix_init(t_doom3d *app, int channels)
 		app->mp.auspec.format = cando.format;
 		app->mp.auspec.freq = cando.freq;
 		app->mp.auspec.channels = cando.channels;
-		LOG_INFO("Audio device %d wanted %x got %x", app->mp.audev,
-			PREF_AUDIO, cando.format);
 		SDL_LockAudioDevice(app->mp.audev);
 	}
 	return (app->mp);
