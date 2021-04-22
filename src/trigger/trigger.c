@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 18:08:06 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/22 18:41:38 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,30 @@ t_3d_object		*place_drop_jetpack(t_doom3d *app)
 		app->active_scene->objects[app->active_scene->last_object_index],
 		0.2, 0.2, 0.2);
 	LOG_INFO("Jetpack placed %d", trigger->id);
+	return (trigger);
+}
+
+t_3d_object		*place_drop_medkit(t_doom3d *app)
+{
+	t_vec3		pos;
+	t_trigger	trigger_params;
+	t_3d_object	*trigger;
+
+	editor_pos_camera_front(app, pos);
+	ft_memset(&trigger_params, 0, sizeof(t_trigger));
+	trigger = place_scene_object(app,
+		(const char*[3]){"assets/models/medkit.obj",
+			"assets/textures/medkit_texture.bmp", NULL}, pos);
+	app->active_scene->objects[app->active_scene->last_object_index]->type =
+		object_type_trigger;
+	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
+	l3d_3d_object_set_params(
+		app->active_scene->objects[app->active_scene->last_object_index],
+		&trigger_params, sizeof(t_trigger), trigger_item_medkit);
+	l3d_3d_object_scale(
+		app->active_scene->objects[app->active_scene->last_object_index],
+		0.2, 0.2, 0.2);
+	LOG_INFO("Medkit placed %d", trigger->id);
 	return (trigger);
 }
 
