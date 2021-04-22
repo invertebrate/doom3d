@@ -227,6 +227,7 @@ void						npc_update_state(t_doom3d *app, t_3d_object *npc_obj);
 void						npc_execute_behavior(t_doom3d *app,
 								t_3d_object *npc_obj);
 void						npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj);
+void						npc_monster01(t_doom3d *app, t_npc *npc, int type);
 void						npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj);
 void						npc_elevator(t_doom3d *app, t_npc *npc, t_3d_object *obj);
 void						handle_npc_deletions(t_doom3d *app);
