@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 17:47:16 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/22 18:45:05 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 				inventory_pickup_weapon_object(app, obj);
 			else if (obj->params_type == trigger_item_key)
 				inventory_pickup_key(app, obj);
+			else if (obj->params_type == trigger_item_medkit)
+				inventory_pickup_medkit(app, obj);
 		}
 	}
 }

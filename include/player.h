@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:03:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/22 18:47:19 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct				s_player
 	t_weapon				*equipped_weapon;
 	t_bool					keys[MAX_KEYS];
 	int						hp;
+	int						max_hp;
 	t_vec3					velocity;
 }							t_player;
 

@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/21 15:15:54 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/22 18:41:48 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef enum				e_trigger_type
 	trigger_weapon_drop_pistol = 4,
 	trigger_weapon_drop_rpg = 5,
 	trigger_item_jetpack,
+	trigger_item_medkit,
 	trigger_item_key,
 	trigger_elevator_switch,
 	trigger_elevator_switch_timer,

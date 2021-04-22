@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 12:28:46 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/22 18:50:38 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ void						weapon_equip(t_doom3d *app, t_weapon_id slot);
 void						inventory_pickup_weapon_object(t_doom3d *app,
 								t_3d_object *weapon_drop_obj);
 void						inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj);
+void						inventory_pickup_medkit(t_doom3d *app, t_3d_object *medkit_obj);
 t_weapon					weapon_data_fist(t_doom3d *app);
 t_weapon					weapon_data_pistol(t_doom3d *app);
 t_weapon					weapon_data_rpg(t_doom3d *app);
@@ -666,6 +667,7 @@ t_3d_object					*place_drop_shotgun(t_doom3d *app);
 t_3d_object					*place_drop_pistol(t_doom3d *app);
 t_3d_object					*place_drop_rpg(t_doom3d *app);
 t_3d_object					*place_drop_jetpack(t_doom3d *app);
+t_3d_object					*place_drop_medkit(t_doom3d *app);
 t_3d_object					*place_elevator_switch(t_doom3d *app);
 t_3d_object					*place_elevator_switch_timer(t_doom3d *app);
 t_3d_object					*place_drop_key(t_doom3d *app);
