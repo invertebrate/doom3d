@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 13:06:45 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/22 18:08:06 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,19 @@ void			trigger_activate(t_doom3d *app, t_3d_object *obj)
 	{
 		if (trigger->linked_obj[0])
 		{
-			elevator_go_to_next_node(app, trigger->linked_obj[0]);
+			if (trigger->key_id == -1 ||
+				app->player.keys[trigger->key_id] == true)
+			{
+				elevator_go_to_next_node(app, trigger->linked_obj[0]);
+				push_custom_event(app, event_effect_play,
+					(void*)sf_door_open, s_ini(0, 1, st_game, 1.0));
+			}
+			else
+			{
+				LOG_INFO("Player is missing key!");
+				push_custom_event(app, event_effect_play,
+					(void*)sf_door_locked, s_ini(0, 1, st_game, 1.0));
+			}
 		}
 	}
 	if (obj->params_type == trigger_elevator_switch_timer)
@@ -202,6 +214,8 @@ void			trigger_activate(t_doom3d *app, t_3d_object *obj)
 		if (trigger->linked_obj[0])
 		{
 			elevator_go_to_next_node(app, trigger->linked_obj[0]);
+			push_custom_event(app, event_effect_play,
+				(void*)sf_door_open, s_ini(0, 1, st_game, 1.0));
 		}
 		trigger_timer_start(app, trigger->linked_obj[0]);
 	}
