@@ -30,9 +30,11 @@ t_mp	mix_chan_swap(t_doom3d *app, int channels)
 void	mp_close(t_doom3d *app)
 {
 	int		i;
-	t_sound	*curr;
-	t_sound	*next;
+	//t_sound	*curr;
+	//t_sound	*next;
 
+
+	mp_typec(app, 0, 0, SSTOPPED);
 	LOG_INFO("Locking audio");
 	SDL_LockAudioDevice(app->mp.audev);
 	SDL_PauseAudioDevice(app->mp.audev, 1);
@@ -46,7 +48,7 @@ void	mp_close(t_doom3d *app)
 		free(app->mp.library[i]);
 		app->mp.library[i] = NULL;
 	}
-	curr = app->mp.tracks;
+	/*curr = app->mp.tracks;
 	LOG_INFO("Freeing music");
 	while (curr)
 	{
@@ -61,6 +63,6 @@ void	mp_close(t_doom3d *app)
 		next = curr->next;
 		free(curr);
 		curr = next;
-	}
+	}*/
 	LOG_INFO("Audio closed");
 }
