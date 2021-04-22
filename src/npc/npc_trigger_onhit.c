@@ -14,8 +14,8 @@
 
  void				npc_death_event_ontrigger(t_doom3d *app, void** params)
 {
-	LOG_INFO("NPC REMOVE ON DEATH TRIGGERED BY ANIMATION.");
 	push_custom_event(app, event_object_delete, params[0], params[1]);
+	LOG_DEBUG("Enemy npc removed by death animation trigger event.");
 }
 
  void	init_anim_instance_death(t_3d_object *obj, t_anim_3d_instance *inst)
@@ -46,8 +46,6 @@ void		npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 	npc->interest = npc->max_interest;
 	if (npc->hp <= 0 && npc->state)
 	{
-		ft_printf("enemy hp 0\n");
-		ft_printf("state: %d\n", npc->state);
 		init_anim_instance_death(obj, &anim_instance_death);
 		npc->state = state_death_anim;
 		anim_3d_clip_play(app, obj, &anim_instance_death);
