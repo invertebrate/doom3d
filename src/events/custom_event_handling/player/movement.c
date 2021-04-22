@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 02:46:11 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/07 00:26:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/22 12:22:16 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ void		handle_player_move(t_doom3d *app, t_move move_dir, int32_t amount)
 	else
 		ml_vector3_mul(dir, amount, dir);
 	ml_vector3_add(app->player.velocity, dir, app->player.velocity);
+}
+
+void		handle_player_interact(t_doom3d *app)
+{
+	player_interact(app);
 }
 
 void		handle_player_jump(t_doom3d *app)

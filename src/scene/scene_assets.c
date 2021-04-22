@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:19:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/22 13:05:40 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,12 @@ static void		triggers_load(t_scene *scene)
 		(int64_t)scene->asset_files.trigger_names[
 			scene->asset_files.num_triggers++],
 			(void*)trigger_elevator_switch);
+	scene->asset_files.trigger_names[scene->asset_files.num_triggers] =
+		"Door/Elevator Timer Switch";
+	hash_map_add(scene->trigger_map,
+		(int64_t)scene->asset_files.trigger_names[
+			scene->asset_files.num_triggers++],
+			(void*)trigger_elevator_switch_timer);
 }
 
 /*
@@ -277,6 +283,8 @@ static void		scene_texture_files_set(t_asset_files *data)
 		"assets/textures/corridor_t_floor.bmp";
 	data->texture_files[data->num_textures++] =
 		"assets/textures/corridor_x_floor.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/keypad_texture.bmp";
 }
 
 static void		scene_normal_files_set(t_asset_files *data)
@@ -320,6 +328,8 @@ static void		scene_model_files_set(t_asset_files *data)
 	data->model_files[data->num_models++] = "assets/models/corridor_straight_wall.obj";
 	data->model_files[data->num_models++] = "assets/models/corridor_t_floor.obj";
 	data->model_files[data->num_models++] = "assets/models/corridor_x_floor.obj";
+	data->model_files[data->num_models++] = "assets/models/keypad.obj";
+	data->model_files[data->num_models++] = "assets/models/jetpack.obj";
 }
 
 /*

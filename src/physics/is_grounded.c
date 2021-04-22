@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_grounded.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/18 20:35:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/21 16:48:09 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,7 @@ t_bool	player_is_grounded(t_doom3d *app)
 	{
 		if (hit_point[1] <= origin[1] &&
 			hit_point[1] >= origin[1] - app->player.aabb.size[1] &&
-						obj_under->type != object_type_projectile &&
-						obj_under->type != object_type_npc)
+						obj_under->type != object_type_projectile)
 			ret = true;
 	}
 	return (ret);
@@ -146,8 +145,7 @@ t_bool			player_hits_ceiling(t_doom3d *app)
 	{
 		if (hit_point[1] >= origin[1] &&
 			hit_point[1] <= origin[1] + app->player.aabb.size[1] / 2 &&
-						obj_above->type != object_type_projectile &&
-						obj_above->type != object_type_npc)
+						obj_above->type != object_type_projectile)
 			ret = true;
 	}
 	return (ret);

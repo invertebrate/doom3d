@@ -48,6 +48,7 @@ SOURCES = main.c \
 			player/player_jump.c \
 			player/player_shoot.c \
 			player/player_reload.c \
+			player/player_interact.c \
 			player/collision.c \
 			player/crouch.c \
 			player/movement.c \
@@ -80,6 +81,7 @@ SOURCES = main.c \
 			npc/npc_move_to_waypoint.c \
 			npc/npc_destroy.c \
 			trigger/trigger.c \
+			trigger/trigger_timer.c \
 			path/path.c \
 			path/path2.c \
 			path/patrol_path.c \

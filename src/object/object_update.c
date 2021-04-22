@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:35:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/21 16:40:40 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,11 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 					elevator_go_to_next_node(app, ((t_trigger *)obj->params)->linked_obj[0]);
 				else
 					LOG_INFO("Player is missing key!");
+			}
+			else if (obj->params_type == trigger_elevator_switch_timer &&
+					obj->params)
+			{
+				trigger_activate(app, obj);
 			}
 		}
 	}

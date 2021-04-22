@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/19 00:42:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/22 12:28:46 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@
 # define CONST_GRAVITY 2.0
 
 # define NUM_CUSTOM_EVENTS 64
+# define MAX_TIMERS 16
 
 typedef struct				s_settings
 {
@@ -97,6 +98,13 @@ typedef struct				s_settings
 	int32_t					width;
 	int32_t					height;
 }							t_settings;
+
+typedef struct 				s_timer
+{
+	t_bool					active;
+	t_3d_object				*target;
+	int						timer_end;
+}							t_timer;
 
 /*
 ** Main struct, "The App".
@@ -138,6 +146,7 @@ typedef struct				s_doom3d
 	uint32_t				num_render_vertices;
 	uint32_t				render_triangle_pool_size;
 	uint32_t				render_vertex_pool_size;
+	t_timer					timer[MAX_TIMERS];
 }							t_doom3d;
 
 /*
@@ -181,6 +190,7 @@ void						player_shoot(t_doom3d *app,
 								uint32_t curr_time);
 void						player_reload(t_doom3d *app);
 void						player_reload_finish(t_doom3d *app);
+void						player_interact(t_doom3d *app);
 
 /*
 ** Player items
@@ -367,6 +377,7 @@ void						handle_player_weapon_equip(t_doom3d *app,
 								t_weapon_id weapon);
 void						handle_player_reload(t_doom3d *app);
 void						handle_player_shoot(t_doom3d *app);
+void						handle_player_interact(t_doom3d *app);
 
 /*
 ** 3D Animations
@@ -656,10 +667,13 @@ t_3d_object					*place_drop_pistol(t_doom3d *app);
 t_3d_object					*place_drop_rpg(t_doom3d *app);
 t_3d_object					*place_drop_jetpack(t_doom3d *app);
 t_3d_object					*place_elevator_switch(t_doom3d *app);
+t_3d_object					*place_elevator_switch_timer(t_doom3d *app);
 t_3d_object					*place_drop_key(t_doom3d *app);
 void						trigger_activate(t_doom3d *app, t_3d_object *obj);
 void						trigger_link_object_to_npc(t_3d_object *trigger,
 								t_3d_object *target);
+void						trigger_timer_start(t_doom3d *app, t_3d_object *obj);
+void						trigger_timer_update(t_doom3d *app);
 
 /*
 ** Player animations

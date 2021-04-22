@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_state.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:36:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/22 12:40:58 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,11 @@ static void		handle_game_keyboard_state(t_doom3d *app)
 			(!app->keyboard.state[SDL_SCANCODE_LSHIFT] &&
 				app->player.physics_state == physics_state_grounded))
 			app->player.is_running = false;
-		if (app->keyboard.state[SDL_SCANCODE_R])
-			push_custom_event(app, event_player_reload, NULL, NULL);
 	}
+	if (app->keyboard.state[SDL_SCANCODE_R])
+		push_custom_event(app, event_player_reload, NULL, NULL);
+	if (app->keyboard.state[SDL_SCANCODE_E])
+		push_custom_event(app, event_player_interact, NULL, NULL);
 	handle_weapon_equip_input(app);
 }
 

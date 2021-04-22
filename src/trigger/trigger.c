@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 20:30:25 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/22 13:06:45 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ t_3d_object		*place_drop_jetpack(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	trigger = place_scene_object(app,
-		(const char*[3]){NPC_DEFAULT_MODEL,
-			NPC_DEFAULT_TEXTURE, NULL}, pos);
+		(const char*[3]){"assets/models/jetpack.obj",
+			"assets/textures/keypad_texture.bmp", NULL}, pos);
 	app->active_scene->objects[app->active_scene->last_object_index]->type =
 		object_type_trigger;
 	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
@@ -143,8 +143,8 @@ t_3d_object		*place_elevator_switch(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	trigger = place_scene_object(app,
-		(const char*[3]){NPC_DEFAULT_MODEL,
-			ELEVATOR_SWITCH_TEXTURE, NULL}, pos);
+		(const char*[3]){"assets/models/keypad.obj",
+			"assets/textures/keypad_texture.bmp", NULL}, pos);
 	app->active_scene->objects[app->active_scene->last_object_index]->type =
 		object_type_trigger;
 	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
@@ -156,6 +156,31 @@ t_3d_object		*place_elevator_switch(t_doom3d *app)
 		app->active_scene->objects[app->active_scene->last_object_index],
 		0.5, 0.5, 0.5);
 	LOG_INFO("Elevator switch placed %d", trigger->id);
+	return (trigger);
+}
+
+t_3d_object		*place_elevator_switch_timer(t_doom3d *app)
+{
+	t_vec3		pos;
+	t_trigger	trigger_params;
+	t_3d_object	*trigger;
+
+	editor_pos_camera_front(app, pos);
+	ft_memset(&trigger_params, 0, sizeof(t_trigger));
+	trigger = place_scene_object(app,
+		(const char*[3]){"assets/models/keypad.obj",
+			"assets/textures/keypad_texture.bmp", NULL}, pos);
+	app->active_scene->objects[app->active_scene->last_object_index]->type =
+		object_type_trigger;
+	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
+	trigger_params.key_id = -1;
+	l3d_3d_object_set_params(
+		app->active_scene->objects[app->active_scene->last_object_index],
+		&trigger_params, sizeof(t_trigger), trigger_elevator_switch_timer);
+	l3d_3d_object_scale(
+		app->active_scene->objects[app->active_scene->last_object_index],
+		0.5, 0.5, 0.5);
+	LOG_INFO("Elevator timer switch placed %d", trigger->id);
 	return (trigger);
 }
 
@@ -172,6 +197,14 @@ void			trigger_activate(t_doom3d *app, t_3d_object *obj)
 			elevator_go_to_next_node(app, trigger->linked_obj[0]);
 		}
 	}
+	if (obj->params_type == trigger_elevator_switch_timer)
+	{
+		if (trigger->linked_obj[0])
+		{
+			elevator_go_to_next_node(app, trigger->linked_obj[0]);
+		}
+		trigger_timer_start(app, trigger->linked_obj[0]);
+	}
 }
 
 void			trigger_link_object_to_npc(t_3d_object *trigger_obj,
@@ -182,7 +215,8 @@ void			trigger_link_object_to_npc(t_3d_object *trigger_obj,
 
 	npc = target_npc->params;
 	trigger = trigger_obj->params;
-	if (trigger_obj->params_type != trigger_elevator_switch)
+	if (trigger_obj->params_type != trigger_elevator_switch &&
+		trigger_obj->params_type != trigger_elevator_switch_timer)
 		LOG_ERROR("Trigger %d cannot be linked", trigger_obj->id);
 	else if (npc->type == npc_type_elevator)
 	{
