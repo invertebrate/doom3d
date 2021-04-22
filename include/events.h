@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:09:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:02:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/22 12:21:15 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef enum				e_doom3d_event
 	event_window_resize = 47,
 	event_scene_change = 48,
 	event_scene_reload = 49,
+	event_player_interact = 50,
 	event_quit = 99,
 }							t_doom3d_event;
 

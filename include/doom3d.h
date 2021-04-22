@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/21 16:32:30 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/22 12:28:46 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ void						player_shoot(t_doom3d *app,
 								uint32_t curr_time);
 void						player_reload(t_doom3d *app);
 void						player_reload_finish(t_doom3d *app);
+void						player_interact(t_doom3d *app);
 
 /*
 ** Player items
@@ -376,6 +377,7 @@ void						handle_player_weapon_equip(t_doom3d *app,
 								t_weapon_id weapon);
 void						handle_player_reload(t_doom3d *app);
 void						handle_player_shoot(t_doom3d *app);
+void						handle_player_interact(t_doom3d *app);
 
 /*
 ** 3D Animations

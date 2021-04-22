@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_custom_events.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 02:40:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 14:04:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/22 12:21:22 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void		register_player_custom_events(t_doom3d *app)
 		(void*)handle_player_shoot);
 	hash_map_add(app->custom_event_handles, event_player_reload,
 		(void*)handle_player_reload);
+	hash_map_add(app->custom_event_handles, event_player_interact,
+		(void*)handle_player_interact);
 	hash_map_add(app->custom_event_handles, event_player_weapon_equip,
 		(void*)handle_player_weapon_equip);
 	hash_map_add(app->custom_event_handles, event_player_crouch,
