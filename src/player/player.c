@@ -117,7 +117,7 @@ void			update_player_physics_state(t_doom3d *app)
 			physics_state = "FALLING";
 		else if (app->player.physics_state == physics_state_grounded)
 			physics_state = "GROUNDED";
-		LOG_INFO("Player physics state %s", physics_state);
+		LOG_DEBUG("Player physics state %s", physics_state);
 	}
 }
 

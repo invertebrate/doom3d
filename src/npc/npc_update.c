@@ -25,7 +25,7 @@ static void		npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 		&app->projectile_data[projectile_type_fireball],
 		sizeof(t_projectile));
 	rot[0] = 0; //todo - proper angles if not replacing with fireball projectile
-	rot[1] = 0; 
+	rot[1] = 0;
 	rot[2] = 0;
 	ml_vector3_copy(rot, projectile.euler_angles);
 	ml_vector3_normalize(dir, newdir);

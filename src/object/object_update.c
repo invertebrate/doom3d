@@ -110,11 +110,12 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 			// l3d_3d_object_rotate(obj, 0.0, 1.0, 0.0);
 			anim_3d_frame_update(app, ((t_npc*)obj->params)->animation_3d);
 		}
-		if (is_npc_update)
+		if (is_npc_update && ((t_npc*)obj->params)->state != state_death_anim)
 		{
 			npc_update_state(app, obj);
 		}
-		npc_execute_behavior(app, obj);//this causes cumulative displacement of animated objects to inf
+		if (((t_npc*)obj->params)->state != state_death_anim)
+			npc_execute_behavior(app, obj);
 	}
 	else if (obj->type == object_type_projectile)
 		projectile_update(app, obj);
@@ -180,7 +181,7 @@ void			update_light_sources(t_doom3d *app, t_3d_object *object)
 				light_pos, light_pos);
 			l3d_3d_object_add_light_source(object,
 				light_pos, radius * radius_scale, intensity);
-		}		
+		}
 	}
 }
 

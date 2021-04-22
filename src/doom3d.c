@@ -36,7 +36,7 @@ static void		app_init(t_doom3d *app)
 	app->active_scene = NULL;
 	app->triangles_in_view = 0;
 	app->is_running = true;
-	app->is_debug = true;
+	app->is_debug = false;
 	app->is_scene_reload = false;
 	app->unit_size = app->window->width;
 	ft_memset(&app->notifications, 0, sizeof(app->notifications));

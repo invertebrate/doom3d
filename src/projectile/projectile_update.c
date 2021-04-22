@@ -62,7 +62,7 @@ static void		projectile_explode_effect(t_doom3d *app,
 	while (++i < 4)
 		transform_explosion_plane(app, projectile_obj->params,
 			explosions[i]);
-	LOG_INFO("hit distance test | unit %f | %f => %f\n", app->unit_size, sound_mag(app->player.pos, projectile_obj->position), distance_vol(1, sound_mag(app->player.pos, projectile_obj->position), -1));
+	LOG_DEBUG("hit distance test | unit %f | %f => %f\n", app->unit_size, sound_mag(app->player.pos, projectile_obj->position), distance_vol(1, sound_mag(app->player.pos, projectile_obj->position), -1));
 	push_custom_event(app,
 		event_effect_play, (void*)sf_explsion2, s_ini(0, 1, st_game,
 		distance_vol(1, sound_mag(app->player.pos, projectile_obj->position), -1)));

@@ -1,0 +1,48 @@
+17:02:20 [32mINFO [0m [90msrc/main.c:19:[0m Start Doom App
+17:02:20 [32mINFO [0m [90msrc/doom3d.c:111:[0m Created thread pool with 12 threads for 12 logical cpus
+17:02:20 [32mINFO [0m [90msrc/doom3d.c:113:[0m Initialize SDL
+17:02:21 [32mINFO [0m [90msrc/doom3d.c:116:[0m Initialize App settings
+17:02:21 [32mINFO [0m [90msrc/doom3d.c:118:[0m Create SDL Window & frame buffers
+17:02:21 [32mINFO [0m [90msrc/window/frame.c:47:[0m Recreate frame 960 540
+17:02:21 [32mINFO [0m [90msrc/doom3d.c:33:[0m Register Custom Events
+17:02:21 [32mINFO [0m [90msrc/doom3d.c:35:[0m Initialize Audio
+17:02:21 [32mINFO [0m [90msrc/sound/sound_init.c:41:[0m Audio device 2 wanted 8120 got 8120
+17:02:21 [32mINFO [0m [90msrc/sound/sound_init.c:82:[0m Audio status 1
+17:02:21 [32mINFO [0m [90msrc/doom3d.c:47:[0m Allocating render triangle pool of size 131072 And clipped vertices pool of size 393216
+17:02:21 [32mINFO [0m [90msrc/scene/scene.c:53:[0m Select Scene 0
+17:02:21 [32mINFO [0m [90msrc/scene/scene.c:24:[0m Set Scene Content
+17:02:21 [32mINFO [0m [90msrc/scene/scene_content.c:204:[0m Create Scene Menus
+17:02:28 [32mINFO [0m [90msrc/scene/scene.c:53:[0m Select Scene 2
+17:02:28 [32mINFO [0m [90msrc/scene/scene.c:20:[0m Destroy previous scene 0
+17:02:28 [32mINFO [0m [90msrc/scene/scene.c:24:[0m Set Scene Content
+17:02:28 [32mINFO [0m [90msrc/scene/scene_content.c:189:[0m Create Texture Hash Map
+17:02:28 [32mINFO [0m [90msrc/scene/scene_content.c:192:[0m Create Normal Map Hash Map
+17:02:28 [32mINFO [0m [90msrc/scene/scene_content.c:195:[0m Create Camera
+17:02:28 [32mINFO [0m [90msrc/scene/scene_content.c:199:[0m Load Assets
+17:02:29 [32mINFO [0m [90msrc/scene/editor/read.c:354:[0m Read map assets/map_data/demomap
+17:02:29 [32mINFO [0m [90msrc/scene/editor/read.c:367:[0m Read objects
+17:02:29 [32mINFO [0m [90msrc/scene/editor/read.c:369:[0m Read path information
+17:02:29 [32mINFO [0m [90msrc/scene/editor/read.c:371:[0m Read path neighbors
+17:02:29 [32mINFO [0m [90msrc/scene/editor/read.c:373:[0m Read trigger links
+17:02:29 [32mINFO [0m [90msrc/scene/editor/read.c:375:[0m Read key ids
+17:02:29 [32mINFO [0m [90msrc/scene/editor/read.c:378:[0m Map reading successful
+17:02:29 [32mINFO [0m [90msrc/scene/scene_content.c:143:[0m Initialized Game Scene with 4 objects
+17:02:29 [32mINFO [0m [90msrc/scene/scene_content.c:204:[0m Create Scene Menus
+17:02:29 [32mINFO [0m [90msrc/player/player.c:113:[0m Player physics state FALLING
+17:02:29 [32mINFO [0m [90msrc/player/player.c:113:[0m Player physics state GROUNDED
+clip set
+17:02:53 [32mINFO [0m [90msrc/doom3d.c:59:[0m Destroy thread pool
+17:02:53 [32mINFO [0m [90msrc/doom3d.c:61:[0m Destroy scene
+17:02:53 [33mWARN [0m [90msrc/npc/npc_destroy.c:55:[0m Failed to delete anim 3D instance (NULL)
+17:02:53 [32mINFO [0m [90msrc/doom3d.c:63:[0m Destroy window
+17:02:53 [32mINFO [0m [90msrc/doom3d.c:65:[0m Destroy audio
+17:02:53 [32mINFO [0m [90msrc/sound/sound_mp_controls.c:38:[0m Locking audio
+17:02:53 [32mINFO [0m [90msrc/sound/sound_mp_controls.c:41:[0m Closing audio device 2
+17:02:53 [32mINFO [0m [90msrc/sound/sound_mp_controls.c:44:[0m Freeing audio library
+17:02:53 [32mINFO [0m [90msrc/sound/sound_mp_controls.c:52:[0m Freeing music
+17:02:53 [32mINFO [0m [90msrc/sound/sound_mp_controls.c:59:[0m Freeing effects
+17:02:53 [32mINFO [0m [90msrc/sound/sound_mp_controls.c:67:[0m Audio closed
+17:02:53 [32mINFO [0m [90msrc/doom3d.c:67:[0m Quit SDL
+17:02:53 [32mINFO [0m [90msrc/doom3d.c:72:[0m Free level strs
+17:02:53 [32mINFO [0m [90msrc/doom3d.c:75:[0m Delete notifications
+17:02:53 [32mINFO [0m [90msrc/doom3d.c:77:[0m Destroy render triangle pool & clipped vertices pool
