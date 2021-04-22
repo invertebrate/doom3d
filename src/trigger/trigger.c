@@ -117,8 +117,8 @@ t_3d_object		*place_drop_key(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	trigger = place_scene_object(app,
-		(const char*[3]){NPC_DEFAULT_MODEL,
-			NPC_DEFAULT_TEXTURE, NULL}, pos);
+		(const char*[3]){NPC_MONSTER01_MODEL,
+			NPC_MONSTER01_TEXTURE, NULL}, pos);
 	app->active_scene->objects[app->active_scene->last_object_index]->type =
 		object_type_trigger;
 	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
