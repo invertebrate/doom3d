@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 18:50:38 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/22 19:19:10 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,7 @@ void						npc_execute_behavior(t_doom3d *app,
 void						npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj);
 void						npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj);
 void						npc_elevator(t_doom3d *app, t_npc *npc, t_3d_object *obj);
+void						npc_crate(t_doom3d *app, t_npc *npc, t_3d_object *obj);
 void						handle_npc_deletions(t_doom3d *app);
 void						parse_npc_type(t_doom3d *app, t_npc *npc, int type);
 void						npc_trigger_onhit(t_doom3d *app,

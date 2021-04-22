@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 18:41:48 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/22 19:14:02 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef enum				e_npc_type
 	npc_type_default,
 	npc_type_ranged,
 	npc_type_elevator,
+	npc_type_crate,
 }							t_npc_type;
 
 /*
