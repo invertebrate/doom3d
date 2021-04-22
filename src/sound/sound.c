@@ -95,11 +95,12 @@ t_track		*read_sound(char *file, t_doom3d *app)
 	Uint32			dlen;
 	SDL_AudioCVT	cvt;
 
-	if ( SDL_LoadWAV(file, &wave, &data, &dlen) == NULL ) {
+	if (SDL_LoadWAV(file, &wave, &data, &dlen) == NULL)
+	{
 		LOG_ERROR("Couldn't load %s: %s\n", file, SDL_GetError());
 		return (NULL);
 	}
-	if (SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq, 
+	if (SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq,
 		app->mp.auspec.format, app->mp.auspec.channels, app->mp.auspec.freq)
 		== -1)
 		return (NULL);
@@ -116,10 +117,9 @@ t_track		*read_sound(char *file, t_doom3d *app)
 	return (ret);
 }
 
-
-
 /*
-** Order track list by priority, and add a new to the chain. Previous ones with same prio hold the priority
+** Order track list by priority, and add a new to the chain.
+** Previous ones with same prio hold the priority
 */
 void		mp_reorder(t_sound **start, t_sound *new)
 {
@@ -138,20 +138,18 @@ void		mp_reorder(t_sound **start, t_sound *new)
 		{
 			prev->next = new;
 			new->next = curr;
-			prev = new;
+			curr = new;
 			new = NULL;
 		}
-		else if (curr->priority < curr->next->priority)
+		if (curr->priority < curr->next->priority)
 		{
 			prev->next = curr->next;
 			curr->next = curr->next->next;
 			curr->next->next = curr;
+			curr = prev;
 		}
-		else
-		{
-			prev = curr;
-			curr = curr->next;
-		}
+		prev = curr;
+		curr = curr->next;
 	}
 	curr->next = new;
 }
@@ -167,7 +165,7 @@ t_sound			*s_ini(char loop, char priority, char type, float vol)
 {
 	t_sound	*ret;
 
-	if(!(ret = (t_sound*)malloc(sizeof(t_sound))))
+	if (!(ret = (t_sound*)malloc(sizeof(t_sound))))
 		return (NULL);
 	ret->pos = 0;
 	ret->state = SPLAYING;
