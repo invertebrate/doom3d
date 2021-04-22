@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:26:50 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/07 14:18:58 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/22 17:31:26 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void			inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj)
 		app->player.keys[key->key_id] = true;
 		push_custom_event(app, event_object_delete,
 			key_obj, NULL);
+		push_custom_event(app,
+		event_effect_play, (void*)sf_pickup, s_ini(0, 1, st_game, 1.0));
 		if (app->is_debug)
 			LOG_DEBUG("Picked up key %d", key->key_id);
 	}
