@@ -14,7 +14,6 @@
 # define PLAYER_H
 
 # define NUM_WEAPONS 4
-# define NUM_PROJECTILES 4
 # define NUM_PLAYER_ANIMATIONS 16
 # define PLAYER_SPEED 8.0
 # define PLAYER_MAX_SPEED 14.00

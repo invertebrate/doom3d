@@ -213,6 +213,7 @@ t_weapon					weapon_data_shotgun(t_doom3d *app);
 void						projectile_data_init(t_doom3d *app);
 t_projectile				projectile_data_rpg(t_doom3d *app);
 t_projectile				projectile_data_fireball(t_doom3d *app);
+t_projectile				projectile_data_fireball_custom(t_doom3d *app, int type);
 void						projectile_update(t_doom3d *app, t_3d_object *obj);
 void						projectile_explosion(t_doom3d *app, t_vec3 pos,
 								t_projectile *projectile);
