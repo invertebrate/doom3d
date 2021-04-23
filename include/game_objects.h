@@ -38,6 +38,19 @@
 # define MAX_PATH_NODE_NETWORK_SIZE 256
 
 /*
+** Projectile definitions
+*/
+
+# define NUM_PROJECTILES 10 // 3 + npc_projectile below
+# define NPC_PROJECTILE_00 "assets/textures/npc_projectile_texture.bmp"
+# define NPC_PROJECTILE_01 "assets/textures/npc_projectile_texture_blue.bmp"
+# define NPC_PROJECTILE_02 "assets/textures/npc_projectile_texture_green.bmp"
+# define NPC_PROJECTILE_03 "assets/textures/npc_projectile_texture_light_green.bmp"
+# define NPC_PROJECTILE_04 "assets/textures/npc_projectile_texture_pink.bmp"
+# define NPC_PROJECTILE_05 "assets/textures/npc_projectile_texture_yellow.bmp"
+# define NPC_PROJECTILE_06 "assets/textures/npc_projectile_texture_purple.bmp"
+
+/*
 ** State defining how physics get applied for object / player
 */
 typedef enum				e_physics_state
@@ -137,9 +150,15 @@ typedef enum				e_npc_type
 typedef enum				e_projectile_type
 {
 	projectile_type_rpg = 0,
-	projectile_type_fireball = 1,
-	projectile_type_bullet = 2,
-	projectile_type_none = 3,
+	projectile_type_fireball, //= 1,
+	projectile_type_fireball_blue,
+	projectile_type_fireball_green,
+	projectile_type_fireball_lgreen,
+	projectile_type_fireball_pink,
+	projectile_type_fireball_yellow,
+	projectile_type_fireball_purple,
+	projectile_type_bullet,// = 2,
+	projectile_type_none,// = 3,
 }							t_projectile_type;
 
 /*
