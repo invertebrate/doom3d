@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 18:21:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:39:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 02:33:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,6 @@ void			l3d_3d_object_scale_with_uvs(t_3d_object *object,
 	l3d_3d_object_translate(object,
 		old_pos[0], old_pos[1], old_pos[2]);
 	ml_vector3_copy(old_pos, object->position);
+	l3d_object_set_shading_opts(object, object->material->shading_opts |
+		e_shading_uv_repeat);
 }

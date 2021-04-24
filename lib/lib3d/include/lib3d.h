@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:46:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 02:36:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef enum				e_shading_opts
 	e_shading_yellow = 1 << 9,
 	e_shading_cyan = 1 << 10,
 	e_shading_transparent = 1 << 11,
+	e_shading_uv_repeat = 1 << 12,
 }							t_shading_opts;
 
 /*
@@ -522,7 +523,10 @@ uint32_t					l3d_pixel_depth_shaded(uint32_t pixel, float z_val);
 uint32_t					l3d_pixel_normal_shaded(uint32_t pixel,
 								t_triangle *triangle, t_vec2 uv);
 uint32_t					l3d_pixel_selection_shaded(uint32_t pixel);
-void						l3d_loop_uv(t_vec2 uv);
+void						l3d_clamp_uv(t_vec2 uv);
+void						l3d_uv_repeat(t_vec2 uv);
+void						l3d_clamp_or_repeat_uv(t_triangle *triangle,
+								t_vec2 uv);
 void						l3d_raster_draw_pixel(t_sub_framebuffer *buffers,
 								int32_t xy[2],
 								t_triangle *triangle);

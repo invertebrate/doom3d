@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:27:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:44:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 02:35:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void		get_world_pos(t_triangle *triangle, t_vec3 baryc,
 		world_pos[i] = ((baryc[0] * triangle->vtc[0]->pos[i]) * az +
 						(baryc[1] * triangle->vtc[1]->pos[i]) * bz +
 						(baryc[2] * triangle->vtc[2]->pos[i]) * cz) * inv_denom;
-
 }
 
 void			point_light_calculation(t_triangle *triangle, t_vec3 world_pos,
