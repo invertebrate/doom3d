@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:35:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 22:16:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:09:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,10 +236,6 @@ void					set_player_reload_frame(t_doom3d *app)
 	if (app->is_debug)
 		LOG_DEBUG("Set player reload sprite frame");
 }
-
-/*
-**
-*/
 
 t_player_anim_state		player_animation_state(t_doom3d *app)
 {

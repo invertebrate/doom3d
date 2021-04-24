@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 19:19:10 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/24 15:31:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,14 @@
 ** Allocation space for render triangles used in rasterization
 ** Increase if needed (error encountered)
 */
+
 # define RENDER_TRIANGLE_POOL_SIZE 131072
 
 /*
 ** Defines how many levels can be created, otherwise the app will remind
 ** that too many levels were created.
 */
+
 # define MAX_LEVELS 16
 
 /*
@@ -109,6 +111,7 @@ typedef struct 				s_timer
 /*
 ** Main struct, "The App".
 */
+
 typedef struct				s_doom3d
 {
 	t_bool					is_running;
@@ -195,6 +198,7 @@ void						player_interact(t_doom3d *app);
 /*
 ** Player items
 */
+
 void						weapons_init(t_doom3d *app);
 void						weapons_init_data(t_doom3d *app);
 void						weapon_equip(t_doom3d *app, t_weapon_id slot);
@@ -210,6 +214,7 @@ t_weapon					weapon_data_shotgun(t_doom3d *app);
 /*
 ** Projectiles
 */
+
 void						projectile_data_init(t_doom3d *app);
 t_projectile				projectile_data_rpg(t_doom3d *app);
 t_projectile				projectile_data_fireball(t_doom3d *app);
@@ -223,6 +228,7 @@ void						place_projectile_object_in_scene(t_doom3d *app,
 /*
 ** Npcs
 */
+
 t_3d_object					*npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
 								int type);
 void						npc_update_state(t_doom3d *app, t_3d_object *npc_obj);
@@ -265,6 +271,7 @@ void						forces_update_player(t_doom3d *app);
 /*
 ** Events
 */
+
 void						push_custom_event(t_doom3d *app,
 								t_doom3d_event code,
 								void* data1,
@@ -406,12 +413,14 @@ t_bool						animation_3d_instance_destroy(t_anim_3d_instance *instance);
 /*
 ** Camera
 */
+
 t_camera					*new_camera(void);
 void						update_camera(t_doom3d *app);
 
 /*
 ** Rendering
 */
+
 t_bool						screen_intersection(t_doom3d *app,
 								t_triangle *triangle);
 t_bool						is_rendered(t_doom3d *app, t_triangle *triangle);
@@ -500,6 +509,7 @@ void						allocate_render_triangle_pool(t_doom3d *app,
 /*
 ** Objects
 */
+
 void						update_objects(t_doom3d *app);
 void						object_type_to_str(t_3d_object *obj, char *str);
 t_3d_object					*find_one_object_by_type(t_doom3d *app,
@@ -511,6 +521,7 @@ t_3d_object					*find_object_by_id(t_doom3d *app, uint32_t id);
 /*
 ** Scene
 */
+
 void						scene_assets_load(t_scene *scene);
 void						active_scene_content_set(t_doom3d *app);
 void						active_scene_update_after_objects(t_scene *scene);
@@ -533,6 +544,7 @@ void						remove_all_objects_shading_opts(t_doom3d *app,
 /*
 ** Editor
 */
+
 void						editor_objects_invisible_unhighlight(t_doom3d *app);
 void						editor_objects_invisible_highlight(t_doom3d *app);
 void						save_map(t_doom3d *app);
@@ -590,11 +602,13 @@ t_3d_object					*editor_place_npc_object(t_doom3d *app,
 /*
 ** Level
 */
+
 void						read_level_list(t_doom3d *app);
 
 /*
 ** Menus
 */
+
 t_button_group				*button_menu_create(t_doom3d *app,
 								t_button_menu_params menu_params);
 t_button_group				*button_menu_create_shaded(t_doom3d *app,
@@ -622,6 +636,7 @@ t_surface					*menu_button_surface_shaded(const char *option,
 /*
 ** Button clicks
 */
+
 void						on_delete_menu_button_click(t_button *self,
 								void *params);
 void						on_editor_save_button_click(t_doom3d *app);
@@ -650,6 +665,7 @@ void						on_guide_menu_button_click(t_button *self,
 /*
 ** Utils
 */
+
 void						resize_dependent_recreate(t_doom3d *app);
 void						render_debug_info(t_doom3d *app);
 void						capture_fps(t_doom3d *app);
@@ -664,6 +680,7 @@ void						delete_notifications(t_doom3d *app);
 /*
 ** Triggers
 */
+
 t_3d_object					*place_player_end(t_doom3d *app);
 t_3d_object					*place_player_start(t_doom3d *app);
 t_3d_object					*place_drop_shotgun(t_doom3d *app);
@@ -683,6 +700,7 @@ void						trigger_timer_update(t_doom3d *app);
 /*
 ** Player animations
 */
+
 void						player_animations_init(t_doom3d *app);
 void						player_animation_update(t_doom3d *app);
 void						set_player_shoot_frame(t_doom3d *app);
@@ -694,11 +712,13 @@ t_player_anim_state			player_animation_state(t_doom3d *app);
 /*
 ** Player HUD
 */
+
 void						player_vitals_render(t_doom3d *app);
 
 /*
 ** Sounds
 */
+
 void						mp_init(t_doom3d *app);
 t_mp						mix_chan_swap(t_doom3d *app, int channels);
 t_mp						mix_init(t_doom3d *app, int channels);

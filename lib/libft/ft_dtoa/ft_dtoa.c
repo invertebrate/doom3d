@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 18:19:22 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:36:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:49:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 ** num is incremented by one to account for that).
 ** With normal mode the precision defines the cutoff num.
 */
+
 void			set_cutoffs(t_dragon4_params *dragon, t_dtoa_params dtoa)
 {
 	if (dtoa.precision < 0)
@@ -54,6 +55,7 @@ void			set_cutoffs(t_dragon4_params *dragon, t_dtoa_params dtoa)
 ** Sign is 1 when negative, 0 when positive thus buffer length is increased by
 ** sign bit.
 */
+
 static void		set_dragon4_params(t_dragon4_params *dragon, t_dtoa_params dtoa,
 				char *buf, uint32_t buf_size)
 {
@@ -87,6 +89,7 @@ static void		set_dragon4_params(t_dragon4_params *dragon, t_dtoa_params dtoa,
 ** Dtoa returns an allocated double value as a char* in either scientific
 ** or normal format.
 */
+
 char			*ft_dtoa(t_dtoa_params params)
 {
 	char				buf[DTOA_BUF_SIZE];
@@ -115,6 +118,7 @@ char			*ft_dtoa(t_dtoa_params params)
 ** ft_dtoa_buf Outputs parsed float in either scientific or normal format
 ** to given buffer.
 */
+
 int				ft_dtoa_buf(t_dtoa_params params, char *buf, int buf_size)
 {
 	t_dragon4_params	dragon;

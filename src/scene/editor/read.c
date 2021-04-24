@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 19:18:15 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/24 16:31:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ float			pitch_from_rotation_matrix(t_mat4 rotation)
 ** for npc angle:
 ** https://stackoverflow.com/questions/15022630/
 */
+
 static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 {
 	t_npc		npc;
@@ -212,6 +213,7 @@ static int32_t	read_path_information(t_doom3d *app, char *contents)
 ** Reads npc patrol path information, but if npc was deleted, its information
 ** is not set even if the patrol path information is found in map data
 */
+
 static int32_t	read_path_neighbor_information(t_doom3d *app, char *contents)
 {
 	int32_t		offset;
@@ -262,6 +264,7 @@ static int32_t	read_path_neighbor_information(t_doom3d *app, char *contents)
 ** Reads trigger link information
 ** and links the triggers to their linked objects
 */
+
 static int32_t	read_trigger_link_information(t_doom3d *app, char *contents)
 {
 	int32_t		offset;
@@ -312,6 +315,7 @@ static int32_t	read_trigger_link_information(t_doom3d *app, char *contents)
 ** Reads trigger key id information
 ** and sets the correct key id values
 */
+
 static int32_t	read_key_id_information(t_doom3d *app, char *contents)
 {
 	int32_t		offset;
@@ -348,6 +352,7 @@ static int32_t	read_key_id_information(t_doom3d *app, char *contents)
 /*
 ** Read map data onto active scene from char *map_name file
 */
+
 void			read_map(t_doom3d *app, const char *map_name)
 {
 	t_file_contents	*file;

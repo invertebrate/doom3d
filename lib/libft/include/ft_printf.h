@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:01:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:41:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:52:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 /*
 ** A data struct containing all flag & fmt token related information
 */
+
 typedef struct		s_printf
 {
 	va_list		variables;
@@ -48,6 +49,7 @@ typedef struct		s_printf
 ** A data struct used as a helper when looping through ft_printf specs and
 ** non-token characters (e.g. %u)
 */
+
 typedef struct		s_fmt_specs
 {
 	int			middle_len;
@@ -57,6 +59,7 @@ typedef struct		s_fmt_specs
 /*
 ** Enums for variable length type options in ft_printf spec fmt.
 */
+
 enum				e_lengths
 {
 	length_none,
@@ -87,6 +90,7 @@ int					is_flag(char c);
 /*
 **  Parsing
 */
+
 int					parse_input(t_printf *data, char *fmt);
 int					parse_sub_specifiers(t_printf *data);
 int					parse_spec_variable_pair(t_printf *data, char *fmt);
@@ -97,6 +101,7 @@ int					check_parsed_zero(t_printf *data, char *res);
 /*
 ** Number parsing
 */
+
 char				*parse_int(t_printf *data);
 char				*parse_float(t_printf *data);
 char				*parse_address(t_printf *data);
@@ -105,6 +110,7 @@ char				*scientific_double(t_printf *data, long double var);
 /*
 ** String utils
 */
+
 char				*add_str_to_beg(char *str, char *add,
 					int len2, int len1);
 char				*extend_str(char *str, int size_in, int add_size);
@@ -118,6 +124,7 @@ char				*add_chars_to_null_str_begin(char *res, int start,
 /*
 ** Format
 */
+
 char				*handle_formatting(t_printf *data, char *res);
 char				*handle_int_padding(t_printf *data, char *res);
 char				*handle_float_padding(t_printf *data, char *res);

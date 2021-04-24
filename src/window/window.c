@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:07:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:35:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Resize window
 */
+
 void			window_resize(t_window *window, int32_t width, int32_t height)
 {
 	SDL_SetWindowSize(window->window, width, height);
@@ -29,6 +30,7 @@ void			window_resize(t_window *window, int32_t width, int32_t height)
 ** Callback for window hidden and resize events so the window struct
 ** will know when it gets resized
 */
+
 static int		window_resize_callback(void *data, SDL_Event *event)
 {
 	t_window	*window;
@@ -58,6 +60,7 @@ static int		window_resize_callback(void *data, SDL_Event *event)
 /*
 ** Create new window with framebuffers
 */
+
 void			window_create(t_window **window_ref,
 					int32_t width, int32_t height)
 {
@@ -94,6 +97,7 @@ void			window_create(t_window **window_ref,
 /*
 ** Destroy window
 */
+
 void			window_destroy(t_window *window)
 {
 	l3d_framebuffer_destroy(window->framebuffer);

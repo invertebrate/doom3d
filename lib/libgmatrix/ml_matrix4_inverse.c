@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:54:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:00:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static void	set_inverse(t_mat4 m1, float m[16], float inv[16])
 /*
 ** Inverse a matrix
 */
+
 void		ml_matrix4_inverse(t_mat4 m1, t_mat4 res)
 {
 	float		inv[16];

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:35:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:08:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_3d_object		*find_one_object_by_type(t_doom3d *app, uint32_t object_type,
 ** so only use this when intending to actually place objects
 ** Saves this next index to last_object_index under scene
 */
+
 static uint32_t	next_object_index(t_doom3d *app)
 {
 	uint32_t	next_index;
@@ -70,6 +71,7 @@ static uint32_t	next_object_index(t_doom3d *app)
 ** Place object whose assets exist in memory (obj, texture & normal maps
 ** have been read into scene)
 */
+
 t_3d_object		*place_scene_object(t_doom3d *app, const char *filenames[3],
 					t_vec3 pos)
 {
@@ -109,6 +111,7 @@ t_3d_object		*place_scene_object(t_doom3d *app, const char *filenames[3],
 /*
 ** Place object from model (add textures from memory)
 */
+
 t_3d_object		*place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 					const char *filenames[2], t_vec3 pos)
 {
@@ -144,6 +147,7 @@ t_3d_object		*place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 /*
 ** Place object from model (add textures from memory)
 */
+
 t_3d_object			*place_temp_object(t_doom3d *app, const char *filenames[3],
 						t_vec3 pos, int32_t lifetime_and_delay[2])
 {
@@ -182,6 +186,7 @@ t_3d_object			*place_temp_object(t_doom3d *app, const char *filenames[3],
 /*
 ** Place object from model (add textures from memory)
 */
+
 t_3d_object			*place_procedural_temp_object(t_doom3d *app,
 						t_3d_object *model,
 						const char *filenames[2],

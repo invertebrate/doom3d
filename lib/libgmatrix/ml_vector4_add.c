@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:03:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:01:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Add vector4 to another
 */
+
 void		ml_vector4_add(t_vec4 v1, t_vec4 v2, t_vec4 res)
 {
 	size_t		i;

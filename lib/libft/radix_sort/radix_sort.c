@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 17:00:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:42:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:53:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static t_bool	is_valid(void)
 ** to the number of threads on the pool, which in turn should be similar to the
 ** number of logical threads on your processor
 */
+
 void			radix_sort(t_thread_pool *pool, uint32_t *array, size_t size)
 {
 	uint32_t		tmp[size + EXPECTED_THREADS];
@@ -68,6 +69,7 @@ void			radix_sort(t_thread_pool *pool, uint32_t *array, size_t size)
 /*
 ** Same as `radix_sort` but for key values
 */
+
 void			radix_sort_key_val(t_thread_pool *pool,
 					uint32_t *key_vals[2], size_t size)
 {

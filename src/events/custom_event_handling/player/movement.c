@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 02:46:11 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 12:22:16 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/24 16:06:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,4 @@ void		handle_player_move(t_doom3d *app, t_move move_dir, int32_t amount)
 	else
 		ml_vector3_mul(dir, amount, dir);
 	ml_vector3_add(app->player.velocity, dir, app->player.velocity);
-}
-
-void		handle_player_interact(t_doom3d *app)
-{
-	player_interact(app);
-}
-
-void		handle_player_jump(t_doom3d *app)
-{
-	player_jump(app);
-}
-
-void		handle_player_crouch(t_doom3d *app, t_bool is_crouching)
-{
-	player_crouch(app, is_crouching);
-}
-
-void		handle_player_toggle_flight(t_doom3d *app)
-{
-	app->player.can_fly = !app->player.can_fly;
 }

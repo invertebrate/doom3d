@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:27 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:45:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:54:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static double			fractional_part(char *str)
 ** For zero int part, sign = -1 if first char is '-'. Else 1, because atoi
 ** returns sign for int part.
 */
+
 double					ft_atod(char *str)
 {
 	double	val;

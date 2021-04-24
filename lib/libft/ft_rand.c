@@ -16,6 +16,7 @@
 ** https://stackoverflow.com/questions/3062746/
 ** special-simple-random-number-generator
 */
+
 uint32_t			ft_rand(uint32_t seed)
 {
 	return ((1103515245 * seed + 12345) % (1 << 31));

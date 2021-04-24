@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 18:45:05 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/24 16:08:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ void			update_editor_light_sources(t_doom3d *app)
 ** to objects & player. Handles object deletion
 ** Also keeps scene structures up to date (triangle tree)
 */
+
 void			update_objects(t_doom3d *app)
 {
 	int32_t			i;

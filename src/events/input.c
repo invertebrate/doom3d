@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:36:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:04:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** This function is responsible for passing event info to buttons and button
 ** groups (menus) so their on clicks are handled.
 */
+
 static void		handle_all_button_events(t_doom3d *app, SDL_Event event)
 {
 	int32_t	i;
@@ -44,6 +45,7 @@ static void		handle_all_button_events(t_doom3d *app, SDL_Event event)
 ** Handle button events for game including weapon switch via mouse wheel
 ** See keyboard_state.c and mouse_state.c for movement
 */
+
 void			handle_game_input_events(t_doom3d *app, SDL_Event event)
 {
 	int32_t	weapon;
@@ -72,6 +74,7 @@ void			handle_game_input_events(t_doom3d *app, SDL_Event event)
 ** Handle editor input events if inside editor
 ** Tie buttons to receive events
 */
+
 void			handle_input_events(t_doom3d *app, SDL_Event event)
 {
 	if (app->is_debug)
@@ -103,6 +106,7 @@ void			handle_input_events(t_doom3d *app, SDL_Event event)
 ** 4. Handle custom events
 ** 5. Handle input events (for game, for editor, and for button clicks)
 */
+
 void			handle_events(t_doom3d *app)
 {
 	SDL_Event	event;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:00:25 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:38:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:50:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Initializes data that requires initialization before parsin fmt.
 */
+
 static int				init_printf(t_printf *data, int fd)
 {
 	ft_memset(data, 0, sizeof(t_printf));
@@ -27,6 +28,7 @@ static int				init_printf(t_printf *data, int fd)
 /*
 ** Same as ft_printf, but writes to given file descriptor
 */
+
 int						ft_dprintf(int fd, const char *format, ...)
 {
 	t_printf	data;
@@ -47,6 +49,7 @@ int						ft_dprintf(int fd, const char *format, ...)
 /*
 ** Same as ft_printf, but instead writes the output to inputted char *str
 */
+
 int						ft_sprintf(char *str, const char *format, ...)
 {
 	t_printf	data;
@@ -71,6 +74,7 @@ int						ft_sprintf(char *str, const char *format, ...)
 ** and format specifications, each of which causes printing of the next
 ** successive argument.
 */
+
 int						ft_printf(const char *format, ...)
 {
 	t_printf	data;

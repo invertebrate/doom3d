@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 17:18:22 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:38:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:49:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Adds 0x to res if specified.
 */
+
 void				swap_zerox(t_printf *data, char *res, int x_index)
 {
 	if ((!(data->zerox && (data->c == 'x' || data->c == 'X')) &&
@@ -28,6 +29,7 @@ void				swap_zerox(t_printf *data, char *res, int x_index)
 ** Handles sign placement for int or floats if padding or width
 ** has been adjusted
 */
+
 void				swap_sign_after_padding(t_printf *data,
 					char *res, int sign_index)
 {
@@ -51,6 +53,7 @@ void				swap_sign_after_padding(t_printf *data,
 ** Swaps sign to it's place if res has been extended specified by width or
 ** precision.
 */
+
 void				swap_sign_after_precision(t_printf *data,
 					char *res, int sign_index)
 {
@@ -66,6 +69,7 @@ void				swap_sign_after_precision(t_printf *data,
 /*
 ** Handles blank (sign) space if specified by flags.
 */
+
 char				*handle_blank(t_printf *data, char *res)
 {
 	if (!(res = extend_str(res, data->var_len, 1)))

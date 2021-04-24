@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:01:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:40:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:52:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,25 @@
 /*
 ** Max length of big int array (blocks)
 */
+
 # define MAX_BI_BLOCKS 1023
 
 /*
 ** Max buffer size for dtoa. Max long double will fit just under 5000 chars.
 */
+
 # define DTOA_BUF_SIZE 8192
 
 /*
 ** Log base 10 of 2 as long double.
 */
+
 # define LOG10_2 0.30102999566398119521373889472449
 
 /*
 ** Format type, whether value is to be formatted like: 123.123 or 1.23123e002
 */
+
 typedef enum			e_dtoa_format
 {
 	FORMAT_NORM,
@@ -50,6 +54,7 @@ typedef enum			e_dtoa_format
 ** total length uses cutoff number to account for count of all digits in the
 ** output. Fraction length cuts the number by counting number of decimal digits.
 */
+
 typedef enum			e_cutoff_mode
 {
 	CUTOFF_NONE,
@@ -60,6 +65,7 @@ typedef enum			e_cutoff_mode
 /*
 ** Input parameters to dtoa.
 */
+
 typedef struct			s_dtoa_params
 {
 	double			value;
@@ -75,6 +81,7 @@ typedef struct			s_dtoa_params
 ** is a bit of 32 bit integer. So e.g. [123, 456, 789] =
 ** 123 * (2^32)^0 + 456 * (2^32)^1 + 789 * (2^32)^2 = 1.455448108E22
 */
+
 typedef struct			s_big_int
 {
 	uint32_t		length;
@@ -88,6 +95,7 @@ typedef struct			s_big_int
 ** Cutoff num: Where digit array is cut off (e.g. by precision)
 ** Out exponent: Base 10 exponent of the first digit (e.g. used in sci format)
 */
+
 typedef struct			s_dragon4_params
 {
 	uint64_t		mantissa;
@@ -106,6 +114,7 @@ typedef struct			s_dragon4_params
 /*
 ** Dtoa
 */
+
 char					*ft_dtoa(t_dtoa_params params);
 int						ft_dtoa_buf(t_dtoa_params params, char *buf,
 						int buf_size);
@@ -118,6 +127,7 @@ void					set_cutoffs(t_dragon4_params *dragon,
 /*
 ** Format
 */
+
 uint32_t				format_normal(t_dragon4_params params,
 						int32_t precision);
 uint32_t				format_scientific(t_dragon4_params params,
@@ -129,6 +139,7 @@ void					set_exp_buf(t_dragon4_params params, int32_t exp,
 /*
 ** Dragon4
 */
+
 uint32_t				dragon4(t_dragon4_params params);
 uint32_t				output_without_cutoff(t_dragon4_params params,
 						t_big_int *scale, t_big_int *scaled_value,
@@ -150,12 +161,14 @@ void					prepare_values_for_division(t_big_int *scale,
 /*
 ** Math utils
 */
+
 uint32_t				log_base2_32(uint32_t val);
 uint32_t				log_base2_64(uint64_t val);
 
 /*
 ** Big Int ops
 */
+
 void					big_int_copy(t_big_int *to_copy, t_big_int *res);
 t_bool					big_int_is_zero(t_big_int *b);
 void					big_int_set_u64(t_big_int *b, uint64_t val);

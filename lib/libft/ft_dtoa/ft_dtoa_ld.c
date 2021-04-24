@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/30 18:32:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:36:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:49:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Version of set_dragon4_params for long double
 */
+
 static void		set_dragon4_params_ld(t_dragon4_params *dragon,
 				t_dtoa_params dtoa, char *buf, uint32_t buf_size)
 {
@@ -47,6 +48,7 @@ static void		set_dragon4_params_ld(t_dragon4_params *dragon,
 /*
 ** Version of ft_dtoa for long double
 */
+
 char			*ft_dtoa_ld(t_dtoa_params params)
 {
 	char					buf[DTOA_BUF_SIZE];
@@ -74,6 +76,7 @@ char			*ft_dtoa_ld(t_dtoa_params params)
 /*
 ** Version of ft_dtoa_buf for long double
 */
+
 int				ft_dtoa_buf_ld(t_dtoa_params params, char *buf, int buf_size)
 {
 	t_dragon4_params		dragon;

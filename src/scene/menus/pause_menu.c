@@ -27,6 +27,7 @@ static void			on_pause_menu_button_click(t_button *self, void *params)
 /*
 ** Create pause menu
 */
+
 void				pause_menu_create(t_doom3d *app)
 {
 	error_check(!(app->active_scene->menus =

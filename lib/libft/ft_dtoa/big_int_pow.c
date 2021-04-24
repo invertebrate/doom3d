@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 22:14:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:37:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:48:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 ** A global lookup table containing within 32 bit ints up to 10^7
 ** Larger than that needs to be using t_big_int struct
 */
+
 uint32_t		g_power_of_10_u32[8] = {1, 10, 100, 1000, 10000, 100000,
 	1000000, 10000000};
 
 /*
 ** A global lookup table containing big ints up to 10^4096
 */
+
 t_big_int		g_power_of_10_big[10] = {(t_big_int){1, {100000000}},
 		(t_big_int){2, {0x6fc10000, 0x002386f2}},
 		(t_big_int){4, {0x00000000, 0x85acef81, 0x2d6d415b, 0x000004ee}},
@@ -215,6 +217,7 @@ void			mul_lhs_by_small_exponent(t_big_int *lhs, uint32_t exponent,
 /*
 ** Outputs a big int of 10^exponent into result
 */
+
 void			big_int_pow_10(uint32_t exponent, t_big_int *res)
 {
 	t_big_int	temps[2];
@@ -246,6 +249,7 @@ void			big_int_pow_10(uint32_t exponent, t_big_int *res)
 /*
 ** Multiplies a big int with 10^exponent into result
 */
+
 void			big_int_mul_pow_10(t_big_int *lhs, uint32_t exponent,
 				t_big_int *res)
 {
@@ -278,6 +282,7 @@ void			big_int_mul_pow_10(t_big_int *lhs, uint32_t exponent,
 /*
 ** Outputs a big int of 2^exponent into result
 */
+
 void			big_int_pow_2(uint32_t exponent, t_big_int *res)
 {
 	uint32_t	block_i;

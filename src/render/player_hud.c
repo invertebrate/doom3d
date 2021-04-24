@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:12:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 23:43:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:10:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static void		render_current_frame(t_anim_frame *curr_frame,
 ** and leave only bottom l3d_image_place once we've unified our
 ** weapon animations.
 */
+
 static void		render_player_animation(t_doom3d *app)
 {
 	t_surface			*anim_source;

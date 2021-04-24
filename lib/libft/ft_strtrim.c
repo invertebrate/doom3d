@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 20:34:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:50:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:58:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static int	is_clearable(char c)
 ** the function returns a copy of s.
 ** If the allocation fails the function returns NULL.
 */
+
 char		*ft_strtrim(char const *s)
 {
 	size_t			start;

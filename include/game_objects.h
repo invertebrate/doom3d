@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_objects.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 19:14:02 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/24 15:32:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
 /*
 ** State defining how physics get applied for object / player
 */
+
 typedef enum				e_physics_state
 {
 	physics_state_falling = 1,
@@ -69,6 +70,7 @@ typedef enum				e_physics_state
 ** Default objects are just regular rendered 3d objects.
 ** t_3d_object 
 */
+
 typedef enum				e_object_type
 {
 	object_type_default = 0,
@@ -84,6 +86,7 @@ typedef enum				e_object_type
 ** Or later a combination of 3d models and their textures.
 ** They are a bundle of things placeable by the editor.
 */
+
 typedef enum				e_prefab_type
 {
 	prefab_plane = 1,
@@ -114,6 +117,7 @@ typedef struct				s_path_node
 ** A list of various trigger types
 ** t_trigger_type may be used as a sub type (params_type) under t_3d_object
 */
+
 typedef enum				e_trigger_type
 {
 	trigger_player_start = 1,
@@ -132,6 +136,7 @@ typedef enum				e_trigger_type
 ** A list of npc types
 ** t_npc_type may be used as a sub type (params_type) under t_3d_object
 */
+
 typedef enum				e_npc_type
 {
 	npc_type_monster01,
@@ -147,6 +152,7 @@ typedef enum				e_npc_type
 ** and also as their specific 3d objects.
 ** t_projectile_type may be used as a sub type (params_type) under t_3d_object
 */
+
 typedef enum				e_projectile_type
 {
 	projectile_type_rpg = 0,
@@ -176,6 +182,7 @@ typedef enum				e_projectile_type
 ** These ids define e.g. which animation for player is used when shooting or
 ** reloading, or how player shoots in the game world.
 */
+
 typedef enum				e_weapon_id
 {
 	weapon_fist = 0,
@@ -188,6 +195,7 @@ typedef enum				e_weapon_id
 ** Weapon struct containing relevant data for player's world interaction
 ** with enemies.
 */
+
 typedef struct				s_weapon
 {
 	t_weapon_id				id;
@@ -205,6 +213,7 @@ typedef struct				s_weapon
 ** Projectile data defining how projectile objects are instantiated 
 ** and how projectile interacts with the game world.
 */
+
 typedef struct				s_projectile
 {
 	t_projectile_type		type;
@@ -223,6 +232,7 @@ typedef struct				s_projectile
 /*
 ** a struct for triggers, mostly storing pointers to objects the trigger is linked to
 */
+
 typedef struct				s_trigger
 {
 	t_3d_object				*parent;
@@ -234,6 +244,7 @@ typedef struct				s_trigger
 /*
 ** Enum defining npc's state.
 */
+
 typedef enum				e_npc_state
 {
 	state_idle,
@@ -245,6 +256,7 @@ typedef enum				e_npc_state
 /*
 ** Enum defining npc's attack pattern
 */
+
 typedef enum				e_npc_action
 {
 	action_wait,
@@ -258,6 +270,7 @@ typedef enum				e_npc_action
 ** are moved in the game world. Also defines how the npc t_3d_object
 ** gets instantiated.
 */
+
 typedef struct				s_npc
 {
 	t_3d_object				*parent;

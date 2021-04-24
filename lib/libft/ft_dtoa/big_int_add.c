@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 22:10:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:38:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:47:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static size_t	add_until_end_of_large(t_big_int *large,
 /*
 ** Adds two t_big_int lhs and rhs together resulting in another t_big_int res.
 */
+
 void			big_int_add(t_big_int *lhs, t_big_int *rhs, t_big_int *res)
 {
 	t_big_int	*large;

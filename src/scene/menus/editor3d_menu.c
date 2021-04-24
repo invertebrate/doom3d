@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:26:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:22:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:30:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void				editor_popup_menu_create_sub3(t_doom3d *app,
 ** Totally ugly formatting here unfortunately norm requirements. There's always
 ** a way to do it clean too, but not today.
 */
+
 void				editor_popup_menu_create(t_doom3d *app,
 						t_editor_menu_index new_menu,
 						t_vec2 pos)
@@ -98,6 +99,7 @@ void				editor_popup_menu_create(t_doom3d *app,
 /*
 ** Create editor's main menu
 */
+
 void				editor3d_menu_create(t_doom3d *app)
 {
 	error_check(!(app->active_scene->menus =

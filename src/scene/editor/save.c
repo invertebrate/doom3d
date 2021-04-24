@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:23:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:31:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static void	write_obj_content(int32_t fd, t_doom3d *app, t_3d_object *obj)
 ** For each object_type_path, writes the id of the object, num of neighbors
 ** and each neighbor id for the purpose of saving the connections
 */
+
 static void	write_path_object_information(int32_t fd, t_doom3d *app)
 {
 	int32_t		i;
@@ -88,6 +89,7 @@ static void	write_path_object_information(int32_t fd, t_doom3d *app)
 ** Writes patrol path info
 ** of npcs that might have them
 */
+
 static void	write_npc_patrol_path_information(int32_t fd, t_doom3d *app)
 {
 	int32_t		i;
@@ -121,6 +123,7 @@ static void	write_npc_patrol_path_information(int32_t fd, t_doom3d *app)
 ** Writes trigger links
 ** of triggers that might have them
 */
+
 static void	write_trigger_link_information(int32_t fd, t_doom3d *app)
 {
 	int32_t		i;
@@ -153,6 +156,7 @@ static void	write_trigger_link_information(int32_t fd, t_doom3d *app)
 /*
 ** Writes key id info
 */
+
 static void	write_key_ids(int32_t fd, t_doom3d *app)
 {
 	int32_t		i;
@@ -198,6 +202,7 @@ static void	write_map(int32_t fd, t_doom3d *app)
 ** Save map file writing ordered binary data onto `editor_filename` named
 ** file
 */
+
 void		save_map(t_doom3d *app)
 {
 	int32_t			fd;

@@ -15,6 +15,7 @@
 /*
 ** Handle button popup menu's events
 */
+
 void	button_popup_menu_events_handle(t_button_menu *button_menu,
 			t_mouse mouse, SDL_Event event)
 {

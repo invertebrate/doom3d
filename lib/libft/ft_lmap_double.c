@@ -6,13 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:33:46 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:46:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:55:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 **	Linearly maps number from input scale to output scale
 */
+
 double		ft_lmap_double(double nb, double *in_minmax, double *out_minmax)
 {
 	return ((nb - in_minmax[0]) *

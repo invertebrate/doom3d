@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdel.c                                        :+:      :+:    :+:   */
+/*   interaction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/22 19:47:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:57:30 by ohakola          ###   ########.fr       */
+/*   Created: 2021/04/24 16:06:15 by ohakola           #+#    #+#             */
+/*   Updated: 2021/04/24 16:06:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "doom3d.h"
 
-/*
-** The ft_strdel() frees and nullifies given string.
-*/
-
-void	ft_strdel(char **as)
+void		handle_player_interact(t_doom3d *app)
 {
-	ft_memdel((void*)as);
+	player_interact(app);
+}
+
+void		handle_player_jump(t_doom3d *app)
+{
+	player_jump(app);
+}
+
+void		handle_player_crouch(t_doom3d *app, t_bool is_crouching)
+{
+	player_crouch(app, is_crouching);
+}
+
+void		handle_player_toggle_flight(t_doom3d *app)
+{
+	app->player.can_fly = !app->player.can_fly;
 }

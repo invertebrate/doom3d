@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:05:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:33:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 ** Define text's blend ratio between 0.0 and 1.0, text to render,
 ** xy position and its color
 */
+
 typedef struct				s_text_params
 {
 	const char				*text;
@@ -53,6 +54,7 @@ typedef struct				s_text_params
 /*
 ** Information struct for fps and delta time
 */
+
 typedef struct				s_info
 {
 	uint32_t				fps;
@@ -64,6 +66,7 @@ typedef struct				s_info
 /*
 ** A wrapper for software rasterizer's framebuffer & window information
 */
+
 typedef struct				s_window
 {
 	SDL_Renderer			*renderer;
@@ -87,6 +90,7 @@ typedef struct				s_window
 /*
 ** Mouse state
 */
+
 typedef struct				s_mouse
 {
 	int32_t				x;
@@ -97,6 +101,7 @@ typedef struct				s_mouse
 /*
 ** Keyboard state
 */
+
 typedef struct				s_keyboard
 {
 	const uint8_t		*state;
@@ -105,6 +110,7 @@ typedef struct				s_keyboard
 /*
 ** UI button
 */
+
 typedef struct s_button		t_button;
 
 struct						s_button
@@ -129,6 +135,7 @@ struct						s_button
 /*
 ** UI Button group
 */
+
 typedef struct				s_button_group
 {
 	t_vec2					pos;
@@ -146,6 +153,7 @@ typedef struct				s_button_group
 /*
 ** UI Button menu
 */
+
 typedef struct				s_button_menu
 {
 	t_button_group			*menu;
@@ -208,6 +216,7 @@ uint32_t					window_framerate_capture(uint32_t time_since_start);
 /*
 ** Buttons
 */
+
 void						button_group_destroy(t_button_group *button_group);
 void						button_group_update_position(
 								t_button_group *button_group,

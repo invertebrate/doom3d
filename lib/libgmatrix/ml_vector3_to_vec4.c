@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:02:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:01:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Transform a vector3 to vector4
 */
+
 void		ml_vector3_to_vec4(t_vec3 v1, t_vec4 res)
 {
 	size_t	i;

@@ -151,6 +151,7 @@ SOURCES = main.c \
 			events/custom_event_handling/media.c \
 			events/custom_event_handling/scene.c \
 			events/custom_event_handling/control_flow.c \
+			events/custom_event_handling/player/interaction.c \
 			events/custom_event_handling/player/movement.c \
 			events/custom_event_handling/player/weapons.c \
 			events/custom_event_handling/objects/translate.c \

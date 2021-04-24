@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 22:18:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:38:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:47:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static void		divide_remaining(t_big_int *dividend, t_big_int *divisor,
 ** The function works as part of the dragon4 implementation and results in
 ** the output digit.
 */
+
 uint32_t		big_int_divide_to_output_digit(t_big_int *dividend,
 				t_big_int *divisor)
 {

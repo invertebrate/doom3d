@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:01:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:01:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Subtract vector2 v2 from v1
 */
+
 void	ml_vector2_sub(t_vec2 v1, t_vec2 v2, t_vec2 res)
 {
 	size_t i;

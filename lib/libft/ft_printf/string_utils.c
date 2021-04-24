@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 16:26:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:40:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:51:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Adds a string to the beginning of another
 */
+
 char					*add_str_to_beg(char *str, char *add,
 						int len2, int len1)
 {
@@ -28,6 +29,7 @@ char					*add_str_to_beg(char *str, char *add,
 /*
 ** Extends string size by add_size
 */
+
 char					*extend_str(char *str, int size_in, int add_size)
 {
 	char	*res;
@@ -46,6 +48,7 @@ char					*extend_str(char *str, int size_in, int add_size)
 /*
 ** Adds chars to the beginning of a char *
 */
+
 char					*add_chars_to_str_begin(char *res, int start,
 						int end, char c)
 {
@@ -64,6 +67,7 @@ char					*add_chars_to_str_begin(char *res, int start,
 ** Adds chars to the beginning of a char * when char * includes null char
 ** (Used in handling null char print out)
 */
+
 char					*add_chars_to_null_str_begin(char *res, int start,
 						int end, char c)
 {
@@ -81,6 +85,7 @@ char					*add_chars_to_null_str_begin(char *res, int start,
 /*
 ** Adds characters to end of char *
 */
+
 char					*add_chars_to_str_end(char *res, int start,
 						int end, char c)
 {

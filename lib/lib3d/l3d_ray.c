@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:28:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:43:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Set ray vectors & pre-calculate dir_inverse for faster bounding box testing.
 */
+
 void						l3d_ray_set(t_vec3 dir, t_vec3 origin, t_ray *ray)
 {
 	ml_vector3_set(ray->dir, dir[0], dir[1], dir[2]);
@@ -26,6 +27,7 @@ void						l3d_ray_set(t_vec3 dir, t_vec3 origin, t_ray *ray)
 /*
 ** Set triangle hit record (including normals of the hit point)
 */
+
 void						l3d_triangle_hit_record_set(float afuvt[5],
 								t_ray *ray, t_triangle *triangle, t_hits **hits)
 {
@@ -51,6 +53,7 @@ void						l3d_triangle_hit_record_set(float afuvt[5],
 /*
 ** Set bounding box (aabb) hit record
 */
+
 void						l3d_bounding_box_hit_record_set(float t[8],
 								t_ray *ray, t_hits **hits)
 {

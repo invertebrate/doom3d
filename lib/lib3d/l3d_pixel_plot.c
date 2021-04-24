@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:25:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:43:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Plot pixel onto buffer
 */
+
 void		l3d_pixel_plot(uint32_t *buffer, uint32_t dimensions_wh[2],
 			int32_t xy[2], uint32_t color)
 {
@@ -27,6 +28,7 @@ void		l3d_pixel_plot(uint32_t *buffer, uint32_t dimensions_wh[2],
 /*
 ** Retrieve pixel from buffer
 */
+
 uint32_t	l3d_pixel_get(uint32_t *buffer, uint32_t dimensions_wh[2],
 				int32_t xy[2])
 {
@@ -39,6 +41,7 @@ uint32_t	l3d_pixel_get(uint32_t *buffer, uint32_t dimensions_wh[2],
 /*
 ** Retrieve float from buffer
 */
+
 float		l3d_pixel_get_float(float *buffer, uint32_t dimensions_wh[2],
 								int32_t xy[2])
 {
@@ -51,6 +54,7 @@ float		l3d_pixel_get_float(float *buffer, uint32_t dimensions_wh[2],
 /*
 ** Plot float onto buffer
 */
+
 void		l3d_pixel_plot_float(float *buffer, uint32_t dimensions_wh[2],
 					int32_t xy[2], float value)
 {

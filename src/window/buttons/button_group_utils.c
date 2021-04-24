@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:13:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:34:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Set space between buttons for button group
 */
+
 void			button_group_set_space_between(t_button_group *button_group,
 					int32_t space_between)
 {
@@ -25,6 +26,7 @@ void			button_group_set_space_between(t_button_group *button_group,
 /*
 ** Set whether the button group is a selector and select first index / id
 */
+
 void			button_group_set_selector(t_button_group *button_group,
 					int32_t selected_index)
 {
@@ -35,6 +37,7 @@ void			button_group_set_selector(t_button_group *button_group,
 /*
 ** Update position of a button group
 */
+
 void			button_group_update_position(t_button_group *group,
 					t_vec2 pos)
 {
@@ -59,6 +62,7 @@ void			button_group_update_position(t_button_group *group,
 /*
 ** Render a button group
 */
+
 void			button_group_render(t_button_group *button_group)
 {
 	int32_t		i;

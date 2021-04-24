@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:09:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:50:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:58:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** The ft_strstr() function locates the first occurrence of the
 ** null-terminated string needle in the null-terminated string haystack.
 */
+
 char	*ft_strstr(const char *haystack, const char *needle)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:37:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 23:38:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:17:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void		render_story_message(t_doom3d *app,
 }
 
 void			render_notifications_background(t_doom3d *app, t_vec2 pos,
-					int32_t	dims[2], int32_t border_size)
+					int32_t dims[2], int32_t border_size)
 {
 	int32_t		x;
 	int32_t		y;
@@ -65,7 +65,7 @@ void			render_notifications_background(t_doom3d *app, t_vec2 pos,
 }
 
 void			render_notification_messages(t_doom3d *app, t_vec2 pos,
-					int32_t	text_dims[2], int32_t padding)
+					int32_t text_dims[2], int32_t padding)
 {
 	int32_t			i;
 	t_list			*node;

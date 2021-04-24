@@ -15,6 +15,7 @@
 /*
 ** The ft_strclr() function sets all characters in a string to 0.
 */
+
 void	ft_strclr(char *s)
 {
 	if (s)

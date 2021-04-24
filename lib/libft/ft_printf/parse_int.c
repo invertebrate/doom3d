@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 12:52:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:39:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:50:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Consumes int variable based on length flags.
 */
+
 static uint64_t			parse_type(t_printf *data)
 {
 	uint64_t		var;
@@ -45,6 +46,7 @@ static uint64_t			parse_type(t_printf *data)
 /*
 ** Chooses which itoa to use based on length modifiers
 */
+
 static char				*printf_itoa(t_printf *data, uint64_t var,
 						int base, int is_signed)
 {
@@ -75,6 +77,7 @@ static char				*printf_itoa(t_printf *data, uint64_t var,
 /*
 ** Parses ints based on int specifiers, and lengths
 */
+
 char					*parse_int(t_printf *data)
 {
 	char			*res;
@@ -103,6 +106,7 @@ char					*parse_int(t_printf *data)
 ** Parses address (p, pointer) by outputting hexadecimal value, basically a sub
 ** case of int
 */
+
 char					*parse_address(t_printf *data)
 {
 	char			*res;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_grounded.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/21 16:48:09 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/24 16:09:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static t_3d_object	*object_above(t_doom3d *app,
 ** of aabb.
 ** 2. If object under exists, check it collides with self aabb.
 */
+
 t_bool	obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj)
 {
 	t_3d_object	*obj_under;
@@ -95,6 +96,7 @@ t_bool	obj_is_grounded(t_doom3d *app, t_3d_object *falling_obj)
 ** of aabb.
 ** 2. If object under exists, check it collides with self aabb.
 */
+
 t_bool	player_is_grounded(t_doom3d *app)
 {
 	t_3d_object	*obj_under;

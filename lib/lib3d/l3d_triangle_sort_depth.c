@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 00:16:48 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:32:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:45:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Sorts triangles by their depth value inside world box centered in origin
 ** Assumes thus that triangles are viewed from 0, 0, 0.
 */
+
 void					triangle_sort_by_depth(t_tri_vec *triangles,
 							t_thread_pool *pool, t_box3d *world_box)
 {

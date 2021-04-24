@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 16:11:17 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:49:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:57:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** The ft_strcmp() and ft_strcmp() functions lexicographically
 ** compare the null-terminated strings s1 and s2.
 */
+
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	if (n == false)

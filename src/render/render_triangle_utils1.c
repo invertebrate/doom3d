@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_triangle.c                                  :+:      :+:    :+:   */
+/*   render_triangle_utils1.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:51:19 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 23:52:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:17:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
-
 
 void			destroy_render_triangle_vecs(t_tri_vec **render_triangles)
 {
@@ -45,6 +44,7 @@ static t_box3d	origo_centered_world_box(t_doom3d *app)
 ** render_triangles[1] = transparent ones
 ** offsets render triangles by skybox triangles and reverts back after sort
 */
+
 void			sort_render_triangles_by_depth(t_doom3d *app,
 					t_tri_vec **render_triangles,
 					int32_t skybox_offset)

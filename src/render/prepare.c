@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 23:58:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:10:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 ** Sort triangles in z order curve inside world box to speed up render &
 ** allow transparent render in proper order
 */
+
 t_tri_vec		**prepare_render_triangles(t_doom3d *app)
 {
 	t_tri_vec			**render_triangles;

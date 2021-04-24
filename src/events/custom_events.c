@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:37:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:04:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void		register_control_flow_custom_events(t_doom3d *app)
 ** Registers all custom events and their handlers
 ** Caller must know what to input to handlers in event handling
 */
+
 void		register_custom_events(t_doom3d *app)
 {
 	app->custom_event_type = SDL_RegisterEvents(1);
@@ -99,6 +100,7 @@ void		push_custom_event(t_doom3d *app,
 ** 2. Handler should not have more than 3 inputs. App, data1, data2.
 ** 3. All handlers must have been registered at the beginning of the app
 */
+
 void		handle_custom_events(t_doom3d *app, SDL_Event event)
 {
 	void		(*handle)(void*, void*, void*);

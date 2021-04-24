@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:00:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:01:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Multiply vector2 values by k
 */
+
 void		ml_vector2_mul(t_vec2 v1, float k, t_vec2 res)
 {
 	size_t		i;

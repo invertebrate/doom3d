@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_parallelization_work.c                      :+:      :+:    :+:   */
+/*   render_parallel_work.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:33:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/19 00:40:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:21:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
-
 
 static void		clear_buffers(t_render_work *work)
 {
@@ -49,6 +48,7 @@ static void		draw_buffers_to_framebuffer(t_render_work *work)
 ** Renders visual information inside editor such as wireframes, patrol path
 ** connections or selection highlights.
 */
+
 static void		render_editor_ux_highlights(t_render_work *work)
 {
 	uint32_t	last_pass;
@@ -71,6 +71,7 @@ static void		render_editor_ux_highlights(t_render_work *work)
 ** The render work inside each thread (square of framebuffer).
 ** First we clear buffers, then depending on passes & scenes, render rest
 */
+
 void			render_work(void *params)
 {
 	t_render_work		*work;

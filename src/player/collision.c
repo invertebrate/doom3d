@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:35:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:09:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static void		set_future_player(t_doom3d *app, t_vec3 add,
 ** Shoot 32 rays from top and bottom corners of a cylinder collider on player.
 ** Start half height below player position, and above.
 */
+
 static void		cylinder_rays_from_aabb(t_player *future_player,
 					t_ray rays[64])
 {
@@ -131,6 +132,7 @@ static void		cylinder_rays_from_aabb(t_player *future_player,
 ** See if they hit & subtract movement add so we limit the movement by the hit
 ** triangles.
 */
+
 void			collision_limit_player_horizontal(t_doom3d *app, t_vec3 add)
 {
 	int32_t		i;

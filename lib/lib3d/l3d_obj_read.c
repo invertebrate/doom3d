@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:24:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:42:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Allocates temporary content for obj data struct
 */
+
 void					l3d_obj_content_allocate(t_obj *o)
 {
 	error_check(!(o->v = ft_calloc(sizeof(t_vec3) * L3D_MAX_OBJ_VERTICES)),
@@ -45,6 +46,7 @@ static void				set_3d_object_triangles_and_indices(
 ** @prev_i = previous object's max indices to adjust for multi-object
 ** read...
 */
+
 static void				obj_to_3d_object(t_obj *in, t_3d_object *out)
 {
 	int32_t		i;
@@ -74,6 +76,7 @@ static void				obj_to_3d_object(t_obj *in, t_3d_object *out)
 ** Loops through read objects and consolidates them as t_3d_objects to an
 ** array. Saves the number of objects to inputed num_objects ref.
 */
+
 static t_3d_object		*l3d_3d_object_from_obj(t_obj *obj, t_surface *texture,
 							t_surface *normal_map)
 {
@@ -100,6 +103,7 @@ static t_3d_object		*l3d_3d_object_from_obj(t_obj *obj, t_surface *texture,
 ** into inputted num_objects ref. Invalid obj content will exit, so NULL
 ** is not returned.
 */
+
 t_3d_object				*l3d_read_obj(const char *filename, t_surface *texture,
 							t_surface *normal_map)
 {

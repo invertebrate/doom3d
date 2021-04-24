@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_placement.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:50:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 18:42:25 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/24 16:30:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Place a light object in editor
 */
+
 t_3d_object		*editor_place_light_object(t_doom3d *app)
 {
 	t_3d_object		*light;
@@ -41,6 +42,7 @@ static void		placement_notification(t_doom3d *app, char *txt)
 /*
 ** Place a trigger object in editor
 */
+
 t_3d_object		*editor_place_trigger_object(t_doom3d *app,
 					t_trigger_type trigger_type)
 {
@@ -121,6 +123,7 @@ t_3d_object		*editor_place_trigger_object(t_doom3d *app,
 ** filenames get passed as void* in case the data could not be cast to
 ** any prefab type...
 */
+
 t_3d_object		*editor_place_default_object(t_doom3d *app, void *data)
 {
 	t_3d_object		*model;
@@ -156,6 +159,7 @@ t_3d_object		*editor_place_default_object(t_doom3d *app, void *data)
 /*
 ** Place an npc object in editor
 */
+
 t_3d_object		*editor_place_npc_object(t_doom3d *app, t_npc_type type)
 {
 	t_vec3			pos;

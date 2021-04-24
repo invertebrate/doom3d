@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 13:12:04 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:47:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:56:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** ft_putendl_fd() writes a string into stdout followed by a
 ** newline.
 */
+
 void	ft_putendl(char const *s)
 {
 	if (!s)

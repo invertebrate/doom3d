@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:11:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:38:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:02:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Delete all selected objects
 */
+
 void	handle_editor_delete(t_doom3d *app)
 {
 	t_3d_object			*object_to_delete;

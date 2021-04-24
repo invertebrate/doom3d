@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:22:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:41:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Pushes triangles into left or right depending ont heir
 ** mid point at given axis (longes).
 */
+
 void				l3d_kd_tree_split_triangles(t_tri_vec *triangles,
 					t_axis axis, t_tri_vec *left_tris, t_tri_vec *right_tris)
 {
@@ -64,6 +65,7 @@ static void			kd_node_print_recursive(t_kd_node *root)
 /*
 ** Print kd tree information for debugging purposes
 */
+
 void				l3d_kd_tree_print(t_kd_tree *tree)
 {
 	kd_node_print_recursive(tree->root);

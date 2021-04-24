@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:38:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 22:52:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:22:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void		clip_3d_line_and_screen_intersect(t_doom3d *app,
 ** 3. Offset 2d lines by sub buffers offset
 ** 4. Draw 2d line
 */
+
 void			draw_debug_line(t_doom3d *app,
 					t_sub_framebuffer *buffer, t_vec3 edge[2],
 					uint32_t color)
@@ -69,7 +70,7 @@ void			draw_debug_line(t_doom3d *app,
 		edge[1]);
 	l3d_line_draw(buffer->buffer, (uint32_t[2]){
 		buffer->width, buffer->height},
-		(int32_t[2][2]){{edge[0][0],edge[0][1]},
+		(int32_t[2][2]){{edge[0][0], edge[0][1]},
 		{edge[1][0], edge[1][1]}}, color);
 }
 
@@ -99,6 +100,7 @@ void			draw_enemy_direction(t_doom3d *app,
 ** enemy direction vector.
 ** (1. Access app through work, 2. Access your variables & draw)
 */
+
 void			draw_editor_debug_grid(t_render_work *work)
 {
 	t_sub_framebuffer	*sub_buffer;

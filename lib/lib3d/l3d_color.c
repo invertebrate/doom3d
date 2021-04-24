@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:20:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:41:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Transform rgba to single u32 int
 */
+
 uint32_t		l3d_rgba_to_u32(uint32_t rgba[4])
 {
 	return (((rgba[0] & 255) << 24) | ((rgba[1] & 255) << 16) |
@@ -24,6 +25,7 @@ uint32_t		l3d_rgba_to_u32(uint32_t rgba[4])
 /*
 ** Get rgba values of an u32 in color
 */
+
 void			l3d_u32_to_rgba(uint32_t color, uint32_t rgba[4])
 {
 	rgba[0] = (color >> 24) & 255;
@@ -35,6 +37,7 @@ void			l3d_u32_to_rgba(uint32_t color, uint32_t rgba[4])
 /*
 ** Blend two u32 colors by ratio
 */
+
 uint32_t		l3d_color_blend_u32(uint32_t color1, uint32_t color2,
 				float ratio)
 {
@@ -67,6 +70,7 @@ uint32_t		l3d_color_blend_u32(uint32_t color1, uint32_t color2,
 /*
 ** Blend two u32 colors with one minus src alpha
 */
+
 uint32_t		l3d_color_alpha_blend_u32(uint32_t color1, uint32_t color2)
 {
 	float		i_ratio;
@@ -93,6 +97,7 @@ uint32_t		l3d_color_alpha_blend_u32(uint32_t color1, uint32_t color2)
 /*
 ** Get triangle normal color
 */
+
 uint32_t		l3d_triangle_normal_color(t_triangle *triangle)
 {
 	uint32_t	color;

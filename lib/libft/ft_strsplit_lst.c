@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 19:34:30 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:49:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:58:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void			*add_word_to_node(const char *str, size_t s_len,
 ** character c as a delimiter. If the allocation fails the function returns
 ** NULL.
 */
+
 t_list				*ft_strsplit_lst(char const *str, char c)
 {
 	t_list			*prev;

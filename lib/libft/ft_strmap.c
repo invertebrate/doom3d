@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 20:03:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:49:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:57:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 ** as argument to create a “fresh” new string (with malloc(3))
 ** resulting from the successive applications of f.
 */
+
 char	*ft_strmap(char const *s, char (*f)(char))
 {
 	char			*str;

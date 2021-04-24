@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:00:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 23:01:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:20:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static void		render_object_position(t_doom3d *app, char *str,
 	ft_sprintf(str, "pos: [%.2f, %.2f, %.2f]",
 		app->editor.selected_objects[0]->position[0] / app->unit_size,
 		app->editor.selected_objects[0]->position[1] / app->unit_size,
-		app->editor.selected_objects[0]->position[2] / app->unit_size
-	);
+		app->editor.selected_objects[0]->position[2] / app->unit_size);
 	window_text_render_shaded(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
 		.xy = (int[2]){app->window->framebuffer->width / 4,

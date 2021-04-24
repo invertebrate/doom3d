@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:53:57 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:26:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:43:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void			l3d_delete_hits(t_hits **hits)
 /*
 ** Get closest triangle hit from hits
 */
+
 void			l3d_get_closest_triangle_hit(t_hits *hits, t_hit **closest,
 					uint32_t ignore_id)
 {
@@ -57,6 +58,7 @@ void			l3d_get_closest_triangle_hit(t_hits *hits, t_hit **closest,
 **	Detects hit between a ray and an infinite plane in 3D. Stores the hit point
 **	in a t_vec3.
 */
+
 t_bool			l3d_plane_ray_hit(t_plane *plane, t_ray *ray,
 									t_vec3 hit_point)
 {

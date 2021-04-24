@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:34:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:12:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:34:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Default dimensions of a popup menu (e.g. on an empty popup)
 */
+
 void			popup_menu_default_dims(t_vec2 dims)
 {
 	dims[0] = 450;
@@ -103,6 +104,7 @@ static void		button_popup_menu_clamp_position_to_window(
 /*
 ** Create a popup menu containing a button menu inside
 */
+
 t_button_menu	*button_popup_menu_create(t_button_group *menu,
 					t_vec2 pos, int32_t padding,
 					uint32_t bg_and_border_color[2])
@@ -137,6 +139,7 @@ t_button_menu	*button_popup_menu_create(t_button_group *menu,
 /*
 ** Destroy a popup menu
 */
+
 void			button_popup_menu_destroy(t_button_menu *popup_menu)
 {
 	if (popup_menu->menu)
@@ -148,6 +151,7 @@ void			button_popup_menu_destroy(t_button_menu *popup_menu)
 /*
 ** Render a popup menu
 */
+
 void			button_popup_menu_render(t_window *window,
 					t_button_menu *popup_menu)
 {

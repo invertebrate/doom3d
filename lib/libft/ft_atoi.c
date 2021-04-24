@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:02:04 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:45:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:54:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** The ft_atoi() function converts the initial portion
 ** of the string pointed to by str to int representation.
 */
+
 static int		is_clearable(char c)
 {
 	return (c == ' ' || c == '\n' || c == '\t' ||

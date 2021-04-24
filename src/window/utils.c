@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:07:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:35:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Capture window framerate
 */
+
 uint32_t			window_framerate_capture(uint32_t delta_time)
 {
 	static uint32_t		delta_time_sum;
@@ -36,6 +37,7 @@ uint32_t			window_framerate_capture(uint32_t delta_time)
 /*
 ** Draw fps onto window
 */
+
 void				window_fps_draw(t_window *window,
 						uint32_t fps, uint64_t delta_time)
 {

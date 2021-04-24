@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:30:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:44:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 **	3. Interpolate vertex attributes to new points
 **	4. Form triangle(s) from new points
 */
+
 int32_t			l3d_clip_triangle(t_triangle *triangle, t_plane *plane,
 									t_triangle *result_triangles[2])
 {

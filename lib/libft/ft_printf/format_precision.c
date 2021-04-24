@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:50:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:38:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:49:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Handles zerox (#) flag formatting for o, xX.
 */
+
 static char				*handle_zerox(t_printf *data, char *res)
 {
 	if (data->c == 'o' || data->c == 'O')
@@ -37,6 +38,7 @@ static char				*handle_zerox(t_printf *data, char *res)
 /*
 ** Handles precision formatting for ints.
 */
+
 char					*handle_int_precision(t_printf *data, char *res)
 {
 	int		len;
@@ -66,6 +68,7 @@ char					*handle_int_precision(t_printf *data, char *res)
 ** Handles precision changes for numbers (ints mostly, but also floats and p)
 ** and all the special cases by given flag data.
 */
+
 char					*handle_number_precision(t_printf *data, char *res)
 {
 	if (data->show_sign && !data->is_negative && data->c != 'b')
@@ -94,6 +97,7 @@ char					*handle_number_precision(t_printf *data, char *res)
 ** Shortens variable length data if precision has been set to limit string
 ** length.
 */
+
 char					*handle_string_precision(t_printf *data, char *res)
 {
 	if (data->has_precision && res[0] && data->precision >= 0)

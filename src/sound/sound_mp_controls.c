@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:51:41 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/18 20:15:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:33:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Swap channels. 1 MONO 2 STEREO 4 QUAD 6 5.1 AUDIO
 */
+
 t_mp	mix_chan_swap(t_doom3d *app, int channels)
 {
 	SDL_LockAudioDevice(app->mp.audev);
@@ -27,6 +28,7 @@ t_mp	mix_chan_swap(t_doom3d *app, int channels)
 /*
 ** Closing music player
 */
+
 void	mp_close(t_doom3d *app)
 {
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:11:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:47:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:56:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 ** of c in the string dst is returned.  Otherwise, n bytes are copied,
 ** and a NULL pointer is returned.
 */
+
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
 	char		*destcpy;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 15:51:38 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:22:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:30:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void			on_main_menu_button_click(t_button *self, void *params)
 /*
 ** Create main button menu
 */
+
 void				main_menu_create(t_doom3d *app)
 {
 	error_check(!(app->active_scene->menus =

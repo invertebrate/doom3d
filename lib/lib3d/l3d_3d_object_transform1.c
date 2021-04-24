@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:12:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:39:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 ** eg. translation matrix or rotation. And then updates triangle normals &
 ** centroids / centers.
 */
+
 void			l3d_3d_object_transform(t_3d_object *obj, t_mat4 transform)
 {
 	int		i;
@@ -35,6 +36,7 @@ void			l3d_3d_object_transform(t_3d_object *obj, t_mat4 transform)
 /*
 ** Translate object by x, y, z
 */
+
 void			l3d_3d_object_translate(t_3d_object *object,
 					float x, float y, float z)
 {
@@ -48,6 +50,7 @@ void			l3d_3d_object_translate(t_3d_object *object,
 /*
 ** Move object to 0, 0, 0, rotate, move back (local rotation)
 */
+
 void			l3d_3d_object_rotate(t_3d_object *object,
 					float x, float y, float z)
 {
@@ -70,6 +73,7 @@ void			l3d_3d_object_rotate(t_3d_object *object,
 /*
 ** Move object to 0, 0, 0, scale, move back (local scale)
 */
+
 void			l3d_3d_object_scale(t_3d_object *object,
 					float x, float y, float z)
 {
@@ -95,6 +99,7 @@ void			l3d_3d_object_scale(t_3d_object *object,
 /*
 ** Move object to 0, 0, 0, rotate, move back (local rotation)
 */
+
 void			l3d_3d_object_rotate_matrix(t_3d_object *object,
 					t_mat4 rotation)
 {

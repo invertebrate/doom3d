@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:02:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:01:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Length of a vector3 (magnitude)
 */
+
 float		ml_vector3_mag(t_vec3 v)
 {
 	size_t		i;

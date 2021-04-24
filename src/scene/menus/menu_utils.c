@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:51:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:21:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:30:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Create button menu
 */
+
 t_button_group		*button_menu_create(t_doom3d *app,
 						t_button_menu_params menu_params)
 {
@@ -47,6 +48,7 @@ t_button_group		*button_menu_create(t_doom3d *app,
 /*
 ** Create shaded button menu (better looking, but with background)
 */
+
 t_button_group		*button_menu_create_shaded(t_doom3d *app,
 						t_button_menu_params pms)
 {
@@ -79,6 +81,7 @@ t_button_group		*button_menu_create_shaded(t_doom3d *app,
 /*
 ** Destroy scene menus
 */
+
 void				scene_menus_destroy(t_scene *scene)
 {
 	int32_t		i;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:31:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:44:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static uint32_t	pixel_color(t_triangle *triangle, t_vec2 uv,
 ** Draw the actual pixel color at the final stage of rasterization
 ** Shade the pixel according to shading information
 */
+
 void			l3d_raster_draw_pixel(t_sub_framebuffer *buffers, int32_t xy[2],
 							t_triangle *triangle)
 {
@@ -110,6 +111,7 @@ void			l3d_raster_draw_pixel(t_sub_framebuffer *buffers, int32_t xy[2],
 /*
 ** Draw pixel at the final stage of rasterization for transparent objects
 */
+
 void			l3d_raster_draw_pixel_transparent(t_sub_framebuffer *buffers,
 											int32_t xy[2],
 											t_triangle *triangle)

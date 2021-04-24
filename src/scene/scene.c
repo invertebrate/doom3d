@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/19 00:15:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:32:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void		select_scene(t_doom3d *app)
 /*
 ** Initial transformations are set to id, and they change when player moves.
 */
+
 t_scene			*scene_new(t_scene_id scene_id)
 {
 	t_scene		*scene;
@@ -50,6 +51,7 @@ t_scene			*scene_new(t_scene_id scene_id)
 /*
 ** Selects next scene by app->next_scene_id
 */
+
 void			select_next_scene(t_doom3d *app)
 {
 	LOG_INFO("Select Scene %d", app->next_scene_id);
@@ -62,6 +64,7 @@ void			select_next_scene(t_doom3d *app)
 /*
 ** Destroy scene
 */
+
 void			scene_destroy(t_doom3d *app)
 {
 	active_scene_popup_menu_destroy(app);

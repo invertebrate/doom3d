@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 13:11:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/28 14:59:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:53:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 /*
 ** Dont change
 */
+
 # define RADIXBITS 8
 # define RADIXTOTALBITS 32
 
 /*
 ** RADIX = 1 << RADIXTOTALBITS(8) = 256
 */
+
 # define RADIX 256
 # define HISTOLEN RADIX
 # define EXPECTED_THREADS 8

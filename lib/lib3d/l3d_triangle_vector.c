@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:34:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:45:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Create a dynamically sized triangle vector with initial capacity
 */
+
 t_tri_vec		*l3d_triangle_vec_with_capacity(uint32_t capacity)
 {
 	t_tri_vec	*vector;
@@ -34,6 +35,7 @@ t_tri_vec		*l3d_triangle_vec_with_capacity(uint32_t capacity)
 /*
 ** Creates an empty dynamically sized triangle vector.
 */
+
 t_tri_vec		*l3d_triangle_vec_empty(void)
 {
 	t_tri_vec	*vector;
@@ -55,6 +57,7 @@ t_tri_vec		*l3d_triangle_vec_empty(void)
 ** If num triangles is larger than initial vector capactiy, allocates
 ** num triangles + initial vector capacity.
 */
+
 t_tri_vec		*l3d_triangle_vec(t_triangle **triangles,
 				uint32_t num_triangles)
 {
@@ -83,6 +86,7 @@ t_tri_vec		*l3d_triangle_vec(t_triangle **triangles,
 ** Pushes triangle pointer to the triangle vector. If capacity is reached,
 ** allocates more capacity to the vector.
 */
+
 void			l3d_triangle_vec_push(t_tri_vec *vector, t_triangle *triangle)
 {
 	t_triangle	*temp[vector->size];
@@ -115,6 +119,7 @@ void			l3d_triangle_vec_push(t_tri_vec *vector, t_triangle *triangle)
 /*
 ** Delete a triangle vector
 */
+
 void			l3d_triangle_vec_delete(t_tri_vec *vector)
 {
 	free(vector->triangles);

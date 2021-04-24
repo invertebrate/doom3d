@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:16:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:40:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Creates an empty 3d object allocating space for vertices, triangles and
 ** text coords.
 */
+
 t_3d_object		*l3d_3d_object_create(uint32_t num_verts,
 					uint32_t num_triangles)
 {
@@ -49,6 +50,7 @@ t_3d_object		*l3d_3d_object_create(uint32_t num_verts,
 /*
 ** Destroys a 3d object.
 */
+
 void			l3d_3d_object_destroy(t_3d_object *object)
 {
 	int		i;
@@ -80,6 +82,7 @@ void			l3d_3d_object_destroy(t_3d_object *object)
 ** Just a space saving function to set obj data on 3d object (for norms)
 ** (normals, texture coords and position)
 */
+
 void			l3d_3d_object_set_vertex(t_vertex *vertex, t_vec3 pos)
 {
 	ml_vector3_copy(pos, vertex->pos);
@@ -91,6 +94,7 @@ void			l3d_3d_object_set_vertex(t_vertex *vertex, t_vec3 pos)
 ** params size > 0. These must be separately freed in cleanup based on
 ** params type (that defines whether cleanup is necessary)
 */
+
 void			l3d_3d_object_set_params(t_3d_object *object,
 					void *params, uint32_t params_size, uint32_t params_type)
 {
@@ -109,6 +113,7 @@ void			l3d_3d_object_set_params(t_3d_object *object,
 /*
 ** Adds light source information to object's material
 */
+
 void			l3d_3d_object_add_light_source(t_3d_object *object,
 					t_vec3 light_pos, float radius, float intensity)
 {

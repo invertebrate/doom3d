@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:24:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:42:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ static void		line_draw_clamped_edge(uint32_t *buffer,
 ** https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm#Optimization
 ** But limited between buffer dimensions to save calculations
 */
+
 void			l3d_line_draw(uint32_t *buffer, uint32_t dimensions_wh[2],
 					int32_t edge[2][2], uint32_t color)
 {

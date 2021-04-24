@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:06:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:38:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 ** Don't use image size which can be zero for uncompressed bmps
 ** https://elcharolin.wordpress.com/2018/11/28/read-and-write-bmp-files-in-c-c/
 */
+
 typedef struct				s_bmp_file_header
 {
 	uint16_t	file_type;
@@ -51,6 +52,7 @@ typedef struct				s_bmp_file_header
 /*
 ** Image data used in bmp reader
 */
+
 typedef struct				s_image_data
 {
 	unsigned char	*pixels;
@@ -62,6 +64,7 @@ typedef struct				s_image_data
 /*
 ** A temporary struct to bundle in rasterization points and slope data
 */
+
 typedef struct				s_raster_data
 {
 	float	x1;
@@ -101,6 +104,7 @@ void						l3d_kd_node_destroy(t_kd_node *root);
 /*
 ** Triangle clipping
 */
+
 t_bool						l3d_interpolate_clipped_uv(t_triangle *triangle,
 								int32_t *limits, t_vec3 hit, t_vec2 result);
 int32_t						l3d_triangle_clipping_case(t_triangle *triangle,
@@ -115,6 +119,7 @@ t_bool						create_two_clipped_triangles(t_triangle *triangle,
 /*
 ** Line draw helpers
 */
+
 void						l3d_line_edge_end_swap(int32_t edge[2][2]);
 int32_t						l3d_2d_lines_intersect(t_vec2 edge1[2],
 								t_vec2 edge2[2],

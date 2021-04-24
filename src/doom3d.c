@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/21 16:04:43 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/24 16:35:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Scene switch should be the first thing we do if next scene id has changed
 ** in main loop (before event handling).
 */
+
 static void		handle_scene_switch(t_doom3d *app)
 {
 	if (app->active_scene->scene_id != app->next_scene_id ||

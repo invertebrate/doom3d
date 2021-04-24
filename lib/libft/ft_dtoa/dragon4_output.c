@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 18:52:45 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:37:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:48:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 ** If we are directly in the middle round towards even digit:
 ** (output_digit & 1) == 0;
 */
+
 static t_bool	is_round_down(t_big_int *scale, t_big_int *scaled_value,
 				uint32_t output_digit, t_bool lo_hi[2])
 {
@@ -39,6 +40,7 @@ static t_bool	is_round_down(t_big_int *scale, t_big_int *scaled_value,
 /*
 ** Compute the desired cutoff exponent.
 */
+
 static int32_t	cutoff(t_dragon4_params params,
 				int32_t digit_exponent)
 {
@@ -64,6 +66,7 @@ static int32_t	cutoff(t_dragon4_params params,
 /*
 ** If rounding is needed, perform round operation on needed digits.
 */
+
 static uint32_t	round_if_needed(t_dragon4_params params, t_bool round_down,
 				uint32_t output_digit, uint32_t pos)
 {
@@ -102,6 +105,7 @@ static uint32_t	round_if_needed(t_dragon4_params params, t_bool round_down,
 ** high margin is not the same as low margin, set high margin to be twice
 ** as large as low margin.
 */
+
 uint32_t		output_without_cutoff(t_dragon4_params params, t_big_int *scale,
 				t_big_int *scaled_value, t_big_int **scaled_margins)
 {
@@ -138,6 +142,7 @@ uint32_t		output_without_cutoff(t_dragon4_params params, t_big_int *scale,
 ** ten: 12.14 -> 1.214. Continue division until scaled_value is zero or we
 ** reach the cutoff.
 */
+
 uint32_t		output_with_cutoff(t_dragon4_params params, t_big_int *scale,
 				t_big_int *scaled_value)
 {

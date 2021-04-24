@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:55:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:00:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Multiply matrix4 with another matrix4
 */
+
 void		ml_matrix4_mul(t_mat4 m1, t_mat4 m2, t_mat4 res)
 {
 	size_t		r;

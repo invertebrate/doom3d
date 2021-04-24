@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 20:24:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:49:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:57:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 ** result of the concatenation of s1 and s2. If
 ** the allocation fails the function returns NULL.
 */
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char			*str;

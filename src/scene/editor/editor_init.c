@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 20:34:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:31:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:30:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Initialize editor (to null and falses mostly)
 */
+
 void	editor_init(t_doom3d *app, int32_t editor_level)
 {
 	ft_memset(&app->editor, 0, sizeof(t_editor));

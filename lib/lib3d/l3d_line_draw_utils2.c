@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:08:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:24:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:42:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void		set_intesection(float coefs[6], float denom, t_vec2 intersect)
 /*
 ** Calculate if 2d lines intersect
 */
+
 int32_t			l3d_2d_lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2],
 					t_vec2 intersect)
 {
@@ -64,6 +65,7 @@ int32_t			l3d_2d_lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2],
 ** Draws a triangle wireframe using Bresenham's line drawing algorithm.
 ** Draw order AB, BC, CA
 */
+
 void			l3d_triangle_2d_draw(uint32_t *buffer,
 				uint32_t dimensions_wh[2],
 				t_vec2 corners[3], uint32_t color)
@@ -82,6 +84,7 @@ void			l3d_triangle_2d_draw(uint32_t *buffer,
 /*
 ** Swap ends of an edge
 */
+
 void			l3d_line_edge_end_swap(int32_t edge[2][2])
 {
 	int32_t	tmp[2];

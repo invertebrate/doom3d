@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_parallelization.c                           :+:      :+:    :+:   */
+/*   render_parallel.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:30:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/19 00:43:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:19:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Parallel render pass creating work or each thread (square part of screen)
 */
+
 static void		render_pass(t_doom3d *app, t_framebuffer *framebuffer,
 					t_tri_vec **render_triangles, uint32_t pass_num_passes[2])
 {
@@ -52,9 +53,10 @@ static void		render_pass(t_doom3d *app, t_framebuffer *framebuffer,
 ** framebuffer.
 ** 4. Parallel work is waited to finish and render triangles are destroyed.
 */
-void			render_parallel_3d_view(t_doom3d *app, t_framebuffer *framebuffer)
-{
 
+void			render_parallel_3d_view(t_doom3d *app,
+					t_framebuffer *framebuffer)
+{
 	t_tri_vec			**render_triangles;
 	uint32_t			num_passes;
 	uint32_t			transparency_pass;

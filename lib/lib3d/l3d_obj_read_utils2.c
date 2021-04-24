@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:24:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:42:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 ** number of vertices, textures and normals equals max incides read from obj
 ** data.
 */
+
 t_bool				l3d_is_valid_obj(t_obj *obj)
 {
 	int				i;
@@ -49,6 +50,7 @@ t_bool				l3d_is_valid_obj(t_obj *obj)
 ** Parses a vec 3 line from string ref and scrolls the str
 ** forward along the way.
 */
+
 void				l3d_read_obj_vec3_line(char **str, t_vec3 res)
 {
 	char	*tmp;
@@ -71,6 +73,7 @@ void				l3d_read_obj_vec3_line(char **str, t_vec3 res)
 ** Parses a vec 2 line from string ref and scrolls the str
 ** forward along the way.
 */
+
 void				l3d_read_obj_vec2_line(char **str, t_vec3 res)
 {
 	char	*tmp;
@@ -91,6 +94,7 @@ void				l3d_read_obj_vec2_line(char **str, t_vec3 res)
 ** Parses a triangulated face line from string ref and scrolls the str
 ** forward along the way.
 */
+
 void				l3d_read_obj_triangle_line(char **str,
 						uint32_t *triangle)
 {

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/19 00:23:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:20:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void		render_saved_filename(t_doom3d *app)
 		draw_unsaved_underline(app, filename, color);
 }
 
-void		render_guide_on_popup(t_doom3d *app)
+void			render_guide_on_popup(t_doom3d *app)
 {
 	char	guide[1024];
 
@@ -89,7 +89,7 @@ void		render_guide_on_popup(t_doom3d *app)
 		.text_color = (SDL_Color){0, 255, 0, 255}}, app->window->debug_font);
 }
 
-void		render_editor_ui(t_doom3d *app)
+void			render_editor_ui(t_doom3d *app)
 {
 	render_button_menu(app->active_scene->menus[0], (t_vec2){10, 0});
 	render_button_menu(app->active_scene->menus[2],

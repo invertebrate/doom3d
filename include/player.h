@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 18:47:19 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/24 15:32:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 /*
 ** Directions to which player can move
 */
+
 typedef enum				e_move
 {
 	move_forward,
@@ -43,6 +44,7 @@ typedef enum				e_move
 /*
 ** Data defining player functionality and toggles.
 */
+
 typedef struct				s_player
 {
 	t_vec3					pos;
@@ -82,6 +84,7 @@ typedef struct				s_player
 ** will be able to display. Also defines the index of animation frame data
 ** in app->animations
 */
+
 typedef enum				e_player_animation
 {
 	anim_none = 0,
@@ -102,8 +105,8 @@ typedef enum				e_player_animation
 
 /*
 ** Animation general state
-** 
 */
+
 typedef enum				e_player_anim_state
 {
 	anim_state_default = 1,
@@ -114,6 +117,7 @@ typedef enum				e_player_anim_state
 /*
 ** Data which defines different things that belong to player hud.
 */
+
 typedef struct				s_player_hud
 {
 	t_player_animation		curr_animation;

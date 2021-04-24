@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:28:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:31:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Get key string of a texture file (helper used in map file reading)
 */
+
 const char	*texture_file_key(char *filename, t_doom3d *app)
 {
 	int32_t		i;
@@ -32,6 +33,7 @@ const char	*texture_file_key(char *filename, t_doom3d *app)
 /*
 ** Get key string of a normal map file (helper used in map file reading)
 */
+
 const char	*normal_map_file_key(char *filename, t_doom3d *app)
 {
 	int32_t		i;
@@ -49,6 +51,7 @@ const char	*normal_map_file_key(char *filename, t_doom3d *app)
 /*
 ** Set invisible objects to be visibly highlighted in editor
 */
+
 void		editor_objects_invisible_highlight(t_doom3d *app)
 {
 	t_3d_object	*obj;
@@ -83,6 +86,7 @@ void		editor_objects_invisible_highlight(t_doom3d *app)
 /*
 ** Set invisible objects to be invisible again
 */
+
 void		editor_objects_invisible_unhighlight(t_doom3d *app)
 {
 	t_3d_object	*obj;
@@ -153,6 +157,7 @@ static void		duplicate_selected_object(t_doom3d *app, t_3d_object *selected)
 ** thus we need to once reset the scale by 1.0 / app->unit_size
 ** and inverse translate.
 */
+
 void			editor_duplicate_selected_objects(t_doom3d *app)
 {
 	int32_t 	i;
@@ -179,6 +184,7 @@ void			editor_duplicate_selected_objects(t_doom3d *app)
 /*
 ** Returns true if mouse is inside editor render view
 */
+
 t_bool			mouse_inside_editor_view(t_doom3d *app)
 {
 	return (app->mouse.x > app->window->editor_pos[0] && app->mouse.x <
@@ -193,6 +199,7 @@ t_bool			mouse_inside_editor_view(t_doom3d *app)
 ** Transform mouse x & mouse y on window between 0.0 - 1.0 inside
 ** editor view.
 */
+
 static void		get_mouse_editor_scale(t_doom3d *app, t_vec2 mouse_editor_pos)
 {
 	t_vec2	mouse_pos;
@@ -217,6 +224,7 @@ static void		get_mouse_editor_scale(t_doom3d *app, t_vec2 mouse_editor_pos)
 ** 3. Multiply sideways & down vectors by mouse editor scale
 ** 4. Got it!
 */
+
 static void		get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
 {
 	t_vec2	mouse_editor_scale;
@@ -250,6 +258,7 @@ static void		get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
 /*
 ** Return object selected by mouse (via raycasting)
 */
+
 t_3d_object		*editor_object_by_mouse(t_doom3d *app)
 {
 	t_vec3			mouse_world_pos;
@@ -281,6 +290,7 @@ t_3d_object		*editor_object_by_mouse(t_doom3d *app)
 ** for placement. (t_vec3){0.02, 0.02, 0.02} is a small vector added to aabb
 ** size for the case of e.g. planes (0 width)
 */
+
 static void		editor_point_on_target_offset(t_doom3d *app,
 					t_vec3 target_point, t_vec3 normal, t_vec3 offset)
 {
@@ -315,6 +325,7 @@ static void		editor_point_on_target_offset(t_doom3d *app,
 ** Returns hit point by mouse, but ignores the currently selected one,
 ** Useful when e.g. placing a new object.
 */
+
 void			editor_point_on_target(t_doom3d *app,
 					t_vec3 placement_point)
 {

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:12:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:34:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void			set_button_group_button_dimensions(t_button_group
 ** Create a button group containing a number of buttons
 ** A button group can be a selector or just a list of buttons
 */
+
 t_button_group		*button_group_create(t_button **buttons,
 						uint32_t num_buttons, t_bool is_horizontal)
 {
@@ -68,6 +69,7 @@ t_button_group		*button_group_create(t_button **buttons,
 /*
 ** Destroy a button group
 */
+
 void				button_group_destroy(t_button_group *button_group)
 {
 	int32_t		i;

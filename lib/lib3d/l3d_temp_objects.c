@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:25:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:30:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:44:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void			l3d_destroy_temp_object(void *params, size_t size)
 /*
 ** Destroy temporary objects if they are expired
 */
+
 void				l3d_temp_objects_destroy_if_expired(
 						t_temp_objects **temp_objects)
 {
@@ -53,6 +54,7 @@ void				l3d_temp_objects_destroy_if_expired(
 /*
 ** Destroy all temp objects
 */
+
 void				l3d_temp_objects_destroy(t_temp_objects **temp_objects)
 {
 	if (*temp_objects)
@@ -66,6 +68,7 @@ void				l3d_temp_objects_destroy(t_temp_objects **temp_objects)
 ** Add temporary objects with lifetime and delay (delay for
 ** when they should show)
 */
+
 void				l3d_temp_objects_add(t_temp_objects **temp_objects,
 						t_3d_object *object, int32_t lifetime_and_delay[2])
 {
@@ -86,6 +89,7 @@ void				l3d_temp_objects_add(t_temp_objects **temp_objects,
 ** While delay is left, temp object is invisible. Once delay runs out,
 ** temp object becomes visible.
 */
+
 void				l3d_temp_objects_update_time(t_temp_objects **temp_objects,
 						uint32_t delta_time)
 {

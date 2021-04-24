@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:53:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/19 00:14:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:16:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 ** Adds those triangles that are inside viewbox (not culled) and close enough
 ** to the renderable triangles (after clipping of course)
 */
-static void			add_to_render_triangles_if_should(t_doom3d *app,
-						t_tri_vec **render_triangles, t_triangle *triangle,
-						t_triangle *renderable_triangle)
+
+static void				add_to_render_triangles_if_should(t_doom3d *app,
+							t_tri_vec **render_triangles, t_triangle *triangle,
+							t_triangle *renderable_triangle)
 {
 	t_vertex				vtc[3];
 
@@ -35,15 +36,16 @@ static void			add_to_render_triangles_if_should(t_doom3d *app,
 ** Adds temporary object (limited lifetime)
 ** render triangles to renderable triangle vector
 */
-void				add_temp_object_render_triangles(t_doom3d *app,
-						t_tri_vec **render_triangles)
+
+void					add_temp_object_render_triangles(t_doom3d *app,
+							t_tri_vec **render_triangles)
 {
-	t_temp_object 			*tmp;
+	t_temp_object			*tmp;
 	t_temp_objects			*node;
 	t_triangle				*triangle;
 	t_triangle				r_triangle;
 	int32_t					i;
-	
+
 	node = app->active_scene->temp_objects;
 	while (node)
 	{
@@ -68,8 +70,9 @@ void				add_temp_object_render_triangles(t_doom3d *app,
 ** triangle will be accessed from the animation 3d object frame rather than
 ** the original object.
 */
-static t_triangle*	get_render_target_triangle(t_doom3d *app,
-						t_3d_object *obj, int32_t triangle_index)
+
+static t_triangle		*get_render_target_triangle(t_doom3d *app,
+							t_3d_object *obj, int32_t triangle_index)
 {
 	t_3d_object	*current_anim_obj;
 	t_triangle	*triangle;
@@ -92,16 +95,17 @@ static t_triangle*	get_render_target_triangle(t_doom3d *app,
 
 /*
 ** Adds object triangles to renderable triangles for objects that are in view
-** of the camera 
+** of the camera
 */
-void				add_objects_render_triangles(t_doom3d *app,
-						t_tri_vec **render_triangles)
+
+void					add_objects_render_triangles(t_doom3d *app,
+							t_tri_vec **render_triangles)
 {
 	int32_t					i;
 	int32_t					j;
 	t_triangle				*triangle;
 	t_triangle				r_triangle;
-	
+
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects +
 		app->active_scene->num_deleted))
@@ -109,7 +113,7 @@ void				add_objects_render_triangles(t_doom3d *app,
 		if ((app->active_scene->objects[i] == NULL) ||
 			object_too_far(app, app->active_scene->objects[i]) ||
 			!object_inside_viewbox(app, app->active_scene->objects[i]))
-				continue ;
+			continue ;
 		j = -1;
 		while (++j < app->active_scene->objects[i]->num_triangles)
 		{
@@ -124,8 +128,9 @@ void				add_objects_render_triangles(t_doom3d *app,
 /*
 ** Adds skybox render triangles to renderable triangle vector
 */
-void				add_skybox_render_triangles(t_doom3d *app,
-						t_tri_vec **render_triangles)
+
+void					add_skybox_render_triangles(t_doom3d *app,
+							t_tri_vec **render_triangles)
 {
 	int					i;
 	int					j;

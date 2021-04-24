@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 23:46:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:10:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_bool			triangle_too_far(t_doom3d *app, t_triangle *triangle)
 /*
 ** Apply rotation and translation to render triangle
 */
+
 void			prepare_render_triangle(t_doom3d *app,
 									t_triangle *r_triangle,
 									t_triangle *triangle, t_vertex *vtc)
@@ -90,6 +91,7 @@ void			prepare_render_triangle(t_doom3d *app,
 /*
 ** Skybox is rotated, but it is not translated unlike other objects in scene
 */
+
 void			prepare_skybox_render_triangle(t_doom3d *app,
 									t_triangle *r_triangle,
 									t_triangle *triangle, t_vertex *vtc)
@@ -113,6 +115,7 @@ void			prepare_skybox_render_triangle(t_doom3d *app,
 ** If any corner of aabb (axis aligned bounding box) is inside the viewbox
 ** the object should be considered to be inside viewbox.
 */
+
 t_bool			object_inside_viewbox(t_doom3d *app, t_3d_object *obj)
 {
 	int32_t		ij[2];

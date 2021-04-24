@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:38:19 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:14:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:34:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void		button_selector_state_handle(t_button_group *button_group,
 ** Handle button groups events (click, hover, etc.)
 ** This should be hooked to the event loop
 */
+
 void			button_group_events_handle(t_button_group *button_group,
 					t_mouse mouse, SDL_Event event)
 {

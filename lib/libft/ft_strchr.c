@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 18:25:10 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:48:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:57:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 ** considered to be part of the string; therefore if c is `\0',
 ** the functions locate the terminating `\0'.
 */
+
 char	*ft_strchr(const char *s, int c)
 {
 	return ((char*)ft_memchr(s, c, ft_strlen(s) + 1));

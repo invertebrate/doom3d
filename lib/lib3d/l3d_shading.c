@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:27:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:29:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:44:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Shade pixel so that further ones in 3d space are darker
 */
+
 uint32_t		l3d_pixel_depth_shaded(uint32_t pixel, float z_val)
 {
 	float	intensity;
@@ -27,6 +28,7 @@ uint32_t		l3d_pixel_depth_shaded(uint32_t pixel, float z_val)
 /*
 ** Shade selected object with `e_shading_selected`
 */
+
 uint32_t		l3d_pixel_selection_shaded(uint32_t pixel)
 {
 	return (l3d_color_blend_u32(pixel, 0x00ff00ff, 0.2));
@@ -76,6 +78,7 @@ void			point_light_calculation(t_triangle *triangle, t_vec3 world_pos,
 /*
 ** Shade pixel with lights included
 */
+
 uint32_t		l3d_pixel_light_shaded(t_triangle *triangle,
 					t_vec3 baryc, uint32_t pixel)
 {

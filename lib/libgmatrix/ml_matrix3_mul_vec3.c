@@ -15,6 +15,7 @@
 /*
 ** Multiply vector3 with matrix3
 */
+
 void		ml_matrix3_mul_vec3(t_mat3 m, t_vec3 v, t_vec3 res)
 {
 	size_t r;

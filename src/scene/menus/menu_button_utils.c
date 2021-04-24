@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 22:51:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:21:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:30:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Converts sdl surface to t_surface
 */
+
 t_surface			*convert_sdl_surface_to_t_surface(SDL_Surface *src)
 {
 	t_surface	*dst;

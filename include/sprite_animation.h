@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:07:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:03:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:33:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ typedef struct				s_anim_frame
 ** @frame_time_left: update decrements this until <= 0 and moves on to next
 ** @interruptable: whether animation can be interrupted
 ** @is_finised: when last frame is shown, animation is set to be finished
-**   uninterruptable animations are not overridden unless they are finised
+** uninterruptable animations are not overridden unless they are finised
 */
+
 typedef struct				s_sprite_anim
 {
 	t_anim_frame			frames[MAX_ANIMATION_FRAMES];

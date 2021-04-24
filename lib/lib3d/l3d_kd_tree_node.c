@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:22:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:41:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Destroys a kd node and its children leaving triangles intact, though the
 ** triangle vector is deleted.
 */
+
 void				l3d_kd_node_destroy(t_kd_node *root)
 {
 	t_kd_node	*left;
@@ -36,6 +37,7 @@ void				l3d_kd_node_destroy(t_kd_node *root)
 /*
 ** Creates a kd tree node from a triangle vector initializing its values.
 */
+
 t_kd_node			*l3d_kd_node_create(t_tri_vec *triangles)
 {
 	t_kd_node	*node;

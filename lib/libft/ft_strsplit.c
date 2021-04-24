@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 20:51:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:49:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:58:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static size_t		word_len(char *str, char c)
 ** obtained by spliting s using the character c as a delimiter.
 ** If the allocation fails the function returns NULL.
 */
+
 char				**ft_strsplit(char const *str, char c)
 {
 	char			**arr;

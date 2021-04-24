@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:21:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:41:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 **			.pixels =texture},
 **		(int32_t[2]){50, 50}, 1.0);
 */
+
 void				l3d_image_place(t_surface *frame,
 					t_surface *image, int32_t pos_xy[2], float blend_ratio)
 {
@@ -58,6 +59,7 @@ void				l3d_image_place(t_surface *frame,
 /*
 ** Create a scaled version of incoming image
 */
+
 t_surface			*l3d_image_scaled(t_surface *image,
 										int32_t dest_x, int32_t dest_y)
 {

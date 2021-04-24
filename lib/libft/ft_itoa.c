@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 19:10:25 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:46:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:55:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ size_t				get_num_len(uint64_t nb, uint64_t base)
 ** The ft_itoa() function transforms an integer base 10
 ** into a string representation of the number
 */
+
 char				*ft_itoa(int32_t nb)
 {
 	return (ft_itoa_base_32(nb, 10));

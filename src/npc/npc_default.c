@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_default.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/09 15:58:30 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/24 16:07:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	set_attack_pattern(t_npc *npc)
 /*
 ** monster01 variant differences
 */
+
 void	npc_monster01(t_doom3d *app, t_npc *npc, int type)
 {
 	if (type == npc_type_monster01_a)

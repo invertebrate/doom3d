@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:24:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 23:39:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:19:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int32_t	adjust_notifications_dims(t_doom3d *app,
 ** Renders doom3d notifications that show textual information to user.
 ** Notifications can be either story notifications or just info notifications.
 */
+
 void			render_notifications(t_doom3d *app, t_vec2 pos)
 {
 	int32_t		dims[2];

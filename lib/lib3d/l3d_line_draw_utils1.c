@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 22:54:04 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:23:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:42:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Check if 2d point is inside a 2d aabb
 */
+
 t_bool			l3d_point2d_inside_aabb(t_vec2 point,
 					t_vec2 aabb[2])
 {
@@ -59,6 +60,7 @@ static void		copy_one_intersections(t_vec2 aabb[2],
 ** If line intersects none, check if both points are inside, draw.
 ** Else don't draw.
 */
+
 t_bool			l3d_clamp_edge_within_aabb(t_vec2 aabb[2],
 					t_vec2 edge[2], int32_t is_intersect[4],
 					t_vec2 intersects[4])
@@ -88,6 +90,7 @@ t_bool			l3d_clamp_edge_within_aabb(t_vec2 aabb[2],
 /*
 ** Get intersection points of a 2d edge / line inside aabb
 */
+
 void			l3d_edge_aabb_intersections(t_vec2 aabb[2],
 					t_vec2 edge[2], int32_t is_intersect[4],
 					t_vec2 intersects[4])

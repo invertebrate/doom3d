@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:38:17 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:30:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:44:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void			set_clip_two_triangle_vertices(t_triangle *triangle,
 **	Clips a triangle that is intersecting a plane. The result is either one or
 **	two triangles on the positive side of the plane.
 */
+
 t_bool				create_two_clipped_triangles(t_triangle *triangle,
 						t_plane *plane, int32_t *indices,
 						t_triangle *result_tris[2])

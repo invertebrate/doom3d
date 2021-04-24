@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_state.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 12:40:58 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/24 16:04:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static void		handle_game_keyboard_state(t_doom3d *app)
 /*
 ** Keyboard state handling, both editor & game
 */
+
 void			handle_keyboard_state_input(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
