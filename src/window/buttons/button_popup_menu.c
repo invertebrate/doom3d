@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:34:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:34:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 17:55:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,34 +134,4 @@ t_button_menu	*button_popup_menu_create(t_button_group *menu,
 	if (menu)
 		button_popup_menu_clamp_position_to_window(popup_menu);
 	return (popup_menu);
-}
-
-/*
-** Destroy a popup menu
-*/
-
-void			button_popup_menu_destroy(t_button_menu *popup_menu)
-{
-	if (popup_menu->menu)
-		button_group_destroy(popup_menu->menu);
-	free(popup_menu->background.pixels);
-	free(popup_menu);
-}
-
-/*
-** Render a popup menu
-*/
-
-void			button_popup_menu_render(t_window *window,
-					t_button_menu *popup_menu)
-{
-	if (!popup_menu->is_open)
-		return ;
-	l3d_image_place(&(t_surface){.h = window->framebuffer->height,
-		.w = window->framebuffer->width, .pixels = window->framebuffer->buffer},
-		&popup_menu->background,
-			(int32_t[2]){popup_menu->pos[0] - popup_menu->border_size,
-			popup_menu->pos[1] - popup_menu->border_size}, 1.0);
-	if (popup_menu->menu)
-		button_group_render(popup_menu->menu);
 }

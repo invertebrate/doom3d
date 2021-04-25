@@ -138,6 +138,8 @@ SOURCES = main.c \
 			render/notifications2.c \
 			render/render_triangle_pool.c \
 			window/text.c \
+			window/text_wrapped.c \
+			window/text_surface.c \
 			window/window.c \
 			window/frame.c \
 			window/utils.c \
@@ -148,6 +150,7 @@ SOURCES = main.c \
 			window/buttons/button_utils.c \
 			window/buttons/button.c \
 			window/buttons/button_popup_menu.c \
+			window/buttons/button_popup_menu_utils.c \
 			window/buttons/button_popup_menu_events.c \
 			events/custom_event_handling/media.c \
 			events/custom_event_handling/scene.c \

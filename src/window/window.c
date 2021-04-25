@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:35:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 18:07:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,16 @@ static int		window_resize_callback(void *data, SDL_Event *event)
 	return (0);
 }
 
+static void		window_set_fonts(t_window *window)
+{
+	window->main_font = TTF_OpenFont(GAME_FONT, FONT_SIZE);
+	error_check(window->main_font == NULL, TTF_GetError());
+	window->debug_font = TTF_OpenFont(DEBUG_FONT, FONT_SIZE * 0.36);
+	error_check(window->debug_font == NULL, TTF_GetError());
+	window->title_font = TTF_OpenFont(GAME_FONT, FONT_SIZE * 2);
+	error_check(window->title_font == NULL, TTF_GetError());
+}
+
 /*
 ** Create new window with framebuffers
 */
@@ -81,12 +91,7 @@ void			window_create(t_window **window_ref,
 	window->frame = NULL;
 	window->framebuffer = NULL;
 	window->editor_framebuffer = NULL;
-	window->main_font = TTF_OpenFont(GAME_FONT, FONT_SIZE);
-	error_check(window->main_font == NULL, TTF_GetError());
-	window->debug_font = TTF_OpenFont(DEBUG_FONT, FONT_SIZE * 0.36);
-	error_check(window->debug_font == NULL, TTF_GetError());
-	window->title_font = TTF_OpenFont(GAME_FONT, FONT_SIZE * 2);
-	error_check(window->title_font == NULL, TTF_GetError());
+	window_set_fonts(window);
 	window_frame_recreate(window);
 	SDL_AddEventWatch(window_resize_callback, window);
 	window->resized = false;

@@ -6,11 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:38:19 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:34:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 17:56:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom3d.h"
+#include "window.h"
 
 static void		button_selector_state_handle(t_button_group *button_group,
 					t_mouse mouse, SDL_Event event, int32_t i)
@@ -59,7 +59,6 @@ void			button_group_events_handle(t_button_group *button_group,
 	{
 		while (++i < (int32_t)button_group->num_buttons)
 		{
-
 			if (button_is_clicked(button_group->buttons[i], mouse, event))
 			{
 				button_group->selected_index = i;

@@ -6,11 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 16:05:06 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:12:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 17:56:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom3d.h"
+#include "window.h"
 
 /*
 ** Handle button popup menu's events

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:32:17 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:35:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 18:04:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void			draw_window_frame(t_window *window)
 
 static void		window_editor_framebuffer_recreate(t_window *window)
 {
-	int32_t			width;
-	int32_t			height;
+	int	width;
+	int	height;
 
-	width = window->framebuffer->width / 6 * 5;
-	height = window->framebuffer->height / 7 * 6;
+	width = window->framebuffer->width * 5 / 6;
+	height = window->framebuffer->height * 6 / 7;
 	while (width % 4 != 0)
 		width++;
 	while (height % 4 != 0)
