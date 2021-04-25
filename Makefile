@@ -116,9 +116,16 @@ SOURCES = main.c \
 			scene/level.c \
 			scene/cleanup.c \
 			scene/scene_assets.c \
-			scene/asset_loading/3d_animations.c \
+			scene/asset_loading/animations_3d.c \
 			scene/asset_loading/models.c \
 			scene/asset_loading/normal_maps.c \
+			scene/asset_loading/textures.c \
+			scene/asset_loading/sprites.c \
+			scene/asset_loading/skybox.c \
+			scene/asset_loading/npcs.c \
+			scene/asset_loading/lights.c \
+			scene/asset_loading/triggers.c \
+			scene/asset_loading/prefabs.c \
 			scene/scene_content.c \
 			render/render.c \
 			render/render_parallel.c \

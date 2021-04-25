@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 19:04:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 19:56:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -529,6 +529,18 @@ t_3d_object					*find_object_by_id(t_doom3d *app, uint32_t id);
 ** Scene
 */
 
+void						load_sprite_animations_to_memory(t_scene *scene,
+								t_asset_files *data);
+void						prefabs_load(t_scene *scene);
+void						triggers_load(t_scene *scene);
+void						lights_load(t_scene *scene);
+void						npcs_load(t_scene *scene);
+void						load_skybox_textures_to_memory(t_scene *scene);
+void						load_animation_3d_frames_to_memory(t_scene *scene,
+								t_asset_files *data);
+void						scene_animation_sprite_files_set(t_asset_files
+								*data);
+void						scene_texture_files_set(t_asset_files *data);
 void						scene_model_files_set(t_asset_files *data);
 void						scene_animation_3d_files_set(t_asset_files *data);
 void						scene_normal_map_files_set(t_asset_files *data);

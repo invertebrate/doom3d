@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3d_animations.c                                    :+:      :+:    :+:   */
+/*   animations_3d.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:53:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 18:56:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 19:59:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 */
 
 static void		scene_animation_3d_frames_set(t_asset_files *data,
-					char* file_path, uint32_t framecount)
+					char *file_path, uint32_t framecount)
 {
 	int		i;
 	char	*frame_path;
-	
+
 	i = -1;
-	while(++i < (int)framecount && i < 100)
+	while (++i < (int)framecount && i < 100)
 	{
 		frame_path = (char*)ft_calloc(sizeof(char) * ft_strlen(file_path) + 16);
 		if (i < 10)
@@ -32,7 +32,8 @@ static void		scene_animation_3d_frames_set(t_asset_files *data,
 		}
 		else if (i >= 10 && i < 100)
 		{
-			ft_sprintf(frame_path, "%s_0%d.obj", file_path, i);		}
+			ft_sprintf(frame_path, "%s_0%d.obj", file_path, i);
+		}
 		data->animation_3d_files[data->num_animation_frames_3d++] = frame_path;
 	}
 }
@@ -65,4 +66,17 @@ void			scene_animation_3d_files_set(t_asset_files *data)
 		"assets/models/monster_02/attack/monster02_attack", 20);
 	scene_animation_3d_frames_set(data,
 		"assets/models/monster_02/death/monster02_death", 32);
+}
+
+void			load_animation_3d_frames_to_memory(t_scene *scene,
+					t_asset_files *data)
+{
+	int		i;
+
+	scene->animation_3d_frames = hash_map_create(ANIM_3D_FRAME_MAX);
+	i = -1;
+	while (++i < (int32_t)data->num_animation_frames_3d)
+		hash_map_add(scene->animation_3d_frames,
+			(int64_t)scene->asset_files.animation_3d_files[i],
+			l3d_read_obj(scene->asset_files.animation_3d_files[i], NULL, NULL));
 }
