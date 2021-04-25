@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:08:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 18:52:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ t_3d_object			*place_temp_object(t_doom3d *app, const char *filenames[3],
 	if (!model)
 	{
 		LOG_ERROR("No existing model file (%s) given to place object. "
-			"Add it in scene_assets.c", filenames[0]);
+			"Add it in scene/asset_loading", filenames[0]);
 		return (NULL);
 	}
 	obj = l3d_object_instantiate(model, app->unit_size);

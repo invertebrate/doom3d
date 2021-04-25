@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:20:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 19:31:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ void			render_guide_on_popup(t_doom3d *app)
 		"Mouse Right on target: Deselect one\n"
 		"Mouse Right on empty: Deselect All\n"
 		"Mouse Right on path node: Connect to another node\n"
-		"Button R + X | Y | Z: Rotate selected\n"
-		"Button Right | Left | Up | Down: Move selected on x and z axis\n"
-		"Button O | L: Move selected target on y axis\n"
+		"Button R + X | Y | Z + lshift: Rotate selected (shift slower)\n"
+		"Button Arrows + rshift:"
+		"Move selected on x and z axis, shift slower\n"
+		"Button O | L: Move selected target on y axis, shift slower\n"
 		"Button [ | ] + \\: Scale selected (with uvs if \\)\n"
 		"Button Space: Snap selected to Grid\n"
 		"Button Delete: Delete selected\n"
@@ -101,13 +102,15 @@ void			render_editor_ui(t_doom3d *app)
 		render_button_menu(app->active_scene->menus[1], (t_vec2){
 			app->active_scene->menus[0]->max_width - 40,
 			app->window->framebuffer->height - 100});
+	render_saved_filename(app);
+	render_object_information(app);
 	if (app->editor.editor_menu != NULL)
 	{
+		button_popup_menu_clamp_position_to_window(app->editor.editor_menu,
+			&app->mouse);
 		button_popup_menu_render(app->window, app->editor.editor_menu);
 		if (app->editor.editor_menu_id == editor_menu_guide &&
 			app->editor.editor_menu->is_open)
 			render_guide_on_popup(app);
 	}
-	render_saved_filename(app);
-	render_object_information(app);
 }

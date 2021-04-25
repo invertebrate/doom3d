@@ -6,11 +6,21 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:37:44 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 02:37:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 19:33:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+static int32_t			get_angle_amount(t_doom3d *app)
+{
+	int32_t				amount;
+
+	amount = 10;
+	if (app->keyboard.state[SDL_SCANCODE_LSHIFT])
+		amount = 1;
+	return (amount);
+}
 
 static void				xyz_rotation_input(t_doom3d *app, int32_t i,
 							int32_t x, uint32_t *last_rotated)
@@ -20,7 +30,7 @@ static void				xyz_rotation_input(t_doom3d *app, int32_t i,
 	void				*angle_pass;
 
 	obj = app->editor.selected_objects[i];
-	angle = (x > 0 ? 1 : -1) * 10;
+	angle = (x > 0 ? 1 : -1) * get_angle_amount(app);
 	angle_pass = (void*)(intptr_t)angle;
 	if (app->keyboard.state[SDL_SCANCODE_Y] && ft_abs(x) > 2)
 	{

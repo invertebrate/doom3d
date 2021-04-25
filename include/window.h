@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:33:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 19:08:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,5 +270,7 @@ void						button_popup_menu_events_handle(
 								t_button_menu *button_menu,
 								t_mouse mouse, SDL_Event event);
 void						popup_menu_default_dims(t_vec2 dims);
+void						button_popup_menu_clamp_position_to_window(
+								t_button_menu *popup_menu, t_mouse *mouse);
 
 #endif

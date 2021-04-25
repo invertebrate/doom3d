@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 03:12:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:05:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 19:23:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void		handle_object_translation_input(t_doom3d *app,
 	shift = 1.0 * app->info.delta_time * CONST_SPEED;
 	if (app->keyboard.state[SDL_SCANCODE_LSHIFT])
 		shift = 10.0 * app->info.delta_time * CONST_SPEED;
+	else if (app->keyboard.state[SDL_SCANCODE_RSHIFT])
+		shift = 0.05 * app->info.delta_time * CONST_SPEED;
 	amount = 0.1 * app->unit_size * shift;
 	handle_horizontal_translation(app, amount, i, last_changed);
 	if (app->keyboard.state[SDL_SCANCODE_O])

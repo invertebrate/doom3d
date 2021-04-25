@@ -94,16 +94,16 @@ SOURCES = main.c \
 			utils.c \
 			performance_counter.c \
 			notifications/notifications.c \
-			scene/menus/editor3d_menu.c \
-			scene/menus/editor3d_menu_button_clicks1.c \
-			scene/menus/editor3d_menu_button_clicks2.c \
-			scene/menus/editor3d_menu_button_clicks3.c \
-			scene/menus/settings_menu.c \
-			scene/menus/main_menu.c \
-			scene/menus/pause_menu.c \
-			scene/menus/menu_utils.c \
-			scene/menus/menu_button_utils.c \
-			scene/menus/popup_menu_utils.c \
+			scene/scene_menus/editor3d_menu.c \
+			scene/scene_menus/editor3d_menu_button_clicks1.c \
+			scene/scene_menus/editor3d_menu_button_clicks2.c \
+			scene/scene_menus/editor3d_menu_button_clicks3.c \
+			scene/scene_menus/settings_menu.c \
+			scene/scene_menus/main_menu.c \
+			scene/scene_menus/pause_menu.c \
+			scene/scene_menus/menu_utils.c \
+			scene/scene_menus/menu_button_utils.c \
+			scene/scene_menus/popup_menu_utils.c \
 			scene/editor/editor_selection.c \
 			scene/editor/editor_utils.c \
 			scene/editor/editor_init.c \
@@ -111,9 +111,14 @@ SOURCES = main.c \
 			scene/editor/save.c \
 			scene/editor/read.c \
 			scene/scene.c \
+			scene/scene_menus.c \
+			scene/scene_update.c \
 			scene/level.c \
 			scene/cleanup.c \
 			scene/scene_assets.c \
+			scene/asset_loading/3d_animations.c \
+			scene/asset_loading/models.c \
+			scene/asset_loading/normal_maps.c \
 			scene/scene_content.c \
 			render/render.c \
 			render/render_parallel.c \
@@ -218,7 +223,8 @@ $(DIR_OBJ):
 	@mkdir -p temp
 	@mkdir -p temp/map
 	@mkdir -p temp/scene
-	@mkdir -p temp/scene/menus
+	@mkdir -p temp/scene/asset_loading
+	@mkdir -p temp/scene/scene_menus
 	@mkdir -p temp/scene/editor
 	@mkdir -p temp/window
 	@mkdir -p temp/window/buttons

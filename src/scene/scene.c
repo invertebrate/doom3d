@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 02:42:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 18:43:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void			scene_destroy(t_doom3d *app)
 		free(app->active_scene->triangle_ref);
 		app->active_scene->triangle_ref = NULL;
 	}
-	//call destroy frames function
 	scene_objects_destroy(app->active_scene);
 	scene_camera_destroy(app->active_scene);
 	free(app->active_scene);

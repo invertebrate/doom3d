@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:24:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 14:31:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 19:29:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void		render_action_notification(t_doom3d *app)
 {
 	int32_t	height;
 
-	
 	if (*app->action_text != '\0')
 	{
 		height = app->window->framebuffer->height * 3 / 4;

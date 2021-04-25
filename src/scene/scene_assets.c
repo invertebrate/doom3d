@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 15:54:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 19:04:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,8 +270,6 @@ static void		scene_texture_files_set(t_asset_files *data)
 	data->texture_files[data->num_textures++] =
 		"assets/textures/lava.bmp";
 	data->texture_files[data->num_textures++] =
-		"assets/textures/Dirs.bmp";
-	data->texture_files[data->num_textures++] =
 		"assets/textures/rock.bmp";
 	data->texture_files[data->num_textures++] =
 		"assets/textures/crate.bmp";
@@ -341,100 +339,6 @@ static void		scene_texture_files_set(t_asset_files *data)
 		"assets/textures/medkit_texture.bmp";
 }
 
-static void		scene_normal_files_set(t_asset_files *data)
-{
-	data->normal_map_files[data->num_normal_maps++] =
-		"assets/textures/lava_normal.bmp";
-	data->normal_map_files[data->num_normal_maps++] =
-		"assets/textures/wall_metal_panel_nmm.bmp";
-	data->normal_map_files[data->num_normal_maps++] =
-		"assets/textures/crate_nmm.bmp";
-	data->normal_map_files[data->num_normal_maps++] =
-		"assets/textures/door_metal_h_nmm.bmp";
-	data->normal_map_files[data->num_normal_maps++] =
-		"assets/textures/door_metal_v_nmm.bmp";
-	data->normal_map_files[data->num_normal_maps++] =
-		"assets/textures/floor_metal3_nmm.bmp";
-	data->normal_map_files[data->num_normal_maps++] =
-		"assets/textures/floor_metal4_nmm.bmp";
-	data->normal_map_files[data->num_normal_maps++] =
-		"assets/textures/floor_metal4_box_nmm.bmp";
-	data->normal_map_files[data->num_normal_maps++] =
-		"assets/textures/monster_01/monster01_normal.bmp";
-	data->normal_map_files[data->num_normal_maps++] =
-		"assets/textures/monster_02/monster02_normal.bmp";
-}
-
-static void		scene_model_files_set(t_asset_files *data)
-{
-	data->model_files[data->num_models++] = "assets/models/box.obj";
-	data->model_files[data->num_models++] = "assets/models/monster_01/monster01_basemodel_000.obj";
-	data->model_files[data->num_models++] = "assets/models/monster_02/monster02_basemodel_000.obj";
-	data->model_files[data->num_models++] = "assets/models/shotgun.obj";
-	data->model_files[data->num_models++] = "assets/models/pistol.obj";
-	data->model_files[data->num_models++] = "assets/models/rpg.obj";
-	data->model_files[data->num_models++] = "assets/models/missile.obj";
-	data->model_files[data->num_models++] = "assets/models/npc_projectile.obj";
-	data->model_files[data->num_models++] = "assets/models/corridor_corner_floor.obj";
-	data->model_files[data->num_models++] = "assets/models/corridor_corner_inner.obj";
-	data->model_files[data->num_models++] = "assets/models/corridor_corner_outer.obj";
-	data->model_files[data->num_models++] = "assets/models/corridor_straight_floor.obj";
-	data->model_files[data->num_models++] = "assets/models/corridor_straight_wall.obj";
-	data->model_files[data->num_models++] = "assets/models/corridor_t_floor.obj";
-	data->model_files[data->num_models++] = "assets/models/corridor_x_floor.obj";
-	data->model_files[data->num_models++] = "assets/models/keypad.obj";
-	data->model_files[data->num_models++] = "assets/models/jetpack.obj";
-	data->model_files[data->num_models++] = "assets/models/medkit.obj";
-	data->model_files[data->num_models++] = "assets/models/light_sphere.obj";
-}
-
-/*
-**	Creates the file path for each frame in an animation clip
-*/
-
-static void		scene_animation_3d_frames_set(t_asset_files *data,
-					char* file_path, uint32_t framecount)
-{
-	int		i;
-	char	*frame_path;
-	
-	i = -1;
-	while(++i < (int)framecount && i < 100)
-	{
-		frame_path = (char*)ft_calloc(sizeof(char) * ft_strlen(file_path) + 16);
-		if (i < 10)
-		{
-			ft_sprintf(frame_path, "%s_00%d.obj", file_path, i);
-		}
-		else if (i >= 10 && i < 100)
-		{
-			ft_sprintf(frame_path, "%s_0%d.obj", file_path, i);		}
-		data->animation_3d_files[data->num_animation_frames_3d++] = frame_path;
-	}
-}
-
-/*
-** The file path must not include the ".obj", it will be appended by
-** animation_frames_set function. The function call order is important:
-** each object has their animations in a contiguous chunk in the array.
-*/
-
-static void		scene_animation_3d_files_set(t_asset_files *data)
-{
-	scene_animation_3d_frames_set(data, "assets/models/monster_01/monster01_basemodel", 1);
-	scene_animation_3d_frames_set(data, "assets/models/monster_01/idle/monster01_idle", 65);
-	scene_animation_3d_frames_set(data, "assets/models/monster_01/move/monster01_move", 17);
-	scene_animation_3d_frames_set(data, "assets/models/monster_01/attack/monster01_attack", 31);
-	scene_animation_3d_frames_set(data, "assets/models/monster_01/death/monster01_death", 49);
-
-	scene_animation_3d_frames_set(data, "assets/models/monster_02/monster02_basemodel", 1);
-	scene_animation_3d_frames_set(data, "assets/models/monster_02/idle/monster02_idle", 59);
-	scene_animation_3d_frames_set(data, "assets/models/monster_02/move/monster02_move", 20);
-	scene_animation_3d_frames_set(data, "assets/models/monster_02/attack/monster02_attack", 20);
-	scene_animation_3d_frames_set(data, "assets/models/monster_02/death/monster02_death", 32);
-	//call the above function for each animation clip separately;
-}
-
 /*
 ** Load all imported assets here, rest should be done with the editor.
 */
@@ -451,7 +355,7 @@ void			scene_assets_load(t_scene *scene)
 	scene->asset_files.num_triggers = 0;
 	scene->asset_files.num_lights = 0;
 	scene_texture_files_set(&scene->asset_files);
-	scene_normal_files_set(&scene->asset_files);
+	scene_normal_map_files_set(&scene->asset_files);
 	scene_model_files_set(&scene->asset_files);
 	scene_animation_3d_files_set(&scene->asset_files);
 	if (scene->scene_id == scene_id_main_game)
