@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 16:01:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 17:10:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,35 @@ static void				active_scene_triangle_refs_set(t_scene *scene)
 	}
 }
 
+static void				update_temp_object_light_sources(t_scene *scene)
+{
+	t_temp_object			*tmp;
+	t_temp_objects			*node;
+
+	node = scene->temp_objects;
+	while (node)
+	{
+		tmp = node->content;
+		if (tmp->obj->type == object_type_light)
+			scene->scene_lights[scene->num_scene_lights++] = tmp->obj;
+		node = node->next;
+	}
+}
+
 /*
+** Update temp object light information
 ** Update object bounding boxes
-** Update scene light information
+** Update scene normal object light information
 ** Update triangle tree (for collisions & raycasting)
 */
 
 void					active_scene_update_after_objects(t_scene *scene)
 {
-	int32_t		i;
+	int32_t					i;
 
-	i = -1;
 	scene->num_scene_lights = 0;
+	update_temp_object_light_sources(scene);
+	i = -1;
 	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
 	{
 		if (scene->objects[i])

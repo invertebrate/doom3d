@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 15:42:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 17:08:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 # define L3D_COLOR_LIGHT_YELLOW_TRANSPARENT 0xffff8064
 # define L3D_COLOR_CYAN_TRANSPARENT 0x00ffff64
 
-# define L3D_MAX_LIGHTS 12
+# define L3D_MAX_LIGHTS 16
 
 /*
 ** OBJ file temporary structs. They are used in transfering obj data to final
@@ -117,6 +117,7 @@ typedef enum				e_shading_opts
 	e_shading_transparent = 1 << 11,
 	e_shading_uv_repeat = 1 << 12,
 	e_shading_light = 1 << 13,
+	e_shading_temp_invisible = 1 << 14,
 }							t_shading_opts;
 
 /*

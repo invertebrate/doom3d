@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:25:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:44:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 17:09:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void				l3d_temp_objects_add(t_temp_objects **temp_objects,
 	tmp_obj.lifetime = lifetime_and_delay[0];
 	tmp_obj.delay = lifetime_and_delay[1];
 	tmp_obj.obj->material->shading_opts |=
-		e_shading_invisible | e_shading_zero_alpha;
+		e_shading_temp_invisible | e_shading_zero_alpha;
 	if (*temp_objects == NULL)
 		*temp_objects = ft_lstnew(&tmp_obj, sizeof(tmp_obj));
 	else
@@ -108,7 +108,7 @@ void				l3d_temp_objects_update_time(t_temp_objects **temp_objects,
 		{
 			temp_obj->obj->material->shading_opts =
 				(temp_obj->obj->material->shading_opts &
-				~e_shading_invisible);
+				~e_shading_temp_invisible);
 			temp_obj->lifetime -= (int32_t)delta_time;
 		}
 		curr = curr->next;

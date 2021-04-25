@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:45:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 17:09:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void			l3d_triangle_raster(t_sub_framebuffer *buffers,
 	t_raster_data	data;
 	t_vec2			ordered_points_2d[3];
 
-	if (triangle->material->shading_opts & e_shading_invisible)
+	if (triangle->material->shading_opts & e_shading_invisible ||
+		triangle->material->shading_opts & e_shading_temp_invisible)
 		return ;
 	l3d_order_corners_y(ordered_points_2d, triangle->points_2d);
 	data.x1 = floor(ordered_points_2d[0][0]);
