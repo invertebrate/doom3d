@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 03:08:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 03:16:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void			update_player(t_doom3d *app)
 	else
 		return ;
 	update_player_physics_state(app);
-	if (dt_sum > 100)
+	if (dt_sum > FORCES_UPDATE_MS)
 	{
 		forces_update_player(app);
 		dt_sum = 0;

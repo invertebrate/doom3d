@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 03:00:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 03:25:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,12 @@
 
 # define CONST_SPEED 0.1
 # define CONST_GRAVITY 2.0
+
+/*
+** How often to update forces? Don't make smaller ms than frame delta time
+*/
+
+# define FORCES_UPDATE_MS 100
 
 # define NUM_CUSTOM_EVENTS 64
 # define MAX_TIMERS 16

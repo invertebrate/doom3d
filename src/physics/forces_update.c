@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/24 16:09:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 03:16:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		update_object_forces(t_doom3d *app, t_3d_object *obj)
 
 	if (obj->type == object_type_npc)
 	{
-		if (dt_sum > 100)
+		if (dt_sum > FORCES_UPDATE_MS)
 		{
 			forces_update_npc(obj);
 			dt_sum = 0;

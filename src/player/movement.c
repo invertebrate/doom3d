@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/12 19:25:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 03:21:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void		player_rotate(t_doom3d *app)
 
 void			player_rotate_vertical(t_doom3d *app, float angle)
 {
-	app->player.rot_y += app->player.rot_speed * angle;
+	app->player.rot_y += app->player.rot_speed * angle * app->info.delta_time
+		* CONST_SPEED;
 	if (app->player.rot_y > 90.0)
 		app->player.rot_y = 90.0;
 	if (app->player.rot_y < -90.0)
@@ -40,7 +41,8 @@ void			player_rotate_vertical(t_doom3d *app, float angle)
 
 void			player_rotate_horizontal(t_doom3d *app, float angle)
 {
-	app->player.rot_x += app->player.rot_speed * angle;
+	app->player.rot_x += app->player.rot_speed * angle * app->info.delta_time
+		* CONST_SPEED;
 	player_rotate(app);
 }
 
