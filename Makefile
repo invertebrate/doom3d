@@ -83,6 +83,8 @@ SOURCES = main.c \
 			npc/npc_destroy.c \
 			trigger/trigger.c \
 			trigger/trigger_timer.c \
+			lights/light.c \
+			lights/light_color.c \
 			path/path.c \
 			path/path2.c \
 			path/patrol_path.c \
@@ -105,11 +107,17 @@ SOURCES = main.c \
 			scene/scene_menus/menu_button_utils.c \
 			scene/scene_menus/popup_menu_utils.c \
 			scene/editor/editor_selection.c \
+			scene/editor/editor_deselection.c \
 			scene/editor/editor_utils.c \
 			scene/editor/editor_init.c \
-			scene/editor/editor_placement.c \
+			scene/editor/editor_placement1.c \
+			scene/editor/editor_placement2.c \
+			scene/editor/editor_point_on_target.c \
+			scene/editor/editor_object_by_mouse.c \
+			scene/editor/editor_duplication.c \
 			scene/editor/save.c \
 			scene/editor/read.c \
+			scene/editor/read_utils.c \
 			scene/scene.c \
 			scene/scene_menus.c \
 			scene/scene_update.c \
@@ -243,6 +251,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/events/custom_event_handling/editor
 	@mkdir -p temp/events/custom_event_handling/objects
 	@mkdir -p temp/events/custom_event_handling/player
+	@mkdir -p temp/lights
 	@mkdir -p temp/player
 	@mkdir -p temp/animations
 	@mkdir -p temp/npc

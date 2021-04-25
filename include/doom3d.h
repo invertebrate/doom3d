@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 19:56:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 01:41:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -517,6 +517,9 @@ void						allocate_render_triangle_pool(t_doom3d *app,
 ** Objects
 */
 
+void						update_light_sources(t_doom3d *app,
+								t_3d_object *object);
+void						update_editor_light_sources(t_doom3d *app);
 void						update_objects(t_doom3d *app);
 void						object_type_to_str(t_3d_object *obj, char *str);
 t_3d_object					*find_one_object_by_type(t_doom3d *app,
@@ -586,6 +589,8 @@ t_3d_object					*place_procedural_temp_object(t_doom3d *app,
 								t_3d_object *model,
 								const char *filenames[2],
 								t_vec3 pos, int32_t lifetime_and_delay[2]);
+void						get_mouse_world_position(t_doom3d *app,
+								t_vec3 mouse_world_pos);
 void						select_object(t_doom3d *app, t_3d_object *object);
 void						deselect_object(t_doom3d *app, t_3d_object *obj);
 void						editor_select_by_mouse(t_doom3d *app);
@@ -702,6 +707,7 @@ void						notify_user(t_doom3d *app,
 								t_notification notification);
 void						update_notifications(t_doom3d *app);
 void						delete_notifications(t_doom3d *app);
+void						placement_notification(t_doom3d *app, char *txt);
 
 /*
 ** Triggers

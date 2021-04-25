@@ -6,39 +6,18 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:31:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 01:20:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
 /*
-** Deslect all objects in editor
-*/
-
-void			editor_deselect_all(t_doom3d *app)
-{
-	int32_t		i;
-	t_3d_object	*obj;
-
-	i = -1;
-	while (++i < (int32_t)(app->editor.num_selected_objects))
-	{
-		obj = app->editor.selected_objects[i];
-		obj->material->shading_opts = (obj->material->shading_opts &
-			~(e_shading_select));
-		app->editor.selected_objects[i] = NULL;
-	}
-	app->editor.num_selected_objects = 0;
-	app->editor.selected_object_str[0] = '\0';
-}
-
-/*
 ** Select an object in editor
 */
 
 void			select_object(t_doom3d *app, t_3d_object *object)
-{	
+{
 	char	object_type[128];
 	int32_t	i;
 
@@ -50,8 +29,7 @@ void			select_object(t_doom3d *app, t_3d_object *object)
 	}
 	if (app->editor.num_selected_objects >= MAX_SELECTED_OBJECTS)
 	{
-		notify_user(app, (t_notification){
-			.message = "Selected max objects (64), can't select more!",
+		notify_user(app, (t_notification){.message = "Can't select more!",
 			.type = notification_type_info, .time = 2000});
 		return ;
 	}
@@ -65,8 +43,6 @@ void			select_object(t_doom3d *app, t_3d_object *object)
 	}
 	else
 		ft_sprintf(app->editor.selected_object_str, "multiple");
-	notify_user(app, (t_notification){.message = "Selected!",
-		.type = notification_type_info, .time = 2000});
 }
 
 static void		path_connect_selection(t_doom3d *app, t_3d_object *new)
@@ -111,71 +87,4 @@ void			editor_select_by_mouse(t_doom3d *app)
 			select_object(app, hit_obj);
 		}
 	}
-}
-
-/*
-** Deselect a single object
-*/
-
-void			deselect_object(t_doom3d *app, t_3d_object *delete_object)
-{
-	t_3d_object		*selected_objects[MAX_SELECTED_OBJECTS];
-	int32_t			i;
-	int32_t			j;
-	t_3d_object		*match_obj;
-
-	i = -1;
-	j = 0;
-	while (++i < app->editor.num_selected_objects)
-	{
-		if (delete_object->id != app->editor.selected_objects[i]->id)
-			selected_objects[j++] = app->editor.selected_objects[i];
-		else
-		{
-			match_obj = app->editor.selected_objects[i];
-			match_obj->material->shading_opts = (match_obj->material->shading_opts &
-				~(e_shading_select));
-			app->editor.selected_objects[i] = NULL;
-		}
-	}
-	app->editor.num_selected_objects = j;
-	j = -1;
-	while (++j < app->editor.num_selected_objects)
-	{
-		app->editor.selected_objects[j] = selected_objects[j];
-	}
-}
-
-/*
-** Deselect all or one object depending on where mouse hits
-*/
-
-void			editor_deselect(t_doom3d *app)
-{
-	t_3d_object		*hit_obj;
-
-	hit_obj = editor_object_by_mouse(app);
-	if (hit_obj)
-		deselect_object(app, hit_obj);
-	else
-	{
-		if (app->editor.num_selected_objects > 0)
-			notify_user(app, (t_notification){
-			.message = "Deselected all!",
-			.type = notification_type_info, .time = 2000});
-		editor_deselect_all(app);
-	}
-}
-
-/*
-** Get position in front of camera for placing objects not attached to other
-** objects.
-*/
-
-void			editor_pos_camera_front(t_doom3d *app , t_vec3 result)
-{
-	t_vec3	add;
-
-	ml_vector3_mul(app->player.forward, app->unit_size * 30, add);
-	ml_vector3_add(app->player.pos, add, result);
 }

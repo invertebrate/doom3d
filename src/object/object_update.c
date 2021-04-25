@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 00:50:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 01:12:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,55 +137,6 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 			else if (obj->params_type == trigger_item_medkit)
 				inventory_pickup_medkit(app, obj);
 		}
-	}
-}
-
-void			update_light_sources(t_doom3d *app, t_3d_object *object)
-{
-	int32_t	i;
-	float	radius;
-	float	intensity;
-	float	radius_scale;
-	t_vec3	light_pos;
-
-	if (!(object->material->shading_opts & e_shading_invisible) &&
-		object->type != object_type_light)
-	{
-		radius = app->unit_size * 25.0;
-		intensity = 0.5;
-		ft_memset(object->material->light_sources, 0,
-			sizeof(object->material->light_sources));
-		object->material->num_lights = 0;
-		i = -1;
-		while (++i < (int32_t)app->active_scene->num_scene_lights)
-		{
-			radius_scale =
-				app->active_scene->scene_lights[i]->scale[0][0] /
-					app->unit_size;
-			ml_matrix4_mul_vec3(app->player.inv_translation,
-				app->active_scene->scene_lights[i]->position, light_pos);
-			ml_matrix4_mul_vec3(app->player.inv_rotation,
-				light_pos, light_pos);
-			l3d_3d_object_add_light_source(object,
-				light_pos, (float[2]){radius * radius_scale, intensity},
-				get_light_emit_color(app->active_scene->scene_lights[i]));
-		}
-	}
-}
-
-void			update_editor_light_sources(t_doom3d *app)
-{
-	int32_t			i;
-	t_3d_object		*obj;
-
-	i = -1;
-	while (++i < (int32_t)(app->active_scene->num_objects +
-		app->active_scene->num_deleted))
-	{
-		obj = app->active_scene->objects[i];
-		if (!obj)
-			continue ;
-		update_light_sources(app, obj);
 	}
 }
 
