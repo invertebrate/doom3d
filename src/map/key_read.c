@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 02:04:38 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 02:21:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 02:45:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ static int32_t	read_key_if_object_exists(t_doom3d *app, char *contents,
 	t_3d_object	*obj;
 
 	trigger = NULL;
-
 	ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	obj = find_object_by_id(app, object_id);
-	if (obj) {
+	if (obj)
+	{
 		trigger = obj->params;
 		ft_memcpy(&key_id, contents + offset, sizeof(int32_t));
 		trigger->key_id = key_id;
@@ -53,6 +53,6 @@ int32_t			read_key_id_information(t_doom3d *app, char *contents)
 			num_triggers++;
 	i = -1;
 	while (++i < num_triggers)
-		offset += read_key_if_object_exists(app, contents, offset);
+		offset = read_key_if_object_exists(app, contents, offset);
 	return (offset);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 02:20:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 02:38:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -587,8 +587,12 @@ int32_t						read_path_nodes(t_doom3d *app,
 								char *contents);
 int32_t						read_path_node_npc_links(t_doom3d *app,
 								char *contents);
+int32_t						read_npc_path(t_doom3d *app,
+								char *contents, int32_t offset);
 int32_t						read_trigger_link_information(t_doom3d *app,
 								char *contents);
+int32_t						get_num_npcs(t_doom3d *app);
+int32_t						get_num_path_nodes(t_doom3d *app);
 void						read_map(t_doom3d *app, const char *map_name);
 const char					*normal_map_file_key(char *filename, t_doom3d *app);
 const char					*texture_file_key(char *filename, t_doom3d *app);

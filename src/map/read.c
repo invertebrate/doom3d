@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 02:19:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 02:46:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void			read_map(t_doom3d *app, const char *map_name)
 	ft_memcpy(&header, file->buf, (offset = 4));
 	if (!ft_strequ(header, "MAP\0"))
 		error_check(true, "Invalid map file. First 4 bytes must be MAP\0");
-	ft_memcpy(&app->active_scene->num_objects, file->buf + offset, sizeof(uint32_t));
+	ft_memcpy(&app->active_scene->num_objects,
+		file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	offset += read_objects(app, file->buf + offset);
 	offset += read_path_nodes(app, file->buf + offset);
@@ -42,5 +43,4 @@ void			read_map(t_doom3d *app, const char *map_name)
 	offset += read_trigger_link_information(app, file->buf + offset);
 	offset += read_key_id_information(app, file->buf + offset);
 	destroy_file_contents(file);
-	LOG_INFO("Map reading successful");
 }
