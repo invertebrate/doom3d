@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 01:41:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 02:20:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -572,7 +572,23 @@ void						remove_all_objects_shading_opts(t_doom3d *app,
 
 void						editor_objects_invisible_unhighlight(t_doom3d *app);
 void						editor_objects_invisible_highlight(t_doom3d *app);
+void						write_trigger_link_information(int32_t fd,
+								t_doom3d *app);
+void						write_npc_patrol_path_information(int32_t fd,
+								t_doom3d *app);
+void						write_path_object_information(int32_t fd,
+								t_doom3d *app);
+void						write_key_ids(int32_t fd, t_doom3d *app);
 void						save_map(t_doom3d *app);
+int32_t						read_key_id_information(t_doom3d *app,
+								char *contents);
+int32_t						read_objects(t_doom3d *app, char *contents);
+int32_t						read_path_nodes(t_doom3d *app,
+								char *contents);
+int32_t						read_path_node_npc_links(t_doom3d *app,
+								char *contents);
+int32_t						read_trigger_link_information(t_doom3d *app,
+								char *contents);
 void						read_map(t_doom3d *app, const char *map_name);
 const char					*normal_map_file_key(char *filename, t_doom3d *app);
 const char					*texture_file_key(char *filename, t_doom3d *app);

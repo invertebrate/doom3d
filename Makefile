@@ -106,18 +106,6 @@ SOURCES = main.c \
 			scene/scene_menus/menu_utils.c \
 			scene/scene_menus/menu_button_utils.c \
 			scene/scene_menus/popup_menu_utils.c \
-			scene/editor/editor_selection.c \
-			scene/editor/editor_deselection.c \
-			scene/editor/editor_utils.c \
-			scene/editor/editor_init.c \
-			scene/editor/editor_placement1.c \
-			scene/editor/editor_placement2.c \
-			scene/editor/editor_point_on_target.c \
-			scene/editor/editor_object_by_mouse.c \
-			scene/editor/editor_duplication.c \
-			scene/editor/save.c \
-			scene/editor/read.c \
-			scene/editor/read_utils.c \
 			scene/scene.c \
 			scene/scene_menus.c \
 			scene/scene_update.c \
@@ -135,6 +123,23 @@ SOURCES = main.c \
 			scene/asset_loading/triggers.c \
 			scene/asset_loading/prefabs.c \
 			scene/scene_content.c \
+			editor/editor_selection.c \
+			editor/editor_deselection.c \
+			editor/editor_utils.c \
+			editor/editor_init.c \
+			editor/editor_placement1.c \
+			editor/editor_placement2.c \
+			editor/editor_point_on_target.c \
+			editor/editor_object_by_mouse.c \
+			editor/editor_duplication.c \
+			map/save.c \
+			map/read.c \
+			map/key_read.c \
+			map/trigger_read.c \
+			map/path_read.c \
+			map/object_read.c \
+			map/filename_keys.c \
+			map/write_utils.c \
 			render/render.c \
 			render/render_parallel.c \
 			render/render_parallel_work.c \
@@ -240,7 +245,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/scene
 	@mkdir -p temp/scene/asset_loading
 	@mkdir -p temp/scene/scene_menus
-	@mkdir -p temp/scene/editor
+	@mkdir -p temp/editor
 	@mkdir -p temp/window
 	@mkdir -p temp/window/buttons
 	@mkdir -p temp/render

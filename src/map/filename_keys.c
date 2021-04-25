@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_utils.c                                       :+:      :+:    :+:   */
+/*   save_read_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 01:24:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 01:24:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 01:50:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,14 @@ const char	*normal_map_file_key(char *filename, t_doom3d *app)
 			return (app->active_scene->asset_files.texture_files[i]);
 	}
 	return (NULL);
+}
+
+char		*get_object_texture_filename(t_scene *scene, t_3d_object *obj)
+{
+	return (hash_map_get(scene->object_textures, obj->id));
+}
+
+char		*get_object_normal_map_filename(t_scene *scene, t_3d_object *obj)
+{
+	return (hash_map_get(scene->object_normal_maps, obj->id));
 }
