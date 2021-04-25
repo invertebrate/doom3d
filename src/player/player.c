@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 18:51:49 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/25 03:08:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,23 @@ static void		nudge_player_up(t_doom3d *app)
 	}
 }
 
+static void		nudge_player_to_ground(t_doom3d *app)
+{
+	int	i;
+
+	i = -1;
+	while (!player_is_grounded(app) && ++i < app->player.aabb.size[1] / 20)
+	{
+		app->player.pos[1] += 10;
+		player_update_aabb(&app->player);
+	}
+	if (player_is_grounded(app))
+	{
+		app->player.pos[1] -= 10;
+		player_update_aabb(&app->player);
+	}
+}
+
 void			update_player_physics_state(t_doom3d *app)
 {
 	t_physics_state	prev_state;
@@ -88,7 +105,7 @@ void			update_player_physics_state(t_doom3d *app)
 		app->player.physics_state = physics_state_jumping;
 		if (player_hits_ceiling(app))
 		{
-			nudge_player_down_ceiling(app);
+			nudge_player_off_ceiling(app);
 			app->player.velocity[1] = 0;
 		}
 	}
@@ -97,7 +114,9 @@ void			update_player_physics_state(t_doom3d *app)
 		is_grounded = player_is_grounded(app);
 		if (!is_grounded)
 		{
-			if (!player_check_nudge_to_ground(app))
+			if (should_nudge_to_ground(app))
+				nudge_player_to_ground(app);
+			else
 				app->player.physics_state = physics_state_falling;
 		}
 		else if (is_grounded)
