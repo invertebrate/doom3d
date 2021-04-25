@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/25 17:22:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 17:23:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,14 @@ static void		projectile_on_hit(t_doom3d *app,
 		ml_vector3_sub(hit_obj->aabb.center, projectile_obj->aabb.center, dist);
 		if ((mag = ml_vector3_mag(dist)) < projectile->radius)
 		{
-			damage = projectile->damage /
-				(1 + (mag / (app->unit_size * 10))) + 0.5 * projectile->damage;
+			damage = projectile->damage * (1 - (mag / projectile->radius));
 			npc_trigger_onhit(app, hit_obj, damage);
 		}
 	}
 	ml_vector3_sub(projectile_obj->aabb.center, app->player.aabb.center, dist);
 	if ((mag = ml_vector3_mag(dist)) < projectile->radius)
 	{
-		damage = projectile->damage /
-			(1 + (mag / (app->unit_size * 10))) + 0.5 * projectile->damage;
+		damage = projectile->damage * (1 - (mag / projectile->radius));
 		player_onhit(app, damage);
 	}
 }
@@ -120,7 +118,40 @@ static int		check_projectile_collision_with_player(t_doom3d *app,
 	return (0);
 }
 
- static void	projectile_handle_collision(t_doom3d *app,
+static int		projectile_check_terrain_collision(t_doom3d *app,
+											t_3d_object *projectile_obj)
+{
+	t_hits			*hits;
+	t_hit			*closest_triangle_hit;
+	t_vec3			dist;
+	t_projectile	*projectile;
+	t_bool			ret;
+
+	hits = NULL;
+	ret = false;
+	projectile = projectile_obj->params;
+	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree,
+		projectile_obj->aabb.center, projectile->dir, &hits))
+	{
+		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit, projectile_obj->id);
+		if (closest_triangle_hit != NULL)
+		{
+			ml_vector3_sub(closest_triangle_hit->hit_point, projectile_obj->aabb.center, dist);
+			if (ml_vector3_mag(dist) <= app->unit_size)
+				{
+					projectile_explode_effect(app, projectile_obj);
+					push_custom_event(app, event_object_delete,
+						projectile_obj, NULL);
+					projectile_on_hit(app, projectile_obj, closest_triangle_hit->triangle->parent);
+					ret = true;
+				}
+		}
+		l3d_delete_hits(&hits);
+	}
+	return (ret);
+}
+
+static void		projectile_handle_collision(t_doom3d *app,
 					t_3d_object *projectile_obj)
  {
 	t_vec3		dist;
@@ -129,23 +160,27 @@ static int		check_projectile_collision_with_player(t_doom3d *app,
 
 	i = -1;
 	if (check_projectile_collision_with_player(app, projectile_obj))
-			return ;
+		return ;
+	if (projectile_check_terrain_collision(app, projectile_obj))
+		return ;
 	while (++i < (int32_t)(app->active_scene->num_objects +
 													app->active_scene->num_deleted))
 	{
-			obj = app->active_scene->objects[i];
-			if (!obj || obj->type == object_type_projectile ||
-							obj->type == object_type_trigger)
-					continue ;
-			ml_vector3_sub(obj->position, projectile_obj->position, dist);
-			if (ml_vector3_mag(dist) < app->unit_size * 30 &&
-					l3d_aabb_collides(&obj->aabb, &projectile_obj->aabb))
-			{
-					projectile_explode_effect(app, projectile_obj);
-					push_custom_event(app, event_object_delete,
-							projectile_obj, NULL);
-					projectile_on_hit(app, projectile_obj, obj);
-			}
+		obj = app->active_scene->objects[i];
+		if (!obj || obj->type == object_type_projectile ||
+				obj->type == object_type_trigger)
+			continue ;
+		ml_vector3_sub(obj->position, projectile_obj->position, dist);
+		if (ml_vector3_mag(dist) < app->unit_size * 5 &&
+			obj->type == object_type_npc &&
+			l3d_aabb_collides(&obj->aabb, &projectile_obj->aabb))
+		{
+			projectile_explode_effect(app, projectile_obj);
+			push_custom_event(app, event_object_delete,
+				projectile_obj, NULL);
+			projectile_on_hit(app, projectile_obj, obj);
+			return ;
+		}
 	}
  }
 
