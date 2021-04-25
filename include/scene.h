@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:14:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:33:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 15:27:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct				s_asset_files
 	const char				*npc_names[MAX_ASSETS];
 	const char				*prefab_names[MAX_ASSETS];
 	const char				*trigger_names[MAX_ASSETS];
+	const char				*light_names[MAX_ASSETS];
 	uint32_t				num_animation_frames_3d;
 	uint32_t				num_animations_sprite;
 	uint32_t				num_models;
@@ -76,6 +77,7 @@ typedef struct				s_asset_files
 	uint32_t				num_npcs;
 	uint32_t				num_prefabs;
 	uint32_t				num_triggers;
+	uint32_t				num_lights;
 }							t_asset_files;
 
 
@@ -118,6 +120,7 @@ typedef struct				s_scene
 	t_hash_table			*npc_map;
 	t_hash_table			*prefab_map;
 	t_hash_table			*trigger_map;
+	t_hash_table			*lights_map;
 	t_hash_table			*object_textures;
 	t_hash_table			*object_normal_maps;
 	t_asset_files			asset_files;

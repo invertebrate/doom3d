@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:26:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:30:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 15:28:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ void				editor_popup_menu_create(t_doom3d *app,
 	editor_popup_menu_create_sub3(app, new_menu, pos);
 	if (new_menu == editor_menu_lights)
 		editor_popup_menu_set(app, pos, (t_button_menu_params){
-			.button_names = (const char*[1]){"Light Source"},
-			.num_buttons = 1, .on_click = on_light_menu_button_click,
+			.button_names = app->active_scene->asset_files.light_names,
+			.num_buttons = app->active_scene->asset_files.num_lights,
+			.on_click = on_light_menu_button_click,
 			.button_font = app->window->debug_font});
 	popup_menu_default_dims(dims);
 	if (new_menu == editor_menu_guide)

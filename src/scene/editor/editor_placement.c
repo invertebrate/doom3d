@@ -6,28 +6,59 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:50:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 14:01:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 15:55:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
+uint32_t		get_light_emit_color(t_light_type light_type)
+{
+	if (light_type == light_type_yellow)
+		return (L3D_COLOR_YELLOW);
+	else if (light_type == light_type_red)
+		return (L3D_COLOR_RED);
+	else if (light_type == light_type_green)
+		return (L3D_COLOR_GREEN);
+	else if (light_type == light_type_blue)
+		return (L3D_COLOR_BLUE);
+	else if (light_type == light_type_cyan)
+		return (L3D_COLOR_CYAN);
+	return (L3D_COLOR_YELLOW);		
+}
+
+t_shading_opts	get_light_shading(t_light_type light_type)
+{
+	if (light_type == light_type_yellow)
+		return (e_shading_yellow);
+	else if (light_type == light_type_red)
+		return (e_shading_red);
+	else if (light_type == light_type_green)
+		return (e_shading_green);
+	else if (light_type == light_type_blue)
+		return (e_shading_blue);
+	else if (light_type == light_type_cyan)
+		return (e_shading_cyan);
+	return (e_shading_yellow);		
+}
+
 /*
-** Place a light object in editor
+** Place a light object in editor. Light type defines what color is emmitted.
 */
 
-t_3d_object		*editor_place_light_object(t_doom3d *app)
+t_3d_object		*editor_place_light_object(t_doom3d *app,
+					t_light_type light_type)
 {
 	t_3d_object		*light;
 	t_vec3			pos;
 
 	editor_pos_camera_front(app, pos);
 	light = place_scene_object(app, (const char*[3]){
-		"assets/models/box.obj", NULL,  NULL}, pos);
+		"assets/models/light_sphere.obj", NULL,  NULL}, pos);
 	l3d_object_set_shading_opts(light,
-		e_shading_invisible | e_shading_transparent);
+		e_shading_transparent | get_light_shading(light_type));
 	light->type = object_type_light;
-	light->params_type = object_type_light;
+	light->params_type = light_type;
 	editor_objects_invisible_highlight(app);\
 	return (light);
 }

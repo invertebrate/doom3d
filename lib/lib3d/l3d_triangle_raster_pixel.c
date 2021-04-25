@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 02:29:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 15:53:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ static uint32_t	pixel_trans(t_triangle *triangle, t_vec2 uv,
 	uint32_t	pixel;
 
 	if (triangle->material->shading_opts & e_shading_green)
-		pixel = 0x00ff0064;
+		pixel = L3D_COLOR_GREEN_TRANSPARENT;
 	else if (triangle->material->shading_opts & e_shading_red)
-		pixel = 0xff000064;
+		pixel = L3D_COLOR_RED_TRANSPARENT;
 	else if (triangle->material->shading_opts & e_shading_yellow)
-		pixel = 0xffff0064;
+		pixel = L3D_COLOR_YELLOW_TRANSPARENT;
+	else if (triangle->material->shading_opts & e_shading_blue)
+		pixel = L3D_COLOR_BLUE_TRANSPARENT;
 	else if (triangle->material->shading_opts & e_shading_cyan)
-		pixel = 0x00ffff64;
+		pixel = L3D_COLOR_CYAN_TRANSPARENT;
 	else
 		pixel = L3D_DEFAULT_COLOR_TRANSPARENT;
 	if (triangle->material->texture)
@@ -55,13 +57,15 @@ static uint32_t	pixel_color(t_triangle *triangle, t_vec2 uv,
 	uint32_t	pixel;
 
 	if (triangle->material->shading_opts & e_shading_green)
-		pixel = 0x00ff00ff;
+		pixel = L3D_COLOR_GREEN;
 	else if (triangle->material->shading_opts & e_shading_red)
-		pixel = 0xff0000ff;
+		pixel = L3D_COLOR_RED;
 	else if (triangle->material->shading_opts & e_shading_yellow)
-		pixel = 0xffff00ff;
+		pixel = L3D_COLOR_YELLOW;
+	else if (triangle->material->shading_opts & e_shading_blue)
+		pixel = L3D_COLOR_BLUE;
 	else if (triangle->material->shading_opts & e_shading_cyan)
-		pixel = 0x00ffffff;
+		pixel = L3D_COLOR_CYAN;
 	else
 		pixel = L3D_DEFAULT_COLOR;
 	if (triangle->material->texture)

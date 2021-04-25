@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:40:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 15:42:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,20 @@ void			l3d_3d_object_set_params(t_3d_object *object,
 */
 
 void			l3d_3d_object_add_light_source(t_3d_object *object,
-					t_vec3 light_pos, float radius, float intensity)
+					t_vec3 light_pos, float radius_intensity[2],
+					uint32_t emit_color)
 {
 	if (object->material->num_lights < L3D_MAX_LIGHTS)
 	{
 		object->material->light_sources[
-			object->material->num_lights].radius = radius;
+			object->material->num_lights].radius = radius_intensity[0];
 		object->material->light_sources[
 			object->material->num_lights].intensity =
-			intensity;
+			radius_intensity[1];
 		ml_vector3_copy(light_pos,
 			object->material->light_sources[object->material->num_lights].pos);
+		object->material->light_sources[object->material->num_lights].color =
+			emit_color;
 		object->material->num_lights++;
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:08:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 15:55:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,8 @@ void			update_light_sources(t_doom3d *app, t_3d_object *object)
 			ml_matrix4_mul_vec3(app->player.inv_rotation,
 				light_pos, light_pos);
 			l3d_3d_object_add_light_source(object,
-				light_pos, radius * radius_scale, intensity);
+				light_pos, (float[2]){radius * radius_scale, intensity},
+				get_light_emit_color(app->active_scene->scene_lights[i]->params_type));
 		}
 	}
 }

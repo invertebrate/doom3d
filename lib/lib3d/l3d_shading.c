@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:27:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 02:35:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 15:46:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void			point_light_calculation(t_triangle *triangle, t_vec3 world_pos,
 	float		intensity;
 	uint32_t	light_add[4];
 
-	l3d_u32_to_rgba(0xffff80ff, light_add);
 	i = -1;
 	while (++i < (int32_t)triangle->material->num_lights)
 	{
+		l3d_u32_to_rgba(triangle->material->light_sources[i].color, light_add);
 		ml_vector3_sub(world_pos,
 			triangle->material->light_sources[i].pos, light_dir);
 		distance = ml_vector3_mag(light_dir);

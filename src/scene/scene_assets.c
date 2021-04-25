@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 14:01:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 15:54:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,31 @@ static void		triggers_load(t_scene *scene)
 			(void*)trigger_door_switch);
 }
 
+static void		lights_load(t_scene *scene)
+{
+	scene->lights_map = hash_map_create(MAX_ASSETS);
+	scene->asset_files.light_names[scene->asset_files.num_lights] =
+		"Normal Light";
+	hash_map_add(scene->trigger_map, (int64_t)scene->asset_files.light_names[
+			scene->asset_files.num_lights++], (void*)light_type_yellow);
+	scene->asset_files.light_names[scene->asset_files.num_lights] =
+		"Red Light";
+	hash_map_add(scene->trigger_map, (int64_t)scene->asset_files.light_names[
+			scene->asset_files.num_lights++], (void*)light_type_red);
+	scene->asset_files.light_names[scene->asset_files.num_lights] =
+		"Green Light";
+	hash_map_add(scene->trigger_map, (int64_t)scene->asset_files.light_names[
+			scene->asset_files.num_lights++], (void*)light_type_green);
+	scene->asset_files.light_names[scene->asset_files.num_lights] =
+		"Blue Light";
+	hash_map_add(scene->trigger_map, (int64_t)scene->asset_files.light_names[
+			scene->asset_files.num_lights++], (void*)light_type_blue);
+	scene->asset_files.light_names[scene->asset_files.num_lights] =
+		"Cyan Light";
+	hash_map_add(scene->trigger_map, (int64_t)scene->asset_files.light_names[
+			scene->asset_files.num_lights++], (void*)light_type_cyan);
+}
+
 /*
 ** Set animation file paths (and they also work as keys when queried from
 ** hash_table)
@@ -360,6 +385,7 @@ static void		scene_model_files_set(t_asset_files *data)
 	data->model_files[data->num_models++] = "assets/models/keypad.obj";
 	data->model_files[data->num_models++] = "assets/models/jetpack.obj";
 	data->model_files[data->num_models++] = "assets/models/medkit.obj";
+	data->model_files[data->num_models++] = "assets/models/light_sphere.obj";
 }
 
 /*
@@ -422,6 +448,8 @@ void			scene_assets_load(t_scene *scene)
 	scene->asset_files.num_prefabs = 0;
 	scene->asset_files.num_animation_frames_3d = 0;
 	scene->asset_files.num_animations_sprite = 0;
+	scene->asset_files.num_triggers = 0;
+	scene->asset_files.num_lights = 0;
 	scene_texture_files_set(&scene->asset_files);
 	scene_normal_files_set(&scene->asset_files);
 	scene_model_files_set(&scene->asset_files);
@@ -434,4 +462,5 @@ void			scene_assets_load(t_scene *scene)
 	prefabs_load(scene);
 	npcs_load(scene);
 	triggers_load(scene);
+	lights_load(scene);
 }

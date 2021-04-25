@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 14:02:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 15:54:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,15 @@ typedef enum				e_object_type
 	object_type_light = 4,
 	object_type_path = 5,
 }							t_object_type;
+
+typedef enum				e_light_type
+{
+	light_type_green = 11,
+	light_type_yellow = 12,
+	light_type_red = 13,
+	light_type_blue = 14,
+	light_type_cyan = 15,
+}							t_light_type;
 
 /*
 ** Prefab is a combination of assets, e.g. 3d model + texture + normal map.

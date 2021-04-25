@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 02:36:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 15:42:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,25 @@
 # define L3D_MAX_OBJ_TRIANGLES 16384
 # define L3D_MAX_OBJ_VERTICES 16384
 
-# define L3D_DEFAULT_COLOR 0xFF00FFFF
-# define L3D_DEFAULT_COLOR_TRANSPARENT 0xFF00FF64
+# define L3D_DEFAULT_COLOR 0xff00ffff
+# define L3D_DEFAULT_COLOR_TRANSPARENT 0xff00ff64
 
-# define L3D_MAX_LIGHTS 4
+# define L3D_COLOR_PINK 0xff00ffff
+# define L3D_COLOR_RED 0xff0000ff
+# define L3D_COLOR_GREEN 0x00ff00ff
+# define L3D_COLOR_BLUE 0x0000ffff
+# define L3D_COLOR_YELLOW 0xffff00ff
+# define L3D_COLOR_LIGHT_YELLOW 0xffff80ff
+# define L3D_COLOR_CYAN 0x00ffffff
+# define L3D_COLOR_PINK_TRANSPARENT 0xff00ff64
+# define L3D_COLOR_RED_TRANSPARENT 0xff000064
+# define L3D_COLOR_GREEN_TRANSPARENT 0x00ff0064
+# define L3D_COLOR_BLUE_TRANSPARENT 0x0000ff64
+# define L3D_COLOR_YELLOW_TRANSPARENT 0xffff0064
+# define L3D_COLOR_LIGHT_YELLOW_TRANSPARENT 0xffff8064
+# define L3D_COLOR_CYAN_TRANSPARENT 0x00ffff64
+
+# define L3D_MAX_LIGHTS 12
 
 /*
 ** OBJ file temporary structs. They are used in transfering obj data to final
@@ -101,6 +116,7 @@ typedef enum				e_shading_opts
 	e_shading_cyan = 1 << 10,
 	e_shading_transparent = 1 << 11,
 	e_shading_uv_repeat = 1 << 12,
+	e_shading_light = 1 << 13,
 }							t_shading_opts;
 
 /*
@@ -125,6 +141,7 @@ typedef struct				s_light_source
 	t_vec3		pos;
 	float		radius;
 	float		intensity;
+	uint32_t	color;
 }							t_light_source;
 
 /*
@@ -479,7 +496,8 @@ void						l3d_3d_object_set_params(t_3d_object *object,
 								uint32_t params_type);
 void						l3d_3d_object_add_light_source(t_3d_object *object,
 								t_vec3 light_pos,
-								float radius, float intensity);
+								float radius_intensity[2],
+								uint32_t emit_color);
 
 /*
 ** OBJ reading

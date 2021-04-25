@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:53:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 17:40:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 15:44:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static t_triangle		*get_render_target_triangle(t_doom3d *app,
 		((t_npc*)obj->params)->animation_3d != NULL)
 	{
 		current_anim_obj = ((t_npc*)obj->params)->animation_3d->current_object;
-		LOG_WARN("param type: %d\n", current_anim_obj->params_type);
 		error_check(current_anim_obj->num_triangles != obj->num_triangles,
 			"Frame object triangle count different from "
 			"base object triangle count!");
