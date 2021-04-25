@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:32:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 14:01:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ static void		triggers_load(t_scene *scene)
 	hash_map_add(scene->trigger_map,
 		(int64_t)scene->asset_files.trigger_names[
 			scene->asset_files.num_triggers++],
-			(void*)trigger_elevator_switch_timer);
+			(void*)trigger_door_switch);
 }
 
 /*

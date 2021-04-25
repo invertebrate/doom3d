@@ -6,11 +6,16 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:32:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 14:14:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+/*
+** Objects defined here will not be included in triangle tree.
+** Such objects should not be part ray-cast interaction in game.
+*/
 
 static t_bool			include_object_in_triangle_tree(t_scene *scene,
 							t_3d_object *object)
@@ -18,9 +23,11 @@ static t_bool			include_object_in_triangle_tree(t_scene *scene,
 	if (scene->scene_id == scene_id_editor3d)
 		return (!!object);
 	return (object != NULL &&
-			object->type != object_type_trigger &&
 			object->type != object_type_light &&
-			object->type != object_type_path);
+			object->type != object_type_path &&
+			!(object->type == object_type_trigger &&
+				(object->params_type == trigger_player_start ||
+					object->params_type == trigger_player_end)));
 }
 
 /*

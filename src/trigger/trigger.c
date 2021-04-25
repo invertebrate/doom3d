@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trigger.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 18:41:38 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/25 14:02:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ t_3d_object		*place_elevator_switch_timer(t_doom3d *app)
 	trigger_params.key_id = -1;
 	l3d_3d_object_set_params(
 		app->active_scene->objects[app->active_scene->last_object_index],
-		&trigger_params, sizeof(t_trigger), trigger_elevator_switch_timer);
+		&trigger_params, sizeof(t_trigger), trigger_door_switch);
 	l3d_3d_object_scale(
 		app->active_scene->objects[app->active_scene->last_object_index],
 		0.5, 0.5, 0.5);
@@ -233,7 +233,7 @@ void			trigger_activate(t_doom3d *app, t_3d_object *obj)
 			}
 		}
 	}
-	if (obj->params_type == trigger_elevator_switch_timer)
+	if (obj->params_type == trigger_door_switch)
 	{
 		if (trigger->linked_obj[0])
 		{
@@ -254,7 +254,7 @@ void			trigger_link_object_to_npc(t_3d_object *trigger_obj,
 	npc = target_npc->params;
 	trigger = trigger_obj->params;
 	if (trigger_obj->params_type != trigger_elevator_switch &&
-		trigger_obj->params_type != trigger_elevator_switch_timer)
+		trigger_obj->params_type != trigger_door_switch)
 		LOG_ERROR("Trigger %d cannot be linked", trigger_obj->id);
 	else if (npc->type == npc_type_elevator)
 	{
@@ -341,4 +341,27 @@ t_3d_object		*place_player_end(t_doom3d *app)
 		&trigger_params, sizeof(t_trigger), trigger_player_end);
 	LOG_INFO("Placed player end");
 	return (trigger);
+}
+
+void			get_trigger_action_text(t_trigger_type type,
+					char *action_text)
+{
+	if (type == trigger_weapon_drop_shotgun)
+		ft_sprintf(action_text, "Walk over to pick up Shotgun ammo");
+	else if (type == trigger_weapon_drop_pistol)
+		ft_sprintf(action_text, "Walk over to pick up Pistol ammo");
+	else if (type == trigger_weapon_drop_rpg)
+		ft_sprintf(action_text, "Walk over to pick up RPG ammo");
+	else if (type == trigger_item_medkit)
+		ft_sprintf(action_text, "Walk over to pick up Medkit");
+	else if (type == trigger_item_key)
+		ft_sprintf(action_text, "Walk over to pick up Key");
+	else if (type == trigger_item_jetpack)
+		ft_sprintf(action_text, "Walk over to pick up Jetpack");
+	else if (type == trigger_elevator_switch)
+		ft_sprintf(action_text, "Press E to use elevator");
+	else if (type == trigger_door_switch)
+		ft_sprintf(action_text, "Press E to use door");
+	else
+		action_text[0] = '\0';
 }

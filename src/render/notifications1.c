@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:24:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:19:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 14:31:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,32 @@ static int32_t	adjust_notifications_dims(t_doom3d *app,
 }
 
 /*
+** Render in-game action notification. The static string is set to null if
+** player doesn't point to an object that's actionable. Thus stuff only
+** gets rendered in main game.
+*/
+
+static void		render_action_notification(t_doom3d *app)
+{
+	int32_t	height;
+
+	
+	if (*app->action_text != '\0')
+	{
+		height = app->window->framebuffer->height * 3 / 4;
+		window_text_render(app->window,
+			(t_text_params){
+				.text = app->action_text,
+				.text_color = (SDL_Color){255, 255, 0, 255},
+				.blend_ratio = 1.0,
+				.xy = (int32_t[2]){100, height}}, app->window->main_font);
+	}
+}
+
+/*
 ** Renders doom3d notifications that show textual information to user.
 ** Notifications can be either story notifications or just info notifications.
+** Or! Action notification in-game.
 */
 
 void			render_notifications(t_doom3d *app, t_vec2 pos)
@@ -50,6 +74,7 @@ void			render_notifications(t_doom3d *app, t_vec2 pos)
 	int32_t		text_dims[2];
 	int32_t		num_notifications;
 
+	render_action_notification(app);
 	if (app->notifications == NULL)
 		return ;
 	padding = 3;

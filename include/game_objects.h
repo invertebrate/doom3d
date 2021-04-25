@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_objects.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/22 19:14:02 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/25 14:02:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ typedef enum				e_trigger_type
 	trigger_item_medkit,
 	trigger_item_key,
 	trigger_elevator_switch,
-	trigger_elevator_switch_timer,
+	trigger_door_switch,
 }							t_trigger_type;
 
 /*

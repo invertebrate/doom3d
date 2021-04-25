@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 03:25:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 14:31:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ typedef struct				s_doom3d
 	uint64_t				current_tick;
 	t_settings				settings;
 	t_list					*notifications;
+	char					action_text[1024];
 	t_path_node				*path_node_network[MAX_PATH_NODE_NETWORK_SIZE + 1];
 	int						path_node_network_count;
 	t_projectile			projectile_data[NUM_PROJECTILES];
@@ -702,6 +703,8 @@ void						trigger_link_object_to_npc(t_3d_object *trigger,
 								t_3d_object *target);
 void						trigger_timer_start(t_doom3d *app, t_3d_object *obj);
 void						trigger_timer_update(t_doom3d *app);
+void						get_trigger_action_text(t_trigger_type type,
+								char *action_text);
 
 /*
 ** Player animations
