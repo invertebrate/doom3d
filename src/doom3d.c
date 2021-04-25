@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:35:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 17:36:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ static void		handle_scene_switch(t_doom3d *app)
 		if (app->is_debug)
 			LOG_DEBUG("Scen change detected, selecting next");
 		select_next_scene(app);
+		if (app->active_scene->scene_id == scene_id_main_game)
+			push_custom_event(app, event_music_play,
+				(void*)mu_main, s_ini(1, 10, st_main_menu, 0.6));
 	}
 }
 
@@ -78,7 +81,6 @@ static void		cleanup(t_doom3d *app)
 	destroy_render_triangle_pool(app);
 }
 
-
 static void		main_loop(t_doom3d *app)
 {
 	while (app->is_running)
@@ -112,16 +114,13 @@ void			doom3d_run(t_doom3d *app)
 	LOG_INFO("Created thread pool with %d threads for %d logical cpus",
 		num_threads, cpu_count);
 	LOG_INFO("Initialize SDL");
-	error_check(SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0, SDL_GetError());
+	error_check(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0, SDL_GetError());
 	error_check(TTF_Init() == -1, TTF_GetError());
 	LOG_INFO("Initialize App settings");
 	settings_init(app);
 	LOG_INFO("Create SDL Window & frame buffers");
 	window_create(&app->window, app->settings.width, app->settings.height);
 	app_init(app);
-	// This song has given me brain tumor :D
-	// push_custom_event(app,
-	// 	event_music_play, (void*)mu_main, s_ini(1, 10, st_main_menu, 0.6));
 	main_loop(app);
 	cleanup(app);
 }

@@ -92,6 +92,7 @@ SOURCES = main.c \
 			physics/forces_update.c \
 			camera.c \
 			utils.c \
+			performance_counter.c \
 			notifications/notifications.c \
 			scene/menus/editor3d_menu.c \
 			scene/menus/editor3d_menu_button_clicks1.c \
