@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:21:40 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:13:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 00:49:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void			framebuffer_dark_overlay(t_framebuffer *framebuffer,
 	l3d_image_place(&(t_surface){.pixels = framebuffer->buffer,
 			.h = framebuffer->height, .w = framebuffer->width},
 		&(t_surface){.pixels = dark, .w = width, .h = height},
-		(int32_t[2]){pos[0], pos[1]}, 0.5);
+		(int32_t[2]){pos[0], pos[1]}, 0.6);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:37:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:17:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 00:48:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		render_story_message(t_doom3d *app,
 	framebuffer_dark_overlay(app->window->framebuffer,
 		app->window->framebuffer->width,
 			app->window->framebuffer->height, (t_vec2){0, 0});
-	window_text_render_centered(app->window, (t_text_params){
+	window_text_render_centered_wrapped(app->window, (t_text_params){
 		.text = notification->message,
 		.text_color = (SDL_Color){255, 0, 0, 255}, .blend_ratio = 1.0,
 		.xy = (int32_t[2]){app->window->framebuffer->width / 2,
