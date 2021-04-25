@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 14:14:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 16:01:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void					active_scene_update_after_objects(t_scene *scene)
 		if (scene->objects[i])
 		{
 			l3d_object_aabb_update(scene->objects[i]);
-			if (scene->objects[i]->type == object_type_light)
+			if (scene->objects[i]->type == object_type_light ||
+				scene->objects[i]->type == object_type_projectile)
 				scene->scene_lights[scene->num_scene_lights++] =
 					scene->objects[i];
 		}

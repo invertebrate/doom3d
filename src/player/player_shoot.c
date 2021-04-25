@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/24 16:09:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 16:09:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void			place_projectile_object_in_scene(t_doom3d *app,
 		projectile->type);
 	l3d_3d_object_rotate(obj, rot[0], rot[1], rot[2]);
 	l3d_3d_object_scale(obj, 0.1, 0.1, 0.1);
+	l3d_object_aabb_update(obj);
 	if (app->is_debug)
 		LOG_DEBUG("Spawned projectile id: %d", obj->id);
 }
@@ -106,6 +107,7 @@ static void		player_shoot_projectile(t_doom3d *app, t_vec3 origin)
 {
 	t_projectile	projectile;
 	t_vec3			rot;
+	t_vec3			add;
 
 	ft_memset(&projectile, 0, sizeof(t_projectile));
 	ft_memcpy(&projectile,
@@ -116,6 +118,8 @@ static void		player_shoot_projectile(t_doom3d *app, t_vec3 origin)
 	rot[1] = -app->player.rot_y;
 	rot[2] = 90;
 	ml_vector3_copy(rot, projectile.euler_angles);
+	ml_vector3_mul(app->player.forward, app->unit_size, add);
+	ml_vector3_add(origin, add, origin);
 	place_projectile_object_in_scene(app, &projectile, origin, rot);
 	if (app->player.equipped_weapon->id == weapon_rpg)
 		push_custom_event(app,
