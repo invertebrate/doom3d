@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:31:31 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/24 16:33:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 18:17:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static void		playing_audio(t_mp *mp, t_sound **start, int max, float vol)
 
 	if (!(curr = *start))
 		return ;
-	else if (vol == -1) // insert here exit incase sound/effects paused
+	else if (vol == -1)
 		return ;
 	played = 0;
 	while (played < max && curr && vol > 0)

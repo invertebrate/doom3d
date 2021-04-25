@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 17:36:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 18:39:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,17 @@
 
 static void		handle_scene_switch(t_doom3d *app)
 {
+	t_scene_id prev_scene_id;
+
 	if (app->active_scene->scene_id != app->next_scene_id ||
 		app->is_scene_reload)
 	{
 		if (app->is_debug)
 			LOG_DEBUG("Scen change detected, selecting next");
+		prev_scene_id = app->active_scene->scene_id;
 		select_next_scene(app);
+		if (prev_scene_id == scene_id_main_game)
+			mp_typec(app, 0, 0, SSTOPPED);
 		if (app->active_scene->scene_id == scene_id_main_game)
 			push_custom_event(app, event_music_play,
 				(void*)mu_main, s_ini(1, 10, st_main_menu, 0.6));
@@ -35,7 +40,6 @@ static void		app_init(t_doom3d *app)
 {
 	LOG_INFO("Register Custom Events");
 	register_custom_events(app);
-	LOG_INFO("Initialize Audio");
 	mp_init(app);
 	app->active_scene = NULL;
 	app->triangles_in_view = 0;
@@ -59,14 +63,13 @@ static void		cleanup(t_doom3d *app)
 {
 	int32_t		i;
 
+	mp_close(app);
 	LOG_INFO("Destroy thread pool");
 	thread_pool_destroy(app->thread_pool);
 	LOG_INFO("Destroy scene");
 	scene_destroy(app);
 	LOG_INFO("Destroy window");
 	window_destroy(app->window);
-	LOG_INFO("Destroy audio");
-	mp_close(app);
 	LOG_INFO("Quit SDL");
 	TTF_Quit();
 	IMG_Quit();

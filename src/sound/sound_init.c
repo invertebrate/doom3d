@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:51:15 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/24 16:33:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 18:16:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_mp		mix_init(t_doom3d *app, int channels)
 	app->mp.auspec.samples = PREF_SAMPLES;
 	app->mp.auspec.callback = mp_au_mix;
 	app->mp.auspec.userdata = &app->mp;
-
 	app->mp.audev = SDL_OpenAudioDevice(NULL, 0, &app->mp.auspec, &cando,
 		SDL_AUDIO_ALLOW_ANY_CHANGE);
 	if (app->mp.audev == 0)

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:51:41 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/24 16:33:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 18:37:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ t_mp	mix_chan_swap(t_doom3d *app, int channels)
 void	mp_close(t_doom3d *app)
 {
 	int		i;
-	//t_sound	*curr;
-	//t_sound	*next;
-
 
 	mp_typec(app, 0, 0, SSTOPPED);
 	LOG_INFO("Locking audio");
@@ -50,21 +47,4 @@ void	mp_close(t_doom3d *app)
 		free(app->mp.library[i]);
 		app->mp.library[i] = NULL;
 	}
-	/*curr = app->mp.tracks;
-	LOG_INFO("Freeing music");
-	while (curr)
-	{
-		next = curr->next;
-		free(curr);
-		curr = next;
-	}
-	LOG_INFO("Freeing effects");
-	curr = app->mp.effects;
-	while (curr)
-	{
-		next = curr->next;
-		free(curr);
-		curr = next;
-	}*/
-	LOG_INFO("Audio closed");
 }

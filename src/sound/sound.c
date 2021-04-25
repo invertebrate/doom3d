@@ -6,90 +6,17 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:51:05 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/24 16:33:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 18:13:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
 /*
-** DEBUG ONLY
-** --------- REMOVE BELOW BEFORE SUBMISSION ---------
-*/
-
-void	sound_len(t_sound *start)
-{
-	int		i;
-	t_sound	*curr;
-
-	i = 0;
-	curr = start;
-	while (curr)
-	{
-		i++;
-		curr = curr->next;
-	}
-	ft_printf("sound lenght %d\n", i);
-}
-
-void	track_print(t_track *track)
-{	ft_printf("mp_track_print()\n");
-	if (!track)
-	{
-		printf("track: %p\n", track);
-		return ;
-	}
-	ft_printf("track: %p\nlen %d\n", track->data, track->len);
-}
-
-void	sound_print(t_sound *sound)
-{	ft_printf("mp_sound_print()\n");
-	if (!sound)
-	{
-		printf("sound: %p\n", sound);
-		return ;
-	}
-	track_print(sound->sound);
-	ft_printf("sound: %d\nstate %d\ntype %d\nloop %d\nprio %d\nvolume %f\nnext %p\n",
-	sound->pos, sound->state, sound->type, sound->loop, sound->priority, sound->vol, sound->next);
-}
-
-void	auspec_print(t_mp *mp)
-{	ft_printf("mp_auspec_print()\n");
-	ft_printf("format %d\nchannels %d\nsamples %d\ncallback %p\ndata %p\n",
-	mp->auspec.format, mp->auspec.channels, mp->auspec.samples, mp->auspec.callback, mp->auspec.userdata);
-}
-
-void	mp_print(t_mp *mp)
-{	ft_printf("mp_print()\n");
-	int	i;
-
-	ft_printf("mp %p\n", mp);
-	auspec_print(mp);
-	ft_printf("st %f sf %f\n", mp->st_vol, mp->sf_vol);
-	i = -1;
-	while (++i < SOUNDS)
-	{
-		printf("track add %p\n", mp->library[i]);
-		track_print(mp->library[i]);
-	}
-	ft_printf("music\n");
-	sound_print(mp->tracks);
-	ft_printf("effects\n");
-	sound_print(mp->effects);
-}
-
-/*
-** DEBUG ONLY
-** --------- REMOVE ABOVE BEFORE SUBMISSION ---------
-*/
-
-
-/*
 ** Reading WAV-files into t_track struct
 */
 
-t_track		*read_sound(char *file, t_doom3d *app)
+t_track			*read_sound(char *file, t_doom3d *app)
 {
 	t_track			*ret;
 	SDL_AudioSpec	wave;
@@ -106,14 +33,13 @@ t_track		*read_sound(char *file, t_doom3d *app)
 		app->mp.auspec.format, app->mp.auspec.channels, app->mp.auspec.freq)
 		== -1)
 		return (NULL);
-	if (!(cvt.buf = (Uint8*)malloc(dlen * cvt.len_mult)))
-		return (NULL);
+	error_check(!(cvt.buf = (Uint8*)ft_calloc(dlen * cvt.len_mult)),
+		"Failed to alloc cvt.buf");
 	ft_memcpy(cvt.buf, data, dlen);
 	cvt.len = dlen;
 	SDL_ConvertAudio(&cvt);
 	SDL_FreeWAV(data);
-	if (!(ret = (t_track*)malloc(sizeof(t_track))))
-		return (NULL);
+	error_check(!(ret = (t_track*)ft_calloc(sizeof(t_track))), "E:Alloc track");
 	ret->data = cvt.buf;
 	ret->len = cvt.len_cvt;
 	return (ret);
@@ -124,7 +50,7 @@ t_track		*read_sound(char *file, t_doom3d *app)
 ** Previous ones with same prio hold the priority
 */
 
-void		mp_reorder(t_sound **start, t_sound *new)
+void			mp_reorder(t_sound **start, t_sound *new)
 {
 	t_sound	*curr;
 	t_sound	*prev;

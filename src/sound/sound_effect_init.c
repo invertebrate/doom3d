@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound_effect_init.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 17:47:11 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/22 17:37:27 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/25 18:09:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	mp_effect_init1(t_doom3d *app)
 	mp_effect_init2(app);
 }
 
-void	mp_effect_init(t_doom3d *app)
+void		mp_effect_init(t_doom3d *app)
 {
 	app->mp.library[sf_shtg_fire] = read_sound(SF_SHTG_FIRE, app);
 	app->mp.library[sf_explsion] = read_sound(SF_EXPLSION, app);
@@ -45,8 +45,11 @@ void	mp_effect_init(t_doom3d *app)
 	app->mp.library[sf_fist_hit] = read_sound(SF_FIST_HIT, app);
 	app->mp.library[sf_explsion2] = read_sound(SF_EXPLSION2, app);
 	app->mp.library[sf_landing] = read_sound(SF_LANDING, app);
-	app->mp.library[sf_pickup] = read_sound("assets/sounds/pickup.wav", app);
-	app->mp.library[sf_door_locked] = read_sound("assets/sounds/door_locked.wav", app);
-	app->mp.library[sf_door_open] = read_sound("assets/sounds/door_open.wav", app);
+	app->mp.library[sf_pickup] =
+		read_sound("assets/sounds/pickup.wav", app);
+	app->mp.library[sf_door_locked] =
+		read_sound("assets/sounds/door_locked.wav", app);
+	app->mp.library[sf_door_open] =
+		read_sound("assets/sounds/door_open.wav", app);
 	mp_effect_init1(app);
 }
