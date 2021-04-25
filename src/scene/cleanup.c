@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 20:19:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/25 18:42:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void		scene_assets_destroy(t_scene *scene)
 	hash_map_destroy(scene->npc_map);
 	hash_map_destroy(scene->prefab_map);
 	hash_map_destroy(scene->trigger_map);
+	hash_map_destroy(scene->lights_map);
 	i = -1;
 	while (++i < (int32_t)scene->asset_files.num_animation_frames_3d)
 	{
