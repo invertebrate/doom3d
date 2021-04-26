@@ -42,7 +42,12 @@ void		npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 	if (npc->state == state_death_anim)
 		return ;
 	if (npc->type != npc_type_elevator)
+	{
 		npc->state = state_attack;
+		push_custom_event(app,
+			event_effect_play, (void*)sf_monster_hurt, s_ini(0, 1, st_game,
+			distance_vol(0.8f, sound_mag(app->player.pos, obj->position), -1)));
+	}
 	npc->interest = npc->max_interest;
 	if (npc->hp <= 0 && npc->type == npc_type_crate)
 		push_custom_event(app, event_object_delete, obj, NULL);

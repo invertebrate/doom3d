@@ -56,6 +56,9 @@ static void	handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj)
 		if (npc->atk_pattern[npc->atk_pattern_index] == action_projectile_rpg)
 		{
 			npc_shoot_projectile(app, npc_obj->aabb.center, npc->dir);
+			push_custom_event(app,
+				event_effect_play, (void*)sf_monster_shoot, s_ini(0, 1, st_game, 
+				distance_vol(1, sound_mag(app->player.pos, npc_obj->position), -1)));
 			if (app->is_debug)
 				LOG_DEBUG("Npc %d shot projectile", npc_obj->id);
 		}
@@ -76,7 +79,12 @@ void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 	{
 		if (dist < npc->vision_range &&
 			npc_has_line_of_sight(app, npc_obj))
+		{
 			npc->state = state_attack;
+			push_custom_event(app,
+			event_effect_play, (void*)sf_monster_alert, s_ini(0, 1, st_game,
+			distance_vol(0.8f, sound_mag(app->player.pos, npc_obj->position), -1)));
+		}
 		npc_get_dir_to_next_waypoint(app, npc_obj);
 	}
 	else if (npc->state == state_attack)
