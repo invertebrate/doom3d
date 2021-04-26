@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/25 17:28:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 11:53:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void		transform_explosion_plane(t_doom3d *app,
 static void		init_explosions(t_doom3d *app, t_3d_object **explosions,
 										t_3d_object *model, t_vec3 pos)
 {
-	t_3d_object		*light_model;
 	explosions[0] = place_procedural_temp_object(app, model,
 		(const char*[2]){"assets/textures/explosion1.bmp", NULL},
 		pos, (int32_t[2]){50, 0});
@@ -42,15 +41,13 @@ static void		init_explosions(t_doom3d *app, t_3d_object **explosions,
 	explosions[3] = place_procedural_temp_object(app, model,
 		(const char*[2]){"assets/textures/explosion4.bmp", NULL},
 		pos, (int32_t[2]){50, 150});
-	light_model = l3d_read_obj("assets/models/light_sphere.obj",
-		NULL, NULL);
 	explosions[4] = place_temp_object(app,
 		(const char*[2]){"assets/models/light_sphere.obj", NULL},
 		pos, (int32_t[2]){200, 0});
 	l3d_3d_object_scale(explosions[4], 0.3, 0.3, 0.3);
 	l3d_object_set_shading_opts(explosions[4],
 		e_shading_invisible);
-	l3d_3d_object_set_params(explosions[4], NULL, 0, light_type_yellow);
+	l3d_3d_object_set_params(explosions[4], NULL, 0, light_type_explosion);
 	explosions[4]->type = object_type_light;
 }
 
