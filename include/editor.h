@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:11:36 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:31:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:21:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct 				s_editor
 	t_bool					is_saved;
 	t_bool					is_moving;
 	t_bool					is_rotating;
+	t_bool					is_new_map;
 	t_editor_menu_index		editor_menu_id;
 	t_button_menu			*editor_menu;
 	int32_t					editor_level;

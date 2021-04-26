@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 18:50:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:29:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,20 @@ static void		scene_editor_init(t_doom3d *app)
 {
 	editor_deselect_all(app);
 	app->editor.is_moving = false;
+	if (!app->level_list[app->editor.editor_level] && !app->editor.is_new_map)
+		app->editor.editor_level = 0;
 	if (app->level_list[app->editor.editor_level])
 	{
 		if (app->level_list[app->editor.editor_level])
 			read_map(app, app->level_list[app->editor.editor_level]);
 		editor_objects_invisible_highlight(app);
-		ft_memcpy(app->editor.editor_savename,
-			app->editor.editor_filename,
-			ft_strlen(app->editor.editor_savename));
 		app->editor.is_saved = true;
 	}
 	else
+	{
 		app->editor.is_saved = false;
+		app->editor.is_new_map = false;
+	}
 	app->editor.editor_menu_id = editor_menu_none;
 	app->editor.editor_menu = NULL;
 	l3d_skybox_create(app->active_scene->skybox,

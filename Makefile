@@ -96,16 +96,16 @@ SOURCES = main.c \
 			utils.c \
 			performance_counter.c \
 			notifications/notifications.c \
-			scene/scene_menus/editor3d_menu.c \
-			scene/scene_menus/editor3d_menu_button_clicks1.c \
-			scene/scene_menus/editor3d_menu_button_clicks2.c \
-			scene/scene_menus/editor3d_menu_button_clicks3.c \
-			scene/scene_menus/settings_menu.c \
-			scene/scene_menus/main_menu.c \
-			scene/scene_menus/pause_menu.c \
-			scene/scene_menus/menu_utils.c \
-			scene/scene_menus/menu_button_utils.c \
-			scene/scene_menus/popup_menu_utils.c \
+			menus/editor3d_menu.c \
+			menus/editor3d_menu_button_clicks1.c \
+			menus/editor3d_menu_button_clicks2.c \
+			menus/editor3d_menu_button_clicks3.c \
+			menus/settings_menu.c \
+			menus/main_menu.c \
+			menus/pause_menu.c \
+			menus/menu_utils.c \
+			menus/menu_button_utils.c \
+			menus/popup_menu_utils.c \
 			scene/scene.c \
 			scene/scene_menus.c \
 			scene/scene_update.c \
@@ -245,6 +245,7 @@ libs:
 
 $(DIR_OBJ):
 	@mkdir -p temp
+	@mkdir -p temp/menus
 	@mkdir -p temp/map
 	@mkdir -p temp/scene
 	@mkdir -p temp/scene/asset_loading

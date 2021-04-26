@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:25:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void			on_new_level_menu_button_click(t_button *self, void *params)
 		}
 		editor_init(app, app->editor.editor_level +
 			app->num_levels - app->editor.editor_level);
+		app->editor.is_new_map = true;
 		push_custom_event(app, event_scene_reload, NULL, NULL);
 	}
 	else if (self->id == 0 && app->editor.editor_level == MAX_LEVELS)

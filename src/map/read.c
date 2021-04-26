@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 02:46:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:08:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			read_map(t_doom3d *app, const char *map_name)
 	file = read_file(filename);
 	if (!file)
 	{
-		LOG_INFO("Failed to read map %s", filename);
+		LOG_INFO("Failed to read %s, check assets/map_data/", filename);
 		exit(EXIT_FAILURE);
 	}
 	ft_memcpy(&header, file->buf, (offset = 4));
