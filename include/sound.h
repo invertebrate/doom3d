@@ -32,9 +32,9 @@
 # define PREF_CHAN 2
 # define PREF_FREQ 44100
 # define SOUND_DIST 100000
-# define SOUNDS 15 // MUSIC + SEFFECT
+# define SOUNDS 19 // MUSIC + SEFFECT
 # define MUSIC 2
-# define SEFFECT 13
+# define SEFFECT 17
 # define TRACK1 "assets/sounds/basic_music.wav"
 # define TRACK2 "assets/sounds/doom_music.wav"
 # define SF_SHTG_FIRE "assets/sounds/shotgun_fire.wav"
@@ -47,6 +47,13 @@
 # define SF_FIST_HIT "assets/sounds/fist.wav"
 # define SF_EXPLSION2 "assets/sounds/explosion.wav"
 # define SF_LANDING "assets/sounds/landing.wav"
+# define SF_PICKUP "assets/sounds/pickup.wav"
+# define SF_DOOR_LOCKED "assets/sounds/door_locked.wav"
+# define SF_DOOR_OPEN "assets/sounds/door_open.wav"
+# define SF_MONSTER_HURT "assets/sounds/monster_hurt.wav"
+# define SF_MONSTER_ALERT "assets/sounds/monster_notice.wav"
+# define SF_MONSTER_SHOOT "assets/sounds/monster_shoot.wav"
+# define SF_PLAYER_HURT "assets/sounds/player_hurt.wav"
 
 # define SPLAYING 1
 # define SPAUSED 2
@@ -119,6 +126,10 @@ typedef enum			e_sounds
 	sf_pickup,
 	sf_door_locked,
 	sf_door_open,
+	sf_monster_hurt,
+	sf_monster_alert,
+	sf_monster_shoot,
+	sf_player_hurt,
 }						t_sounds;
 
 /*

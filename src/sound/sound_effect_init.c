@@ -45,11 +45,12 @@ void		mp_effect_init(t_doom3d *app)
 	app->mp.library[sf_fist_hit] = read_sound(SF_FIST_HIT, app);
 	app->mp.library[sf_explsion2] = read_sound(SF_EXPLSION2, app);
 	app->mp.library[sf_landing] = read_sound(SF_LANDING, app);
-	app->mp.library[sf_pickup] =
-		read_sound("assets/sounds/pickup.wav", app);
-	app->mp.library[sf_door_locked] =
-		read_sound("assets/sounds/door_locked.wav", app);
-	app->mp.library[sf_door_open] =
-		read_sound("assets/sounds/door_open.wav", app);
+	app->mp.library[sf_pickup] = read_sound(SF_PICKUP, app);
+	app->mp.library[sf_door_locked] = read_sound(SF_DOOR_LOCKED, app);
+	app->mp.library[sf_door_open] = read_sound(SF_DOOR_OPEN, app);
+	app->mp.library[sf_monster_hurt] = read_sound(SF_MONSTER_HURT, app);
+	app->mp.library[sf_monster_alert] = read_sound(SF_MONSTER_ALERT, app);
+	app->mp.library[sf_monster_shoot] = read_sound(SF_MONSTER_SHOOT, app);
+	app->mp.library[sf_player_hurt] = read_sound(SF_PLAYER_HURT, app);
 	mp_effect_init1(app);
 }
