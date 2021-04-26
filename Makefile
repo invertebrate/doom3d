@@ -139,6 +139,7 @@ SOURCES = main.c \
 			map/path_read.c \
 			map/path_read_utils.c \
 			map/object_read.c \
+			map/object_read_utils.c \
 			map/filename_keys.c \
 			map/write_utils.c \
 			render/render.c \
