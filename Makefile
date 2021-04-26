@@ -216,6 +216,7 @@ SOURCES = main.c \
 			sound/sound_effect_init.c\
 			sound/sound_loop.c\
 			sound/sound_mp_controls.c\
+			sound/sound_mp_reorder.c\
 			animations/animation.c
 
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))

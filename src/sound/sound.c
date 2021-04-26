@@ -46,44 +46,6 @@ t_track			*read_sound(char *file, t_doom3d *app)
 }
 
 /*
-** Order track list by priority, and add a new to the chain.
-** Previous ones with same prio hold the priority
-*/
-
-void			mp_reorder(t_sound **start, t_sound *new)
-{
-	t_sound	*curr;
-	t_sound	*prev;
-
-	if (!(curr = *start))
-	{
-		*start = new;
-		return ;
-	}
-	prev = NULL;
-	while (curr->next)
-	{
-		if (new && new->priority > curr->priority)
-		{
-			prev->next = new;
-			new->next = curr;
-			curr = new;
-			new = NULL;
-		}
-		if (curr->priority < curr->next->priority)
-		{
-			prev->next = curr->next;
-			curr->next = curr->next->next;
-			curr->next->next = curr;
-			curr = prev;
-		}
-		prev = curr;
-		curr = curr->next;
-	}
-	curr->next = new;
-}
-
-/*
 ** Create a new sound struct
 ** loop == TRUE/FALSE 1/0
 ** priorioty == higher is mixed first

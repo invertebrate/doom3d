@@ -17,13 +17,9 @@
 ** Pops fully played sounds and resets looping sounds
 */
 
-static void		mp_move(t_sound **start, int len)
+static void		mp_move(t_sound **start, int len, t_sound *curr,
+				t_sound *prev[2])
 {
-	t_sound	*curr;
-	t_sound	*prev[2];
-
-	curr = *start;
-	prev[0] = NULL;
 	while (curr)
 	{
 		curr->pos += curr->state == SPLAYING ? len : 0;
@@ -95,6 +91,7 @@ static t_sound	*mp_mixing(t_sound *curr, t_mp *mp, float vol)
 static void		playing_audio(t_mp *mp, t_sound **start, int max, float vol)
 {
 	t_sound	*curr;
+	t_sound	*prev[2];
 	int		played;
 
 	if (!(curr = *start))
@@ -109,7 +106,9 @@ static void		playing_audio(t_mp *mp, t_sound **start, int max, float vol)
 		played++;
 		curr = curr->next;
 	}
-	mp_move(start, mp->len);
+	prev[0] = NULL;
+	prev[1] = NULL;
+	mp_move(start, mp->len, *start, prev);
 }
 
 /*
