@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:52:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 00:53:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 03:06:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ t_shading_opts	get_light_shading(t_light_type light_type)
 		return (e_shading_blue);
 	else if (light_type == light_type_cyan)
 		return (e_shading_cyan);
-	return (e_shading_yellow);		
+	return (e_shading_yellow);
 }

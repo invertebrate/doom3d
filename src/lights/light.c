@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:54:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 01:16:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 03:10:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,22 @@ static void		transform_light_pos(t_doom3d *app, t_vec3 light_pos,
 		light_pos, light_pos);
 }
 
+static void		update_one_light_source(t_doom3d *app, t_3d_object *object,
+					float radius_intensity[2], int32_t i)
+{
+	float	radius_scale;
+	t_vec3	light_pos;
+
+	radius_scale =
+		app->active_scene->scene_lights[i]->scale[0][0] /
+			app->unit_size;
+	transform_light_pos(app, light_pos, i);
+	l3d_3d_object_add_light_source(object,
+		light_pos, (float[2]){radius_intensity[0] * radius_scale,
+			radius_intensity[1]},
+		get_light_emit_color(app->active_scene->scene_lights[i]));
+}
+
 /*
 ** Update scene light sources per frame to object materials for shading
 */
@@ -34,8 +50,6 @@ void			update_light_sources(t_doom3d *app, t_3d_object *object)
 	int32_t	i;
 	float	radius;
 	float	intensity;
-	float	radius_scale;
-	t_vec3	light_pos;
 
 	if (!(object->material->shading_opts & e_shading_invisible) &&
 		object->type != object_type_light)
@@ -47,15 +61,8 @@ void			update_light_sources(t_doom3d *app, t_3d_object *object)
 		object->material->num_lights = 0;
 		i = -1;
 		while (++i < (int32_t)app->active_scene->num_scene_lights)
-		{
-			radius_scale =
-				app->active_scene->scene_lights[i]->scale[0][0] /
-					app->unit_size;
-			transform_light_pos(app, light_pos, i);
-			l3d_3d_object_add_light_source(object,
-				light_pos, (float[2]){radius * radius_scale, intensity},
-				get_light_emit_color(app->active_scene->scene_lights[i]));
-		}
+			update_one_light_source(app, object,
+				(float[2]){radius, intensity}, i);
 	}
 }
 
