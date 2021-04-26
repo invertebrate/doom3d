@@ -18,10 +18,9 @@ static void		shade_pixel(t_triangle *triangle, t_vec2 uv,
 	if ((triangle->material->shading_opts & e_shading_normal_map) &&
 		triangle->material->normal_map)
 		*pixel = l3d_pixel_normal_shaded(*pixel, triangle, uv);
-	if (triangle->material->shading_opts & e_shading_depth)
-		*pixel = l3d_pixel_depth_shaded(*pixel, z_val);
 	if (triangle->material->shading_opts & e_shading_select)
 		*pixel = l3d_pixel_selection_shaded(*pixel);
+	(void)z_val;//fix this shit;
 }
 
 static uint32_t	pixel_trans(t_triangle *triangle, t_vec2 uv,

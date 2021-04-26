@@ -19,7 +19,6 @@ void			calculate_luminosity(uint32_t *pixel, uint32_t *light,
 	float		luminosity;
 
 	i = -1;
-	darkness = 200;
 	while (++i < 3)
 	{
 		luminosity = (float)((255 - darkness + (float)light[i]) / 255);

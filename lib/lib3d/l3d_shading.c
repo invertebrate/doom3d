@@ -96,7 +96,7 @@ uint32_t		l3d_pixel_light_shaded(t_triangle *triangle,
 	t_vec3		world_pos;
 	uint32_t	darkness;
 
-	darkness = 200;
+	darkness = 250;
 	ft_memset(result, 0, sizeof(result));
 	if (triangle->material->num_lights > 0)
 	{
@@ -104,10 +104,8 @@ uint32_t		l3d_pixel_light_shaded(t_triangle *triangle,
 		l3d_u32_to_rgba(pixel, rgba);
 		ft_memset(light, 0, sizeof(light));
 		point_light_calculation(triangle, world_pos, light);
-		result[0] = pixel
-		calculate_luminosity(result, light, darkness);
-		result[3] = rgba[3];
-		return (l3d_rgba_to_u32(result));
+		calculate_luminosity(rgba, light, darkness);
+		return (l3d_rgba_to_u32(rgba));
 	}
 	return (pixel);
 }
