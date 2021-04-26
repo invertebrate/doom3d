@@ -129,6 +129,7 @@ SOURCES = main.c \
 			editor/editor_init.c \
 			editor/editor_placement1.c \
 			editor/editor_placement2.c \
+			editor/editor_placement3.c \
 			editor/editor_point_on_target.c \
 			editor/editor_object_by_mouse.c \
 			editor/editor_duplication.c \

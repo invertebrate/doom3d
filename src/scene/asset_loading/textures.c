@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:19:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 19:36:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 01:12:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void			scene_texture_files_set(t_asset_files *data)
 		"assets/textures/floor_metal4.bmp";
 	data->texture_files[data->num_textures++] =
 		"assets/textures/floor_metal4_box.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/glass_texture_30.bmp";
 	scene_texture_files_set_sub1(data);
 	scene_texture_files_set_sub2(data);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:41:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 01:07:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void		l3d_read_bmp_image(const char *filename,
 	uint32_t				image_size;
 	void					*buf;
 
-	file = read_file(filename);
+	error_check(!(file = read_file(filename)), "Failed to read bmp image");
 	buf = file->buf;
 	ft_memcpy(&header, buf, sizeof(header));
 	error_check(header.file_type != 0x4D42, "Invalid bmp image");

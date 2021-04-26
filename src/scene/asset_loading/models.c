@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:58:39 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 18:59:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 01:56:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,9 @@ void			scene_model_files_set(t_asset_files *data)
 	data->model_files[data->num_models++] = "assets/models/rpg.obj";
 	data->model_files[data->num_models++] = "assets/models/missile.obj";
 	data->model_files[data->num_models++] = "assets/models/npc_projectile.obj";
+	data->model_files[data->num_models++] =
+		"assets/models/window/window_glass.obj";
+	data->model_files[data->num_models++] =
+		"assets/models/window/window_wall.obj";
 	scene_model_files_set_sub(data);
 }

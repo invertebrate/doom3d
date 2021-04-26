@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 02:57:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 00:58:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -654,6 +654,8 @@ t_3d_object					*editor_place_default_object(t_doom3d *app,
 								void *data);
 t_3d_object					*editor_place_npc_object(t_doom3d *app,
 								t_npc_type type);
+t_3d_object					*place_window_wall_prefab(t_doom3d *app);
+t_3d_object					*place_window_glass_prefab(t_doom3d *app);
 
 /*
 ** Level
