@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:55:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 19:30:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 03:14:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void			button_popup_menu_render(t_window *window,
 		button_group_render(popup_menu->menu);
 }
 
-static void		clamp_popup_menu_position_for_large_height(t_button_menu
-					*popup_menu, t_mouse *mouse)
+static void		clamp_popup_menu_position_for_large_height(
+					t_button_menu *popup_menu, t_mouse *mouse)
 {
 	t_window		*window;
 
@@ -54,10 +54,10 @@ static void		clamp_popup_menu_position_for_large_height(t_button_menu
 	if (mouse->y > window->framebuffer->height / 2)
 	{
 		while (popup_menu->pos[1] + popup_menu->background.h >
-		window->framebuffer->height)
+			window->framebuffer->height)
 			popup_menu->pos[1]--;
 	}
-	if (mouse->y <= window->framebuffer->height / 2)	
+	if (mouse->y <= window->framebuffer->height / 2)
 	{
 		while (popup_menu->pos[1] < 0)
 			popup_menu->pos[1]++;
