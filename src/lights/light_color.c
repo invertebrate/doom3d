@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:52:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 03:06:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 11:54:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ uint32_t		get_light_emit_color(t_3d_object *light_obj)
 			return (L3D_COLOR_BLUE);
 		else if (light_type == light_type_cyan)
 			return (L3D_COLOR_CYAN);
+		else if (light_type == light_type_explosion)
+			return (L3D_COLOR_EXPLOSION);
 		return (L3D_COLOR_YELLOW);
 	}
 	else
-		return (L3D_COLOR_RED);
+		return (L3D_COLOR_EXPLOSION);
 }
 
 t_shading_opts	get_light_shading(t_light_type light_type)

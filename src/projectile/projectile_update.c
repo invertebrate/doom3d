@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/26 11:42:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 11:53:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void		init_explosions(t_doom3d *app, t_3d_object **explosions,
 	l3d_3d_object_scale(explosions[4], 0.3, 0.3, 0.3);
 	l3d_object_set_shading_opts(explosions[4],
 		e_shading_invisible);
-	l3d_3d_object_set_params(explosions[4], NULL, 0, light_type_yellow);
+	l3d_3d_object_set_params(explosions[4], NULL, 0, light_type_explosion);
 	explosions[4]->type = object_type_light;
 }
 

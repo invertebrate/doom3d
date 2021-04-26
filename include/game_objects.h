@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 15:54:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 11:53:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef enum				e_light_type
 	light_type_red = 13,
 	light_type_blue = 14,
 	light_type_cyan = 15,
+	light_type_explosion = 16,
 }							t_light_type;
 
 /*

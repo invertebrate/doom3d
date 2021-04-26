@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 17:08:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/26 11:52:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define L3D_COLOR_GREEN 0x00ff00ff
 # define L3D_COLOR_BLUE 0x0000ffff
 # define L3D_COLOR_YELLOW 0xffff00ff
+# define L3D_COLOR_EXPLOSION 0xffa255ff
 # define L3D_COLOR_LIGHT_YELLOW 0xffff80ff
 # define L3D_COLOR_CYAN 0x00ffffff
 # define L3D_COLOR_PINK_TRANSPARENT 0xff00ff64
