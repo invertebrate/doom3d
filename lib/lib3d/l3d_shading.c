@@ -34,7 +34,7 @@ uint32_t		l3d_pixel_selection_shaded(uint32_t pixel)
 	return (l3d_color_blend_u32(pixel, 0x00ff00ff, 0.2));
 }
 
-static void		get_world_pos(t_triangle *triangle, t_vec3 baryc,
+static void		get_world_pos_persp_corr(t_triangle *triangle, t_vec3 baryc,
 					t_vec3 world_pos)
 {
 	int32_t	i;
@@ -94,16 +94,17 @@ uint32_t		l3d_pixel_light_shaded(t_triangle *triangle,
 	uint32_t	light[4];
 	uint32_t	result[4];
 	t_vec3		world_pos;
+	uint32_t	darkness;
 
+	darkness = 200;
+	ft_memset(result, 0, sizeof(result));
 	if (triangle->material->num_lights > 0)
 	{
-		get_world_pos(triangle, baryc, world_pos);
+		get_world_pos_persp_corr(triangle, baryc, world_pos);
 		l3d_u32_to_rgba(pixel, rgba);
 		ft_memset(light, 0, sizeof(light));
 		point_light_calculation(triangle, world_pos, light);
-		result[0] = (uint32_t)fmin(rgba[0] + light[0], 255.0);
-		result[1] = (uint32_t)fmin(rgba[1] + light[1], 255.0);
-		result[2] = (uint32_t)fmin(rgba[2] + light[2], 255.0);
+		calculate_luminosity(result, light, darkness);
 		result[3] = rgba[3];
 		return (l3d_rgba_to_u32(result));
 	}

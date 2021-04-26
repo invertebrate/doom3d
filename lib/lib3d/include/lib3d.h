@@ -572,6 +572,8 @@ float						l3d_pixel_get_float(float *buffer,
 void						l3d_pixel_plot_float(float *buffer,
 								uint32_t dimensions_wh[2], int32_t xy[2],
 								float value);
+void						calculate_luminosity(uint32_t *pixel, uint32_t *light,
+												uint32_t darkness);
 
 /*
 ** Line draw

@@ -18,6 +18,7 @@
 # define MAX_NUM_OBJECTS 16384
 # define NEAR_CLIP_DIST 10
 # define FAR_CLIP_DIST 100000
+# define DARKNESS_DEFAULT 200
 
 # include "libft.h"
 # include "lib3d.h"

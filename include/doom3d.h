@@ -512,6 +512,8 @@ void						destroy_render_triangle_pool(t_doom3d *app);
 void						reset_render_triangle_pool(t_doom3d *app);
 void						allocate_render_triangle_pool(t_doom3d *app,
 								uint32_t size);
+void						calculate_final_luminosity(uint32_t *pixel,
+														uint32_t *light);
 
 /*
 ** Objects
