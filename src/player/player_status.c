@@ -21,5 +21,7 @@ void	player_onhit(t_doom3d *app, int damage)
 	// }
 	// ft_printf("player hit for %d damage! current hp: %d\n",
 		// damage, app->player.hp); //test
+	push_custom_event(app,
+		event_effect_play, (void*)sf_player_hurt, s_ini(0, 1, st_game, 1));
 	(void)app;
 }
