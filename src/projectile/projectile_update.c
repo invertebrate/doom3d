@@ -72,7 +72,7 @@ static void		projectile_explode_effect(t_doom3d *app,
 			explosions[i]);
 	push_custom_event(app,
 		event_effect_play, (void*)sf_explsion2, s_ini(0, 1, st_game,
-		distance_vol(1, sound_mag(app->player.pos, projectile_obj->position), -1)));
+		distance_vol(0.7, sound_mag(app->player.pos, projectile_obj->position), 50000)));
 }
 
 static void		projectile_on_hit(t_doom3d *app,
