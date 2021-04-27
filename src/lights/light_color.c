@@ -21,6 +21,8 @@ uint32_t		get_light_emit_color(t_3d_object *light_obj)
 		light_type = light_obj->params_type;
 		if (light_type == light_type_yellow)
 			return (L3D_COLOR_YELLOW);
+		if (light_type == light_type_white)
+			return (L3D_COLOR_WHITE);
 		else if (light_type == light_type_red)
 			return (L3D_COLOR_RED);
 		else if (light_type == light_type_green)
@@ -39,6 +41,8 @@ uint32_t		get_light_emit_color(t_3d_object *light_obj)
 
 t_shading_opts	get_light_shading(t_light_type light_type)
 {
+	if (light_type == light_type_white)
+		return (e_shading_white);
 	if (light_type == light_type_yellow)
 		return (e_shading_yellow);
 	else if (light_type == light_type_red)

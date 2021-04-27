@@ -59,8 +59,8 @@ void			update_light_sources(t_doom3d *app, t_3d_object *object)
 			update_light_sources_anim3d(app, object);
 			return ;
 		}
-		radius = app->unit_size * 25.0;
-		intensity = 0.5;
+		radius = app->unit_size * LIGHT_RADIUS_DEFAULT / 1.5;
+		intensity = LIGHT_INTENSITY_DEFAULT * 3;
 		ft_memset(object->material->light_sources, 0,
 			sizeof(object->material->light_sources));
 		object->material->num_lights = 0;

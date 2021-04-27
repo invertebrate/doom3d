@@ -38,6 +38,7 @@
 # define L3D_DEFAULT_COLOR 0xff00ffff
 # define L3D_DEFAULT_COLOR_TRANSPARENT 0xff00ff64
 
+# define L3D_COLOR_WHITE 0xffffffff
 # define L3D_COLOR_PINK 0xff00ffff
 # define L3D_COLOR_RED 0xff0000ff
 # define L3D_COLOR_GREEN 0x00ff00ff
@@ -119,6 +120,7 @@ typedef enum				e_shading_opts
 	e_shading_uv_repeat = 1 << 12,
 	e_shading_light = 1 << 13,
 	e_shading_temp_invisible = 1 << 14,
+	e_shading_white = 1 << 15
 }							t_shading_opts;
 
 /*

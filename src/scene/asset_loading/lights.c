@@ -16,6 +16,10 @@ void			lights_load(t_scene *scene)
 {
 	scene->lights_map = hash_map_create(MAX_ASSETS);
 	scene->asset_files.light_names[scene->asset_files.num_lights] =
+		"White Light";
+	hash_map_add(scene->trigger_map, (int64_t)scene->asset_files.light_names[
+			scene->asset_files.num_lights++], (void*)light_type_white);
+	scene->asset_files.light_names[scene->asset_files.num_lights] =
 		"Normal Light";
 	hash_map_add(scene->trigger_map, (int64_t)scene->asset_files.light_names[
 			scene->asset_files.num_lights++], (void*)light_type_yellow);
