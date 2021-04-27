@@ -16,7 +16,7 @@
 ** Transform light position for rasterizer origo at (0, 0, 0)
 */
 
-static void		transform_light_pos(t_doom3d *app, t_vec3 light_pos,
+void			transform_light_pos(t_doom3d *app, t_vec3 light_pos,
 					int32_t object_i)
 {
 	ml_matrix4_mul_vec3(app->player.inv_translation,
@@ -25,7 +25,7 @@ static void		transform_light_pos(t_doom3d *app, t_vec3 light_pos,
 		light_pos, light_pos);
 }
 
-static void		update_one_light_source(t_doom3d *app, t_3d_object *object,
+void			update_one_light_source(t_doom3d *app, t_3d_object *object,
 					float radius_intensity[2], int32_t i)
 {
 	float	radius_scale;
@@ -50,10 +50,15 @@ void			update_light_sources(t_doom3d *app, t_3d_object *object)
 	int32_t	i;
 	float	radius;
 	float	intensity;
-
 	if (!(object->material->shading_opts & e_shading_invisible) &&
 		object->type != object_type_light)
 	{
+		if (object->params != NULL && object->type == object_type_npc &&
+			app->active_scene->scene_id != scene_id_editor3d)
+		{
+			update_light_sources_anim3d(app, object);
+			return ;
+		}
 		radius = app->unit_size * 25.0;
 		intensity = 0.5;
 		ft_memset(object->material->light_sources, 0,
@@ -63,7 +68,7 @@ void			update_light_sources(t_doom3d *app, t_3d_object *object)
 		while (++i < (int32_t)app->active_scene->num_scene_lights)
 			update_one_light_source(app, object,
 				(float[2]){radius, intensity}, i);
-	}//HERE PUT UPDATE LIGHTS ON CURRENT ANIMATION FRAME
+	}
 }
 
 /*

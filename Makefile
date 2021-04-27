@@ -84,6 +84,7 @@ SOURCES = main.c \
 			trigger/trigger.c \
 			trigger/trigger_timer.c \
 			lights/light.c \
+			lights/light2.c \
 			lights/light_color.c \
 			path/path.c \
 			path/path2.c \

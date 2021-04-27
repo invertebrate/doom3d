@@ -170,8 +170,8 @@ void			update_objects(t_doom3d *app)
 			obj = app->active_scene->objects[i];
 			if (!obj)
 				continue ;
-			update_light_sources(app, obj);
 			update_object_by_type(app, obj, is_npc_update);
+			update_light_sources(app, obj);
 		}
 		l3d_temp_objects_update_time(&app->active_scene->temp_objects,
 			app->info.delta_time);

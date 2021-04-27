@@ -521,6 +521,14 @@ void						calculate_final_luminosity(uint32_t *pixel,
 
 void						update_light_sources(t_doom3d *app,
 								t_3d_object *object);
+void						update_light_sources_anim3d(t_doom3d *app,
+														t_3d_object *object);
+void						transform_light_pos(t_doom3d *app, t_vec3 light_pos,
+												int32_t object_i);
+void						update_one_light_source(t_doom3d *app,
+													t_3d_object *object,
+													float radius_intensity[2],
+													int32_t i);
 void						update_editor_light_sources(t_doom3d *app);
 void						update_objects(t_doom3d *app);
 void						object_type_to_str(t_3d_object *obj, char *str);
