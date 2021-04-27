@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/27 00:58:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:42:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -580,6 +580,7 @@ void						write_path_object_information(int32_t fd,
 								t_doom3d *app);
 void						write_key_ids(int32_t fd, t_doom3d *app);
 void						save_map(t_doom3d *app);
+void						write_savename_to_level_list(t_doom3d *app);
 int32_t						read_key_id_information(t_doom3d *app,
 								char *contents);
 int32_t						read_objects(t_doom3d *app, char *contents);

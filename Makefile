@@ -109,7 +109,6 @@ SOURCES = main.c \
 			scene/scene.c \
 			scene/scene_menus.c \
 			scene/scene_update.c \
-			scene/level.c \
 			scene/cleanup.c \
 			scene/scene_assets.c \
 			scene/asset_loading/animations_3d.c \
@@ -133,6 +132,7 @@ SOURCES = main.c \
 			editor/editor_point_on_target.c \
 			editor/editor_object_by_mouse.c \
 			editor/editor_duplication.c \
+			map/level.c \
 			map/save.c \
 			map/read.c \
 			map/key_read.c \

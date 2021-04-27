@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 01:57:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 02:51:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ void			save_map(t_doom3d *app)
 {
 	int32_t			fd;
 	char			filename[128];
+	int32_t			i;
+	t_bool			is_new;
 
-	ft_sprintf(filename, "assets/map_data/%s",
-		app->editor.editor_filename, app->editor.editor_filename);
+	ft_sprintf(filename, "assets/map_data/%s", app->editor.editor_filename);
 	if ((fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0644)) == -1 &&
 		ft_dprintf(2, "Failed to open file %s\n", filename))
 		exit(EXIT_FAILURE);
@@ -86,4 +87,13 @@ void			save_map(t_doom3d *app)
 	if ((fd = close(fd)) == -1 &&
 		ft_dprintf(2, "Failed to close file %s\n", filename))
 		exit(EXIT_FAILURE);
+	is_new = true;
+	i = -1;
+	while (++i < MAX_LEVELS)
+	{
+		if (ft_strequ(app->level_list[i], app->editor.editor_filename))
+			is_new = false;
+	}
+	if (is_new)
+		write_savename_to_level_list(app);
 }
