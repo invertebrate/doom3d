@@ -98,6 +98,19 @@ typedef struct				s_ray
 }							t_ray;
 
 /*
+** Structure representing a circular orthogonal cone in 3d space.
+*/
+
+typedef struct				s_cone
+{
+	t_vec3			apex;
+	t_vec3			dir;
+	float			height;
+	float			radius;
+}							t_cone;
+
+
+/*
 ** Enums defining how to shade (in rasterization) the 3d object
 ** E.g. e_shading_transparent = use alpha blending
 ** E.g. e_shading_zero_alpha = if alpha == 0, render nothing on that pixel
@@ -502,6 +515,8 @@ void						l3d_3d_object_add_light_source(t_3d_object *object,
 								t_vec3 light_pos,
 								float radius_intensity[2],
 								uint32_t emit_color);
+float						point_inside_cone(t_cone *cone, t_vec3 point);
+
 
 /*
 ** OBJ reading
