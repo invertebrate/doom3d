@@ -1,5 +1,5 @@
 CC = gcc
-NAME=doom3d
+NAME=doom-nukem
 DIR_SRC = ./src
 DIR_OBJ = temp
 LIBSDL2 = ./lib/SDL2

@@ -1,6 +1,5 @@
 .vscode
 *.o
-doom3d
-doom3d_dev
+doom-nukem
 */*/*.a
 debug
