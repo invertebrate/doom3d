@@ -34,4 +34,6 @@ void			scene_normal_map_files_set(t_asset_files *data)
 		"assets/textures/monster_01/monster01_normal.bmp";
 	data->normal_map_files[data->num_normal_maps++] =
 		"assets/textures/monster_02/monster02_normal.bmp";
+	data->normal_map_files[data->num_normal_maps++] =
+		"assets/textures/window_wall_normal.bmp";
 }

@@ -656,7 +656,6 @@ t_3d_object					*editor_place_default_object(t_doom3d *app,
 t_3d_object					*editor_place_npc_object(t_doom3d *app,
 								t_npc_type type);
 t_3d_object					*place_window_wall_prefab(t_doom3d *app);
-t_3d_object					*place_window_glass_prefab(t_doom3d *app);
 
 /*
 ** Level

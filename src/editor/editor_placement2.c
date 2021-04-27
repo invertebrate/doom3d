@@ -66,8 +66,6 @@ t_3d_object			*editor_place_default_object(t_doom3d *app, void *data)
 		object = place_plane_prefab(app);
 	else if ((t_prefab_type)data == prefab_window_wall)
 		object = place_window_wall_prefab(app);
-	else if ((t_prefab_type)data == prefab_window_glass)
-		object = place_window_glass_prefab(app);
 	else if ((t_prefab_type)data == prefab_path_node)
 	{
 		object = place_path_object(app);
