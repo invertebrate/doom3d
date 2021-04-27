@@ -54,7 +54,7 @@
 # define L3D_COLOR_LIGHT_YELLOW_TRANSPARENT 0xffff8064
 # define L3D_COLOR_CYAN_TRANSPARENT 0x00ffff64
 
-# define L3D_MAX_LIGHTS 16
+# define L3D_MAX_LIGHTS 32
 
 /*
 ** OBJ file temporary structs. They are used in transfering obj data to final

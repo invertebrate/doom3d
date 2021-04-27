@@ -95,11 +95,15 @@ uint32_t		l3d_pixel_light_shaded(t_triangle *triangle,
 	uint32_t	result[4];
 	t_vec3		world_pos;
 	uint32_t	darkness;
+	static int c = 0;
+	c++;
 
 	darkness = 250;
 	ft_memset(result, 0, sizeof(result));
 	if (triangle->material->num_lights > 0)
 	{
+		if (c % 10000 == 0)
+		ft_printf("pixel light shaded\n");
 		get_world_pos_persp_corr(triangle, baryc, world_pos);
 		l3d_u32_to_rgba(pixel, rgba);
 		ft_memset(light, 0, sizeof(light));

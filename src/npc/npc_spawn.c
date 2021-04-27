@@ -27,6 +27,7 @@ static t_3d_object	*place_npc_object_in_scene(t_doom3d *app, t_npc *npc, t_vec3 
 	if (npc->type == npc_type_monster01 || npc->type == npc_type_monster02 ||
 		npc->type == npc_type_monster01_a || npc->type == npc_type_monster01_range)
 	{
+		obj->material->shading_opts = e_shading_light;
 		l3d_3d_object_rotate(obj, 0, 180, 180);//hardcoded for specific model
 		// ml_matrix4_id(obj->rotation);
 	}
