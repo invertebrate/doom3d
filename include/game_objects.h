@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/27 00:52:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 03:44:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef enum				e_trigger_type
 	trigger_item_key,
 	trigger_elevator_switch,
 	trigger_door_switch,
+	trigger_type_disabled = 666,
 }							t_trigger_type;
 
 /*
