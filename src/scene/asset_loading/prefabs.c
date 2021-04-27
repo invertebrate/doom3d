@@ -20,11 +20,6 @@ void			prefabs_load(t_scene *scene)
 		(int64_t)scene->asset_files.prefab_names[
 			scene->asset_files.num_prefabs++], (void*)prefab_plane);
 	scene->asset_files.prefab_names[scene->asset_files.num_prefabs] =
-		"Window Glass";
-	hash_map_add(scene->prefab_map,
-		(int64_t)scene->asset_files.prefab_names[
-			scene->asset_files.num_prefabs++], (void*)prefab_window_glass);
-	scene->asset_files.prefab_names[scene->asset_files.num_prefabs] =
 		"Window Wall";
 	hash_map_add(scene->prefab_map,
 		(int64_t)scene->asset_files.prefab_names[

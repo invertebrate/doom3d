@@ -98,8 +98,7 @@ typedef enum				e_prefab_type
 {
 	prefab_plane = 1,
 	prefab_path_node= 2,
-	prefab_window_glass= 3,
-	prefab_window_wall= 4,
+	prefab_window_wall= 3,
 }							t_prefab_type;
 
 /*

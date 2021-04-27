@@ -12,21 +12,6 @@
 
 #include "doom3d.h"
 
-t_3d_object			*place_window_glass_prefab(t_doom3d *app)
-{
-	t_3d_object		*object;
-	t_vec3			pos;
-
-	editor_pos_camera_front(app, pos);
-	object = place_scene_object(app, (const char*[3]){
-		"assets/models/window/window_glass.obj",
-		"assets/textures/glass_texture_30.bmp", NULL}, pos);
-	object->material->shading_opts = e_shading_transparent |
-		e_shading_uv_repeat;
-	placement_notification(app, "Placing window glass!");
-	return (object);
-}
-
 t_3d_object			*place_window_wall_prefab(t_doom3d *app)
 {
 	t_3d_object		*object;
@@ -35,9 +20,10 @@ t_3d_object			*place_window_wall_prefab(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	object = place_scene_object(app, (const char*[3]){
 		"assets/models/window/window_wall.obj",
-		"assets/textures/wall_metal_panel.bmp", NULL}, pos);
-	object->material->shading_opts = e_shading_transparent |
-		e_shading_uv_repeat;
+		"assets/textures/window_wall.bmp",
+		"assets/textures/window_wall_normal.bmp"}, pos);
+	l3d_3d_object_rotate(object, 0, 180, 180);
+	object->material->shading_opts = e_shading_transparent;
 	placement_notification(app, "Placing window wall!");
 	return (object);
 }

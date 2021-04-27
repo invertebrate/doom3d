@@ -47,8 +47,6 @@ void			scene_model_files_set(t_asset_files *data)
 	data->model_files[data->num_models++] = "assets/models/missile.obj";
 	data->model_files[data->num_models++] = "assets/models/npc_projectile.obj";
 	data->model_files[data->num_models++] =
-		"assets/models/window/window_glass.obj";
-	data->model_files[data->num_models++] =
 		"assets/models/window/window_wall.obj";
 	scene_model_files_set_sub(data);
 }

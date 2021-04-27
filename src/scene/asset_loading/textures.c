@@ -97,7 +97,7 @@ void			scene_texture_files_set(t_asset_files *data)
 	data->texture_files[data->num_textures++] =
 		"assets/textures/floor_metal4_box.bmp";
 	data->texture_files[data->num_textures++] =
-		"assets/textures/glass_texture_30.bmp";
+		"assets/textures/window_wall.bmp";
 	scene_texture_files_set_sub1(data);
 	scene_texture_files_set_sub2(data);
 	scene_texture_files_set_sub3(data);
