@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   models.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:58:39 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/27 01:56:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/28 20:38:03 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void		scene_model_files_set_sub(t_asset_files *data)
 	data->model_files[data->num_models++] = "assets/models/jetpack.obj";
 	data->model_files[data->num_models++] = "assets/models/medkit.obj";
 	data->model_files[data->num_models++] = "assets/models/light_sphere.obj";
+	data->model_files[data->num_models++] = "assets/models/platform.obj";
+	data->model_files[data->num_models++] = "assets/models/column.obj";
 }
 
 void			scene_model_files_set(t_asset_files *data)
