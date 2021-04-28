@@ -16,8 +16,15 @@ void		player_flashlight_init(t_doom3d *app, t_player *player)
 {
 	t_flashlight	*fl;
 
+	if (app->active_scene->scene_id != scene_id_main_game)
+	{
+		player->flashlight.enabled = false;
+		return ;
+	}
+	player->flashlight.enabled = true;
+	player->flashlight.active = true;
 	fl = &(player->flashlight);
-	fl->light_color = light_type_white;
+	fl->light_color = L3D_COLOR_WHITE;
 	ml_vector3_copy(player->pos, fl->cone.apex);
 	ml_vector3_copy(player->forward, fl->cone.dir);
 	fl->cone.height = 30.0 * app->unit_size;

@@ -54,6 +54,12 @@ static void		get_world_pos_persp_corr(t_triangle *triangle, t_vec3 baryc,
 						(baryc[2] * triangle->vtc[2]->pos[i]) * cz) * inv_denom;
 }
 
+/*
+**float			orth_distance;
+	float			radius_at_point;
+	void			*test;
+*/
+
 static void		flashlight_light_calculation(t_triangle *triangle,
 											t_vec3 world_pos,
 											uint32_t light[4])
@@ -61,25 +67,19 @@ static void		flashlight_light_calculation(t_triangle *triangle,
 	uint32_t		light_add[4];
 	float			vars[3];
 	float			intensity;
-	float			distance;
-	float			orth_distance;
-	float			radius_at_point;
 	void			*test;
-static int c = 0;
-c++;
+
+
 	l3d_u32_to_rgba(0xffffffff, light_add);
 	light_add[3] = 255;
 	ml_vector3_set_all(vars, 0.0);
-	test = point_inside_cone(&(triangle->material->flashlight->cone), world_pos, vars);
+	test = point_inside_cone(&(triangle->material->flashlight->cone), world_pos,
+								vars);
 	if (vars[0] <= triangle->material->flashlight->cone.height && test != NULL)
 	{
-		distance = vars[0];
-		orth_distance = vars[2];
-		radius_at_point = vars[1];
-
-		intensity = triangle->material->flashlight->intensity * (1 - (distance /
+		intensity = triangle->material->flashlight->intensity * (1 - (vars[0] /
 						triangle->material->flashlight->cone.height));
-		intensity *=	(1 - (orth_distance / radius_at_point));
+		intensity *=	(1 - (vars[2] / vars[1]));
 		light[0] += intensity * light_add[0];
 		light[1] += intensity * light_add[1];
 		light[2] += intensity * light_add[2];
@@ -112,7 +112,8 @@ void			point_light_calculation(t_triangle *triangle, t_vec3 world_pos,
 			light[2] += intensity * light_add[2];
 		}
 	}
-	flashlight_light_calculation(triangle, world_pos, light);
+	if (triangle->material->flashlight->enabled == true)
+		flashlight_light_calculation(triangle, world_pos, light);
 	light[3] = 255;
 }
 

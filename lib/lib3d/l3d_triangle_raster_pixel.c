@@ -44,6 +44,9 @@ static uint32_t	pixel_trans(t_triangle *triangle, t_vec2 uv,
 		(pixel & 255) == 0)
 		return (UINT32_MAX);
 	shade_pixel(triangle, uv, &pixel);
+	if (triangle->material->shading_opts & e_shading_luminous)
+		return (pixel);
+	else
 	pixel = l3d_pixel_light_shaded(triangle, baryc, pixel);
 	return (pixel);
 }
@@ -71,7 +74,10 @@ static uint32_t	pixel_color(t_triangle *triangle, t_vec2 uv,
 		(pixel & 255) == 0)
 		return (UINT32_MAX);
 	shade_pixel(triangle, uv, &pixel);
-	pixel = l3d_pixel_light_shaded(triangle, baryc, pixel);
+	if (triangle->material->shading_opts & e_shading_luminous)
+		return (pixel);
+	else
+		pixel = l3d_pixel_light_shaded(triangle, baryc, pixel);
 	return (pixel);
 }
 

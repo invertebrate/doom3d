@@ -133,7 +133,8 @@ typedef enum				e_shading_opts
 	e_shading_uv_repeat = 1 << 12,
 	e_shading_light = 1 << 13,
 	e_shading_temp_invisible = 1 << 14,
-	e_shading_white = 1 << 15
+	e_shading_white = 1 << 15,
+	e_shading_luminous = 1 << 16
 }							t_shading_opts;
 
 /*
@@ -153,7 +154,8 @@ typedef struct				s_flashlight
 	t_cone					cone;
 	uint32_t				light_color;
 	float					intensity;
-
+	t_bool					active;
+	t_bool					enabled;
 }							t_flashlight;
 
 /*
