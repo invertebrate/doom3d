@@ -84,14 +84,19 @@ static int32_t	read_object_triangles_and_vertices(char *contents,
 	return (offset);
 }
 
+/*
+**	This is mainly for older maps so that their object shading modes get
+**	updated.
+*/
+
 static void		set_default_shading_opts(t_3d_object *obj)
 {
 	if (!(obj->material->shading_opts & e_shading_zero_alpha) &&
 	!(obj->material->shading_opts & e_shading_invisible) &&
 	!(obj->material->shading_opts & e_shading_light))
 		{
-			if (obj->material->shading_opts & e_shading_luminous)
-				obj->material->shading_opts ^= e_shading_luminous;
+			if (!(obj->material->shading_opts & e_shading_luminous))
+				obj->material->shading_opts = e_shading_standard;
 		}
 }
 

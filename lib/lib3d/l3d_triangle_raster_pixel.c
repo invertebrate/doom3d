@@ -32,8 +32,6 @@ static uint32_t	pixel_trans(t_triangle *triangle, t_vec2 uv,
 		pixel = L3D_COLOR_RED_TRANSPARENT;
 	else if (triangle->material->shading_opts & e_shading_yellow)
 		pixel = L3D_COLOR_YELLOW_TRANSPARENT;
-	else if (triangle->material->shading_opts & e_shading_blue)
-		pixel = L3D_COLOR_BLUE_TRANSPARENT;
 	else if (triangle->material->shading_opts & e_shading_cyan)
 		pixel = L3D_COLOR_CYAN_TRANSPARENT;
 	else
@@ -44,7 +42,8 @@ static uint32_t	pixel_trans(t_triangle *triangle, t_vec2 uv,
 		(pixel & 255) == 0)
 		return (UINT32_MAX);
 	shade_pixel(triangle, uv, &pixel);
-	if (triangle->material->shading_opts & e_shading_luminous)
+	if (triangle->material->shading_opts & e_shading_luminous ||
+		triangle->material->shading_opts & e_shading_lit)
 		return (pixel);
 	else
 		pixel = l3d_pixel_light_shaded(triangle, baryc, pixel);
@@ -74,7 +73,8 @@ static uint32_t	pixel_color(t_triangle *triangle, t_vec2 uv,
 		(pixel & 255) == 0)
 		return (UINT32_MAX);
 	shade_pixel(triangle, uv, &pixel);
-	if (triangle->material->shading_opts & e_shading_luminous)
+	if (triangle->material->shading_opts & e_shading_luminous ||
+		triangle->material->shading_opts & e_shading_lit)
 		return (pixel);
 	else
 		pixel = l3d_pixel_light_shaded(triangle, baryc, pixel);

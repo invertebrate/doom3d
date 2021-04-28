@@ -49,8 +49,6 @@ t_shading_opts	get_light_shading(t_light_type light_type)
 		return (e_shading_red);
 	else if (light_type == light_type_green)
 		return (e_shading_green);
-	else if (light_type == light_type_blue)
-		return (e_shading_blue);
 	else if (light_type == light_type_cyan)
 		return (e_shading_cyan);
 	return (e_shading_yellow);

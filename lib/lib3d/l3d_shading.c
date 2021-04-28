@@ -54,10 +54,18 @@ static void		get_world_pos_persp_corr(t_triangle *triangle, t_vec3 baryc,
 						(baryc[2] * triangle->vtc[2]->pos[i]) * cz) * inv_denom;
 }
 
+// float			inverse_quadratic_interpolation()
+// {
+// 	float	result;
+
+// 	return (result);
+// }
+
 /*
-**float			orth_distance;
-	float			radius_at_point;
-	void			*test;
+**	Calculates the light intensity caused by flashlight
+**	vars[2]		orthogonal distance from cone axis
+**	vars[1]		cone radius at point
+**	vars[0]		distance
 */
 
 static void		flashlight_light_calculation(t_triangle *triangle,
@@ -114,7 +122,6 @@ void			point_light_calculation(t_triangle *triangle, t_vec3 world_pos,
 	}
 	if (triangle->material->flashlight->enabled == true)
 		flashlight_light_calculation(triangle, world_pos, light);
-	light[3] = 255;
 }
 
 /*
@@ -139,6 +146,7 @@ uint32_t		l3d_pixel_light_shaded(t_triangle *triangle,
 		ft_memset(light, 0, sizeof(light));
 		point_light_calculation(triangle, world_pos, light);
 		calculate_luminosity(rgba, light, darkness);
+		light[3] = 255;
 		return (l3d_rgba_to_u32(rgba));
 	}
 	return (pixel);
