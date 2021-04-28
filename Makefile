@@ -298,7 +298,7 @@ testrun: #this is only for quicker lib3d debug
 	@/bin/rm -f $(OBJS)
 	@/bin/rm -rf $(DIR_OBJ)
 	make all
-	./doom3d
+	./$(NAME)
 
 norm: norminette $(DIR_SRC) $(LIBFT) $(LIB3D) $(LIBGMATRIX) ./include
 

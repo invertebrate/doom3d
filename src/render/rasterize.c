@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:11:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/28 16:23:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void			rasterize_triangles(t_render_work *work)
 }
 
 /*
-** Rasterize transparent triangles
+** Rasterize transparent triangles. Reverse render order to ensure right look
 */
 
 void			rasterize_triangles_transparent(t_render_work *work)
@@ -73,8 +73,8 @@ void			rasterize_triangles_transparent(t_render_work *work)
 	int32_t				i;
 
 	sub_buffer = work->framebuffer->sub_buffers[work->sub_buffer_i];
-	i = -1;
-	while (++i < (int32_t)work->render_triangles->size)
+	i = work->render_triangles->size;
+	while (--i >= 0)
 	{
 		triangle = work->render_triangles->triangles[i];
 		if (triangle_outside_frame(triangle, sub_buffer))

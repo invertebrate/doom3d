@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:07:32 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:44:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/28 16:20:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,13 @@ float			l3d_z_val(float baryc[3], t_triangle *triangle)
 	return (-1 * ((baryc[0] * triangle->vtc_zvalue[0] +
 			baryc[1] * triangle->vtc_zvalue[1] +
 			baryc[2] * triangle->vtc_zvalue[2])));
+}
+
+void			l3d_write_z_val(t_sub_framebuffer *buffers,
+					t_triangle *triangle, int32_t offset_xy[2], float z_val)
+{
+	if (!(triangle->material->shading_opts & e_shading_ignore_zpass))
+		l3d_pixel_plot_float(buffers->zbuffer,
+			(unsigned int[2]){buffers->width, buffers->height},
+			offset_xy, z_val);
 }
