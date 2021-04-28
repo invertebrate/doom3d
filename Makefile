@@ -54,6 +54,7 @@ SOURCES = main.c \
 			player/movement.c \
 			player/player_status.c \
 			player/player_vitals_render.c \
+			player/player_flashlight.c \
 			projectile/projectile_init.c \
 			projectile/projectile_update.c \
 			projectile/projectile_data/projectile_data_rpg.c \

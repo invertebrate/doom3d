@@ -148,6 +148,14 @@ typedef struct				s_surface
 	uint32_t		h;
 }							t_surface;
 
+typedef struct				s_flashlight
+{
+	t_cone					cone;
+	uint32_t				light_color;
+	float					intensity;
+
+}							t_flashlight;
+
 /*
 ** Light source defines how light is rendered in rasterization
 ** if it's been set for material of the object
@@ -161,6 +169,8 @@ typedef struct				s_light_source
 	uint32_t	color;
 }							t_light_source;
 
+
+
 /*
 ** Material contains object texture and normal map information and other
 ** rendering related parameters such as shading opts and light sources
@@ -172,6 +182,7 @@ typedef struct				s_material
 	t_surface		*normal_map;
 	t_shading_opts	shading_opts;
 	t_light_source	light_sources[L3D_MAX_LIGHTS];
+	t_flashlight	*flashlight;
 	uint32_t		num_lights;
 }							t_material;
 
@@ -515,8 +526,8 @@ void						l3d_3d_object_add_light_source(t_3d_object *object,
 								t_vec3 light_pos,
 								float radius_intensity[2],
 								uint32_t emit_color);
-float						point_inside_cone(t_cone *cone, t_vec3 point);
-
+float						*point_inside_cone(t_cone *cone, t_vec3 point,
+												float *vars);
 
 /*
 ** OBJ reading

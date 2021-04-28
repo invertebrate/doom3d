@@ -184,6 +184,9 @@ void						settings_init(t_doom3d *app);
 */
 void						update_player(t_doom3d *app);
 void						player_init(t_doom3d *app, t_vec3 pos);
+void						player_flashlight_init(t_doom3d *app,
+													t_player *player);
+void						player_flashlight_update(t_player *player);
 void						player_move(t_doom3d *app);
 void						get_move_dir(t_doom3d *app,
 								t_move dir_option, t_vec3 dir);

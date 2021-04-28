@@ -120,6 +120,7 @@ static void			npc_anim3d_material_copy(t_3d_object *source,
 	dest->material->shading_opts = source->material->shading_opts;
 	dest->material->normal_map = source->material->normal_map;
 	dest->material->num_lights = source->material->num_lights;
+	dest->material->flashlight = source->material->flashlight;
 	while (++i < L3D_MAX_LIGHTS)
 		dest->material->light_sources[i] = source->material->light_sources[i];
 }

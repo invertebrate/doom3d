@@ -36,5 +36,6 @@ void			update_light_sources_anim3d(t_doom3d *app, t_3d_object *object)
 		while (++i < (int32_t)app->active_scene->num_scene_lights)
 			update_one_light_source(app, anim->current_object,
 				(float[2]){radius, intensity}, i);
+		anim->current_object->material->flashlight = &(app->player.flashlight);
 	}
 }

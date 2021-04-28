@@ -101,6 +101,7 @@ t_3d_object		*place_scene_object(t_doom3d *app, const char *filenames[3],
 		hash_map_add(app->active_scene->object_normal_maps,
 			obj->id, (void*)filenames[2]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
+	obj->material->flashlight = &(app->player.flashlight);
 	app->active_scene->objects[next_object_index(app)] = obj;
 	active_scene_update_after_objects(app->active_scene);
 	if (app->is_debug)
@@ -138,6 +139,7 @@ t_3d_object		*place_procedural_scene_object(t_doom3d *app, t_3d_object *model,
 			obj->id, (void*)filenames[1]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
+	obj->material->flashlight = &(app->player.flashlight);
 	active_scene_update_after_objects(app->active_scene);
 	if (app->is_debug)
 		LOG_DEBUG("New procedural object id %d", obj->id);
@@ -180,6 +182,8 @@ t_3d_object			*place_temp_object(t_doom3d *app, const char *filenames[3],
 		lifetime_and_delay);
 	if (app->is_debug)
 		LOG_DEBUG("New temp object id %d", obj->id);
+	obj->material->flashlight = &(app->player.flashlight);
+
 	return (obj);
 }
 
@@ -218,6 +222,7 @@ t_3d_object			*place_procedural_temp_object(t_doom3d *app,
 		lifetime_and_delay);
 	if (app->is_debug)
 		LOG_DEBUG("New procedural temp object id %d", obj->id);
+	obj->material->flashlight = &(app->player.flashlight);
 	return (obj);
 }
 
