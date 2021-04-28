@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 15:53:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:27:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ void			l3d_raster_draw_pixel(t_sub_framebuffer *buffers, int32_t xy[2],
 	{
 		l3d_interpolate_uv(triangle, baryc, uv);
 		l3d_clamp_or_repeat_uv(triangle, uv);
-		if ((pixel = pixel_color(triangle, uv, baryc, z_val)) == UINT32_MAX)
+		if ((pixel = pixel_color(triangle, uv, baryc, z_val)) == UINT32_MAX &&
+			triangle->material->shading_opts & e_shading_zero_alpha)
 			return ;
 		l3d_pixel_plot(buffers->buffer, (uint32_t[2]){buffers->width,
 				buffers->height}, offset_xy, pixel);
@@ -135,7 +136,8 @@ void			l3d_raster_draw_pixel_transparent(t_sub_framebuffer *buffers,
 		l3d_interpolate_uv(triangle, brc_uv[0], brc_uv[1]);
 		l3d_clamp_or_repeat_uv(triangle, brc_uv[1]);
 		if ((pixel = pixel_trans(triangle,
-			brc_uv[1], brc_uv[0], z_val)) == UINT32_MAX)
+			brc_uv[1], brc_uv[0], z_val)) == UINT32_MAX &&
+			triangle->material->shading_opts & e_shading_zero_alpha)
 			return ;
 		pixel = l3d_color_alpha_blend_u32(l3d_pixel_get(buffers->buffer,
 			(uint32_t[2]){buffers->width, buffers->height}, offset_xy), pixel);
