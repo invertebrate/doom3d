@@ -156,7 +156,9 @@ void			update_objects(t_doom3d *app)
 		app->active_scene->scene_id == scene_id_editor3d))
 		return ;
 	if (app->active_scene->scene_id == scene_id_editor3d)
+	{
 		update_editor_light_sources(app);
+	}
 	else if (!app->active_scene->is_paused &&
 		app->active_scene->scene_id == scene_id_main_game)
 	{

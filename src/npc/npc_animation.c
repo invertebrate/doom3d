@@ -117,7 +117,7 @@ static void			npc_anim3d_material_copy(t_3d_object *source,
 
 	i = -1;
 	dest->material->texture = source->material->texture;
-	dest->material->shading_opts = source->material->shading_opts;
+	dest->material->shading_opts = e_shading_light;
 	dest->material->normal_map = source->material->normal_map;
 	dest->material->num_lights = source->material->num_lights;
 	dest->material->flashlight = source->material->flashlight;

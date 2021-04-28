@@ -88,6 +88,7 @@ void		handle_editor_input_events(t_doom3d *app, SDL_Event event)
 		push_custom_event(app, event_editor_zoom,
 			(void*)(intptr_t)(-event.wheel.y * 10), NULL);
 	handle_editor_key_input(app, event);
+	handle_editor_key_input2(app, event);
 }
 
 t_bool		editor_popup_menu_open(t_doom3d *app)

@@ -366,6 +366,9 @@ void						handle_editor_select(t_doom3d *app);
 void						handle_editor_level_switch(t_doom3d *app);
 void						handle_editor_open_popup_menu(t_doom3d *app,
 								t_editor_menu_index menu_id, t_vec3 pos);
+void						handle_editor_key_input2(t_doom3d *app,
+													SDL_Event event);
+void						handle_editor_flip_lights(t_doom3d *app);
 void						handle_editor_add_texture(t_doom3d *app,
 								char *filename);
 void						handle_editor_add_normal_map(t_doom3d *app,

@@ -34,4 +34,5 @@ void	editor_init(t_doom3d *app, int32_t editor_level)
 		ft_memcpy(app->editor.editor_savename, app->editor.editor_filename,
 			ft_strlen(app->editor.editor_filename));
 	}
+	app->editor.lights_enabled = true;
 }

@@ -209,8 +209,10 @@ SOURCES = main.c \
 			events/editor/editor_custom_event_str.c \
 			events/editor/editor_transform.c \
 			events/editor/editor_input.c \
+			events/editor/editor_input2.c \
 			events/editor/editor_keyboard_state.c \
 			events/editor/editor_mouse_state.c \
+			events/custom_event_handling/editor/editor_shading.c \
 			sound/sound.c\
 			sound/sound_controls.c\
 			sound/sound_init.c\
