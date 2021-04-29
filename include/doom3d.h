@@ -112,12 +112,12 @@ typedef struct				s_timer
 	int						timer_end;
 }							t_timer;
 
-typedef struct 				s_patrol_path_vars
+typedef struct				s_patrol_path_vars
 {
-	t_3d_object	*obj;
-	t_npc		*npc;
-	uint32_t	object_id;
-	int32_t		num_patrol_path_nodes;
+	t_3d_object		*obj;
+	t_npc			*npc;
+	uint32_t		object_id;
+	int32_t			num_patrol_path_nodes;
 }							t_patrol_path_vars;
 
 /*
