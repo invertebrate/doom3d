@@ -407,18 +407,30 @@ void						handle_player_interact(t_doom3d *app);
 ** 3D Animations
 */
 
-void						npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
-											t_anim_metadata *anim_data);
-void						npc_animation_3d_init(t_doom3d *app, t_3d_object *obj);
+void						npc_animation_3d_set(t_doom3d *app,
+												t_3d_object *obj, t_npc *npc,
+												t_anim_metadata *anim_data);
+void						npc_animation_3d_init(t_doom3d *app,
+												t_3d_object *obj);
 void						update_app_ticks(t_doom3d *app);
-uint32_t					anim_3d_frame_update(t_doom3d *app, t_animation_3d *animation);
+uint32_t					anim_3d_frame_update(t_doom3d *app,
+												t_animation_3d *animation);
 uint32_t					anim_3d_clip_loop(t_doom3d *app, t_3d_object *obj,
-											t_animation_3d_type clip, uint32_t start_frame);
+											t_animation_3d_type clip,
+											uint32_t start_frame);
 t_bool						anim_3d_clip_play(t_doom3d *app, t_3d_object *obj,
 											t_anim_3d_instance *anim_instance);
 void						npc_anim_3d_position_update(t_animation_3d *anim);
 t_bool						check_obj_3d_anim(t_3d_object *obj);
-t_bool						animation_3d_instance_destroy(t_anim_3d_instance *instance);
+t_bool						animation_3d_instance_destroy(t_anim_3d_instance
+														*instance);
+void						npc_anim3d_material_copy(t_3d_object *source,
+													t_3d_object *dest);
+void						init_anim_instance(t_doom3d *app,
+											t_anim_3d_instance *anim_instance);
+void						npc_animation_3d_data_copy(t_npc *npc,
+														t_anim_metadata
+														*anim_data);
 
 
 
