@@ -137,7 +137,7 @@ uint32_t		l3d_pixel_light_shaded(t_triangle *triangle,
 	t_vec3		world_pos;
 	uint32_t	darkness;
 
-	darkness = 250;
+	darkness = 230;
 	ft_memset(result, 0, sizeof(result));
 	if (triangle->material->num_lights > 0 ||
 		(triangle->material->flashlight != NULL &&

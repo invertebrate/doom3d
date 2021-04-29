@@ -135,7 +135,8 @@ typedef enum				e_shading_opts
 	e_shading_white = 1 << 15,
 	e_shading_luminous = 1 << 20,
 	e_shading_standard = 1 << 17,
-	e_shading_lit = 1 << 18
+	e_shading_lit = 1 << 18,
+	e_shading_emitter = 1 << 19
 }							t_shading_opts;
 
 /*
