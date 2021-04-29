@@ -427,9 +427,10 @@ t_bool						anim_3d_clip_play(t_doom3d *app, t_3d_object *obj,
 void						npc_anim_3d_position_update(t_animation_3d *anim);
 t_bool						check_obj_3d_anim(t_3d_object *obj);
 t_bool						animation_3d_instance_destroy(t_anim_3d_instance *instance);
-
-
-
+void						init_anim_instance_death(t_3d_object *obj,
+													t_anim_3d_instance *inst);
+void						init_anim_instance_attack(t_3d_object *obj,
+													t_anim_3d_instance *inst);
 
 /*
 ** Camera
