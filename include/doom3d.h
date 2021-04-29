@@ -477,6 +477,10 @@ void						copy_instance_data(t_animation_3d *anim,
 												t_anim_3d_instance *instance);
 uint32_t					npc_anim_3d_transform_update(t_animation_3d
 														*animation);
+void						init_anim_instance_death(t_3d_object *obj,
+													t_anim_3d_instance *inst);
+void						init_anim_instance_attack(t_3d_object *obj,
+													t_anim_3d_instance *inst);
 
 /*
 ** Camera

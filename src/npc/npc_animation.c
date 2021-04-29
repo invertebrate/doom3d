@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   npc_animation.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo     <veilo@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
 /*   Updated: 2021/04/29 17:59:10 by veilo            ###   ########.fr       */

@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/09 14:55:15 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/29 18:32:02 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,16 @@ static void		npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 
 static void	handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj)
 {
-	uint32_t		new_time;
-	t_npc			*npc;
-	t_vec3			dist;
+	uint32_t			new_time;
+	t_npc				*npc;
+	t_vec3				dist;
+	t_anim_3d_instance	attack_inst;
 
 	(void)app; //!ToDo: Remove from params if app is never needed...
 	npc = npc_obj->params;
+	init_anim_instance_attack(npc_obj, &attack_inst);// here init instance for attack animation, custom made function
+	if (npc->animation_3d->current_anim_instance->active == false) //this prevents starting the clip before previous clip has ended
+		anim_3d_clip_play(app, npc_obj, &attack_inst);//this plays the attack animation instance
 	new_time = SDL_GetTicks();
 	npc->atk_timer += new_time - npc->atk_start;
 	if (npc->atk_timer > npc->atk_dur)

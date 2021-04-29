@@ -83,6 +83,7 @@ SOURCES = main.c \
 			npc/npc_anim_utils.c \
 			npc/npc_move_to_waypoint.c \
 			npc/npc_destroy.c \
+			npc/npc_enemy_actions.c \
 			trigger/trigger.c \
 			trigger/trigger_timer.c \
 			lights/light.c \
