@@ -24,7 +24,7 @@ static void		npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 	ft_memcpy(&projectile,
 		&app->projectile_data[projectile_type_fireball],
 		sizeof(t_projectile));
-	rot[0] = 0; //todo - proper angles if not replacing with fireball projectile
+	rot[0] = 0;
 	rot[1] = 0;
 	rot[2] = 0;
 	ml_vector3_copy(rot, projectile.euler_angles);
@@ -57,7 +57,7 @@ static void	handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj)
 		{
 			npc_shoot_projectile(app, npc_obj->aabb.center, npc->dir);
 			push_custom_event(app,
-				event_effect_play, (void*)sf_monster_shoot, s_ini(0, 1, st_game, 
+				event_effect_play, (void*)sf_monster_shoot, s_ini(0, 1, st_game,
 				distance_vol(1, sound_mag(app->player.pos, npc_obj->position), -1)));
 			if (app->is_debug)
 				LOG_DEBUG("Npc %d shot projectile", npc_obj->id);

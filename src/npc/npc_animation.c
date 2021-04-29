@@ -60,18 +60,24 @@ void		npc_monster02_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	anim_data->clip_lengths[2] = 20;
 	anim_data->clip_lengths[3] = 20;
 	anim_data->clip_lengths[4] = 32;
-	anim_data->frame_count = anim_data->clip_lengths[0] + anim_data->clip_lengths[1] +
-							anim_data->clip_lengths[2] + anim_data->clip_lengths[3] +
+	anim_data->frame_count = anim_data->clip_lengths[0] +
+							anim_data->clip_lengths[1] +
+							anim_data->clip_lengths[2] +
+							anim_data->clip_lengths[3] +
 							anim_data->clip_lengths[4];
-	anim_data->frames_start_idx = 163;//global animation frame array index// needs to be hardcoded, cumulative number of all anim frames
+	anim_data->frames_start_idx = 163;
 	anim_data->anim_clip_start_indices[0] = anim_data->frames_start_idx;
-	anim_data->anim_clip_start_indices[1] = anim_data->frames_start_idx + anim_data->clip_lengths[0];
-	anim_data->anim_clip_start_indices[2] = anim_data->frames_start_idx + anim_data->clip_lengths[0] +
+	anim_data->anim_clip_start_indices[1] = anim_data->frames_start_idx +
+											anim_data->clip_lengths[0];
+	anim_data->anim_clip_start_indices[2] = anim_data->frames_start_idx +
+											anim_data->clip_lengths[0] +
 											anim_data->clip_lengths[1];
-	anim_data->anim_clip_start_indices[3] = anim_data->frames_start_idx + anim_data->clip_lengths[0] +
+	anim_data->anim_clip_start_indices[3] = anim_data->frames_start_idx +
+											anim_data->clip_lengths[0] +
 											anim_data->clip_lengths[1] +
 											anim_data->clip_lengths[2];
-	anim_data->anim_clip_start_indices[4] = anim_data->frames_start_idx + anim_data->clip_lengths[0] +
+	anim_data->anim_clip_start_indices[4] = anim_data->frames_start_idx +
+											anim_data->clip_lengths[0] +
 											anim_data->clip_lengths[1] +
 											anim_data->clip_lengths[2] +
 											anim_data->clip_lengths[3];
