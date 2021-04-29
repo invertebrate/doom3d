@@ -47,7 +47,7 @@ static void	editor_event_to_str_sub2(char *str, t_doom3d_event code)
 	else if (code == event_editor_zoom)
 		ft_sprintf(str, "event_editor_zoom");
 	else if (code == event_editor_flip_lights)
-		ft_sprintf(str, "event_editor_zoom");
+		ft_sprintf(str, "event_editor_flip_lights");
 }
 
 void		editor_custom_event_to_str(char *str, t_doom3d_event code)

@@ -16,7 +16,7 @@ void		handle_editor_key_input2(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_KEYUP)
 	{
-		if (event.key.keysym.sym == SDLK_l)
+		if (event.key.keysym.sym == SDLK_p)
 			push_custom_event(app, event_editor_flip_lights, NULL, NULL);
 	}
 }
