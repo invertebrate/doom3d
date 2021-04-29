@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   animation_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo     <veilo@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 19:01:32 by veilo             #+#    #+#             */
 /*   Updated: 2021/04/29 19:10:55 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "doom3d.h"
+#include "doom3d.h"
 
 /*
 **	Updates the npc position to current animation frame
@@ -18,7 +18,8 @@
 
 void			npc_anim_3d_position_update(t_animation_3d *anim)
 {
-	if (anim == NULL || anim->current_object == NULL || anim->base_object == NULL)
+	if (anim == NULL || anim->current_object == NULL ||
+		anim->base_object == NULL)
 	{
 		return ;
 	}
@@ -53,7 +54,7 @@ void			npc_anim_3d_rotation_update(t_animation_3d *anim)
 	{
 		return ;
 	}
-	ml_matrix4_inverse(anim->current_object->rotation , inverse_rot);
+	ml_matrix4_inverse(anim->current_object->rotation, inverse_rot);
 	l3d_3d_object_rotate_matrix(anim->current_object, inverse_rot);
 	l3d_3d_object_rotate_matrix(anim->current_object,
 								anim->base_object->rotation);

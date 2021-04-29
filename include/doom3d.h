@@ -439,6 +439,8 @@ t_bool						instance_status_check(t_animation_3d *animation,
 												float elapsed_time);
 void						copy_instance_data(t_animation_3d *anim,
 												t_anim_3d_instance *instance);
+uint32_t					npc_anim_3d_transform_update(t_animation_3d
+														*animation);
 
 
 

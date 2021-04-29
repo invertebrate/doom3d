@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo     <veilo@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
 /*   Updated: 2021/04/29 18:39:40 by veilo            ###   ########.fr       */
@@ -38,17 +38,7 @@ uint32_t				anim_3d_instance_update(t_doom3d *app,
 		return (animation->current_frame);
 	animation->current_object =
 		animation->animation_frames[animation->current_frame];
-	if (animation != NULL && animation->base_object != NULL)
-	{
-		npc_anim_3d_position_update(animation);
-		npc_anim_3d_rotation_update(animation);
-	}
-	else
-	{
-		LOG_WARN("Tried to update animation instance of an invalid object!");
-		return (UINT32_MAX - 1);
-	}
-	return (animation->current_frame);
+	return (npc_anim_3d_transform_update(animation));
 }
 
 uint32_t				anim_3d_loop_update(t_doom3d *app,
@@ -105,7 +95,7 @@ uint32_t				anim_3d_frame_update(t_doom3d *app,
 ** Changes the current playing animation clip of an object
 */
 
-uint32_t					anim_3d_clip_loop(t_doom3d *app, t_3d_object *obj,
+uint32_t				anim_3d_clip_loop(t_doom3d *app, t_3d_object *obj,
 										t_animation_3d_type clip,
 										uint32_t start_frame)
 {
@@ -145,12 +135,12 @@ t_bool					anim_3d_clip_play(t_doom3d *app, t_3d_object *obj,
 	{
 		LOG_ERROR("Tried to play animation clip of "
 		"an object with no animation_3d");
-		return false;
+		return (false);
 	}
 	else if (anim_instance == NULL || anim_instance->f_event == NULL)
 	{
 		LOG_ERROR("Tried to play animation clip with invalid instance data");
-		return false;
+		return (false);
 	}
 	anim = ((t_npc*)obj->params)->animation_3d;
 	copy_instance_data(anim, anim_instance);
