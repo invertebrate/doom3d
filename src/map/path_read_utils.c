@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_read_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 02:32:06 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 02:46:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/29 16:00:33 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,6 @@ int32_t			get_num_npcs(t_doom3d *app)
 	return (num_npcs);
 }
 
-static int32_t	read_patrol_path(t_doom3d *app, char *contents, t_npc *npc,
-					int32_t num_patrol_path_nodes)
-{
-	int32_t		j;
-	int32_t		k;
-	uint32_t	object_id;
-	t_3d_object	*obj;
-	int32_t		offset;
-
-	j = -1;
-	k = 0;
-	offset = 0;
-	while (++j < num_patrol_path_nodes)
-	{
-		ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
-		offset += sizeof(uint32_t);
-		obj = find_object_by_id(app, object_id);
-		if (obj && npc)
-			npc->patrol_path[k++] = obj;
-	}
-	return (offset);
-}
-
 int32_t			read_npc_path(t_doom3d *app, char *contents, int32_t offset)
 {
 	t_3d_object	*obj;
@@ -78,9 +55,18 @@ int32_t			read_npc_path(t_doom3d *app, char *contents, int32_t offset)
 		npc = obj->params;
 		ft_memcpy(&num_patrol_path_nodes, contents + offset,
 			sizeof(int32_t));
-		npc->num_patrol_path_nodes = npc->num_patrol_path_nodes;
+		npc->num_patrol_path_nodes = num_patrol_path_nodes;
 	}
 	offset += sizeof(int32_t);
-	offset += read_patrol_path(app, contents, npc, num_patrol_path_nodes);
+	int32_t j = -1;
+	int32_t k = 0;
+	while (++j < num_patrol_path_nodes)
+	{
+		ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
+		offset += sizeof(uint32_t);
+		obj = find_object_by_id(app, object_id);
+		if (obj && npc)
+			npc->patrol_path[k++] = obj;
+	}
 	return (offset);
 }
