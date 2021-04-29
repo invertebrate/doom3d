@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 01:54:45 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 02:21:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/29 15:38:30 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,10 @@ void			write_npc_patrol_path_information(int32_t fd, t_doom3d *app)
 			j = -1;
 			while (++j < npc->num_patrol_path_nodes)
 				if (npc->patrol_path[j])
+				{
 					ret = write(fd, &npc->patrol_path[j]->id, sizeof(uint32_t));
+					LOG_INFO("patrol_path_node id = %d", npc->patrol_path[j]->id);//test
+				}
 				else
 					ret = write(fd, 0, sizeof(uint32_t));
 		}

@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 14:48:18 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/28 17:29:29 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/29 13:30:12 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,13 @@ void	patrol_path_link_node(t_3d_object *node_obj, t_3d_object *obj, int slot)
 		{
 			npc->patrol_path[slot] = NULL;
 			npc->num_patrol_path_nodes--;
+			LOG_INFO("Unlinked patrol path slot %d", slot);
 		}
 		else
 		{
 			npc->patrol_path[slot] = node->parent_obj;
+			LOG_INFO("Linked patrol path to slot %d object: %d", slot, obj->id);
 		}
-		LOG_INFO("Linked patrol path to slot %d object: %d", slot, obj->id);
 	}
 	else
 		LOG_ERROR("Invalid patrol path node slot %d object: %d", slot, obj->id);
