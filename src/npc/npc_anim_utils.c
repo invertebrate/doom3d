@@ -11,3 +11,17 @@
 /* ************************************************************************** */
 
 # include "doom3d.h"
+
+uint32_t		arr_sum(uint32_t *arr, uint32_t length)
+{
+	uint32_t	i;
+	uint32_t	result;
+
+	result = 0;
+	i = -1;
+	while (++i < length)
+	{
+		result += arr[i];
+	}
+	return (result);
+}

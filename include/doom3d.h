@@ -751,6 +751,7 @@ void						notify_user(t_doom3d *app,
 void						update_notifications(t_doom3d *app);
 void						delete_notifications(t_doom3d *app);
 void						placement_notification(t_doom3d *app, char *txt);
+uint32_t					arr_sum(uint32_t *arr, uint32_t length);
 
 /*
 ** Triggers

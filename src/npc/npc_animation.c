@@ -27,22 +27,13 @@ void		npc_monster01_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	anim_data->clip_lengths[2] = 17;
 	anim_data->clip_lengths[3] = 31;
 	anim_data->clip_lengths[4] = 49;
-	anim_data->frame_count = anim_data->clip_lengths[0] +
-							anim_data->clip_lengths[1] +
-							anim_data->clip_lengths[2] +
-							anim_data->clip_lengths[3] +
-							anim_data->clip_lengths[4];
+	anim_data->frame_count = arr_sum(anim_data->clip_lengths,
+										anim_data->anim_count);
 	anim_data->anim_clip_start_indices[0] = 0;
 	anim_data->anim_clip_start_indices[1] = anim_data->clip_lengths[0];
-	anim_data->anim_clip_start_indices[2] = anim_data->clip_lengths[0] +
-											anim_data->clip_lengths[1];
-	anim_data->anim_clip_start_indices[3] = anim_data->clip_lengths[0] +
-											anim_data->clip_lengths[1] +
-											anim_data->clip_lengths[2];
-	anim_data->anim_clip_start_indices[4] = anim_data->clip_lengths[0] +
-											anim_data->clip_lengths[1] +
-											anim_data->clip_lengths[2] +
-											anim_data->clip_lengths[3];
+	anim_data->anim_clip_start_indices[2] = arr_sum(anim_data->clip_lengths, 2);
+	anim_data->anim_clip_start_indices[3] = arr_sum(anim_data->clip_lengths, 3);
+	anim_data->anim_clip_start_indices[4] = arr_sum(anim_data->clip_lengths, 4);
 	anim_data->frames_start_idx = 0;
 	ft_memset(anim_data->anim_frame_numbers,
 	0, sizeof(uint32_t) * ANIM_3D_FRAME_MAX);
@@ -62,33 +53,22 @@ void		npc_monster02_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	anim_data->clip_lengths[2] = 20;
 	anim_data->clip_lengths[3] = 20;
 	anim_data->clip_lengths[4] = 32;
-	anim_data->frame_count = anim_data->clip_lengths[0] +
-							anim_data->clip_lengths[1] +
-							anim_data->clip_lengths[2] +
-							anim_data->clip_lengths[3] +
-							anim_data->clip_lengths[4];
+	anim_data->frame_count = arr_sum(anim_data->clip_lengths,
+										anim_data->anim_count);
 	anim_data->frames_start_idx = 163;
 	anim_data->anim_clip_start_indices[0] = anim_data->frames_start_idx;
 	anim_data->anim_clip_start_indices[1] = anim_data->frames_start_idx +
 											anim_data->clip_lengths[0];
 	anim_data->anim_clip_start_indices[2] = anim_data->frames_start_idx +
-											anim_data->clip_lengths[0] +
-											anim_data->clip_lengths[1];
+											arr_sum(anim_data->clip_lengths, 2);
 	anim_data->anim_clip_start_indices[3] = anim_data->frames_start_idx +
-											anim_data->clip_lengths[0] +
-											anim_data->clip_lengths[1] +
-											anim_data->clip_lengths[2];
+											arr_sum(anim_data->clip_lengths, 3);
 	anim_data->anim_clip_start_indices[4] = anim_data->frames_start_idx +
-											anim_data->clip_lengths[0] +
-											anim_data->clip_lengths[1] +
-											anim_data->clip_lengths[2] +
-											anim_data->clip_lengths[3];
+											arr_sum(anim_data->clip_lengths, 4);
 	ft_memset(anim_data->anim_frame_numbers,
-	0, sizeof(uint32_t) * ANIM_3D_FRAME_MAX);
+		0, sizeof(uint32_t) * ANIM_3D_FRAME_MAX);
 	while (++i < (int)anim_data->frame_count)
-	{
 		anim_data->anim_frame_numbers[i] = anim_data->frames_start_idx + i;
-	}
 }
 
 void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
@@ -104,17 +84,11 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 		}
 	if (npc->type == npc_type_monster01 || npc->type == npc_type_monster01_a ||
 		npc->type == npc_type_monster01_range)
-	{
 		npc_monster01_anim_3d_metadata_set(&anim_data);
-	}
 	else if (npc->type == npc_type_monster02)
-	{
 		npc_monster02_anim_3d_metadata_set(&anim_data);
-	}
 	else
-	{
 		return ;
-	}
 	npc_animation_3d_set(app, obj, npc, &anim_data);
 }
 
@@ -160,7 +134,6 @@ static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj,
 							0, 180, 180);
 		ml_matrix4_id(npc->animation_3d->frame_object_prev_rotation[i]);
 	}
-
 }
 
 static void			npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata
@@ -206,7 +179,6 @@ static void			init_anim_instance(t_doom3d *app,
 	anim_instance->params[0] = NULL;
 	anim_instance->params[1] = NULL;
 	anim_instance->params[2] = NULL;
-
 }
 
 void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj,
