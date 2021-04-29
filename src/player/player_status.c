@@ -14,7 +14,11 @@
 
 void	player_onhit(t_doom3d *app, int damage)
 {
+	float	vol;
+
 	app->player.hp -= damage;
+	vol = app->player.max_hp * 0.01f * damage;
+	vol = vol > 1 ? 1 : vol;
 	// if (app->player.hp <= 0)
 	// {
 	// 	ft_printf("You died!\n"); //test
@@ -22,6 +26,6 @@ void	player_onhit(t_doom3d *app, int damage)
 	// ft_printf("player hit for %d damage! current hp: %d\n",
 		// damage, app->player.hp); //test
 	push_custom_event(app,
-		event_effect_play, (void*)sf_player_hurt, s_ini(0, 1, st_game, 1));
+		event_effect_play, (void*)sf_player_hurt, s_ini(0, 1, st_game, vol));
 	(void)app;
 }
