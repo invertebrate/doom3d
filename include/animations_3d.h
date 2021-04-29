@@ -26,8 +26,10 @@
 
 /*
 **	The enum values are encoded with ANIM_3D_TYPE_MOD and can be decoded using
-**	% to get the array indices for referencing. 0 is basically static base_object
+**	% to get the array indices for referencing.
+**	0 is basically static base_object.
 */
+
 typedef enum				e_animation_3d_type
 {
 	anim_3d_type_null = 0 + ANIM_3D_TYPE_MOD,
@@ -40,14 +42,11 @@ typedef enum				e_animation_3d_type
 typedef struct				s_anim_metadata
 {
 	uint32_t				frame_count;
-	uint32_t				frames_start_idx;//index where the frames for the animations start
-											//in  asset_files.animation_3d_files[i]
+	uint32_t				frames_start_idx;
 	uint32_t				anim_count;
-	uint32_t				clip_lengths[ANIM_3D_COUNT_MAX];//length of animation clips
-	uint32_t				anim_frame_numbers[ANIM_3D_FRAME_MAX];//individual frames' indices in
-																	//asset_files.animation_3d_files[i]
-	uint32_t				anim_clip_start_indices[ANIM_3D_COUNT_MAX];//start index of each animation clip
-																		//in asset_files.animation_3d_files[i]
+	uint32_t				clip_lengths[ANIM_3D_COUNT_MAX];
+	uint32_t				anim_frame_numbers[ANIM_3D_FRAME_MAX];
+	uint32_t				anim_clip_start_indices[ANIM_3D_COUNT_MAX];
 }							t_anim_metadata;
 
 /*
@@ -61,10 +60,11 @@ typedef struct				s_anim_3d_clip_info
 }							t_anim_3d_clip_info;
 
 /*
-**	Is used to pass data to play_3d_animation function to run a single play animation clip
-**	with an event function and trigger time. Trigger time is between 0-1 as a proportion of
-**	the entire clip length e.g. 0.25 meaning it will trigger when 25% of the clip has been played,
-**	accurate within 1/12 of a second. If the start frame is lower in time than the trigger time,
+**	Is used to pass data to play_3d_animation function to run a single play
+**	animation clip with an event function and trigger time. Trigger time is
+**	between 0-1 as a proportion of the entire clip length e.g. 0.25 meaning it
+**	will trigger when 25% of the clip has been played, accurate within 1/12
+**	of a second. If the start frame is lower in time than the trigger time,
 **	the behaviour is undefined.
 */
 
@@ -98,7 +98,7 @@ typedef struct				s_animation_3d
 	uint32_t				tick_at_update;
 	t_3d_object				*base_object;
 	t_3d_object				*current_object;
-	t_3d_object				*animation_frames[ANIM_3D_FRAME_MAX]; //contains the objects for each anim frame
+	t_3d_object				*animation_frames[ANIM_3D_FRAME_MAX];
 	t_vec3					frame_object_prev_translation[ANIM_3D_FRAME_MAX];
 	t_mat4					frame_object_prev_rotation[ANIM_3D_FRAME_MAX];
 	t_anim_3d_clip_info		clip_info[ANIM_3D_COUNT_MAX];

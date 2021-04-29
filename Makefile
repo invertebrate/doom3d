@@ -80,8 +80,10 @@ SOURCES = main.c \
 			npc/npc_pathfinding.c \
 			npc/npc_line_of_sight.c \
 			npc/npc_animation.c \
+			npc/npc_anim_utils.c \
 			npc/npc_move_to_waypoint.c \
 			npc/npc_destroy.c \
+			npc/npc_enemy_actions.c \
 			trigger/trigger.c \
 			trigger/trigger_timer.c \
 			lights/light.c \
@@ -91,7 +93,9 @@ SOURCES = main.c \
 			path/path2.c \
 			path/patrol_path.c \
 			object/object_utils.c \
+			object/object_utils2.c \
 			object/object_update.c \
+			object/game_end.c \
 			physics/is_grounded.c \
 			physics/forces_update.c \
 			camera.c \
@@ -222,7 +226,9 @@ SOURCES = main.c \
 			sound/sound_loop.c\
 			sound/sound_mp_controls.c\
 			sound/sound_mp_reorder.c\
-			animations/animation.c
+			animations/animation.c \
+			animations/animation_utils.c \
+			animations/animation_utils2.c
 
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))

@@ -256,6 +256,7 @@ typedef enum				e_npc_state
 	state_attack,
 	state_atk_anim,
 	state_death_anim,
+	state_moving
 }							t_npc_state;
 
 /*

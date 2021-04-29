@@ -72,8 +72,6 @@ t_bool	npc_get_dir_to_next_attack_waypoint(t_doom3d *app, t_3d_object *obj)
 					npc->attack_path[npc->attack_path_index]->position, diff);
 	ml_vector3_normalize(diff, npc->dir);
 	ml_vector3_mul(npc->dir, -npc->speed, npc->dir);
-	//ft_printf("mag was %f\n", ml_vector3_mag(diff));//test
-	//ft_printf("path obj id = %d, index = %d\n", npc->attack_path[npc->attack_path_index], npc->attack_path_index);//test
 	if (ml_vector3_mag(diff) < app->unit_size * 1.5)
 		npc->attack_path_index++;
 	return (false);
@@ -83,7 +81,7 @@ void	npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj)
 {
 	t_npc	*npc;
 
-	(void)app; //delete this later
+	(void)app;
 	npc = obj->params;
 	if (obj->params_type == npc_type_elevator)
 	{
