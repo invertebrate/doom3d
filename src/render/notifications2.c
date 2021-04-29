@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:37:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 00:48:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/28 14:54:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ static t_bool	should_render_border(int32_t xy[2], int32_t xy_min_max[2],
 static void		render_story_message(t_doom3d *app,
 					t_notification *notification)
 {
-	framebuffer_dark_overlay(app->window->framebuffer,
-		app->window->framebuffer->width,
-			app->window->framebuffer->height, (t_vec2){0, 0});
+	framebuffer_dark_overlay(app->window->framebuffer);
 	window_text_render_centered_wrapped(app->window, (t_text_params){
 		.text = notification->message,
 		.text_color = (SDL_Color){255, 0, 0, 255}, .blend_ratio = 1.0,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   models.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:58:39 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 18:59:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/28 20:38:03 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void		scene_model_files_set_sub(t_asset_files *data)
 	data->model_files[data->num_models++] = "assets/models/jetpack.obj";
 	data->model_files[data->num_models++] = "assets/models/medkit.obj";
 	data->model_files[data->num_models++] = "assets/models/light_sphere.obj";
+	data->model_files[data->num_models++] = "assets/models/platform.obj";
+	data->model_files[data->num_models++] = "assets/models/column.obj";
 }
 
 void			scene_model_files_set(t_asset_files *data)
@@ -46,5 +48,7 @@ void			scene_model_files_set(t_asset_files *data)
 	data->model_files[data->num_models++] = "assets/models/rpg.obj";
 	data->model_files[data->num_models++] = "assets/models/missile.obj";
 	data->model_files[data->num_models++] = "assets/models/npc_projectile.obj";
+	data->model_files[data->num_models++] =
+		"assets/models/window/window_wall.obj";
 	scene_model_files_set_sub(data);
 }

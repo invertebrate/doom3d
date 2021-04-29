@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 11:52:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/28 16:20:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -605,6 +605,10 @@ void						l3d_pixel_plot_float(float *buffer,
 								float value);
 void						calculate_luminosity(uint32_t *pixel, uint32_t *light,
 												uint32_t darkness);
+void						l3d_write_z_val(
+								t_sub_framebuffer *buffers,
+								t_triangle *triangle,
+								int32_t offset_xy[2], float z_val);
 
 /*
 ** Line draw

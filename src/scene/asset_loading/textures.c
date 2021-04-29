@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:19:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 19:36:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/28 14:14:24 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,16 @@ static void		scene_texture_files_set_sub2(t_asset_files *data)
 		"assets/textures/medkit_texture.bmp";
 }
 
+static void		scene_texture_files_set_sub3(t_asset_files *data)
+{
+	data->texture_files[data->num_textures++] =
+		"assets/textures/rock_toxic.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/alien_floor.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/lava_molten.bmp";
+}
+
 void			scene_texture_files_set(t_asset_files *data)
 {
 	data->texture_files[data->num_textures++] =
@@ -88,6 +98,9 @@ void			scene_texture_files_set(t_asset_files *data)
 		"assets/textures/floor_metal4.bmp";
 	data->texture_files[data->num_textures++] =
 		"assets/textures/floor_metal4_box.bmp";
+	data->texture_files[data->num_textures++] =
+		"assets/textures/window_wall.bmp";
 	scene_texture_files_set_sub1(data);
 	scene_texture_files_set_sub2(data);
+	scene_texture_files_set_sub3(data);
 }

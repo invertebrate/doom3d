@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_grounded.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:15:29 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/25 03:00:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:52:20 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ t_bool	should_nudge_to_ground(t_doom3d *app)
 	if (obj_under)
 	{
 		ml_vector3_sub(hit_point, origin, tmp);
-		if (ml_vector3_mag(tmp) < app->player.aabb.size[1] / 2 &&
+		if (ml_vector3_mag(tmp) < app->player.aabb.size[1] / 8 &&
 						obj_under->type != object_type_projectile &&
 						obj_under->type != object_type_npc)
 			return (true);

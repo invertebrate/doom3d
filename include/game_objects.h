@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 11:53:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 03:44:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef enum				e_prefab_type
 {
 	prefab_plane = 1,
 	prefab_path_node= 2,
+	prefab_window_wall= 3,
 }							t_prefab_type;
 
 /*
@@ -137,6 +138,7 @@ typedef enum				e_trigger_type
 	trigger_item_key,
 	trigger_elevator_switch,
 	trigger_door_switch,
+	trigger_type_disabled = 666,
 }							t_trigger_type;
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_default.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/24 16:07:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/28 21:21:40 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->atk_range = app->unit_size * 6;
 	npc->atk_dmg = 10;
 	npc->atk_dur = 500;
-	npc->vision_range = app->unit_size * 25;
-	npc->hearing_range = app->unit_size * 50;
+	npc->vision_range = app->unit_size * 50;
+	npc->hearing_range = app->unit_size * 20;
 	npc->interest = 0;
 	npc->max_interest = 100;
 	npc->model_scale = 0.01;

@@ -1,5 +1,5 @@
 CC = gcc
-NAME=doom3d
+NAME=doom-nukem
 DIR_SRC = ./src
 DIR_OBJ = temp
 LIBSDL2 = ./lib/SDL2
@@ -98,20 +98,19 @@ SOURCES = main.c \
 			utils.c \
 			performance_counter.c \
 			notifications/notifications.c \
-			scene/scene_menus/editor3d_menu.c \
-			scene/scene_menus/editor3d_menu_button_clicks1.c \
-			scene/scene_menus/editor3d_menu_button_clicks2.c \
-			scene/scene_menus/editor3d_menu_button_clicks3.c \
-			scene/scene_menus/settings_menu.c \
-			scene/scene_menus/main_menu.c \
-			scene/scene_menus/pause_menu.c \
-			scene/scene_menus/menu_utils.c \
-			scene/scene_menus/menu_button_utils.c \
-			scene/scene_menus/popup_menu_utils.c \
+			menus/editor3d_menu.c \
+			menus/editor3d_menu_button_clicks1.c \
+			menus/editor3d_menu_button_clicks2.c \
+			menus/editor3d_menu_button_clicks3.c \
+			menus/settings_menu.c \
+			menus/main_menu.c \
+			menus/pause_menu.c \
+			menus/menu_utils.c \
+			menus/menu_button_utils.c \
+			menus/popup_menu_utils.c \
 			scene/scene.c \
 			scene/scene_menus.c \
 			scene/scene_update.c \
-			scene/level.c \
 			scene/cleanup.c \
 			scene/scene_assets.c \
 			scene/asset_loading/animations_3d.c \
@@ -131,9 +130,11 @@ SOURCES = main.c \
 			editor/editor_init.c \
 			editor/editor_placement1.c \
 			editor/editor_placement2.c \
+			editor/editor_placement3.c \
 			editor/editor_point_on_target.c \
 			editor/editor_object_by_mouse.c \
 			editor/editor_duplication.c \
+			map/level.c \
 			map/save.c \
 			map/read.c \
 			map/key_read.c \
@@ -248,6 +249,7 @@ libs:
 
 $(DIR_OBJ):
 	@mkdir -p temp
+	@mkdir -p temp/menus
 	@mkdir -p temp/map
 	@mkdir -p temp/scene
 	@mkdir -p temp/scene/asset_loading
@@ -300,7 +302,7 @@ testrun: #this is only for quicker lib3d debug
 	@/bin/rm -f $(OBJS)
 	@/bin/rm -rf $(DIR_OBJ)
 	make all
-	./doom3d
+	./$(NAME)
 
 norm: norminette $(DIR_SRC) $(LIBFT) $(LIB3D) $(LIBGMATRIX) ./include
 

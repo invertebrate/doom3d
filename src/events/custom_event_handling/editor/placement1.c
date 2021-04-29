@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 00:55:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 03:10:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void		handle_editor_placement_end(t_doom3d *app)
 		.message = "Placed!",
 		.type = notification_type_info, .time = 2000});
 	push_custom_event(app, event_editor_select, NULL, NULL);
+	app->editor.is_saved = false;
 }
 
 static void	find_snap_pos(t_doom3d *app, t_vec3 old_pos, t_vec3 snap_pos)

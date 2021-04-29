@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:21:40 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 00:49:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:20:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,35 @@ void			render_loading_view(t_doom3d *app)
 ** Renders dark overlay (e.g. pause view)
 */
 
-void			framebuffer_dark_overlay(t_framebuffer *framebuffer,
-					int32_t width, int32_t height, t_vec2 pos)
+void			framebuffer_dark_overlay(t_framebuffer *framebuffer)
 {
-	uint32_t	dark[width * height];
 	int32_t		i;
 
 	i = -1;
-	while (++i < width * height)
-		dark[i] = 0x000000FF;
-	l3d_image_place(&(t_surface){.pixels = framebuffer->buffer,
-			.h = framebuffer->height, .w = framebuffer->width},
-		&(t_surface){.pixels = dark, .w = width, .h = height},
-		(int32_t[2]){pos[0], pos[1]}, 0.6);
+	while (++i < framebuffer->width * framebuffer->height)
+		framebuffer->buffer[i] = l3d_color_blend_u32(framebuffer->buffer[i],
+			0x000000FF, 0.6);
+}
+
+/*
+** Renders health low overlay
+*/
+
+void			framebuffer_health_low_overlay(t_doom3d *app)
+{
+	int32_t				i;
+	static uint64_t		delta_time_sum;
+	float				health_blend;
+	int32_t				max;
+
+	delta_time_sum += app->info.delta_time;
+	health_blend = 0.20 * (1 + sin(2.0 * M_PI * delta_time_sum / 1000.0));
+	max = app->window->framebuffer->width * app->window->framebuffer->height;
+	i = -1;
+	while (++i < max)
+		app->window->framebuffer->buffer[i] =
+			l3d_color_blend_u32(app->window->framebuffer->buffer[i],
+				L3D_COLOR_RED, health_blend);
 }
 
 /*

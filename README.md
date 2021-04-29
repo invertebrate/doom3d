@@ -30,7 +30,7 @@ Features:
 
 ```sh
 git clone https://github.com/hakolao/doom3d && cd doom3d
-make && ./doom3d
+make && ./doom-nukem
 ```
 
 ### WSL
@@ -52,7 +52,7 @@ export DISPLAY=:0
 export LIBGL_ALWAYS_INDIRECT=1
 # run doom3d
 git clone https://github.com/hakolao/doom3d && cd doom3d
-make && ./doom3d
+make && ./doom-nukem
 ```
 
 ### Linux
@@ -68,5 +68,5 @@ sudo apt-get install libsdl2-ttf-dev
 sudo apt-get install libsdl2-image-dev
 sudo apt-get install libsdl2-mixer-dev
 git clone https://github.com/hakolao/doom3d && cd doom3d
-make && ./doom3d
+make && ./doom-nukem
 ```

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 02:57:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:04:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -441,8 +441,10 @@ void						render_ui(t_doom3d *app);
 void						render_ui_title(t_doom3d *app);
 void						render_button_menu(t_button_group *menu,
 								t_vec2 pos);
-void						framebuffer_dark_overlay(t_framebuffer *framebuffer,
-								int32_t width, int32_t height, t_vec2 pos);
+void						framebuffer_dark_overlay(
+								t_framebuffer *framebuffer);
+void						framebuffer_health_low_overlay(
+								t_doom3d *app);
 void						render_loading_view(t_doom3d *app);
 void						render_to_framebuffer(t_doom3d *app);
 void						render_work(void *params);
@@ -481,9 +483,6 @@ void						prepare_render_triangle(t_doom3d *app,
 t_bool						object_inside_viewbox(t_doom3d *app,
 								t_3d_object *obj);
 void						render_hud(t_doom3d *app);
-void						framebuffer_dark_overlay(
-								t_framebuffer *framebuffer,
-								int32_t width, int32_t height, t_vec2 pos);
 void						set_aabb_origin_to_corners(t_3d_object *obj,
 								t_vec3 origin, t_vec3 origin_to_corner[8]);
 void						render_button_menu(t_button_group *menu,
@@ -596,6 +595,7 @@ void						write_path_object_information(int32_t fd,
 								t_doom3d *app);
 void						write_key_ids(int32_t fd, t_doom3d *app);
 void						save_map(t_doom3d *app);
+void						write_savename_to_level_list(t_doom3d *app);
 int32_t						read_key_id_information(t_doom3d *app,
 								char *contents);
 int32_t						read_objects(t_doom3d *app, char *contents);
@@ -670,6 +670,7 @@ t_3d_object					*editor_place_default_object(t_doom3d *app,
 								void *data);
 t_3d_object					*editor_place_npc_object(t_doom3d *app,
 								t_npc_type type);
+t_3d_object					*place_window_wall_prefab(t_doom3d *app);
 
 /*
 ** Level

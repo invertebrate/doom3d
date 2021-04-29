@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:56:11 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 01:42:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/27 00:59:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ t_3d_object			*editor_place_default_object(t_doom3d *app, void *data)
 	object = NULL;
 	if ((t_prefab_type)data == prefab_plane)
 		object = place_plane_prefab(app);
+	else if ((t_prefab_type)data == prefab_window_wall)
+		object = place_window_wall_prefab(app);
 	else if ((t_prefab_type)data == prefab_path_node)
 	{
 		object = place_path_object(app);

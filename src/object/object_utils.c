@@ -251,9 +251,11 @@ void			extend_all_objects_shading_opts(t_doom3d *app,
 	while (++i < (int32_t)(app->active_scene->num_objects +
 		app->active_scene->num_deleted))
 		if (app->active_scene->objects[i])
+		{
 			l3d_object_set_shading_opts(app->active_scene->objects[i],
 				app->active_scene->objects[i]->material->shading_opts |
 					opts_to_add);
+		}
 }
 
 void			remove_all_objects_shading_opts(t_doom3d *app,
