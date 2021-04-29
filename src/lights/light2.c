@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   light2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo     <veilo@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 18:11:02 by veilo             #+#    #+#             */
 /*   Updated: 2021/04/28 18:49:33 by veilo            ###   ########.fr       */
