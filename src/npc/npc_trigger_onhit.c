@@ -12,7 +12,7 @@
 
 #include "doom3d.h"
 
- void				npc_death_event_ontrigger(t_doom3d *app, void** params)
+ void	npc_death_event_ontrigger(t_doom3d *app, void** params)
 {
 	push_custom_event(app, event_object_delete, params[0], params[1]);
 	LOG_DEBUG("Enemy npc removed by death animation trigger event.");
@@ -20,7 +20,6 @@
 
  void	init_anim_instance_death(t_3d_object *obj, t_anim_3d_instance *inst)
 {
-
 	inst->active = true;
 	inst->anim_clip = anim_3d_type_death;
 	inst->f_event = npc_death_event_ontrigger;
@@ -32,7 +31,7 @@
 	inst->event_triggered = false;
 }
 
-void		npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
+void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 {
 	t_npc				*npc;
 	t_anim_3d_instance	anim_instance_death;

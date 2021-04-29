@@ -6,110 +6,11 @@
 /*   By: veilo     <veilo@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/04/18 20:43:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/29 18:39:40 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
-
-void					update_app_ticks(t_doom3d *app)
-{
-	app->current_tick = (SDL_GetPerformanceCounter() * TICKS_PER_SEC) /
-						SDL_GetPerformanceFrequency();
-}
-
-/*
-**	Updates the npc position to current animation frame
-*/
-
-void		npc_anim_3d_position_update(t_animation_3d *anim)
-{
-	if (anim == NULL || anim->current_object == NULL || anim->base_object == NULL)
-	{
-		return ;
-	}
-	l3d_3d_object_translate(anim->current_object,
-				-anim->frame_object_prev_translation[anim->frames_start_idx +
-					anim->current_frame][0],
-				-anim->frame_object_prev_translation[anim->frames_start_idx +
-					anim->current_frame][1],
-				-anim->frame_object_prev_translation[anim->frames_start_idx +
-					anim->current_frame][2]);
-	l3d_3d_object_translate(anim->current_object,
-							anim->base_object->position[0],
-							anim->base_object->position[1],
-							anim->base_object->position[2]);
-	ml_vector3_copy((t_vec3){anim->base_object->position[0],
-				anim->base_object->position[1],
-				anim->base_object->position[2]},
-				anim->frame_object_prev_translation[
-					anim->frames_start_idx + anim->current_frame]);
-}
-
-/*
-**	Updates the npc position to current animation frame
-*/
-
-void		npc_anim_3d_rotation_update(t_animation_3d *anim)
-{
-	t_mat4				inverse_rot;
-
-	if (anim == NULL || anim->current_object == NULL ||
-		anim->base_object == NULL)
-	{
-		return ;
-	}
-	ml_matrix4_inverse(anim->current_object->rotation , inverse_rot);
-	l3d_3d_object_rotate_matrix(anim->current_object, inverse_rot);
-	l3d_3d_object_rotate_matrix(anim->current_object,
-								anim->base_object->rotation);
-}
-
-static t_bool			frame_time_expired(t_doom3d *app,
-											t_animation_3d *animation)
-{
-	return (((app->current_tick - animation->tick_at_update) %
-		(TICKS_PER_SEC)) > (TICKS_PER_SEC / ANIM_3D_FPS));
-}
-
-static t_bool			anim_3d_clip_ended(t_animation_3d *animation)
-{
-	return (animation->current_frame > animation->clip_info[animation->
-			current_clip % ANIM_3D_TYPE_MOD].clip_length +
-				animation->anim_clip_start_indices[
-					animation->current_clip % ANIM_3D_TYPE_MOD] - 1);
-}
-
-/*
-**	Checks the animation instance if the trigger time has passed
-*/
-
-static t_bool			instance_status_check(t_animation_3d *animation,
-												float elapsed_time)
-{
-	if (elapsed_time >= animation->current_anim_instance->trigger_time &&
-		!animation->current_anim_instance->event_triggered)
-	{
-		animation->current_anim_instance->
-			f_event(animation->current_anim_instance->app,
-					animation->current_anim_instance->params);//HERE FEVENT
-		animation->current_anim_instance->event_triggered = true;
-	}
-	if (animation->base_object == NULL || animation == NULL)
-	{
-		return (false);
-	}
-	if (elapsed_time >= 1.0)
-	{
-		animation->current_anim_instance->active = false;
-		animation->current_anim_instance->event_triggered = false;
-		return (false);
-	}
-	else
-	{
-		return (true);
-	}
-}
 
 /*
 **	Updates the animation frames if an instance is active.
@@ -150,13 +51,8 @@ uint32_t				anim_3d_instance_update(t_doom3d *app,
 	return (animation->current_frame);
 }
 
-void test_print(void *params)
-{
-	ft_printf("test print anim event current frame %d \n",
-		((t_npc*)params)->animation_3d->current_frame);
-}
-
-uint32_t				anim_3d_loop_update(t_doom3d *app, t_animation_3d *animation)
+uint32_t				anim_3d_loop_update(t_doom3d *app,
+											t_animation_3d *animation)
 {
 	if (frame_time_expired(app, animation))
 	{
@@ -180,11 +76,6 @@ uint32_t				anim_3d_loop_update(t_doom3d *app, t_animation_3d *animation)
 		return (UINT32_MAX - 1);
 	}
 	return (animation->current_frame);
-}
-
-void				test_event(t_doom3d *app, void** params)
-{
-	push_custom_event(app, event_object_delete, params[0], params[1]);
 }
 
 uint32_t				anim_3d_frame_update(t_doom3d *app,
@@ -222,7 +113,7 @@ uint32_t					anim_3d_clip_loop(t_doom3d *app, t_3d_object *obj,
 
 	if (!(check_obj_3d_anim(obj)))
 	{
-		LOG_ERROR("Tried to set animation clip to an object with no animation_3d");
+		LOG_ERROR("Tried to set anim clip to an object with no animation_3d");
 		return (UINT32_MAX - 1);
 	}
 	animation = ((t_npc*)obj->params)->animation_3d;
@@ -243,21 +134,6 @@ uint32_t					anim_3d_clip_loop(t_doom3d *app, t_3d_object *obj,
 		return (UINT32_MAX - 1);
 	}
 	return (animation->current_frame);
-}
-
-void					copy_instance_data(t_animation_3d *anim,
-											t_anim_3d_instance *instance)
-{
-	anim->current_anim_instance->active = instance->active;
-	anim->current_anim_instance->anim_clip = instance->anim_clip;
-	anim->current_anim_instance->f_event = instance->f_event;
-	anim->current_anim_instance->start_frame = instance->start_frame;
-	anim->current_anim_instance->trigger_time = instance->trigger_time;
-	anim->current_anim_instance->event_triggered = instance->event_triggered;
-	anim->current_anim_instance->params[0] = instance->params[0];
-	anim->current_anim_instance->params[1] = instance->params[1];
-	anim->current_anim_instance->params[2] = instance->params[2];
-
 }
 
 t_bool					anim_3d_clip_play(t_doom3d *app, t_3d_object *obj,
@@ -286,16 +162,4 @@ t_bool					anim_3d_clip_play(t_doom3d *app, t_3d_object *obj,
 	npc_anim_3d_position_update(anim);
 	npc_anim_3d_rotation_update(anim);
 	return (true);
-}
-
-
-t_bool					check_obj_3d_anim(t_3d_object *obj)
-{
-	if (!(obj->type == object_type_npc && ((t_npc*)obj->params)->animation_3d != NULL))
-	{
-		LOG_ERROR("Tried to access 3D animation of an object with no animation_3d");
-		return false;
-	}
-	else
-		return (true);
 }
