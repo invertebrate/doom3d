@@ -255,7 +255,7 @@ void						npc_trigger_onhit(t_doom3d *app,
 								t_3d_object *obj, int damage);
 void						npc_get_dir_to_next_waypoint(t_doom3d *app, t_3d_object *obj);
 t_bool						npc_get_dir_to_next_attack_waypoint(t_doom3d *app, t_3d_object *obj);
-void						npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj);
+void						npc_move_step_to_waypoint(t_3d_object *obj);
 void						elevator_go_to_next_node(t_doom3d *app, t_3d_object *obj);
 t_bool						npc_has_line_of_sight(t_doom3d *app, t_3d_object *npc_obj);
 void						path_node_network_init(t_doom3d *app);

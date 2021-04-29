@@ -6,7 +6,7 @@
 /*   By: veilo     <veilo@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/04/07 14:22:09 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/29 17:59:10 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ void		npc_monster01_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	anim_data->clip_lengths[2] = 17;
 	anim_data->clip_lengths[3] = 31;
 	anim_data->clip_lengths[4] = 49;
-	anim_data->frame_count = anim_data->clip_lengths[0] + anim_data->clip_lengths[1] +
-							anim_data->clip_lengths[2] + anim_data->clip_lengths[3] +
+	anim_data->frame_count = anim_data->clip_lengths[0] +
+							anim_data->clip_lengths[1] +
+							anim_data->clip_lengths[2] +
+							anim_data->clip_lengths[3] +
 							anim_data->clip_lengths[4];
 	anim_data->anim_clip_start_indices[0] = 0;
 	anim_data->anim_clip_start_indices[1] = anim_data->clip_lengths[0];
@@ -41,7 +43,7 @@ void		npc_monster01_anim_3d_metadata_set(t_anim_metadata *anim_data)
 											anim_data->clip_lengths[1] +
 											anim_data->clip_lengths[2] +
 											anim_data->clip_lengths[3];
-	anim_data->frames_start_idx = 0;//global animation frame array index
+	anim_data->frames_start_idx = 0;
 	ft_memset(anim_data->anim_frame_numbers,
 	0, sizeof(uint32_t) * ANIM_3D_FRAME_MAX);
 	while (++i < (int)anim_data->frame_count)
