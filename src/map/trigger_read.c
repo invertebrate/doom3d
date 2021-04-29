@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trigger_read.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 02:09:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 02:54:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/29 12:55:22 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,19 @@ int32_t			read_trigger_links(t_doom3d *app,
 	return (offset);
 }
 
+static int32_t	get_num_triggers(t_doom3d *app)
+{
+	int32_t		num_triggers;
+	int32_t		i;
+
+	num_triggers = 0;
+	i = -1;
+	while (++i < (int32_t)app->active_scene->num_objects)
+		if (app->active_scene->objects[i]->type == object_type_npc)
+			num_triggers++;
+	return (num_triggers);
+}
+
 /*
 ** Reads trigger link information
 ** and links the triggers to their linked objects
@@ -69,13 +82,13 @@ int32_t			read_trigger_links(t_doom3d *app,
 int32_t			read_trigger_link_information(t_doom3d *app, char *contents)
 {
 	int32_t		offset;
-	int32_t		num_npcs;
+	int32_t		num_triggers;
 	int32_t		i;
 
 	offset = 0;
-	num_npcs = get_num_npcs(app);
+	num_triggers = get_num_triggers(app);
 	i = -1;
-	while (++i < num_npcs)
+	while (++i < num_triggers)
 		offset = read_trigger_links(app, contents, offset);
 	return (offset);
 }
