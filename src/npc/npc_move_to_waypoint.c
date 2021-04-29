@@ -77,10 +77,11 @@ t_bool	npc_get_dir_to_next_attack_waypoint(t_doom3d *app, t_3d_object *obj)
 	return (false);
 }
 
-void	npc_move_step_to_waypoint(t_3d_object *obj)
+void	npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj)
 {
 	t_npc	*npc;
 
+	(void)app;
 	npc = obj->params;
 	if (obj->params_type == npc_type_elevator)
 	{
