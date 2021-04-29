@@ -12,11 +12,22 @@
 
 #include "doom3d.h"
 
+/*
+**	This is an animation event trigger function that is custom made for enemy
+**	death animation only. It is triggered when death animation is finished
+**	and cleanly removes the enemy.
+*/
+
 static void	npc_death_event_ontrigger(t_doom3d *app, void** params)
 {
 	push_custom_event(app, event_object_delete, params[0], params[1]);
 	LOG_DEBUG("Enemy npc removed by death animation trigger event.");
 }
+
+/*
+**	This is sort of a dummy function since it only prints. An event function is
+**	required for an animation instance to play.
+*/
 
 static void	npc_attack_event_ontrigger(t_doom3d *app, void** params)
 {
