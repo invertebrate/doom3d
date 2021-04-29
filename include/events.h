@@ -71,6 +71,7 @@ typedef enum				e_doom3d_event
 	event_scene_change = 48,
 	event_scene_reload = 49,
 	event_player_interact = 50,
+	event_editor_flip_lights = 51,
 	event_quit = 99,
 }							t_doom3d_event;
 

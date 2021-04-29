@@ -155,10 +155,10 @@ void			update_objects(t_doom3d *app)
 	if (!(app->active_scene->scene_id == scene_id_main_game ||
 		app->active_scene->scene_id == scene_id_editor3d))
 		return ;
-	if (app->active_scene->scene_id == scene_id_main_game)
-		extend_all_objects_shading_opts(app, e_shading_depth);
 	if (app->active_scene->scene_id == scene_id_editor3d)
+	{
 		update_editor_light_sources(app);
+	}
 	else if (!app->active_scene->is_paused &&
 		app->active_scene->scene_id == scene_id_main_game)
 	{
@@ -170,8 +170,8 @@ void			update_objects(t_doom3d *app)
 			obj = app->active_scene->objects[i];
 			if (!obj)
 				continue ;
-			update_light_sources(app, obj);
 			update_object_by_type(app, obj, is_npc_update);
+			update_light_sources(app, obj);
 		}
 		l3d_temp_objects_update_time(&app->active_scene->temp_objects,
 			app->info.delta_time);

@@ -46,6 +46,8 @@ static void	register_editor_custom_events_sub2(t_doom3d *app)
 		(void*)handle_editor_move_view_sideways);
 	hash_map_add(app->custom_event_handles, event_editor_rotate_view,
 		(void*)handle_editor_rotate_view);
+	hash_map_add(app->custom_event_handles, event_editor_flip_lights,
+		(void*)handle_editor_flip_lights);
 }
 
 /*

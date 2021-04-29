@@ -94,7 +94,8 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 			free(npc->animation_3d);
 			npc->animation_3d = NULL;
 		}
-	if (npc->type == npc_type_monster01 || npc->type == npc_type_monster01_a || npc->type == npc_type_monster01_range)
+	if (npc->type == npc_type_monster01 || npc->type == npc_type_monster01_a ||
+		npc->type == npc_type_monster01_range)
 	{
 		npc_monster01_anim_3d_metadata_set(&anim_data);
 	}
@@ -109,7 +110,23 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 	npc_animation_3d_set(app, obj, npc, &anim_data);
 }
 
-static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc)
+static void			npc_anim3d_material_copy(t_3d_object *source,
+												t_3d_object *dest)
+{
+	int		i;
+
+	i = -1;
+	dest->material->texture = source->material->texture;
+	dest->material->shading_opts = e_shading_standard;
+	dest->material->normal_map = source->material->normal_map;
+	dest->material->num_lights = source->material->num_lights;
+	dest->material->flashlight = source->material->flashlight;
+	while (++i < L3D_MAX_LIGHTS)
+		dest->material->light_sources[i] = source->material->light_sources[i];
+}
+
+static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj,
+											t_npc *npc)
 {
 	int			i;
 
@@ -119,27 +136,27 @@ static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj, t_npc *npc
 		npc->animation_3d->animation_frames[i] = NULL;
 	}
 	i = npc->animation_3d->frames_start_idx - 1;
-	while (++i < (int)(npc->animation_3d->frames_start_idx + (npc->animation_3d->frame_count)))
+	while (++i < (int)(npc->animation_3d->frames_start_idx +
+			(npc->animation_3d->frame_count)))
 	{
 		npc->animation_3d->animation_frames[i] = l3d_object_instantiate(
 		hash_map_get(app->active_scene->animation_3d_frames,
-			(int64_t)(app->active_scene->asset_files.animation_3d_files[i])), app->unit_size);
-		//ToDo: Make material copy if needed
-		npc->animation_3d->animation_frames[i]->material->texture =
-			obj->material->texture;
-		npc->animation_3d->animation_frames[i]->material->shading_opts =
-			obj->material->shading_opts;
+			(int64_t)(app->active_scene->asset_files.animation_3d_files[i])),
+			app->unit_size);
+		npc->animation_3d->animation_frames[i]->material->shading_opts = 0;
+		npc_anim3d_material_copy(obj, npc->animation_3d->animation_frames[i]);
 		l3d_3d_object_scale(npc->animation_3d->animation_frames[i],
-							npc->model_scale, npc->model_scale, npc->model_scale);
-		l3d_3d_object_rotate(npc->animation_3d->animation_frames[i], 0, 180, 180);//
+							npc->model_scale, npc->model_scale,
+							npc->model_scale);
+		l3d_3d_object_rotate(npc->animation_3d->animation_frames[i],
+							0, 180, 180);
 		ml_matrix4_id(npc->animation_3d->frame_object_prev_rotation[i]);
-		// ml_matrix4_rotation(0, 180, 180, npc->animation_3d->frame_object_prev_rotation[i]);
-		// ml_matrix4_print(npc->animation_3d->frame_object_prev_rotation[i]);
 	}
 
 }
 
-static void			npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata *anim_data)
+static void			npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata
+												*anim_data)
 {
 	int		i;
 	t_mat4	id_matrix;
@@ -159,8 +176,10 @@ static void			npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata *anim_data)
 	i = -1;
 	while (++i < (int)anim_data->anim_count)
 	{
-		npc->animation_3d->clip_info[i].clip_length = anim_data->clip_lengths[i];
-		npc->animation_3d->anim_clip_start_indices[i] = anim_data->anim_clip_start_indices[i];
+		npc->animation_3d->clip_info[i].clip_length =
+			anim_data->clip_lengths[i];
+		npc->animation_3d->anim_clip_start_indices[i] =
+			anim_data->anim_clip_start_indices[i];
 	}
 	npc->animation_3d->anim_count = anim_data->anim_count;
 	npc->animation_3d->frames_start_idx = anim_data->frames_start_idx;
@@ -182,24 +201,23 @@ static void			init_anim_instance(t_doom3d *app,
 
 }
 
-void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj, t_npc *npc,
-								t_anim_metadata *anim_data)
+void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj,
+										t_npc *npc, t_anim_metadata *anim_data)
 {
-	static int c = 0;//only for animation showcasing
 	t_animation_3d	*anim;
 
-	error_check(!(npc->animation_3d = (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
+	error_check(!(npc->animation_3d = (t_animation_3d*)ft_calloc(
+										sizeof(t_animation_3d))),
 		"Failed to malloc for npc animation in npc_animation_set.");
-	error_check(!(npc->animation_3d->current_anim_instance = (t_anim_3d_instance*)ft_calloc(sizeof(t_anim_3d_instance))),
+	error_check(!(npc->animation_3d->current_anim_instance =
+		(t_anim_3d_instance*)ft_calloc(sizeof(t_anim_3d_instance))),
 		"Failed to malloc for npc animation_instance in npc_animation_set.");
 	init_anim_instance(app, npc->animation_3d->current_anim_instance);
 	npc_animation_3d_data_copy(npc, anim_data);
 	anim = npc->animation_3d;
 	npc->animation_3d->base_object = obj;
 	npc_anim_3d_frames_set(app, obj, npc);
-	c = c % 4;//only for animation showcasing
 	npc->animation_3d->current_clip = anim_3d_type_idle;
-	c++;//
 	anim->current_frame =
 		anim->anim_clip_start_indices[
 			((anim->current_clip) % ANIM_3D_TYPE_MOD)];

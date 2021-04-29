@@ -66,6 +66,8 @@ t_3d_object			*editor_place_default_object(t_doom3d *app, void *data)
 		object = place_plane_prefab(app);
 	else if ((t_prefab_type)data == prefab_window_wall)
 		object = place_window_wall_prefab(app);
+	else if ((t_prefab_type)data == prefab_lava_plane)
+		object = place_lava_plane_prefab(app);
 	else if ((t_prefab_type)data == prefab_path_node)
 	{
 		object = place_path_object(app);
@@ -76,6 +78,7 @@ t_3d_object			*editor_place_default_object(t_doom3d *app, void *data)
 		editor_pos_camera_front(app, pos);
 		object = place_scene_object(app,
 			(const char *[3]){data, NULL, NULL}, pos);
+		object->material->shading_opts = e_shading_standard;
 	}
 	return (object);
 }

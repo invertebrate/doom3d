@@ -34,7 +34,7 @@ uint32_t		l3d_pixel_selection_shaded(uint32_t pixel)
 	return (l3d_color_blend_u32(pixel, 0x00ff00ff, 0.2));
 }
 
-static void		get_world_pos(t_triangle *triangle, t_vec3 baryc,
+static void		get_world_pos_persp_corr(t_triangle *triangle, t_vec3 baryc,
 					t_vec3 world_pos)
 {
 	int32_t	i;
@@ -52,6 +52,46 @@ static void		get_world_pos(t_triangle *triangle, t_vec3 baryc,
 		world_pos[i] = ((baryc[0] * triangle->vtc[0]->pos[i]) * az +
 						(baryc[1] * triangle->vtc[1]->pos[i]) * bz +
 						(baryc[2] * triangle->vtc[2]->pos[i]) * cz) * inv_denom;
+}
+
+// float			inverse_quadratic_interpolation()
+// {
+// 	float	result;
+
+// 	return (result);
+// }
+
+/*
+**	Calculates the light intensity caused by flashlight
+**	vars[2]		orthogonal distance from cone axis
+**	vars[1]		cone radius at point
+**	vars[0]		distance
+*/
+
+static void		flashlight_light_calculation(t_triangle *triangle,
+											t_vec3 world_pos,
+											uint32_t light[4])
+{
+	uint32_t		light_add[4];
+	float			vars[3];
+	float			intensity;
+	void			*test;
+
+
+	l3d_u32_to_rgba(0xffffffff, light_add);
+	light_add[3] = 255;
+	ml_vector3_set_all(vars, 0.0);
+	test = point_inside_cone(&(triangle->material->flashlight->cone), world_pos,
+								vars);
+	if (vars[0] <= triangle->material->flashlight->cone.height && test != NULL)
+	{
+		intensity = triangle->material->flashlight->intensity * (1 - (vars[0] /
+						triangle->material->flashlight->cone.height));
+		intensity *=	(1 - (vars[2] / vars[1]));
+		light[0] += intensity * light_add[0];
+		light[1] += intensity * light_add[1];
+		light[2] += intensity * light_add[2];
+	}
 }
 
 void			point_light_calculation(t_triangle *triangle, t_vec3 world_pos,
@@ -80,7 +120,8 @@ void			point_light_calculation(t_triangle *triangle, t_vec3 world_pos,
 			light[2] += intensity * light_add[2];
 		}
 	}
-	light[3] = 255;
+	if (triangle->material->flashlight->enabled == true)
+		flashlight_light_calculation(triangle, world_pos, light);
 }
 
 /*
@@ -94,18 +135,21 @@ uint32_t		l3d_pixel_light_shaded(t_triangle *triangle,
 	uint32_t	light[4];
 	uint32_t	result[4];
 	t_vec3		world_pos;
+	uint32_t	darkness;
 
-	if (triangle->material->num_lights > 0)
+	darkness = 230;
+	ft_memset(result, 0, sizeof(result));
+	if (triangle->material->num_lights > 0 ||
+		(triangle->material->flashlight != NULL &&
+		triangle->material->flashlight->active))
 	{
-		get_world_pos(triangle, baryc, world_pos);
+		get_world_pos_persp_corr(triangle, baryc, world_pos);
 		l3d_u32_to_rgba(pixel, rgba);
 		ft_memset(light, 0, sizeof(light));
 		point_light_calculation(triangle, world_pos, light);
-		result[0] = (uint32_t)fmin(rgba[0] + light[0], 255.0);
-		result[1] = (uint32_t)fmin(rgba[1] + light[1], 255.0);
-		result[2] = (uint32_t)fmin(rgba[2] + light[2], 255.0);
-		result[3] = rgba[3];
-		return (l3d_rgba_to_u32(result));
+		calculate_luminosity(rgba, light, darkness);
+		light[3] = 255;
+		return (l3d_rgba_to_u32(rgba));
 	}
 	return (pixel);
 }

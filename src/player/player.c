@@ -60,6 +60,7 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	player_move(app);
 	player_update_aabb(&app->player);
 	SDL_GetRelativeMouseState(NULL, NULL);
+	player_flashlight_init(app, &(app->player));
 }
 
 static void		nudge_player_up(t_doom3d *app)
@@ -166,4 +167,5 @@ void			update_player(t_doom3d *app)
 	dt_sum += app->info.delta_time;
 	player_update_aabb(&app->player);
 	player_animation_update(app);
+	player_flashlight_update(&(app->player));
 }

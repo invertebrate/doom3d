@@ -18,14 +18,14 @@ t_projectile	projectile_data_fireball_custom(t_doom3d *app, int type)
 
 	projectile = projectile_data_fireball(app);
 	projectile.type = type;
-	if (type == projectile_type_fireball_blue) // tiny range, huge dmg
-	{
-		projectile.texture_key = NPC_PROJECTILE_01;
-		projectile.damage *= 5;
-		projectile.range *= 0.1f;
-		projectile.radius *= 0.8f;
-	}
-	else if (type == projectile_type_fireball_green) // smaller range, higher dmg
+	// if (type == projectile_type_fireball_blue) // tiny range, huge dmg
+	// {
+	// 	projectile.texture_key = NPC_PROJECTILE_01;
+	// 	projectile.damage *= 5;
+	// 	projectile.range *= 0.1f;
+	// 	projectile.radius *= 0.8f;
+	// }
+	if (type == projectile_type_fireball_green) // smaller range, higher dmg
 	{
 		projectile.texture_key = NPC_PROJECTILE_02;
 		projectile.damage *= 1.5f;

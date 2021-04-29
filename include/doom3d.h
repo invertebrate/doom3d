@@ -184,6 +184,9 @@ void						settings_init(t_doom3d *app);
 */
 void						update_player(t_doom3d *app);
 void						player_init(t_doom3d *app, t_vec3 pos);
+void						player_flashlight_init(t_doom3d *app,
+													t_player *player);
+void						player_flashlight_update(t_player *player);
 void						player_move(t_doom3d *app);
 void						get_move_dir(t_doom3d *app,
 								t_move dir_option, t_vec3 dir);
@@ -363,6 +366,9 @@ void						handle_editor_select(t_doom3d *app);
 void						handle_editor_level_switch(t_doom3d *app);
 void						handle_editor_open_popup_menu(t_doom3d *app,
 								t_editor_menu_index menu_id, t_vec3 pos);
+void						handle_editor_key_input2(t_doom3d *app,
+													SDL_Event event);
+void						handle_editor_flip_lights(t_doom3d *app);
 void						handle_editor_add_texture(t_doom3d *app,
 								char *filename);
 void						handle_editor_add_normal_map(t_doom3d *app,
@@ -511,6 +517,8 @@ void						destroy_render_triangle_pool(t_doom3d *app);
 void						reset_render_triangle_pool(t_doom3d *app);
 void						allocate_render_triangle_pool(t_doom3d *app,
 								uint32_t size);
+void						calculate_final_luminosity(uint32_t *pixel,
+														uint32_t *light);
 
 /*
 ** Objects
@@ -518,6 +526,14 @@ void						allocate_render_triangle_pool(t_doom3d *app,
 
 void						update_light_sources(t_doom3d *app,
 								t_3d_object *object);
+void						update_light_sources_anim3d(t_doom3d *app,
+														t_3d_object *object);
+void						transform_light_pos(t_doom3d *app, t_vec3 light_pos,
+												int32_t object_i);
+void						update_one_light_source(t_doom3d *app,
+													t_3d_object *object,
+													float radius_intensity[2],
+													int32_t i);
 void						update_editor_light_sources(t_doom3d *app);
 void						update_objects(t_doom3d *app);
 void						object_type_to_str(t_3d_object *obj, char *str);
@@ -655,6 +671,7 @@ t_3d_object					*editor_place_default_object(t_doom3d *app,
 t_3d_object					*editor_place_npc_object(t_doom3d *app,
 								t_npc_type type);
 t_3d_object					*place_window_wall_prefab(t_doom3d *app);
+t_3d_object					*place_lava_plane_prefab(t_doom3d *app);
 
 /*
 ** Level

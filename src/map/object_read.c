@@ -85,6 +85,22 @@ static int32_t	read_object_triangles_and_vertices(char *contents,
 }
 
 /*
+**	This is mainly for older maps so that their object shading modes get
+**	updated.
+*/
+
+static void		set_default_shading_opts(t_3d_object *obj)
+{
+	if (!(obj->material->shading_opts & e_shading_zero_alpha) &&
+	!(obj->material->shading_opts & e_shading_invisible) &&
+	!(obj->material->shading_opts & e_shading_light))
+		{
+			if (!(obj->material->shading_opts & e_shading_luminous))
+				obj->material->shading_opts |= e_shading_standard;
+		}
+}
+
+/*
 ** In the same order as we wrote the object bytes, we need to read them.
 ** 1. Read object as is (shallow copy, so pointers will point to nothing)
 ** 2. Read vertices
@@ -117,6 +133,7 @@ int32_t			read_objects(t_doom3d *app, char *contents)
 		offset += sizeof(uint32_t);
 		l3d_3d_object_triangle_copy_and_set(obj, obj);
 		set_obj_params_by_type(app, obj);
+		set_default_shading_opts(obj);
 		app->active_scene->objects[i] = obj;
 	}
 	return (offset);
