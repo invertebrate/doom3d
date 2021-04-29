@@ -48,8 +48,6 @@ void			update_one_light_source(t_doom3d *app, t_3d_object *object,
 void			update_light_sources(t_doom3d *app, t_3d_object *object)
 {
 	int32_t	i;
-	float	radius;
-	float	intensity;
 
 	if (!(object->material->shading_opts & e_shading_invisible) &&
 		object->type != object_type_light)
