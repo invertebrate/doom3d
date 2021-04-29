@@ -17,7 +17,7 @@ void	player_onhit(t_doom3d *app, int damage)
 	float	vol;
 
 	app->player.hp -= damage;
-	vol = app->player.max_hp * 0.01f * damage;
+	vol = (float)(damage) / (app->player.max_hp * 0.02f);
 	vol = vol > 1 ? 1 : vol;
 	// if (app->player.hp <= 0)
 	// {
