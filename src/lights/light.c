@@ -48,8 +48,7 @@ void			update_one_light_source(t_doom3d *app, t_3d_object *object,
 void			update_light_sources(t_doom3d *app, t_3d_object *object)
 {
 	int32_t	i;
-	float	radius;
-	float	intensity;
+
 	if (!(object->material->shading_opts & e_shading_invisible) &&
 		object->type != object_type_light)
 	{
@@ -59,8 +58,6 @@ void			update_light_sources(t_doom3d *app, t_3d_object *object)
 			update_light_sources_anim3d(app, object);
 			return ;
 		}
-		radius = app->unit_size * LIGHT_RADIUS_DEFAULT / 1.5;
-		intensity = LIGHT_INTENSITY_DEFAULT * 3;
 		ft_memset(object->material->light_sources, 0,
 			sizeof(object->material->light_sources));
 		object->material->num_lights = 0;
@@ -68,7 +65,8 @@ void			update_light_sources(t_doom3d *app, t_3d_object *object)
 		while (++i < (int32_t)app->active_scene->num_scene_lights)
 		{
 			update_one_light_source(app, object,
-				(float[2]){radius, intensity}, i);
+							(float[2]){app->unit_size * LIGHT_RADIUS_DEFAULT,
+							LIGHT_INTENSITY_DEFAULT}, i);
 		}
 		object->material->flashlight = &(app->player.flashlight);
 	}
