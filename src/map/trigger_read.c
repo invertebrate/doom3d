@@ -69,7 +69,7 @@ static int32_t	get_num_triggers(t_doom3d *app)
 	num_triggers = 0;
 	i = -1;
 	while (++i < (int32_t)app->active_scene->num_objects)
-		if (app->active_scene->objects[i]->type == object_type_npc)
+		if (app->active_scene->objects[i]->type == object_type_trigger)
 			num_triggers++;
 	return (num_triggers);
 }
