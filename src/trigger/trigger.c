@@ -12,6 +12,32 @@
 
 #include "doom3d.h"
 
+/*
+** Hurtbox trigger
+** key_id used as the dmg value
+*/
+
+t_3d_object		*place_hurt_box(t_doom3d *app)
+{
+	t_vec3		pos;
+	t_trigger	trigger_params;
+	t_3d_object	*trigger;
+
+	editor_pos_camera_front(app, pos);
+	ft_memset(&trigger_params, 0, sizeof(t_trigger));
+	trigger = place_scene_object(app,
+		(const char*[3]){"assets/models/box.obj", "assets/models/box.obj", NULL}, pos);
+	app->active_scene->objects[app->active_scene->last_object_index]->type =
+		object_type_trigger;
+	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
+	trigger_params.key_id = 1;
+	l3d_3d_object_set_params(
+		app->active_scene->objects[app->active_scene->last_object_index],
+		&trigger_params, sizeof(t_trigger), trigger_hurtbox);
+	LOG_INFO("Placed hurtbox");
+	return (trigger);
+}
+
 t_3d_object		*place_drop_shotgun(t_doom3d *app)
 {
 	t_vec3		pos;

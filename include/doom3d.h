@@ -774,6 +774,7 @@ t_3d_object					*place_drop_medkit(t_doom3d *app);
 t_3d_object					*place_elevator_switch(t_doom3d *app);
 t_3d_object					*place_elevator_switch_timer(t_doom3d *app);
 t_3d_object					*place_drop_key(t_doom3d *app);
+t_3d_object					*place_hurt_box(t_doom3d *app);
 void						trigger_activate(t_doom3d *app, t_3d_object *obj);
 void						trigger_link_object_to_npc(t_3d_object *trigger,
 								t_3d_object *target);
