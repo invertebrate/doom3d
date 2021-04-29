@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/28 15:04:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/29 17:44:52 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,14 @@ typedef struct				s_timer
 	t_3d_object				*target;
 	int						timer_end;
 }							t_timer;
+
+typedef struct 				s_patrol_path_vars
+{
+	t_3d_object	*obj;
+	t_npc		*npc;
+	uint32_t	object_id;
+	int32_t		num_patrol_path_nodes;
+}							t_patrol_path_vars;
 
 /*
 ** Main struct, "The App".
