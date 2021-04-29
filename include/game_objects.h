@@ -51,6 +51,12 @@
 # define NPC_PROJECTILE_06 "assets/textures/npc_projectile_texture_purple.bmp"
 
 /*
+** Hurt trigger definitions
+*/
+
+# define HURT_DMG 5
+
+/*
 ** State defining how physics get applied for object / player
 */
 typedef enum				e_physics_state
