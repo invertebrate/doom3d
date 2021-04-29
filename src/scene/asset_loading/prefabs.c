@@ -29,4 +29,9 @@ void			prefabs_load(t_scene *scene)
 	hash_map_add(scene->prefab_map,
 		(int64_t)scene->asset_files.prefab_names[
 			scene->asset_files.num_prefabs++], (void*)prefab_path_node);
+	scene->asset_files.prefab_names[scene->asset_files.num_prefabs] =
+		"Lava plane";
+	hash_map_add(scene->prefab_map,
+		(int64_t)scene->asset_files.prefab_names[
+			scene->asset_files.num_prefabs++], (void*)prefab_lava_plane);
 }

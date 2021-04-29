@@ -54,6 +54,7 @@ SOURCES = main.c \
 			player/movement.c \
 			player/player_status.c \
 			player/player_vitals_render.c \
+			player/player_flashlight.c \
 			projectile/projectile_init.c \
 			projectile/projectile_update.c \
 			projectile/projectile_data/projectile_data_rpg.c \
@@ -84,6 +85,7 @@ SOURCES = main.c \
 			trigger/trigger.c \
 			trigger/trigger_timer.c \
 			lights/light.c \
+			lights/light2.c \
 			lights/light_color.c \
 			path/path.c \
 			path/path2.c \
@@ -208,8 +210,10 @@ SOURCES = main.c \
 			events/editor/editor_custom_event_str.c \
 			events/editor/editor_transform.c \
 			events/editor/editor_input.c \
+			events/editor/editor_input2.c \
 			events/editor/editor_keyboard_state.c \
 			events/editor/editor_mouse_state.c \
+			events/custom_event_handling/editor/editor_shading.c \
 			sound/sound.c\
 			sound/sound_controls.c\
 			sound/sound_init.c\

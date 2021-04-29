@@ -55,5 +55,5 @@ void			l3d_3d_object_scale_with_uvs(t_3d_object *object,
 		old_pos[0], old_pos[1], old_pos[2]);
 	ml_vector3_copy(old_pos, object->position);
 	l3d_object_set_shading_opts(object, object->material->shading_opts |
-		e_shading_uv_repeat);
+		e_shading_uv_repeat | e_shading_emitter);
 }

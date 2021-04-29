@@ -77,6 +77,7 @@ typedef struct				s_player
 	int						hp;
 	int						max_hp;
 	t_vec3					velocity;
+	t_flashlight			flashlight;
 }							t_player;
 
 /*

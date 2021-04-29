@@ -57,6 +57,7 @@ typedef struct 				s_editor
 	t_3d_object				*selected_objects[MAX_SELECTED_OBJECTS];
 	int32_t					num_selected_objects;
 	int						patrol_slot;
+	t_bool					lights_enabled;
 }							t_editor;
 
 /*

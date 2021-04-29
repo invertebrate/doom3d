@@ -38,6 +38,7 @@
 # define L3D_DEFAULT_COLOR 0xff00ffff
 # define L3D_DEFAULT_COLOR_TRANSPARENT 0xff00ff64
 
+# define L3D_COLOR_WHITE 0xffffffff
 # define L3D_COLOR_PINK 0xff00ffff
 # define L3D_COLOR_RED 0xff0000ff
 # define L3D_COLOR_GREEN 0x00ff00ff
@@ -54,7 +55,7 @@
 # define L3D_COLOR_LIGHT_YELLOW_TRANSPARENT 0xffff8064
 # define L3D_COLOR_CYAN_TRANSPARENT 0x00ffff64
 
-# define L3D_MAX_LIGHTS 16
+# define L3D_MAX_LIGHTS 32
 
 /*
 ** OBJ file temporary structs. They are used in transfering obj data to final
@@ -97,6 +98,19 @@ typedef struct				s_ray
 }							t_ray;
 
 /*
+** Structure representing a circular orthogonal cone in 3d space.
+*/
+
+typedef struct				s_cone
+{
+	t_vec3			apex;
+	t_vec3			dir;
+	float			height;
+	float			radius;
+}							t_cone;
+
+
+/*
 ** Enums defining how to shade (in rasterization) the 3d object
 ** E.g. e_shading_transparent = use alpha blending
 ** E.g. e_shading_zero_alpha = if alpha == 0, render nothing on that pixel
@@ -104,7 +118,6 @@ typedef struct				s_ray
 
 typedef enum				e_shading_opts
 {
-	e_shading_depth = 1,
 	e_shading_normal_map = 1 << 1,
 	e_shading_zero_alpha = 1 << 2,
 	e_shading_ignore_zpass = 1 << 3,
@@ -119,6 +132,11 @@ typedef enum				e_shading_opts
 	e_shading_uv_repeat = 1 << 12,
 	e_shading_light = 1 << 13,
 	e_shading_temp_invisible = 1 << 14,
+	e_shading_white = 1 << 15,
+	e_shading_luminous = 1 << 20,
+	e_shading_standard = 1 << 17,
+	e_shading_lit = 1 << 18,
+	e_shading_emitter = 1 << 19
 }							t_shading_opts;
 
 /*
@@ -133,6 +151,15 @@ typedef struct				s_surface
 	uint32_t		h;
 }							t_surface;
 
+typedef struct				s_flashlight
+{
+	t_cone					cone;
+	uint32_t				light_color;
+	float					intensity;
+	t_bool					active;
+	t_bool					enabled;
+}							t_flashlight;
+
 /*
 ** Light source defines how light is rendered in rasterization
 ** if it's been set for material of the object
@@ -146,6 +173,8 @@ typedef struct				s_light_source
 	uint32_t	color;
 }							t_light_source;
 
+
+
 /*
 ** Material contains object texture and normal map information and other
 ** rendering related parameters such as shading opts and light sources
@@ -157,6 +186,7 @@ typedef struct				s_material
 	t_surface		*normal_map;
 	t_shading_opts	shading_opts;
 	t_light_source	light_sources[L3D_MAX_LIGHTS];
+	t_flashlight	*flashlight;
 	uint32_t		num_lights;
 }							t_material;
 
@@ -500,6 +530,8 @@ void						l3d_3d_object_add_light_source(t_3d_object *object,
 								t_vec3 light_pos,
 								float radius_intensity[2],
 								uint32_t emit_color);
+float						*point_inside_cone(t_cone *cone, t_vec3 point,
+												float *vars);
 
 /*
 ** OBJ reading
@@ -572,6 +604,8 @@ float						l3d_pixel_get_float(float *buffer,
 void						l3d_pixel_plot_float(float *buffer,
 								uint32_t dimensions_wh[2], int32_t xy[2],
 								float value);
+void						calculate_luminosity(uint32_t *pixel, uint32_t *light,
+												uint32_t darkness);
 void						l3d_write_z_val(
 								t_sub_framebuffer *buffers,
 								t_triangle *triangle,

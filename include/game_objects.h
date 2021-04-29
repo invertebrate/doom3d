@@ -86,6 +86,7 @@ typedef enum				e_light_type
 	light_type_red = 13,
 	light_type_blue = 14,
 	light_type_cyan = 15,
+	light_type_white = 17,
 	light_type_explosion = 16,
 }							t_light_type;
 
@@ -99,6 +100,7 @@ typedef enum				e_prefab_type
 	prefab_plane = 1,
 	prefab_path_node= 2,
 	prefab_window_wall= 3,
+	prefab_lava_plane = 4
 }							t_prefab_type;
 
 /*
