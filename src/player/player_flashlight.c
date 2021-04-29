@@ -28,7 +28,7 @@ void		player_flashlight_init(t_doom3d *app, t_player *player)
 	ml_vector3_copy(player->pos, fl->cone.apex);
 	ml_vector3_copy(player->forward, fl->cone.dir);
 	fl->cone.height = 18.0 * app->unit_size;
-	fl->cone.radius	= 5.0 * app->unit_size;
+	fl->cone.radius	= 6.0 * app->unit_size;
 	fl->intensity = 3.0;
 
 }

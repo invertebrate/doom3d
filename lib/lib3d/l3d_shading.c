@@ -139,7 +139,9 @@ uint32_t		l3d_pixel_light_shaded(t_triangle *triangle,
 
 	darkness = 250;
 	ft_memset(result, 0, sizeof(result));
-	if (triangle->material->num_lights > 0)
+	if (triangle->material->num_lights > 0 ||
+		(triangle->material->flashlight != NULL &&
+		triangle->material->flashlight->active))
 	{
 		get_world_pos_persp_corr(triangle, baryc, world_pos);
 		l3d_u32_to_rgba(pixel, rgba);
