@@ -636,6 +636,7 @@ void						extend_all_objects_shading_opts(t_doom3d *app,
 								t_shading_opts opts_to_add);
 void						remove_all_objects_shading_opts(t_doom3d *app,
 								t_shading_opts opts_to_remove);
+void						finish_level(t_doom3d *app);
 
 /*
 ** Editor

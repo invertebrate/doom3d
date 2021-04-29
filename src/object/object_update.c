@@ -34,7 +34,8 @@ static void		delete_objects_set_for_deletion(t_doom3d *app)
 			{
 				npc_destroy(objects[del_index]);
 				if (app->is_debug)
-					LOG_DEBUG("Deleted object %s, id %u that may have 3D animations", obj_type, id);
+					LOG_DEBUG("Deleted object %s, id %u that may have"
+								"3D animations", obj_type, id);
 			}
 			else
 			{
@@ -67,27 +68,6 @@ static t_bool	should_update_npc_state(t_doom3d *app)
 	return (update_npcs);
 }
 
-static void		finish_level(t_doom3d *app)
-{
-	app->current_level++;
-	if (app->current_level < app->num_levels)
-	{
-		notify_user(app, (t_notification){
-			.message = "New level",
-			.type = notification_type_story, .time = 6000});
-		push_custom_event(app, event_scene_reload, NULL, NULL);
-	}
-	else
-	{
-		app->current_level = 0;
-		push_custom_event(app, event_scene_change,
-			(void*)scene_id_main_menu, NULL);
-		notify_user(app, (t_notification){
-			.message = "Game over",
-			.type = notification_type_story, .time = 6000});
-	}
-}
-
 static t_bool	has_forces(t_3d_object *obj)
 {
 	return (obj->type == object_type_npc);
@@ -104,15 +84,9 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 	if (obj->type == object_type_npc)
 	{
 		if (((t_npc*)obj->params)->animation_3d != NULL)
-		{
-			// ft_printf("here\n");
-			// l3d_3d_object_rotate(obj, 0.0, 1.0, 0.0);
 			anim_3d_frame_update(app, ((t_npc*)obj->params)->animation_3d);
-		}
 		if (is_npc_update && ((t_npc*)obj->params)->state != state_death_anim)
-		{
 			npc_update_state(app, obj);
-		}
 		if (((t_npc*)obj->params)->state != state_death_anim)
 			npc_execute_behavior(app, obj);
 	}

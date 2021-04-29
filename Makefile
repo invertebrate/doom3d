@@ -93,6 +93,7 @@ SOURCES = main.c \
 			path/patrol_path.c \
 			object/object_utils.c \
 			object/object_update.c \
+			object/game_end.c \
 			physics/is_grounded.c \
 			physics/forces_update.c \
 			camera.c \
