@@ -54,6 +54,7 @@ SOURCES = l3d_triangle.c \
 			l3d_triangle_sort_depth.c \
 			l3d_shading.c \
 			l3d_shading_utils.c \
+			l3d_shading_utils2.c \
 			l3d_uv.c \
 			l3d_texture_sample.c \
 			l3d_baryc.c \

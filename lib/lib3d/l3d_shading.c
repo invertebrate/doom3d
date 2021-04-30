@@ -34,33 +34,6 @@ uint32_t		l3d_pixel_selection_shaded(uint32_t pixel)
 	return (l3d_color_blend_u32(pixel, 0x00ff00ff, 0.2));
 }
 
-static void		get_world_pos_persp_corr(t_triangle *triangle, t_vec3 baryc,
-					t_vec3 world_pos)
-{
-	int32_t	i;
-	float	az;
-	float	bz;
-	float	cz;
-	float	inv_denom;
-
-	az = 1.0 / triangle->vtc[0]->pos[2];
-	bz = 1.0 / triangle->vtc[1]->pos[2];
-	cz = 1.0 / triangle->vtc[2]->pos[2];
-	inv_denom = 1.0 / (baryc[0] * az + baryc[1] * bz + baryc[2] * cz);
-	i = -1;
-	while (++i < 3)
-		world_pos[i] = ((baryc[0] * triangle->vtc[0]->pos[i]) * az +
-						(baryc[1] * triangle->vtc[1]->pos[i]) * bz +
-						(baryc[2] * triangle->vtc[2]->pos[i]) * cz) * inv_denom;
-}
-
-// float			inverse_quadratic_interpolation()
-// {
-// 	float	result;
-
-// 	return (result);
-// }
-
 /*
 **	Calculates the light intensity caused by flashlight
 **	vars[2]		orthogonal distance from cone axis
@@ -77,7 +50,6 @@ static void		flashlight_light_calculation(t_triangle *triangle,
 	float			intensity;
 	void			*test;
 
-
 	l3d_u32_to_rgba(0xffffffff, light_add);
 	light_add[3] = 255;
 	ml_vector3_set_all(vars, 0.0);
@@ -87,7 +59,7 @@ static void		flashlight_light_calculation(t_triangle *triangle,
 	{
 		intensity = triangle->material->flashlight->intensity * (1 - (vars[0] /
 						triangle->material->flashlight->cone.height));
-		intensity *=	(1 - (vars[2] / vars[1]));
+		intensity *= (1 - (vars[2] / vars[1]));
 		light[0] += intensity * light_add[0];
 		light[1] += intensity * light_add[1];
 		light[2] += intensity * light_add[2];
