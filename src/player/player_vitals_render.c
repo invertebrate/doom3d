@@ -12,7 +12,7 @@
 
 #include "doom3d.h"
 
-static void	vitals_hp(t_doom3d *app)
+static void		vitals_hp(t_doom3d *app)
 {
 	char		str[256];
 	uint32_t	rgba[4];
@@ -31,7 +31,7 @@ static void	vitals_hp(t_doom3d *app)
 		app->window->title_font);
 }
 
-static void	vitals_ammo(t_doom3d *app)
+static void		vitals_ammo(t_doom3d *app)
 {
 	char		str[256];
 	uint32_t	rgba[4];
@@ -40,8 +40,8 @@ static void	vitals_ammo(t_doom3d *app)
 	color = 0xb08d5700;
 	l3d_u32_to_rgba(color, rgba);
 	ft_memset(str, 0, sizeof(str));
-	ft_sprintf(str, "Ammo: %d | %d", app->player.equipped_weapon->clip, 
-										app->player.equipped_weapon->ammo);
+	ft_sprintf(str, "Ammo: %d | %d", app->player.equipped_weapon->clip,
+				app->player.equipped_weapon->ammo);
 	window_text_render(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
 		.xy = (int[2]){200,
@@ -50,7 +50,7 @@ static void	vitals_ammo(t_doom3d *app)
 		app->window->title_font);
 }
 
-static void	vitals_jetpack(t_doom3d *app)
+static void		vitals_jetpack(t_doom3d *app)
 {
 	char		str[256];
 	uint32_t	rgba[4];
@@ -68,7 +68,7 @@ static void	vitals_jetpack(t_doom3d *app)
 		app->window->title_font);
 }
 
-static void	vitals_keys(t_doom3d *app)
+static void		vitals_keys(t_doom3d *app)
 {
 	char		str[256];
 	uint32_t	rgba[4];
@@ -86,7 +86,7 @@ static void	vitals_keys(t_doom3d *app)
 		app->window->title_font);
 }
 
-void	player_vitals_render(t_doom3d *app)
+void			player_vitals_render(t_doom3d *app)
 {
 	int	i;
 
