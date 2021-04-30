@@ -114,7 +114,6 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 			{
 				player_onhit(app, HURT_DMG);
 			}
-				
 		}
 	}
 }
