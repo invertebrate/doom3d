@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   npc_animation.c                                    :+:      :+:    :+:   */
+/*   npc_enemy_actions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 19:43:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/04/29 19:46:11 by veilo            ###   ########.fr       */
+/*   Updated: 2021/04/30 20:03:49 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **	and cleanly removes the enemy.
 */
 
-static void	npc_death_event_ontrigger(t_doom3d *app, void** params)
+static void	npc_death_event_ontrigger(t_doom3d *app, void **params)
 {
 	push_custom_event(app, event_object_delete, params[0], params[1]);
 	LOG_DEBUG("Enemy npc removed by death animation trigger event.");
@@ -29,7 +29,7 @@ static void	npc_death_event_ontrigger(t_doom3d *app, void** params)
 **	required for an animation instance to play.
 */
 
-static void	npc_attack_event_ontrigger(t_doom3d *app, void** params)
+static void	npc_attack_event_ontrigger(t_doom3d *app, void **params)
 {
 	if (app->is_debug)
 		LOG_DEBUG("Enemy finihed attacking.");
@@ -39,7 +39,6 @@ static void	npc_attack_event_ontrigger(t_doom3d *app, void** params)
 void		init_anim_instance_attack(t_3d_object *obj,
 										t_anim_3d_instance *inst)
 {
-
 	inst->active = true;
 	inst->anim_clip = anim_3d_type_attack;
 	inst->f_event = npc_attack_event_ontrigger;
@@ -53,7 +52,6 @@ void		init_anim_instance_attack(t_3d_object *obj,
 
 void		init_anim_instance_death(t_3d_object *obj, t_anim_3d_instance *inst)
 {
-
 	inst->active = true;
 	inst->anim_clip = anim_3d_type_death;
 	inst->f_event = npc_death_event_ontrigger;
