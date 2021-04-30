@@ -628,6 +628,8 @@ void						load_sprite_animations_to_memory(t_scene *scene,
 void						prefabs_load(t_scene *scene);
 void						triggers_load(t_scene *scene);
 void						lights_load(t_scene *scene);
+void						weapon_drops_load(t_scene *scene);
+void						item_drops_load(t_scene *scene);
 void						npcs_load(t_scene *scene);
 void						load_skybox_textures_to_memory(t_scene *scene);
 void						load_animation_3d_frames_to_memory(t_scene *scene,
