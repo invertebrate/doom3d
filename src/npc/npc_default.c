@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 20:19:16 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/30 21:02:08 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ void		npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->model_key = MONSTER01_MODEL;
 	npc->texture_key = MONSTER01_TEXTURE;
 	npc->normal_map_key = MONSTER01_NORMM;
-	npc->animation_3d = dummy; //segfaults when dummy no exists
-	// npc->animation_3d = NULL;
+	npc->animation_3d = dummy;
 	ml_vector3_set(npc->velocity, 0, 0, 0);
 	npc->atk_pattern_index = 0;
 	set_attack_pattern(npc);
