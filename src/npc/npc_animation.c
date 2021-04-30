@@ -46,6 +46,7 @@ void		npc_monster01_anim_3d_metadata_set(t_anim_metadata *anim_data)
 void		npc_monster02_anim_3d_metadata_set(t_anim_metadata *anim_data)
 {
 	int		i;
+
 	i = -1;
 	anim_data->anim_count = 5;
 	anim_data->clip_lengths[0] = 1;
@@ -71,17 +72,17 @@ void		npc_monster02_anim_3d_metadata_set(t_anim_metadata *anim_data)
 		anim_data->anim_frame_numbers[i] = anim_data->frames_start_idx + i;
 }
 
-void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
+void		npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 {
 	t_anim_metadata	anim_data;
 	t_npc			*npc;
 
 	npc = (t_npc*)obj->params;
 	if (npc->animation_3d != NULL)
-		{
-			free(npc->animation_3d);
-			npc->animation_3d = NULL;
-		}
+	{
+		free(npc->animation_3d);
+		npc->animation_3d = NULL;
+	}
 	if (npc->type == npc_type_monster01 || npc->type == npc_type_monster01_a ||
 		npc->type == npc_type_monster01_range)
 		npc_monster01_anim_3d_metadata_set(&anim_data);
@@ -92,8 +93,7 @@ void			npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 	npc_animation_3d_set(app, obj, npc, &anim_data);
 }
 
-
-static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj,
+static void	npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj,
 											t_npc *npc)
 {
 	int			i;
@@ -122,7 +122,7 @@ static void			npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj,
 	}
 }
 
-void				npc_animation_3d_set(t_doom3d *app, t_3d_object *obj,
+void		npc_animation_3d_set(t_doom3d *app, t_3d_object *obj,
 										t_npc *npc, t_anim_metadata *anim_data)
 {
 	t_animation_3d	*anim;
