@@ -60,7 +60,9 @@ SOURCES = main.c \
 			projectile/projectile_update.c \
 			projectile/projectile_data/projectile_data_rpg.c \
 			projectile/projectile_data/projectile_data_fireball.c \
-			player/player_animations.c \
+			player/player_animations1.c \
+			player/player_animations2.c \
+			player/player_animations3.c \
 			inventory/item_data/item_data_fist.c \
 			inventory/item_data/item_data_pistol.c \
 			inventory/item_data/item_data_rpg.c \

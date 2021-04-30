@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/29 22:21:12 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/30 21:28:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -863,6 +863,8 @@ void						get_trigger_action_text(t_trigger_type type,
 ** Player animations
 */
 
+void						set_player_animation(t_doom3d *app,
+											uint32_t animation_id);
 void						player_animations_init(t_doom3d *app);
 void						player_animation_update(t_doom3d *app);
 void						set_player_shoot_frame(t_doom3d *app);
