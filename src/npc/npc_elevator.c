@@ -3,23 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   npc_elevator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:13:24 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/07 00:16:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 20:21:59 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void set_test_patrol_pattern(t_npc *npc) //testing
+static void	set_test_patrol_pattern(t_npc *npc)
 {
+	int	i;
+
 	npc->patrol_path_index = 0;
-	npc->patrol_path[0] = NULL;
-	npc->patrol_path[1] = NULL;
-	npc->patrol_path[2] = NULL;
-	npc->patrol_path[3] = NULL;
-	npc->patrol_path[4] = NULL;
+	i = -1;
+	while (++i < MAX_PATROL_NODES + 1)
+		npc->patrol_path[i] = NULL;
+	npc->atk_pattern_index = 0;
+	i = -1;
+	while (++i < MAX_PATH_NODE_NETWORK_SIZE + 1)
+		npc->attack_path[i] = NULL;
 }
 
 static void	set_attack_pattern(t_npc *npc)
@@ -28,7 +32,7 @@ static void	set_attack_pattern(t_npc *npc)
 	npc->atk_pattern[1] = action_repeat;
 }
 
-void	npc_elevator(t_doom3d *app, t_npc *npc, t_3d_object *obj)
+void		npc_elevator(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 {
 	npc->parent = obj;
 	npc->type = npc_type_elevator;
@@ -52,10 +56,10 @@ void	npc_elevator(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	ml_vector3_set(npc->velocity, 0, 0, 0);
 	npc->atk_pattern_index = 0;
 	set_attack_pattern(npc);
-	set_test_patrol_pattern(npc); //testing
+	set_test_patrol_pattern(npc);
 }
 
-void	elevator_go_to_next_node(t_doom3d *app, t_3d_object *obj)
+void		elevator_go_to_next_node(t_doom3d *app, t_3d_object *obj)
 {
 	t_npc	*elevator;
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   npc_line_of_sight.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 14:24:25 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/03/30 16:48:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 20:08:09 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static t_bool	npc_ray_to_npc(t_doom3d *app, t_vec3 origin, t_vec3 dir, 
+static t_bool	npc_ray_to_npc(t_doom3d *app, t_vec3 origin, t_vec3 dir,
 														t_3d_object *npc_obj)
 {
 	t_hits	*hits;
@@ -30,7 +30,6 @@ static t_bool	npc_ray_to_npc(t_doom3d *app, t_vec3 origin, t_vec3 dir,
 		}
 		l3d_delete_hits(&hits);
 	}
-	//ft_printf("something blocking line of sight! \n");//test
 	return (false);
 }
 

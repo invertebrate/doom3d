@@ -6,13 +6,13 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 14:36:00 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 16:51:00 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:37:05 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void set_test_patrol_pattern(t_npc *npc) //testing
+static void	set_test_patrol_pattern(t_npc *npc)
 {
 	int	i;
 
@@ -38,20 +38,25 @@ static void	set_attack_pattern(t_npc *npc)
 	npc->atk_pattern[7] = action_repeat;
 }
 
-void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
+static void	npc_ranged_vars(t_npc *npc)
 {
-	t_animation_3d	*dummy;
-
-	error_check(!(dummy= (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
-		"Failed to malloc for dummy in npc_ranged.");
-	npc->parent = obj;
-	npc->type = npc_type_monster02;
-	npc->speed = app->unit_size / 8;
 	npc->rot_speed = 10;
 	npc->state = 0;
 	npc->hp = 100;
 	npc->advance = false;
 	npc->physics_state = physics_state_grounded;
+}
+
+void		npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
+{
+	t_animation_3d	*dummy;
+
+	error_check(!(dummy = (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
+		"Failed to malloc for dummy in npc_ranged.");
+	npc->parent = obj;
+	npc->type = npc_type_monster02;
+	npc->speed = app->unit_size / 8;
+	npc_ranged_vars(npc);
 	ml_vector3_set_all(npc->dir, 0.0);
 	npc->atk_range = app->unit_size * 5;
 	npc->atk_dmg = 10;
@@ -67,5 +72,5 @@ void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->animation_3d = dummy;
 	ml_vector3_set(npc->velocity, 0, 0, 0);
 	set_attack_pattern(npc);
-	set_test_patrol_pattern(npc); //testing
+	set_test_patrol_pattern(npc);
 }
