@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trigger.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/29 23:05:22 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/30 22:14:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void			trigger_update_key_id(t_doom3d *app, t_3d_object *key)
 {
 	t_trigger	*trigger;
 
+	trigger = NULL;
 	if (key->params_type == trigger_item_key ||
 		key->params_type == trigger_elevator_switch)
 	{
