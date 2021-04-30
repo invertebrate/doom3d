@@ -146,6 +146,7 @@ typedef enum				e_trigger_type
 	trigger_elevator_switch,
 	trigger_door_switch,
 	trigger_hurtbox,
+	trigger_jukebox,
 	trigger_type_disabled = 666,
 	
 }							t_trigger_type;

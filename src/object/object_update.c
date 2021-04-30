@@ -114,6 +114,16 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 			{
 				player_onhit(app, HURT_DMG);
 			}
+			else if (obj->params_type == trigger_jukebox)
+			{
+				obj->params_type = trigger_type_disabled;
+				LOG_INFO("sound #%d", ((t_trigger*)(obj->params))->key_id);
+				push_custom_event(app,
+					event_effect_play, (void*)sf_audio_log_1 +
+					((t_trigger*)(obj->params))->key_id, s_ini(0, 1, st_game, 1));
+				push_custom_event(app, event_object_delete,
+					obj, NULL);
+			}
 		}
 	}
 }
