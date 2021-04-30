@@ -128,16 +128,16 @@ typedef struct				s_trigger_link_vars
 	int32_t			num_trigger_links;
 }							t_trigger_link_vars;
 
-typedef struct	s_pathfind_vars
+typedef struct				s_pathfind_vars
 {
 	int			i;
 	int			start_id;
 	int			end_id;
 	float		closest;
 	t_vec3		tmp;
-}				t_pathfind_vars;
+}							t_pathfind_vars;
 
-typedef struct	s_astar_vars
+typedef struct				s_astar_vars
 {
 	t_path_node	*start;
 	t_path_node	*end;
@@ -148,7 +148,7 @@ typedef struct	s_astar_vars
 	float		possibly_lower_goal;
 	int			i;
 	int			arr_pos;
-}				t_astar_vars;
+}							t_astar_vars;
 
 /*
 ** Main struct, "The App".
@@ -324,11 +324,13 @@ void						init_astar_vars(t_astar_vars *vars);
 void						init_astar_vars2(t_astar_vars *v);
 void						init_astar_vars3(t_astar_vars *v);
 void						init_astar_vars4(t_doom3d *app, t_astar_vars *v);
-float						dist_between_nodes(t_path_node *start, t_path_node *end);
+float						dist_between_nodes(t_path_node *start,
+												t_path_node *end);
 void						init_astar_node(t_doom3d *app, t_astar_vars *v,
 										uint32_t start_id, uint32_t end_id);
 void						astar_handle_node(t_astar_vars *v);
-void						handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj);
+void						handle_atk_anim(t_doom3d *app,
+											t_3d_object *npc_obj);
 
 /*
 ** Physics
