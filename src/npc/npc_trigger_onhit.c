@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:35:16 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/22 19:29:29 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/30 14:41:47 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,14 @@ void		npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 	if (npc->type != npc_type_elevator)
 	{
 		npc->state = state_attack;
-		push_custom_event(app,
-			event_effect_play, (void*)sf_monster_hurt, s_ini(0, 1, st_game,
-			distance_vol(0.8f, sound_mag(app->player.pos, obj->position), -1)));
+		if (npc->type == npc_type_crate)
+			push_custom_event(app, event_effect_play, (void*)sf_crate_break,
+				s_ini(0, 1, st_game, distance_vol(0.8f,
+				sound_mag(app->player.pos, obj->position), -1)));
+		else
+			push_custom_event(app, event_effect_play, (void*)sf_monster_hurt,
+				s_ini(0, 1, st_game, distance_vol(0.8f,
+				sound_mag(app->player.pos, obj->position), -1)));
 	}
 	npc->interest = npc->max_interest;
 	if (npc->hp <= 0 && npc->type == npc_type_crate)
