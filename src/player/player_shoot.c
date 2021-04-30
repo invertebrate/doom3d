@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 21:48:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 22:17:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,11 @@ static void		handle_shoot_hit(t_doom3d *app, t_hit *closest_triangle_hit,
 	if (app->player.equipped_weapon->id != weapon_fist && !is_blood)
 		shoot_bullet_effect(app, closest_triangle_hit, dir,
 			"assets/textures/explosion1.bmp");
-	if (is_blood)
-	{
+	else if (is_blood)
 		shoot_bullet_effect(app, closest_triangle_hit, dir,
 			"assets/textures/blood.bmp");
-	}
-	if (!is_blood && closest_triangle_hit->triangle->parent->type ==
-		object_type_npc)
+	if (closest_triangle_hit->triangle->parent->type == object_type_npc &&
+		closest_triangle_hit->triangle->parent->params_type != npc_type_elevator)
 		npc_trigger_onhit(app, closest_triangle_hit->triangle->parent,
 						app->player.equipped_weapon->damage_per_hit);
 	if (closest_triangle_hit->triangle->parent->type == object_type_trigger)
