@@ -28,7 +28,8 @@ static t_bool			include_object_in_triangle_tree(t_scene *scene,
 			!(object->type == object_type_trigger &&
 				(object->params_type == trigger_player_start ||
 					object->params_type == trigger_player_end ||
-					object->params_type == trigger_hurtbox)));
+					object->params_type == trigger_hurtbox ||
+					object->params_type == trigger_jukebox)));
 }
 
 /*
