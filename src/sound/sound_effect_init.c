@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound_effect_init.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 17:47:11 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/25 18:09:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 14:36:02 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void		mp_effect_init(t_doom3d *app)
 	app->mp.library[sf_monster_alert] = read_sound(SF_MONSTER_ALERT, app);
 	app->mp.library[sf_monster_shoot] = read_sound(SF_MONSTER_SHOOT, app);
 	app->mp.library[sf_player_hurt] = read_sound(SF_PLAYER_HURT, app);
+	app->mp.library[sf_crate_break] = read_sound(SF_CRATE_BREAK, app);
 	mp_effect_init1(app);
 }
