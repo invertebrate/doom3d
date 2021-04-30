@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/29 17:44:52 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/29 22:21:12 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,14 @@ typedef struct				s_patrol_path_vars
 	uint32_t		object_id;
 	int32_t			num_patrol_path_nodes;
 }							t_patrol_path_vars;
+
+typedef struct				s_trigger_link_vars
+{
+	t_3d_object		*obj;
+	t_trigger		*trigger;
+	uint32_t		object_id;
+	int32_t			num_trigger_links;
+}							t_trigger_link_vars;
 
 /*
 ** Main struct, "The App".
@@ -832,6 +840,7 @@ t_3d_object					*place_drop_medkit(t_doom3d *app);
 t_3d_object					*place_elevator_switch(t_doom3d *app);
 t_3d_object					*place_elevator_switch_timer(t_doom3d *app);
 t_3d_object					*place_drop_key(t_doom3d *app);
+t_3d_object					*place_hurt_box(t_doom3d *app);
 void						trigger_activate(t_doom3d *app, t_3d_object *obj);
 void						trigger_link_object_to_npc(t_3d_object *trigger,
 														t_3d_object *target);

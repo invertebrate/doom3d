@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   trigger.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 14:02:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/29 23:05:22 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+/*
+** Hurtbox trigger
+** key_id used as the dmg value
+*/
+
+t_3d_object		*place_hurt_box(t_doom3d *app)
+{
+	t_vec3		pos;
+	t_trigger	trigger_params;
+	t_3d_object	*trigger;
+
+	editor_pos_camera_front(app, pos);
+	ft_memset(&trigger_params, 0, sizeof(t_trigger));
+	trigger = place_scene_object(app,
+		(const char*[3]){"assets/models/box.obj", "assets/models/box.obj", NULL}, pos);
+	app->active_scene->objects[app->active_scene->last_object_index]->type =
+		object_type_trigger;
+	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
+	trigger_params.key_id = 1;
+	l3d_3d_object_set_params(
+		app->active_scene->objects[app->active_scene->last_object_index],
+		&trigger_params, sizeof(t_trigger), trigger_hurtbox);
+	LOG_INFO("Placed hurtbox");
+	return (trigger);
+}
 
 t_3d_object		*place_drop_shotgun(t_doom3d *app)
 {
@@ -141,8 +167,8 @@ t_3d_object		*place_drop_key(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	trigger = place_scene_object(app,
-		(const char*[3]){NPC_MONSTER01_MODEL,
-			NPC_MONSTER01_TEXTURE, NULL}, pos);
+		(const char*[3]){"assets/models/keycard.obj",
+			"assets/textures/keypad_texture.bmp", NULL}, pos);
 	app->active_scene->objects[app->active_scene->last_object_index]->type =
 		object_type_trigger;
 	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];

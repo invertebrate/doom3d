@@ -88,6 +88,16 @@ static void		switches_load(t_scene *scene)
 			(void*)trigger_door_switch);
 }
 
+static void		hurtbox_load(t_scene *scene)
+{
+	scene->asset_files.trigger_names[scene->asset_files.num_triggers] =
+		"Hurtbox";
+	hash_map_add(scene->trigger_map,
+		(int64_t)scene->asset_files.trigger_names[
+			scene->asset_files.num_triggers++],
+			(void*)trigger_hurtbox);
+}
+
 void			triggers_load(t_scene *scene)
 {
 	scene->trigger_map = hash_map_create(MAX_ASSETS);
@@ -95,4 +105,5 @@ void			triggers_load(t_scene *scene)
 	weapon_drops_load(scene);
 	item_drops_load(scene);
 	switches_load(scene);
+	hurtbox_load(scene);
 }

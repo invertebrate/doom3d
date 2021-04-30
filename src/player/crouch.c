@@ -22,7 +22,14 @@ void	player_crouch(t_doom3d *app, t_bool toggle)
 	else
 	{
 		app->player.player_height = PLAYER_HEIGHT * app->unit_size;
-		app->player.is_crouching = false;
+		app->player.aabb.size[1] = app->player.player_height;
+		player_update_aabb(&app->player);
+		if (player_hits_ceiling(app))
+		{
+			app->player.player_height = PLAYER_HEIGHT_CROUCH * app->unit_size;
+		}
+		else
+			app->player.is_crouching = false;
 	}
 	app->player.aabb.size[1] = app->player.player_height;
 	player_update_aabb(&app->player);

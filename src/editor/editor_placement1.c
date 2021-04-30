@@ -127,5 +127,10 @@ t_3d_object			*editor_place_trigger_object(t_doom3d *app,
 		trigger = place_elevator_switch_timer(app);
 		placement_notification(app, "Placing door/elevator timer switch");
 	}
+	else if (trigger_type == trigger_hurtbox)
+	{
+		trigger = place_hurt_box(app);
+		placement_notification(app, "Placing hurt box");
+	}
 	return (trigger);
 }

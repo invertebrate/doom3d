@@ -51,6 +51,12 @@
 # define NPC_PROJECTILE_06 "assets/textures/npc_projectile_texture_purple.bmp"
 
 /*
+** Hurt trigger definitions
+*/
+
+# define HURT_DMG 5
+
+/*
 ** State defining how physics get applied for object / player
 */
 typedef enum				e_physics_state
@@ -139,7 +145,9 @@ typedef enum				e_trigger_type
 	trigger_item_key,
 	trigger_elevator_switch,
 	trigger_door_switch,
+	trigger_hurtbox,
 	trigger_type_disabled = 666,
+	
 }							t_trigger_type;
 
 /*

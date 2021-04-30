@@ -110,6 +110,11 @@ static void		update_object_by_type(t_doom3d *app, t_3d_object *obj,
 				inventory_pickup_key(app, obj);
 			else if (obj->params_type == trigger_item_medkit)
 				inventory_pickup_medkit(app, obj);
+			else if (obj->params_type == trigger_hurtbox)
+			{
+				player_onhit(app, HURT_DMG);
+			}
+				
 		}
 	}
 }
