@@ -94,10 +94,10 @@ static void		set_default_shading_opts(t_3d_object *obj)
 	if (!(obj->material->shading_opts & e_shading_zero_alpha) &&
 	!(obj->material->shading_opts & e_shading_invisible) &&
 	!(obj->material->shading_opts & e_shading_light))
-		{
-			if (!(obj->material->shading_opts & e_shading_luminous))
-				obj->material->shading_opts |= e_shading_standard;
-		}
+	{
+		if (!(obj->material->shading_opts & e_shading_luminous))
+			obj->material->shading_opts |= e_shading_standard;
+	}
 }
 
 /*
