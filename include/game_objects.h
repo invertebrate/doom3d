@@ -41,7 +41,7 @@
 ** Projectile definitions
 */
 
-# define NUM_PROJECTILES 10 // 3 + npc_projectile below
+# define NUM_PROJECTILES 10
 # define NPC_PROJECTILE_00 "assets/textures/npc_projectile_texture.bmp"
 # define NPC_PROJECTILE_01 "assets/textures/npc_projectile_texture_blue.bmp"
 # define NPC_PROJECTILE_02 "assets/textures/npc_projectile_texture_green.bmp"
@@ -104,8 +104,8 @@ typedef enum				e_light_type
 typedef enum				e_prefab_type
 {
 	prefab_plane = 1,
-	prefab_path_node= 2,
-	prefab_window_wall= 3,
+	prefab_path_node = 2,
+	prefab_window_wall = 3,
 	prefab_lava_plane = 4
 }							t_prefab_type;
 
@@ -124,7 +124,7 @@ typedef struct				s_path_node
 	float		global_goal;
 	float		local_goal;
 	int32_t		num_neighbors;
-	t_3d_object	*neighbors[PATH_NEIGHBOUR_MAX]; //How many neighbors can have?
+	t_3d_object	*neighbors[PATH_NEIGHBOUR_MAX];
 	t_3d_object	*parent;
 	t_3d_object *parent_obj;
 }							t_path_node;
@@ -133,6 +133,7 @@ typedef struct				s_path_node
 ** A list of various trigger types
 ** t_trigger_type may be used as a sub type (params_type) under t_3d_object
 */
+
 typedef enum				e_trigger_type
 {
 	trigger_player_start = 1,
@@ -147,13 +148,14 @@ typedef enum				e_trigger_type
 	trigger_door_switch,
 	trigger_hurtbox,
 	trigger_type_disabled = 666,
-	
+
 }							t_trigger_type;
 
 /*
 ** A list of npc types
 ** t_npc_type may be used as a sub type (params_type) under t_3d_object
 */
+
 typedef enum				e_npc_type
 {
 	npc_type_monster01,
@@ -169,18 +171,18 @@ typedef enum				e_npc_type
 ** and also as their specific 3d objects.
 ** t_projectile_type may be used as a sub type (params_type) under t_3d_object
 */
+
 typedef enum				e_projectile_type
 {
 	projectile_type_rpg = 0,
-	projectile_type_fireball, //= 1,
-	projectile_type_fireball_blue,
+	projectile_type_fireball,
 	projectile_type_fireball_green,
 	projectile_type_fireball_lgreen,
 	projectile_type_fireball_pink,
 	projectile_type_fireball_yellow,
 	projectile_type_fireball_purple,
-	projectile_type_bullet,// = 2,
-	projectile_type_none,// = 3,
+	projectile_type_bullet,
+	projectile_type_none,
 }							t_projectile_type;
 
 /*
@@ -198,6 +200,7 @@ typedef enum				e_projectile_type
 ** These ids define e.g. which animation for player is used when shooting or
 ** reloading, or how player shoots in the game world.
 */
+
 typedef enum				e_weapon_id
 {
 	weapon_fist = 0,
@@ -210,6 +213,7 @@ typedef enum				e_weapon_id
 ** Weapon struct containing relevant data for player's world interaction
 ** with enemies.
 */
+
 typedef struct				s_weapon
 {
 	t_weapon_id				id;
@@ -222,11 +226,11 @@ typedef struct				s_weapon
 	int						damage_per_hit;
 }							t_weapon;
 
-
 /*
 ** Projectile data defining how projectile objects are instantiated
 ** and how projectile interacts with the game world.
 */
+
 typedef struct				s_projectile
 {
 	t_projectile_type		type;
@@ -243,8 +247,10 @@ typedef struct				s_projectile
 }							t_projectile;
 
 /*
-** a struct for triggers, mostly storing pointers to objects the trigger is linked to
+** a struct for triggers,
+** mostly storing pointers to objects the trigger is linked to
 */
+
 typedef struct				s_trigger
 {
 	t_3d_object				*parent;
@@ -256,6 +262,7 @@ typedef struct				s_trigger
 /*
 ** Enum defining npc's state.
 */
+
 typedef enum				e_npc_state
 {
 	state_idle,
@@ -268,6 +275,7 @@ typedef enum				e_npc_state
 /*
 ** Enum defining npc's attack pattern
 */
+
 typedef enum				e_npc_action
 {
 	action_wait,
@@ -281,6 +289,7 @@ typedef enum				e_npc_action
 ** are moved in the game world. Also defines how the npc t_3d_object
 ** gets instantiated.
 */
+
 typedef struct				s_npc
 {
 	t_3d_object				*parent;
@@ -317,7 +326,6 @@ typedef struct				s_npc
 	const char				*normal_map_key;
 	t_animation_3d			*animation_3d;
 }							t_npc;
-
 
 /*
 ** ----------------------------

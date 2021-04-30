@@ -17,7 +17,7 @@
 # include <SDL_audio.h>
 # endif
 # ifdef __linux__
-#  include <SDL2/SDL_audio.h>
+# include <SDL2/SDL_audio.h>
 # endif
 
 /*
@@ -32,7 +32,7 @@
 # define PREF_CHAN 2
 # define PREF_FREQ 44100
 # define SOUND_DIST 100000
-# define SOUNDS 19 // MUSIC + SEFFECT
+# define SOUNDS 19
 # define MUSIC 2
 # define SEFFECT 17
 # define TRACK1 "assets/sounds/basic_music.wav"
@@ -54,7 +54,6 @@
 # define SF_MONSTER_ALERT "assets/sounds/monster_notice.wav"
 # define SF_MONSTER_SHOOT "assets/sounds/monster_shoot.wav"
 # define SF_PLAYER_HURT "assets/sounds/player_hurt.wav"
-
 # define SPLAYING 1
 # define SPAUSED 2
 # define SSTOPPED 0

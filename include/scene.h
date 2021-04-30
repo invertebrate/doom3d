@@ -82,7 +82,6 @@ typedef struct				s_asset_files
 	uint32_t				num_lights;
 }							t_asset_files;
 
-
 /*
 ** The main struct holding data related to the game world and their assets.
 ** Assets are loaded based on scene data (some of these could be under app

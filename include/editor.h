@@ -39,7 +39,7 @@ typedef enum				e_editor_menu_index
 ** world.
 */
 
-typedef struct 				s_editor
+typedef struct				s_editor
 {
 	t_bool					is_locked_vertical_movement;
 	t_bool					is_placing;

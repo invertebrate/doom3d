@@ -13,7 +13,7 @@
 #ifndef NOTIFICATION_H
 # define NOTIFICATION_H
 
-#include "libft.h"
+# include "libft.h"
 
 /*
 ** Defines what type of notifications exist which then correspond to
@@ -31,7 +31,7 @@ typedef enum				e_nofitication_type
 ** on screen to the player / user of the app.
 */
 
-typedef struct				e_notification
+typedef struct				s_notification
 {
 	const char				*message;
 	t_notification_type		type;
