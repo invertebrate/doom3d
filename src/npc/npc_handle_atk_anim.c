@@ -12,7 +12,8 @@
 
 #include "doom3d.h"
 
-static void	npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir)
+static void	npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir,
+									int type)
 {
 	t_projectile	projectile;
 	t_vec3			rot;
@@ -22,7 +23,7 @@ static void	npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 
 	ft_memset(&projectile, 0, sizeof(t_projectile));
 	ft_memcpy(&projectile,
-		&app->projectile_data[projectile_type_fireball],
+		&app->projectile_data[type],
 		sizeof(t_projectile));
 	rot[0] = 0;
 	rot[1] = 0;
@@ -47,7 +48,12 @@ static void	handle_attack(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc)
 	}
 	if (npc->atk_pattern[npc->atk_pattern_index] == action_projectile_rpg)
 	{
-		npc_shoot_projectile(app, npc_obj->aabb.center, npc->dir);
+		if (npc->type == npc_type_monster01_range)
+			npc_shoot_projectile(app, npc_obj->aabb.center, npc->dir,
+				projectile_type_fireball_green);
+		else
+			npc_shoot_projectile(app, npc_obj->aabb.center, npc->dir,
+				projectile_type_fireball);
 		push_custom_event(app,
 			event_effect_play, (void*)sf_monster_shoot, s_ini(0, 1, st_game,
 			distance_vol(1, sound_mag(app->player.pos,
