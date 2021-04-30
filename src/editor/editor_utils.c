@@ -66,7 +66,7 @@ void			editor_objects_invisible_unhighlight(t_doom3d *app)
 			((obj->type == object_type_trigger &&
 				(obj->params_type == trigger_player_start ||
 				obj->params_type == trigger_player_end ||
-				obj->type == trigger_hurtbox)) ||
+				obj->params_type == trigger_hurtbox)) ||
 				obj->type == object_type_path))
 			obj->material->shading_opts = e_shading_invisible;
 	}
