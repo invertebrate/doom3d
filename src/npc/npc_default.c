@@ -12,7 +12,7 @@
 
 #include "doom3d.h"
 
-static void set_test_patrol_pattern(t_npc *npc) //testing
+static void set_test_patrol_pattern(t_npc *npc)
 {
 	int	i;
 
