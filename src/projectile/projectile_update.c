@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/26 11:53:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 21:57:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,26 @@ static void		transform_explosion_plane(t_doom3d *app,
 static void		init_explosions(t_doom3d *app, t_3d_object **explosions,
 										t_3d_object *model, t_vec3 pos)
 {
+	int32_t	i;
+
 	explosions[0] = place_procedural_temp_object(app, model,
 		(const char*[2]){"assets/textures/explosion1.bmp", NULL},
-		pos, (int32_t[2]){50, 0});
+		pos, (int32_t[2]){100, 0});
 	explosions[1] = place_procedural_temp_object(app, model,
 		(const char*[2]){"assets/textures/explosion2.bmp", NULL},
-		pos, (int32_t[2]){50, 50});
+		pos, (int32_t[2]){100, 100});
 	explosions[2] = place_procedural_temp_object(app, model,
 		(const char*[2]){"assets/textures/explosion3.bmp", NULL},
-		pos, (int32_t[2]){50, 100});
+		pos, (int32_t[2]){100, 200});
 	explosions[3] = place_procedural_temp_object(app, model,
 		(const char*[2]){"assets/textures/explosion4.bmp", NULL},
-		pos, (int32_t[2]){50, 150});
+		pos, (int32_t[2]){100, 300});
 	explosions[4] = place_temp_object(app,
 		(const char*[2]){"assets/models/light_sphere.obj", NULL},
-		pos, (int32_t[2]){200, 0});
+		pos, (int32_t[2]){300, 0});
+	i = -1;
+	while (++i < 4)
+		explosions[4]->material->shading_opts |= e_shading_luminous;
 	l3d_3d_object_scale(explosions[4], 0.3, 0.3, 0.3);
 	l3d_object_set_shading_opts(explosions[4],
 		e_shading_invisible);
@@ -172,7 +177,7 @@ static void		projectile_handle_collision(t_doom3d *app,
 				obj->type == object_type_trigger)
 			continue ;
 		ml_vector3_sub(obj->position, projectile_obj->position, dist);
-		if (ml_vector3_mag(dist) < app->unit_size * 5 &&
+		if (ml_vector3_mag(dist) < app->unit_size * 10 &&
 			obj->type == object_type_npc &&
 			l3d_aabb_collides(&obj->aabb, &projectile_obj->aabb))
 		{

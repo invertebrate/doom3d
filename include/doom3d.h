@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 20:28:11 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/30 22:04:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -913,6 +913,8 @@ void						trigger_handle_trigger_jukebox(t_doom3d *app,
 ** Player animations
 */
 
+void						set_player_animation(t_doom3d *app,
+											uint32_t animation_id);
 void						player_animations_init(t_doom3d *app);
 void						player_animation_update(t_doom3d *app);
 void						set_player_shoot_frame(t_doom3d *app);
