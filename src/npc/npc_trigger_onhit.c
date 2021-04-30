@@ -36,7 +36,7 @@ void		npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 	npc->interest = npc->max_interest;
 	if (npc->hp <= 0 && npc->type == npc_type_crate)
 		push_custom_event(app, event_object_delete, obj, NULL);
-	if (npc->hp <= 0 && npc->state)
+	if (npc->hp <= 0 && npc->state && npc->animation_3d)
 	{
 		init_anim_instance_death(obj, &anim_instance_death);
 		npc->state = state_death_anim;
