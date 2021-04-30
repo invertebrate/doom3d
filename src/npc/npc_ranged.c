@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 14:36:00 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/28 19:03:14 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:51:00 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	ml_vector3_set_all(npc->dir, 0.0);
 	npc->atk_range = app->unit_size * 5;
 	npc->atk_dmg = 10;
-	npc->atk_dur = 500;
+	npc->atk_dur = 1000;
 	npc->vision_range = app->unit_size * 50;
 	npc->hearing_range = app->unit_size * 20;
 	npc->interest = 0;
