@@ -87,6 +87,9 @@ SOURCES = main.c \
 			npc/npc_enemy_actions.c \
 			trigger/trigger.c \
 			trigger/trigger_timer.c \
+			trigger/trigger_place.c \
+			trigger/trigger_place2.c \
+			trigger/trigger_handle.c \
 			lights/light.c \
 			lights/light2.c \
 			lights/light_color.c \

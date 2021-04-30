@@ -12,116 +12,6 @@
 
 #include "doom3d.h"
 
-/*
-** Audio trigger
-** key_id is used to select what audio log to play
-*/
-
-t_3d_object		*place_jukebox(t_doom3d *app)
-{
-	t_vec3		pos;
-	t_trigger	trigger_params;
-	t_3d_object	*trigger;
-
-	editor_pos_camera_front(app, pos);
-	ft_memset(&trigger_params, 0, sizeof(t_trigger));
-	trigger = place_scene_object(app,
-		(const char*[3]){"assets/models/box.obj", NULL, NULL}, pos);
-	l3d_object_set_shading_opts(
-		app->active_scene->objects[app->active_scene->last_object_index],
-		e_shading_invisible | e_shading_transparent);
-	app->active_scene->objects[app->active_scene->last_object_index]->type =
-		object_type_trigger;
-	if (app->editor.patrol_slot < AUDIO_LOG)
-		trigger_params.key_id = app->editor.patrol_slot;
-	trigger_params.parent = app->active_scene->objects
-		[app->active_scene->last_object_index];
-	l3d_3d_object_set_params(
-		app->active_scene->objects[app->active_scene->last_object_index],
-		&trigger_params, sizeof(t_trigger), trigger_jukebox);
-	LOG_INFO("Placed jukebox");
-	return (trigger);
-}
-
-/*
-** Hurtbox trigger
-*/
-
-t_3d_object		*place_hurt_box(t_doom3d *app)
-{
-	t_vec3		pos;
-	t_trigger	trigger_params;
-	t_3d_object	*trigger;
-
-	editor_pos_camera_front(app, pos);
-	ft_memset(&trigger_params, 0, sizeof(t_trigger));
-	trigger = place_scene_object(app,
-		(const char*[3]){"assets/models/box.obj", NULL, NULL}, pos);
-	l3d_object_set_shading_opts(
-		app->active_scene->objects[app->active_scene->last_object_index],
-		e_shading_invisible | e_shading_transparent);
-	app->active_scene->objects[app->active_scene->last_object_index]->type =
-		object_type_trigger;
-	trigger_params.parent = app->active_scene->objects
-	[app->active_scene->last_object_index];
-	l3d_3d_object_set_params(
-		app->active_scene->objects[app->active_scene->last_object_index],
-		&trigger_params, sizeof(t_trigger), trigger_hurtbox);
-	LOG_INFO("Placed hurtbox");
-	return (trigger);
-}
-
-t_3d_object		*place_drop_shotgun(t_doom3d *app)
-{
-	t_vec3		pos;
-	t_trigger	trigger_params;
-	t_3d_object	*trigger;
-
-	editor_pos_camera_front(app, pos);
-	ft_memset(&trigger_params, 0, sizeof(t_trigger));
-	trigger = place_scene_object(app,
-		(const char*[3]){"assets/models/shotgun.obj",
-			"assets/textures/shotgun_texture.bmp", NULL}, pos);
-	app->active_scene->objects[app->active_scene->last_object_index]->type =
-		object_type_trigger;
-	trigger_params.parent = app->active_scene->objects[app->active_scene->
-														last_object_index];
-	l3d_3d_object_set_params(
-		app->active_scene->objects[app->active_scene->last_object_index],
-		&trigger_params, sizeof(t_trigger), trigger_weapon_drop_shotgun);
-	l3d_3d_object_scale(
-		app->active_scene->objects[app->active_scene->last_object_index],
-		0.2, 0.2, 0.2);
-	LOG_INFO("Shotgun placed %d", trigger->id);
-	return (trigger);
-}
-
-t_3d_object		*place_elevator_switch(t_doom3d *app)
-{
-	t_vec3		pos;
-	t_trigger	trigger_params;
-	t_3d_object	*trigger;
-
-	editor_pos_camera_front(app, pos);
-	ft_memset(&trigger_params, 0, sizeof(t_trigger));
-	trigger = place_scene_object(app,
-		(const char*[3]){"assets/models/keypad.obj",
-			"assets/textures/keypad_texture.bmp", NULL}, pos);
-	app->active_scene->objects[app->active_scene->last_object_index]->type =
-		object_type_trigger;
-	trigger_params.parent = app->active_scene->objects[app->active_scene->
-														last_object_index];
-	trigger_params.key_id = -1;
-	l3d_3d_object_set_params(
-		app->active_scene->objects[app->active_scene->last_object_index],
-		&trigger_params, sizeof(t_trigger), trigger_elevator_switch);
-	l3d_3d_object_scale(
-		app->active_scene->objects[app->active_scene->last_object_index],
-		0.5, 0.5, 0.5);
-	LOG_INFO("Elevator switch placed %d", trigger->id);
-	return (trigger);
-}
-
 t_3d_object		*place_elevator_switch_timer(t_doom3d *app)
 {
 	t_vec3		pos;
@@ -156,32 +46,11 @@ void			trigger_activate(t_doom3d *app, t_3d_object *obj)
 		return ;
 	if (obj->params_type == trigger_elevator_switch)
 	{
-		if (trigger->linked_obj[0])
-		{
-			if (trigger->key_id == -1 ||
-				app->player.keys[trigger->key_id] == true)
-			{
-				elevator_go_to_next_node(app, trigger->linked_obj[0]);
-				push_custom_event(app, event_effect_play,
-					(void*)sf_door_open, s_ini(0, 1, st_game, 1.0));
-			}
-			else
-			{
-				LOG_INFO("Player is missing key!");
-				push_custom_event(app, event_effect_play,
-					(void*)sf_door_locked, s_ini(0, 1, st_game, 1.0));
-			}
-		}
+		trigger_handle_elevator_switch(app, trigger);
 	}
 	if (obj->params_type == trigger_door_switch)
 	{
-		if (trigger->linked_obj[0])
-		{
-			elevator_go_to_next_node(app, trigger->linked_obj[0]);
-			push_custom_event(app, event_effect_play,
-				(void*)sf_door_open, s_ini(0, 1, st_game, 1.0));
-		}
-		trigger_timer_start(app, trigger->linked_obj[0]);
+		trigger_handle_door_switch(app, trigger);
 	}
 }
 
@@ -237,15 +106,7 @@ void			trigger_update_key_id(t_doom3d *app, t_3d_object *key)
 		}
 	}
 	else if (key->params_type == trigger_jukebox)
-	{
-		trigger = key->params;
-		if (app->editor.patrol_slot < AUDIO_LOG)
-		{
-			trigger->key_id = app->editor.patrol_slot;
-			LOG_INFO("Key id set to slot %d", app->editor.patrol_slot);
-		}
-		LOG_INFO("Edited jukebox track");
-	}
+		trigger_handle_trigger_jukebox(app, key, trigger);
 }
 
 t_3d_object		*place_player_start(t_doom3d *app)
