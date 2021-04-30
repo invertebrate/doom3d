@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   object_utils.c                                     :+:      :+:    :+:   */
+/*   object_scene_placement.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 18:52:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 23:20:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-/*
-** // !Note that this (inc/dec)rements both num_deleted and num_objects
-** so only use this when intending to actually place objects
-** Saves this next index to last_object_index under scene
-*/
-
-static uint32_t	next_object_index(t_doom3d *app)
+static void		set_new_object_textures_and_nmaps(t_doom3d *app,
+					t_3d_object *obj,
+					const char *texture_str,
+					const char *normal_map_str)
 {
-	uint32_t	next_index;
+	t_surface	*texture;
+	t_surface	*normal_map;
 
-	if (app->active_scene->num_deleted > 0)
-	{
-		next_index = app->active_scene->deleted_object_i[
-			app->active_scene->num_deleted - 1];
-		app->active_scene->num_deleted--;
-	}
-	else
-		next_index = app->active_scene->num_objects;
-	app->active_scene->num_objects++;
-	app->active_scene->last_object_index = next_index;
-	return (next_index);
+	texture = hash_map_get(app->active_scene->textures, (int64_t)texture_str);
+	obj->material->texture = texture;
+	if (texture != NULL)
+		hash_map_add(app->active_scene->object_textures, obj->id,
+			(void*)texture);
+	normal_map = hash_map_get(app->active_scene->textures,
+		(int64_t)normal_map_str);
+	obj->material->normal_map = normal_map;
+	if (normal_map)
+		hash_map_add(app->active_scene->object_normal_maps,
+			obj->id, (void*)normal_map_str);
 }
 
 /*
@@ -45,8 +43,6 @@ t_3d_object		*place_scene_object(t_doom3d *app, const char *filenames[3],
 {
 	t_3d_object	*obj;
 	t_3d_object	*model;
-	t_surface	*texture;
-	t_surface	*normal_map;
 
 	model = hash_map_get(app->active_scene->models, (int64_t)filenames[0]);
 	if (!model)
@@ -57,17 +53,7 @@ t_3d_object		*place_scene_object(t_doom3d *app, const char *filenames[3],
 		return (NULL);
 	}
 	obj = l3d_object_instantiate(model, app->unit_size);
-	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[1]);
-	obj->material->texture = texture;
-	if (texture != NULL)
-		hash_map_add(app->active_scene->object_textures, obj->id,
-			(void*)filenames[1]);
-	normal_map = hash_map_get(app->active_scene->textures,
-		(int64_t)filenames[2]);
-	obj->material->normal_map = normal_map;
-	if (normal_map)
-		hash_map_add(app->active_scene->object_normal_maps,
-			obj->id, (void*)filenames[2]);
+	set_new_object_textures_and_nmaps(app, obj, filenames[1], filenames[2]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	obj->material->flashlight = &(app->player.flashlight);
 	app->active_scene->objects[next_object_index(app)] = obj;
@@ -87,8 +73,6 @@ t_3d_object		*place_procedural_scene_object(t_doom3d *app,
 												t_vec3 pos)
 {
 	t_3d_object	*obj;
-	t_surface	*texture;
-	t_surface	*normal_map;
 
 	if (!model)
 	{
@@ -96,17 +80,7 @@ t_3d_object		*place_procedural_scene_object(t_doom3d *app,
 		return (NULL);
 	}
 	obj = l3d_object_instantiate(model, app->unit_size);
-	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[0]);
-	obj->material->texture = texture;
-	if (texture)
-		hash_map_add(app->active_scene->object_textures, obj->id,
-			(void*)filenames[0]);
-	normal_map = hash_map_get(app->active_scene->textures,
-		(int64_t)filenames[1]);
-	obj->material->normal_map = normal_map;
-	if (normal_map)
-		hash_map_add(app->active_scene->object_normal_maps,
-			obj->id, (void*)filenames[1]);
+	set_new_object_textures_and_nmaps(app, obj, filenames[0], filenames[1]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
 	obj->material->flashlight = &(app->player.flashlight);
@@ -125,8 +99,6 @@ t_3d_object		*place_temp_object(t_doom3d *app, const char *filenames[3],
 {
 	t_3d_object	*obj;
 	t_3d_object	*model;
-	t_surface	*texture;
-	t_surface	*normal_map;
 
 	model = hash_map_get(app->active_scene->models, (int64_t)filenames[0]);
 	if (!model)
@@ -136,17 +108,7 @@ t_3d_object		*place_temp_object(t_doom3d *app, const char *filenames[3],
 		return (NULL);
 	}
 	obj = l3d_object_instantiate(model, app->unit_size);
-	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[1]);
-	obj->material->texture = texture;
-	if (texture != NULL)
-		hash_map_add(app->active_scene->object_textures, obj->id,
-			(void*)filenames[1]);
-	normal_map = hash_map_get(app->active_scene->textures,
-		(int64_t)filenames[2]);
-	obj->material->normal_map = normal_map;
-	if (normal_map)
-		hash_map_add(app->active_scene->object_normal_maps,
-			obj->id, (void*)filenames[2]);
+	set_new_object_textures_and_nmaps(app, obj, filenames[1], filenames[2]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
 		lifetime_and_delay);
@@ -161,35 +123,22 @@ t_3d_object		*place_temp_object(t_doom3d *app, const char *filenames[3],
 */
 
 t_3d_object		*place_procedural_temp_object(t_doom3d *app,
-											t_3d_object *model,
-											const char *filenames[2],
-											t_vec3 pos,
-											int32_t lifetime_and_delay[2])
+											t_procedural_tmp_obj_params params,
+											t_vec3 pos)
 {
 	t_3d_object	*obj;
-	t_surface	*texture;
-	t_surface	*normal_map;
 
-	if (!model)
+	if (!params.model)
 	{
 		LOG_ERROR("No existing model object (NULL) given");
 		return (NULL);
 	}
-	obj = l3d_object_instantiate(model, app->unit_size);
-	texture = hash_map_get(app->active_scene->textures, (int64_t)filenames[0]);
-	obj->material->texture = texture;
-	if (texture)
-		hash_map_add(app->active_scene->object_textures, obj->id,
-			(void*)filenames[0]);
-	normal_map = hash_map_get(app->active_scene->textures,
-		(int64_t)filenames[1]);
-	obj->material->normal_map = normal_map;
-	if (normal_map)
-		hash_map_add(app->active_scene->object_normal_maps,
-			obj->id, (void*)filenames[1]);
+	obj = l3d_object_instantiate(params.model, app->unit_size);
+	set_new_object_textures_and_nmaps(app, obj,
+		params.texture, params.normal_map);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
-		lifetime_and_delay);
+		(int32_t[2]){params.lifetime, params.delay});
 	if (app->is_debug)
 		LOG_DEBUG("New procedural temp object id %d", obj->id);
 	obj->material->flashlight = &(app->player.flashlight);

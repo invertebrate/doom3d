@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 21:57:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 23:10:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,25 @@ static void		init_explosions(t_doom3d *app, t_3d_object **explosions,
 {
 	int32_t	i;
 
-	explosions[0] = place_procedural_temp_object(app, model,
-		(const char*[2]){"assets/textures/explosion1.bmp", NULL},
-		pos, (int32_t[2]){100, 0});
-	explosions[1] = place_procedural_temp_object(app, model,
-		(const char*[2]){"assets/textures/explosion2.bmp", NULL},
-		pos, (int32_t[2]){100, 100});
-	explosions[2] = place_procedural_temp_object(app, model,
-		(const char*[2]){"assets/textures/explosion3.bmp", NULL},
-		pos, (int32_t[2]){100, 200});
-	explosions[3] = place_procedural_temp_object(app, model,
-		(const char*[2]){"assets/textures/explosion4.bmp", NULL},
-		pos, (int32_t[2]){100, 300});
+	explosions[0] = place_procedural_temp_object(app,
+		(t_procedural_tmp_obj_params){.model = model,
+		.texture = "assets/textures/explosion1.bmp", .normal_map = NULL,
+		.lifetime = 100, .delay = 0}, pos);
+	explosions[1] = place_procedural_temp_object(app,
+		(t_procedural_tmp_obj_params){.model = model,
+		.texture = "assets/textures/explosion2.bmp", .normal_map = NULL,
+		.lifetime = 100, .delay = 100}, pos);
+	explosions[2] = place_procedural_temp_object(app,
+		(t_procedural_tmp_obj_params){.model = model,
+		.texture = "assets/textures/explosion3.bmp", .normal_map = NULL,
+		.lifetime = 100, .delay = 200}, pos);
+	explosions[3] = place_procedural_temp_object(app,
+		(t_procedural_tmp_obj_params){.model = model,
+		.texture = "assets/textures/explosion4.bmp", .normal_map = NULL,
+		.lifetime = 100, .delay = 300}, pos);
 	explosions[4] = place_temp_object(app,
 		(const char*[2]){"assets/models/light_sphere.obj", NULL},
-		pos, (int32_t[2]){300, 0});
+		pos, (int32_t[2]){400, 0});
 	i = -1;
 	while (++i < 4)
 		explosions[4]->material->shading_opts |= e_shading_luminous;

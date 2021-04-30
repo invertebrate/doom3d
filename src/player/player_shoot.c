@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 22:17:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 23:11:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ static void		shoot_bullet_effect(t_doom3d *app,
 	ml_vector3_mul(dir, -1 * 0.1 * app->unit_size, add);
 	ml_vector3_add(hit->hit_point, add, pos);
 	model = l3d_plane_create(NULL, NULL);
-	hit_effect = place_procedural_temp_object(app, model,
-		(const char*[2]){effect_key, NULL
-	}, pos, (int32_t[2]){100, 0});
+	hit_effect = place_procedural_temp_object(app,
+		(t_procedural_tmp_obj_params){.model = model,
+		.texture = effect_key, .normal_map = NULL,
+		.lifetime = 100, .delay = 0}, pos);
 	hit_effect->material->shading_opts |= e_shading_luminous;
 	scale = 0.1;
 	l3d_3d_object_scale(hit_effect, scale, scale, scale);

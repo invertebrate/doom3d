@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 22:04:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 23:11:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,15 @@ typedef struct	s_astar_vars
 	int			i;
 	int			arr_pos;
 }				t_astar_vars;
+
+typedef struct	s_procedural_tmp_obj_params
+{
+	t_3d_object	*model;
+	const char	*texture;
+	const char	*normal_map;
+	int32_t		lifetime;
+	int32_t		delay;
+}				t_procedural_tmp_obj_params;
 
 /*
 ** Main struct, "The App".
@@ -648,7 +657,11 @@ void						update_one_light_source(t_doom3d *app,
 													float radius_intensity[2],
 													int32_t i);
 void						update_editor_light_sources(t_doom3d *app);
+uint32_t					next_object_index(t_doom3d *app);
 void						update_objects(t_doom3d *app);
+void						delete_objects_set_for_deletion(t_doom3d *app);
+t_bool						should_update_npc_state(t_doom3d *app);
+t_bool						object_has_forces(t_3d_object *obj);
 void						object_type_to_str(t_3d_object *obj, char *str);
 t_3d_object					*find_one_object_by_type(t_doom3d *app,
 								uint32_t object_type,
@@ -745,10 +758,8 @@ t_3d_object					*place_temp_object(t_doom3d *app,
 												t_vec3 pos,
 												int32_t lifetime_and_delay[2]);
 t_3d_object					*place_procedural_temp_object(t_doom3d *app,
-												t_3d_object *model,
-												const char *filenames[2],
-												t_vec3 pos,
-												int32_t lifetime_and_delay[2]);
+											t_procedural_tmp_obj_params params,
+											t_vec3 pos);
 void						get_mouse_world_position(t_doom3d *app,
 													t_vec3 mouse_world_pos);
 void						select_object(t_doom3d *app, t_3d_object *object);

@@ -103,10 +103,12 @@ SOURCES = main.c \
 			path/path.c \
 			path/path2.c \
 			path/patrol_path.c \
-			object/object_utils.c \
-			object/object_utils2.c \
-			object/object_update.c \
-			object/game_end.c \
+			scene_objects/object_utils.c \
+			scene_objects/object_next_index.c \
+			scene_objects/object_scene_placement.c \
+			scene_objects/object_update.c \
+			scene_objects/object_update_utils.c \
+			scene_objects/game_end.c \
 			physics/is_grounded.c \
 			physics/forces_update.c \
 			physics/physics_obj_utils.c \
@@ -288,7 +290,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/player
 	@mkdir -p temp/animations
 	@mkdir -p temp/npc
-	@mkdir -p temp/object
+	@mkdir -p temp/scene_objects
 	@mkdir -p temp/physics
 	@mkdir -p temp/trigger
 	@mkdir -p temp/path
