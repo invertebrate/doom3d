@@ -13,15 +13,15 @@
 #ifndef GAME_OBJECTS_H
 # define GAME_OBJECTS_H
 
-# define NPC_MONSTER01_MODEL "assets/models/monster_01/monster01_basemodel_000.obj"
-# define NPC_MONSTER01_TEXTURE "assets/textures/monster_01/monster01_diffuse.bmp"
-# define NPC_MONSTER01A_TEXTURE "assets/textures/monster_01/monster01a_diffuse.bmp"
-# define NPC_MONSTER01B_TEXTURE "assets/textures/monster_01/monster01b_diffuse.bmp"
-# define NPC_MONSTER01_NORMM "assets/textures/monster_01/monster01_normal.bmp"
+# define MONSTER01_MODEL "assets/models/monster_01/monster01_basemodel_000.obj"
+# define MONSTER01_TEXTURE "assets/textures/monster_01/monster01_diffuse.bmp"
+# define MONSTER01A_TEXTURE "assets/textures/monster_01/monster01a_diffuse.bmp"
+# define MONSTER01B_TEXTURE "assets/textures/monster_01/monster01b_diffuse.bmp"
+# define MONSTER01_NORMM "assets/textures/monster_01/monster01_normal.bmp"
 
-# define NPC_MONSTER02_MODEL "assets/models/monster_02/monster02_basemodel_000.obj"
-# define NPC_MONSTER02_TEXTURE "assets/textures/monster_02/monster02_diffuse.bmp"
-# define NPC_MONSTER02_NORMM "assets/textures/monster_02/monster02_normal.bmp"
+# define MONSTER02_MODEL "assets/models/monster_02/monster02_basemodel_000.obj"
+# define MONSTER02_TEXTURE "assets/textures/monster_02/monster02_diffuse.bmp"
+# define MONSTER02_NORMM "assets/textures/monster_02/monster02_normal.bmp"
 
 # define NPC_ELEVATOR_MODEL "assets/models/box.obj"
 # define NPC_ELEVATOR_TEXTURE "assets/textures/rock.bmp"

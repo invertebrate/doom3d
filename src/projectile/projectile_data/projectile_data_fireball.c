@@ -65,6 +65,6 @@ t_projectile	projectile_data_fireball(t_doom3d *app)
 	projectile.radius = 5 * app->unit_size;
 	projectile.model_key = "assets/models/npc_projectile.obj";
 	projectile.texture_key = NPC_PROJECTILE_00;
-	projectile.normal_map_key = NPC_MONSTER01_NORMM;
+	projectile.normal_map_key = MONSTER01_NORMM;
 	return (projectile);
 }

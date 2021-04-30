@@ -46,7 +46,7 @@ void	npc_monster01(t_doom3d *app, t_npc *npc, int type)
 {
 	if (type == npc_type_monster01_a)
 	{
-		npc->texture_key = NPC_MONSTER01A_TEXTURE;
+		npc->texture_key = MONSTER01A_TEXTURE;
 		npc->model_scale = 0.03;
 		npc->type = type;
 		npc->hp = 200;
@@ -56,9 +56,9 @@ void	npc_monster01(t_doom3d *app, t_npc *npc, int type)
 	}
 	if (type == npc_type_monster01_range)
 	{
-		npc->model_key = NPC_MONSTER01_MODEL;
-		npc->texture_key = NPC_MONSTER01B_TEXTURE;
-		npc->normal_map_key = NPC_MONSTER01_NORMM;
+		npc->model_key = MONSTER01_MODEL;
+		npc->texture_key = MONSTER01B_TEXTURE;
+		npc->normal_map_key = MONSTER01_NORMM;
 		npc->model_scale = 0.009;
 		npc->hp = 80;
 		npc->speed = app->unit_size / 3.3; // slightly faster than melee counter-part. or should it be slower?
@@ -92,9 +92,9 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->interest = 0;
 	npc->max_interest = 100;
 	npc->model_scale = 0.01;
-	npc->model_key = NPC_MONSTER01_MODEL;
-	npc->texture_key = NPC_MONSTER01_TEXTURE;
-	npc->normal_map_key = NPC_MONSTER01_NORMM;
+	npc->model_key = MONSTER01_MODEL;
+	npc->texture_key = MONSTER01_TEXTURE;
+	npc->normal_map_key = MONSTER01_NORMM;
 	npc->animation_3d = dummy; //segfaults when dummy no exists
 	// npc->animation_3d = NULL;
 	ml_vector3_set(npc->velocity, 0, 0, 0);
