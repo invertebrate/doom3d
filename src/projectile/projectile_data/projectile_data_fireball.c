@@ -12,38 +12,22 @@
 
 #include "doom3d.h"
 
-t_projectile	projectile_data_fireball_custom(t_doom3d *app, int type)
+static t_projectile	fire_custom(t_projectile projectile, int type)
 {
-	t_projectile	projectile;
-
-	projectile = projectile_data_fireball(app);
-	projectile.type = type;
-	if (type == projectile_type_fireball_green)// smaller range, higher dmg
-	{
-		projectile.texture_key = NPC_PROJECTILE_02;
-		projectile.damage *= 1.5f;
-		projectile.range *= 0.8f;
-	}
-	else if (type == projectile_type_fireball_lgreen)// small range, high dmg
-	{
-		projectile.texture_key = NPC_PROJECTILE_03;
-		projectile.damage *= 2;
-		projectile.range *= 0.5f;
-	}
-	else if (type == projectile_type_fireball_pink)// super fast, low dmg
+	if (type == projectile_type_fireball_pink)
 	{
 		projectile.texture_key = NPC_PROJECTILE_04;
 		projectile.damage *= 0.1f;
 		projectile.speed *= 5;
 		projectile.radius *= 0.01f;
 	}
-	else if (type == projectile_type_fireball_yellow)// faster, lower dmg
+	else if (type == projectile_type_fireball_yellow)
 	{
 		projectile.texture_key = NPC_PROJECTILE_05;
 		projectile.damage *= 0.5f;
 		projectile.speed *= 3;
 	}
-	else if (type == projectile_type_fireball_purple)// big explosion, slow
+	else if (type == projectile_type_fireball_purple)
 	{
 		projectile.texture_key = NPC_PROJECTILE_06;
 		projectile.radius *= 5;
@@ -53,7 +37,30 @@ t_projectile	projectile_data_fireball_custom(t_doom3d *app, int type)
 	return (projectile);
 }
 
-t_projectile	projectile_data_fireball(t_doom3d *app)
+t_projectile		projectile_data_fireball_custom(t_doom3d *app, int type)
+{
+	t_projectile	projectile;
+
+	projectile = projectile_data_fireball(app);
+	projectile.type = type;
+	if (type == projectile_type_fireball_green)
+	{
+		projectile.texture_key = NPC_PROJECTILE_02;
+		projectile.damage *= 1.5f;
+		projectile.range *= 0.8f;
+	}
+	else if (type == projectile_type_fireball_lgreen)
+	{
+		projectile.texture_key = NPC_PROJECTILE_03;
+		projectile.damage *= 2;
+		projectile.range *= 0.5f;
+	}
+	else
+		return (fire_custom(projectile, type));
+	return (projectile);
+}
+
+t_projectile		projectile_data_fireball(t_doom3d *app)
 {
 	t_projectile	projectile;
 
