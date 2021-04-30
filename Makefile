@@ -128,6 +128,7 @@ SOURCES = main.c \
 			scene/asset_loading/npcs.c \
 			scene/asset_loading/lights.c \
 			scene/asset_loading/triggers.c \
+			scene/asset_loading/triggers_drops.c \
 			scene/asset_loading/prefabs.c \
 			scene/scene_content.c \
 			editor/editor_selection.c \
