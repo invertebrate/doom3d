@@ -32,7 +32,8 @@ t_3d_object		*place_jukebox(t_doom3d *app)
 		e_shading_invisible | e_shading_transparent);
 	app->active_scene->objects[app->active_scene->last_object_index]->type =
 		object_type_trigger;
-	trigger_params.key_id = 1;
+	if (app->editor.patrol_slot < AUDIO_LOG)
+		trigger_params.key_id = app->editor.patrol_slot;
 	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
 	l3d_3d_object_set_params(
 		app->active_scene->objects[app->active_scene->last_object_index],
