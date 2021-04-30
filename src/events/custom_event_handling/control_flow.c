@@ -24,12 +24,14 @@ void		handle_toggle_pause_game(t_doom3d *app)
 	{
 		SDL_ShowCursor(SDL_ENABLE);
 		SDL_SetRelativeMouseMode(SDL_FALSE);
+		mp_typec(app, 0, 2, SPAUSED);
 	}
 	else
 	{
 		SDL_ShowCursor(SDL_DISABLE);
 		SDL_SetRelativeMouseMode(SDL_TRUE);
 		SDL_GetRelativeMouseState(NULL, NULL);
+		mp_typec(app, 0, 2, SPLAYING);
 	}
 }
 
