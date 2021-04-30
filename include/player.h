@@ -24,8 +24,8 @@
 # define PLAYER_HEIGHT_CROUCH 0.75
 # define MAX_KEYS 32
 
-#include "lib3d.h"
-#include "game_objects.h"
+# include "lib3d.h"
+# include "game_objects.h"
 
 /*
 ** Directions to which player can move

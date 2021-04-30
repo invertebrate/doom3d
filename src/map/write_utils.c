@@ -113,10 +113,7 @@ void			write_npc_patrol_path_information(int32_t fd, t_doom3d *app)
 			j = -1;
 			while (++j < npc->num_patrol_path_nodes)
 				if (npc->patrol_path[j])
-				{
 					ret = write(fd, &npc->patrol_path[j]->id, sizeof(uint32_t));
-					LOG_INFO("patrol_path_node id = %d", npc->patrol_path[j]->id);//test
-				}
 				else
 					ret = write(fd, 0, sizeof(uint32_t));
 		}

@@ -17,7 +17,7 @@
 # include <SDL_audio.h>
 # endif
 # ifdef __linux__
-#  include <SDL2/SDL_audio.h>
+# include <SDL2/SDL_audio.h>
 # endif
 
 /*
@@ -32,7 +32,8 @@
 # define PREF_CHAN 2
 # define PREF_FREQ 44100
 # define SOUND_DIST 100000
-# define SOUNDS 40 // MUSIC + SEFFECT
+
+# define SOUNDS 40
 # define MUSIC 2
 # define SEFFECT 38// + 20
 # define AUDIO_LOG 20

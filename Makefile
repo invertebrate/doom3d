@@ -55,6 +55,7 @@ SOURCES = main.c \
 			player/player_status.c \
 			player/player_vitals_render.c \
 			player/player_flashlight.c \
+			player/player_init.c \
 			projectile/projectile_init.c \
 			projectile/projectile_update.c \
 			projectile/projectile_data/projectile_data_rpg.c \
@@ -98,6 +99,7 @@ SOURCES = main.c \
 			object/game_end.c \
 			physics/is_grounded.c \
 			physics/forces_update.c \
+			physics/physics_obj_utils.c \
 			camera.c \
 			utils.c \
 			performance_counter.c \

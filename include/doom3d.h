@@ -308,6 +308,14 @@ void						update_object_forces(t_doom3d *app,
 void						update_object_physics_state(t_doom3d *app,
 								t_3d_object *obj);
 void						forces_update_player(t_doom3d *app);
+t_3d_object					*object_under(t_doom3d *app,
+											t_vec3 origin, uint32_t self_id,
+											t_vec3 hit_point);
+t_3d_object					*object_above(t_doom3d *app,
+											t_vec3 origin, uint32_t self_id,
+											t_vec3 hit_point);
+t_bool						obj_is_grounded(t_doom3d *app,
+											t_3d_object *falling_obj);
 
 /*
 ** Events

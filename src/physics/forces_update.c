@@ -96,7 +96,7 @@ void		update_object_forces(t_doom3d *app, t_3d_object *obj)
 	}
 }
 
-static void		nudge_object_up(t_doom3d *app, t_3d_object *obj)
+static void	nudge_object_up(t_doom3d *app, t_3d_object *obj)
 {
 	while (obj_is_grounded(app, obj))
 		l3d_3d_object_translate(obj, 0, -25, 0);
@@ -104,7 +104,7 @@ static void		nudge_object_up(t_doom3d *app, t_3d_object *obj)
 		l3d_3d_object_translate(obj, 0, 25, 0);
 }
 
-void			update_object_physics_state(t_doom3d *app, t_3d_object *obj)
+void		update_object_physics_state(t_doom3d *app, t_3d_object *obj)
 {
 	t_npc			*npc;
 	t_bool			is_grounded;
@@ -122,7 +122,7 @@ void			update_object_physics_state(t_doom3d *app, t_3d_object *obj)
 				npc->physics_state = physics_state_falling;
 			if (is_grounded && npc->physics_state != physics_state_jumping)
 			{
-				npc->physics_state = physics_state_grounded;	
+				npc->physics_state = physics_state_grounded;
 				nudge_object_up(app, obj);
 			}
 		}

@@ -189,7 +189,8 @@ void						window_text_render_wrapped(t_window *window,
 								t_text_params params, TTF_Font *font);
 void						window_text_render_centered(t_window *window,
 								t_text_params params, TTF_Font *font);
-void						window_text_render_centered_wrapped(t_window *window,
+void						window_text_render_centered_wrapped(
+									t_window *window,
 									t_text_params params, TTF_Font *font);
 SDL_Surface					*surface_from_font_shaded(t_text_params params,
 								TTF_Font *font);
@@ -203,7 +204,6 @@ void						window_text_render_shaded(t_window *window,
 								t_text_params params, TTF_Font *font);
 void						window_text_render_wrapped_shaded(t_window *window,
 								t_text_params params, TTF_Font *font);
-
 
 /*
 ** Utils

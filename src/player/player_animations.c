@@ -158,7 +158,8 @@ void	player_animations_init(t_doom3d *app)
 ** by animation_id becomes current animation.
 */
 
-static void				set_player_animation(t_doom3d *app, uint32_t animation_id)
+static void				set_player_animation(t_doom3d *app,
+											uint32_t animation_id)
 {
 	t_sprite_anim *curr_player_anim;
 

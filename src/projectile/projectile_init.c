@@ -17,8 +17,6 @@ void	projectile_data_init(t_doom3d *app)
 	app->projectile_data[projectile_type_rpg] = projectile_data_rpg(app);
 	app->projectile_data[projectile_type_fireball] =
 											projectile_data_fireball(app);
-	// app->projectile_data[projectile_type_fireball_blue] =
-	// 	projectile_data_fireball_custom(app, projectile_type_fireball_blue);
 	app->projectile_data[projectile_type_fireball_green] =
 		projectile_data_fireball_custom(app, projectile_type_fireball_green);
 	app->projectile_data[projectile_type_fireball_lgreen] =

@@ -120,7 +120,7 @@ t_3d_object			*editor_place_trigger_object(t_doom3d *app,
 	else if (trigger_type == trigger_elevator_switch)
 	{
 		trigger = place_elevator_switch(app);
-		placement_notification(app, "Placing door/elevator switch");
+		placement_notification(app, "Placing door/elevator switch");//this can be normed instantly if notifications are removed
 	}
 	else if (trigger_type == trigger_door_switch)
 	{
