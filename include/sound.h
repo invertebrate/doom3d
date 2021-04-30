@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:59:45 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/24 15:33:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 14:36:52 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@
 # define PREF_CHAN 2
 # define PREF_FREQ 44100
 # define SOUND_DIST 100000
-# define SOUNDS 19
+# define SOUNDS 20
 # define MUSIC 2
-# define SEFFECT 17
+# define SEFFECT 18
 # define TRACK1 "assets/sounds/basic_music.wav"
 # define TRACK2 "assets/sounds/doom_music.wav"
 # define SF_SHTG_FIRE "assets/sounds/shotgun_fire.wav"
@@ -54,6 +54,7 @@
 # define SF_MONSTER_ALERT "assets/sounds/monster_notice.wav"
 # define SF_MONSTER_SHOOT "assets/sounds/monster_shoot.wav"
 # define SF_PLAYER_HURT "assets/sounds/player_hurt.wav"
+# define SF_CRATE_BREAK "assets/sounds/crate_break.wav"
 # define SPLAYING 1
 # define SPAUSED 2
 # define SSTOPPED 0
@@ -129,6 +130,7 @@ typedef enum			e_sounds
 	sf_monster_alert,
 	sf_monster_shoot,
 	sf_player_hurt,
+	sf_crate_break,
 }						t_sounds;
 
 /*
