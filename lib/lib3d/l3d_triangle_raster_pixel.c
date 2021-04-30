@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/28 16:16:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 18:25:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
-static void		shade_pixel(t_triangle *triangle, t_vec2 uv, uint32_t *pixel)
+static void		shade_special(t_triangle *triangle, t_vec2 uv, uint32_t *pixel)
 {
 	if ((triangle->material->shading_opts & e_shading_normal_map) &&
 		triangle->material->normal_map)
@@ -41,12 +41,11 @@ static uint32_t	pixel_trans(t_triangle *triangle, t_vec2 uv,
 	if ((triangle->material->shading_opts & e_shading_zero_alpha) &&
 		(pixel & 255) == 0)
 		return (UINT32_MAX);
-	shade_pixel(triangle, uv, &pixel);
+	shade_special(triangle, uv, &pixel);
 	if (triangle->material->shading_opts & e_shading_luminous ||
 		triangle->material->shading_opts & e_shading_lit)
 		return (pixel);
-	else
-		pixel = l3d_pixel_light_shaded(triangle, baryc, pixel);
+	pixel = l3d_pixel_light_shaded(triangle, baryc, pixel);
 	return (pixel);
 }
 
@@ -72,12 +71,11 @@ static uint32_t	pixel_color(t_triangle *triangle, t_vec2 uv,
 	if ((triangle->material->shading_opts & e_shading_zero_alpha) &&
 		(pixel & 255) == 0)
 		return (UINT32_MAX);
-	shade_pixel(triangle, uv, &pixel);
+	shade_special(triangle, uv, &pixel);
 	if (triangle->material->shading_opts & e_shading_luminous ||
 		triangle->material->shading_opts & e_shading_lit)
 		return (pixel);
-	else
-		pixel = l3d_pixel_light_shaded(triangle, baryc, pixel);
+	pixel = l3d_pixel_light_shaded(triangle, baryc, pixel);
 	return (pixel);
 }
 
