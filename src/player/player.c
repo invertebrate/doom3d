@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/27 01:11:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 14:08:02 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	app->player.rot_y = 0;
 	app->player.player_height = PLAYER_HEIGHT * app->unit_size;
 	app->player.fire_rate_per_sec = 4.0;
-	app->player.aabb.size[0] = app->unit_size / 2.0;
+	app->player.aabb.size[0] = app->unit_size;
 	app->player.aabb.size[1] = app->player.player_height;
-	app->player.aabb.size[2] = app->unit_size / 2.0;
-	app->player.max_hp = 1000;
-	app->player.hp = 1000;
+	app->player.aabb.size[2] = app->unit_size;
+	app->player.max_hp = 100;
+	app->player.hp = 100;
 	app->player.physics_state = physics_state_grounded;
 	app->player.jump_force = PLAYER_JUMP_FORCE;
 	app->player.can_fly = false;
