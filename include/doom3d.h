@@ -885,7 +885,7 @@ float						sound_mag(t_vec3 v1, t_vec3 v2);
 void						mp_typec(t_doom3d *app, char type, char sound,
 									char state);
 void						mp_print(t_mp *mp);
-void						mp_reorder(t_sound **start, t_sound *new);
+void						mp_reorder(t_sound **start, t_sound *new, t_sound *prev);
 void						mp_music_init(t_doom3d *app);
 void						mp_effect_init(t_doom3d *app);
 

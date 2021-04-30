@@ -24,7 +24,7 @@ int				handle_play_effect(t_doom3d *app, int ind, t_sound *new)
 		return (0);
 	new->sound = app->mp.library[ind];
 	SDL_LockAudioDevice(app->mp.audev);
-	mp_reorder(&app->mp.effects, new);
+	mp_reorder(&app->mp.effects, new, NULL);
 	SDL_UnlockAudioDevice(app->mp.audev);
 	return (1);
 }
@@ -41,7 +41,7 @@ int				handle_play_music(t_doom3d *app, int ind, t_sound *new)
 		return (0);
 	new->sound = app->mp.library[ind];
 	SDL_LockAudioDevice(app->mp.audev);
-	mp_reorder(&app->mp.tracks, new);
+	mp_reorder(&app->mp.tracks, new, NULL);
 	SDL_UnlockAudioDevice(app->mp.audev);
 	return (1);
 }
