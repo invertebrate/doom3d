@@ -61,9 +61,9 @@ void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->interest = 0;
 	npc->max_interest = 100;
 	npc->model_scale = 0.0065;
-	npc->model_key = NPC_MONSTER02_MODEL;
-	npc->texture_key = NPC_MONSTER02_TEXTURE;
-	npc->normal_map_key = NPC_MONSTER02_NORMM;
+	npc->model_key = MONSTER02_MODEL;
+	npc->texture_key = MONSTER02_TEXTURE;
+	npc->normal_map_key = MONSTER02_NORMM;
 	npc->animation_3d = dummy;
 	ml_vector3_set(npc->velocity, 0, 0, 0);
 	set_attack_pattern(npc);

@@ -111,7 +111,6 @@ static void	npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj,
 		hash_map_get(app->active_scene->animation_3d_frames,
 			(int64_t)(app->active_scene->asset_files.animation_3d_files[i])),
 			app->unit_size);
-		npc->animation_3d->animation_frames[i]->material->shading_opts = 0;
 		npc_anim3d_material_copy(obj, npc->animation_3d->animation_frames[i]);
 		l3d_3d_object_scale(npc->animation_3d->animation_frames[i],
 							npc->model_scale, npc->model_scale,
