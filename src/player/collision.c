@@ -16,6 +16,7 @@
 ** https://gamedev.stackexchange.com/questions/49956/
 ** collision-detection-smooth-wall-sliding-no-bounce-effect
 */
+
 /*
 static void		nudge_away(t_doom3d *app, t_player *future_player,
 									t_3d_object *collider, t_vec3 hit_point)
@@ -56,7 +57,7 @@ static void		nudge_away(t_doom3d *app, t_player *future_player,
 	player_update_aabb(&app->player);
 }*/
 
-static void		limit_movement_add_by_collision(t_vec3 collision_normal,
+static void		limit_move_add_by_collision(t_vec3 collision_normal,
 					t_vec3 dir_add)
 {
 	t_vec3		direction_wall_part;
@@ -72,8 +73,8 @@ static void		set_future_player(t_doom3d *app, t_vec3 add,
 {
 	t_vec3	new_add;
 
-	ml_vector3_add(add, 
-			(t_vec3) {0, -app->player.player_height / 4, 0}, new_add);
+	ml_vector3_add(add, (t_vec3) {0, -app->player.player_height / 4, 0},
+					new_add);
 	ft_memcpy(future_player, &app->player, sizeof(t_player));
 	ml_vector3_add(future_player->pos, new_add, future_player->pos);
 	player_update_aabb(future_player);
@@ -148,19 +149,14 @@ void			collision_limit_player_horizontal(t_doom3d *app, t_vec3 add)
 	{
 		l3d_ray_set(rays[i].dir, rays[i].origin, &rays[i]);
 		hits = NULL;
-		if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, rays[i].origin,
-			rays[i].dir, &hits))
+		if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree,
+								rays[i].origin, rays[i].dir, &hits))
 		{
 			closest_triangle_hit = NULL;
-			l3d_get_closest_triangle_hit_at_range(hits,
-				&closest_triangle_hit, -1,
-				0.1 * app->unit_size);
+			l3d_get_closest_triangle_hit_at_range(hits, &closest_triangle_hit,
+													-1, 0.1 * app->unit_size);
 			if (closest_triangle_hit != NULL)
-			{
-				limit_movement_add_by_collision(closest_triangle_hit->normal,
-					add);
-				//nudge_away(app, &future_player, closest_triangle_hit->triangle->parent, closest_triangle_hit->hit_point);
-			}
+				limit_move_add_by_collision(closest_triangle_hit->normal, add);
 			l3d_delete_hits(&hits);
 		}
 	}
