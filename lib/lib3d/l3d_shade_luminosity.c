@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   l3d_shade_luminosity.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo     <veilo@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/26 17:14:43 by veilo             #+#    #+#             */
 /*   Updated: 2021/04/26 18:22:19 by veilo            ###   ########.fr       */

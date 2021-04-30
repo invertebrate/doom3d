@@ -109,7 +109,6 @@ typedef struct				s_cone
 	float			radius;
 }							t_cone;
 
-
 /*
 ** Enums defining how to shade (in rasterization) the 3d object
 ** E.g. e_shading_transparent = use alpha blending
@@ -172,8 +171,6 @@ typedef struct				s_light_source
 	float		intensity;
 	uint32_t	color;
 }							t_light_source;
-
-
 
 /*
 ** Material contains object texture and normal map information and other
@@ -532,6 +529,9 @@ void						l3d_3d_object_add_light_source(t_3d_object *object,
 								uint32_t emit_color);
 float						*point_inside_cone(t_cone *cone, t_vec3 point,
 												float *vars);
+void						get_world_pos_persp_corr(t_triangle *triangle,
+														t_vec3 baryc,
+														t_vec3 world_pos);
 
 /*
 ** OBJ reading
@@ -604,7 +604,8 @@ float						l3d_pixel_get_float(float *buffer,
 void						l3d_pixel_plot_float(float *buffer,
 								uint32_t dimensions_wh[2], int32_t xy[2],
 								float value);
-void						calculate_luminosity(uint32_t *pixel, uint32_t *light,
+void						calculate_luminosity(uint32_t *pixel,
+												uint32_t *light,
 												uint32_t darkness);
 void						l3d_write_z_val(
 								t_sub_framebuffer *buffers,
