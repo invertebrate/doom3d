@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   npc_animation.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo     <veilo@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:12:44 by veilo             #+#    #+#             */
 /*   Updated: 2021/04/29 18:30:23 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "doom3d.h"
+#include "doom3d.h"
 
-uint32_t		arr_sum(uint32_t *arr, uint32_t length)
+uint32_t			arr_sum(uint32_t *arr, uint32_t length)
 {
 	uint32_t	i;
 	uint32_t	result;
@@ -56,16 +56,16 @@ void				init_anim_instance(t_doom3d *app,
 	anim_instance->params[2] = NULL;
 }
 
-void				npc_animation_3d_data_copy(t_npc *npc, t_anim_metadata
-												*anim_data)
+void				npc_animation_3d_data_copy(t_npc *npc,
+												t_anim_metadata *anim_data)
 {
 	int		i;
 	t_mat4	id_matrix;
 
 	ml_matrix4_id(id_matrix);
-	i = anim_data->frames_start_idx -1;
+	i = anim_data->frames_start_idx - 1;
 	npc->animation_3d->frame_count = anim_data->frame_count;
-	while (++i <(int)anim_data->frame_count)
+	while (++i < (int)anim_data->frame_count)
 	{
 		npc->animation_3d->clip_info->anim_frame_numbers[i] =
 			anim_data->anim_frame_numbers[i];
