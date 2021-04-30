@@ -42,6 +42,7 @@ void			trigger_activate(t_doom3d *app, t_3d_object *obj)
 {
 	t_trigger	*trigger;
 
+	trigger = NULL;
 	if ((trigger = obj->params) == NULL)
 		return ;
 	if (obj->params_type == trigger_elevator_switch)
@@ -107,7 +108,7 @@ void			trigger_update_key_id(t_doom3d *app, t_3d_object *key)
 		}
 	}
 	else if (key->params_type == trigger_jukebox)
-		trigger_handle_trigger_jukebox(app, key, trigger);
+		trigger_handle_trigger_jukebox(app, key, NULL);
 }
 
 void			get_trigger_action_text(t_trigger_type type,

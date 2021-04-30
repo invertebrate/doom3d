@@ -26,7 +26,7 @@ static t_surface	*get_1080p_animation_source(t_doom3d *app)
 	else if (app->player.equipped_weapon->id == weapon_rpg)
 	{
 		return ((t_surface*)hash_map_get(app->active_scene->animation_textures,
-			(int)"assets/animations/rpg_anim_1080p.bmp"));
+			(long int)"assets/animations/rpg_anim_1080p.bmp"));
 	}
 	return (NULL);
 }
