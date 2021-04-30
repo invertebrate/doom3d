@@ -14,10 +14,10 @@
 # define SOUND_H
 
 # ifdef __APPLE__
-# include <SDL_audio.h>
+#  include <SDL_audio.h>
 # endif
 # ifdef __linux__
-# include <SDL2/SDL_audio.h>
+#  include <SDL2/SDL_audio.h>
 # endif
 
 /*
@@ -35,7 +35,7 @@
 
 # define SOUNDS 40
 # define MUSIC 2
-# define SEFFECT 38// + 20
+# define SEFFECT 38
 # define AUDIO_LOG 20
 # define TRACK1 "assets/sounds/basic_music.wav"
 # define TRACK2 "assets/sounds/doom_music.wav"
@@ -92,18 +92,16 @@ typedef struct			s_track
 	Uint32	len;
 }						t_track;
 
-typedef struct			s_sound t_sound;
-
 typedef struct			s_sound
 {
-	t_track	*sound;
-	Uint32	pos;
-	char	state;
-	char	type;
-	char	loop;
-	char	priority;
-	float	vol;
-	t_sound	*next;
+	t_track			*sound;
+	Uint32			pos;
+	char			state;
+	char			type;
+	char			loop;
+	char			priority;
+	float			vol;
+	struct s_sound	*next;
 }						t_sound;
 
 typedef struct			s_mp
