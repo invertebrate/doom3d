@@ -897,6 +897,15 @@ void						trigger_timer_start(t_doom3d *app,
 void						trigger_timer_update(t_doom3d *app);
 void						get_trigger_action_text(t_trigger_type type,
 													char *action_text);
+t_3d_object					*place_elevator_switch(t_doom3d *app);
+
+void						trigger_handle_elevator_switch(t_doom3d *app,
+												t_trigger *trigger);
+void						trigger_handle_door_switch(t_doom3d *app,
+														t_trigger *trigger);
+void						trigger_handle_trigger_jukebox(t_doom3d *app,
+														t_3d_object *key,
+														t_trigger *trigger);
 
 /*
 ** Player animations
