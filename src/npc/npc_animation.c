@@ -24,8 +24,8 @@ void		npc_monster01_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	anim_data->anim_count = 5;
 	anim_data->clip_lengths[0] = 1;
 	anim_data->clip_lengths[1] = 65;
-	anim_data->clip_lengths[2] = 17;
-	anim_data->clip_lengths[3] = 31;
+	anim_data->clip_lengths[2] = 13;
+	anim_data->clip_lengths[3] = 17;
 	anim_data->clip_lengths[4] = 49;
 	anim_data->frame_count = arr_sum(anim_data->clip_lengths,
 										anim_data->anim_count);
@@ -51,11 +51,11 @@ void		npc_monster02_anim_3d_metadata_set(t_anim_metadata *anim_data)
 	anim_data->clip_lengths[0] = 1;
 	anim_data->clip_lengths[1] = 59;
 	anim_data->clip_lengths[2] = 20;
-	anim_data->clip_lengths[3] = 20;
+	anim_data->clip_lengths[3] = 12;
 	anim_data->clip_lengths[4] = 32;
 	anim_data->frame_count = arr_sum(anim_data->clip_lengths,
 										anim_data->anim_count);
-	anim_data->frames_start_idx = 163;
+	anim_data->frames_start_idx = 145;
 	anim_data->anim_clip_start_indices[0] = anim_data->frames_start_idx;
 	anim_data->anim_clip_start_indices[1] = anim_data->frames_start_idx +
 											anim_data->clip_lengths[0];

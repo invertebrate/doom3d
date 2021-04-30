@@ -51,9 +51,9 @@ void			scene_animation_3d_files_set(t_asset_files *data)
 	scene_animation_3d_frames_set(data,
 		"assets/models/monster_01/idle/monster01_idle", 65);
 	scene_animation_3d_frames_set(data,
-		"assets/models/monster_01/move/monster01_move", 17);
+		"assets/models/monster_01/move/monster01_move", 13);
 	scene_animation_3d_frames_set(data,
-		"assets/models/monster_01/attack/monster01_attack", 31);
+		"assets/models/monster_01/attack/monster01_attack", 17);
 	scene_animation_3d_frames_set(data,
 		"assets/models/monster_01/death/monster01_death", 49);
 	scene_animation_3d_frames_set(data,
@@ -63,7 +63,7 @@ void			scene_animation_3d_files_set(t_asset_files *data)
 	scene_animation_3d_frames_set(data,
 		"assets/models/monster_02/move/monster02_move", 20);
 	scene_animation_3d_frames_set(data,
-		"assets/models/monster_02/attack/monster02_attack", 20);
+		"assets/models/monster_02/attack/monster02_attack", 12);
 	scene_animation_3d_frames_set(data,
 		"assets/models/monster_02/death/monster02_death", 32);
 }
