@@ -275,6 +275,17 @@ void						projectile_explosion(t_doom3d *app, t_vec3 pos,
 void						place_projectile_object_in_scene(t_doom3d *app,
 								t_projectile *projectile, t_vec3 origin,
 															t_vec3 rot);
+int							check_projectile_collision_with_player(
+								t_doom3d *app, t_3d_object *projectile_obj);
+int							projectile_check_terrain_collision(
+								t_doom3d *app, t_3d_object *projectile_obj);
+void						projectile_handle_collision(t_doom3d *app,
+								t_3d_object *projectile_obj);
+void						projectile_explode_effect(t_doom3d *app,
+								t_3d_object *projectile_obj);
+void						projectile_on_hit(t_doom3d *app,
+								t_3d_object *projectile_obj,
+								t_3d_object *hit_obj);
 
 /*
 ** Npcs
