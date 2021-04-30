@@ -6,55 +6,55 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 22:50:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:27:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 21:06:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void	draw_aabb_sub(t_doom3d *app, t_sub_framebuffer *buffers,
+static void		draw_aabb_sub(t_doom3d *app, t_sub_framebuffer *buffers,
 					t_box3d *aabb, uint32_t color)
 {
-	draw_debug_line(app, buffers, (t_vec3[2]){
+	draw_debug_line(app, buffers, (float[2][3]){
 		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_min[2]},
 		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_max[2]}}, color);
-	draw_debug_line(app, buffers, (t_vec3[2]){
+	draw_debug_line(app, buffers, (float[2][3]){
 		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_max[2]},
 		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_max[2]}}, color);
-	draw_debug_line(app, buffers, (t_vec3[2]){
+	draw_debug_line(app, buffers, (float[2][3]){
 		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_max[2]},
 		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_min[2]}}, color);
-	draw_debug_line(app, buffers, (t_vec3[2]){
+	draw_debug_line(app, buffers, (float[2][3]){
 		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_min[2]},
 		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_min[2]}}, color);
-	draw_debug_line(app, buffers, (t_vec3[2]){
+	draw_debug_line(app, buffers, (float[2][3]){
 		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]},
 		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
-	draw_debug_line(app, buffers, (t_vec3[2]){
+	draw_debug_line(app, buffers, (float[2][3]){
 		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]},
 		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
 }
 
-void		draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
+void			draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
 					t_box3d *aabb, uint32_t color)
 {
 	draw_aabb_sub(app, buffers, aabb, color);
-	draw_debug_line(app, buffers, (t_vec3[2]){
+	draw_debug_line(app, buffers, (float[2][3]){
 		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]},
 		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
-	draw_debug_line(app, buffers, (t_vec3[2]){
+	draw_debug_line(app, buffers, (float[2][3]){
 		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]},
 		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
-	draw_debug_line(app, buffers, (t_vec3[2]){
+	draw_debug_line(app, buffers, (float[2][3]){
 		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_min[2]},
 		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
-	draw_debug_line(app, buffers, (t_vec3[2]){
+	draw_debug_line(app, buffers, (float[2][3]){
 		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_max[2]},
 		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
-	draw_debug_line(app, buffers, (t_vec3[2]){
+	draw_debug_line(app, buffers, (float[2][3]){
 		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_min[2]},
 		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
-	draw_debug_line(app, buffers, (t_vec3[2]){
+	draw_debug_line(app, buffers, (float[2][3]){
 		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_max[2]},
 		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
 }
