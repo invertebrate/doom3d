@@ -12,9 +12,38 @@
 
 #include "doom3d.h"
 
+
+/*
+** Audio trigger
+*/
+
+t_3d_object		*place_jukebox(t_doom3d *app)
+{
+	t_vec3		pos;
+	t_trigger	trigger_params;
+	t_3d_object	*trigger;
+
+	editor_pos_camera_front(app, pos);
+	ft_memset(&trigger_params, 0, sizeof(t_trigger));
+	trigger = place_scene_object(app,
+		(const char*[3]){"assets/models/box.obj", NULL, NULL}, pos);
+	l3d_object_set_shading_opts(
+		app->active_scene->objects[app->active_scene->last_object_index],
+		e_shading_invisible | e_shading_transparent);
+	app->active_scene->objects[app->active_scene->last_object_index]->type =
+		object_type_trigger;
+	if (app->editor.patrol_slot < AUDIO_LOG)
+		trigger_params.key_id = app->editor.patrol_slot;
+	trigger_params.parent = app->active_scene->objects[app->active_scene->last_object_index];
+	l3d_3d_object_set_params(
+		app->active_scene->objects[app->active_scene->last_object_index],
+		&trigger_params, sizeof(t_trigger), trigger_jukebox);
+	LOG_INFO("Placed hurtbox");
+	return (trigger);
+}
+
 /*
 ** Hurtbox trigger
-** key_id used as the dmg value
 */
 
 t_3d_object		*place_hurt_box(t_doom3d *app)
@@ -320,8 +349,18 @@ void			trigger_update_key_id(t_doom3d *app, t_3d_object *key)
 		else if (app->editor.patrol_slot < MAX_KEYS)
 		{
 			trigger->key_id = app->editor.patrol_slot;
-			LOG_INFO("Key id set to slot %d", key->id, app->editor.patrol_slot);
+			LOG_INFO("Key id %d set to slot %d", key->id, app->editor.patrol_slot);
 		}
+	}
+	else if (key->params_type == trigger_jukebox)
+	{
+		trigger = key->params;
+		if (app->editor.patrol_slot < AUDIO_LOG)
+		{
+			trigger->key_id = app->editor.patrol_slot;
+			LOG_INFO("Key id set to slot %d", app->editor.patrol_slot);
+		}
+		LOG_INFO("Edited jukebox track");
 	}
 }
 

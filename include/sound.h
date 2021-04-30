@@ -32,9 +32,11 @@
 # define PREF_CHAN 2
 # define PREF_FREQ 44100
 # define SOUND_DIST 100000
-# define SOUNDS 20
+
+# define SOUNDS 40
 # define MUSIC 2
-# define SEFFECT 18
+# define SEFFECT 38// + 20
+# define AUDIO_LOG 20
 # define TRACK1 "assets/sounds/basic_music.wav"
 # define TRACK2 "assets/sounds/doom_music.wav"
 # define SF_SHTG_FIRE "assets/sounds/shotgun_fire.wav"
@@ -55,6 +57,27 @@
 # define SF_MONSTER_SHOOT "assets/sounds/monster_shoot.wav"
 # define SF_PLAYER_HURT "assets/sounds/player_hurt.wav"
 # define SF_CRATE_BREAK "assets/sounds/crate_break.wav"
+# define SF_AUDIO_LOG_1 "assets/sounds/story_1.wav"
+# define SF_AUDIO_LOG_2 "assets/sounds/story_2.wav"
+# define SF_AUDIO_LOG_3 "assets/sounds/story_3.wav"
+# define SF_AUDIO_LOG_4 "assets/sounds/story_4.wav"
+# define SF_AUDIO_LOG_5 "assets/sounds/story_5.wav"
+# define SF_AUDIO_LOG_6 "assets/sounds/story_6.wav"
+# define SF_AUDIO_LOG_7 "assets/sounds/story_7.wav"
+# define SF_AUDIO_LOG_8 "assets/sounds/story_8.wav"
+# define SF_AUDIO_LOG_9 "assets/sounds/story_9.wav"
+# define SF_AUDIO_LOG_10 "assets/sounds/story_10.wav"
+# define SF_AUDIO_LOG_11 "assets/sounds/story_11.wav"
+# define SF_AUDIO_LOG_12 "assets/sounds/story_12.wav"
+# define SF_AUDIO_LOG_13 "assets/sounds/story_13.wav"
+# define SF_AUDIO_LOG_14 "assets/sounds/story_14.wav"
+# define SF_AUDIO_LOG_15 "assets/sounds/story_15.wav"
+# define SF_AUDIO_LOG_16 "assets/sounds/story_16.wav"
+# define SF_AUDIO_LOG_17 "assets/sounds/story_17.wav"
+# define SF_AUDIO_LOG_18 "assets/sounds/story_18.wav"
+# define SF_AUDIO_LOG_19 "assets/sounds/story_19.wav"
+# define SF_AUDIO_LOG_20 "assets/sounds/story_20.wav"
+
 # define SPLAYING 1
 # define SPAUSED 2
 # define SSTOPPED 0
@@ -131,6 +154,26 @@ typedef enum			e_sounds
 	sf_monster_shoot,
 	sf_player_hurt,
 	sf_crate_break,
+	sf_audio_log_1,
+	sf_audio_log_2,
+	sf_audio_log_3,
+	sf_audio_log_4,
+	sf_audio_log_5,
+	sf_audio_log_6,
+	sf_audio_log_7,
+	sf_audio_log_8,
+	sf_audio_log_9,
+	sf_audio_log_10,
+	sf_audio_log_11,
+	sf_audio_log_12,
+	sf_audio_log_13,
+	sf_audio_log_14,
+	sf_audio_log_15,
+	sf_audio_log_16,
+	sf_audio_log_17,
+	sf_audio_log_18,
+	sf_audio_log_19,
+	sf_audio_log_20,
 }						t_sounds;
 
 /*

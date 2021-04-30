@@ -30,6 +30,26 @@ static void	mp_effect_init2(t_doom3d *app)
 
 static void	mp_effect_init1(t_doom3d *app)
 {
+	app->mp.library[sf_audio_log_1] = read_sound(SF_AUDIO_LOG_1, app);
+	app->mp.library[sf_audio_log_2] = read_sound(SF_AUDIO_LOG_2, app);
+	app->mp.library[sf_audio_log_3] = read_sound(SF_AUDIO_LOG_3, app);
+	app->mp.library[sf_audio_log_4] = read_sound(SF_AUDIO_LOG_4, app);
+	app->mp.library[sf_audio_log_5] = read_sound(SF_AUDIO_LOG_5, app);
+	app->mp.library[sf_audio_log_6] = read_sound(SF_AUDIO_LOG_6, app);
+	app->mp.library[sf_audio_log_7] = read_sound(SF_AUDIO_LOG_7, app);
+	app->mp.library[sf_audio_log_8] = read_sound(SF_AUDIO_LOG_8, app);
+	app->mp.library[sf_audio_log_9] = read_sound(SF_AUDIO_LOG_9, app);
+	app->mp.library[sf_audio_log_10] = read_sound(SF_AUDIO_LOG_10, app);
+	app->mp.library[sf_audio_log_11] = read_sound(SF_AUDIO_LOG_11, app);
+	app->mp.library[sf_audio_log_12] = read_sound(SF_AUDIO_LOG_12, app);
+	app->mp.library[sf_audio_log_13] = read_sound(SF_AUDIO_LOG_13, app);
+	app->mp.library[sf_audio_log_14] = read_sound(SF_AUDIO_LOG_14, app);
+	app->mp.library[sf_audio_log_15] = read_sound(SF_AUDIO_LOG_15, app);
+	app->mp.library[sf_audio_log_16] = read_sound(SF_AUDIO_LOG_16, app);
+	app->mp.library[sf_audio_log_17] = read_sound(SF_AUDIO_LOG_17, app);
+	app->mp.library[sf_audio_log_18] = read_sound(SF_AUDIO_LOG_18, app);
+	app->mp.library[sf_audio_log_19] = read_sound(SF_AUDIO_LOG_19, app);
+	app->mp.library[sf_audio_log_20] = read_sound(SF_AUDIO_LOG_20, app);
 	mp_effect_init2(app);
 }
 

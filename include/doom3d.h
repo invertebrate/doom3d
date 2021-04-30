@@ -849,6 +849,7 @@ t_3d_object					*place_elevator_switch(t_doom3d *app);
 t_3d_object					*place_elevator_switch_timer(t_doom3d *app);
 t_3d_object					*place_drop_key(t_doom3d *app);
 t_3d_object					*place_hurt_box(t_doom3d *app);
+t_3d_object					*place_jukebox(t_doom3d *app);
 void						trigger_activate(t_doom3d *app, t_3d_object *obj);
 void						trigger_link_object_to_npc(t_3d_object *trigger,
 														t_3d_object *target);
@@ -893,7 +894,7 @@ float						sound_mag(t_vec3 v1, t_vec3 v2);
 void						mp_typec(t_doom3d *app, char type, char sound,
 									char state);
 void						mp_print(t_mp *mp);
-void						mp_reorder(t_sound **start, t_sound *new);
+void						mp_reorder(t_sound **start, t_sound *new, t_sound *prev);
 void						mp_music_init(t_doom3d *app);
 void						mp_effect_init(t_doom3d *app);
 

@@ -132,5 +132,10 @@ t_3d_object			*editor_place_trigger_object(t_doom3d *app,
 		trigger = place_hurt_box(app);
 		placement_notification(app, "Placing hurt box");
 	}
+	else if (trigger_type == trigger_jukebox)
+	{
+		trigger = place_jukebox(app);
+		placement_notification(app, "Placing juke box");
+	}
 	return (trigger);
 }

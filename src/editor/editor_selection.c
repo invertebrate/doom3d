@@ -54,11 +54,11 @@ static void		path_connect_selection(t_doom3d *app, t_3d_object *new)
 		old = app->editor.selected_objects[0];
 	editor_deselect_all(app);
 	select_object(app, new);
-	if (old->type == object_type_path && new->type == object_type_path)
+	if (old && old->type == object_type_path && new->type == object_type_path)
 		path_objects_set_neighbour(app, old);
-	if (old->type == object_type_npc && new->type == object_type_path)
+	if (old && old->type == object_type_npc && new->type == object_type_path)
 		patrol_path_link_node(new, old, app->editor.patrol_slot);
-	if (old->type == object_type_trigger && new->type == object_type_npc)
+	if (old && old->type == object_type_trigger && new->type == object_type_npc)
 		trigger_link_object_to_npc(old, new);
 	if ((!old && new->type == object_type_trigger) || new == old)
 		trigger_update_key_id(app, new);

@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/28 21:21:40 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:51:09 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->physics_state = physics_state_grounded;
 	ml_vector3_set_all(npc->dir, 0.0);
 	npc->atk_range = app->unit_size * 6;
-	npc->atk_dmg = 10;
-	npc->atk_dur = 500;
+	npc->atk_dmg = 25;
+	npc->atk_dur = 8000;
 	npc->vision_range = app->unit_size * 50;
 	npc->hearing_range = app->unit_size * 20;
 	npc->interest = 0;
