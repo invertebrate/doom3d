@@ -84,6 +84,7 @@ void			write_path_object_information(int32_t fd, t_doom3d *app)
 				ret = write(fd, &path_node->neighbors[j]->id, sizeof(uint32_t));
 		}
 	}
+	(void)ret;
 }
 
 /*
@@ -117,6 +118,7 @@ void			write_npc_patrol_path_information(int32_t fd, t_doom3d *app)
 					ret = write(fd, 0, sizeof(uint32_t));
 		}
 	}
+	(void)ret;
 }
 
 /*

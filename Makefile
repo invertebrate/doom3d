@@ -98,6 +98,7 @@ SOURCES = main.c \
 			object/game_end.c \
 			physics/is_grounded.c \
 			physics/forces_update.c \
+			physics/physics_obj_utils.c \
 			camera.c \
 			utils.c \
 			performance_counter.c \
