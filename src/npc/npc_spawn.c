@@ -6,7 +6,7 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 09:35:21 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/22 19:17:46 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/30 18:05:18 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ t_3d_object			*npc_spawn(t_doom3d *app, t_vec3 pos, float angle, int type)
 			npc_type_monster01_range)
 		npc_animation_3d_init(app, npc.parent);
 	if (npc.parent == NULL)
-			ft_printf("default npc parent was null\n");
-	ft_printf("Spawned npc, id = |%d|\n",
+		LOG_INFO("default npc parent was null");
+	LOG_INFO("Spawned npc, id = |%d|",
 		app->active_scene->objects[app->active_scene->last_object_index]->id);
 	return (obj);
 }

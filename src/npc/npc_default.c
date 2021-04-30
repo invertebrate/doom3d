@@ -6,13 +6,13 @@
 /*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 16:51:09 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/04/30 21:02:08 by ahakanen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void set_test_patrol_pattern(t_npc *npc)
+static void	set_test_patrol_pattern(t_npc *npc)
 {
 	int	i;
 
@@ -42,7 +42,7 @@ static void	set_attack_pattern(t_npc *npc)
 ** monster01 variant differences
 */
 
-void	npc_monster01(t_doom3d *app, t_npc *npc, int type)
+void		npc_monster01(t_doom3d *app, t_npc *npc, int type)
 {
 	if (type == npc_type_monster01_a)
 	{
@@ -61,20 +61,13 @@ void	npc_monster01(t_doom3d *app, t_npc *npc, int type)
 		npc->normal_map_key = MONSTER01_NORMM;
 		npc->model_scale = 0.009;
 		npc->hp = 80;
-		npc->speed = app->unit_size / 3.3; // slightly faster than melee counter-part. or should it be slower?
+		npc->speed = app->unit_size / 3.3;
 		npc->type = type;
 	}
 }
 
-void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
+static void	npc_default_vars(t_npc *npc)
 {
-	t_animation_3d	*dummy;
-
-	error_check(!(dummy= (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
-		"Failed to malloc for dummy in npc_default.");
-	npc->parent = obj;
-	npc->type = npc_type_monster01;
-	npc->speed = app->unit_size / 3.5;
 	npc->dir[0] = 0;
 	npc->dir[1] = 0;
 	npc->dir[2] = 0;
@@ -83,6 +76,18 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->hp = 100;
 	npc->advance = true;
 	npc->physics_state = physics_state_grounded;
+}
+
+void		npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
+{
+	t_animation_3d	*dummy;
+
+	error_check(!(dummy = (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
+		"Failed to malloc for dummy in npc_default.");
+	npc->parent = obj;
+	npc->type = npc_type_monster01;
+	npc->speed = app->unit_size / 3.5;
+	npc_default_vars(npc);
 	ml_vector3_set_all(npc->dir, 0.0);
 	npc->atk_range = app->unit_size * 6;
 	npc->atk_dmg = 25;
@@ -95,10 +100,9 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->model_key = MONSTER01_MODEL;
 	npc->texture_key = MONSTER01_TEXTURE;
 	npc->normal_map_key = MONSTER01_NORMM;
-	npc->animation_3d = dummy; //segfaults when dummy no exists
-	// npc->animation_3d = NULL;
+	npc->animation_3d = dummy;
 	ml_vector3_set(npc->velocity, 0, 0, 0);
 	npc->atk_pattern_index = 0;
 	set_attack_pattern(npc);
-	set_test_patrol_pattern(npc); //testing
+	set_test_patrol_pattern(npc);
 }

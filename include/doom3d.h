@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 21:28:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 22:04:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,28 @@ typedef struct				s_trigger_link_vars
 	uint32_t		object_id;
 	int32_t			num_trigger_links;
 }							t_trigger_link_vars;
+
+typedef struct	s_pathfind_vars
+{
+	int			i;
+	int			start_id;
+	int			end_id;
+	float		closest;
+	t_vec3		tmp;
+}				t_pathfind_vars;
+
+typedef struct	s_astar_vars
+{
+	t_path_node	*start;
+	t_path_node	*end;
+	t_path_node	*current;
+	t_path_node	*not_tested_nodes[MAX_PATH_NODE_NETWORK_SIZE];
+	t_3d_object	*obj;
+	t_3d_object	*tmp_obj[MAX_PATH_NODE_NETWORK_SIZE];
+	float		possibly_lower_goal;
+	int			i;
+	int			arr_pos;
+}				t_astar_vars;
 
 /*
 ** Main struct, "The App".
@@ -279,7 +301,7 @@ void						npc_trigger_onhit(t_doom3d *app,
 								t_3d_object *obj, int damage);
 void						npc_get_dir_to_next_waypoint(t_doom3d *app,
 														t_3d_object *obj);
-t_bool						npc_get_dir_to_next_attack_waypoint(t_doom3d *app,
+t_bool						npc_get_dir_to_next_atk(t_doom3d *app,
 															t_3d_object *obj);
 void						npc_move_step_to_waypoint(t_doom3d *app,
 														t_3d_object *obj);
@@ -292,6 +314,21 @@ void						npc_find_path(t_doom3d *app, t_npc *npc,
 											t_vec3	start, t_vec3 end);
 t_bool						npc_destroy(t_3d_object *npc_obj);
 void						check_npc_hearing(t_doom3d *app, t_vec3 hit);
+void						reset_patrol_path_if_needed(t_npc *npc);
+void						handle_reaching_waypoint(t_doom3d *app,
+											t_npc *npc, t_vec3 diff);
+void						init_pathfind_vars(t_pathfind_vars *vars);
+void						find_start_id(t_doom3d *app, t_pathfind_vars *vars,
+															t_vec3 start);
+void						init_astar_vars(t_astar_vars *vars);
+void						init_astar_vars2(t_astar_vars *v);
+void						init_astar_vars3(t_astar_vars *v);
+void						init_astar_vars4(t_doom3d *app, t_astar_vars *v);
+float						dist_between_nodes(t_path_node *start, t_path_node *end);
+void						init_astar_node(t_doom3d *app, t_astar_vars *v,
+										uint32_t start_id, uint32_t end_id);
+void						astar_handle_node(t_astar_vars *v);
+void						handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj);
 
 /*
 ** Physics
@@ -628,6 +665,8 @@ void						load_sprite_animations_to_memory(t_scene *scene,
 void						prefabs_load(t_scene *scene);
 void						triggers_load(t_scene *scene);
 void						lights_load(t_scene *scene);
+void						weapon_drops_load(t_scene *scene);
+void						item_drops_load(t_scene *scene);
 void						npcs_load(t_scene *scene);
 void						load_skybox_textures_to_memory(t_scene *scene);
 void						load_animation_3d_frames_to_memory(t_scene *scene,

@@ -81,6 +81,10 @@ SOURCES = main.c \
 			npc/npc_trigger_onhit.c \
 			npc/npc_update.c \
 			npc/npc_pathfinding.c \
+			npc/npc_move_utils.c \
+			npc/npc_astar_utils.c \
+			npc/npc_astar_utils2.c \
+			npc/npc_handle_atk_anim.c \
 			npc/npc_line_of_sight.c \
 			npc/npc_animation.c \
 			npc/npc_anim_utils.c \
@@ -130,6 +134,7 @@ SOURCES = main.c \
 			scene/asset_loading/npcs.c \
 			scene/asset_loading/lights.c \
 			scene/asset_loading/triggers.c \
+			scene/asset_loading/triggers_drops.c \
 			scene/asset_loading/prefabs.c \
 			scene/scene_content.c \
 			editor/editor_selection.c \
