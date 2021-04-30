@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 22:53:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 20:58:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 static void		triangle_wireframe_draw(t_sub_framebuffer *buffers,
 					t_vec2 points2d[3], uint32_t color)
 {
-	l3d_line_draw(buffers->buffer, (uint32_t[2]){
+	l3d_line_draw(buffers->buffer, (unsigned int[2]){
 		buffers->width, buffers->height
-	}, (int32_t[2][2]){{points2d[0][0] + buffers->x_offset,
+	}, (int[2][2]){{points2d[0][0] + buffers->x_offset,
 			points2d[0][1] + buffers->y_offset},
 		{points2d[1][0] + buffers->x_offset,
 			points2d[1][1] + buffers->y_offset}}, color);
-	l3d_line_draw(buffers->buffer, (uint32_t[2]){
+	l3d_line_draw(buffers->buffer, (unsigned int[2]){
 		buffers->width, buffers->height
-	}, (int32_t[2][2]){{points2d[1][0] + buffers->x_offset,
+	}, (int[2][2]){{points2d[1][0] + buffers->x_offset,
 			points2d[1][1] + buffers->y_offset},
 		{points2d[2][0] + buffers->x_offset,
 			points2d[2][1] + buffers->y_offset}}, color);
-	l3d_line_draw(buffers->buffer, (uint32_t[2]){
+	l3d_line_draw(buffers->buffer, (unsigned int[2]){
 		buffers->width, buffers->height
-	}, (int32_t[2][2]){{points2d[2][0] + buffers->x_offset,
+	}, (int[2][2]){{points2d[2][0] + buffers->x_offset,
 			points2d[2][1] + buffers->y_offset},
 		{points2d[0][0] + buffers->x_offset,
 			points2d[0][1] + buffers->y_offset}}, color);
@@ -72,14 +72,13 @@ void			draw_selected_enemies_direction(t_render_work *work)
 				work->framebuffer->sub_buffers[work->sub_buffer_i],
 				obj);
 	}
-
 }
 
 void			draw_npc_dirs(t_render_work *work)
 {
 	int32_t		i;
 	t_3d_object	*obj;
-	
+
 	i = -1;
 	while (++i < (int32_t)(work->app->active_scene->num_objects +
 		work->app->active_scene->num_deleted))
@@ -87,7 +86,7 @@ void			draw_npc_dirs(t_render_work *work)
 		obj = work->app->active_scene->objects[i];
 		if (obj && obj->type == object_type_npc)
 			draw_enemy_direction(work->app,
-				work->framebuffer->sub_buffers[work->sub_buffer_i], obj);		
+				work->framebuffer->sub_buffers[work->sub_buffer_i], obj);
 	}
 }
 

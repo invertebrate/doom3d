@@ -665,6 +665,8 @@ void						load_sprite_animations_to_memory(t_scene *scene,
 void						prefabs_load(t_scene *scene);
 void						triggers_load(t_scene *scene);
 void						lights_load(t_scene *scene);
+void						weapon_drops_load(t_scene *scene);
+void						item_drops_load(t_scene *scene);
 void						npcs_load(t_scene *scene);
 void						load_skybox_textures_to_memory(t_scene *scene);
 void						load_animation_3d_frames_to_memory(t_scene *scene,
@@ -931,7 +933,8 @@ float						sound_mag(t_vec3 v1, t_vec3 v2);
 void						mp_typec(t_doom3d *app, char type, char sound,
 									char state);
 void						mp_print(t_mp *mp);
-void						mp_reorder(t_sound **start, t_sound *new, t_sound *prev);
+void						mp_reorder(t_sound **start, t_sound *new,
+										t_sound *prev);
 void						mp_music_init(t_doom3d *app);
 void						mp_effect_init(t_doom3d *app);
 

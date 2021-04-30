@@ -23,7 +23,7 @@ t_projectile	projectile_data_rpg(t_doom3d *app)
 	projectile.traveled = 0;
 	projectile.radius = 10 * app->unit_size;
 	projectile.model_key = "assets/models/missile.obj";
-	projectile.texture_key = NPC_MONSTER01_TEXTURE;
-	projectile.normal_map_key = NPC_MONSTER01_NORMM;
+	projectile.texture_key = MONSTER01_TEXTURE;
+	projectile.normal_map_key = MONSTER01_NORMM;
 	return (projectile);
 }

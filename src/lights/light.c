@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:54:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 03:10:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 20:19:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ void			update_light_sources(t_doom3d *app, t_3d_object *object)
 	{
 		if (object->params != NULL && object->type == object_type_npc &&
 			app->active_scene->scene_id != scene_id_editor3d)
-		{
 			update_light_sources_anim3d(app, object);
-			return ;
-		}
 		ft_memset(object->material->light_sources, 0,
 			sizeof(object->material->light_sources));
 		object->material->num_lights = 0;

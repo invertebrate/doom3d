@@ -6,19 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:19:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/04/30 21:15:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TESTS_H
 # define TESTS_H
 
-/*
-** Vector
-*/
-
-/*
-** Matrix
-*/
+const char		*test_matrix_inverse(void);
 
 #endif

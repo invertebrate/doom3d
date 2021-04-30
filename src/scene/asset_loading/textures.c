@@ -41,9 +41,9 @@ static void		scene_texture_files_set_sub1(t_asset_files *data)
 
 static void		scene_texture_files_set_sub2(t_asset_files *data)
 {
-	data->texture_files[data->num_textures++] = NPC_MONSTER01_TEXTURE;
-	data->texture_files[data->num_textures++] = NPC_MONSTER01A_TEXTURE;
-	data->texture_files[data->num_textures++] = NPC_MONSTER01B_TEXTURE;
+	data->texture_files[data->num_textures++] = MONSTER01_TEXTURE;
+	data->texture_files[data->num_textures++] = MONSTER01A_TEXTURE;
+	data->texture_files[data->num_textures++] = MONSTER01B_TEXTURE;
 	data->texture_files[data->num_textures++] =
 		"assets/textures/monster_02/monster02_diffuse.bmp";
 	data->texture_files[data->num_textures++] =

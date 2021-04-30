@@ -118,24 +118,12 @@ t_3d_object			*editor_place_trigger_object(t_doom3d *app,
 		trigger_type == trigger_item_medkit || trigger_type == trigger_item_key)
 		trigger = place_item_drop(app, trigger_type);
 	else if (trigger_type == trigger_elevator_switch)
-	{
 		trigger = place_elevator_switch(app);
-		placement_notification(app, "Placing door/elevator switch");//this can be normed instantly if notifications are removed
-	}
 	else if (trigger_type == trigger_door_switch)
-	{
 		trigger = place_elevator_switch_timer(app);
-		placement_notification(app, "Placing door/elevator timer switch");
-	}
 	else if (trigger_type == trigger_hurtbox)
-	{
 		trigger = place_hurt_box(app);
-		placement_notification(app, "Placing hurt box");
-	}
 	else if (trigger_type == trigger_jukebox)
-	{
 		trigger = place_jukebox(app);
-		placement_notification(app, "Placing juke box");
-	}
 	return (trigger);
 }

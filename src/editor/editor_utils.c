@@ -12,6 +12,25 @@
 
 #include "doom3d.h"
 
+static void		invisible_shading_tone(t_3d_object *obj)
+{
+	if (obj->params_type == trigger_player_start)
+		obj->material->shading_opts =
+			e_shading_green | e_shading_transparent;
+	if (obj->params_type == trigger_player_end)
+		obj->material->shading_opts =
+			e_shading_red | e_shading_transparent;
+	if (obj->params_type == trigger_hurtbox)
+		obj->material->shading_opts =
+			e_shading_yellow | e_shading_transparent;
+	if (obj->params_type == trigger_jukebox)
+		obj->material->shading_opts =
+			e_shading_blue | e_shading_transparent;
+	if (obj->params_type == object_type_path)
+		obj->material->shading_opts =
+			e_shading_cyan | e_shading_transparent;
+}
+
 /*
 ** Set invisible objects to be visibly highlighted in editor
 */
@@ -32,21 +51,7 @@ void			editor_objects_invisible_highlight(t_doom3d *app)
 		{
 			obj->material->shading_opts = (obj->material->shading_opts &
 				~(e_shading_invisible));
-			if (obj->params_type == trigger_player_start)
-				obj->material->shading_opts =
-					e_shading_green | e_shading_transparent;
-			if (obj->params_type == trigger_player_end)
-				obj->material->shading_opts =
-					e_shading_red | e_shading_transparent;
-			if (obj->params_type == trigger_hurtbox)
-				obj->material->shading_opts =
-					e_shading_yellow | e_shading_transparent;
-			if (obj->params_type == trigger_jukebox)
-				obj->material->shading_opts =
-					e_shading_blue | e_shading_transparent;
-			if (obj->params_type == object_type_path)
-				obj->material->shading_opts =
-					e_shading_cyan | e_shading_transparent;
+			invisible_shading_tone(obj);
 		}
 	}
 }
