@@ -72,7 +72,8 @@ static void		projectile_explode_effect(t_doom3d *app,
 			explosions[i]);
 	push_custom_event(app,
 		event_effect_play, (void*)sf_explsion2, s_ini(0, 1, st_game,
-		distance_vol(0.7, sound_mag(app->player.pos, projectile_obj->position), 50000)));
+		distance_vol(0.7, sound_mag(app->player.pos, projectile_obj->position),
+									50000)));
 }
 
 static void		projectile_on_hit(t_doom3d *app,
@@ -130,16 +131,19 @@ static int		projectile_check_terrain_collision(t_doom3d *app,
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree,
 		projectile_obj->aabb.center, projectile->dir, &hits))
 	{
-		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit, projectile_obj->id);
+		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit,
+									projectile_obj->id);
 		if (closest_triangle_hit != NULL)
 		{
-			ml_vector3_sub(closest_triangle_hit->hit_point, projectile_obj->aabb.center, dist);
+			ml_vector3_sub(closest_triangle_hit->hit_point,
+							projectile_obj->aabb.center, dist);
 			if (ml_vector3_mag(dist) <= app->unit_size)
 				{
 					projectile_explode_effect(app, projectile_obj);
 					push_custom_event(app, event_object_delete,
 						projectile_obj, NULL);
-					projectile_on_hit(app, projectile_obj, closest_triangle_hit->triangle->parent);
+					projectile_on_hit(app, projectile_obj,
+									closest_triangle_hit->triangle->parent);
 					ret = true;
 				}
 		}

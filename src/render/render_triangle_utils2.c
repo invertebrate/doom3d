@@ -89,10 +89,7 @@ static t_triangle		*get_render_target_triangle(t_doom3d *app,
 					animation_3d->current_object->triangles + triangle_index;
 	}
 	else
-	{
 		triangle = obj->triangles + triangle_index;
-		// ft_printf("terrain shading %d\n", triangle->material->shading_opts);
-	}
 	return (triangle);
 }
 
