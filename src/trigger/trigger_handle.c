@@ -10,19 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "doom3d.h"
 
 void			trigger_handle_trigger_jukebox(t_doom3d *app, t_3d_object *key,
 												t_trigger *trigger)
 {
 	trigger = key->params;
-		if (app->editor.patrol_slot < AUDIO_LOG)
-		{
-			trigger->key_id = app->editor.patrol_slot;
-			LOG_INFO("Key id set to slot %d", app->editor.patrol_slot);
-		}
-		LOG_INFO("Edited jukebox track");
+	if (app->editor.patrol_slot < AUDIO_LOG)
+	{
+		trigger->key_id = app->editor.patrol_slot;
+		LOG_INFO("Key id set to slot %d", app->editor.patrol_slot);
+	}
+	LOG_INFO("Edited jukebox track");
 }
 
 void			trigger_handle_door_switch(t_doom3d *app, t_trigger *trigger)
