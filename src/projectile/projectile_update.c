@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:53:38 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 23:10:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 00:45:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static void		init_explosions(t_doom3d *app, t_3d_object **explosions,
 		pos, (int32_t[2]){400, 0});
 	i = -1;
 	while (++i < 4)
-		explosions[4]->material->shading_opts |= e_shading_luminous;
+		explosions[i]->material->shading_opts |= e_shading_standard
+			| e_shading_luminous;
 	l3d_3d_object_scale(explosions[4], 0.3, 0.3, 0.3);
 	l3d_object_set_shading_opts(explosions[4],
 		e_shading_invisible);

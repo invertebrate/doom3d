@@ -6,16 +6,16 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 18:25:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:51:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
-static void		shade_special(t_triangle *triangle, t_vec2 uv, uint32_t *pixel)
+static void	shade_special(t_triangle *triangle, t_vec2 uv, uint32_t *pixel)
 {
-	if ((triangle->material->shading_opts & e_shading_normal_map) &&
-		triangle->material->normal_map)
+	if ((triangle->material->shading_opts & e_shading_normal_map)
+		&& triangle->material->normal_map)
 		*pixel = l3d_pixel_normal_shaded(*pixel, triangle, uv);
 	if (triangle->material->shading_opts & e_shading_select)
 		*pixel = l3d_pixel_selection_shaded(*pixel);
@@ -38,12 +38,12 @@ static uint32_t	pixel_trans(t_triangle *triangle, t_vec2 uv,
 		pixel = L3D_DEFAULT_COLOR_TRANSPARENT;
 	if (triangle->material->texture)
 		pixel = l3d_sample_texture(triangle->material->texture, uv);
-	if ((triangle->material->shading_opts & e_shading_zero_alpha) &&
-		(pixel & 255) == 0)
+	if ((triangle->material->shading_opts & e_shading_zero_alpha)
+		&& (pixel & 255) == 0)
 		return (UINT32_MAX);
 	shade_special(triangle, uv, &pixel);
-	if (triangle->material->shading_opts & e_shading_luminous ||
-		triangle->material->shading_opts & e_shading_lit)
+	if (triangle->material->shading_opts & e_shading_luminous
+		|| triangle->material->shading_opts & e_shading_lit)
 		return (pixel);
 	pixel = l3d_pixel_light_shaded(triangle, baryc, pixel);
 	return (pixel);
@@ -68,12 +68,12 @@ static uint32_t	pixel_color(t_triangle *triangle, t_vec2 uv,
 		pixel = L3D_DEFAULT_COLOR;
 	if (triangle->material->texture)
 		pixel = l3d_sample_texture(triangle->material->texture, uv);
-	if ((triangle->material->shading_opts & e_shading_zero_alpha) &&
-		(pixel & 255) == 0)
+	if ((triangle->material->shading_opts & e_shading_zero_alpha)
+		&& (pixel & 255) == 0)
 		return (UINT32_MAX);
 	shade_special(triangle, uv, &pixel);
-	if (triangle->material->shading_opts & e_shading_luminous ||
-		triangle->material->shading_opts & e_shading_lit)
+	if (triangle->material->shading_opts & e_shading_luminous
+		|| triangle->material->shading_opts & e_shading_lit)
 		return (pixel);
 	pixel = l3d_pixel_light_shaded(triangle, baryc, pixel);
 	return (pixel);
@@ -84,7 +84,7 @@ static uint32_t	pixel_color(t_triangle *triangle, t_vec2 uv,
 ** Shade the pixel according to shading information
 */
 
-void			l3d_raster_draw_pixel(t_sub_framebuffer *buffers, int32_t xy[2],
+void	l3d_raster_draw_pixel(t_sub_framebuffer *buffers, int32_t xy[2],
 							t_triangle *triangle)
 {
 	t_vec3		baryc;
@@ -98,15 +98,16 @@ void			l3d_raster_draw_pixel(t_sub_framebuffer *buffers, int32_t xy[2],
 	l3d_calculate_baryc(triangle->points_2d, (t_vec2){xy[0], xy[1]}, baryc);
 	z_val = l3d_z_val(baryc, triangle);
 	if (z_val < l3d_pixel_get_float(buffers->zbuffer, (uint32_t[2]){
-		buffers->width, buffers->height}, offset_xy))
+			buffers->width, buffers->height}, offset_xy))
 	{
 		l3d_interpolate_uv(triangle, baryc, uv);
 		l3d_clamp_or_repeat_uv(triangle, uv);
-		if ((pixel = pixel_color(triangle, uv, baryc)) == UINT32_MAX &&
-			triangle->material->shading_opts & e_shading_zero_alpha)
+		pixel = pixel_color(triangle, uv, baryc);
+		if (pixel == UINT32_MAX
+			&& triangle->material->shading_opts & e_shading_zero_alpha)
 			return ;
 		l3d_pixel_plot(buffers->buffer, (uint32_t[2]){buffers->width,
-				buffers->height}, offset_xy, pixel);
+			buffers->height}, offset_xy, pixel);
 		l3d_write_z_val(buffers, triangle, offset_xy, z_val);
 	}
 }
@@ -115,9 +116,9 @@ void			l3d_raster_draw_pixel(t_sub_framebuffer *buffers, int32_t xy[2],
 ** Draw pixel at the final stage of rasterization for transparent objects
 */
 
-void			l3d_raster_draw_pixel_transparent(t_sub_framebuffer *buffers,
-											int32_t xy[2],
-											t_triangle *triangle)
+void	l3d_raster_draw_pixel_transparent(t_sub_framebuffer *buffers,
+			int32_t xy[2],
+			t_triangle *triangle)
 {
 	t_vec3		brc_uv[2];
 	float		z_val;
@@ -129,18 +130,17 @@ void			l3d_raster_draw_pixel_transparent(t_sub_framebuffer *buffers,
 	l3d_calculate_baryc(triangle->points_2d, (t_vec2){xy[0], xy[1]}, brc_uv[0]);
 	z_val = l3d_z_val(brc_uv[0], triangle);
 	if (z_val < l3d_pixel_get_float(buffers->zbuffer, (uint32_t[2]){
-		buffers->width, buffers->height}, offset_xy))
+			buffers->width, buffers->height}, offset_xy))
 	{
 		l3d_interpolate_uv(triangle, brc_uv[0], brc_uv[1]);
 		l3d_clamp_or_repeat_uv(triangle, brc_uv[1]);
-		if ((pixel = pixel_trans(triangle,
-			brc_uv[1], brc_uv[0])) == UINT32_MAX &&
-			triangle->material->shading_opts & e_shading_zero_alpha)
+		pixel = pixel_trans(triangle, brc_uv[1], brc_uv[0]);
+		if (pixel == UINT32_MAX
+			&& triangle->material->shading_opts & e_shading_zero_alpha)
 			return ;
-		pixel = l3d_color_alpha_blend_u32(l3d_pixel_get(buffers->buffer,
-			(uint32_t[2]){buffers->width, buffers->height}, offset_xy), pixel);
+		pixel = l3d_blend_pixel(buffers, offset_xy, pixel);
 		l3d_pixel_plot(buffers->buffer, (uint32_t[2]){buffers->width,
-				buffers->height}, offset_xy, pixel);
+			buffers->height}, offset_xy, pixel);
 		if ((pixel & 255) == 255)
 			l3d_write_z_val(buffers, triangle, offset_xy, z_val);
 	}

@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:42:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:23:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d_internals.h"
 
-static void		init_line_draw_params(int dxy[2], int dx_or_y_i[2],
+static void	init_line_draw_params(int dxy[2], int dx_or_y_i[2],
 					int32_t edge[2][2])
 {
 	dxy[0] = edge[1][0] - edge[0][0];
@@ -20,7 +20,7 @@ static void		init_line_draw_params(int dxy[2], int dx_or_y_i[2],
 	dx_or_y_i[1] = 1;
 }
 
-static void		l3d_line_plot_low(uint32_t *buffer, uint32_t dims_wh[2],
+static void	l3d_line_plot_low(uint32_t *buffer, uint32_t dims_wh[2],
 				int32_t edge[2][2], uint32_t color)
 {
 	int32_t		dxy[2];
@@ -50,12 +50,12 @@ static void		l3d_line_plot_low(uint32_t *buffer, uint32_t dims_wh[2],
 	}
 }
 
-static void		l3d_line_plot_high(uint32_t *buffer, uint32_t dims_wh[2],
+static void	l3d_line_plot_high(uint32_t *buffer, uint32_t dims_wh[2],
 				int32_t edge[2][2], uint32_t color)
 {
-	int32_t dxy[2];
-	int32_t dxi[2];
-	int32_t xy[2];
+	int32_t	dxy[2];
+	int32_t	dxi[2];
+	int32_t	xy[2];
 
 	init_line_draw_params(dxy, dxi, edge);
 	if (dxy[0] < 0)
@@ -80,12 +80,12 @@ static void		l3d_line_plot_high(uint32_t *buffer, uint32_t dims_wh[2],
 	}
 }
 
-static void		line_draw_clamped_edge(uint32_t *buffer,
-					uint32_t dimensions_wh[2],
-					int32_t clamped[2][2], uint32_t color)
+static void	line_draw_clamped_edge(uint32_t *buffer,
+				uint32_t dimensions_wh[2],
+				int32_t clamped[2][2], uint32_t color)
 {
-	if (ft_abs(clamped[1][1] - clamped[0][1]) <
-		ft_abs(clamped[1][0] - clamped[0][0]))
+	if (ft_abs(clamped[1][1] - clamped[0][1])
+		< ft_abs(clamped[1][0] - clamped[0][0]))
 	{
 		if (clamped[0][0] > clamped[1][0])
 			l3d_line_edge_end_swap(clamped);
@@ -105,8 +105,8 @@ static void		line_draw_clamped_edge(uint32_t *buffer,
 ** But limited between buffer dimensions to save calculations
 */
 
-void			l3d_line_draw(uint32_t *buffer, uint32_t dimensions_wh[2],
-					int32_t edge[2][2], uint32_t color)
+void	l3d_line_draw(uint32_t *buffer, uint32_t dimensions_wh[2],
+			int32_t edge[2][2], uint32_t color)
 {
 	t_vec2			edgef[2];
 	int32_t			clamped[2][2];
@@ -116,9 +116,10 @@ void			l3d_line_draw(uint32_t *buffer, uint32_t dimensions_wh[2],
 	ml_vector2_copy((t_vec2){edge[0][0], edge[0][1]}, edgef[0]);
 	ml_vector2_copy((t_vec2){edge[1][0], edge[1][1]}, edgef[1]);
 	l3d_edge_aabb_intersections((t_vec2[2]){{0, 0},
-		{dimensions_wh[0], dimensions_wh[1]}}, edgef, is_intersect, intersects);
+	{dimensions_wh[0], dimensions_wh[1]}}, edgef, is_intersect, intersects);
 	if (!l3d_clamp_edge_within_aabb((t_vec2[2]){{0, 0},
-		{dimensions_wh[0], dimensions_wh[1]}}, edgef, is_intersect, intersects))
+			{dimensions_wh[0], dimensions_wh[1]}},
+		edgef, is_intersect, intersects))
 		return ;
 	clamped[0][0] = (int32_t)edgef[0][0];
 	clamped[0][1] = (int32_t)edgef[0][1];

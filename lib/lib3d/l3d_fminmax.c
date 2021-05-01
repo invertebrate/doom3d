@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:41:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 21:49:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 
 float	l3d_fmin(float n1, float n2)
 {
-	return (n1 < n2 ? n1 : n2);
+	if (n1 < n2)
+		return (n1);
+	else
+		return (n2);
 }
 
 /*
@@ -27,5 +30,8 @@ float	l3d_fmin(float n1, float n2)
 
 float	l3d_fmax(float n1, float n2)
 {
-	return (n1 > n2 ? n1 : n2);
+	if (n1 > n2)
+		return (n1);
+	else
+		return (n2);
 }

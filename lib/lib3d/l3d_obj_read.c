@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:42:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:28:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Allocates temporary content for obj data struct
 */
 
-void					l3d_obj_content_allocate(t_obj *o)
+void	l3d_obj_content_allocate(t_obj *o)
 {
 	error_check(!(o->v = ft_calloc(sizeof(t_vec3) * L3D_MAX_OBJ_VERTICES)),
 		"Failed to malloc obj vs");
@@ -24,18 +24,18 @@ void					l3d_obj_content_allocate(t_obj *o)
 		"Failed to malloc obj v textures");
 	error_check(!(o->vn = ft_calloc(sizeof(t_vec3) * L3D_MAX_OBJ_VERTICES)),
 		"Failed to malloc obj v normals");
-	error_check(!(o->triangles =
-		ft_calloc(sizeof(uint32_t) * 9 * L3D_MAX_OBJ_TRIANGLES)),
+	error_check(!(o->triangles = ft_calloc(sizeof(uint32_t)
+				* 9 * L3D_MAX_OBJ_TRIANGLES)),
 		"Failed to malloc obj triangles");
 }
 
-static void				set_3d_object_triangles_and_indices(
+static void	set_3d_object_triangles_and_indices(
 							t_obj *in, t_3d_object *out, int32_t i)
 {
 	out->triangles[i].vtc_indices[0] = in->triangles[i * 9 + 0 * 3 + 0] - 1;
 	out->triangles[i].vtc_indices[1] = in->triangles[i * 9 + 1 * 3 + 0] - 1;
 	out->triangles[i].vtc_indices[2] = in->triangles[i * 9 + 2 * 3 + 0] - 1;
-	l3d_triangle_set(&out->triangles[i], (t_vertex*[3]){
+	l3d_triangle_set(&out->triangles[i], (t_vertex *[3]){
 		out->vertices[out->triangles[i].vtc_indices[0]],
 		out->vertices[out->triangles[i].vtc_indices[1]],
 		out->vertices[out->triangles[i].vtc_indices[2]]}, out);
@@ -47,7 +47,7 @@ static void				set_3d_object_triangles_and_indices(
 ** read...
 */
 
-static void				obj_to_3d_object(t_obj *in, t_3d_object *out)
+static void	obj_to_3d_object(t_obj *in, t_3d_object *out)
 {
 	int32_t		i;
 	int32_t		j;
@@ -77,7 +77,7 @@ static void				obj_to_3d_object(t_obj *in, t_3d_object *out)
 ** array. Saves the number of objects to inputed num_objects ref.
 */
 
-static t_3d_object		*l3d_3d_object_from_obj(t_obj *obj, t_surface *texture,
+static t_3d_object	*l3d_3d_object_from_obj(t_obj *obj, t_surface *texture,
 							t_surface *normal_map)
 {
 	t_3d_object	*l3d_object;
@@ -104,14 +104,14 @@ static t_3d_object		*l3d_3d_object_from_obj(t_obj *obj, t_surface *texture,
 ** is not returned.
 */
 
-t_3d_object				*l3d_read_obj(const char *filename, t_surface *texture,
+t_3d_object	*l3d_read_obj(const char *filename, t_surface *texture,
 							t_surface *normal_map)
 {
 	t_file_contents	*obj_file;
 	t_obj			obj;
 
 	error_check(!(obj_file = read_file(filename)), "Failed read obj file");
-	l3d_obj_str_parse((char*)obj_file->buf, &obj);
+	l3d_obj_str_parse((char *)obj_file->buf, &obj);
 	if (!l3d_is_valid_obj(&obj))
 		return (NULL);
 	destroy_file_contents(obj_file);

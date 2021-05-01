@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:38:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 21:13:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,12 @@
 ** Make sure file header data alignment is correct
 */
 
-# pragma pack(push)
-# pragma pack(1)
-
 /*
 ** Don't use image size which can be zero for uncompressed bmps
 ** https://elcharolin.wordpress.com/2018/11/28/read-and-write-bmp-files-in-c-c/
 */
 
-typedef struct				s_bmp_file_header
+typedef struct __attribute__((__packed__)) s_bmp_file_header
 {
 	uint16_t	file_type;
 	uint32_t	size;
@@ -45,27 +42,25 @@ typedef struct				s_bmp_file_header
 	int32_t		pixels_per_meter_y;
 	uint32_t	number_of_bit_map_colors;
 	uint32_t	number_of_important_colors;
-}							t_bmp_file_header;
-
-# pragma pack(pop)
+}	t_bmp_file_header;
 
 /*
 ** Image data used in bmp reader
 */
 
-typedef struct				s_image_data
+typedef struct s_image_data
 {
 	unsigned char	*pixels;
 	uint32_t		width;
 	uint32_t		height;
 	uint32_t		bytes_per_pixel;
-}							t_image_data;
+}	t_image_data;
 
 /*
 ** A temporary struct to bundle in rasterization points and slope data
 */
 
-typedef struct				s_raster_data
+typedef struct s_raster_data
 {
 	float	x1;
 	float	x2;
@@ -76,7 +71,7 @@ typedef struct				s_raster_data
 	float	slope_ab;
 	float	slope_bc;
 	float	slope_ac;
-}							t_raster_data;
+}	t_raster_data;
 
 /*
 ** OBJ reading

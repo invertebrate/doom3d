@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:41:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:15:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,26 @@
 ** mid point at given axis (longes).
 */
 
-void				l3d_kd_tree_split_triangles(t_tri_vec *triangles,
+void	l3d_kd_tree_split_triangles(t_tri_vec *triangles,
 					t_axis axis, t_tri_vec *left_tris, t_tri_vec *right_tris)
 {
 	t_vec3		mid_point;
 	int			i;
+	t_tri_vec	*tris;
 
 	l3d_triangle_vec_midpoint(triangles, mid_point);
 	i = -1;
 	while (++i < (int)triangles->size)
 	{
-		l3d_triangle_vec_push(mid_point[axis] >=
-			triangles->triangles[i]->center[axis] ? right_tris : left_tris,
-			triangles->triangles[i]);
+		if (mid_point[axis] >= triangles->triangles[i]->center[axis])
+			tris = right_tris;
+		else
+			tris = left_tris;
+		l3d_triangle_vec_push(tris, triangles->triangles[i]);
 	}
 }
 
-static void			kd_node_print_recursive(t_kd_node *root)
+static void	kd_node_print_recursive(t_kd_node *root)
 {
 	char	axes[4];
 
@@ -66,7 +69,7 @@ static void			kd_node_print_recursive(t_kd_node *root)
 ** Print kd tree information for debugging purposes
 */
 
-void				l3d_kd_tree_print(t_kd_tree *tree)
+void	l3d_kd_tree_print(t_kd_tree *tree)
 {
 	kd_node_print_recursive(tree->root);
 }

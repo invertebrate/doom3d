@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:34:25 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:40:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 21:22:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 ** to dst
 */
 
-void			l3d_3d_object_triangle_copy_and_set(t_3d_object *dst,
-					t_3d_object *src)
+void	l3d_3d_object_triangle_copy_and_set(t_3d_object *dst,
+			t_3d_object *src)
 {
 	int32_t		i;
 	int32_t		j;
@@ -27,8 +27,8 @@ void			l3d_3d_object_triangle_copy_and_set(t_3d_object *dst,
 	while (++i < src->num_triangles)
 	{
 		dst->triangles[i].parent = dst;
-		l3d_triangle_set(&dst->triangles[i], (t_vertex*[3]){
-			dst->vertices[src->triangles[i].vtc_indices[0]],
+		l3d_triangle_set(&dst->triangles[i],
+			(t_vertex *[3]){dst->vertices[src->triangles[i].vtc_indices[0]],
 			dst->vertices[src->triangles[i].vtc_indices[1]],
 			dst->vertices[src->triangles[i].vtc_indices[2]]}, dst);
 		j = -1;
@@ -47,7 +47,7 @@ void			l3d_3d_object_triangle_copy_and_set(t_3d_object *dst,
 ** texture pointer data isn't copied.
 */
 
-t_3d_object		*l3d_3d_object_copy(t_3d_object *src)
+t_3d_object	*l3d_3d_object_copy(t_3d_object *src)
 {
 	t_3d_object	*dst;
 	int32_t		i;
@@ -75,7 +75,7 @@ t_3d_object		*l3d_3d_object_copy(t_3d_object *src)
 ** vertices, textures etc. are filled later.
 */
 
-t_3d_object		*l3d_3d_object_shallow_copy(t_3d_object *src)
+t_3d_object	*l3d_3d_object_shallow_copy(t_3d_object *src)
 {
 	t_3d_object	*dst;
 
@@ -99,8 +99,8 @@ t_3d_object		*l3d_3d_object_shallow_copy(t_3d_object *src)
 ** Set 3d object's shading options
 */
 
-void			l3d_object_set_shading_opts(t_3d_object *obj,
-					t_shading_opts opts)
+void	l3d_object_set_shading_opts(t_3d_object *obj,
+			t_shading_opts opts)
 {
 	obj->material->shading_opts = opts;
 }

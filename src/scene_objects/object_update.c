@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 22:46:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 00:39:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,9 @@ static void		update_in_game_objects(t_doom3d *app)
 		if (!obj)
 			continue ;
 		update_object_by_type(app, obj, is_npc_update);
-		update_light_sources(app, obj);
+		update_object_light_sources(app, obj);
 	}
+	update_temp_objects_light_sources(app);
 	l3d_temp_objects_update_time(&app->active_scene->temp_objects,
 		app->info.delta_time);
 }

@@ -6,14 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 20:29:40 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/06 17:10:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:52:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d_internals.h"
 
-static void		scan_line_transparent(t_sub_framebuffer *buffers,
-							float *limits, t_triangle *triangle)
+static void	scan_line_transparent(t_sub_framebuffer *buffers,
+				float *limits, t_triangle *triangle)
 {
 	int32_t			x;
 	int32_t			y;
@@ -22,14 +22,14 @@ static void		scan_line_transparent(t_sub_framebuffer *buffers,
 	y = floor(limits[2]);
 	x = fmax(floor(limits[0]), -buffers->x_offset);
 	end_x = fmin(floor(limits[1]),
-		buffers->width - buffers->x_offset);
+			buffers->width - buffers->x_offset);
 	while (x < end_x)
 		l3d_raster_draw_pixel_transparent(buffers,
 			(int32_t[2]){x++, y}, triangle);
 }
 
-static void		raster_upper_transparent(t_sub_framebuffer *bufs,
-								t_triangle *tri, t_raster_data *data)
+static void	raster_upper_transparent(t_sub_framebuffer *bufs,
+				t_triangle *tri, t_raster_data *data)
 {
 	float		x;
 	float		y;
@@ -51,8 +51,8 @@ static void		raster_upper_transparent(t_sub_framebuffer *bufs,
 	}
 }
 
-static void		raster_lower_transparent(t_sub_framebuffer *bufs,
-								t_triangle *tri, t_raster_data *data)
+static void	raster_lower_transparent(t_sub_framebuffer *bufs,
+				t_triangle *tri, t_raster_data *data)
 {
 	float		x;
 	float		y;
@@ -74,8 +74,8 @@ static void		raster_lower_transparent(t_sub_framebuffer *bufs,
 	}
 }
 
-void			l3d_triangle_raster_transparent(t_sub_framebuffer *buffers,
-					t_triangle *triangle)
+void	l3d_triangle_raster_transparent(t_sub_framebuffer *buffers,
+			t_triangle *triangle)
 {
 	t_raster_data	data;
 	t_vec2			ordered_points_2d[3];

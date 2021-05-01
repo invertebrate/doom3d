@@ -6,19 +6,19 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:40:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 21:44:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
 static t_sub_framebuffer	*l3d_subbuffer_create(t_framebuffer *parent,
-														int32_t x, int32_t y)
+								int32_t x, int32_t y)
 {
 	t_sub_framebuffer	*sub_buffer;
 
 	error_check(!(sub_buffer = ft_calloc(sizeof(t_sub_framebuffer))),
-				"Failed to malloc frame sub buffer");
+		"Failed to malloc frame sub buffer");
 	sub_buffer->height = parent->height / parent->num_y;
 	sub_buffer->width = parent->width / parent->num_x;
 	sub_buffer->parent_height = parent->height;
@@ -26,21 +26,19 @@ static t_sub_framebuffer	*l3d_subbuffer_create(t_framebuffer *parent,
 	sub_buffer->x_start = x * sub_buffer->width;
 	sub_buffer->y_start = y * sub_buffer->height;
 	sub_buffer->x_offset = sub_buffer->parent_width * 0.5 - sub_buffer->x_start;
-	sub_buffer->y_offset = sub_buffer->parent_height * 0.5 -
-		sub_buffer->y_start;
-	error_check(!(
-		sub_buffer->buffer = ft_calloc(sizeof(uint32_t) *
-			sub_buffer->height * sub_buffer->width)),
-			"Failed to malloc frame sub buffer");
-	error_check(!(
-		sub_buffer->zbuffer = ft_calloc(sizeof(float) *
-			sub_buffer->height * sub_buffer->width)),
-			"Failed to malloc frame sub buffer");
+	sub_buffer->y_offset = sub_buffer->parent_height * 0.5
+		- sub_buffer->y_start;
+	error_check(!(sub_buffer->buffer = ft_calloc(sizeof(uint32_t)
+				* sub_buffer->height * sub_buffer->width)),
+		"Failed to malloc frame sub buffer");
+	error_check(!(sub_buffer->zbuffer = ft_calloc(sizeof(float)
+				* sub_buffer->height * sub_buffer->width)),
+		"Failed to malloc frame sub buffer");
 	return (sub_buffer);
 }
 
-static void					l3d_framebuffer_sub_destroy(
-								t_sub_framebuffer *sub_buffer)
+static void	l3d_framebuffer_sub_destroy(
+				t_sub_framebuffer *sub_buffer)
 {
 	if (sub_buffer == NULL)
 		return ;
@@ -54,8 +52,8 @@ static void					l3d_framebuffer_sub_destroy(
 ** L3D_BUFFER_SPLIT_SIZE_(X/Y) defines how the width and height are split
 */
 
-t_framebuffer				*l3d_framebuffer_create(int32_t width,
-								int32_t height)
+t_framebuffer	*l3d_framebuffer_create(int32_t width,
+					int32_t height)
 {
 	t_framebuffer	*fbuffer;
 	int32_t			x;
@@ -63,14 +61,14 @@ t_framebuffer				*l3d_framebuffer_create(int32_t width,
 	int32_t			index;
 
 	error_check(!(fbuffer = ft_calloc(sizeof(t_framebuffer))), "!ft_callocf");
-	error_check(!(fbuffer->buffer =
-		ft_calloc(sizeof(uint32_t) * width * height)), "Failed to alloc fbuf");
+	error_check(!(fbuffer->buffer = ft_calloc(sizeof(uint32_t)
+				* width * height)), "Failed to alloc fbuf");
 	fbuffer->num_x = L3D_BUFFER_SPLIT_SIZE_X;
 	fbuffer->num_y = L3D_BUFFER_SPLIT_SIZE_Y;
 	fbuffer->width = width;
 	fbuffer->height = height;
-	error_check(!(fbuffer->sub_buffers = ft_calloc(sizeof(t_sub_framebuffer*) *
-		fbuffer->num_y * fbuffer->num_x)), "Failed to malloc sbuffer");
+	error_check(!(fbuffer->sub_buffers = ft_calloc(sizeof(t_sub_framebuffer *)
+				* fbuffer->num_y * fbuffer->num_x)), "Failed to malloc sb");
 	y = -1;
 	while (++y < fbuffer->num_y)
 	{
@@ -88,7 +86,7 @@ t_framebuffer				*l3d_framebuffer_create(int32_t width,
 ** Destroy framebuffer
 */
 
-void						l3d_framebuffer_destroy(t_framebuffer *framebuffer)
+void	l3d_framebuffer_destroy(t_framebuffer *framebuffer)
 {
 	int32_t		i;
 
@@ -108,8 +106,8 @@ void						l3d_framebuffer_destroy(t_framebuffer *framebuffer)
 ** Recreate framebuffer (e.g. after resize of window)
 */
 
-void						l3d_framebuffer_recreate(t_framebuffer **buffer,
-												int32_t width, int32_t height)
+void	l3d_framebuffer_recreate(t_framebuffer **buffer,
+			int32_t width, int32_t height)
 {
 	if (buffer != NULL && *buffer != NULL)
 		l3d_framebuffer_destroy(*buffer);

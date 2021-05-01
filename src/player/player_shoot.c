@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 23:11:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 00:44:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void		shoot_bullet_effect(t_doom3d *app,
 		(t_procedural_tmp_obj_params){.model = model,
 		.texture = effect_key, .normal_map = NULL,
 		.lifetime = 100, .delay = 0}, pos);
-	hit_effect->material->shading_opts |= e_shading_luminous;
+	hit_effect->material->shading_opts |= e_shading_standard
+		| e_shading_luminous;
 	scale = 0.1;
 	l3d_3d_object_scale(hit_effect, scale, scale, scale);
 	l3d_3d_object_rotate(hit_effect, app->player.rot_x,

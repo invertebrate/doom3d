@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:50:08 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:46:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:44:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Clone triangle copying vertices if needed
 */
 
-t_triangle			*l3d_triangle_clone(t_triangle *src, t_bool new_vertices)
+t_triangle	*l3d_triangle_clone(t_triangle *src, t_bool new_vertices)
 {
 	t_triangle	*dst;
 	int32_t		i;
@@ -41,7 +41,7 @@ t_triangle			*l3d_triangle_clone(t_triangle *src, t_bool new_vertices)
 ** Copies the vertex content to dst though.
 */
 
-void				*l3d_triangle_copy(t_triangle *dst, t_triangle *src)
+void	*l3d_triangle_copy(t_triangle *dst, t_triangle *src)
 {
 	int32_t		i;
 	t_vertex	*vtc[3];

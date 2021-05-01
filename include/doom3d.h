@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 23:11:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 00:39:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -659,8 +659,9 @@ void						calculate_final_luminosity(uint32_t *pixel,
 ** Objects
 */
 
-void						update_light_sources(t_doom3d *app,
+void						update_object_light_sources(t_doom3d *app,
 								t_3d_object *object);
+void						update_temp_objects_light_sources(t_doom3d *app);
 void						update_light_sources_anim3d(t_doom3d *app,
 														t_3d_object *object);
 void						transform_light_pos(t_doom3d *app, t_vec3 light_pos,
