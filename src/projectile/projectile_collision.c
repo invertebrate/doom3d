@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile_collision.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phakakos <phakakos@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 22:10:06 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/30 22:10:07 by phakakos         ###   ########.fr       */
+/*   Updated: 2021/05/02 00:47:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void			projectile_handle_collision(t_doom3d *app,
 		obj->type == object_type_projectile || obj->type == object_type_trigger)
 			continue ;
 		ml_vector3_sub(obj->position, projectile_obj->position, dist);
-		if (ml_vector3_mag(dist) < app->unit_size * 10 && obj->type ==
+		if (ml_vector3_mag(dist) < app->unit_size * 20 && obj->type ==
 		object_type_npc && l3d_aabb_collides(&obj->aabb, &projectile_obj->aabb))
 		{
 			projectile_explode_effect(app, projectile_obj);

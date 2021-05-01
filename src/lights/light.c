@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:54:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 20:19:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 00:45:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void			update_one_light_source(t_doom3d *app, t_3d_object *object,
 ** Update scene light sources per frame to object materials for shading
 */
 
-void			update_light_sources(t_doom3d *app, t_3d_object *object)
+void			update_object_light_sources(t_doom3d *app, t_3d_object *object)
 {
 	int32_t	i;
 
@@ -86,6 +86,22 @@ void			update_editor_light_sources(t_doom3d *app)
 		obj = app->active_scene->objects[i];
 		if (!obj)
 			continue ;
-		update_light_sources(app, obj);
+		update_object_light_sources(app, obj);
+	}
+}
+
+void			update_temp_objects_light_sources(t_doom3d *app)
+{
+	t_temp_object	*tmp;
+	t_temp_objects	*node;
+
+	node = app->active_scene->temp_objects;
+	int32_t	i = 0;
+	while (node)
+	{
+		tmp = node->content;
+		update_object_light_sources(app, tmp->obj);
+		node = node->next;
+		i++;
 	}
 }
