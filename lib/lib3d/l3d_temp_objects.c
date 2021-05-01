@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:25:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 17:09:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:40:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
-static void			l3d_destroy_temp_object(void *params, size_t size)
+static void	l3d_destroy_temp_object(void *params, size_t size)
 {
 	t_temp_object	*temp_obj;
 
@@ -27,8 +27,8 @@ static void			l3d_destroy_temp_object(void *params, size_t size)
 ** Destroy temporary objects if they are expired
 */
 
-void				l3d_temp_objects_destroy_if_expired(
-						t_temp_objects **temp_objects)
+void	l3d_temp_objects_destroy_if_expired(
+			t_temp_objects **temp_objects)
 {
 	t_temp_objects	**curr;
 	t_temp_objects	*temp;
@@ -41,7 +41,7 @@ void				l3d_temp_objects_destroy_if_expired(
 		temp_obj = temp->content;
 		if (temp_obj->lifetime <= 0)
 		{
-			*curr = temp->next != NULL ? temp->next : NULL;
+			*curr = temp->next;
 			free(temp);
 			temp = NULL;
 			l3d_destroy_temp_object(temp_obj, 0);
@@ -55,7 +55,7 @@ void				l3d_temp_objects_destroy_if_expired(
 ** Destroy all temp objects
 */
 
-void				l3d_temp_objects_destroy(t_temp_objects **temp_objects)
+void	l3d_temp_objects_destroy(t_temp_objects **temp_objects)
 {
 	if (*temp_objects)
 	{
@@ -69,16 +69,16 @@ void				l3d_temp_objects_destroy(t_temp_objects **temp_objects)
 ** when they should show)
 */
 
-void				l3d_temp_objects_add(t_temp_objects **temp_objects,
-						t_3d_object *object, int32_t lifetime_and_delay[2])
+void	l3d_temp_objects_add(t_temp_objects **temp_objects,
+			t_3d_object *object, int32_t lifetime_and_delay[2])
 {
 	t_temp_object	tmp_obj;
 
 	tmp_obj.obj = object;
 	tmp_obj.lifetime = lifetime_and_delay[0];
 	tmp_obj.delay = lifetime_and_delay[1];
-	tmp_obj.obj->material->shading_opts |=
-		e_shading_temp_invisible | e_shading_zero_alpha;
+	tmp_obj.obj->material->shading_opts
+		|= e_shading_temp_invisible | e_shading_zero_alpha;
 	if (*temp_objects == NULL)
 		*temp_objects = ft_lstnew(&tmp_obj, sizeof(tmp_obj));
 	else
@@ -90,8 +90,8 @@ void				l3d_temp_objects_add(t_temp_objects **temp_objects,
 ** temp object becomes visible.
 */
 
-void				l3d_temp_objects_update_time(t_temp_objects **temp_objects,
-						uint32_t delta_time)
+void	l3d_temp_objects_update_time(t_temp_objects **temp_objects,
+			uint32_t delta_time)
 {
 	t_temp_objects	*curr;
 	t_temp_object	*temp_obj;
@@ -106,9 +106,9 @@ void				l3d_temp_objects_update_time(t_temp_objects **temp_objects,
 			temp_obj->delay -= (int32_t)delta_time;
 		else
 		{
-			temp_obj->obj->material->shading_opts =
-				(temp_obj->obj->material->shading_opts &
-				~e_shading_temp_invisible);
+			temp_obj->obj->material->shading_opts
+				= (temp_obj->obj->material->shading_opts
+					& ~e_shading_temp_invisible);
 			temp_obj->lifetime -= (int32_t)delta_time;
 		}
 		curr = curr->next;

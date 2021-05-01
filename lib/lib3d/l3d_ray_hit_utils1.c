@@ -6,20 +6,20 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:53:57 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:43:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:32:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
-static void		l3d_delete_hit(void *hit, size_t size)
+static void	l3d_delete_hit(void *hit, size_t size)
 {
 	(void)size;
 	if (hit != NULL)
 		free(hit);
 }
 
-void			l3d_delete_hits(t_hits **hits)
+void	l3d_delete_hits(t_hits **hits)
 {
 	if (*hits == NULL)
 		return ;
@@ -30,8 +30,8 @@ void			l3d_delete_hits(t_hits **hits)
 ** Get closest triangle hit from hits
 */
 
-void			l3d_get_closest_triangle_hit(t_hits *hits, t_hit **closest,
-					uint32_t ignore_id)
+void	l3d_get_closest_triangle_hit(t_hits *hits, t_hit **closest,
+			uint32_t ignore_id)
 {
 	t_hits	*head;
 	t_hit	*hit;
@@ -40,13 +40,13 @@ void			l3d_get_closest_triangle_hit(t_hits *hits, t_hit **closest,
 	*closest = NULL;
 	while (head)
 	{
-		hit = (t_hit*)head->content;
-		if (*closest == NULL && hit->t > 0.0 &&
-			hit->triangle->parent->id != ignore_id)
+		hit = (t_hit *)head->content;
+		if (*closest == NULL && hit->t > 0.0
+			&& hit->triangle->parent->id != ignore_id)
 			*closest = hit;
-		if (hit != NULL && hit->t > 0.0 &&
-			hit->triangle->parent->id != ignore_id &&
-			hit->t <= (*closest)->t)
+		if (hit != NULL && hit->t > 0.0
+			&& hit->triangle->parent->id != ignore_id
+			&& hit->t <= (*closest)->t)
 			*closest = hit;
 		head = head->next;
 	}
@@ -59,15 +59,17 @@ void			l3d_get_closest_triangle_hit(t_hits *hits, t_hit **closest,
 **	in a t_vec3.
 */
 
-t_bool			l3d_plane_ray_hit(t_plane *plane, t_ray *ray,
-									t_vec3 hit_point)
+t_bool	l3d_plane_ray_hit(t_plane *plane, t_ray *ray,
+							t_vec3 hit_point)
 {
 	t_vec3		temp;
 	float		div;
 	float		d;
+	float		abs;
 
 	ml_vector3_sub(plane->origin, ray->origin, temp);
-	if (fabs((div = ml_vector3_dot(ray->dir, plane->normal))) > L3D_EPSILON)
+	abs = fabs((div = ml_vector3_dot(ray->dir, plane->normal)));
+	if (abs > L3D_EPSILON)
 	{
 		d = (ml_vector3_dot(temp, plane->normal)) / div;
 		ml_vector3_mul(ray->dir, d, hit_point);
@@ -85,8 +87,8 @@ t_bool			l3d_plane_ray_hit(t_plane *plane, t_ray *ray,
 ** https://tavianator.com/2011/ray_box.html
 */
 
-t_bool			l3d_bounding_box_ray_hit(t_box3d *box, t_ray *ray,
-					t_hits **hits, t_bool is_recorded)
+t_bool	l3d_bounding_box_ray_hit(t_box3d *box, t_ray *ray,
+			t_hits **hits, t_bool is_recorded)
 {
 	float	t[8];
 
@@ -97,9 +99,9 @@ t_bool			l3d_bounding_box_ray_hit(t_box3d *box, t_ray *ray,
 	t[4] = (box->xyz_min[2] - ray->origin[2]) * ray->dir_inv[2];
 	t[5] = (box->xyz_max[2] - ray->origin[2]) * ray->dir_inv[2];
 	t[6] = l3d_fmax(l3d_fmax(l3d_fmin(t[0], t[1]), l3d_fmin(t[2], t[3])),
-		l3d_fmin(t[4], t[5]));
+			l3d_fmin(t[4], t[5]));
 	t[7] = l3d_fmin(l3d_fmin(l3d_fmax(t[0], t[1]), l3d_fmax(t[2], t[3])),
-		l3d_fmax(t[4], t[5]));
+			l3d_fmax(t[4], t[5]));
 	if (t[7] < 0 || t[6] > t[7])
 		return (false);
 	if (is_recorded)

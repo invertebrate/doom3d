@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:43:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:33:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 
 static t_bool	l3d_determine_triangle_hit(t_vec3 hsq[3],
-				t_triangle *triangle, t_ray *ray, t_hits **hits)
+					t_triangle *triangle, t_ray *ray, t_hits **hits)
 {
 	float	afuvt[5];
 
@@ -51,8 +51,8 @@ static t_bool	l3d_determine_triangle_hit(t_vec3 hsq[3],
 ** Hit distance is saved to hit record hit->t.
 */
 
-t_bool			l3d_triangle_ray_hit(t_triangle *triangle, t_ray *ray,
-				t_hits **hits)
+t_bool	l3d_triangle_ray_hit(t_triangle *triangle, t_ray *ray,
+			t_hits **hits)
 {
 	t_vec3	hsq[3];
 
@@ -109,8 +109,8 @@ static t_bool	l3d_kd_tree_ray_hit_recursive(t_kd_node *node, t_ray *ray,
 ** hits.
 */
 
-t_bool			l3d_kd_tree_ray_hits(t_kd_tree *triangle_tree,
-					t_vec3 origin, t_vec3 dir, t_hits **hits)
+t_bool	l3d_kd_tree_ray_hits(t_kd_tree *triangle_tree,
+			t_vec3 origin, t_vec3 dir, t_hits **hits)
 {
 	t_ray			ray;
 

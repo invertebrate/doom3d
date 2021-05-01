@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:42:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:23:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d_internals.h"
 
-static void				l3d_obj_parse_v_or_face(char **str, t_obj *obj)
+static void	l3d_obj_parse_v_or_face(char **str, t_obj *obj)
 {
 	if (**str == 'v' && *(*str + 1) == ' ')
 	{
@@ -44,7 +44,7 @@ static void				l3d_obj_parse_v_or_face(char **str, t_obj *obj)
 ** Parses obj data from obj string saving all objects into t_obj_content*
 */
 
-void					l3d_obj_str_parse(char *str, t_obj *obj)
+void	l3d_obj_str_parse(char *str, t_obj *obj)
 {
 	ft_memset(obj, 0, sizeof(*obj));
 	l3d_obj_content_allocate(obj);

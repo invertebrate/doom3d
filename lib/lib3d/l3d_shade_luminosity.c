@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   l3d_shade_luminosity.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/26 17:14:43 by veilo             #+#    #+#             */
-/*   Updated: 2021/04/26 18:22:19 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/01 22:34:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
-void			calculate_luminosity(uint32_t *pixel, uint32_t *light,
-											uint32_t darkness)
+void	calculate_luminosity(uint32_t *pixel, uint32_t *light,
+			uint32_t darkness)
 {
 	int			i;
 	float		luminosity;

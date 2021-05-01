@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/27 01:07:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:10:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Corrects bmp pixel colors to RGBA
 */
 
-static void		l3d_bmp_pixel_correct(t_image_data *image, uint32_t i)
+static void	l3d_bmp_pixel_correct(t_image_data *image, uint32_t i)
 {
 	unsigned char			rgb[3];
 
@@ -35,7 +35,7 @@ static void		l3d_bmp_pixel_correct(t_image_data *image, uint32_t i)
 ** ToDo if needed: Handle negative width (reverse row pixels)
 */
 
-static void		l3d_handle_bmp_pixels(t_image_data *image,
+static void	l3d_handle_bmp_pixels(t_image_data *image,
 					t_bmp_file_header *header)
 {
 	int32_t			i;
@@ -70,8 +70,8 @@ static void		l3d_handle_bmp_pixels(t_image_data *image,
 ** Assumes all bmps are either 24 or 32 bit images (for our purposes)
 */
 
-static void		l3d_read_bmp_image(const char *filename,
-					t_image_data *image_res)
+static void	l3d_read_bmp_image(const char *filename,
+				t_image_data *image_res)
 {
 	t_file_contents			*file;
 	t_bmp_file_header		header;
@@ -87,8 +87,8 @@ static void		l3d_read_bmp_image(const char *filename,
 		"Failed to malloc image pixels");
 	ft_memcpy(image_res->pixels, buf + header.data_offset, image_size);
 	image_res->bytes_per_pixel = header.bits_per_pixel / 8;
-	error_check(!(image_res->bytes_per_pixel == 3 ||
-		image_res->bytes_per_pixel == 4), "Bmp image not 24 nor 32 bit");
+	error_check(!(image_res->bytes_per_pixel == 3
+			|| image_res->bytes_per_pixel == 4), "Bmp image not 24 nor 32 bit");
 	image_res->width = ft_abs(header.width);
 	image_res->height = ft_abs(header.height);
 	l3d_handle_bmp_pixels(image_res, &header);
@@ -100,28 +100,30 @@ static void		l3d_read_bmp_image(const char *filename,
 ** Replaces alpha with 255 if image was only 24 bit.
 */
 
-void			l3d_read_bmp_image_32bit_rgba(const char *filename,
-				uint32_t **pixels_out, uint32_t *width, uint32_t *height)
+void	l3d_read_bmp_image_32bit_rgba(const char *filename,
+			uint32_t **pixels_out, uint32_t *width, uint32_t *height)
 {
 	t_image_data		image;
 	int32_t				i;
 	int32_t				j;
 	uint32_t			rgba;
+	uint32_t			alpha;
 
 	l3d_read_bmp_image(filename, &image);
-	error_check(!(*pixels_out =
-		ft_calloc(sizeof(uint32_t) * image.width * image.height)),
-		"Failed to malloc 32 bit pixels");
-	i = 0;
+	error_check(!(*pixels_out = ft_calloc(sizeof(uint32_t)
+				* image.width * image.height)), "Failed to allc 32 bit pixels");
+	i = -1;
 	j = 0;
-	while (i < (int32_t)(image.height * image.width))
+	while (++i < (int32_t)(image.height * image.width))
 	{
+		if (image.bytes_per_pixel == 4)
+			alpha = image.pixels[j + 3];
+		else
+			alpha = 0xff;
 		rgba = l3d_rgba_to_u32((uint32_t[4]){image.pixels[j],
-			image.pixels[j + 1], image.pixels[j + 2],
-			image.bytes_per_pixel == 4 ? image.pixels[j + 3] : 0xFF});
+				image.pixels[j + 1], image.pixels[j + 2], alpha});
 		ft_memcpy(*pixels_out + i, &rgba, sizeof(uint32_t));
 		j += image.bytes_per_pixel;
-		i++;
 	}
 	*width = image.width;
 	*height = image.height;
@@ -132,7 +134,7 @@ void			l3d_read_bmp_image_32bit_rgba(const char *filename,
 ** Read bmp image directly onto a t_surface struct
 */
 
-t_surface		*l3d_read_bmp_32bit_rgba_surface(const char *filename)
+t_surface	*l3d_read_bmp_32bit_rgba_surface(const char *filename)
 {
 	t_surface	*surface;
 

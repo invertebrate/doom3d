@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 15:42:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 21:28:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 ** text coords.
 */
 
-t_3d_object		*l3d_3d_object_create(uint32_t num_verts,
-					uint32_t num_triangles)
+t_3d_object	*l3d_3d_object_create(uint32_t num_verts,
+				uint32_t num_triangles)
 {
 	t_3d_object	*object;
 	int32_t		i;
@@ -26,14 +26,14 @@ t_3d_object		*l3d_3d_object_create(uint32_t num_verts,
 	error_check(!(object = ft_calloc(sizeof(*object))),
 		"Failed to malloc 3d obj");
 	object->id = l3d_random_uuid();
-	error_check(!(object->vertices = ft_calloc(sizeof(t_vertex*) * num_verts)),
+	error_check(!(object->vertices = ft_calloc(sizeof(t_vertex *) * num_verts)),
 		"Failed to malloc 3d obj vertices");
 	i = -1;
 	while (++i < (int32_t)num_verts)
 		error_check(!(object->vertices[i] = ft_calloc(sizeof(t_vertex))),
 			"Failed to malloc vertex");
-	error_check(!(object->triangles =
-		ft_calloc(sizeof(t_triangle) * num_triangles)), "!3d obj triangles");
+	error_check(!(object->triangles = ft_calloc(sizeof(t_triangle)
+				* num_triangles)), "!3d obj triangles");
 	error_check(!(object->material = ft_calloc(sizeof(t_material))),
 		"Failed to malloc 3d obj material");
 	ml_matrix4_id(object->rotation);
@@ -51,7 +51,7 @@ t_3d_object		*l3d_3d_object_create(uint32_t num_verts,
 ** Destroys a 3d object.
 */
 
-void			l3d_3d_object_destroy(t_3d_object *object)
+void	l3d_3d_object_destroy(t_3d_object *object)
 {
 	int		i;
 
@@ -83,7 +83,7 @@ void			l3d_3d_object_destroy(t_3d_object *object)
 ** (normals, texture coords and position)
 */
 
-void			l3d_3d_object_set_vertex(t_vertex *vertex, t_vec3 pos)
+void	l3d_3d_object_set_vertex(t_vertex *vertex, t_vec3 pos)
 {
 	ml_vector3_copy(pos, vertex->pos);
 	vertex->color = 0xFFFFFFFF;
@@ -95,8 +95,8 @@ void			l3d_3d_object_set_vertex(t_vertex *vertex, t_vec3 pos)
 ** params type (that defines whether cleanup is necessary)
 */
 
-void			l3d_3d_object_set_params(t_3d_object *object,
-					void *params, uint32_t params_size, uint32_t params_type)
+void	l3d_3d_object_set_params(t_3d_object *object,
+			void *params, uint32_t params_size, uint32_t params_type)
 {
 	if (params_size > 0)
 	{
@@ -114,21 +114,20 @@ void			l3d_3d_object_set_params(t_3d_object *object,
 ** Adds light source information to object's material
 */
 
-void			l3d_3d_object_add_light_source(t_3d_object *object,
-					t_vec3 light_pos, float radius_intensity[2],
-					uint32_t emit_color)
+void	l3d_3d_object_add_light_source(t_3d_object *object,
+			t_vec3 light_pos, float radius_intensity[2],
+			uint32_t emit_color)
 {
 	if (object->material->num_lights < L3D_MAX_LIGHTS)
 	{
 		object->material->light_sources[
 			object->material->num_lights].radius = radius_intensity[0];
 		object->material->light_sources[
-			object->material->num_lights].intensity =
-			radius_intensity[1];
+			object->material->num_lights].intensity = radius_intensity[1];
 		ml_vector3_copy(light_pos,
 			object->material->light_sources[object->material->num_lights].pos);
-		object->material->light_sources[object->material->num_lights].color =
-			emit_color;
+		object->material->light_sources[
+			object->material->num_lights].color = emit_color;
 		object->material->num_lights++;
 	}
 	else

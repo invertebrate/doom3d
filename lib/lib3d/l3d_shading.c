@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:27:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 15:46:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:37:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@
 ** Shade pixel so that further ones in 3d space are darker
 */
 
-uint32_t		l3d_pixel_depth_shaded(uint32_t pixel, float z_val)
+uint32_t	l3d_pixel_depth_shaded(uint32_t pixel, float z_val)
 {
 	float	intensity;
 
 	intensity = 10.0;
 	return (l3d_color_blend_u32(pixel, 0x000000ff,
-		1.0 - (ft_abs(z_val) * intensity)));
+			1.0 - (ft_abs(z_val) * intensity)));
 }
 
 /*
 ** Shade selected object with `e_shading_selected`
 */
 
-uint32_t		l3d_pixel_selection_shaded(uint32_t pixel)
+uint32_t	l3d_pixel_selection_shaded(uint32_t pixel)
 {
 	return (l3d_color_blend_u32(pixel, 0x00ff00ff, 0.2));
 }
@@ -41,7 +41,7 @@ uint32_t		l3d_pixel_selection_shaded(uint32_t pixel)
 **	vars[0]		distance
 */
 
-static void		flashlight_light_calculation(t_triangle *triangle,
+static void	flashlight_light_calculation(t_triangle *triangle,
 											t_vec3 world_pos,
 											uint32_t light[4])
 {
@@ -54,11 +54,11 @@ static void		flashlight_light_calculation(t_triangle *triangle,
 	light_add[3] = 255;
 	ml_vector3_set_all(vars, 0.0);
 	test = point_inside_cone(&(triangle->material->flashlight->cone), world_pos,
-								vars);
+			vars);
 	if (vars[0] <= triangle->material->flashlight->cone.height && test != NULL)
 	{
-		intensity = triangle->material->flashlight->intensity * (1 - (vars[0] /
-						triangle->material->flashlight->cone.height));
+		intensity = triangle->material->flashlight->intensity * (1 - (vars[0]
+					/ triangle->material->flashlight->cone.height));
 		intensity *= (1 - (vars[2] / vars[1]));
 		light[0] += intensity * light_add[0];
 		light[1] += intensity * light_add[1];
@@ -66,8 +66,8 @@ static void		flashlight_light_calculation(t_triangle *triangle,
 	}
 }
 
-void			point_light_calculation(t_triangle *triangle, t_vec3 world_pos,
-					uint32_t light[4])
+void	point_light_calculation(t_triangle *triangle, t_vec3 world_pos,
+			uint32_t light[4])
 {
 	t_vec3		light_dir;
 	int32_t		i;
@@ -84,9 +84,9 @@ void			point_light_calculation(t_triangle *triangle, t_vec3 world_pos,
 		distance = ml_vector3_mag(light_dir);
 		if (distance < triangle->material->light_sources[i].radius)
 		{
-			intensity =
-				(1.0 - distance / triangle->material->light_sources[i].radius) *
-				triangle->material->light_sources[i].intensity;
+			intensity = (1.0 - distance
+					/ triangle->material->light_sources[i].radius)
+				* triangle->material->light_sources[i].intensity;
 			light[0] += intensity * light_add[0];
 			light[1] += intensity * light_add[1];
 			light[2] += intensity * light_add[2];
@@ -100,7 +100,7 @@ void			point_light_calculation(t_triangle *triangle, t_vec3 world_pos,
 ** Shade pixel with lights included
 */
 
-uint32_t		l3d_pixel_light_shaded(t_triangle *triangle,
+uint32_t	l3d_pixel_light_shaded(t_triangle *triangle,
 					t_vec3 baryc, uint32_t pixel)
 {
 	uint32_t	rgba[4];
@@ -111,9 +111,9 @@ uint32_t		l3d_pixel_light_shaded(t_triangle *triangle,
 
 	darkness = 230;
 	ft_memset(result, 0, sizeof(result));
-	if (triangle->material->num_lights > 0 ||
-		(triangle->material->flashlight != NULL &&
-		triangle->material->flashlight->active))
+	if (triangle->material->num_lights > 0
+		|| (triangle->material->flashlight != NULL
+			&& triangle->material->flashlight->active))
 	{
 		get_world_pos_persp_corr(triangle, baryc, world_pos);
 		l3d_u32_to_rgba(pixel, rgba);

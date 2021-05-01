@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#              #
-#    Updated: 2021/04/18 18:20:50 by ohakola          ###   ########.fr        #
+#    Updated: 2021/05/01 22:34:46 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ SOURCES = l3d_triangle.c \
 			l3d_triangle_sort.c \
 			l3d_triangle_sort_depth.c \
 			l3d_shading.c \
-			l3d_shading_utils.c \
+			l3d_shading_utils1.c \
 			l3d_shading_utils2.c \
 			l3d_uv.c \
 			l3d_texture_sample.c \

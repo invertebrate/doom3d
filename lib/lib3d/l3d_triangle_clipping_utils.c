@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:30:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:44:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:43:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **	one to have proper values for linear interpolation. X causes glitches.
 */
 
-t_bool			l3d_interpolate_clipped_uv(t_triangle *triangle,
+t_bool	l3d_interpolate_clipped_uv(t_triangle *triangle,
 						int32_t *limits, t_vec3 hit, t_vec2 result)
 {
 	int		i;
@@ -26,19 +26,19 @@ t_bool			l3d_interpolate_clipped_uv(t_triangle *triangle,
 
 	fraction = 0.0;
 	i = 2;
-	if (fabs(triangle->vtc[limits[0]]->pos[i] -
-		triangle->vtc[limits[1]]->pos[i]) < L3D_EPSILON)
+	if (fabs(triangle->vtc[limits[0]]->pos[i]
+			- triangle->vtc[limits[1]]->pos[i]) < L3D_EPSILON)
 	{
 		ft_dprintf(2, "Degenerate triangles passed to clipping\n");
 		return (false);
 	}
-	fraction = fabs(hit[i] - triangle->vtc[limits[0]]->pos[i]) /
-		fabs(triangle->vtc[limits[0]]->pos[i] -
-		triangle->vtc[limits[1]]->pos[i]);
-	result[0] = triangle->uvs[limits[0]][0] * (1 - fraction) +
-		triangle->uvs[limits[1]][0] * (fraction);
-	result[1] = triangle->uvs[limits[0]][1] * (1 - fraction) +
-		triangle->uvs[limits[1]][1] * (fraction);
+	fraction = fabs(hit[i] - triangle->vtc[limits[0]]->pos[i])
+		/ fabs(triangle->vtc[limits[0]]->pos[i]
+			- triangle->vtc[limits[1]]->pos[i]);
+	result[0] = triangle->uvs[limits[0]][0] * (1 - fraction)
+		+ triangle->uvs[limits[1]][0] * (fraction);
+	result[1] = triangle->uvs[limits[0]][1] * (1 - fraction)
+		+ triangle->uvs[limits[1]][1] * (fraction);
 	return (true);
 }
 
@@ -50,7 +50,7 @@ t_bool			l3d_interpolate_clipped_uv(t_triangle *triangle,
 
 static t_bool	behind(t_plane *near, t_vec3 point)
 {
-	t_vec3 near_to_point;
+	t_vec3	near_to_point;
 
 	ml_vector3_sub(near->origin, point, near_to_point);
 	if (ml_vector3_dot(near->normal, near_to_point) >= 0)
@@ -58,8 +58,8 @@ static t_bool	behind(t_plane *near, t_vec3 point)
 	return (false);
 }
 
-int32_t			l3d_triangle_clipping_case(t_triangle *triangle,
-						t_plane *near, int32_t *point_indices)
+int32_t	l3d_triangle_clipping_case(t_triangle *triangle,
+			t_plane *near, int32_t *point_indices)
 {
 	int32_t		i;
 	t_bool		b;

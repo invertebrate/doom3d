@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:49:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:43:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:32:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Get closest hit whether triangle or not (aabb might be the other)
 */
 
-void			l3d_get_closest_hit(t_hits *hits, t_hit **closest)
+void	l3d_get_closest_hit(t_hits *hits, t_hit **closest)
 {
 	t_hits	*head;
 	t_hit	*hit;
@@ -25,7 +25,7 @@ void			l3d_get_closest_hit(t_hits *hits, t_hit **closest)
 	*closest = NULL;
 	while (head)
 	{
-		hit = (t_hit*)head->content;
+		hit = (t_hit *)head->content;
 		if (*closest == NULL)
 			*closest = hit;
 		if (hit != NULL && hit->t <= (*closest)->t)
@@ -38,9 +38,9 @@ void			l3d_get_closest_hit(t_hits *hits, t_hit **closest)
 ** Get closest triangle hit within range `range`
 */
 
-void			l3d_get_closest_triangle_hit_at_range(t_hits *hits,
-					t_hit **closest,
-					uint32_t ignore_id, float range)
+void	l3d_get_closest_triangle_hit_at_range(t_hits *hits,
+			t_hit **closest,
+			uint32_t ignore_id, float range)
 {
 	t_hits	*head;
 	t_hit	*hit;
@@ -49,13 +49,13 @@ void			l3d_get_closest_triangle_hit_at_range(t_hits *hits,
 	*closest = NULL;
 	while (head)
 	{
-		hit = (t_hit*)head->content;
-		if (*closest == NULL && hit->t > 0.0 && hit->t <= range &&
-			hit->triangle->parent->id != ignore_id)
+		hit = (t_hit *)head->content;
+		if (*closest == NULL && hit->t > 0.0 && hit->t <= range
+			&& hit->triangle->parent->id != ignore_id)
 			*closest = hit;
-		if (hit != NULL && hit->t > 0.0 && hit->t <= range &&
-			hit->triangle->parent->id != ignore_id &&
-			hit->t <= (*closest)->t)
+		if (hit != NULL && hit->t > 0.0 && hit->t <= range
+			&& hit->triangle->parent->id != ignore_id
+			&& hit->t <= (*closest)->t)
 			*closest = hit;
 		head = head->next;
 	}

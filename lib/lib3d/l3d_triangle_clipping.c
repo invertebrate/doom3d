@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:44:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:44:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 **	4. Form triangle(s) from new points
 */
 
-int32_t			l3d_clip_triangle(t_triangle *triangle, t_plane *plane,
+int32_t	l3d_clip_triangle(t_triangle *triangle, t_plane *plane,
 									t_triangle *result_triangles[2])
 {
 	int		clip_case;
@@ -33,14 +33,14 @@ int32_t			l3d_clip_triangle(t_triangle *triangle, t_plane *plane,
 	if (clip_case == 2)
 	{
 		if (!(create_two_clipped_triangles(triangle, plane, indices,
-										result_triangles)))
+					result_triangles)))
 			return (0);
 		return (2);
 	}
 	else if (clip_case == 1)
 	{
 		if (!(create_one_clipped_triangle(triangle, plane, indices,
-										result_triangles)))
+					result_triangles)))
 			return (0);
 		return (1);
 	}
@@ -50,7 +50,7 @@ int32_t			l3d_clip_triangle(t_triangle *triangle, t_plane *plane,
 	}
 }
 
-void			l3d_init_clipped_triangles(t_triangle *clipped_tris[2])
+void	l3d_init_clipped_triangles(t_triangle *clipped_tris[2])
 {
 	int32_t		i;
 

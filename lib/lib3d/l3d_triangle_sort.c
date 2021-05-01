@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 15:49:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:45:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:58:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 ** by inserting 2 zeros after each bit.
 */
 
-static unsigned int		expand_bits(unsigned int v)
+static unsigned int	expand_bits(unsigned int v)
 {
 	v = (v * 0x00010001u) & 0xFF0000FFu;
 	v = (v * 0x00000101u) & 0x0F00F00Fu;
@@ -37,7 +37,7 @@ static unsigned int		expand_bits(unsigned int v)
 ** given 3D point located within the unit cube [0,1].
 */
 
-static unsigned int		morton_3d(t_vec3 normalized_pos)
+static unsigned int	morton_3d(t_vec3 normalized_pos)
 {
 	float	x;
 	float	y;
@@ -46,16 +46,16 @@ static unsigned int		morton_3d(t_vec3 normalized_pos)
 	x = fmin(fmax(normalized_pos[0] * 1024.0f, 0.0f), 1023.0f);
 	y = fmin(fmax(normalized_pos[1] * 1024.0f, 0.0f), 1023.0f);
 	z = fmin(fmax(normalized_pos[2] * 1024.0f, 0.0f), 1023.0f);
-	return (expand_bits((unsigned int)x) * 4 +
-		expand_bits((unsigned int)y) * 2 +
-		expand_bits((unsigned int)z));
+	return (expand_bits((unsigned int)x) * 4
+		+ expand_bits((unsigned int)y) * 2
+		+ expand_bits((unsigned int)z));
 }
 
 /*
 ** Return triangle's bounding box (axis aligned bounding box)
 */
 
-t_box3d					triangle_bounding_box(t_triangle *triangle)
+t_box3d	triangle_bounding_box(t_triangle *triangle)
 {
 	int32_t	i;
 	t_box3d	aabb;
@@ -65,9 +65,9 @@ t_box3d					triangle_bounding_box(t_triangle *triangle)
 	while (++i < 3)
 	{
 		aabb.xyz_min[i] = fmin(fmin(triangle->vtc[0]->pos[i],
-			triangle->vtc[1]->pos[i]), triangle->vtc[2]->pos[i]);
+					triangle->vtc[1]->pos[i]), triangle->vtc[2]->pos[i]);
 		aabb.xyz_max[i] = fmax(fmax(triangle->vtc[0]->pos[i],
-			triangle->vtc[1]->pos[i]), triangle->vtc[2]->pos[i]);
+					triangle->vtc[1]->pos[i]), triangle->vtc[2]->pos[i]);
 	}
 	ml_vector3_sub(aabb.xyz_max, aabb.xyz_min, aabb.size);
 	ml_vector3_mul(aabb.size, 0.5, half_size);
@@ -80,16 +80,16 @@ t_box3d					triangle_bounding_box(t_triangle *triangle)
 ** Normalize a position inside a bounded world box between 0 and 1
 */
 
-void					normalize_by_world_box(t_vec3 position,
-							t_box3d *world_box)
+void	normalize_by_world_box(t_vec3 position,
+			t_box3d *world_box)
 {
 	int32_t		i;
 
 	i = -1;
 	while (++i < 3)
 	{
-		position[i] = (position[i] - world_box->xyz_min[i]) /
-			(world_box->xyz_max[i] - world_box->xyz_min[i]);
+		position[i] = (position[i] - world_box->xyz_min[i])
+			/ (world_box->xyz_max[i] - world_box->xyz_min[i]);
 	}
 }
 
@@ -99,8 +99,8 @@ void					normalize_by_world_box(t_vec3 position,
 ** Sorts relative to world box
 */
 
-void					triangle_sort_by_morton_code(t_tri_vec *triangles,
-							t_thread_pool *pool, t_box3d *world_box)
+void	triangle_sort_by_morton_code(t_tri_vec *triangles,
+			t_thread_pool *pool, t_box3d *world_box)
 {
 	uint32_t	i;
 	t_triangle	*tmp[triangles->size];
@@ -117,7 +117,7 @@ void					triangle_sort_by_morton_code(t_tri_vec *triangles,
 		morton_codes[i] = morton_3d(aabb.center);
 		triangle_indices[i] = i;
 	}
-	radix_sort_key_val(pool, (uint32_t*[2]){morton_codes, triangle_indices},
+	radix_sort_key_val(pool, (uint32_t *[2]){morton_codes, triangle_indices},
 		triangles->size);
 	i = -1;
 	while (++i < triangles->size)

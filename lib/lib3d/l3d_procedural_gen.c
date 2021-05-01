@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:43:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:29:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
-static void			l3d_plane_set_vertices(t_3d_object *plane)
+static void	l3d_plane_set_vertices(t_3d_object *plane)
 {
 	plane->triangles[0].vtc_indices[0] = 0;
 	plane->triangles[0].vtc_indices[1] = 1;
@@ -20,9 +20,9 @@ static void			l3d_plane_set_vertices(t_3d_object *plane)
 	plane->triangles[1].vtc_indices[0] = 0;
 	plane->triangles[1].vtc_indices[1] = 2;
 	plane->triangles[1].vtc_indices[2] = 3;
-	l3d_triangle_set(&plane->triangles[0], (t_vertex*[3]){
+	l3d_triangle_set(&plane->triangles[0], (t_vertex *[3]){
 		plane->vertices[0], plane->vertices[1], plane->vertices[2]}, plane);
-	l3d_triangle_set(&plane->triangles[1], (t_vertex*[3]){
+	l3d_triangle_set(&plane->triangles[1], (t_vertex *[3]){
 		plane->vertices[0], plane->vertices[2], plane->vertices[3]}, plane);
 }
 
@@ -30,7 +30,7 @@ static void			l3d_plane_set_vertices(t_3d_object *plane)
 ** Create a procedurally generate plane
 */
 
-t_3d_object			*l3d_plane_create(t_surface *texture, t_surface *normal_map)
+t_3d_object	*l3d_plane_create(t_surface *texture, t_surface *normal_map)
 {
 	t_3d_object		*plane;
 
@@ -57,9 +57,9 @@ t_3d_object			*l3d_plane_create(t_surface *texture, t_surface *normal_map)
 ** front, left, top, back, right, bottom
 */
 
-void				l3d_skybox_create(t_3d_object *skybox[6],
-										t_surface *skybox_textures[6],
-										float unit_size)
+void	l3d_skybox_create(t_3d_object *skybox[6],
+			t_surface *skybox_textures[6],
+			float unit_size)
 {
 	int32_t		i;
 	float		scale;
@@ -93,8 +93,8 @@ void				l3d_skybox_create(t_3d_object *skybox[6],
 ** Creates a new id for the object.
 */
 
-t_3d_object			*l3d_object_instantiate(t_3d_object *model,
-						float unit_size)
+t_3d_object	*l3d_object_instantiate(t_3d_object *model,
+				float unit_size)
 {
 	t_3d_object	*new_obj;
 

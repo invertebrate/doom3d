@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   l3d_shading_utils.c                                :+:      :+:    :+:   */
+/*   l3d_shading_utils1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:04:36 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:43:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:35:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
-static void		normal_from_color(uint32_t color, t_vec3 normal)
+static void	normal_from_color(uint32_t color, t_vec3 normal)
 {
 	uint32_t	rgba[4];
 	float		inv_255;
@@ -24,7 +24,7 @@ static void		normal_from_color(uint32_t color, t_vec3 normal)
 	normal[2] = (float)rgba[2] * inv_255;
 }
 
-static void		calc_bumped_normal(t_triangle *triangle, t_vec2 uv, t_vec3 res)
+static void	calc_bumped_normal(t_triangle *triangle, t_vec2 uv, t_vec3 res)
 {
 	uint32_t	normal_value;
 	t_vec3		bumpnormal;
@@ -42,7 +42,7 @@ static void		calc_bumped_normal(t_triangle *triangle, t_vec2 uv, t_vec3 res)
 }
 
 static uint32_t	fragment_shade_normal(t_vec3 light_vector, t_vec3 frag_normal,
-									uint32_t frag)
+					uint32_t frag)
 {
 	float		dot;
 	uint32_t	rgba[4];
@@ -62,11 +62,11 @@ static uint32_t	fragment_shade_normal(t_vec3 light_vector, t_vec3 frag_normal,
 ** Return pixel with shading for normal mapping
 */
 
-uint32_t		l3d_pixel_normal_shaded(uint32_t pixel, t_triangle *triangle,
-					t_vec2 uv)
+uint32_t	l3d_pixel_normal_shaded(uint32_t pixel, t_triangle *triangle,
+				t_vec2 uv)
 {
-	t_vec3 frag_normal;
-	t_vec3 light_vector;
+	t_vec3	frag_normal;
+	t_vec3	light_vector;
 
 	ml_vector3_set(light_vector, 0.0, 0.0, -1.0);
 	ml_vector3_set(frag_normal, 0.0, 0.0, -1.0);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:45:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 23:08:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 ** Calculates & sets triangle's center. The center of mass to be more specific.
 */
 
-void				l3d_triangle_centroid_update(t_triangle *triangle)
+void	l3d_triangle_centroid_update(t_triangle *triangle)
 {
 	ml_vector3_copy((t_vec3){
-		(triangle->vtc[0]->pos[0] + triangle->vtc[1]->pos[0] +
-		triangle->vtc[2]->pos[0]) / 3.0,
-		(triangle->vtc[0]->pos[1] + triangle->vtc[1]->pos[1] +
-		triangle->vtc[2]->pos[1]) / 3.0,
-		(triangle->vtc[0]->pos[2] + triangle->vtc[1]->pos[2] +
-		triangle->vtc[2]->pos[2]) / 3.0,
+		(triangle->vtc[0]->pos[0] + triangle->vtc[1]->pos[0]
+			+ triangle->vtc[2]->pos[0]) / 3.0,
+		(triangle->vtc[0]->pos[1] + triangle->vtc[1]->pos[1]
+			+ triangle->vtc[2]->pos[1]) / 3.0,
+		(triangle->vtc[0]->pos[2] + triangle->vtc[1]->pos[2]
+			+ triangle->vtc[2]->pos[2]) / 3.0,
 	}, triangle->center);
 }
 
@@ -32,8 +32,8 @@ void				l3d_triangle_centroid_update(t_triangle *triangle)
 ** Out of all triangles inputted, calculates their center of mass.
 */
 
-void				l3d_triangles_midpoint(t_triangle **triangles,
-					uint32_t num_triangles, t_vec3 res)
+void	l3d_triangles_midpoint(t_triangle **triangles,
+			uint32_t num_triangles, t_vec3 res)
 {
 	int		i;
 
@@ -52,7 +52,7 @@ void				l3d_triangles_midpoint(t_triangle **triangles,
 ** center of mass.
 */
 
-void				l3d_triangle_vec_midpoint(t_tri_vec *triangles, t_vec3 res)
+void	l3d_triangle_vec_midpoint(t_tri_vec *triangles, t_vec3 res)
 {
 	int		i;
 
@@ -70,8 +70,8 @@ void				l3d_triangle_vec_midpoint(t_tri_vec *triangles, t_vec3 res)
 ** Sets triangle values for vertices, updates centroid and normals
 */
 
-void				l3d_triangle_set(t_triangle *triangle, t_vertex *vtc[3],
-						t_3d_object *obj)
+void	l3d_triangle_set(t_triangle *triangle, t_vertex *vtc[3],
+			t_3d_object *obj)
 {
 	triangle->material = obj->material;
 	triangle->is_single_sided = L3D_SINGLE_SIDED;
@@ -86,8 +86,8 @@ void				l3d_triangle_set(t_triangle *triangle, t_vertex *vtc[3],
 ** Destroy triangle
 */
 
-void				l3d_triangle_destroy(t_triangle *triangle,
-						t_bool with_vertices)
+void	l3d_triangle_destroy(t_triangle *triangle,
+			t_bool with_vertices)
 {
 	int32_t	i;
 

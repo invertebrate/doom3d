@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:08:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:42:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:22:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,33 @@ static t_bool	same_signs(float a, float b)
 	return (a != 0 && b != 0 && a * b >= 0);
 }
 
-static void		set_intesection(float coefs[6], float denom, t_vec2 intersect)
+static void	set_intesection(float coefs[6], float denom, t_vec2 intersect)
 {
 	float	offset;
 	float	num;
 
-	offset = denom < 0 ? -denom / 2 : denom / 2;
+	if (denom < 0 )
+		offset = -denom / 2;
+	else
+		offset = denom / 2;
 	num = coefs[2] * coefs[5] - coefs[3] * coefs[4];
-	intersect[0] = (num < 0 ? num - offset : num + offset) / denom;
+	if (num < 0)
+		intersect[0] = (num - offset) / denom;
+	else
+		intersect[0] = (num + offset) / denom;
 	num = coefs[1] * coefs[4] - coefs[0] * coefs[5];
-	intersect[1] = (num < 0 ? num - offset : num + offset) / denom;
+	if (num < 0)
+		intersect[1] = (num - offset) / denom;
+	else
+		intersect[1] = (num + offset) / denom;
 }
 
 /*
 ** Calculate if 2d lines intersect
 */
 
-int32_t			l3d_2d_lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2],
-					t_vec2 intersect)
+int32_t	l3d_2d_lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2],
+			t_vec2 intersect)
 {
 	float	coefs[6];
 	float	signs[4];
@@ -66,26 +75,26 @@ int32_t			l3d_2d_lines_intersect(t_vec2 edge1[2], t_vec2 edge2[2],
 ** Draw order AB, BC, CA
 */
 
-void			l3d_triangle_2d_draw(uint32_t *buffer,
-				uint32_t dimensions_wh[2],
-				t_vec2 corners[3], uint32_t color)
+void	l3d_triangle_2d_draw(uint32_t *buffer,
+			uint32_t dimensions_wh[2],
+			t_vec2 corners[3], uint32_t color)
 {
 	l3d_line_draw(buffer, dimensions_wh,
 		(int32_t[2][2]){{corners[0][0], corners[0][1]},
-			{corners[1][0], corners[1][1]}}, color);
+	{corners[1][0], corners[1][1]}}, color);
 	l3d_line_draw(buffer, dimensions_wh,
 		(int32_t[2][2]){{corners[1][0], corners[1][1]},
-			{corners[2][0], corners[2][1]}}, color / 2);
+	{corners[2][0], corners[2][1]}}, color / 2);
 	l3d_line_draw(buffer, dimensions_wh,
 		(int32_t[2][2]){{corners[2][0], corners[2][1]},
-			{corners[0][0], corners[0][1]}}, color / 3);
+	{corners[0][0], corners[0][1]}}, color / 3);
 }
 
 /*
 ** Swap ends of an edge
 */
 
-void			l3d_line_edge_end_swap(int32_t edge[2][2])
+void	l3d_line_edge_end_swap(int32_t edge[2][2])
 {
 	int32_t	tmp[2];
 

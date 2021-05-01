@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/28 16:20:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:52:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@
 ** really fit to the rest of the 3d stuff.
 */
 
-typedef struct				s_obj
+typedef struct s_obj
 {
 	t_vec3			*v;
 	uint32_t		num_vertices;
@@ -79,7 +79,7 @@ typedef struct				s_obj
 ** Basic vertex struct with position, color and texture coordinates.
 */
 
-typedef struct				s_vertex
+typedef struct s_vertex
 {
 	t_vec4			pos;
 	uint32_t		color;
@@ -90,7 +90,7 @@ typedef struct				s_vertex
 ** bounding box intersection calculations.
 */
 
-typedef struct				s_ray
+typedef struct s_ray
 {
 	t_vec3			dir;
 	t_vec3			origin;
@@ -101,7 +101,7 @@ typedef struct				s_ray
 ** Structure representing a circular orthogonal cone in 3d space.
 */
 
-typedef struct				s_cone
+typedef struct s_cone
 {
 	t_vec3			apex;
 	t_vec3			dir;
@@ -115,7 +115,7 @@ typedef struct				s_cone
 ** E.g. e_shading_zero_alpha = if alpha == 0, render nothing on that pixel
 */
 
-typedef enum				e_shading_opts
+typedef enum e_shading_opts
 {
 	e_shading_normal_map = 1 << 1,
 	e_shading_zero_alpha = 1 << 2,
@@ -143,14 +143,14 @@ typedef enum				e_shading_opts
 ** of the image
 */
 
-typedef struct				s_surface
+typedef struct s_surface
 {
 	uint32_t		*pixels;
 	uint32_t		w;
 	uint32_t		h;
 }							t_surface;
 
-typedef struct				s_flashlight
+typedef struct s_flashlight
 {
 	t_cone					cone;
 	uint32_t				light_color;
@@ -164,7 +164,7 @@ typedef struct				s_flashlight
 ** if it's been set for material of the object
 */
 
-typedef struct				s_light_source
+typedef struct s_light_source
 {
 	t_vec3		pos;
 	float		radius;
@@ -177,7 +177,7 @@ typedef struct				s_light_source
 ** rendering related parameters such as shading opts and light sources
 */
 
-typedef struct				s_material
+typedef struct s_material
 {
 	t_surface		*texture;
 	t_surface		*normal_map;
@@ -194,7 +194,7 @@ typedef struct s_3d_object	t_3d_object;
 ** Center and normal should be updated if vertices are transformed.
 */
 
-typedef struct				s_triangle
+typedef struct s_triangle
 {
 	t_bool			is_single_sided;
 	t_bool			clipped;
@@ -220,7 +220,7 @@ typedef struct				s_triangle
 ** in parallel rendering
 */
 
-typedef struct				s_sub_framebuffer
+typedef struct s_sub_framebuffer
 {
 	uint32_t		*buffer;
 	float			*zbuffer;
@@ -239,7 +239,7 @@ typedef struct				s_sub_framebuffer
 ** pixels to which the sub parts are then copied by threads
 */
 
-typedef struct				s_framebuffer
+typedef struct s_framebuffer
 {
 	uint32_t			*buffer;
 	int32_t				width;
@@ -254,7 +254,7 @@ typedef struct				s_framebuffer
 ** For example material information could be saved here.
 */
 
-typedef struct				s_hit
+typedef struct s_hit
 {
 	float			t;
 	float			u;
@@ -272,7 +272,7 @@ typedef t_list				t_hits;
 ** center and size are useful in kd_tree / bvh structs.
 */
 
-typedef struct				s_box3d
+typedef struct s_box3d
 {
 	t_vec3			center;
 	t_vec3			size;
@@ -285,7 +285,7 @@ typedef struct				s_box3d
 **	Describes an infinite plane in 3D. Origin is any point that is on the plane
 */
 
-typedef struct				s_plane
+typedef struct s_plane
 {
 	t_vec3		origin;
 	t_vec3		normal;
@@ -297,7 +297,7 @@ typedef struct				s_plane
 ** This is the main struct to hold 3d object data.
 */
 
-struct						s_3d_object
+struct s_3d_object
 {
 	uint32_t		id;
 	uint32_t		type;
@@ -319,7 +319,7 @@ struct						s_3d_object
 ** Utility enum for x y z axes.
 */
 
-typedef enum				e_axis
+typedef enum e_axis
 {
 	l3d_axis_x,
 	l3d_axis_y,
@@ -333,7 +333,7 @@ typedef enum				e_axis
 ** triangle vector.
 */
 
-typedef struct				s_tri_vec
+typedef struct s_tri_vec
 {
 	t_triangle		**triangles;
 	uint32_t		size;
@@ -347,7 +347,7 @@ typedef struct s_kd_node	t_kd_node;
 ** bounding box information.
 */
 
-struct						s_kd_node
+struct s_kd_node
 {
 	uint32_t		uuid;
 	t_box3d			bounding_box;
@@ -363,7 +363,7 @@ struct						s_kd_node
 ** It's used to partition triangle data into a fast searchable format.
 */
 
-typedef struct				s_kd_tree
+typedef struct s_kd_tree
 {
 	uint32_t		num_nodes;
 	t_kd_node		*root;
@@ -374,7 +374,7 @@ typedef struct				s_kd_tree
 ** lifetime
 */
 
-typedef struct				s_temp_object
+typedef struct s_temp_object
 {
 	int32_t					lifetime;
 	int32_t					delay;
@@ -385,7 +385,7 @@ typedef struct				s_temp_object
 ** A linked list of temp objects
 */
 
-typedef	t_list				t_temp_objects;
+typedef t_list				t_temp_objects;
 
 /*
 ** Kd tree
@@ -413,7 +413,7 @@ void						l3d_triangle_hit_record_set(float afuvt[5],
 void						l3d_bounding_box_hit_record_set(float t[8],
 								t_ray *ray, t_hits **hits);
 t_bool						l3d_plane_ray_hit(t_plane *plane, t_ray *ray,
-									t_vec3 hit_point);
+								t_vec3 hit_point);
 void						l3d_delete_hits(t_hits **hits);
 void						l3d_get_closest_triangle_hit(t_hits *hits,
 								t_hit **closest,
@@ -470,13 +470,13 @@ void						normalize_by_world_box(t_vec3 position,
 */
 
 int							l3d_clip_triangle(t_triangle *triangle,
-											t_plane *plane,
-											t_triangle *result_triangles[2]);
+								t_plane *plane,
+								t_triangle *result_triangles[2]);
 void						l3d_init_clipped_triangles(t_triangle
 								*clipped_tris[2]);
 int							l3d_triangle_test_clip(t_triangle *triangle,
-														t_plane *plane,
-														int *point_indices);
+								t_plane *plane,
+								int *point_indices);
 
 /*
 ** Bounding box
@@ -528,10 +528,10 @@ void						l3d_3d_object_add_light_source(t_3d_object *object,
 								float radius_intensity[2],
 								uint32_t emit_color);
 float						*point_inside_cone(t_cone *cone, t_vec3 point,
-												float *vars);
+								float *vars);
 void						get_world_pos_persp_corr(t_triangle *triangle,
-														t_vec3 baryc,
-														t_vec3 world_pos);
+								t_vec3 baryc,
+								t_vec3 world_pos);
 
 /*
 ** OBJ reading
@@ -555,17 +555,17 @@ uint32_t					l3d_random_uuid(void);
 */
 
 void						l3d_triangle_raster(t_sub_framebuffer *buffers,
-												t_triangle *triangle);
+								t_triangle *triangle);
 void						l3d_triangle_raster_transparent(t_sub_framebuffer
-												*buffers,
-												t_triangle *triangle);
+								*buffers,
+								t_triangle *triangle);
 void						l3d_calculate_baryc(
-													t_vec2 *triangle_points_2d,
-													t_vec2 point,
-													float *barycoords);
+								t_vec2 *triangle_points_2d,
+								t_vec2 point,
+								float *barycoords);
 void						l3d_interpolate_uv(t_triangle *triangle,
-												float *barycoords,
-												t_vec2 point_uv);
+								float *barycoords,
+								t_vec2 point_uv);
 uint32_t					l3d_sample_texture(t_surface *material,
 								t_vec2 uv_point);
 void						l3d_order_corners_y(t_vec2 *ordered_corners,
@@ -587,26 +587,29 @@ void						l3d_raster_draw_pixel_transparent(t_sub_framebuffer
 								int32_t xy[2],
 								t_triangle *triangle);
 uint32_t					l3d_pixel_light_shaded(t_triangle *triangle,
-									t_vec3 baryc, uint32_t pixel);
+								t_vec3 baryc, uint32_t pixel);
+uint32_t					l3d_blend_pixel(t_sub_framebuffer *buffers,
+								int32_t offset_xy[2], uint32_t pixel);
+
 /*
 ** Plot pixel
 */
 
 void						l3d_pixel_plot(uint32_t *buffer,
-												uint32_t dimensions_wh[2],
-												int32_t xy[2],
-												uint32_t color);
+								uint32_t dimensions_wh[2],
+								int32_t xy[2],
+								uint32_t color);
 uint32_t					l3d_pixel_get(uint32_t *buffer,
-												uint32_t dimensions_wh[2],
-												int32_t xy[2]);
+								uint32_t dimensions_wh[2],
+								int32_t xy[2]);
 float						l3d_pixel_get_float(float *buffer,
 								uint32_t dimensions_wh[2], int32_t xy[2]);
 void						l3d_pixel_plot_float(float *buffer,
 								uint32_t dimensions_wh[2], int32_t xy[2],
 								float value);
 void						calculate_luminosity(uint32_t *pixel,
-												uint32_t *light,
-												uint32_t darkness);
+								uint32_t *light,
+								uint32_t darkness);
 void						l3d_write_z_val(
 								t_sub_framebuffer *buffers,
 								t_triangle *triangle,
@@ -666,23 +669,23 @@ uint32_t					l3d_triangle_normal_color(t_triangle *triangle);
 */
 
 t_framebuffer				*l3d_framebuffer_create(int32_t width,
-													int32_t height);
+								int32_t height);
 void						l3d_framebuffer_destroy(t_framebuffer *framebuffer);
 void						l3d_framebuffer_recreate(
 								t_framebuffer **framebuffer,
 								int32_t width, int32_t height);
 void						l3d_buffer_float_clear(float *buffer,
-									uint32_t size, float clear_value);
+								uint32_t size, float clear_value);
 void						l3d_buffer_uint32_clear(uint32_t *buffer,
-									uint32_t size, uint32_t clear_value);
+								uint32_t size, uint32_t clear_value);
 
 /*
 ** Procedural gen
 */
 
 void						l3d_skybox_create(t_3d_object *skybox[6],
-												t_surface *skybox_textures[6],
-												float unit_size);
+								t_surface *skybox_textures[6],
+								float unit_size);
 t_3d_object					*l3d_plane_create(t_surface	*texture,
 								t_surface *normal_map);
 t_3d_object					*l3d_object_instantiate(t_3d_object *model,

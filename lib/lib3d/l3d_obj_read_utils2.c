@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:42:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 22:26:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** data.
 */
 
-t_bool				l3d_is_valid_obj(t_obj *obj)
+t_bool	l3d_is_valid_obj(t_obj *obj)
 {
 	int				i;
 	int				j;
@@ -31,19 +31,16 @@ t_bool				l3d_is_valid_obj(t_obj *obj)
 		j = -1;
 		while (++j < 3)
 		{
-			max_indices[0] =
-				max_indices[0] > obj->triangles[i * 9 + j * 3 + 0] ?
-				max_indices[0] : obj->triangles[i * 9 + j * 3 + 0];
-			max_indices[1] =
-				max_indices[1] > obj->triangles[i * 9 + j * 3 + 1] ?
-				max_indices[1] : obj->triangles[i * 9 + j * 3 + 1];
-			max_indices[2] =
-				max_indices[2] > obj->triangles[i * 9 + j * 3 + 2] ?
-				max_indices[2] : obj->triangles[i * 9 + j * 3 + 2];
+			max_indices[0] = (uint32_t)fmax(
+					max_indices[0], obj->triangles[i * 9 + j * 3 + 0]);
+			max_indices[1] = (uint32_t)fmax(
+					max_indices[0], obj->triangles[i * 9 + j * 3 + 1]);
+			max_indices[2] = (uint32_t)fmax(
+					max_indices[0], obj->triangles[i * 9 + j * 3 + 2]);
 		}
 	}
-	return (max_indices[0] == obj->num_vertices && max_indices[1] ==
-		obj->num_v_text_coords && max_indices[2] == obj->num_v_normals);
+	return (max_indices[0] == obj->num_vertices && max_indices[1]
+		== obj->num_v_text_coords && max_indices[2] == obj->num_v_normals);
 }
 
 /*
@@ -51,13 +48,13 @@ t_bool				l3d_is_valid_obj(t_obj *obj)
 ** forward along the way.
 */
 
-void				l3d_read_obj_vec3_line(char **str, t_vec3 res)
+void	l3d_read_obj_vec3_line(char **str, t_vec3 res)
 {
 	char	*tmp;
 
 	tmp = *str;
-	while (*tmp &&
-		(ft_isdigit(*tmp) || *tmp == ' ' || *tmp == '-' || *tmp == '.'))
+	while (*tmp
+		&& (ft_isdigit(*tmp) || *tmp == ' ' || *tmp == '-' || *tmp == '.'))
 		tmp++;
 	if (*tmp != '\n')
 		error_check(true, "Invalid characters in vec3 data (v)");
@@ -74,13 +71,13 @@ void				l3d_read_obj_vec3_line(char **str, t_vec3 res)
 ** forward along the way.
 */
 
-void				l3d_read_obj_vec2_line(char **str, t_vec3 res)
+void	l3d_read_obj_vec2_line(char **str, t_vec3 res)
 {
 	char	*tmp;
 
 	tmp = *str;
-	while (*tmp &&
-		(ft_isdigit(*tmp) || *tmp == ' ' || *tmp == '-' || *tmp == '.'))
+	while (*tmp
+		&& (ft_isdigit(*tmp) || *tmp == ' ' || *tmp == '-' || *tmp == '.'))
 		tmp++;
 	if (*tmp != '\n')
 		error_check(true, "Invalid characters in vec2 data (vn || vt)");
@@ -95,8 +92,8 @@ void				l3d_read_obj_vec2_line(char **str, t_vec3 res)
 ** forward along the way.
 */
 
-void				l3d_read_obj_triangle_line(char **str,
-						uint32_t *triangle)
+void	l3d_read_obj_triangle_line(char **str,
+			uint32_t *triangle)
 {
 	char	*tmp;
 	int		i;
