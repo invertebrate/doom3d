@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:00:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 01:06:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libgmatrix.h"
 
-static void		view_matrix(t_vec3 axes[3], t_vec3 eye, t_mat4 res)
+static void	view_matrix(t_vec3 axes[3], t_vec3 eye, t_mat4 res)
 {
 	res[0][0] = axes[0][0];
 	res[0][1] = axes[1][0];
@@ -36,8 +36,8 @@ static void		view_matrix(t_vec3 axes[3], t_vec3 eye, t_mat4 res)
 ** Create a look at view matrix
 */
 
-void			ml_matrix4_lookat(t_vec3 eye, t_vec3 center, t_vec3 up,
-				t_mat4 res)
+void	ml_matrix4_lookat(t_vec3 eye, t_vec3 center, t_vec3 up,
+			t_mat4 res)
 {
 	t_vec3			zaxis;
 	t_vec3			xaxis;
@@ -60,7 +60,7 @@ void			ml_matrix4_lookat(t_vec3 eye, t_vec3 center, t_vec3 up,
 ** Create an fps view matrix
 */
 
-void			ml_matrix4_fps(t_vec3 eye, float pitch, float yaw, t_mat4 res)
+void	ml_matrix4_fps(t_vec3 eye, float pitch, float yaw, t_mat4 res)
 {
 	t_vec3			zaxis;
 	t_vec3			xaxis;

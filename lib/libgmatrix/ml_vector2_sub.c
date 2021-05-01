@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:01:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 01:08:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	ml_vector2_sub(t_vec2 v1, t_vec2 v2, t_vec2 res)
 {
-	size_t i;
+	size_t	i;
 
 	i = -1;
 	while (++i < 2)

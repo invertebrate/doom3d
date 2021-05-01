@@ -16,7 +16,7 @@
 ** Multiply vector2 values by k
 */
 
-void		ml_vector2_mul(t_vec2 v1, float k, t_vec2 res)
+void	ml_vector2_mul(t_vec2 v1, float k, t_vec2 res)
 {
 	size_t		i;
 

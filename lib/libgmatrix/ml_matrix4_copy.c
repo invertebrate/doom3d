@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:00:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 01:10:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	ml_matrix4_copy(t_mat4 src, t_mat4 dest)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 4)

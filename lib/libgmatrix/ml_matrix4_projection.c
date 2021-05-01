@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:00:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 01:06:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libgmatrix.h"
 
-static void		ml_matrix4_orthographic(t_canvas c, t_mat4 res)
+static void	ml_matrix4_orthographic(t_canvas c, t_mat4 res)
 {
 	ft_memset(res, 0, sizeof(t_mat4));
 	res[0][0] = 2.0f / c.width;
@@ -24,7 +24,7 @@ static void		ml_matrix4_orthographic(t_canvas c, t_mat4 res)
 	res[3][3] = 1.0f;
 }
 
-static void		ml_matrix4_perspective(t_canvas c, t_mat4 res)
+static void	ml_matrix4_perspective(t_canvas c, t_mat4 res)
 {
 	float		ar;
 	float		angle;
@@ -43,8 +43,8 @@ static void		ml_matrix4_perspective(t_canvas c, t_mat4 res)
 ** Create a projectionmatrix of t_projection_type
 */
 
-void			ml_matrix4_projection(t_projection_type type,
-				t_canvas c, t_mat4 res)
+void	ml_matrix4_projection(t_projection_type type,
+			t_canvas c, t_mat4 res)
 {
 	if (type == ml_orthographic)
 		ml_matrix4_orthographic(c, res);

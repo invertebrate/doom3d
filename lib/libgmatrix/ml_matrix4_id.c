@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:00:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 01:04:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Create identity matrix
 */
 
-void		ml_matrix4_id(t_mat4 res)
+void	ml_matrix4_id(t_mat4 res)
 {
 	size_t		r;
 	size_t		c;

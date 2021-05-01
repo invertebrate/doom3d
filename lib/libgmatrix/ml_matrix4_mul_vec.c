@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:00:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 01:05:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Multiply vector3 with matrix4
 */
 
-void		ml_matrix4_mul_vec3(t_mat4 m, t_vec3 v, t_vec3 res)
+void	ml_matrix4_mul_vec3(t_mat4 m, t_vec3 v, t_vec3 res)
 {
 	size_t		r;
 	size_t		c;
@@ -42,7 +42,7 @@ void		ml_matrix4_mul_vec3(t_mat4 m, t_vec3 v, t_vec3 res)
 ** Multiply vector4 with matrix4
 */
 
-void		ml_matrix4_mul_vec4(t_mat4 m, t_vec4 v, t_vec4 res)
+void	ml_matrix4_mul_vec4(t_mat4 m, t_vec4 v, t_vec4 res)
 {
 	size_t		r;
 	size_t		c;

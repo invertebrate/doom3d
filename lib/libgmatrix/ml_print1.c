@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:00:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 01:06:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Print matrix4
 */
 
-void		ml_matrix4_print(t_mat4 m)
+void	ml_matrix4_print(t_mat4 m)
 {
 	size_t	c;
 	size_t	r;
@@ -37,7 +37,7 @@ void		ml_matrix4_print(t_mat4 m)
 ** Stringify matrix4
 */
 
-void		ml_matrix4_to_str(t_mat4 m, char *res)
+void	ml_matrix4_to_str(t_mat4 m, char *res)
 {
 	ft_sprintf(res,
 		"Matrix4:\n"
@@ -55,7 +55,7 @@ void		ml_matrix4_to_str(t_mat4 m, char *res)
 ** Print vector4
 */
 
-void		ml_vector4_print(t_vec4 v)
+void	ml_vector4_print(t_vec4 v)
 {
 	ft_printf("Vec4[%.2f, %.2f, %.2f, %.2f]\n", v[0], v[1], v[2], v[3]);
 }
@@ -64,7 +64,7 @@ void		ml_vector4_print(t_vec4 v)
 ** Print vector3
 */
 
-void		ml_vector3_print(t_vec3 v)
+void	ml_vector3_print(t_vec3 v)
 {
 	ft_printf("Vec3[%.2f, %.2f, %.2f]\n", v[0], v[1], v[2]);
 }
@@ -73,7 +73,7 @@ void		ml_vector3_print(t_vec3 v)
 ** Print vector2
 */
 
-void		ml_vector2_print(t_vec2 v)
+void	ml_vector2_print(t_vec2 v)
 {
 	ft_printf("Vec2[%.2f, %.2f]\n", v[0], v[1]);
 }

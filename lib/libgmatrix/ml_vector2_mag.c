@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:01:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 01:07:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Length of a vector2 (magnitude)
 */
 
-float		ml_vector2_mag(t_vec2 v)
+float	ml_vector2_mag(t_vec2 v)
 {
 	size_t	i;
 	float	res;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:01:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 01:09:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	ml_vector4_copy(t_vec4 src, t_vec4 dest)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 4)
@@ -34,7 +34,7 @@ void	ml_vector4_copy(t_vec4 src, t_vec4 dest)
 
 void	ml_vector3_copy(t_vec3 src, t_vec3 dest)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 3)
@@ -50,7 +50,7 @@ void	ml_vector3_copy(t_vec3 src, t_vec3 dest)
 
 void	ml_vector2_copy(t_vec2 src, t_vec2 dest)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 2)
