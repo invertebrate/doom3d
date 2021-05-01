@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 23:07:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 00:28:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_tri_vec	*l3d_triangle_vec(t_triangle **triangles,
 
 void	l3d_triangle_vec_push(t_tri_vec *vector, t_triangle *triangle)
 {
-	t_triangle	*temp[vector->size];
+	t_triangle	**temp;
 	uint32_t	new_capacity;
 	int			i;
 
@@ -116,19 +116,18 @@ void	l3d_triangle_vec_push(t_tri_vec *vector, t_triangle *triangle)
 	else
 	{
 		new_capacity = vector->capacity * 2;
+		error_check(!(temp = malloc(sizeof(t_triangle *) * vector->size)),
+			"Failed to malloc temp in tri vector push");
 		i = -1;
 		while (++i < (int)vector->size)
 			temp[i] = vector->triangles[i];
 		free(vector->triangles);
-		vector->triangles = ft_calloc(sizeof(t_triangle *) * new_capacity);
-		if (!vector->triangles)
-		{
-			LOG_ERROR("Failed to malloc triangle vector new size");
-			exit(1);
-		}
+		error_check(!(vector->triangles = ft_calloc(sizeof(t_triangle *)
+					* new_capacity)), "Failed malloc triangle vector new size");
 		i = -1;
 		while (++i < (int)vector->size)
 			vector->triangles[i] = temp[i];
+		free(temp);
 		vector->triangles[vector->size++] = triangle;
 		vector->capacity = new_capacity;
 	}
