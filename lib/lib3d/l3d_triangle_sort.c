@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 15:49:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 22:58:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 00:22:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,48 +52,6 @@ static unsigned int	morton_3d(t_vec3 normalized_pos)
 }
 
 /*
-** Return triangle's bounding box (axis aligned bounding box)
-*/
-
-t_box3d	triangle_bounding_box(t_triangle *triangle)
-{
-	int32_t	i;
-	t_box3d	aabb;
-	t_vec3	half_size;
-
-	i = -1;
-	while (++i < 3)
-	{
-		aabb.xyz_min[i] = fmin(fmin(triangle->vtc[0]->pos[i],
-					triangle->vtc[1]->pos[i]), triangle->vtc[2]->pos[i]);
-		aabb.xyz_max[i] = fmax(fmax(triangle->vtc[0]->pos[i],
-					triangle->vtc[1]->pos[i]), triangle->vtc[2]->pos[i]);
-	}
-	ml_vector3_sub(aabb.xyz_max, aabb.xyz_min, aabb.size);
-	ml_vector3_mul(aabb.size, 0.5, half_size);
-	ml_vector3_add(aabb.xyz_min, half_size, aabb.center);
-	aabb.is_collider = false;
-	return (aabb);
-}
-
-/*
-** Normalize a position inside a bounded world box between 0 and 1
-*/
-
-void	normalize_by_world_box(t_vec3 position,
-			t_box3d *world_box)
-{
-	int32_t		i;
-
-	i = -1;
-	while (++i < 3)
-	{
-		position[i] = (position[i] - world_box->xyz_min[i])
-			/ (world_box->xyz_max[i] - world_box->xyz_min[i]);
-	}
-}
-
-/*
 ** Sort triangle vector by morton codes as keys, indices as values.
 ** Use temp array to place triangles in right order back to the vector.
 ** Sorts relative to world box
@@ -103,23 +61,63 @@ void	triangle_sort_by_morton_code(t_tri_vec *triangles,
 			t_thread_pool *pool, t_box3d *world_box)
 {
 	uint32_t	i;
-	t_triangle	*tmp[triangles->size];
-	uint32_t	morton_codes[triangles->size];
-	uint32_t	triangle_indices[triangles->size];
+	t_triangle	**tmp;
+	uint32_t	*morton;
+	uint32_t	*triangle_indices;
 	t_box3d		aabb;
 
+	error_check(!(tmp = malloc(sizeof(t_triangle *) * triangles->size)), "Err");
+	error_check(!(morton = malloc(sizeof(uint32_t) * triangles->size)), "Err");
+	error_check(!(triangle_indices = malloc(sizeof(uint32_t)
+				* triangles->size)), "Err tri sort");
 	i = -1;
 	while (++i < triangles->size)
 	{
 		tmp[i] = triangles->triangles[i];
 		aabb = triangle_bounding_box(triangles->triangles[i]);
 		normalize_by_world_box(aabb.center, world_box);
-		morton_codes[i] = morton_3d(aabb.center);
+		morton[i] = morton_3d(aabb.center);
 		triangle_indices[i] = i;
 	}
-	radix_sort_key_val(pool, (uint32_t *[2]){morton_codes, triangle_indices},
+	radix_sort_key_val(pool, (uint32_t *[2]){morton, triangle_indices},
 		triangles->size);
 	i = -1;
 	while (++i < triangles->size)
 		triangles->triangles[i] = tmp[triangle_indices[i]];
+	triangle_sort_free(tmp, morton, triangle_indices);
+}
+
+/*
+** Sorts triangles by their depth value inside world box centered in origin
+** Assumes thus that triangles are viewed from 0, 0, 0.
+*/
+
+void	triangle_sort_by_depth(t_tri_vec *triangles,
+			t_thread_pool *pool, t_box3d *world_box)
+{
+	uint32_t	i;
+	t_triangle	**tmp;
+	uint32_t	*depths;
+	uint32_t	*triangle_indices;
+	t_vec3		center;
+
+	error_check(!(tmp = malloc(sizeof(t_triangle *) * triangles->size)), "Err");
+	error_check(!(depths = malloc(sizeof(uint32_t) * triangles->size)), "Err");
+	error_check(!(triangle_indices = malloc(sizeof(uint32_t)
+				* triangles->size)), "Err tri sort");
+	i = -1;
+	while (++i < triangles->size)
+	{
+		tmp[i] = triangles->triangles[i];
+		ml_vector3_copy(triangles->triangles[i]->center, center);
+		normalize_by_world_box(center, world_box);
+		depths[i] = (uint32_t)(center[2] * 10000000.0f);
+		triangle_indices[i] = i;
+	}
+	radix_sort_key_val(pool, (uint32_t *[2]){depths, triangle_indices},
+		triangles->size);
+	i = -1;
+	while (++i < triangles->size)
+		triangles->triangles[i] = tmp[triangle_indices[i]];
+	triangle_sort_free(tmp, depths, triangle_indices);
 }

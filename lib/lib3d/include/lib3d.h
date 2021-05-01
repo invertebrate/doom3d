@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 22:52:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 00:22:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -464,6 +464,9 @@ void						triangle_sort_by_depth(t_tri_vec *triangles,
 								t_thread_pool *pool, t_box3d *world_box);
 void						normalize_by_world_box(t_vec3 position,
 								t_box3d *world_box);
+void						triangle_sort_free(t_triangle **tmp,
+								uint32_t *keys,
+								uint32_t *indices);
 
 /*
 **	Triangle clipping
