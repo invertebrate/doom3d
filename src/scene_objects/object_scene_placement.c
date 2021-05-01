@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 23:20:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 20:13:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void		set_new_object_textures_and_nmaps(t_doom3d *app,
 	texture = hash_map_get(app->active_scene->textures, (int64_t)texture_str);
 	obj->material->texture = texture;
 	if (texture != NULL)
-		hash_map_add(app->active_scene->object_textures, obj->id,
-			(void*)texture);
+		hash_map_add(app->active_scene->object_textures,
+			obj->id, (void*)texture_str);
 	normal_map = hash_map_get(app->active_scene->textures,
 		(int64_t)normal_map_str);
 	obj->material->normal_map = normal_map;
