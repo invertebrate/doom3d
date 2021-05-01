@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 22:26:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/01 23:52:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ t_bool	l3d_is_valid_obj(t_obj *obj)
 			max_indices[0] = (uint32_t)fmax(
 					max_indices[0], obj->triangles[i * 9 + j * 3 + 0]);
 			max_indices[1] = (uint32_t)fmax(
-					max_indices[0], obj->triangles[i * 9 + j * 3 + 1]);
+					max_indices[1], obj->triangles[i * 9 + j * 3 + 1]);
 			max_indices[2] = (uint32_t)fmax(
-					max_indices[0], obj->triangles[i * 9 + j * 3 + 2]);
+					max_indices[2], obj->triangles[i * 9 + j * 3 + 2]);
 		}
 	}
 	return (max_indices[0] == obj->num_vertices && max_indices[1]
