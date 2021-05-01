@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:20:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 00:55:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <math.h>
 # include "libft.h"
 
-typedef enum		e_projection_type
+typedef enum e_projection_type
 {
 	ml_orthographic = 1,
 	ml_perspective = 2,
@@ -28,7 +28,7 @@ typedef float		t_vec4[4];
 typedef t_vec4		t_mat4[4];
 typedef t_vec3		t_mat3[3];
 
-typedef struct		s_canvas
+typedef struct s_canvas
 {
 	float			width;
 	float			height;
@@ -79,9 +79,9 @@ void				ml_vector4_set_all(t_vec4 vec, float val);
 */
 
 void				ml_matrix3_column(t_vec3 column1, t_vec3 column2,
-										t_vec3 column3, t_mat3 res);
+						t_vec3 column3, t_mat3 res);
 void				ml_matrix3_row(t_vec3 row1, t_vec3 row2,
-										t_vec3 row3, t_mat3 res);
+						t_vec3 row3, t_mat3 res);
 void				ml_matrix3_mul_vec3(t_mat3 m, t_vec3 v, t_vec3 res);
 
 /*
@@ -94,23 +94,23 @@ void				ml_matrix4_mul_vec3(t_mat4 m, t_vec3 v, t_vec4 res);
 void				ml_matrix4_mul_vec4(t_mat4 m, t_vec3 v, t_vec4 res);
 void				ml_matrix4_mul(t_mat4 m1, t_mat4 m2, t_mat4 res);
 void				ml_matrix4_projection(t_projection_type type,
-					t_canvas c, t_mat4 res);
+						t_canvas c, t_mat4 res);
 void				ml_matrix4_lookat(t_vec3 eye, t_vec3 center, t_vec3 up,
-					t_mat4 res);
+						t_mat4 res);
 void				ml_matrix4_fps(t_vec3 eye, float pitch, float yaw,
-					t_mat4 res);
+						t_mat4 res);
 void				ml_matrix4_rotation_x(float rad, t_mat4 res);
 void				ml_matrix4_rotation_y(float rad, t_mat4 res);
 void				ml_matrix4_rotation_z(float rad, t_mat4 res);
 void				ml_matrix4_rotation(float rad_x, float rad_y, float rad_z,
-					t_mat4 res);
+						t_mat4 res);
 void				ml_matrix4_general_rotation(t_vec3 axis, float rad_angle,
-					t_mat4 res);
+						t_mat4 res);
 void				ml_matrix4_rotate_x(t_mat4 m, float rad, t_mat4 res);
 void				ml_matrix4_rotate_y(t_mat4 m, float rad, t_mat4 res);
 void				ml_matrix4_rotate_z(t_mat4 m, float rad, t_mat4 res);
 void				ml_matrix4_translation(float to_x, float to_y, float to_z,
-					t_mat4 res);
+						t_mat4 res);
 void				ml_matrix4_copy(t_mat4 src, t_mat4 dest);
 
 /*

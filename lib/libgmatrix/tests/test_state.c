@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2020/12/06 17:19:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 01:02:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,22 @@ t_test_state	test_state_create(t_bool success, const char *result, int id)
 	return (state);
 }
 
-void			update_test_state(const char *(*test)(void))
+void	update_test_state(const char *(*test)(void))
 {
 	const char		*message;
 	t_test_state	state;
+	t_bool			is_success;
 
 	message = test();
 	g_tests_run++;
-	state = test_state_create(message ? false : true,
-		message, g_tests_run - 1);
+	if (message)
+		is_success = false;
+	else
+		is_success = true;
+	state = test_state_create(is_success, message, g_tests_run - 1);
 	g_test_states[g_tests_run - 1] = state;
-	ft_printf(" test: %d: %s\n", state.id,
-		state.success ? "Success" : state.result);
+	if (state.success)
+		ft_printf(" test: %d: Success\n");
+	else
+		ft_printf(" test: %d: %s\n", state.id, state.result);
 }

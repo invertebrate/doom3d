@@ -6,22 +6,22 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 21:15:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 00:58:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oh_test.h"
 #include "tests.h"
 
-int g_tests_run = 0;
-t_test_state g_test_states[MAX_TESTS];
+int				g_tests_run = 0;
+t_test_state	g_test_states[MAX_TESTS];
 
-static void		all_tests(void)
+static void	all_tests(void)
 {
 	OH_RUN_TEST(test_matrix_inverse);
 }
 
-int				main(void)
+int	main(void)
 {
 	t_bool				success;
 	int					failures;
