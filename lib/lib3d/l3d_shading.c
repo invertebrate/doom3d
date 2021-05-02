@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:27:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 22:56:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:36:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ uint32_t	l3d_pixel_light_shaded(t_triangle *triangle,
 		if (triangle->material->flashlight
 			&& triangle->material->flashlight->active
 			&& triangle->material->flashlight->enabled == true)
-		flashlight_light_calculation(triangle, world_pos, light);
+			flashlight_light_calculation(triangle, world_pos, light);
 		calculate_luminosity(rgba, light, darkness);
 		light[3] = 255;
 		return (l3d_rgba_to_u32(rgba));
