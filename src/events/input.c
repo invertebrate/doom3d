@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 23:19:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:45:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			handle_game_input_events(t_doom3d *app, SDL_Event event)
 		}
 		else
 			push_custom_event(app, event_third_person_zoom,
-				(void*)(intptr_t)add, NULL);
+				(void*)(intptr_t)(add * -1), NULL);
 	}
 }
 

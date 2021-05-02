@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_init.c                                      :+:      :+:    :+:   */
+/*   player_flashlight.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 20:47:40 by veilo             #+#    #+#             */
-/*   Updated: 2021/04/07 21:11:58 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/02 23:53:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ void		player_flashlight_init(t_doom3d *app, t_player *player)
 	fl->intensity = 3.0;
 }
 
-void		player_flashlight_update(t_player *player)
+void		player_flashlight_update(t_doom3d *app)
 {
 	t_flashlight	*fl;
 
-	fl = &(player->flashlight);
-	ml_vector3_copy(player->pos, fl->cone.apex);
-	ml_matrix4_mul_vec3(player->inv_translation, fl->cone.apex, fl->cone.apex);
-	ml_matrix4_mul_vec3(player->inv_rotation, fl->cone.apex, fl->cone.apex);
+	fl = &(app->player.flashlight);
+	ml_vector3_copy(app->player.pos, fl->cone.apex);
+	transform_position_for_rendering(app, fl->cone.apex);
 	ml_vector3_set(fl->cone.dir, 0.0, 0.0, Z_DIR);
 }

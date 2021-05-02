@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:54:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 23:30:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:46:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ void			update_object_light_sources(t_doom3d *app, t_3d_object *object)
 							(float[2]){app->unit_size * LIGHT_RADIUS_DEFAULT,
 							LIGHT_INTENSITY_DEFAULT}, i);
 		}
-		if (app->is_third_person)
-			object->material->flashlight = NULL;
-		else
-			object->material->flashlight = &(app->player.flashlight);
+		object->material->flashlight = &(app->player.flashlight);
 	}
 }
 
