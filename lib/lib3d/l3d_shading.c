@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:27:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 00:23:55 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/03 00:27:08 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ uint32_t	l3d_pixel_light_shaded(t_triangle *triangle,
 	darkness = 230;
 	ft_memset(result, 0, sizeof(result));
 	if (triangle->material->num_lights > 0
-		|| triangle->material->flashlight)
+		|| (triangle->material->flashlight &&
+			triangle->material->flashlight->enabled == true))
 	{
 		get_world_pos_persp_corr(triangle, baryc, world_pos);
 		l3d_u32_to_rgba(pixel, rgba);
