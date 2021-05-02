@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 23:23:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 00:39:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void		scene_editor_init(t_doom3d *app)
 {
 	editor_deselect_all(app);
 	app->editor.is_moving = false;
+	app->is_third_person = false;
 	if (!app->level_list[app->editor.editor_level] && !app->editor.is_new_map)
 		editor_init(app, 0);
 	if (app->level_list[app->editor.editor_level])
