@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 19:04:30 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/03 00:34:13 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,5 @@ void			update_player(t_doom3d *app)
 	dt_sum += app->info.delta_time;
 	player_update_aabb(&app->player);
 	player_animation_update(app);
-	player_flashlight_update(&(app->player));
+	player_flashlight_update(app);
 }

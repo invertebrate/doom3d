@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:04:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:45:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,23 @@ void			handle_game_input_events(t_doom3d *app, SDL_Event event)
 		push_custom_event(app, event_player_toggle_flight, NULL, NULL);
 	if (event.type == SDL_MOUSEWHEEL)
 	{
-		add = event.wheel.y > 0 ? 1 : -1;
-		weapon = app->player.equipped_weapon->id + add;
-		if (weapon < 0)
-			weapon = 3;
-		if (weapon >= 4)
-			weapon = 0;
-		push_custom_event(app, event_player_weapon_equip,
-			(void*)(intptr_t)weapon, NULL);
+		if (event.wheel.y > 0)
+			add = 1;
+		else
+			add = -1;
+		if (!app->is_third_person)
+		{
+			weapon = app->player.equipped_weapon->id + add;
+			if (weapon < 0)
+				weapon = 3;
+			if (weapon >= 4)
+				weapon = 0;
+			push_custom_event(app, event_player_weapon_equip,
+				(void*)(intptr_t)weapon, NULL);	
+		}
+		else
+			push_custom_event(app, event_third_person_zoom,
+				(void*)(intptr_t)(add * -1), NULL);
 	}
 }
 

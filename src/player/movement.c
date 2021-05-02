@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 03:21:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:18:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,10 @@ void			get_move_dir(t_doom3d *app, t_move dir_option, t_vec3 dir)
 		ml_vector3_mul(up, -1, dir);
 }
 
-void			player_move(t_doom3d *app)
+float			get_movement_speed(t_doom3d *app)
 {
-	t_vec3		add;
 	float		speed;
 
-	app->player.is_moving = true;
 	if (app->player.is_running &&
 		app->player.physics_state != physics_state_jumping)
 		speed = app->player.speed * 1.5;
@@ -86,6 +84,20 @@ void			player_move(t_doom3d *app)
 	else
 		speed = app->player.speed;
 	speed = speed * app->info.delta_time * CONST_SPEED;
+	return (speed);
+}
+
+/*
+** Move player after physics forces. Also updates the camera(s)
+*/
+
+void			player_move(t_doom3d *app)
+{
+	t_vec3		add;
+	float		speed;
+
+	app->player.is_moving = true;
+	speed = get_movement_speed(app);
 	ml_vector3_mul(app->player.velocity, speed, add);
 	if (app->active_scene->scene_id == scene_id_main_game &&
 		app->active_scene->triangle_tree != NULL)
@@ -94,4 +106,6 @@ void			player_move(t_doom3d *app)
 	ml_matrix4_translation(app->player.pos[0],
 		app->player.pos[1], app->player.pos[2], app->player.translation);
 	ml_matrix4_inverse(app->player.translation, app->player.inv_translation);
+	update_player_camera(app);
+	update_third_person_camera(app);
 }

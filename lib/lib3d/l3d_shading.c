@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   l3d_shading.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:27:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 22:37:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 00:27:08 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ void	point_light_calculation(t_triangle *triangle, t_vec3 world_pos,
 			light[2] += intensity * light_add[2];
 		}
 	}
-	if (triangle->material->flashlight->enabled == true)
-		flashlight_light_calculation(triangle, world_pos, light);
 }
 
 /*
@@ -112,13 +110,17 @@ uint32_t	l3d_pixel_light_shaded(t_triangle *triangle,
 	darkness = 230;
 	ft_memset(result, 0, sizeof(result));
 	if (triangle->material->num_lights > 0
-		|| (triangle->material->flashlight != NULL
-			&& triangle->material->flashlight->active))
+		|| (triangle->material->flashlight &&
+			triangle->material->flashlight->enabled == true))
 	{
 		get_world_pos_persp_corr(triangle, baryc, world_pos);
 		l3d_u32_to_rgba(pixel, rgba);
 		ft_memset(light, 0, sizeof(light));
 		point_light_calculation(triangle, world_pos, light);
+		if (triangle->material->flashlight
+			&& triangle->material->flashlight->active
+			&& triangle->material->flashlight->enabled == true)
+			flashlight_light_calculation(triangle, world_pos, light);
 		calculate_luminosity(rgba, light, darkness);
 		light[3] = 255;
 		return (l3d_rgba_to_u32(rgba));
