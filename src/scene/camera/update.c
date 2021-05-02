@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 18:00:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 19:13:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 19:31:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void			update_third_person_camera(t_doom3d *app, t_vec3 pos)
 	ml_vector3_normalize(forward_up_sideways[0], forward_up_sideways[0]);
 	ml_matrix4_mul_vec3(look_at, (t_vec3){0, Y_DIR, 0}, forward_up_sideways[1]);
 	ml_matrix4_mul_vec3(look_at, (t_vec3){X_DIR, 0, 0}, forward_up_sideways[2]);
-	update_camera(app->active_scene->main_camera,
+	update_camera(app->active_scene->third_person_camera,
 		(float [3]){dims[0], dims[1], focal_length},
 		forward_up_sideways, pos);
 }
