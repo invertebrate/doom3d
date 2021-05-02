@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 19:18:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 19:42:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ typedef struct				s_doom3d
 	t_bool					is_running;
 	t_bool					is_debug;
 	t_bool					is_scene_reload;
+	t_bool					is_third_person;
 	t_info					info;
 	t_window				*window;
 	t_scene_id				next_scene_id;
@@ -499,6 +500,7 @@ void						handle_toggle_pause_game(t_doom3d *app);
 void						handle_toggle_fullscreen(t_doom3d *app);
 void						handle_toggle_normal_map_mode(t_doom3d *app);
 void						handle_toggle_debug_mode(t_doom3d *app);
+void						handle_toggle_third_person(t_doom3d *app);
 void						handle_player_toggle_flight(t_doom3d *app);
 void						handle_player_jump(t_doom3d *app);
 void						handle_player_move(t_doom3d *app,
