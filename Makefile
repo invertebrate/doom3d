@@ -113,7 +113,6 @@ SOURCES = main.c \
 			physics/is_grounded.c \
 			physics/forces_update.c \
 			physics/physics_obj_utils.c \
-			camera.c \
 			utils.c \
 			performance_counter.c \
 			notifications/notifications.c \
@@ -144,6 +143,8 @@ SOURCES = main.c \
 			scene/asset_loading/triggers_drops.c \
 			scene/asset_loading/prefabs.c \
 			scene/scene_content.c \
+			scene/camera/camera.c \
+			scene/camera/update.c \
 			editor/editor_selection.c \
 			editor/editor_deselection.c \
 			editor/editor_utils.c \
@@ -274,6 +275,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/menus
 	@mkdir -p temp/map
 	@mkdir -p temp/scene
+	@mkdir -p temp/scene/camera
 	@mkdir -p temp/scene/asset_loading
 	@mkdir -p temp/scene/scene_menus
 	@mkdir -p temp/editor

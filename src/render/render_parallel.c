@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:30:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:19:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 18:00:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void			render_parallel_3d_view(t_doom3d *app,
 	uint32_t			transparency_pass;
 
 	transparency_pass = 2;
-	update_camera(app);
+	update_player_camera(app);
 	render_triangles = prepare_render_triangles(app);
 	app->triangles_in_view = render_triangles[0]->size +
 		render_triangles[1]->size;

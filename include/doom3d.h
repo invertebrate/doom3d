@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 00:39:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 18:06:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -562,7 +562,12 @@ void						init_anim_instance_attack(t_3d_object *obj,
 */
 
 t_camera					*new_camera(void);
-void						update_camera(t_doom3d *app);
+void						set_camera_viewbox(t_camera *camera, float dims[2],
+								t_vec3 forward_up_sideways[3], t_vec3 pos);
+void						update_camera(t_camera *camera,
+								float dims_focal_length[3],
+								t_vec3 forward_up_sideways[3], t_vec3 pos);
+void						update_player_camera(t_doom3d *app);
 
 /*
 ** Rendering
@@ -711,7 +716,7 @@ t_scene						*scene_new(t_scene_id scene_id);
 void						scene_destroy(t_doom3d *app);
 void						select_next_scene(t_doom3d *app);
 void						scene_map_init(t_scene *scene);
-void						scene_camera_destroy(t_scene *scene);
+void						scene_cameras_destroy(t_scene *scene);
 void						scene_objects_destroy(t_scene *scene);
 void						scene_skybox_destroy(t_scene *scene);
 void						scene_assets_destroy(t_scene *scene);
