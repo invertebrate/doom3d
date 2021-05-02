@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:04:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 19:47:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void			handle_control_flow_events(t_doom3d *app, SDL_Event event)
 				push_custom_event(app, event_toggle_debug_mode, NULL, NULL);
 			if (event.key.keysym.sym == SDLK_f)
 				push_custom_event(app, event_toggle_fullscreen, NULL, NULL);
+			if (event.key.keysym.sym == SDLK_t)
+				push_custom_event(app, event_toggle_third_person, NULL, NULL);
 		}
 	}
 }

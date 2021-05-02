@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:38:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:22:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:28:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,7 @@ void			draw_debug_line(t_doom3d *app,
 
 	i = -1;
 	while (++i < 2)
-	{
-		ml_matrix4_mul_vec3(app->player.inv_translation,
-			edge[i], edge[i]);
-		ml_matrix4_mul_vec3(app->player.inv_rotation,
-			edge[i], edge[i]);
-	}
+		transform_position_for_rendering(app, edge[i]);
 	clip_3d_line_and_screen_intersect(app, edge);
 	ml_vector2_add(edge[0], (t_vec2){buffer->x_offset, buffer->y_offset},
 		edge[0]);

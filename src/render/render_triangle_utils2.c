@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:53:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 15:44:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 22:00:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ static void				add_to_render_triangles_if_should(t_doom3d *app,
 							t_triangle *renderable_triangle)
 {
 	t_vertex				vtc[3];
+	t_camera				*camera;
 
+	camera = get_render_camera(app);
 	if (triangle_too_far(app, triangle) ||
-		!triangle_inside_viewbox(app, triangle))
+		!triangle_inside_viewbox(camera, triangle))
 		return ;
 	prepare_render_triangle(app, renderable_triangle, triangle, vtc);
 	if (is_rendered(app, renderable_triangle))
@@ -51,7 +53,7 @@ void					add_temp_object_render_triangles(t_doom3d *app,
 	{
 		tmp = node->content;
 		if (!object_too_far(app, tmp->obj) &&
-			object_inside_viewbox(app, tmp->obj))
+			object_inside_viewbox(get_render_camera(app), tmp->obj))
 		{
 			i = -1;
 			while (++i < tmp->obj->num_triangles)
@@ -105,14 +107,16 @@ void					add_objects_render_triangles(t_doom3d *app,
 	int32_t					j;
 	t_triangle				*triangle;
 	t_triangle				r_triangle;
+	t_camera				*camera;
 
+	camera = get_render_camera(app);
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects +
 		app->active_scene->num_deleted))
 	{
 		if ((app->active_scene->objects[i] == NULL) ||
 			object_too_far(app, app->active_scene->objects[i]) ||
-			!object_inside_viewbox(app, app->active_scene->objects[i]))
+			!object_inside_viewbox(camera, app->active_scene->objects[i]))
 			continue ;
 		j = -1;
 		while (++j < app->active_scene->objects[i]->num_triangles)

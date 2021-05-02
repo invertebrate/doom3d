@@ -6,24 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:54:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 00:45:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:46:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
-
-/*
-** Transform light position for rasterizer origo at (0, 0, 0)
-*/
-
-void			transform_light_pos(t_doom3d *app, t_vec3 light_pos,
-					int32_t object_i)
-{
-	ml_matrix4_mul_vec3(app->player.inv_translation,
-		app->active_scene->scene_lights[object_i]->position, light_pos);
-	ml_matrix4_mul_vec3(app->player.inv_rotation,
-		light_pos, light_pos);
-}
 
 void			update_one_light_source(t_doom3d *app, t_3d_object *object,
 					float radius_intensity[2], int32_t i)
@@ -34,7 +21,8 @@ void			update_one_light_source(t_doom3d *app, t_3d_object *object,
 	radius_scale =
 		app->active_scene->scene_lights[i]->scale[0][0] /
 			app->unit_size;
-	transform_light_pos(app, light_pos, i);
+	ml_vector3_copy(app->active_scene->scene_lights[i]->position, light_pos);
+	transform_position_for_rendering(app, light_pos);
 	l3d_3d_object_add_light_source(object,
 		light_pos, (float[2]){radius_intensity[0] * radius_scale,
 			radius_intensity[1]},

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:04:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 19:43:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void	custom_event_to_str(char *str, t_doom3d_event code)
 		ft_sprintf(str, "event_toggle_normal_map_mode");
 	else if (code == event_window_resize)
 		ft_sprintf(str, "event_window_resize");
+	else if (code == event_toggle_third_person)
+		ft_sprintf(str, "event_toggle_third_person");
 	editor_custom_event_to_str(str, code);
 	object_custom_event_to_str(str, code);
 	player_custom_event_to_str(str, code);
@@ -51,6 +53,8 @@ void		register_control_flow_custom_events(t_doom3d *app)
 		(void*)handle_toggle_pause_game);
 	hash_map_add(app->custom_event_handles, event_toggle_normal_map_mode,
 		(void*)handle_toggle_normal_map_mode);
+	hash_map_add(app->custom_event_handles, event_toggle_third_person,
+		(void*)handle_toggle_third_person);
 }
 
 /*

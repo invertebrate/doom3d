@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/27 03:12:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:23:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void		scene_game_init(t_doom3d *app)
 			(void*)scene_id_main_menu, NULL);
 		return ;
 	}
+	app->is_third_person = false;
+	app->active_scene->third_person_camera_distance = 3 * app->unit_size;
 	player_init(app, start->position);
 	weapons_init(app);
 	path_node_network_init(app);
@@ -91,8 +93,6 @@ static void		active_scene_init(t_doom3d *app)
 		LOG_INFO("Initialized Editor Scene at %d objects",
 			app->active_scene->num_objects);
 	}
-	if (app->active_scene->main_camera)
-		update_camera(app);
 }
 
 static void		active_scene_mouse_mode_set(t_doom3d *app)
@@ -126,8 +126,9 @@ void			active_scene_content_set(t_doom3d *app)
 			hash_map_create(MAX_NUM_OBJECTS);
 		LOG_INFO("Create Camera");
 		app->active_scene->main_camera = new_camera();
-		if (!app->active_scene->main_camera)
-			LOG_FATAL("Camera NULL");
+		app->active_scene->third_person_camera = new_camera();
+		error_check(!app->active_scene->main_camera, "Camera NULL");
+		error_check(!app->active_scene->third_person_camera, "Camera NULL");
 		LOG_INFO("Load Assets");
 		scene_assets_load(app->active_scene);
 	}

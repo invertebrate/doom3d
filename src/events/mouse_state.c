@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:04:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:25:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void				handle_game_mouse_state_input(t_doom3d *app)
 
 	SDL_GetRelativeMouseState(&xrel, &yrel);
 	handle_player_rotation_input(app, xrel, yrel);
+	if (app->is_third_person)
+		return ;
 	if (!app->player.is_shooting && (app->mouse.state & SDL_BUTTON_LMASK))
 		app->player.is_shooting = true;
 	else if (!(app->mouse.state & SDL_BUTTON_LMASK))

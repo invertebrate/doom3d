@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 14:08:02 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/02 23:52:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,5 @@ void			update_player(t_doom3d *app)
 	dt_sum += app->info.delta_time;
 	player_update_aabb(&app->player);
 	player_animation_update(app);
-	player_flashlight_update(&(app->player));
+	player_flashlight_update(app);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 00:39:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:53:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ typedef struct				s_doom3d
 	t_bool					is_running;
 	t_bool					is_debug;
 	t_bool					is_scene_reload;
+	t_bool					is_third_person;
 	t_info					info;
 	t_window				*window;
 	t_scene_id				next_scene_id;
@@ -231,7 +232,7 @@ void						update_player(t_doom3d *app);
 void						player_init(t_doom3d *app, t_vec3 pos);
 void						player_flashlight_init(t_doom3d *app,
 													t_player *player);
-void						player_flashlight_update(t_player *player);
+void						player_flashlight_update(t_doom3d *app);
 void						player_move(t_doom3d *app);
 void						get_move_dir(t_doom3d *app,
 								t_move dir_option, t_vec3 dir);
@@ -499,6 +500,9 @@ void						handle_toggle_pause_game(t_doom3d *app);
 void						handle_toggle_fullscreen(t_doom3d *app);
 void						handle_toggle_normal_map_mode(t_doom3d *app);
 void						handle_toggle_debug_mode(t_doom3d *app);
+void						handle_toggle_third_person(t_doom3d *app);
+void						handle_third_person_zoom(t_doom3d *app,
+								int32_t zoom_amount);
 void						handle_player_toggle_flight(t_doom3d *app);
 void						handle_player_jump(t_doom3d *app);
 void						handle_player_move(t_doom3d *app,
@@ -562,7 +566,13 @@ void						init_anim_instance_attack(t_3d_object *obj,
 */
 
 t_camera					*new_camera(void);
-void						update_camera(t_doom3d *app);
+void						set_camera_viewbox(t_camera *camera, float dims[2],
+								t_vec3 forward_up_sideways[3]);
+void						update_camera(t_camera *camera,
+								float dims_focal_length[3],
+								t_vec3 forward_up_sideways[3], t_vec3 pos);
+void						update_player_camera(t_doom3d *app);
+void						update_third_person_camera(t_doom3d *app);
 
 /*
 ** Rendering
@@ -601,10 +611,13 @@ void						destroy_render_triangle_vecs(
 void						clip_and_add_to_render_triangles(t_doom3d *app,
 								t_tri_vec **r_triangle_vecs,
 								t_triangle *triangle);
+void						transform_position_for_rendering(t_doom3d *app,
+								t_vec3 pos);
+t_camera					*get_render_camera(t_doom3d *app);
 void						rasterize_triangles(t_render_work *work);
 void						rasterize_triangles_transparent(t_render_work
 								*work);
-t_bool						triangle_inside_viewbox(t_doom3d *app,
+t_bool						triangle_inside_viewbox(t_camera *camera,
 								t_triangle *triangle);
 t_bool						triangle_too_far(t_doom3d *app,
 								t_triangle *triangle);
@@ -614,7 +627,7 @@ void						prepare_skybox_render_triangle(t_doom3d *app,
 void						prepare_render_triangle(t_doom3d *app,
 								t_triangle *r_triangle,
 								t_triangle *triangle, t_vertex *vtc);
-t_bool						object_inside_viewbox(t_doom3d *app,
+t_bool						object_inside_viewbox(t_camera *camera,
 								t_3d_object *obj);
 void						render_hud(t_doom3d *app);
 void						set_aabb_origin_to_corners(t_3d_object *obj,
@@ -711,7 +724,7 @@ t_scene						*scene_new(t_scene_id scene_id);
 void						scene_destroy(t_doom3d *app);
 void						select_next_scene(t_doom3d *app);
 void						scene_map_init(t_scene *scene);
-void						scene_camera_destroy(t_scene *scene);
+void						scene_cameras_destroy(t_scene *scene);
 void						scene_objects_destroy(t_scene *scene);
 void						scene_skybox_destroy(t_scene *scene);
 void						scene_assets_destroy(t_scene *scene);
