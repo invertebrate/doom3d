@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 00:22:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 18:46:54 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,19 @@ typedef struct s_cone
 	float			height;
 	float			radius;
 }							t_cone;
+
+/*
+** Structure representing a directed sphere in 3D space.
+*/
+
+typedef struct s_sphere
+{
+	t_vec3			pos;
+	t_vec3			up;
+	t_vec3			forward;
+	float			radius;
+
+}							t_sphere;
 
 /*
 ** Enums defining how to shade (in rasterization) the 3d object
@@ -425,6 +438,8 @@ void						l3d_get_closest_hit(t_hits *hits,
 								t_hit **closest);
 t_bool						l3d_kd_tree_ray_hits(t_kd_tree *triangle_tree,
 								t_vec3 origin, t_vec3 dir, t_hits **hits);
+void						cast_rays_sphere(t_ray *rays, uint32_t *ray_counts,
+								t_sphere *sphere);
 
 /*
 ** Triangle vector

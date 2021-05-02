@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_handle_atk_anim.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 20:27:37 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 20:34:32 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/02 19:06:46 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir,
 	t_vec3			neworigin;
 	t_vec3			newdir;
 
+	ft_memset(&newdir, 0.0, sizeof(newdir));
 	ft_memset(&projectile, 0, sizeof(t_projectile));
 	ft_memcpy(&projectile,
 		&app->projectile_data[type],
