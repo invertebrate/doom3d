@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 18:00:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 20:57:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:22:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void			update_player_camera(t_doom3d *app)
 	dims[1] = app->window->framebuffer->height / 2.0;
 	focal_length = Z_DIR * app->window->framebuffer->width * 0.7;
 	ml_vector3_copy(app->player.forward, forward_up_sideways[0]);
+	ml_vector3_copy(forward_up_sideways[0],
+		app->active_scene->main_camera->forward);
 	ml_vector3_copy(app->player.up, forward_up_sideways[1]);
 	ml_vector3_copy(app->player.sideways, forward_up_sideways[2]);
 	ml_matrix4_copy(app->player.rotation,
@@ -57,29 +59,24 @@ void			update_player_camera(t_doom3d *app)
 		forward_up_sideways, app->player.pos);
 }
 
-
-/*
-** Gets a new camera position and transforms its direction vectors with a lookat
-** camera.
-*/
-
-void			update_third_person_camera(t_doom3d *app, t_vec3 pos)
+static void		update_third_person_camera_by_pos(t_doom3d *app, t_vec3 pos)
 {
 	t_vec3	forward_up_sideways[3];
 	float	dims[2];
 	float	focal_length;
-	t_mat4	look_at;
 
+	ft_memset(forward_up_sideways, 0, sizeof(t_vec3) * 3);
 	dims[0] = app->window->framebuffer->width / 2.0;
 	dims[1] = app->window->framebuffer->height / 2.0;
 	focal_length = Z_DIR * app->window->framebuffer->width * 0.7;
-	ml_matrix4_lookat(pos, app->player.pos, (t_vec3){0, Y_DIR, 0}, look_at);
-	ml_vector3_sub(app->player.pos, pos, forward_up_sideways[0]);
-	ml_vector3_normalize(forward_up_sideways[0], forward_up_sideways[0]);
-	ml_matrix4_mul_vec3(look_at, (t_vec3){0, Y_DIR, 0}, forward_up_sideways[1]);
-	ml_matrix4_mul_vec3(look_at, (t_vec3){X_DIR, 0, 0}, forward_up_sideways[2]);
-	ml_matrix4_copy(look_at, app->active_scene->third_person_camera->rotation);
-	ml_matrix4_inverse(look_at,
+	ml_vector3_copy(app->player.forward, forward_up_sideways[0]);
+	ml_vector3_copy(forward_up_sideways[0],
+		app->active_scene->third_person_camera->forward);
+	ml_vector3_copy(app->player.up, forward_up_sideways[1]);
+	ml_vector3_copy(app->player.sideways, forward_up_sideways[2]);
+	ml_matrix4_copy(app->player.rotation,
+		app->active_scene->third_person_camera->rotation);
+	ml_matrix4_copy(app->player.inv_rotation,
 		app->active_scene->third_person_camera->inv_rotation);
 	ml_matrix4_translation(pos[0], pos[1], pos[2],
 		app->active_scene->third_person_camera->translation);
@@ -91,36 +88,18 @@ void			update_third_person_camera(t_doom3d *app, t_vec3 pos)
 }
 
 /*
-** To rotate camera around player we need to make its origin player's position
-** and then apply rotations to the position.
+** Initialize camera to be behind player. This is only called in 3d rendered
+** scenes and app->is_third_person should always be false initially
 */
 
-void			rotate_third_person_camera_horizontal(t_doom3d *app,
-					float x_angle)
+void			update_third_person_camera(t_doom3d *app)
 {
 	t_vec3	new_pos;
-	t_vec3	old_pos;
-	t_mat4	rot_x;
+	t_vec3	add;
+	t_vec3	dir;
 
-	ml_vector3_sub(app->active_scene->third_person_camera->world_pos,
-		app->player.pos, old_pos);
-	ml_matrix4_rotation_x(ml_rad(x_angle), rot_x);
-	ml_matrix4_mul_vec3(rot_x, old_pos, old_pos);
-	ml_vector3_add(new_pos, app->player.pos, new_pos);
-	update_third_person_camera(app, new_pos);
-}
-
-void			rotate_third_person_camera_vertical(t_doom3d *app,
-					float y_angle)
-{
-	t_vec3	new_pos;
-	t_vec3	old_pos;
-	t_mat4	rot_y;
-
-	ml_vector3_sub(app->active_scene->third_person_camera->world_pos,
-		app->player.pos, old_pos);
-	ml_matrix4_rotation_x(ml_rad(y_angle), rot_y);
-	ml_matrix4_mul_vec3(rot_y, old_pos, old_pos);
-	ml_vector3_add(new_pos, app->player.pos, new_pos);
-	update_third_person_camera(app, new_pos);
+	ml_vector3_mul(app->player.forward, -1, dir);
+	ml_vector3_mul(dir, app->active_scene->third_person_camera_distance, add);
+	ml_vector3_add(app->player.pos, add, new_pos);
+	update_third_person_camera_by_pos(app, new_pos);
 }

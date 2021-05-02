@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/28 15:20:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 22:40:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ static void		render_main_game_ui(t_doom3d *app)
 	int32_t				height;
 
 	height = app->window->framebuffer->height;
-	if (app->player.hp <= 0.2 * app->player.max_hp &&
-		!app->active_scene->is_paused)
-		framebuffer_health_low_overlay(app);
-	render_hud(app);
+	if (!app->is_third_person)
+	{
+		if (app->player.hp <= 0.2 * app->player.max_hp &&
+			!app->active_scene->is_paused)
+			framebuffer_health_low_overlay(app);
+		render_hud(app);	
+	}
 	if (app->active_scene->is_paused)
 	{
 		framebuffer_dark_overlay(app->window->framebuffer);

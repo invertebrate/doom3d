@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:33:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 18:45:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:00:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,10 @@ void			render_work(void *params)
 		rasterize_triangles_transparent(work);
 	if (work->app->active_scene->scene_id == scene_id_editor3d)
 		render_editor_ux_highlights(work);
+	if (work->app->active_scene->scene_id == scene_id_main_game &&
+		work->app->is_third_person)
+		draw_aabb(work->app, work->framebuffer->sub_buffers[work->sub_buffer_i],
+			&work->app->player.aabb, 0xff0000ff);
 	if (work->pass == last_pass)
 		draw_buffers_to_framebuffer(work);
 	free(work);

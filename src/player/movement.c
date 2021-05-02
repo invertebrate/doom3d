@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 18:57:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:18:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,13 @@ float			get_movement_speed(t_doom3d *app)
 }
 
 /*
-** Move player after physics forces. Also moves the camera(s)
+** Move player after physics forces. Also updates the camera(s)
 */
 
 void			player_move(t_doom3d *app)
 {
 	t_vec3		add;
 	float		speed;
-	t_vec3		new_cam_pos;
 
 	app->player.is_moving = true;
 	speed = get_movement_speed(app);
@@ -108,7 +107,5 @@ void			player_move(t_doom3d *app)
 		app->player.pos[1], app->player.pos[2], app->player.translation);
 	ml_matrix4_inverse(app->player.translation, app->player.inv_translation);
 	update_player_camera(app);
-	ml_vector3_add(app->active_scene->third_person_camera->world_pos,
-		add, new_cam_pos);
-	update_third_person_camera(app, new_cam_pos);
+	update_third_person_camera(app);
 }

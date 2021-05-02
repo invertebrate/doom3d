@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 18:49:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:23:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void		scene_game_init(t_doom3d *app)
 			(void*)scene_id_main_menu, NULL);
 		return ;
 	}
+	app->is_third_person = false;
+	app->active_scene->third_person_camera_distance = 3 * app->unit_size;
 	player_init(app, start->position);
 	weapons_init(app);
 	path_node_network_init(app);

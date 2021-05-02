@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 20:45:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 20:46:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 21:59:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,15 @@ void			transform_position_for_rendering(t_doom3d *app, t_vec3 pos)
 		ml_matrix4_mul_vec3(
 			app->active_scene->third_person_camera->inv_rotation, pos, pos);	
 	}	
+}
+
+t_camera		*get_render_camera(t_doom3d *app)
+{
+	t_camera	*camera;
+
+	if (app->is_third_person)
+		camera = app->active_scene->third_person_camera;
+	else
+		camera = app->active_scene->main_camera;
+	return (camera);
 }

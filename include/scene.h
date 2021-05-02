@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:14:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 20:34:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:02:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 typedef struct				s_camera
 {
 	t_vec3					world_pos;
+	t_vec3					forward;
 	t_vec3					origin;
 	float					near_clip;
 	float					far_clip;
@@ -114,6 +115,7 @@ typedef struct				s_scene
 	t_temp_objects			*temp_objects;
 	t_camera				*main_camera;
 	t_camera				*third_person_camera;
+	float					third_person_camera_distance;
 	t_triangle				*screen_triangles;
 	t_button_group			**menus;
 	uint32_t				num_button_menus;

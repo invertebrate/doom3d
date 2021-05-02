@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 19:41:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:13:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,24 +93,6 @@ t_camera		*new_camera(void)
 		return (NULL);
 	ml_vector3_set_all(camera->origin, 0);
 	return (camera);
-}
-
-/*
-** Initialize camera to be behind player. This is only called in 3d rendered
-** scenes and app->is_third_person should always be false initially
-*/
-
-void			third_person_camera_init(t_doom3d *app)
-{
-	t_vec3	new_pos;
-	t_vec3	add;
-	t_vec3	dir;
-
-	app->is_third_person = false;
-	ml_vector3_mul(app->player.forward, -1, dir);
-	ml_vector3_mul(dir, 3 * app->unit_size, add);
-	ml_vector3_add(app->player.pos, add, new_pos);
-	update_third_person_camera(app, new_pos);
 }
 
 /*

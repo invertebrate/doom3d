@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:09:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 19:34:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:05:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef enum				e_doom3d_event
 	event_player_interact = 50,
 	event_editor_flip_lights = 51,
 	event_toggle_third_person = 52,
+	event_third_person_zoom = 53,
 	event_quit = 99,
 }							t_doom3d_event;
 

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 14:11:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/02 19:04:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:17:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,4 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	player_update_aabb(&app->player);
 	SDL_GetRelativeMouseState(NULL, NULL);
 	player_flashlight_init(app, &(app->player));
-	third_person_camera_init(app);
 }

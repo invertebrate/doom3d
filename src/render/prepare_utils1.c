@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 20:45:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 22:05:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-t_bool			triangle_inside_viewbox(t_doom3d *app,
+t_bool			triangle_inside_viewbox(t_camera *camera,
 					t_triangle *triangle)
 {
 	t_vec3		p_to_c[3];
@@ -21,8 +21,8 @@ t_bool			triangle_inside_viewbox(t_doom3d *app,
 	t_vec3		add;
 	t_vec3		origin;
 
-	ml_vector3_mul(app->player.forward, NEAR_CLIP_DIST, add);
-	ml_vector3_add(app->player.pos, add, origin);
+	ml_vector3_mul(camera->forward, -NEAR_CLIP_DIST, add);
+	ml_vector3_add(camera->world_pos, add, origin);
 	ij[0] = -1;
 	while (++ij[0] < 5)
 	{
@@ -32,8 +32,7 @@ t_bool			triangle_inside_viewbox(t_doom3d *app,
 		{
 			ml_vector3_sub(origin, triangle->vtc[ij[1]]->pos, p_to_c[ij[1]]);
 			if (ml_vector3_dot(p_to_c[ij[1]],
-				app->active_scene->main_camera->viewplanes[ij[0]].normal) < 0
-				&& is_outside)
+				camera->viewplanes[ij[0]].normal) < 0 && is_outside)
 				is_outside = false;
 		}
 		if (is_outside)
@@ -113,7 +112,7 @@ void			prepare_skybox_render_triangle(t_doom3d *app,
 ** the object should be considered to be inside viewbox.
 */
 
-t_bool			object_inside_viewbox(t_doom3d *app, t_3d_object *obj)
+t_bool			object_inside_viewbox(t_camera *camera, t_3d_object *obj)
 {
 	int32_t		ij[2];
 	t_vec3		origin_to_corner[8];
@@ -121,8 +120,8 @@ t_bool			object_inside_viewbox(t_doom3d *app, t_3d_object *obj)
 	t_vec3		add;
 	t_vec3		origin;
 
-	ml_vector3_mul(app->player.forward, NEAR_CLIP_DIST, add);
-	ml_vector3_add(app->player.pos, add, origin);
+	ml_vector3_mul(camera->screen.normal, -NEAR_CLIP_DIST, add);
+	ml_vector3_add(camera->world_pos, add, origin);
 	set_aabb_origin_to_corners(obj, origin, origin_to_corner);
 	ij[0] = -1;
 	while (++ij[0] < 5)
@@ -131,7 +130,7 @@ t_bool			object_inside_viewbox(t_doom3d *app, t_3d_object *obj)
 		ij[1] = -1;
 		while (++ij[1] < 8)
 			if (ml_vector3_dot(origin_to_corner[ij[1]],
-				app->active_scene->main_camera->viewplanes[ij[0]].normal) < 0
+				camera->viewplanes[ij[0]].normal) < 0
 				&& is_outside)
 				is_outside = false;
 		if (is_outside)

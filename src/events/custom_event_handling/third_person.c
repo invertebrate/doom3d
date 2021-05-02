@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 19:40:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 19:50:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 23:26:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,16 @@ void		handle_toggle_third_person(t_doom3d *app)
 			view_str = "1st Person";
 		LOG_INFO("View now is: %s", view_str);
 	}
+}
+
+void		handle_third_person_zoom(t_doom3d *app, int32_t zoom_amount)
+{
+	if (!app->is_third_person)
+		return ;
+	app->active_scene->third_person_camera_distance +=
+		zoom_amount * 0.5 * app->unit_size;
+	if (app->active_scene->third_person_camera_distance <= app->unit_size * 1)
+		app->active_scene->third_person_camera_distance = app->unit_size * 1;
+	if (app->active_scene->third_person_camera_distance > app->unit_size * 15)
+		app->active_scene->third_person_camera_distance = app->unit_size * 15;
 }
