@@ -188,6 +188,7 @@ SOURCES = main.c \
 			render/notifications1.c \
 			render/notifications2.c \
 			render/render_triangle_pool.c \
+			render/transform.c \
 			window/text.c \
 			window/text_wrapped.c \
 			window/text_surface.c \

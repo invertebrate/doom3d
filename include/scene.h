@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:14:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 18:25:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 20:34:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ typedef struct				s_camera
 	float					far_clip;
 	t_plane					viewplanes[6];
 	t_plane					screen;
+	t_mat4					rotation;
+	t_mat4					inv_rotation;
+	t_mat4					translation;
+	t_mat4					inv_translation;
 }							t_camera;
 
 /*

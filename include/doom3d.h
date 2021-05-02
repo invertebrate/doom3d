@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 19:42:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 20:45:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -617,6 +617,8 @@ void						destroy_render_triangle_vecs(
 void						clip_and_add_to_render_triangles(t_doom3d *app,
 								t_tri_vec **r_triangle_vecs,
 								t_triangle *triangle);
+void						transform_position_for_rendering(t_doom3d *app,
+								t_vec3 pos);
 void						rasterize_triangles(t_render_work *work);
 void						rasterize_triangles_transparent(t_render_work
 								*work);

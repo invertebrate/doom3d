@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:54:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 00:45:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 20:40:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,22 @@
 void			transform_light_pos(t_doom3d *app, t_vec3 light_pos,
 					int32_t object_i)
 {
-	ml_matrix4_mul_vec3(app->player.inv_translation,
-		app->active_scene->scene_lights[object_i]->position, light_pos);
-	ml_matrix4_mul_vec3(app->player.inv_rotation,
-		light_pos, light_pos);
+	if (!app->is_third_person)
+	{
+		ml_matrix4_mul_vec3(app->active_scene->main_camera->inv_translation,
+			app->active_scene->scene_lights[object_i]->position, light_pos);
+		ml_matrix4_mul_vec3(app->active_scene->main_camera->inv_rotation,
+			light_pos, light_pos);	
+	}
+	else
+	{
+		ml_matrix4_mul_vec3(
+			app->active_scene->third_person_camera->inv_translation,
+			app->active_scene->scene_lights[object_i]->position, light_pos);
+		ml_matrix4_mul_vec3(
+			app->active_scene->third_person_camera->inv_rotation,
+			light_pos, light_pos);	
+	}
 }
 
 void			update_one_light_source(t_doom3d *app, t_3d_object *object,
