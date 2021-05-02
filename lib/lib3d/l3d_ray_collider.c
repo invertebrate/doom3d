@@ -6,11 +6,12 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:53:57 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/02 21:14:57 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/02 21:58:36 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
+
 
 static void		rotate_vector(t_vec3 vec, t_vec3 pivot, float angle)
 {
@@ -19,9 +20,6 @@ static void		rotate_vector(t_vec3 vec, t_vec3 pivot, float angle)
 	ft_memset(&rotation, 0, sizeof(rotation));
 	ml_matrix4_general_rotation(pivot, angle, rotation);
 	ml_matrix4_mul_vec3(rotation, vec, vec);
-	ml_matrix4_print(rotation);
-	ml_vector3_print(vec);
-	ft_printf("+============\n");
 }
 
 /*
@@ -30,11 +28,7 @@ static void		rotate_vector(t_vec3 vec, t_vec3 pivot, float angle)
 
 static float	get_sphere_angle(int step, int total_steps)
 {
-	float	result;
-	(void)step;
-	(void)total_steps;
-	result = 0.0;
-	return (result);
+	 return (2 * M_PI * (float)step / (float)total_steps);
 }
 
 /*
@@ -49,23 +43,18 @@ static void	cast_rays_semicircle(t_ray *rays, uint32_t ray_count,
 	uint32_t	i;
 	float		angle_step;
 	t_vec3		ray_dir;
-	(void)angle;
-	float mul = 0.999;
+	t_vec3		tilted_up;
 
 	i = 0;
 	angle_step = M_PI / (float)ray_count;
+	ml_vector3_copy(sphere->up, tilted_up);
 	ml_vector3_copy(sphere->forward, ray_dir);
-	while (++i < ray_count - 1)
+	while (++i < ray_count)
 	{
-		mul *= mul;
+		rotate_vector(tilted_up, sphere->forward, angle);
 		ml_vector3_copy(sphere->forward, ray_dir);
-		ft_printf("raycount %d\n", ray_count);
-		ft_printf("angle step %f , %f\n", angle_step, angle_step * (180 / M_PI) );
-		rotate_vector(ray_dir, sphere->up, (int)i * angle_step);
-		ml_vector3_print(ray_dir);
+		rotate_vector(ray_dir, tilted_up, (int)i * angle_step);
 		l3d_ray_set(ray_dir, sphere->pos, &(rays[i]));
-		ml_vector3_print(rays[i].dir);
-		ml_vector3_mul(rays[i].dir, mul, rays[i].dir);
 	}
 }
 
@@ -78,16 +67,12 @@ static void	cast_rays_semicircle(t_ray *rays, uint32_t ray_count,
 void		cast_rays_sphere(t_ray *rays, uint32_t *ray_counts, t_sphere *sphere)
 {
 	int		i;
-	t_vec3	backwards;
 
 	i = 0;
-	ml_vector3_copy(sphere->forward, backwards);
-	// l3d_ray_set(sphere->forward, sphere->pos, &rays[0]);
-	// while (++i < (int)ray_counts[1])
-	// {
-		cast_rays_semicircle(rays + i, ray_counts[0],
-							get_sphere_angle(i, ray_counts[0]), sphere);
-	// }
+	l3d_ray_set(sphere->forward, sphere->pos, &rays[0]);
+	while (++i < (int)ray_counts[1])
+	{
+		cast_rays_semicircle(rays + i * ray_counts[0], ray_counts[0],
+							get_sphere_angle(i, ray_counts[1]), sphere);
+	}
 }
-
-
