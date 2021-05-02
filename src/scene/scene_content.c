@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 17:24:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 18:49:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ static void		active_scene_init(t_doom3d *app)
 		LOG_INFO("Initialized Editor Scene at %d objects",
 			app->active_scene->num_objects);
 	}
-	// if (app->active_scene->main_camera)
-	// 	update_camera(app);
 }
 
 static void		active_scene_mouse_mode_set(t_doom3d *app)

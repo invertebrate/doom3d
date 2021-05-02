@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:14:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 17:04:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 18:25:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 typedef struct				s_camera
 {
+	t_vec3					world_pos;
 	t_vec3					origin;
 	float					near_clip;
 	float					far_clip;

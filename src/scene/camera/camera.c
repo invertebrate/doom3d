@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 18:05:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 19:09:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void		set_side_plane_normals(t_camera *camera,
 */
 
 void			set_camera_viewbox(t_camera *camera, float dims[2],
-					t_vec3 forward_up_sideways[3], t_vec3 pos)
+					t_vec3 forward_up_sideways[3])
 {
 	t_vec3	dirs[4];
 	t_vec3	corners[4];
@@ -65,7 +65,7 @@ void			set_camera_viewbox(t_camera *camera, float dims[2],
 	ml_vector3_copy(forward_up_sideways[0], camera->viewplanes[0].normal);
 	ml_vector3_mul(forward_up_sideways[0],
 		ml_vector3_mag(camera->screen.origin), add);
-	ml_vector3_add(pos, add, screen_origin);
+	ml_vector3_add(camera->world_pos, add, screen_origin);
 	ml_vector3_mul(forward_up_sideways[1], dims[1], dirs[0]);
 	ml_vector3_mul(forward_up_sideways[2], dims[0], dirs[1]);
 	ml_vector3_mul(forward_up_sideways[1], -dims[1], dirs[2]);
@@ -78,7 +78,7 @@ void			set_camera_viewbox(t_camera *camera, float dims[2],
 	ml_vector3_add(corners[2], dirs[3], corners[2]);
 	ml_vector3_add(screen_origin, dirs[3], corners[3]);
 	ml_vector3_add(corners[3], dirs[0], corners[3]);
-	set_side_plane_normals(camera, corners, pos);
+	set_side_plane_normals(camera, corners, camera->world_pos);
 }
 
 /*
@@ -93,6 +93,22 @@ t_camera		*new_camera(void)
 		return (NULL);
 	ml_vector3_set_all(camera->origin, 0);
 	return (camera);
+}
+
+/*
+** Initialize camera to be behind player
+*/
+
+void			third_person_camera_init(t_doom3d *app)
+{
+	t_vec3	new_pos;
+	t_vec3	add;
+	t_vec3	dir;
+
+	ml_vector3_mul(app->player.forward, -1, dir);
+	ml_vector3_mul(dir, 3 * app->unit_size, add);
+	ml_vector3_add(app->player.pos, add, new_pos);
+	update_third_person_camera(app, new_pos);
 }
 
 /*

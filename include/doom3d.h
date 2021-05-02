@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 18:06:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/02 19:18:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -563,11 +563,20 @@ void						init_anim_instance_attack(t_3d_object *obj,
 
 t_camera					*new_camera(void);
 void						set_camera_viewbox(t_camera *camera, float dims[2],
-								t_vec3 forward_up_sideways[3], t_vec3 pos);
+								t_vec3 forward_up_sideways[3]);
+void						third_person_camera_init(t_doom3d *app);
 void						update_camera(t_camera *camera,
 								float dims_focal_length[3],
 								t_vec3 forward_up_sideways[3], t_vec3 pos);
 void						update_player_camera(t_doom3d *app);
+void						update_third_person_camera(t_doom3d *app,
+								t_vec3 pos);
+void						update_third_person_camera(t_doom3d *app,
+								t_vec3 pos);
+void						rotate_third_person_camera_horizontal(t_doom3d *app,
+								float x_angle);
+void						rotate_third_person_camera_vertical(t_doom3d *app,
+								float y_angle);
 
 /*
 ** Rendering
