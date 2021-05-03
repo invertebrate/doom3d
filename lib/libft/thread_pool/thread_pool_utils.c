@@ -6,15 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:16:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/01/08 22:01:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 17:05:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "thread_pool.h"
 #include "libft.h"
 
-t_thread_work			*thread_pool_work_create(t_thread_work_func work_func,
-							void *params)
+t_thread_work	*thread_pool_work_create(t_thread_work_func work_func,
+					void *params)
 {
 	t_thread_work	*work;
 
@@ -26,7 +26,7 @@ t_thread_work			*thread_pool_work_create(t_thread_work_func work_func,
 	return (work);
 }
 
-void					thread_pool_work_destroy(t_thread_work *work)
+void	thread_pool_work_destroy(t_thread_work *work)
 {
 	if (work == NULL)
 		return ;
@@ -34,7 +34,7 @@ void					thread_pool_work_destroy(t_thread_work *work)
 	work = NULL;
 }
 
-t_thread_work			*thread_pool_work_get(t_thread_pool *thread_pool)
+t_thread_work	*thread_pool_work_get(t_thread_pool *thread_pool)
 {
 	t_thread_work	*work;
 
@@ -53,7 +53,7 @@ t_thread_work			*thread_pool_work_get(t_thread_pool *thread_pool)
 	return (work);
 }
 
-static t_bool			thread_pool_signal_end(t_thread_pool *tp)
+static t_bool	thread_pool_signal_end(t_thread_pool *tp)
 {
 	if (!tp->stop && tp->num_threads_working == 0 && tp->num_jobs == 0)
 	{
@@ -63,7 +63,7 @@ static t_bool			thread_pool_signal_end(t_thread_pool *tp)
 	return (false);
 }
 
-t_bool					thread_pool_worker_synchronize(t_thread_pool *tp)
+t_bool	thread_pool_worker_synchronize(t_thread_pool *tp)
 {
 	t_thread_work	*work;
 
@@ -72,7 +72,8 @@ t_bool					thread_pool_worker_synchronize(t_thread_pool *tp)
 		pthread_cond_wait(&tp->work_to_process, &tp->work_mutex);
 	if (tp->stop)
 		return (false);
-	if ((work = thread_pool_work_get(tp)) == NULL)
+	work = thread_pool_work_get(tp);
+	if (work == NULL)
 	{
 		thread_pool_signal_end(tp);
 		pthread_mutex_unlock(&tp->work_mutex);
