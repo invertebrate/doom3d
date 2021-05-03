@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 13:11:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:53:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:54:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define HISTOLEN RADIX
 # define EXPECTED_THREADS 8
 
-typedef struct	s_radix_params
+typedef struct s_radix_params
 {
 	size_t		work_index;
 	uint32_t	*arr_keys;

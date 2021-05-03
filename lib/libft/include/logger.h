@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 14:44:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:53:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:54:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** https://github.com/rxi/log.c
 */
 
-typedef enum		e_log_level
+typedef enum e_log_level
 {
 	level_trace,
 	level_debug,

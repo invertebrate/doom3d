@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 00:55:48 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/28 14:59:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:54:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ void			init_params(t_radix_params *thread_params, size_t padded_size,
 */
 
 void			reorder(t_thread_pool *pool,
-						t_radix_params *thread_params,
-						size_t shift_pass,
-						uint32_t *arrays[4]);
+					t_radix_params *thread_params,
+					size_t shift_pass,
+					uint32_t *arrays[4]);
 void			prefix_sum(t_radix_params *thread_params);
 void			histogram(t_thread_pool *pool,
-						t_radix_params *thread_params,
-						size_t shift_pass,
-						uint32_t *arrays[4]);
+					t_radix_params *thread_params,
+					size_t shift_pass,
+					uint32_t *arrays[4]);
 void			histogram_and_local_reorder(void *args);
 void			reorder_work(void *args);
 

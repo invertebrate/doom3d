@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:01:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:52:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:49:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** A data struct containing all flag & fmt token related information
 */
 
-typedef struct		s_printf
+typedef struct s_printf
 {
 	va_list		variables;
 	char		*spec;
@@ -50,7 +50,7 @@ typedef struct		s_printf
 ** non-token characters (e.g. %u)
 */
 
-typedef struct		s_fmt_specs
+typedef struct s_fmt_specs
 {
 	int			middle_len;
 	int			spec_len;
@@ -60,7 +60,7 @@ typedef struct		s_fmt_specs
 ** Enums for variable length type options in ft_printf spec fmt.
 */
 
-enum				e_lengths
+enum e_lengths
 {
 	length_none,
 	length_hh,
@@ -112,14 +112,14 @@ char				*scientific_double(t_printf *data, long double var);
 */
 
 char				*add_str_to_beg(char *str, char *add,
-					int len2, int len1);
+						int len2, int len1);
 char				*extend_str(char *str, int size_in, int add_size);
 char				*add_chars_to_str_begin(char *res, int start,
-					int end, char c);
+						int end, char c);
 char				*add_chars_to_str_end(char *res, int start,
-					int end, char c);
+						int end, char c);
 char				*add_chars_to_null_str_begin(char *res, int start,
-					int end, char c);
+						int end, char c);
 
 /*
 ** Format
@@ -135,9 +135,9 @@ char				*handle_number_precision(t_printf *data, char *res);
 char				*handle_string_precision(t_printf *data, char *res);
 void				swap_zerox(t_printf *data, char *res, int x_index);
 void				swap_sign_after_padding(t_printf *data, char *res,
-					int sign_index);
+						int sign_index);
 void				swap_sign_after_precision(t_printf *data, char *res,
-					int sign_index);
+						int sign_index);
 char				*handle_blank(t_printf *data, char *res);
 
 #endif
