@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 20:27:37 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/02 20:31:11 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/03 17:45:31 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ static void	handle_attack(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc)
 				projectile_type_fireball);
 		push_custom_event(app,
 			event_effect_play, (void*)sf_monster_shoot, s_ini(0, 1, st_game,
-			distance_vol(1, sound_mag(app->player.pos,
-												npc_obj->position), -1)));
+				distance_vol(1, sound_mag(app->player.pos,
+						npc_obj->position), -1)));
 		if (app->is_debug)
 			LOG_DEBUG("Npc %d shot projectile", npc_obj->id);
 	}
 }
 
-void		handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj)
+void	handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj)
 {
 	uint32_t			new_time;
 	t_npc				*npc;

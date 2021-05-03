@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_ranged.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 14:36:00 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 20:37:05 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/03 17:55:51 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ static void	npc_ranged_vars(t_npc *npc)
 	npc->physics_state = physics_state_grounded;
 }
 
-void		npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
+void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 {
 	t_animation_3d	*dummy;
 
-	error_check(!(dummy = (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
+	error_check(!(dummy = (t_animation_3d *)ft_calloc(sizeof(t_animation_3d))),
 		"Failed to malloc for dummy in npc_ranged.");
 	npc->parent = obj;
 	npc->type = npc_type_monster02;
