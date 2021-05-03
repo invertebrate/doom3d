@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:49:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 15:17:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:20:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ void	l3d_get_closest_facing_triangle_hit(t_hits *hits, t_hit **closest,
 	{
 		hit = (t_hit *)head->content;
 		if (*closest == NULL && hit->t > 0.0
-			&& hit->triangle->parent->id != ignore_id &&
-			ml_vector3_dot(hit->normal, dir) < 0)
+			&& hit->triangle->parent->id != ignore_id
+			&& ml_vector3_dot(hit->normal, dir) < 0)
 			*closest = hit;
 		if (*closest && hit && hit->t > 0.0
 			&& hit->triangle->parent->id != ignore_id
-			&& hit->t <= (*closest)->t &&
-			ml_vector3_dot(hit->normal, dir) < 0)
+			&& hit->t <= (*closest)->t
+			&& ml_vector3_dot(hit->normal, dir) < 0)
 			*closest = hit;
 		head = head->next;
 	}
