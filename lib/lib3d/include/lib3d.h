@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 00:22:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 14:31:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -417,6 +417,10 @@ t_bool						l3d_plane_ray_hit(t_plane *plane, t_ray *ray,
 void						l3d_delete_hits(t_hits **hits);
 void						l3d_get_closest_triangle_hit(t_hits *hits,
 								t_hit **closest,
+								uint32_t ignore_id);
+void						l3d_get_closest_facing_triangle_hit(t_hits *hits,
+								t_hit **closest,
+								t_vec3 dir,
 								uint32_t ignore_id);
 void						l3d_get_closest_triangle_hit_at_range(t_hits *hits,
 								t_hit **closest,
