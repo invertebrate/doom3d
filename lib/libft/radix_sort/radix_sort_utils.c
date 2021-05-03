@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 19:35:11 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 17:20:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 18:13:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ size_t	pad_array(uint32_t *array_out, uint32_t *array,
 	size_t		remainder;
 
 	remainder = size_in % EXPECTED_THREADS;
-	new_size = size_in + EXPECTED_THREADS - remainder;
 	if (remainder == 0)
 		new_size = size_in;
+	else
+		new_size = size_in + EXPECTED_THREADS - remainder;
 	i = -1;
 	while (++i < size_in)
 		array_out[i] = array[i];
@@ -41,9 +42,10 @@ size_t	pad_array_key_val(uint32_t *key_vals_out[2],
 	size_t		remainder;
 
 	remainder = size_in % EXPECTED_THREADS;
-	new_size = size_in + EXPECTED_THREADS - remainder;
 	if (remainder == 0)
 		new_size = size_in;
+	else
+		new_size = size_in + EXPECTED_THREADS - remainder;
 	i = -1;
 	while (++i < size_in)
 	{

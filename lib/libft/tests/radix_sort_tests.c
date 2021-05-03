@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 17:06:27 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 17:35:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 17:42:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ const char	*test_radix_sort_randomized_large(t_thread_pool *pool)
 
 const char	*test_radix_sort_simple_key_val(t_thread_pool *pool)
 {
-	uint32_t		key_vals[2][8];
+	uint32_t		key_vals[2][6];
 	uint32_t		*key_vals_to_sort[2];
 	size_t			i;
 

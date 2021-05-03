@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 17:00:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 17:39:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 18:12:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,10 @@ static t_bool	is_valid(void)
 	return (RADIXTOTALBITS % RADIXBITS == 0);
 }
 
-static void	allocate_temps(t_bool is_key_val,
-				uint32_t **key_vals_tmp,
-				uint32_t **padded_key_vals,
-				size_t size)
+static void	allocate_temp(uint32_t **arr, size_t size)
 {
-	if (is_key_val)
-	{
-		error_check(!(key_vals_tmp[0] = malloc(sizeof(uint32_t)
-					* size + EXPECTED_THREADS)), "Radix malloc err");
-		error_check(!(key_vals_tmp[1] = malloc(sizeof(uint32_t)
-					* size + EXPECTED_THREADS)), "Radix malloc err");
-		error_check(!(padded_key_vals[0] = malloc(sizeof(uint32_t)
-					* size + EXPECTED_THREADS)), "Radix malloc err");
-		error_check(!(padded_key_vals[1] = malloc(sizeof(uint32_t)
-					* size + EXPECTED_THREADS)), "Radix malloc err");
-	}
-	else
-	{
-		error_check(!(key_vals_tmp[0] = malloc(sizeof(uint32_t)
-					* size + EXPECTED_THREADS)), "Radix malloc err");
-		error_check(!(padded_key_vals[0] = malloc(sizeof(uint32_t)
-					* size + EXPECTED_THREADS)), "Radix malloc err");
-	}
+	error_check(!(*arr = ft_calloc(sizeof(uint32_t)
+				* (size + EXPECTED_THREADS))), "Radix malloc err");
 }
 
 /*
@@ -77,9 +58,8 @@ void	radix_sort(t_thread_pool *pool, uint32_t *array, size_t size)
 	size_t			padded_size;
 	uint32_t		*padded_arr;
 
-	padded_arr = NULL;
-	tmp = NULL;
-	allocate_temps(false, &tmp, &padded_arr, size);
+	allocate_temp(&tmp, size);
+	allocate_temp(&padded_arr, size);
 	padded_size = pad_array(padded_arr, array, size);
 	error_check(!is_valid(), "RADIXTOTALBITS % RADIXBITS != 0");
 	error_check(!(params = ft_calloc(sizeof(*params) * EXPECTED_THREADS)),
@@ -103,20 +83,20 @@ void	radix_sort_key_val(t_thread_pool *pool,
 	t_radix_params	*params;
 	size_t			padded_size;
 	uint32_t		*padded_key_vals[2];
-	uint32_t		*padded_key_vals_ptr[2];
 
-	allocate_temps(true, key_vals_tmp, padded_key_vals, size);
-	padded_key_vals_ptr[0] = padded_key_vals[0];
-	padded_key_vals_ptr[1] = padded_key_vals[1];
+	allocate_temp(&key_vals_tmp[0], size);
+	allocate_temp(&key_vals_tmp[1], size);
+	allocate_temp(&padded_key_vals[0], size);
+	allocate_temp(&padded_key_vals[1], size);
 	padded_size = pad_array_key_val(padded_key_vals, key_vals, size);
 	error_check(!is_valid(), "RADIXTOTALBITS % RADIXBITS != 0");
 	error_check(!(params = ft_calloc(sizeof(*params) * EXPECTED_THREADS)),
 		"Radix malloc err");
 	init_params(params, padded_size, true);
 	radix_sort_work(pool, params,
-		(uint32_t *[4]){padded_key_vals_ptr[0], padded_key_vals_ptr[1],
+		(uint32_t *[4]){padded_key_vals[0], padded_key_vals[1],
 		key_vals_tmp[0], key_vals_tmp[1]});
-	copy_array_key_vals(key_vals, padded_key_vals_ptr, size);
+	copy_array_key_vals(key_vals, padded_key_vals, size);
 	free(params);
 	free(key_vals_tmp[0]);
 	free(key_vals_tmp[1]);
