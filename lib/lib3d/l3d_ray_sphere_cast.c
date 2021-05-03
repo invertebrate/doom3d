@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:53:57 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/02 21:58:36 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/03 17:04:08 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ static void	cast_rays_semicircle(t_ray *rays, uint32_t ray_count,
 ** rotating the semi-circle around.
 */
 
-void		cast_rays_sphere(t_ray *rays, uint32_t *ray_counts, t_sphere *sphere)
+void		l3d_cast_rays_sphere(t_ray *rays, uint32_t *ray_counts,
+				t_sphere *sphere)
 {
 	int		i;
 

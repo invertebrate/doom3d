@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 18:46:54 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/03 17:04:24 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -431,6 +431,10 @@ void						l3d_delete_hits(t_hits **hits);
 void						l3d_get_closest_triangle_hit(t_hits *hits,
 								t_hit **closest,
 								uint32_t ignore_id);
+void						l3d_get_closest_facing_triangle_hit(t_hits *hits,
+								t_hit **closest,
+								t_vec3 dir,
+								uint32_t ignore_id);
 void						l3d_get_closest_triangle_hit_at_range(t_hits *hits,
 								t_hit **closest,
 								uint32_t ignore_id, float range);
@@ -438,8 +442,8 @@ void						l3d_get_closest_hit(t_hits *hits,
 								t_hit **closest);
 t_bool						l3d_kd_tree_ray_hits(t_kd_tree *triangle_tree,
 								t_vec3 origin, t_vec3 dir, t_hits **hits);
-void						cast_rays_sphere(t_ray *rays, uint32_t *ray_counts,
-								t_sphere *sphere);
+void						l3d_cast_rays_sphere(t_ray *rays,
+								uint32_t *ray_counts, t_sphere *sphere);
 
 /*
 ** Triangle vector

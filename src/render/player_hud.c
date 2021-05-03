@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:12:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:10:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:39:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ void			render_hud(t_doom3d *app)
 		offset += 5;
 	if (app->player.is_shooting)
 		offset += 5;
-	render_player_animation(app);
-	player_vitals_render(app);
+	if (!app->is_third_person)
+		render_player_animation(app);
+	player_stats_render(app);
 	render_crosshair(app, offset, length, 0xffffffff);
 }

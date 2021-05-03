@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:53:57 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 22:32:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:14:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	l3d_get_closest_triangle_hit(t_hits *hits, t_hit **closest,
 	while (head)
 	{
 		hit = (t_hit *)head->content;
-		if (*closest == NULL && hit->t > 0.0
+		if (*closest == NULL && hit && hit->t > 0.0
 			&& hit->triangle->parent->id != ignore_id)
 			*closest = hit;
-		if (hit != NULL && hit->t > 0.0
+		if (*closest && hit && hit->t > 0.0
 			&& hit->triangle->parent->id != ignore_id
 			&& hit->t <= (*closest)->t)
 			*closest = hit;

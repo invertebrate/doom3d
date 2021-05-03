@@ -6,7 +6,7 @@
 #    By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#              #
-#    Updated: 2021/05/02 19:01:15 by veilo            ###   ########.fr        #
+#    Updated: 2021/05/03 17:05:06 by veilo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SOURCES = l3d_triangle.c \
 			l3d_triangle_update.c \
 			l3d_triangle_vector.c \
 			l3d_ray.c \
-			l3d_ray_collider.c \
+			l3d_ray_sphere_cast.c \
 			l3d_ray_hit.c \
 			l3d_ray_hit_utils1.c \
 			l3d_ray_hit_utils2.c \
