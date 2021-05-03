@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:02:04 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:54:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:36:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,27 @@
 ** of the string pointed to by str to int representation.
 */
 
-static int		is_clearable(char c)
+static int	is_clearable(char c)
 {
-	return (c == ' ' || c == '\n' || c == '\t' ||
-			c == '\v' || c == '\f' || c == '\r');
+	return (c == ' ' || c == '\n' || c == '\t'
+		|| c == '\v' || c == '\f' || c == '\r');
 }
 
-static int		is_skippable(char c)
+static int	is_skippable(char c)
 {
 	return (c == '-' || c == '+');
 }
 
-int				ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	return ((int)ft_atoi_long(str));
+}
+
+static int	handle_edges(unsigned long long sign)
+{
+	if (sign > 0)
+		return (-1);
+	return (0);
 }
 
 long long int	ft_atoi_long(const char *str)
@@ -55,6 +62,6 @@ long long int	ft_atoi_long(const char *str)
 		i++;
 	}
 	if (i > 19 || res >= 9223372036854775808ULL)
-		return (sign > 0 ? -1 : 0);
+		return (handle_edges(sign));
 	return (res * sign);
 }

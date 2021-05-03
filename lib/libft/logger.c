@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:03:32 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:51:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:06:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ static const char	*get_level_string(t_log_level level)
 	return (color);
 }
 
-void				logger_log(int32_t level,
-						const char *file,
-						int32_t line,
-						const char *fmt,
-						...)
+void	logger_log(int32_t level,
+			const char *file,
+			int32_t line,
+			const char *fmt,
+			...)
 {
 	char	time_buf[64];
 	time_t	event_time;
@@ -63,7 +63,7 @@ void				logger_log(int32_t level,
 
 	event_time = time(NULL);
 	len = strftime(time_buf, sizeof(time_buf), "%H:%M:%S",
-		localtime(&event_time));
+			localtime(&event_time));
 	time_buf[len] = '\0';
 	ft_printf("%s %s%-5s\x1b[0m \x1b[90m%s:%d:\x1b[0m ",
 		time_buf,

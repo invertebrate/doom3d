@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:25:06 by ohakola           #+#    #+#             */
-/*   Updated: 2020/03/15 17:21:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:17:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long double		ft_powl(long double nb, int pow)
+long double	ft_powl(long double nb, int pow)
 {
 	int			i;
 	long double	res;
@@ -30,7 +30,7 @@ long double		ft_powl(long double nb, int pow)
 	return (res);
 }
 
-int				ft_exp_base(long double nb, int base)
+int	ft_exp_base(long double nb, int base)
 {
 	int				i;
 	long long int	nb_int;

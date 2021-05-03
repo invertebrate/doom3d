@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:13:19 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:56:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:39:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 ** (converted to an unsigned char) to the string b.
 */
 
-void			*ft_memset(void *b, int c, size_t n)
+void	*ft_memset(void *b, int c, size_t n)
 {
-	unsigned char *cpy;
+	unsigned char	*cpy;
 
 	cpy = b;
 	while (n--)

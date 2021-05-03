@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:15:47 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 15:51:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:30:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ long double		ft_abs_long_double(long double nb);
 int				ft_match(char *s1, char *s2);
 void			ft_strrev(char *str);
 size_t			get_num_len(uint64_t nb, uint64_t base);
+int32_t			get_sign(int64_t nb);
 void			ft_capitalize(char *str);
 void			ft_uncapitalize(char *str);
 long double		ft_powl(long double nb, int pow);

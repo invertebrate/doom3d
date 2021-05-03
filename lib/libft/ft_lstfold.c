@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 20:13:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:55:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:19:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void		*ft_lstfold_rec(void *fold,
+static void	*ft_lstfold_rec(void *fold,
 				t_list *lst, void *(*f)(void*, void*))
 {
 	if (lst && f)
@@ -29,7 +29,7 @@ static void		*ft_lstfold_rec(void *fold,
 ** E.g something like: [1,2,4].fold(0, (fold, content) -> fold + content) = 7.
 */
 
-void			*ft_lstfold(t_list *lst, void *(*f)(void*, void*))
+void	*ft_lstfold(t_list *lst, void *(*f)(void *, void *))
 {
 	if (!lst)
 		return (NULL);

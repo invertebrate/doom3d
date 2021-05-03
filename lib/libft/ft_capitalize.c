@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 15:34:45 by ohakola           #+#    #+#             */
-/*   Updated: 2020/03/11 17:26:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:31:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_capitalize(char *str)
+void	ft_capitalize(char *str)
 {
 	int		i;
 
@@ -23,7 +23,7 @@ void		ft_capitalize(char *str)
 		str[i] = ft_toupper(str[i]);
 }
 
-void		ft_uncapitalize(char *str)
+void	ft_uncapitalize(char *str)
 {
 	int		i;
 
