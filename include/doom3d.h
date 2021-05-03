@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 23:53:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:39:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -963,7 +963,7 @@ t_player_anim_state			player_animation_state(t_doom3d *app);
 ** Player HUD
 */
 
-void						player_vitals_render(t_doom3d *app);
+void						player_stats_render(t_doom3d *app);
 
 /*
 ** Sounds

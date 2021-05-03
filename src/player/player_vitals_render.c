@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 16:43:34 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/28 15:38:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:39:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void		vitals_keys(t_doom3d *app)
 		app->window->title_font);
 }
 
-void			player_vitals_render(t_doom3d *app)
+void			player_stats_render(t_doom3d *app)
 {
 	int	i;
 
