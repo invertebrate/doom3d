@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 18:00:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 23:22:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 14:14:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,32 @@ static void		update_third_person_camera_by_pos(t_doom3d *app, t_vec3 pos)
 }
 
 /*
+** For third person camera update:
+** To prevent going outside walls, we clamp distance by hit->t
+*/
+
+static float	clamp_distance_by_surroundings(t_doom3d *app, t_vec3 dir,
+					float dist)
+{
+	t_hits	*hits;
+	t_hit	*closest_triangle_hit;
+
+	if (!app->active_scene->triangle_tree)
+		return (dist);
+	hits = NULL;
+	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree,
+		app->player.pos,
+		dir, &hits))
+	{
+		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit, -1);
+		if (closest_triangle_hit != NULL)
+			dist = fmin(closest_triangle_hit->t - 0.01 * app->unit_size, dist);
+		l3d_delete_hits(&hits);
+	}
+	return (dist);
+}
+
+/*
 ** Initialize camera to be behind player. This is only called in 3d rendered
 ** scenes and app->is_third_person should always be false initially
 */
@@ -97,9 +123,12 @@ void			update_third_person_camera(t_doom3d *app)
 	t_vec3	new_pos;
 	t_vec3	add;
 	t_vec3	dir;
+	float	dist;
 
+	dist = app->active_scene->third_person_camera_distance;
 	ml_vector3_mul(app->player.forward, -1, dir);
-	ml_vector3_mul(dir, app->active_scene->third_person_camera_distance, add);
+	dist = clamp_distance_by_surroundings(app, dir, dist);
+	ml_vector3_mul(dir, dist, add);
 	ml_vector3_add(app->player.pos, add, new_pos);
 	update_third_person_camera_by_pos(app, new_pos);
 }
