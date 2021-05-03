@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_trigger_onhit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:35:16 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 17:32:29 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/03 17:47:41 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ static void	handle_sound_effect(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	{
 		npc->state = state_attack;
 		if (npc->type == npc_type_crate)
-			push_custom_event(app, event_effect_play, (void*)sf_crate_break,
+			push_custom_event(app, event_effect_play, (void *)sf_crate_break,
 				s_ini(0, 1, st_game, distance_vol(0.8f,
-				sound_mag(app->player.pos, obj->position), -1)));
+						sound_mag(app->player.pos, obj->position), -1)));
 		else
-			push_custom_event(app, event_effect_play, (void*)sf_monster_hurt,
+			push_custom_event(app, event_effect_play, (void *)sf_monster_hurt,
 				s_ini(0, 1, st_game, distance_vol(0.8f,
-				sound_mag(app->player.pos, obj->position), -1)));
+						sound_mag(app->player.pos, obj->position), -1)));
 	}
 }
 
-void		npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
+void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 {
 	t_npc				*npc;
 	t_anim_3d_instance	anim_instance_death;

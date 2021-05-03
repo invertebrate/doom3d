@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_crate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:13:24 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 20:21:41 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/03 17:41:23 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	set_attack_pattern(t_npc *npc)
 	npc->atk_pattern[1] = action_repeat;
 }
 
-void		npc_crate(t_doom3d *app, t_npc *npc, t_3d_object *obj)
+void	npc_crate(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 {
 	npc->parent = obj;
 	npc->type = npc_type_crate;

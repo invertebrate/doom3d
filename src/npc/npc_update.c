@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_update.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 20:51:35 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/03 18:00:45 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 static void	handle_attack_init(t_doom3d *app, t_3d_object *npc_obj,
 													t_npc *npc, float dist)
 {
-	if (dist < npc->atk_range / 2 &&
-		npc->atk_pattern[npc->atk_pattern_index] == action_melee_basic)
+	if (dist < npc->atk_range / 2
+		&& npc->atk_pattern[npc->atk_pattern_index] == action_melee_basic)
 	{
 		npc->atk_timer = 0;
 		npc->atk_start = SDL_GetTicks();
 		npc->state = state_atk_anim;
 	}
-	if (npc->atk_pattern[npc->atk_pattern_index] == action_projectile_rpg &&
-		npc_has_line_of_sight(app, npc_obj))
+	if (npc->atk_pattern[npc->atk_pattern_index] == action_projectile_rpg
+		&& npc_has_line_of_sight(app, npc_obj))
 	{
 		npc->atk_timer = 0;
 		npc->atk_start = SDL_GetTicks();
@@ -34,13 +34,14 @@ static void	handle_attack_init(t_doom3d *app, t_3d_object *npc_obj,
 static void	handle_state_idle(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc,
 															float dist)
 {
-	if (dist < npc->vision_range &&
-		npc_has_line_of_sight(app, npc_obj))
+	if (dist < npc->vision_range
+		&& npc_has_line_of_sight(app, npc_obj))
 	{
 		npc->state = state_attack;
 		push_custom_event(app,
-		event_effect_play, (void*)sf_monster_alert, s_ini(0, 1, st_game,
-		distance_vol(0.8f, sound_mag(app->player.pos, npc_obj->position), -1)));
+			event_effect_play, (void *)sf_monster_alert, s_ini(0, 1, st_game,
+				distance_vol(0.8f,
+					sound_mag(app->player.pos, npc_obj->position), -1)));
 	}
 	npc_get_dir_to_next_waypoint(app, npc_obj);
 }
@@ -57,8 +58,8 @@ static void	handle_line_of_sight(t_doom3d *app, t_3d_object *npc_obj,
 	}
 	else
 	{
-		ft_memset(npc->attack_path, 0, sizeof(t_3d_object *) *
-										MAX_PATH_NODE_NETWORK_SIZE);
+		ft_memset(npc->attack_path, 0, sizeof(t_3d_object *)
+			* MAX_PATH_NODE_NETWORK_SIZE);
 		ml_vector3_normalize(diff, npc->dir);
 		ml_vector3_mul(npc->dir, -npc->speed, npc->dir);
 	}
@@ -90,7 +91,7 @@ static void	handle_state_attack(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc,
 	handle_line_of_sight(app, npc_obj, npc, diff);
 }
 
-void		npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
+void	npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 {
 	t_npc	*npc;
 	t_vec3	diff;
