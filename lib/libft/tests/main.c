@@ -6,17 +6,17 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 19:23:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/28 01:47:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:00:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oh_test.h"
 #include "tests.h"
 
-int g_tests_run = 0;
-t_test_state g_test_states[MAX_TESTS];
+int				g_tests_run = 0;
+t_test_state	g_test_states[MAX_TESTS];
 
-static void		all_tests(void)
+static void	all_tests(void)
 {
 	t_thread_pool	*pool;
 
@@ -44,7 +44,7 @@ static void		all_tests(void)
 	thread_pool_destroy(pool);
 }
 
-int				main(void)
+int	main(void)
 {
 	t_bool				success;
 	int					failures;

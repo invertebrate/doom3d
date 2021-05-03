@@ -6,14 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:17:48 by ohakola           #+#    #+#             */
-/*   Updated: 2020/10/19 15:40:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:57:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oh_test.h"
 #include "libft.h"
 
-const char		*test_ft_memset(void)
+const char	*test_ft_memset(void)
 {
 	char			buf[16];
 
@@ -26,7 +26,7 @@ const char		*test_ft_memset(void)
 	return (0);
 }
 
-const char		*test_ft_memset_ints(void)
+const char	*test_ft_memset_ints(void)
 {
 	uint32_t			nb;
 

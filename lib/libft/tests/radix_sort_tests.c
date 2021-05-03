@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 17:06:27 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/28 17:26:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:58:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "radix_sort_utils.h"
 #include "utils.h"
 
-const char		*test_radix_sort_simple(t_thread_pool *pool)
+const char	*test_radix_sort_simple(t_thread_pool *pool)
 {
 	uint32_t		array[8];
 	uint32_t		check_array[8];
@@ -37,7 +37,7 @@ const char		*test_radix_sort_simple(t_thread_pool *pool)
 	return (0);
 }
 
-const char		*test_radix_sort_randomized_small(t_thread_pool *pool)
+const char	*test_radix_sort_randomized_small(t_thread_pool *pool)
 {
 	uint32_t		array[16];
 	uint32_t		check_array[16];
@@ -53,7 +53,7 @@ const char		*test_radix_sort_randomized_small(t_thread_pool *pool)
 	return (0);
 }
 
-const char		*test_radix_sort_randomized_large(t_thread_pool *pool)
+const char	*test_radix_sort_randomized_large(t_thread_pool *pool)
 {
 	uint32_t		array[131072];
 	uint32_t		check_array[131072];
@@ -75,7 +75,7 @@ const char		*test_radix_sort_randomized_large(t_thread_pool *pool)
 ** just make sure the size is even
 */
 
-const char		*test_radix_sort_simple_key_val(t_thread_pool *pool)
+const char	*test_radix_sort_simple_key_val(t_thread_pool *pool)
 {
 	uint32_t		key_vals[2][8];
 	uint32_t		*key_vals_to_sort[2];
@@ -100,7 +100,7 @@ const char		*test_radix_sort_simple_key_val(t_thread_pool *pool)
 	return (0);
 }
 
-const char		*test_radix_sort_large_key_val(t_thread_pool *pool)
+const char	*test_radix_sort_large_key_val(t_thread_pool *pool)
 {
 	uint32_t		key_vals[2][12345];
 	uint32_t		*key_vals_to_sort[2];

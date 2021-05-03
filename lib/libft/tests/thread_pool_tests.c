@@ -6,14 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 16:59:30 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/28 01:42:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:58:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oh_test.h"
 #include "libft.h"
 
-static void		work_f(void *params)
+static void	work_f(void *params)
 {
 	int		*val;
 
@@ -21,7 +21,7 @@ static void		work_f(void *params)
 	*val += 1000;
 }
 
-const char		*test_thread_pool_run(void)
+const char	*test_thread_pool_run(void)
 {
 	size_t			num_items;
 	t_thread_pool	*pool;

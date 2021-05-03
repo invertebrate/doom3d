@@ -6,14 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:17:48 by ohakola           #+#    #+#             */
-/*   Updated: 2020/10/19 15:25:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:57:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "oh_test.h"
 #include "libft.h"
 
-const char		*test_ft_memcpy(void)
+const char	*test_ft_memcpy(void)
 {
 	const char		*str;
 	char			buf[16];
@@ -29,7 +29,7 @@ const char		*test_ft_memcpy(void)
 	return (0);
 }
 
-const char		*test_ft_memcpy_ints(void)
+const char	*test_ft_memcpy_ints(void)
 {
 	int32_t			nb;
 	int32_t			dst;
