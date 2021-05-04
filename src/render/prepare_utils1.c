@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_utils1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 22:05:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 21:25:12 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-t_bool			triangle_inside_viewbox(t_camera *camera,
+t_bool	triangle_inside_viewbox(t_camera *camera,
 					t_triangle *triangle)
 {
 	t_vec3		p_to_c[3];
@@ -32,7 +32,7 @@ t_bool			triangle_inside_viewbox(t_camera *camera,
 		{
 			ml_vector3_sub(origin, triangle->vtc[ij[1]]->pos, p_to_c[ij[1]]);
 			if (ml_vector3_dot(p_to_c[ij[1]],
-				camera->viewplanes[ij[0]].normal) < 0 && is_outside)
+					camera->viewplanes[ij[0]].normal) < 0 && is_outside)
 				is_outside = false;
 		}
 		if (is_outside)
@@ -41,7 +41,7 @@ t_bool			triangle_inside_viewbox(t_camera *camera,
 	return (true);
 }
 
-t_bool			triangle_too_far(t_doom3d *app, t_triangle *triangle)
+t_bool	triangle_too_far(t_doom3d *app, t_triangle *triangle)
 {
 	float		too_far;
 	t_vec3		player_to_corner[3];
@@ -55,9 +55,9 @@ t_bool			triangle_too_far(t_doom3d *app, t_triangle *triangle)
 	while (++i < 3)
 		ml_vector3_sub(triangle->vtc[i]->pos, app->player.pos,
 			player_to_corner[i]);
-	if (ml_vector3_mag(player_to_corner[0]) > too_far &&
-		ml_vector3_mag(player_to_corner[1]) > too_far &&
-		ml_vector3_mag(player_to_corner[2]) > too_far)
+	if (ml_vector3_mag(player_to_corner[0]) > too_far
+		&& ml_vector3_mag(player_to_corner[1]) > too_far
+		&& ml_vector3_mag(player_to_corner[2]) > too_far)
 		return (true);
 	return (false);
 }
@@ -66,7 +66,7 @@ t_bool			triangle_too_far(t_doom3d *app, t_triangle *triangle)
 ** Apply rotation and translation to render triangle
 */
 
-void			prepare_render_triangle(t_doom3d *app,
+void	prepare_render_triangle(t_doom3d *app,
 									t_triangle *r_triangle,
 									t_triangle *triangle, t_vertex *vtc)
 {
@@ -88,7 +88,7 @@ void			prepare_render_triangle(t_doom3d *app,
 ** Skybox is rotated, but it is not translated unlike other objects in scene
 */
 
-void			prepare_skybox_render_triangle(t_doom3d *app,
+void	prepare_skybox_render_triangle(t_doom3d *app,
 									t_triangle *r_triangle,
 									t_triangle *triangle, t_vertex *vtc)
 {
@@ -112,7 +112,7 @@ void			prepare_skybox_render_triangle(t_doom3d *app,
 ** the object should be considered to be inside viewbox.
 */
 
-t_bool			object_inside_viewbox(t_camera *camera, t_3d_object *obj)
+t_bool	object_inside_viewbox(t_camera *camera, t_3d_object *obj)
 {
 	int32_t		ij[2];
 	t_vec3		origin_to_corner[8];
@@ -130,7 +130,7 @@ t_bool			object_inside_viewbox(t_camera *camera, t_3d_object *obj)
 		ij[1] = -1;
 		while (++ij[1] < 8)
 			if (ml_vector3_dot(origin_to_corner[ij[1]],
-				camera->viewplanes[ij[0]].normal) < 0
+					camera->viewplanes[ij[0]].normal) < 0
 				&& is_outside)
 				is_outside = false;
 		if (is_outside)

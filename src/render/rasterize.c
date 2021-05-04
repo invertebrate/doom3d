@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rasterize.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/28 16:23:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 21:13:10 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** If all points are on the same side outside screen bounds, don't render
 */
 
-t_bool			triangle_outside_frame(t_triangle *triangle,
+t_bool	triangle_outside_frame(t_triangle *triangle,
 					t_sub_framebuffer *sub_buffer)
 {
 	t_vec2		xy1;
@@ -26,18 +26,18 @@ t_bool			triangle_outside_frame(t_triangle *triangle,
 	ml_vector2_copy(triangle->points_2d[0], xy1);
 	ml_vector2_copy(triangle->points_2d[1], xy2);
 	ml_vector2_copy(triangle->points_2d[2], xy3);
-	return ((xy1[0] + sub_buffer->x_offset < 0.0 &&
-			xy2[0] + sub_buffer->x_offset < 0.0 &&
-			xy3[0] + sub_buffer->x_offset < 0.0) ||
-			(xy1[0] + sub_buffer->x_offset >= sub_buffer->width &&
-			xy2[0] + sub_buffer->x_offset >= sub_buffer->width &&
-			xy3[0] + sub_buffer->x_offset >= sub_buffer->width) ||
-			(xy1[1] + sub_buffer->y_offset < 0.0 &&
-			xy2[1] + sub_buffer->y_offset < 0.0 &&
-			xy3[1] + sub_buffer->y_offset < 0.0) ||
-			(xy1[1] + sub_buffer->y_offset >= sub_buffer->height &&
-			xy2[1] + sub_buffer->y_offset >= sub_buffer->height &&
-			xy3[1] + sub_buffer->y_offset >= sub_buffer->height));
+	return ((xy1[0] + sub_buffer->x_offset < 0.0
+			&& xy2[0] + sub_buffer->x_offset < 0.0
+			&& xy3[0] + sub_buffer->x_offset < 0.0)
+		|| (xy1[0] + sub_buffer->x_offset >= sub_buffer->width
+			&& xy2[0] + sub_buffer->x_offset >= sub_buffer->width
+			&& xy3[0] + sub_buffer->x_offset >= sub_buffer->width)
+		|| (xy1[1] + sub_buffer->y_offset < 0.0
+			&& xy2[1] + sub_buffer->y_offset < 0.0
+			&& xy3[1] + sub_buffer->y_offset < 0.0)
+		|| (xy1[1] + sub_buffer->y_offset >= sub_buffer->height
+			&& xy2[1] + sub_buffer->y_offset >= sub_buffer->height
+			&& xy3[1] + sub_buffer->y_offset >= sub_buffer->height));
 }
 
 /*
@@ -45,7 +45,7 @@ t_bool			triangle_outside_frame(t_triangle *triangle,
 ** finally filters out those that don't fit sub_buffer's limits
 */
 
-void			rasterize_triangles(t_render_work *work)
+void	rasterize_triangles(t_render_work *work)
 {
 	t_sub_framebuffer	*sub_buffer;
 	t_triangle			*triangle;
@@ -66,7 +66,7 @@ void			rasterize_triangles(t_render_work *work)
 ** Rasterize transparent triangles. Reverse render order to ensure right look
 */
 
-void			rasterize_triangles_transparent(t_render_work *work)
+void	rasterize_triangles_transparent(t_render_work *work)
 {
 	t_sub_framebuffer	*sub_buffer;
 	t_triangle			*triangle;

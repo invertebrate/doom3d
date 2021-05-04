@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_triangle_pool.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:55:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:19:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 20:39:36 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@
 ** Also allocates space for clipped vertices
 */
 
-void			allocate_render_triangle_pool(t_doom3d *app,
+void	allocate_render_triangle_pool(t_doom3d *app,
 					uint32_t size)
 {
 	app->render_triangle_pool = NULL;
 	app->render_triangle_pool_size = size;
-	app->render_triangle_pool =
-		ft_calloc(sizeof(t_triangle) * app->render_triangle_pool_size);
+	app->render_triangle_pool
+		= ft_calloc(sizeof(t_triangle) * app->render_triangle_pool_size);
 	error_check(!app->render_triangle_pool,
 		"Failed to allocate render triangle pool");
 	app->num_render_triangles = 0;
 	app->render_vertex_pool_size = size * 3;
-	app->render_vertex_pool =
-		ft_calloc(sizeof(t_vertex) * app->render_vertex_pool_size);
+	app->render_vertex_pool
+		= ft_calloc(sizeof(t_vertex) * app->render_vertex_pool_size);
 	error_check(!app->render_vertex_pool,
 		"Failed to allocate clipped vertices pool");
 	app->num_render_vertices = 0;
@@ -41,7 +41,7 @@ void			allocate_render_triangle_pool(t_doom3d *app,
 ** the pool
 */
 
-void			reset_render_triangle_pool(t_doom3d *app)
+void	reset_render_triangle_pool(t_doom3d *app)
 {
 	app->num_render_triangles = 0;
 	app->num_render_vertices = 0;
@@ -51,7 +51,7 @@ void			reset_render_triangle_pool(t_doom3d *app)
 ** Free the triangles in pool
 */
 
-void			destroy_render_triangle_pool(t_doom3d *app)
+void	destroy_render_triangle_pool(t_doom3d *app)
 {
 	free(app->render_triangle_pool);
 	app->render_triangle_pool = NULL;
@@ -77,7 +77,7 @@ static t_vertex	*get_vertex_from_pool(t_doom3d *app)
 ** Reallocates if size is too small.
 */
 
-t_triangle		*get_render_triangle_from_pool(t_doom3d *app)
+t_triangle	*get_render_triangle_from_pool(t_doom3d *app)
 {
 	t_triangle	*render_triangle;
 	uint32_t	render_triangle_pool_size;

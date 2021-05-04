@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 17:05:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:20:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 21:20:57 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void		set_aabb_origin_to_corners(t_3d_object *obj,
+void	set_aabb_origin_to_corners(t_3d_object *obj,
 				t_vec3 origin, t_vec3 origin_to_corner[8])
 {
 	ml_vector3_sub(origin, obj->aabb.xyz_min, origin_to_corner[0]);
@@ -31,7 +31,7 @@ void		set_aabb_origin_to_corners(t_3d_object *obj,
 		obj->aabb.xyz_min[2]}, origin_to_corner[7]);
 }
 
-t_bool		object_too_far(t_doom3d *app, t_3d_object *obj)
+t_bool	object_too_far(t_doom3d *app, t_3d_object *obj)
 {
 	float		too_far;
 	t_vec3		player_to_obj;

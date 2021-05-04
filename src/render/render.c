@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:19:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 21:10:56 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** a smaller framebuffer.
 */
 
-void			render_parallel_editor_3d_view(t_doom3d *app)
+void	render_parallel_editor_3d_view(t_doom3d *app)
 {
 	int32_t	x_pos;
 	int32_t	y_pos;
@@ -28,12 +28,12 @@ void			render_parallel_editor_3d_view(t_doom3d *app)
 	y_pos = app->window->editor_pos[1];
 	render_parallel_3d_view(app, app->window->editor_framebuffer);
 	l3d_image_place(&(t_surface){.pixels = app->window->framebuffer->buffer,
-			.w = app->window->framebuffer->width,
-			.h = app->window->framebuffer->height},
+		.w = app->window->framebuffer->width,
+		.h = app->window->framebuffer->height},
 		&(t_surface){.pixels = app->window->editor_framebuffer->buffer,
-			.w = app->window->editor_framebuffer->width,
-			.h = app->window->editor_framebuffer->height},
-			(int32_t[2]){x_pos, y_pos}, 1.0);
+		.w = app->window->editor_framebuffer->width,
+		.h = app->window->editor_framebuffer->height},
+		(int32_t[2]){x_pos, y_pos}, 1.0);
 }
 
 /*
@@ -41,7 +41,7 @@ void			render_parallel_editor_3d_view(t_doom3d *app)
 ** 1. Render parallel
 */
 
-void			render_to_framebuffer(t_doom3d *app)
+void	render_to_framebuffer(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
 		render_parallel_3d_view(app, app->window->framebuffer);
