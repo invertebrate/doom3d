@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_deselection.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 01:17:08 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 01:18:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:41:51 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Deselect a single object
 */
 
-void			deselect_object(t_doom3d *app, t_3d_object *delete_object)
+void	deselect_object(t_doom3d *app, t_3d_object *delete_object)
 {
 	t_3d_object		*selected_objects[MAX_SELECTED_OBJECTS];
 	int32_t			i;
@@ -32,8 +32,8 @@ void			deselect_object(t_doom3d *app, t_3d_object *delete_object)
 		else
 		{
 			match_obj = app->editor.selected_objects[i];
-			match_obj->material->shading_opts =
-				(match_obj->material->shading_opts & ~(e_shading_select));
+			match_obj->material->shading_opts
+				= (match_obj->material->shading_opts & ~(e_shading_select));
 			app->editor.selected_objects[i] = NULL;
 		}
 	}
@@ -49,7 +49,7 @@ void			deselect_object(t_doom3d *app, t_3d_object *delete_object)
 ** Deselect all or one object depending on where mouse hits
 */
 
-void			editor_deselect(t_doom3d *app)
+void	editor_deselect(t_doom3d *app)
 {
 	t_3d_object		*hit_obj;
 
@@ -60,8 +60,8 @@ void			editor_deselect(t_doom3d *app)
 	{
 		if (app->editor.num_selected_objects > 0)
 			notify_user(app, (t_notification){
-			.message = "Deselected all!",
-			.type = notification_type_info, .time = 2000});
+				.message = "Deselected all!",
+				.type = notification_type_info, .time = 2000});
 		editor_deselect_all(app);
 	}
 }
@@ -70,7 +70,7 @@ void			editor_deselect(t_doom3d *app)
 ** Deslect all objects in editor
 */
 
-void			editor_deselect_all(t_doom3d *app)
+void	editor_deselect_all(t_doom3d *app)
 {
 	int32_t		i;
 	t_3d_object	*obj;
@@ -79,8 +79,8 @@ void			editor_deselect_all(t_doom3d *app)
 	while (++i < (int32_t)(app->editor.num_selected_objects))
 	{
 		obj = app->editor.selected_objects[i];
-		obj->material->shading_opts = (obj->material->shading_opts &
-			~(e_shading_select));
+		obj->material->shading_opts = (obj->material->shading_opts
+				& ~(e_shading_select));
 		app->editor.selected_objects[i] = NULL;
 	}
 	app->editor.num_selected_objects = 0;
