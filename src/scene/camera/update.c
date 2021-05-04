@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 18:00:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 14:49:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:26:56 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** and focal length (affects field of view)
 */
 
-void			update_camera(t_camera *camera, float dims_focal_length[3],
+void	update_camera(t_camera *camera, float dims_focal_length[3],
 					t_vec3 forward_up_sideways[3], t_vec3 pos)
 {
 	float		dims[2];
@@ -32,7 +32,7 @@ void			update_camera(t_camera *camera, float dims_focal_length[3],
 	set_camera_viewbox(camera, dims, forward_up_sideways);
 }
 
-void			update_player_camera(t_doom3d *app)
+void	update_player_camera(t_doom3d *app)
 {
 	t_vec3	forward_up_sideways[3];
 	float	dims[2];
@@ -59,7 +59,7 @@ void			update_player_camera(t_doom3d *app)
 		forward_up_sideways, app->player.pos);
 }
 
-static void		update_third_person_camera_by_pos(t_doom3d *app, t_vec3 pos)
+static void	update_third_person_camera_by_pos(t_doom3d *app, t_vec3 pos)
 {
 	t_vec3	forward_up_sideways[3];
 	float	dims[2];
@@ -106,7 +106,7 @@ static float	clamp_distance_by_surroundings(t_doom3d *app, t_vec3 dir,
 	ml_vector3_mul(dir, app->player.aabb.size[0] / 2.0, add);
 	ml_vector3_add(app->player.pos, add, origin);
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, origin,
-		dir, &hits))
+			dir, &hits))
 	{
 		l3d_get_closest_facing_triangle_hit(hits, &closest_triangle_hit,
 			dir, -1);
@@ -122,7 +122,7 @@ static float	clamp_distance_by_surroundings(t_doom3d *app, t_vec3 dir,
 ** scenes and app->is_third_person should always be false initially
 */
 
-void			update_third_person_camera(t_doom3d *app)
+void	update_third_person_camera(t_doom3d *app)
 {
 	t_vec3	new_pos;
 	t_vec3	add;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animations_3d.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:53:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 19:59:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:10:44 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	Creates the file path for each frame in an animation clip
 */
 
-static void		scene_animation_3d_frames_set(t_asset_files *data,
+static void	scene_animation_3d_frames_set(t_asset_files *data,
 					char *file_path, uint32_t framecount)
 {
 	int		i;
@@ -25,7 +25,8 @@ static void		scene_animation_3d_frames_set(t_asset_files *data,
 	i = -1;
 	while (++i < (int)framecount && i < 100)
 	{
-		frame_path = (char*)ft_calloc(sizeof(char) * ft_strlen(file_path) + 16);
+		frame_path = (char *)ft_calloc(sizeof(char)
+				* ft_strlen(file_path) + 16);
 		if (i < 10)
 		{
 			ft_sprintf(frame_path, "%s_00%d.obj", file_path, i);
@@ -44,7 +45,7 @@ static void		scene_animation_3d_frames_set(t_asset_files *data,
 ** each object has their animations in a contiguous chunk in the array.
 */
 
-void			scene_animation_3d_files_set(t_asset_files *data)
+void	scene_animation_3d_files_set(t_asset_files *data)
 {
 	scene_animation_3d_frames_set(data,
 		"assets/models/monster_01/monster01_basemodel", 1);
@@ -68,7 +69,7 @@ void			scene_animation_3d_files_set(t_asset_files *data)
 		"assets/models/monster_02/death/monster02_death", 32);
 }
 
-void			load_animation_3d_frames_to_memory(t_scene *scene,
+void	load_animation_3d_frames_to_memory(t_scene *scene,
 					t_asset_files *data)
 {
 	int		i;
