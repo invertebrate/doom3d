@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_triangle_utils2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:53:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 22:00:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 21:08:22 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** to the renderable triangles (after clipping of course)
 */
 
-static void				add_to_render_triangles_if_should(t_doom3d *app,
+static void	add_to_render_triangles_if_should(t_doom3d *app,
 							t_tri_vec **render_triangles, t_triangle *triangle,
 							t_triangle *renderable_triangle)
 {
@@ -25,8 +25,8 @@ static void				add_to_render_triangles_if_should(t_doom3d *app,
 	t_camera				*camera;
 
 	camera = get_render_camera(app);
-	if (triangle_too_far(app, triangle) ||
-		!triangle_inside_viewbox(camera, triangle))
+	if (triangle_too_far(app, triangle)
+		|| !triangle_inside_viewbox(camera, triangle))
 		return ;
 	prepare_render_triangle(app, renderable_triangle, triangle, vtc);
 	if (is_rendered(app, renderable_triangle))
@@ -39,7 +39,7 @@ static void				add_to_render_triangles_if_should(t_doom3d *app,
 ** render triangles to renderable triangle vector
 */
 
-void					add_temp_object_render_triangles(t_doom3d *app,
+void	add_temp_object_render_triangles(t_doom3d *app,
 							t_tri_vec **render_triangles)
 {
 	t_temp_object			*tmp;
@@ -52,8 +52,8 @@ void					add_temp_object_render_triangles(t_doom3d *app,
 	while (node)
 	{
 		tmp = node->content;
-		if (!object_too_far(app, tmp->obj) &&
-			object_inside_viewbox(get_render_camera(app), tmp->obj))
+		if (!object_too_far(app, tmp->obj)
+			&& object_inside_viewbox(get_render_camera(app), tmp->obj))
 		{
 			i = -1;
 			while (++i < tmp->obj->num_triangles)
@@ -73,22 +73,22 @@ void					add_temp_object_render_triangles(t_doom3d *app,
 ** the original object.
 */
 
-static t_triangle		*get_render_target_triangle(t_doom3d *app,
+static t_triangle	*get_render_target_triangle(t_doom3d *app,
 							t_3d_object *obj, int32_t triangle_index)
 {
 	t_3d_object	*current_anim_obj;
 	t_triangle	*triangle;
 
-	if (app->active_scene->scene_id != scene_id_editor3d &&
-		obj->type == object_type_npc &&
-		((t_npc*)obj->params)->animation_3d != NULL)
+	if (app->active_scene->scene_id != scene_id_editor3d
+		&& obj->type == object_type_npc
+		&& ((t_npc *)obj->params)->animation_3d != NULL)
 	{
-		current_anim_obj = ((t_npc*)obj->params)->animation_3d->current_object;
+		current_anim_obj = ((t_npc *)obj->params)->animation_3d->current_object;
 		error_check(current_anim_obj->num_triangles != obj->num_triangles,
 			"Frame object triangle count different from "
 			"base object triangle count!");
-		triangle = ((t_npc*)obj->params)->
-					animation_3d->current_object->triangles + triangle_index;
+		triangle = ((t_npc *)obj->params
+				)->animation_3d->current_object->triangles + triangle_index;
 	}
 	else
 		triangle = obj->triangles + triangle_index;
@@ -100,7 +100,7 @@ static t_triangle		*get_render_target_triangle(t_doom3d *app,
 ** of the camera
 */
 
-void					add_objects_render_triangles(t_doom3d *app,
+void	add_objects_render_triangles(t_doom3d *app,
 							t_tri_vec **render_triangles)
 {
 	int32_t					i;
@@ -111,20 +111,20 @@ void					add_objects_render_triangles(t_doom3d *app,
 
 	camera = get_render_camera(app);
 	i = -1;
-	while (++i < (int32_t)(app->active_scene->num_objects +
-		app->active_scene->num_deleted))
+	while (++i < (int32_t)(app->active_scene->num_objects
+		+ app->active_scene->num_deleted))
 	{
-		if ((app->active_scene->objects[i] == NULL) ||
-			object_too_far(app, app->active_scene->objects[i]) ||
-			!object_inside_viewbox(camera, app->active_scene->objects[i]))
+		if ((app->active_scene->objects[i] == NULL)
+			|| object_too_far(app, app->active_scene->objects[i])
+			|| !object_inside_viewbox(camera, app->active_scene->objects[i]))
 			continue ;
 		j = -1;
 		while (++j < app->active_scene->objects[i]->num_triangles)
 		{
 			triangle = get_render_target_triangle(app,
-				app->active_scene->objects[i], j);
+					app->active_scene->objects[i], j);
 			add_to_render_triangles_if_should(app, render_triangles,
-					triangle, &r_triangle);
+				triangle, &r_triangle);
 		}
 	}
 }
@@ -133,7 +133,7 @@ void					add_objects_render_triangles(t_doom3d *app,
 ** Adds skybox render triangles to renderable triangle vector
 */
 
-void					add_skybox_render_triangles(t_doom3d *app,
+void	add_skybox_render_triangles(t_doom3d *app,
 							t_tri_vec **render_triangles)
 {
 	int					i;

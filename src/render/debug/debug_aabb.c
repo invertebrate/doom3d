@@ -3,63 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   debug_aabb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 22:50:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 21:06:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 20:33:30 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		draw_aabb_sub(t_doom3d *app, t_sub_framebuffer *buffers,
+static void	draw_aabb_sub(t_doom3d *app, t_sub_framebuffer *buffers,
 					t_box3d *aabb, uint32_t color)
 {
-	draw_debug_line(app, buffers, (float[2][3]){
-		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_min[2]},
-		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_max[2]}}, color);
-	draw_debug_line(app, buffers, (float[2][3]){
-		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_max[2]},
-		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_max[2]}}, color);
-	draw_debug_line(app, buffers, (float[2][3]){
-		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_max[2]},
-		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_min[2]}}, color);
-	draw_debug_line(app, buffers, (float[2][3]){
-		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_min[2]},
-		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_min[2]}}, color);
-	draw_debug_line(app, buffers, (float[2][3]){
-		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]},
-		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
-	draw_debug_line(app, buffers, (float[2][3]){
-		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]},
-		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
+	draw_debug_line(app, buffers, (float [2][3]){
+	{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_min[2]},
+	{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_max[2]}}, color);
+	draw_debug_line(app, buffers, (float [2][3]){
+	{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_max[2]},
+	{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_max[2]}}, color);
+	draw_debug_line(app, buffers, (float [2][3]){
+	{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_max[2]},
+	{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_min[2]}}, color);
+	draw_debug_line(app, buffers, (float [2][3]){
+	{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_min[2]},
+	{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_min[2]}}, color);
+	draw_debug_line(app, buffers, (float [2][3]){
+	{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]},
+	{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
+	draw_debug_line(app, buffers, (float [2][3]){
+	{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]},
+	{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
 }
 
-void			draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
+void	draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
 					t_box3d *aabb, uint32_t color)
 {
 	draw_aabb_sub(app, buffers, aabb, color);
-	draw_debug_line(app, buffers, (float[2][3]){
-		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]},
-		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
-	draw_debug_line(app, buffers, (float[2][3]){
-		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]},
-		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
-	draw_debug_line(app, buffers, (float[2][3]){
-		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_min[2]},
-		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
-	draw_debug_line(app, buffers, (float[2][3]){
-		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_max[2]},
-		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
-	draw_debug_line(app, buffers, (float[2][3]){
-		{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_min[2]},
-		{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
-	draw_debug_line(app, buffers, (float[2][3]){
-		{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_max[2]},
-		{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
+	draw_debug_line(app, buffers, (float [2][3]){
+	{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]},
+	{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
+	draw_debug_line(app, buffers, (float [2][3]){
+	{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]},
+	{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
+	draw_debug_line(app, buffers, (float [2][3]){
+	{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_min[2]},
+	{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
+	draw_debug_line(app, buffers, (float [2][3]){
+	{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_max[2]},
+	{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
+	draw_debug_line(app, buffers, (float [2][3]){
+	{aabb->xyz_max[0], aabb->xyz_min[1], aabb->xyz_min[2]},
+	{aabb->xyz_max[0], aabb->xyz_max[1], aabb->xyz_min[2]}}, color);
+	draw_debug_line(app, buffers, (float [2][3]){
+	{aabb->xyz_min[0], aabb->xyz_min[1], aabb->xyz_max[2]},
+	{aabb->xyz_min[0], aabb->xyz_max[1], aabb->xyz_max[2]}}, color);
 }
 
-void			draw_selected_aabb(t_render_work *work)
+void	draw_selected_aabb(t_render_work *work)
 {
 	t_doom3d			*app;
 	t_sub_framebuffer	*buffers;
@@ -76,7 +76,7 @@ void			draw_selected_aabb(t_render_work *work)
 	}
 }
 
-static void		draw_triangle_tree_recursive(t_doom3d *app,
+static void	draw_triangle_tree_recursive(t_doom3d *app,
 					t_sub_framebuffer *buffers, t_kd_node *root, uint32_t color)
 {
 	if (root != NULL)
@@ -87,7 +87,7 @@ static void		draw_triangle_tree_recursive(t_doom3d *app,
 	}
 }
 
-void			draw_triangle_tree_bounding_boxes(t_render_work *work)
+void	draw_triangle_tree_bounding_boxes(t_render_work *work)
 {
 	draw_triangle_tree_recursive(work->app,
 		work->framebuffer->sub_buffers[work->sub_buffer_i],

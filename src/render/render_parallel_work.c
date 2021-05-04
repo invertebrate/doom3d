@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   render_parallel_work.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:33:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 23:00:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 20:57:48 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		clear_buffers(t_render_work *work)
+static void	clear_buffers(t_render_work *work)
 {
 	t_sub_framebuffer	*sub_buffer;
 
@@ -23,7 +23,7 @@ static void		clear_buffers(t_render_work *work)
 		sub_buffer->width * sub_buffer->height, FLT_MAX);
 }
 
-static void		draw_buffers_to_framebuffer(t_render_work *work)
+static void	draw_buffers_to_framebuffer(t_render_work *work)
 {
 	t_sub_framebuffer	*sub_buffer;
 	t_framebuffer		*framebuffer;
@@ -49,7 +49,7 @@ static void		draw_buffers_to_framebuffer(t_render_work *work)
 ** connections or selection highlights.
 */
 
-static void		render_editor_ux_highlights(t_render_work *work)
+static void	render_editor_ux_highlights(t_render_work *work)
 {
 	uint32_t	last_pass;
 
@@ -59,8 +59,8 @@ static void		render_editor_ux_highlights(t_render_work *work)
 	{
 		draw_selected_wireframe(work);
 		draw_selected_enemies_direction(work);
-		if (work->app->editor.num_selected_objects == 1 &&
-			work->app->editor.selected_objects[0]->type == object_type_npc)
+		if (work->app->editor.num_selected_objects == 1
+			&& work->app->editor.selected_objects[0]->type == object_type_npc)
 			patrol_path_highlight(work);
 	}
 	else if (work->pass == last_pass)
@@ -72,7 +72,7 @@ static void		render_editor_ux_highlights(t_render_work *work)
 ** First we clear buffers, then depending on passes & scenes, render rest
 */
 
-void			render_work(void *params)
+void	render_work(void *params)
 {
 	t_render_work		*work;
 	uint32_t			last_pass;
@@ -95,8 +95,8 @@ void			render_work(void *params)
 		rasterize_triangles_transparent(work);
 	if (work->app->active_scene->scene_id == scene_id_editor3d)
 		render_editor_ux_highlights(work);
-	if (work->app->active_scene->scene_id == scene_id_main_game &&
-		work->app->is_third_person)
+	if (work->app->active_scene->scene_id == scene_id_main_game
+		&& work->app->is_third_person)
 		draw_aabb(work->app, work->framebuffer->sub_buffers[work->sub_buffer_i],
 			&work->app->player.aabb, 0xff0000ff);
 	if (work->pass == last_pass)
