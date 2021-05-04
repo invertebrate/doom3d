@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 17:26:32 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:50:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:51:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Parses flags and maps that data to t_printf *data.
 */
 
-static int		parse_flags(t_printf *data)
+static int	parse_flags(t_printf *data)
 {
 	int		i;
 	int		found_zero;
@@ -35,9 +35,9 @@ static int		parse_flags(t_printf *data)
 ** Parses precision and maps that data to t_printf *data.
 */
 
-static int		parse_precision(t_printf *data, char *dot)
+static int	parse_precision(t_printf *data, char *dot)
 {
-	unsigned	var;
+	unsigned int	var;
 
 	data->has_precision = true;
 	data->precision = 0;
@@ -47,7 +47,7 @@ static int		parse_precision(t_printf *data, char *dot)
 	}
 	else if (*(dot + 1) == '*')
 	{
-		var = va_arg(data->variables, unsigned);
+		var = va_arg(data->variables, unsigned int);
 		data->precision = (int)var;
 	}
 	return (true);
@@ -57,7 +57,7 @@ static int		parse_precision(t_printf *data, char *dot)
 ** Parses width and maps that data to t_printf *data.
 */
 
-static int		parse_width(t_printf *data, int i)
+static int	parse_width(t_printf *data, int i)
 {
 	int			has_width;
 	int			var;
@@ -77,7 +77,7 @@ static int		parse_width(t_printf *data, int i)
 			var = va_arg(data->variables, int);
 			if (var < 0)
 				data->left_justify = true;
-			data->width = !has_width ? ft_abs(var) : data->width;
+			data->width = get_width(data, var, has_width);
 			has_width = true;
 		}
 		i--;
@@ -89,7 +89,7 @@ static int		parse_width(t_printf *data, int i)
 ** Parses lengths and maps that data to t_printf *data.
 */
 
-static int		parse_lengths(t_printf *data)
+static int	parse_lengths(t_printf *data)
 {
 	int			i;
 
@@ -108,7 +108,7 @@ static int		parse_lengths(t_printf *data)
 ** variables are consumed for * flag.
 */
 
-int				parse_sub_specifiers(t_printf *data)
+int	parse_sub_specifiers(t_printf *data)
 {
 	char		*dot;
 	int			diff;
@@ -118,8 +118,13 @@ int				parse_sub_specifiers(t_printf *data)
 	i = -1;
 	dot = NULL;
 	while (++i < data->spec_len)
-		if (data->spec[i] == '.' && (dot = data->spec + i))
+	{
+		if (data->spec[i] == '.')
+		{
+			dot = data->spec + i;
 			break ;
+		}
+	}
 	diff = dot - data->spec;
 	if (dot)
 	{

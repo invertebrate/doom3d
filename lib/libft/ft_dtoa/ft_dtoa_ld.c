@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/30 18:32:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 16:16:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 11:43:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	set_dragon4_params_ld(t_dragon4_params *dragon,
 {
 	t_float_dissector_ld	fd;
 
-	fd.f = dtoa.value_ld;
+	fd.f = dtoa.value;
 	dragon->no_trailing_zeros = dtoa.g_mode;
 	dragon->hashtag = dtoa.hashtag;
 	if (fd.b.exp != 0)
@@ -55,7 +55,7 @@ char	*ft_dtoa_ld(t_dtoa_params params)
 	t_dragon4_params		dragon;
 	t_float_dissector_ld	fd;
 
-	fd.f = params.value_ld;
+	fd.f = params.value;
 	if (fd.b.sign == 1)
 		*buf = '-';
 	if (fd.b.exp == 0x7FFF)
@@ -83,7 +83,7 @@ int	ft_dtoa_buf_ld(t_dtoa_params params, char *buf, int buf_size)
 	t_float_dissector_ld	fd;
 	uint32_t				inf_nan_sign;
 
-	fd.f = params.value_ld;
+	fd.f = params.value;
 	if (fd.b.sign == 1)
 		*buf = '-';
 	inf_nan_sign = (fd.b.sign == 1 && fd.b.fraction == 0);
