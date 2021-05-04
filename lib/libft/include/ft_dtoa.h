@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:01:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 15:49:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:08:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,11 @@ uint32_t				format_scientific(t_dragon4_params params,
 uint32_t				format_inf_nan(char *buf, uint64_t mantissa);
 void					set_exp_buf(t_dragon4_params params, int32_t exp,
 							char *exp_buf, uint32_t *exp_size);
+void					format_zero_and_dot(t_dragon4_params params,
+							uint32_t *pos);
+int32_t					get_negative_trim_to(t_dragon4_params params,
+							int32_t precision, int32_t exp);
+int32_t					get_trim_to(int32_t exp, int32_t negative_trim_to);
 
 /*
 ** Dragon4
@@ -185,6 +190,7 @@ void					big_int_mul_2(t_big_int *lhs, t_big_int *res);
 void					big_int_mul_2_modif(t_big_int *mod);
 void					big_int_mul_10_modif(t_big_int *mod);
 void					big_int_retard_print(t_big_int *b);
+t_big_int				*get_smaller(t_big_int *lhs, t_big_int *rhs);
 void					big_int_pow_10(uint32_t exponent, t_big_int *res);
 void					big_int_mul_pow_10(t_big_int *lhs,
 							uint32_t exponent, t_big_int *res);

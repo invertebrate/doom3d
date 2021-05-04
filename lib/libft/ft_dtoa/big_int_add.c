@@ -6,14 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 22:10:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:47:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:43:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dtoa.h"
 
 static size_t	add_until_end_of_small(t_big_int *small, t_big_int *large,
-				uint64_t *carry, t_big_int *res)
+					uint64_t *carry, t_big_int *res)
 {
 	uint64_t	sum;
 	size_t		i;
@@ -29,7 +29,7 @@ static size_t	add_until_end_of_small(t_big_int *small, t_big_int *large,
 }
 
 static size_t	add_until_end_of_large(t_big_int *large,
-				uint64_t *carry, t_big_int *res, size_t i)
+					uint64_t *carry, t_big_int *res, size_t i)
 {
 	uint64_t	sum;
 
@@ -47,15 +47,15 @@ static size_t	add_until_end_of_large(t_big_int *large,
 ** Adds two t_big_int lhs and rhs together resulting in another t_big_int res.
 */
 
-void			big_int_add(t_big_int *lhs, t_big_int *rhs, t_big_int *res)
+void	big_int_add(t_big_int *lhs, t_big_int *rhs, t_big_int *res)
 {
 	t_big_int	*large;
 	t_big_int	*small;
 	uint64_t	carry;
 	size_t		i;
 
-	small = lhs->length < rhs->length ? lhs : rhs;
-	large = lhs->length < rhs->length ? rhs : lhs;
+	small = get_smaller(lhs, rhs);
+	large = get_smaller(rhs, lhs);
 	res->length = large->length;
 	carry = 0;
 	i = 0;

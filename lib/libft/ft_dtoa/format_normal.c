@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 23:40:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:49:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:09:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** the decimal dot.
 */
 
-static void		format_gte_one(t_dragon4_params params, int32_t print_exponent,
+static void	format_gte_one(t_dragon4_params params, int32_t print_exponent,
 				uint32_t *pos, uint32_t *fraction_digits)
 {
 	uint32_t	whole_digits;
@@ -50,7 +50,7 @@ static void		format_gte_one(t_dragon4_params params, int32_t print_exponent,
 ** And after 0. (this function is only used when double value is less than 1.0)
 */
 
-static void		fill_zeros_before_fraction(t_dragon4_params params,
+static void	fill_zeros_before_fraction(t_dragon4_params params,
 				uint32_t digits_start_i)
 {
 	size_t		pos;
@@ -66,16 +66,18 @@ static void		fill_zeros_before_fraction(t_dragon4_params params,
 ** are filled. 0 and . are placed to the beginning of buffer.
 */
 
-static void		format_lt_one(t_dragon4_params params, int32_t print_exponent,
+static void	format_lt_one(t_dragon4_params params, int32_t print_exponent,
 				uint32_t *pos, uint32_t *fraction_digits)
 {
 	uint32_t	fraction_zeros;
 	uint32_t	digits_start_i;
 	uint32_t	max_fraction_digits;
+	uint32_t	norm_hack;
 
 	if (params.buf_size > 2)
 	{
-		fraction_zeros = (uint32_t)-print_exponent - 1;
+		norm_hack = -print_exponent;
+		fraction_zeros = norm_hack - 1;
 		if (fraction_zeros > params.buf_size - 2)
 			fraction_zeros = params.buf_size - 2;
 		digits_start_i = 2 + fraction_zeros;
@@ -88,14 +90,11 @@ static void		format_lt_one(t_dragon4_params params, int32_t print_exponent,
 		*fraction_digits += fraction_zeros;
 		*pos = *fraction_digits;
 	}
-	if (params.buf_size > 1 && (params.buf[1] = '.'))
-		*pos += 1;
-	if (params.buf_size > 0 && (params.buf[0] = '0'))
-		*pos += 1;
+	format_zero_and_dot(params, pos);
 }
 
-void			add_trailing_zeros(t_dragon4_params params, int32_t precision,
-				uint32_t *pos, uint32_t fraction_digits)
+void	add_trailing_zeros(t_dragon4_params params, int32_t precision,
+			uint32_t *pos, uint32_t fraction_digits)
 {
 	uint32_t	total_digits;
 
@@ -103,17 +102,17 @@ void			add_trailing_zeros(t_dragon4_params params, int32_t precision,
 		return ;
 	if (fraction_digits == 0)
 	{
-		if ((precision > (int32_t)fraction_digits &&
-			!params.no_trailing_zeros && !params.hashtag) ||
-				(params.no_trailing_zeros && params.hashtag) ||
-						params.hashtag)
+		if ((precision > (int32_t)fraction_digits
+				&& !params.no_trailing_zeros && !params.hashtag)
+			|| (params.no_trailing_zeros && params.hashtag)
+			|| params.hashtag)
 		{
 			params.buf[(*pos)++] = '.';
 			params.buf_size--;
 		}
 	}
-	if (precision > (int32_t)fraction_digits &&
-		(!params.no_trailing_zeros || params.hashtag))
+	if (precision > (int32_t)fraction_digits
+		&& (!params.no_trailing_zeros || params.hashtag))
 	{
 		total_digits = *pos + (precision - fraction_digits);
 		if (total_digits > params.buf_size)
@@ -131,7 +130,7 @@ void			add_trailing_zeros(t_dragon4_params params, int32_t precision,
 ** Trailing zeros are added if precision is larger than fraction digits.
 */
 
-uint32_t		format_normal(t_dragon4_params params, int32_t precision)
+uint32_t	format_normal(t_dragon4_params params, int32_t precision)
 {
 	int32_t		exp;
 	uint32_t	pos;
@@ -144,10 +143,10 @@ uint32_t		format_normal(t_dragon4_params params, int32_t precision)
 	pos = dragon4(params);
 	if (params.no_trailing_zeros)
 	{
-		negative_trim_to = params.hashtag ? precision + exp + 2 : 1;
-		trim_to = ((exp >= 0 ? exp + 1 : negative_trim_to));
-		while (params.buf[pos - 1] == '0' &&
-			pos > 0 && (int32_t)pos > trim_to)
+		negative_trim_to = get_negative_trim_to(params, precision, exp);
+		trim_to = get_trim_to(exp, negative_trim_to);
+		while (params.buf[pos - 1] == '0'
+			&& pos > 0 && (int32_t)pos > trim_to)
 			pos--;
 	}
 	fraction_digits = 0;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 22:08:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:48:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:21:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** 1 * (2^32 - 1)^0 + 2 * (2^32 - 1)^1 + 3 * (2^32 - 1)^2
 */
 
-void			big_int_retard_print(t_big_int *b)
+void	big_int_retard_print(t_big_int *b)
 {
 	size_t		i;
 
@@ -36,7 +36,7 @@ void			big_int_retard_print(t_big_int *b)
 ** Performs a copy operation on big int.
 */
 
-void			big_int_copy(t_big_int *to_copy, t_big_int *res)
+void	big_int_copy(t_big_int *to_copy, t_big_int *res)
 {
 	size_t		i;
 	uint32_t	length;
@@ -53,7 +53,7 @@ void			big_int_copy(t_big_int *to_copy, t_big_int *res)
 ** lhs is smaller if result is < 1. Ints are equal if 0.
 */
 
-int32_t			big_int_cmp(t_big_int *lhs, t_big_int *rhs)
+int32_t	big_int_cmp(t_big_int *lhs, t_big_int *rhs)
 {
 	int32_t		diff;
 	int			i;
@@ -65,7 +65,7 @@ int32_t			big_int_cmp(t_big_int *lhs, t_big_int *rhs)
 	while (--i >= 0)
 	{
 		if (lhs->blocks[i] == rhs->blocks[i])
-			continue;
+			continue ;
 		else if (lhs->blocks[i] > rhs->blocks[i])
 			return (1);
 		else
@@ -78,7 +78,14 @@ int32_t			big_int_cmp(t_big_int *lhs, t_big_int *rhs)
 ** Check if big int is zero -> Its length is zero.
 */
 
-t_bool			big_int_is_zero(t_big_int *b)
+t_bool	big_int_is_zero(t_big_int *b)
 {
 	return (b->length == 0);
+}
+
+t_big_int	*get_smaller(t_big_int *lhs, t_big_int *rhs)
+{
+	if (lhs->length < rhs->length)
+		return (lhs);
+	return (rhs);
 }

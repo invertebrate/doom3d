@@ -6,11 +6,18 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 18:19:22 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:49:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:19:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dtoa.h"
+
+static t_cutoff_mode	get_cutoff_mode(t_dtoa_params dtoa)
+{
+	if (dtoa.g_mode)
+		return (CUTOFF_TOTAL_LENGTH);
+	return (CUTOFF_FRACTION_LENGTH);
+}
 
 /*
 ** Sets cutoff modes based on the inputted formats and precision
@@ -22,7 +29,7 @@
 ** With normal mode the precision defines the cutoff num.
 */
 
-void			set_cutoffs(t_dragon4_params *dragon, t_dtoa_params dtoa)
+void	set_cutoffs(t_dragon4_params *dragon, t_dtoa_params dtoa)
 {
 	if (dtoa.precision < 0)
 	{
@@ -33,8 +40,7 @@ void			set_cutoffs(t_dragon4_params *dragon, t_dtoa_params dtoa)
 	{
 		if (dtoa.format == FORMAT_NORM)
 		{
-			dragon->cutoff_mode = dtoa.g_mode ? CUTOFF_TOTAL_LENGTH :
-				CUTOFF_FRACTION_LENGTH;
+			dragon->cutoff_mode = get_cutoff_mode(dtoa);
 			dragon->cutoff_num = dtoa.precision;
 		}
 		else if (dtoa.format == FORMAT_SCI)
@@ -56,7 +62,7 @@ void			set_cutoffs(t_dragon4_params *dragon, t_dtoa_params dtoa)
 ** sign bit.
 */
 
-static void		set_dragon4_params(t_dragon4_params *dragon, t_dtoa_params dtoa,
+static void	set_dragon4_params(t_dragon4_params *dragon, t_dtoa_params dtoa,
 				char *buf, uint32_t buf_size)
 {
 	t_float_dissector	fd;
@@ -90,7 +96,7 @@ static void		set_dragon4_params(t_dragon4_params *dragon, t_dtoa_params dtoa,
 ** or normal format.
 */
 
-char			*ft_dtoa(t_dtoa_params params)
+char	*ft_dtoa(t_dtoa_params params)
 {
 	char				buf[DTOA_BUF_SIZE];
 	t_dragon4_params	dragon;
@@ -108,8 +114,8 @@ char			*ft_dtoa(t_dtoa_params params)
 		if (params.format == FORMAT_SCI)
 			format_scientific(dragon, params.precision);
 		else
-			format_normal(dragon, params.precision -
-				(params.g_mode && params.hashtag));
+			format_normal(dragon, params.precision
+				- (params.g_mode && params.hashtag));
 	}
 	return (ft_strdup(buf));
 }
@@ -119,7 +125,7 @@ char			*ft_dtoa(t_dtoa_params params)
 ** to given buffer.
 */
 
-int				ft_dtoa_buf(t_dtoa_params params, char *buf, int buf_size)
+int	ft_dtoa_buf(t_dtoa_params params, char *buf, int buf_size)
 {
 	t_dragon4_params	dragon;
 	t_float_dissector	fd;
@@ -130,15 +136,15 @@ int				ft_dtoa_buf(t_dtoa_params params, char *buf, int buf_size)
 		*buf = '-';
 	inf_nan_sign = (fd.b.sign == 1 && fd.b.fraction == 0);
 	if (fd.b.exp == 0x7FF)
-		return (format_inf_nan(buf + inf_nan_sign, fd.b.fraction) +
-			inf_nan_sign);
+		return (format_inf_nan(buf + inf_nan_sign, fd.b.fraction)
+			+ inf_nan_sign);
 	else
 	{
 		set_dragon4_params(&dragon, params, buf, buf_size);
 		if (params.format == FORMAT_SCI)
 			return (format_scientific(dragon, params.precision) + fd.b.sign);
 		else
-			return (format_normal(dragon, params.precision -
-				(params.g_mode && params.hashtag)) + fd.b.sign);
+			return (format_normal(dragon, params.precision
+					- (params.g_mode && params.hashtag)) + fd.b.sign);
 	}
 }

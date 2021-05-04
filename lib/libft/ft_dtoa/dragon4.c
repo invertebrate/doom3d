@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:27:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:48:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:52:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Exit dragon4 if mantissa is zero.
 */
 
-static int32_t		zero_if_zero(t_dragon4_params params)
+static int32_t	zero_if_zero(t_dragon4_params params)
 {
 	if (params.mantissa == 0)
 	{
@@ -32,15 +32,15 @@ static int32_t		zero_if_zero(t_dragon4_params params)
 ** www.ryanjuckett.com/programming/printing-floating-point-numbers/part-2/
 */
 
-static int32_t		get_digit_exponent(t_dragon4_params params)
+static int32_t	get_digit_exponent(t_dragon4_params params)
 {
 	int32_t		digit_exponent;
+	int32_t		exp;
 
-	digit_exponent =
-		(int32_t)(ft_ceil((double)((int32_t)params.mantissa_high_bit_index +
-			params.exponent) * LOG10_2 - 0.69));
-	if (params.cutoff_mode == CUTOFF_FRACTION_LENGTH &&
-		digit_exponent <= -(int32_t)params.cutoff_num)
+	exp = (int32_t)params.mantissa_high_bit_index + params.exponent;
+	digit_exponent = (int32_t)(ft_ceil((double)exp * LOG10_2 - 0.69));
+	if (params.cutoff_mode == CUTOFF_FRACTION_LENGTH
+		&& digit_exponent <= -(int32_t)params.cutoff_num)
 		digit_exponent = -(int32_t)params.cutoff_num + 1;
 	return (digit_exponent);
 }
@@ -82,7 +82,7 @@ static int32_t		get_digit_exponent(t_dragon4_params params)
 **  value_numerator = value_numerator * 10
 */
 
-uint32_t			dragon4(t_dragon4_params params)
+uint32_t	dragon4(t_dragon4_params params)
 {
 	t_big_int	scale;
 	t_big_int	scaled_value;
@@ -105,7 +105,7 @@ uint32_t			dragon4(t_dragon4_params params)
 	prepare_values_for_division(&scale, &scaled_value, margin_ptrs);
 	if (params.cutoff_mode == CUTOFF_NONE)
 		return (output_without_cutoff(params, &scale, &scaled_value,
-			margin_ptrs));
+				margin_ptrs));
 	else
 		return (output_with_cutoff(params, &scale, &scaled_value));
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 23:41:48 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:49:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:14:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 ** Fraction digits are moved by one to give space for the decimal dot.
 */
 
-static void				move_fraction_digits(t_dragon4_params params,
-						uint32_t *fraction_digits, uint32_t *pos)
+static void	move_fraction_digits(t_dragon4_params params,
+				uint32_t *fraction_digits, uint32_t *pos)
 {
 	uint32_t	max_fraction_digits;
 
@@ -38,9 +38,9 @@ static void				move_fraction_digits(t_dragon4_params params,
 ** number of fraction digits from precision, are added.
 */
 
-static void				add_trailing_zeros(t_dragon4_params params,
-						uint32_t fraction_digits, int32_t precision,
-						uint32_t *pos)
+static void	add_trailing_zeros(t_dragon4_params params,
+				uint32_t fraction_digits, int32_t precision,
+				uint32_t *pos)
 {
 	uint32_t	zeros;
 	uint32_t	zeros_i;
@@ -49,8 +49,8 @@ static void				add_trailing_zeros(t_dragon4_params params,
 		return ;
 	if (fraction_digits == 0)
 	{
-		if ((precision > (int32_t)fraction_digits &&
-			!params.no_trailing_zeros) || params.hashtag)
+		if ((precision > (int32_t)fraction_digits
+				&& !params.no_trailing_zeros) || params.hashtag)
 		{
 			params.buf[(*pos)++] = '.';
 			params.buf_size--;
@@ -74,8 +74,8 @@ static void				add_trailing_zeros(t_dragon4_params params,
 ** place. Exp buf is memcopied after the digits.
 */
 
-static void				add_exp_notation(t_dragon4_params params,
-						int32_t exp, uint32_t *pos)
+static void	add_exp_notation(t_dragon4_params params,
+				int32_t exp, uint32_t *pos)
 {
 	char		exp_buf[6];
 	uint32_t	exp_size;
@@ -104,8 +104,8 @@ static void				add_exp_notation(t_dragon4_params params,
 ** Lastly the exponent is placed at the end of buffer.
 */
 
-uint32_t				format_scientific(t_dragon4_params params,
-						int32_t precision)
+uint32_t	format_scientific(t_dragon4_params params,
+				int32_t precision)
 {
 	int32_t		exp;
 	uint32_t	digits;

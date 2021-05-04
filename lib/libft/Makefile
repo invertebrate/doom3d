@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 14:43:04 by ohakola           #+#    #+#              #
-#    Updated: 2021/05/03 17:59:37 by ohakola          ###   ########.fr        #
+#    Updated: 2021/05/04 16:09:04 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,6 +111,7 @@ SOURCES = ft_atoi.c \
 		ft_dtoa/ft_dtoa.c \
 		ft_dtoa/ft_dtoa_ld.c \
 		ft_dtoa/format_normal.c \
+		ft_dtoa/format_normal_utils.c \
 		ft_dtoa/format_inf_nan.c \
 		ft_dtoa/format_scientific.c \
 		ft_dtoa/format_scientific_utils.c \
