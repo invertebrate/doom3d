@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   trigger_place2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 21:39:02 by veilo             #+#    #+#             */
-/*   Updated: 2021/04/30 21:45:23 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/04 20:00:48 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-t_3d_object		*place_drop_pistol(t_doom3d *app)
+t_3d_object	*place_drop_pistol(t_doom3d *app)
 {
 	t_vec3		pos;
 	t_trigger	trigger_params;
@@ -21,12 +21,12 @@ t_3d_object		*place_drop_pistol(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	trigger = place_scene_object(app,
-		(const char*[3]){"assets/models/pistol.obj",
+			(const char *[3]){"assets/models/pistol.obj",
 			"assets/textures/pistol_texture.bmp", NULL}, pos);
-	app->active_scene->objects[app->active_scene->last_object_index]->type =
-		object_type_trigger;
-	trigger_params.parent = app->active_scene->objects[app->active_scene->
-														last_object_index];
+	app->active_scene->objects[app->active_scene->last_object_index]->type
+		= object_type_trigger;
+	trigger_params.parent = app->active_scene->objects[
+		app->active_scene->last_object_index];
 	l3d_3d_object_set_params(
 		app->active_scene->objects[app->active_scene->last_object_index],
 		&trigger_params, sizeof(t_trigger), trigger_weapon_drop_pistol);
@@ -37,7 +37,7 @@ t_3d_object		*place_drop_pistol(t_doom3d *app)
 	return (trigger);
 }
 
-t_3d_object		*place_drop_rpg(t_doom3d *app)
+t_3d_object	*place_drop_rpg(t_doom3d *app)
 {
 	t_vec3		pos;
 	t_trigger	trigger_params;
@@ -46,12 +46,12 @@ t_3d_object		*place_drop_rpg(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	trigger = place_scene_object(app,
-		(const char*[3]){"assets/models/rpg.obj",
+			(const char *[3]){"assets/models/rpg.obj",
 			"assets/textures/rpg_texture.bmp", NULL}, pos);
-	app->active_scene->objects[app->active_scene->last_object_index]->type =
-		object_type_trigger;
-	trigger_params.parent = app->active_scene->objects[app->active_scene->
-														last_object_index];
+	app->active_scene->objects[app->active_scene->last_object_index]->type
+		= object_type_trigger;
+	trigger_params.parent = app->active_scene->objects[
+		app->active_scene->last_object_index];
 	l3d_3d_object_set_params(
 		app->active_scene->objects[app->active_scene->last_object_index],
 		&trigger_params, sizeof(t_trigger), trigger_weapon_drop_rpg);
@@ -62,7 +62,7 @@ t_3d_object		*place_drop_rpg(t_doom3d *app)
 	return (trigger);
 }
 
-t_3d_object		*place_drop_jetpack(t_doom3d *app)
+t_3d_object	*place_drop_jetpack(t_doom3d *app)
 {
 	t_vec3		pos;
 	t_trigger	trigger_params;
@@ -71,12 +71,12 @@ t_3d_object		*place_drop_jetpack(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	trigger = place_scene_object(app,
-		(const char*[3]){"assets/models/jetpack.obj",
+			(const char *[3]){"assets/models/jetpack.obj",
 			"assets/textures/keypad_texture.bmp", NULL}, pos);
-	app->active_scene->objects[app->active_scene->last_object_index]->type =
-		object_type_trigger;
-	trigger_params.parent = app->active_scene->objects[app->active_scene->
-														last_object_index];
+	app->active_scene->objects[app->active_scene->last_object_index]->type
+		= object_type_trigger;
+	trigger_params.parent = app->active_scene->objects[
+		app->active_scene->last_object_index];
 	l3d_3d_object_set_params(
 		app->active_scene->objects[app->active_scene->last_object_index],
 		&trigger_params, sizeof(t_trigger), trigger_item_jetpack);
@@ -87,7 +87,7 @@ t_3d_object		*place_drop_jetpack(t_doom3d *app)
 	return (trigger);
 }
 
-t_3d_object		*place_drop_medkit(t_doom3d *app)
+t_3d_object	*place_drop_medkit(t_doom3d *app)
 {
 	t_vec3		pos;
 	t_trigger	trigger_params;
@@ -96,12 +96,12 @@ t_3d_object		*place_drop_medkit(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	trigger = place_scene_object(app,
-		(const char*[3]){"assets/models/medkit.obj",
+			(const char *[3]){"assets/models/medkit.obj",
 			"assets/textures/medkit_texture.bmp", NULL}, pos);
-	app->active_scene->objects[app->active_scene->last_object_index]->type =
-		object_type_trigger;
-	trigger_params.parent = app->active_scene->objects[app->active_scene->
-														last_object_index];
+	app->active_scene->objects[app->active_scene->last_object_index]->type
+		= object_type_trigger;
+	trigger_params.parent = app->active_scene->objects[
+		app->active_scene->last_object_index];
 	l3d_3d_object_set_params(
 		app->active_scene->objects[app->active_scene->last_object_index],
 		&trigger_params, sizeof(t_trigger), trigger_item_medkit);
@@ -112,7 +112,7 @@ t_3d_object		*place_drop_medkit(t_doom3d *app)
 	return (trigger);
 }
 
-t_3d_object		*place_drop_key(t_doom3d *app)
+t_3d_object	*place_drop_key(t_doom3d *app)
 {
 	t_vec3		pos;
 	t_trigger	trigger_params;
@@ -121,12 +121,12 @@ t_3d_object		*place_drop_key(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	trigger = place_scene_object(app,
-		(const char*[3]){"assets/models/keycard.obj",
+			(const char *[3]){"assets/models/keycard.obj",
 			"assets/textures/keypad_texture.bmp", NULL}, pos);
-	app->active_scene->objects[app->active_scene->last_object_index]->type =
-		object_type_trigger;
-	trigger_params.parent = app->active_scene->objects[app->active_scene->
-														last_object_index];
+	app->active_scene->objects[app->active_scene->last_object_index]->type
+		= object_type_trigger;
+	trigger_params.parent = app->active_scene->objects[
+		app->active_scene->last_object_index];
 	if (app->editor.patrol_slot < MAX_KEYS)
 		trigger_params.key_id = app->editor.patrol_slot;
 	l3d_3d_object_set_params(

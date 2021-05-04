@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   trigger.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 22:14:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 20:05:30 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-t_3d_object		*place_elevator_switch_timer(t_doom3d *app)
+t_3d_object	*place_elevator_switch_timer(t_doom3d *app)
 {
 	t_vec3		pos;
 	t_trigger	trigger_params;
@@ -21,12 +21,12 @@ t_3d_object		*place_elevator_switch_timer(t_doom3d *app)
 	editor_pos_camera_front(app, pos);
 	ft_memset(&trigger_params, 0, sizeof(t_trigger));
 	trigger = place_scene_object(app,
-		(const char*[3]){"assets/models/keypad.obj",
+			(const char *[3]){"assets/models/keypad.obj",
 			"assets/textures/keypad_texture.bmp", NULL}, pos);
-	app->active_scene->objects[app->active_scene->last_object_index]->type =
-		object_type_trigger;
-	trigger_params.parent = app->active_scene->objects[app->active_scene->
-														last_object_index];
+	app->active_scene->objects[app->active_scene->last_object_index]->type
+		= object_type_trigger;
+	trigger_params.parent = app->active_scene->objects[
+		app->active_scene->last_object_index];
 	trigger_params.key_id = -1;
 	l3d_3d_object_set_params(
 		app->active_scene->objects[app->active_scene->last_object_index],
@@ -38,12 +38,13 @@ t_3d_object		*place_elevator_switch_timer(t_doom3d *app)
 	return (trigger);
 }
 
-void			trigger_activate(t_doom3d *app, t_3d_object *obj)
+void	trigger_activate(t_doom3d *app, t_3d_object *obj)
 {
 	t_trigger	*trigger;
 
 	trigger = NULL;
-	if ((trigger = obj->params) == NULL)
+	trigger = obj->params;
+	if (trigger == NULL)
 		return ;
 	if (obj->params_type == trigger_elevator_switch)
 	{
@@ -55,7 +56,7 @@ void			trigger_activate(t_doom3d *app, t_3d_object *obj)
 	}
 }
 
-void			trigger_link_object_to_npc(t_3d_object *trigger_obj,
+void	trigger_link_object_to_npc(t_3d_object *trigger_obj,
 					t_3d_object *target_npc)
 {
 	t_trigger	*trigger;
@@ -63,8 +64,8 @@ void			trigger_link_object_to_npc(t_3d_object *trigger_obj,
 
 	npc = target_npc->params;
 	trigger = trigger_obj->params;
-	if (trigger_obj->params_type != trigger_elevator_switch &&
-		trigger_obj->params_type != trigger_door_switch)
+	if (trigger_obj->params_type != trigger_elevator_switch
+		&& trigger_obj->params_type != trigger_door_switch)
 		LOG_ERROR("Trigger %d cannot be linked", trigger_obj->id);
 	else if (npc->type == npc_type_elevator)
 	{
@@ -85,17 +86,17 @@ void			trigger_link_object_to_npc(t_3d_object *trigger_obj,
 		ft_printf("This object cannot be linked\n");
 }
 
-void			trigger_update_key_id(t_doom3d *app, t_3d_object *key)
+void	trigger_update_key_id(t_doom3d *app, t_3d_object *key)
 {
 	t_trigger	*trigger;
 
 	trigger = NULL;
-	if (key->params_type == trigger_item_key ||
-		key->params_type == trigger_elevator_switch)
+	if (key->params_type == trigger_item_key
+		|| key->params_type == trigger_elevator_switch)
 	{
 		trigger = key->params;
-		if (trigger && key->params_type == trigger_elevator_switch &&
-			trigger->key_id == app->editor.patrol_slot)
+		if (trigger && key->params_type == trigger_elevator_switch
+			&& trigger->key_id == app->editor.patrol_slot)
 		{
 			trigger->key_id = -1;
 			LOG_INFO("Removed key requirement from door/elevator %d", key->id);
@@ -104,14 +105,14 @@ void			trigger_update_key_id(t_doom3d *app, t_3d_object *key)
 		{
 			trigger->key_id = app->editor.patrol_slot;
 			LOG_INFO("Key id %d set to slot %d", key->id,
-						app->editor.patrol_slot);
+				app->editor.patrol_slot);
 		}
 	}
 	else if (key->params_type == trigger_jukebox)
 		trigger_handle_trigger_jukebox(app, key, NULL);
 }
 
-void			get_trigger_action_text(t_trigger_type type,
+void	get_trigger_action_text(t_trigger_type type,
 					char *action_text)
 {
 	if (type == trigger_weapon_drop_shotgun)
