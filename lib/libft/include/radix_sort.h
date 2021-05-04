@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 13:11:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 15:54:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 14:46:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ typedef struct s_radix_params
 }				t_radix_params;
 
 void			radix_sort(t_thread_pool *pool, uint32_t *array,
-					size_t size);
+					size_t size, size_t padded_size);
 void			radix_sort_key_val(t_thread_pool *pool,
-					uint32_t *key_vals[2], size_t size);
+					uint32_t *key_vals[2], size_t size, size_t padded_size);
 
 #endif

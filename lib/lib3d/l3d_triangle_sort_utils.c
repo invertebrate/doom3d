@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 00:16:48 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 00:22:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:26:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,21 @@ void	triangle_sort_free(t_triangle **tmp, uint32_t *keys,
 	free(tmp);
 	free(keys);
 	free(indices);
+}
+
+uint32_t	get_padded_size(uint32_t size)
+{
+	if (size % EXPECTED_THREADS == 0)
+		return (size);
+	return (size + EXPECTED_THREADS - (size % EXPECTED_THREADS));
+}
+
+void	reorder_sorted_triangles(t_tri_vec *triangles, t_triangle **tmp,
+			uint32_t *key_vals[2])
+{
+	int32_t	i;
+
+	i = -1;
+	while (++i < (int32_t)triangles->size)
+		triangles->triangles[i] = tmp[key_vals[1][i]];
 }
