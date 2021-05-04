@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_point_on_target.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 01:22:17 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 01:22:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:38:09 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** size for the case of e.g. planes (0 width)
 */
 
-static void		editor_point_on_target_offset(t_doom3d *app,
+static void	editor_point_on_target_offset(t_doom3d *app,
 					t_vec3 target_point, t_vec3 normal, t_vec3 offset)
 {
 	t_ray			ray;
@@ -53,7 +53,7 @@ static void		editor_point_on_target_offset(t_doom3d *app,
 ** Useful when e.g. placing a new object.
 */
 
-void			editor_point_on_target(t_doom3d *app,
+void	editor_point_on_target(t_doom3d *app,
 					t_vec3 result)
 {
 	t_vec3			mouse_world_pos;
@@ -69,7 +69,7 @@ void			editor_point_on_target(t_doom3d *app,
 	ml_vector3_sub(mouse_world_pos, app->player.pos, dir);
 	ml_vector3_normalize(dir, dir);
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, app->player.pos,
-		dir, &hits))
+			dir, &hits))
 	{
 		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit,
 			app->editor.selected_objects[0]->id);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_placement2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:56:11 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/27 00:59:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:48:37 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,19 @@
 ** Place a light object in editor. Light type defines what color is emmitted.
 */
 
-t_3d_object			*editor_place_light_object(t_doom3d *app,
-						t_light_type light_type)
+t_3d_object	*editor_place_light_object(t_doom3d *app, t_light_type light_type)
 {
 	t_3d_object		*light;
 	t_vec3			pos;
 
 	editor_pos_camera_front(app, pos);
-	light = place_scene_object(app, (const char*[3]){
-		"assets/models/light_sphere.obj", NULL, NULL}, pos);
+	light = place_scene_object(app, (const char *[3]){
+			"assets/models/light_sphere.obj", NULL, NULL}, pos);
 	l3d_object_set_shading_opts(light,
 		e_shading_transparent | get_light_shading(light_type));
 	light->type = object_type_light;
 	light->params_type = light_type;
-	editor_objects_invisible_highlight(app);\
+	editor_objects_invisible_highlight(app);
 	return (light);
 }
 
@@ -41,9 +40,9 @@ static t_3d_object	*place_plane_prefab(t_doom3d *app)
 
 	editor_pos_camera_front(app, pos);
 	model = l3d_plane_create(NULL, NULL);
-	object = place_procedural_scene_object(app, model, (const char*[2]){
-		"assets/textures/lava.bmp", "assets/textures/lava_normal.bmp"},
-		pos);
+	object = place_procedural_scene_object(app, model, (const char *[2]){
+			"assets/textures/lava.bmp", "assets/textures/lava_normal.bmp"},
+			pos);
 	l3d_3d_object_destroy(model);
 	placement_notification(app, "Placing plane!");
 	return (object);
@@ -56,7 +55,7 @@ static t_3d_object	*place_plane_prefab(t_doom3d *app)
 ** any prefab type...
 */
 
-t_3d_object			*editor_place_default_object(t_doom3d *app, void *data)
+t_3d_object	*editor_place_default_object(t_doom3d *app, void *data)
 {
 	t_3d_object		*object;
 	t_vec3			pos;
@@ -73,11 +72,11 @@ t_3d_object			*editor_place_default_object(t_doom3d *app, void *data)
 		object = place_path_object(app);
 		placement_notification(app, "Placing Path Node!");
 	}
-	else if ((char*)data)
+	else if ((char *)data)
 	{
 		editor_pos_camera_front(app, pos);
 		object = place_scene_object(app,
-			(const char *[3]){data, NULL, NULL}, pos);
+				(const char *[3]){data, NULL, NULL}, pos);
 		object->material->shading_opts = e_shading_standard;
 	}
 	return (object);
@@ -87,7 +86,7 @@ t_3d_object			*editor_place_default_object(t_doom3d *app, void *data)
 ** Place an npc object in editor
 */
 
-t_3d_object			*editor_place_npc_object(t_doom3d *app, t_npc_type type)
+t_3d_object	*editor_place_npc_object(t_doom3d *app, t_npc_type type)
 {
 	t_vec3			pos;
 	t_3d_object		*object;
@@ -103,7 +102,7 @@ t_3d_object			*editor_place_npc_object(t_doom3d *app, t_npc_type type)
 ** objects.
 */
 
-void				editor_pos_camera_front(t_doom3d *app, t_vec3 result)
+void	editor_pos_camera_front(t_doom3d *app, t_vec3 result)
 {
 	t_vec3	add;
 

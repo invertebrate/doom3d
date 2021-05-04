@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_object_by_mouse.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 01:25:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 01:41:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:44:38 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** editor view.
 */
 
-static void		get_mouse_editor_scale(t_doom3d *app, t_vec2 mouse_editor_pos)
+static void	get_mouse_editor_scale(t_doom3d *app, t_vec2 mouse_editor_pos)
 {
 	t_vec2	mouse_pos;
 
@@ -27,15 +27,15 @@ static void		get_mouse_editor_scale(t_doom3d *app, t_vec2 mouse_editor_pos)
 		(mouse_pos[0] / app->window->framebuffer->width),
 		(mouse_pos[1] / app->window->framebuffer->height)}, mouse_pos);
 	ml_vector2_copy((t_vec2){
-		((float)app->window->framebuffer->width /
-			(float)app->window->editor_framebuffer->width) *
-			mouse_pos[0],
-		((float)app->window->framebuffer->height /
-			(float)app->window->editor_framebuffer->height) *
-			mouse_pos[1]}, mouse_editor_pos);
+		((float)app->window->framebuffer->width
+			/ (float)app->window->editor_framebuffer->width)
+		* mouse_pos[0],
+		((float)app->window->framebuffer->height
+			/ (float)app->window->editor_framebuffer->height)
+		* mouse_pos[1]}, mouse_editor_pos);
 }
 
-static void		multiply_by_mouse_editor_scale(t_doom3d *app, t_vec3 add,
+static void	multiply_by_mouse_editor_scale(t_doom3d *app, t_vec3 add,
 					t_vec3 mouse_world_pos)
 {
 	t_vec2	mouse_editor_scale;
@@ -58,7 +58,7 @@ static void		multiply_by_mouse_editor_scale(t_doom3d *app, t_vec3 add,
 ** 4. Got it!
 */
 
-void			get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
+void	get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
 {
 	t_vec3	screen_origin;
 	t_vec3	add;
@@ -83,7 +83,7 @@ void			get_mouse_world_position(t_doom3d *app, t_vec3 mouse_world_pos)
 ** Return object selected by mouse (via raycasting)
 */
 
-t_3d_object		*editor_object_by_mouse(t_doom3d *app)
+t_3d_object	*editor_object_by_mouse(t_doom3d *app)
 {
 	t_vec3			mouse_world_pos;
 	t_vec3			dir;
@@ -97,7 +97,7 @@ t_3d_object		*editor_object_by_mouse(t_doom3d *app)
 	ml_vector3_sub(mouse_world_pos, app->player.pos, dir);
 	ml_vector3_normalize(dir, dir);
 	if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, app->player.pos,
-		dir, &hits))
+			dir, &hits))
 	{
 		l3d_get_closest_triangle_hit(hits, &closest_triangle_hit, -1);
 		if (closest_triangle_hit != NULL)

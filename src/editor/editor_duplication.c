@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_duplication.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 01:26:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 01:33:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:55:48 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static t_bool	is_start_or_end_object(t_3d_object *selected)
 {
-	return ((selected->type == object_type_trigger &&
-			selected->params_type == trigger_player_start) ||
-		(selected->type == object_type_trigger &&
-			selected->params_type == trigger_player_end));
+	return ((selected->type == object_type_trigger
+			&& selected->params_type == trigger_player_start)
+		|| (selected->type == object_type_trigger
+			&& selected->params_type == trigger_player_end));
 }
 
 /*
@@ -25,15 +25,15 @@ static t_bool	is_start_or_end_object(t_3d_object *selected)
 ** scale by unit size)
 */
 
-static void		duplicate_scene_object(t_doom3d *app, t_3d_object *selected)
+static void	duplicate_scene_object(t_doom3d *app, t_3d_object *selected)
 {
 	t_3d_object	*model;
 	const char	*texture_file;
 	const char	*normal_map_file;
 
 	texture_file = get_object_texture_filename(app->active_scene, selected);
-	normal_map_file =
-		get_object_normal_map_filename(app->active_scene, selected);
+	normal_map_file
+		= get_object_normal_map_filename(app->active_scene, selected);
 	model = l3d_3d_object_copy(selected);
 	l3d_3d_object_scale(model,
 		1.0 / app->unit_size, 1.0 / app->unit_size, 1.0 / app->unit_size);
@@ -50,7 +50,7 @@ static void		duplicate_scene_object(t_doom3d *app, t_3d_object *selected)
 ** Duplicate selected object
 */
 
-static void		duplicate_selected_object(t_doom3d *app, t_3d_object *selected)
+static void	duplicate_selected_object(t_doom3d *app, t_3d_object *selected)
 {
 	t_bool		start_or_end;
 
@@ -59,8 +59,8 @@ static void		duplicate_selected_object(t_doom3d *app, t_3d_object *selected)
 	{
 		duplicate_scene_object(app, selected);
 		app->active_scene->objects[
-			app->active_scene->last_object_index]->material->shading_opts =
-				selected->material->shading_opts;
+			app->active_scene->last_object_index]->material->shading_opts
+			= selected->material->shading_opts;
 		select_object(app,
 			app->active_scene->objects[app->active_scene->last_object_index]);
 		notify_user(app, (t_notification){
@@ -80,7 +80,7 @@ static void		duplicate_selected_object(t_doom3d *app, t_3d_object *selected)
 ** and inverse translate.
 */
 
-void			editor_duplicate_selected_objects(t_doom3d *app)
+void	editor_duplicate_selected_objects(t_doom3d *app)
 {
 	int32_t		i;
 	t_3d_object	*old_selected[MAX_SELECTED_OBJECTS];
