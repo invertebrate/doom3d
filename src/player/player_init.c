@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 14:11:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/02 23:17:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 19:16:27 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,18 @@ static void		player_attributes_init(t_doom3d *app)
 	app->player.can_fly = false;
 }
 
+static void		player_collider_init(t_doom3d *app)
+{
+	t_player	*player;
+
+	player = &app->player;
+	ml_vector3_copy(player->pos, player->collider.sphere.pos);
+	ml_vector3_copy(player->up, player->collider.sphere.up);
+	ml_vector3_copy(player->forward, player->collider.sphere.forward);
+	player->collider.sphere.radius = PLAYER_COLLIDER_RADIUS;
+	ft_memset(player->collider.rays, 0, sizeof(t_ray) * COLLIDER_RAY_COUNT);
+}
+
 void			player_init(t_doom3d *app, t_vec3 pos)
 {
 	ft_memset(&app->player, 0, sizeof(t_player));
@@ -60,4 +72,5 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	player_update_aabb(&app->player);
 	SDL_GetRelativeMouseState(NULL, NULL);
 	player_flashlight_init(app, &(app->player));
+	player_collider_init(app);
 }

@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:33:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 00:44:37 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/04 19:47:08 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void			render_work(void *params)
 			ml_vector3_set(sphere.up, 0.0, -1.0, 0.0);
 			ml_vector3_copy(obj->position, sphere.pos);
 			sphere.radius = 10 * work->app->unit_size;
-			cast_rays_sphere(rays, (uint32_t[2]){8, 8}, &sphere);
+			l3d_cast_rays_sphere(rays, (uint32_t[2]){8, 8}, &sphere);
 			for (int i = 0; i < 64; i++)
 			{
 				t_vec3	points[2];

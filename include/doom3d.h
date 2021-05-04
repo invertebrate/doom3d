@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 15:39:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 18:41:19 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,9 @@ void						player_shoot(t_doom3d *app,
 void						player_reload(t_doom3d *app);
 void						player_reload_finish(t_doom3d *app);
 void						player_interact(t_doom3d *app);
+void						player_collider_create(t_doom3d *app, t_ray *rays,
+								uint32_t *counts, t_sphere *sphere);
+void						player_collider_update(t_doom3d *app);
 
 /*
 ** Player items

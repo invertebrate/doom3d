@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 00:34:13 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/03 18:38:24 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void			update_player(t_doom3d *app)
 		player_move(app);
 	else
 		return ;
+	player_collider_update(app);
 	update_player_physics_state(app);
 	if (dt_sum > FORCES_UPDATE_MS)
 	{

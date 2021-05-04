@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
+#    By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/17 13:09:18 by ohakola           #+#    #+#              #
-#    Updated: 2021/04/02 19:00:09 by ohakola          ###   ########.fr        #
+#    Updated: 2021/05/04 19:43:25 by veilo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SOURCES = ml_matrix4_id.c \
 			ml_vector3_normalize.c \
 			ml_vector3_sub.c \
 			ml_vector3_to_vec4.c \
+			ml_vector3_angle.c \
 			ml_vector4_add.c \
 			ml_vector4_cross.c \
 			ml_vector4_dot.c \
