@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   path_read.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 02:11:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/29 15:17:49 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/04 18:35:37 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static int32_t		set_path_node_neighbor(t_doom3d *app,
+static int32_t	set_path_node_neighbor(t_doom3d *app,
 						char *contents, int32_t offset, t_path_node *path_node)
 {
 	t_3d_object	*obj;
@@ -38,7 +38,7 @@ static int32_t		set_path_node_neighbor(t_doom3d *app,
 ** corresponding object
 */
 
-int32_t				read_path_nodes(t_doom3d *app, char *contents)
+int32_t	read_path_nodes(t_doom3d *app, char *contents)
 {
 	int32_t		offset;
 	uint32_t	object_id;
@@ -54,7 +54,7 @@ int32_t				read_path_nodes(t_doom3d *app, char *contents)
 		ft_memcpy(&object_id, contents + offset, sizeof(uint32_t));
 		offset += sizeof(uint32_t);
 		obj = find_object_by_id(app, object_id);
-		ft_memcpy(&((t_path_node*)obj->params)->num_neighbors,
+		ft_memcpy(&((t_path_node *)obj->params)->num_neighbors,
 			contents + offset, sizeof(int32_t));
 		offset += sizeof(int32_t);
 		offset = set_path_node_neighbor(app, contents, offset, obj->params);
@@ -67,7 +67,7 @@ int32_t				read_path_nodes(t_doom3d *app, char *contents)
 ** is not set even if the patrol path information is found in map data
 */
 
-int32_t				read_path_node_npc_links(t_doom3d *app, char *contents)
+int32_t	read_path_node_npc_links(t_doom3d *app, char *contents)
 {
 	int32_t		offset;
 	int32_t		num_npcs;

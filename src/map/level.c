@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   level.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:04:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/27 03:21:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 18:39:03 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** free previously read level list.
 */
 
-void			read_level_list(t_doom3d *app)
+void	read_level_list(t_doom3d *app)
 {
 	int32_t		fd;
 	const char	*level_list;
@@ -28,7 +28,8 @@ void			read_level_list(t_doom3d *app)
 		ft_strdel(&app->level_list[i]);
 	ft_memset(app->level_list, 0, sizeof(app->level_list));
 	level_list = "assets/map_data/level_list.txt";
-	if ((fd = open(level_list, O_RDONLY)) == -1)
+	fd = open(level_list, O_RDONLY);
+	if (fd == -1)
 	{
 		LOG_ERROR("Failed to open file %s", level_list);
 		exit(EXIT_FAILURE);
@@ -45,7 +46,7 @@ void			read_level_list(t_doom3d *app)
 	}
 }
 
-void			write_savename_to_level_list(t_doom3d *app)
+void	write_savename_to_level_list(t_doom3d *app)
 {
 	int32_t		fd;
 	const char	*level_list;
@@ -54,7 +55,8 @@ void			write_savename_to_level_list(t_doom3d *app)
 
 	level = NULL;
 	level_list = "assets/map_data/level_list.txt";
-	if ((fd = open(level_list, O_RDWR)) == -1)
+	fd = open(level_list, O_RDWR);
+	if (fd == -1)
 	{
 		LOG_ERROR("Failed to open file %s", level_list);
 		exit(EXIT_FAILURE);
@@ -63,7 +65,7 @@ void			write_savename_to_level_list(t_doom3d *app)
 	while (get_next_line(fd, &level))
 		ft_strdel(&level);
 	ret = write(fd, app->editor.editor_filename,
-		ft_strlen(app->editor.editor_filename));
+			ft_strlen(app->editor.editor_filename));
 	ret = write(fd, "\n", 1);
 	(void)ret;
 	if (close(fd) == -1)

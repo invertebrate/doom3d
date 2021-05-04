@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   object_read.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 02:05:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 03:03:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 18:27:36 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		set_npc_object(t_doom3d *app, t_3d_object *obj)
+static void	set_npc_object(t_doom3d *app, t_3d_object *obj)
 {
 	t_npc		npc;
 
 	ft_memset(&npc, 0, sizeof(t_npc));
-	if (obj->params_type == npc_type_monster01 ||
-		obj->params_type == npc_type_monster01_a)
+	if (obj->params_type == npc_type_monster01
+		|| obj->params_type == npc_type_monster01_a)
 		npc_default(app, &npc, obj);
-	else if (obj->params_type == npc_type_monster02 ||
-		obj->params_type == npc_type_monster01_range)
+	else if (obj->params_type == npc_type_monster02
+		|| obj->params_type == npc_type_monster01_range)
 		npc_ranged(app, &npc, obj);
 	else if (obj->params_type == npc_type_elevator)
 		npc_elevator(app, &npc, obj);
@@ -44,7 +44,7 @@ static void		set_npc_object(t_doom3d *app, t_3d_object *obj)
 ** https://stackoverflow.com/questions/15022630/
 */
 
-static void		set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
+static void	set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 {
 	t_trigger	trigger;
 
@@ -89,11 +89,11 @@ static int32_t	read_object_triangles_and_vertices(char *contents,
 **	updated.
 */
 
-static void		set_default_shading_opts(t_3d_object *obj)
+static void	set_default_shading_opts(t_3d_object *obj)
 {
-	if (!(obj->material->shading_opts & e_shading_zero_alpha) &&
-	!(obj->material->shading_opts & e_shading_invisible) &&
-	!(obj->material->shading_opts & e_shading_light))
+	if (!(obj->material->shading_opts & e_shading_zero_alpha)
+		&& !(obj->material->shading_opts & e_shading_invisible)
+		&& !(obj->material->shading_opts & e_shading_light))
 	{
 		if (!(obj->material->shading_opts & e_shading_luminous))
 			obj->material->shading_opts |= e_shading_standard;
@@ -110,7 +110,7 @@ static void		set_default_shading_opts(t_3d_object *obj)
 ** 6. Set object params at runtime by saved object type
 */
 
-int32_t			read_objects(t_doom3d *app, char *contents)
+int32_t	read_objects(t_doom3d *app, char *contents)
 {
 	t_3d_object	*obj;
 	int32_t		offset;
@@ -121,8 +121,9 @@ int32_t			read_objects(t_doom3d *app, char *contents)
 	obj = NULL;
 	while (++i < (int32_t)app->active_scene->num_objects)
 	{
-		error_check(!(obj =
-			l3d_3d_object_shallow_copy((t_3d_object*)(contents + offset))),
+		error_check(!(obj
+				= l3d_3d_object_shallow_copy(
+					(t_3d_object *)(contents + offset))),
 			"Failed to read object from map byte offset");
 		offset += sizeof(t_3d_object);
 		offset = read_object_triangles_and_vertices(contents, obj, offset);
