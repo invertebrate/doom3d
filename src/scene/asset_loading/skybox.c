@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   skybox.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:40:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 19:55:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:13:39 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void			load_skybox_textures_to_memory(t_scene *scene)
+void	load_skybox_textures_to_memory(t_scene *scene)
 {
 	scene->skybox_textures[0] = l3d_read_bmp_32bit_rgba_surface(
-		"assets/skybox/front.bmp");
+			"assets/skybox/front.bmp");
 	scene->skybox_textures[1] = l3d_read_bmp_32bit_rgba_surface(
-		"assets/skybox/left.bmp");
+			"assets/skybox/left.bmp");
 	scene->skybox_textures[2] = l3d_read_bmp_32bit_rgba_surface(
-		"assets/skybox/top.bmp");
+			"assets/skybox/top.bmp");
 	scene->skybox_textures[3] = l3d_read_bmp_32bit_rgba_surface(
-		"assets/skybox/back.bmp");
+			"assets/skybox/back.bmp");
 	scene->skybox_textures[4] = l3d_read_bmp_32bit_rgba_surface(
-		"assets/skybox/right.bmp");
+			"assets/skybox/right.bmp");
 	scene->skybox_textures[5] = l3d_read_bmp_32bit_rgba_surface(
-		"assets/skybox/bottom.bmp");
+			"assets/skybox/bottom.bmp");
 }

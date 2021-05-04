@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_menus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:47:22 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 18:47:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:28:53 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Recreate menus for scene
 */
 
-void		active_scene_menus_create(t_doom3d *app)
+void	active_scene_menus_create(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
 		pause_menu_create(app);
