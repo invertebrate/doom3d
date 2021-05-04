@@ -12,22 +12,22 @@
 
 #include "doom3d.h"
 
-static void		mp_del_dupe(t_sound **new, t_sound *curr)
+static void	mp_del_dupe(t_sound **new, t_sound *curr)
 {
-	if ((*new)->type == curr->type &&
-		(*new)->sound == curr->sound &&
-		(*new)->vol == curr->vol &&
-		(*new)->loop == curr->loop &&
-		(*new)->pos == curr->pos &&
-		(*new)->priority == curr->priority &&
-		(*new)->state == curr->state)
+	if ((*new)->type == curr->type
+		&& (*new)->sound == curr->sound
+		&& (*new)->vol == curr->vol
+		&& (*new)->loop == curr->loop
+		&& (*new)->pos == curr->pos
+		&& (*new)->priority == curr->priority
+		&& (*new)->state == curr->state)
 	{
 		free(*new);
 		*new = NULL;
 	}
 }
 
-static void		mp_reorder_insert(t_sound **new, t_sound **cur, t_sound **prev)
+static void	mp_reorder_insert(t_sound **new, t_sound **cur, t_sound **prev)
 {
 	(*prev)->next = *new;
 	(*new)->next = *cur;
@@ -41,11 +41,12 @@ static void		mp_reorder_insert(t_sound **new, t_sound **cur, t_sound **prev)
 ** prev should always be NULL
 */
 
-void			mp_reorder(t_sound **start, t_sound *new, t_sound *prev)
+void	mp_reorder(t_sound **start, t_sound *new, t_sound *prev)
 {
 	t_sound	*curr;
 
-	if (!(curr = *start))
+	curr = *start;
+	if (!curr)
 	{
 		*start = new;
 		return ;

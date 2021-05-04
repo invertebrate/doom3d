@@ -25,8 +25,8 @@ static void	sound_del(t_sound **start, char type)
 	prev[0] = NULL;
 	while (curr)
 	{
-		if (!type || curr->type == type ||
-			(type < 0 && curr->type != ft_abs(type)))
+		if (!type || curr->type == type
+			|| (type < 0 && curr->type != ft_abs(type)))
 		{
 			if (prev[0])
 				prev[0]->next = curr->next;
@@ -55,8 +55,8 @@ static void	sound_edit(t_sound *start, char type, char state)
 	curr = start;
 	while (curr)
 	{
-		if (!type || curr->type == type ||
-			(type < 0 && curr->type != ft_abs(type)))
+		if (!type || curr->type == type
+			|| (type < 0 && curr->type != ft_abs(type)))
 			curr->state = state;
 		curr = curr->next;
 	}
@@ -70,7 +70,7 @@ static void	sound_edit(t_sound *start, char type, char state)
 ** state = new state; SPLAYING, SPAUSED, SSTOPPED == remove
 */
 
-void		mp_typec(t_doom3d *app, char type, char sound, char state)
+void	mp_typec(t_doom3d *app, char type, char sound, char state)
 {
 	SDL_LockAudioDevice(app->mp.audev);
 	if (!sound || sound == 1)

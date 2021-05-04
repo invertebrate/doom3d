@@ -53,7 +53,7 @@ static void	mp_effect_init1(t_doom3d *app)
 	mp_effect_init2(app);
 }
 
-void		mp_effect_init(t_doom3d *app)
+void	mp_effect_init(t_doom3d *app)
 {
 	app->mp.library[sf_shtg_fire] = read_sound(SF_SHTG_FIRE, app);
 	app->mp.library[sf_explsion] = read_sound(SF_EXPLSION, app);

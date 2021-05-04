@@ -16,7 +16,7 @@
 ** Reading WAV-files into t_track struct
 */
 
-t_track			*read_sound(char *file, t_doom3d *app)
+t_track	*read_sound(char *file, t_doom3d *app)
 {
 	t_track			*ret;
 	SDL_AudioSpec	wave;
@@ -30,16 +30,16 @@ t_track			*read_sound(char *file, t_doom3d *app)
 		return (NULL);
 	}
 	if (SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq,
-		app->mp.auspec.format, app->mp.auspec.channels, app->mp.auspec.freq)
+			app->mp.auspec.format, app->mp.auspec.channels, app->mp.auspec.freq)
 		== -1)
 		return (NULL);
-	error_check(!(cvt.buf = (Uint8*)ft_calloc(dlen * cvt.len_mult)),
+	error_check(!(cvt.buf = (Uint8 *)ft_calloc(dlen * cvt.len_mult)),
 		"Failed to alloc cvt.buf");
 	ft_memcpy(cvt.buf, data, dlen);
 	cvt.len = dlen;
 	SDL_ConvertAudio(&cvt);
 	SDL_FreeWAV(data);
-	error_check(!(ret = (t_track*)ft_calloc(sizeof(t_track))), "E:Alloc track");
+	error_check(!(ret = (t_track *)ft_calloc(sizeof(t_track))), "E:Alloc trak");
 	ret->data = cvt.buf;
 	ret->len = cvt.len_cvt;
 	return (ret);
@@ -53,11 +53,12 @@ t_track			*read_sound(char *file, t_doom3d *app)
 ** vol = 1 - 0
 */
 
-t_sound			*s_ini(char loop, char priority, char type, float vol)
+t_sound	*s_ini(char loop, char priority, char type, float vol)
 {
 	t_sound	*ret;
 
-	if (!(ret = (t_sound*)malloc(sizeof(t_sound))))
+	ret = (t_sound *)malloc(sizeof(t_sound));
+	if (!ret)
 		return (NULL);
 	ret->pos = 0;
 	ret->state = SPLAYING;
@@ -73,7 +74,7 @@ t_sound			*s_ini(char loop, char priority, char type, float vol)
 ** Calculate distance mag in one function for distance volume distance
 */
 
-float			sound_mag(t_vec3 v1, t_vec3 v2)
+float	sound_mag(t_vec3 v1, t_vec3 v2)
 {
 	t_vec3	sub;
 
@@ -88,19 +89,24 @@ float			sound_mag(t_vec3 v1, t_vec3 v2)
 ** mdist = max distance from the sound. If -1 will use SOUND_DIST instead
 */
 
-float			distance_vol(float vol_max, float dist, float mdist)
+float	distance_vol(float vol_max, float dist, float mdist)
 {
 	float	max_dist;
 	float	ret;
 
-	max_dist = mdist != -1 ? mdist : SOUND_DIST;
-	vol_max = vol_max > 1.0f ? 1.0f : vol_max;
-	vol_max = vol_max < 0.0f ? 0 : vol_max;
+	max_dist = SOUND_DIST;
+	if (mdist != -1)
+		max_dist = mdist;
+	if (vol_max > 1.0f)
+		vol_max = 1.0f;
+	else if (vol_max < 0.0f)
+		vol_max = 0;
 	if (dist >= max_dist || (!max_dist && dist) || !vol_max)
 		return (0.0f);
 	else if (!max_dist && !dist)
 		return (vol_max);
 	ret = vol_max * (1 - dist / max_dist);
-	ret = ret > 1 ? 1 : ret;
+	if (ret > 1)
+		return (1);
 	return (ret);
 }
