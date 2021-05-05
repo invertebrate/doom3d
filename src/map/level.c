@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:04:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 16:43:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 16:45:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ void	read_level_list(t_doom3d *app)
 	}
 	i = 0;
 	while (get_next_line(fd, &app->level_list[i]))
-	{
-		ft_printf("%s\n", app->level_list[i]);
 		i++;
-	}
 	app->num_levels = i;
 	if (close(fd) == -1)
 	{
