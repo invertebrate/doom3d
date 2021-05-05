@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 15:39:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 15:45:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -599,6 +599,8 @@ void						render_parallel_3d_view(t_doom3d *app,
 void						render_loading_view(t_doom3d *app);
 t_tri_vec					**prepare_render_triangles(t_doom3d *app);
 t_bool						object_too_far(t_doom3d *app, t_3d_object *obj);
+void						update_triangle_vertex_zvalues(t_triangle *triangle,
+								float unit_size);
 void						add_skybox_render_triangles(t_doom3d *app,
 								t_tri_vec **render_triangles);
 void						add_objects_render_triangles(t_doom3d *app,
@@ -730,6 +732,7 @@ void						scene_cameras_destroy(t_scene *scene);
 void						scene_objects_destroy(t_scene *scene);
 void						scene_skybox_destroy(t_scene *scene);
 void						scene_assets_destroy(t_scene *scene);
+void						scene_animations_3d_destroy(t_scene *scene);
 void						scene_textures_destroy(t_scene *scene);
 void						scene_normal_maps_destroy(t_scene *scene);
 void						active_scene_popup_menu_destroy(t_doom3d *app);

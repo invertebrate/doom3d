@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 17:05:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 21:20:57 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/05 15:44:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,21 @@ t_bool	object_too_far(t_doom3d *app, t_3d_object *obj)
 	if (ml_vector3_mag(player_to_obj) > too_far)
 		return (true);
 	return (false);
+}
+
+/*
+** Sets z value for triangle vertices. Unit size division is used to bring
+** the number to a more reasonable range - to be more standard for rasterizer
+** and e.g. depth shading.
+*/
+
+void	update_triangle_vertex_zvalues(t_triangle *triangle,
+			float unit_size)
+{
+	triangle->vtc_zvalue[0] = 1.0
+		/ (triangle->vtc[0]->pos[2] / unit_size + L3D_EPSILON);
+	triangle->vtc_zvalue[1] = 1.0
+		/ (triangle->vtc[1]->pos[2] / unit_size + L3D_EPSILON);
+	triangle->vtc_zvalue[2] = 1.0
+		/ (triangle->vtc[2]->pos[2] / unit_size + L3D_EPSILON);
 }

@@ -6,15 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:34:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 15:27:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "window.h"
 
-static void			set_button_group_button_dimensions(t_button_group
-						*button_group, uint32_t num_buttons,
-						t_bool is_horizontal)
+static void	set_button_group_button_dimensions(t_button_group
+				*button_group, uint32_t num_buttons,
+				t_bool is_horizontal)
 {
 	int32_t			i;
 	uint32_t		max_width;
@@ -46,8 +46,8 @@ static void			set_button_group_button_dimensions(t_button_group
 ** A button group can be a selector or just a list of buttons
 */
 
-t_button_group		*button_group_create(t_button **buttons,
-						uint32_t num_buttons, t_bool is_horizontal)
+t_button_group	*button_group_create(t_button **buttons,
+					uint32_t num_buttons, t_bool is_horizontal)
 {
 	t_button_group	*button_group;
 
@@ -70,7 +70,7 @@ t_button_group		*button_group_create(t_button **buttons,
 ** Destroy a button group
 */
 
-void				button_group_destroy(t_button_group *button_group)
+void	button_group_destroy(t_button_group *button_group)
 {
 	int32_t		i;
 

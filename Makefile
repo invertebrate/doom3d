@@ -132,6 +132,7 @@ SOURCES = main.c \
 			scene/scene_menus.c \
 			scene/scene_update.c \
 			scene/cleanup.c \
+			scene/cleanup_animation3d.c \
 			scene/scene_assets.c \
 			scene/asset_loading/animations_3d.c \
 			scene/asset_loading/models.c \

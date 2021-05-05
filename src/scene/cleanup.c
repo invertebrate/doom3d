@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 16:51:13 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/05 15:35:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,7 @@ void	scene_assets_destroy(t_scene *scene)
 	hash_map_destroy(scene->prefab_map);
 	hash_map_destroy(scene->trigger_map);
 	hash_map_destroy(scene->lights_map);
-	i = -1;
-	while (++i < (int32_t)scene->asset_files.num_animation_frames_3d)
-	{
-		model = hash_map_get(scene->animation_3d_frames,
-				(int64_t)scene->asset_files.animation_3d_files[i]);
-		if (model)
-			l3d_3d_object_destroy(model);
-		free((void *)scene->asset_files.animation_3d_files[i]);
-	}
-	hash_map_destroy(scene->animation_3d_frames);
+	scene_animations_3d_destroy(scene);
 }
 
 void	scene_skybox_destroy(t_scene *scene)
