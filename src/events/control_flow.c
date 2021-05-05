@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   control_flow.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:40:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 19:47:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 15:57:01 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** like exiting or esc or setting to full screen, or disabling debug info
 */
 
-void			handle_control_flow_events(t_doom3d *app, SDL_Event event)
+void	handle_control_flow_events(t_doom3d *app, SDL_Event event)
 {
 	if (event.type == SDL_QUIT)
 	{
@@ -33,8 +33,8 @@ void			handle_control_flow_events(t_doom3d *app, SDL_Event event)
 			if (event.key.keysym.sym == SDLK_n)
 				push_custom_event(app, event_toggle_normal_map_mode,
 					NULL, NULL);
-			if (event.key.keysym.sym == SDLK_p &&
-				app->active_scene->scene_id == scene_id_main_game)
+			if (event.key.keysym.sym == SDLK_p
+				&& app->active_scene->scene_id == scene_id_main_game)
 				push_custom_event(app, event_toggle_pause_game, NULL, NULL);
 			if (event.key.keysym.sym == SDLK_u)
 				push_custom_event(app, event_toggle_debug_mode, NULL, NULL);

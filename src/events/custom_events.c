@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_events.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 19:43:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 15:54:57 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,20 @@ static void	custom_event_to_str(char *str, t_doom3d_event code)
 	player_custom_event_to_str(str, code);
 }
 
-void		register_control_flow_custom_events(t_doom3d *app)
+void	register_control_flow_custom_events(t_doom3d *app)
 {
 	hash_map_add(app->custom_event_handles, event_quit,
-		(void*)handle_quit);
+		(void *)handle_quit);
 	hash_map_add(app->custom_event_handles, event_toggle_fullscreen,
-		(void*)handle_toggle_fullscreen);
+		(void *)handle_toggle_fullscreen);
 	hash_map_add(app->custom_event_handles, event_toggle_debug_mode,
-		(void*)handle_toggle_debug_mode);
+		(void *)handle_toggle_debug_mode);
 	hash_map_add(app->custom_event_handles, event_toggle_pause_game,
-		(void*)handle_toggle_pause_game);
+		(void *)handle_toggle_pause_game);
 	hash_map_add(app->custom_event_handles, event_toggle_normal_map_mode,
-		(void*)handle_toggle_normal_map_mode);
+		(void *)handle_toggle_normal_map_mode);
 	hash_map_add(app->custom_event_handles, event_toggle_third_person,
-		(void*)handle_toggle_third_person);
+		(void *)handle_toggle_third_person);
 }
 
 /*
@@ -62,32 +62,32 @@ void		register_control_flow_custom_events(t_doom3d *app)
 ** Caller must know what to input to handlers in event handling
 */
 
-void		register_custom_events(t_doom3d *app)
+void	register_custom_events(t_doom3d *app)
 {
 	app->custom_event_type = SDL_RegisterEvents(1);
 	app->custom_event_handles = hash_map_create(NUM_CUSTOM_EVENTS);
 	hash_map_add(app->custom_event_handles, event_effect_play,
-		(void*)handle_play_effect);
+		(void *)handle_play_effect);
 	hash_map_add(app->custom_event_handles, event_music_play,
-		(void*)handle_play_music);
+		(void *)handle_play_music);
 	hash_map_add(app->custom_event_handles, event_window_resize,
-		(void*)handle_window_resize);
+		(void *)handle_window_resize);
 	hash_map_add(app->custom_event_handles, event_scene_change,
-		(void*)handle_scene_change);
+		(void *)handle_scene_change);
 	hash_map_add(app->custom_event_handles, event_scene_reload,
-		(void*)handle_scene_reload);
+		(void *)handle_scene_reload);
 	register_control_flow_custom_events(app);
 	register_editor_custom_events(app);
 	register_object_custom_events(app);
 	register_player_custom_events(app);
 }
 
-void		push_custom_event(t_doom3d *app,
+void	push_custom_event(t_doom3d *app,
 								t_doom3d_event code,
 								void *data1,
 								void *data2)
 {
-	SDL_Event event;
+	SDL_Event	event;
 
 	ft_memset(&event, 0, sizeof(event));
 	event.type = app->custom_event_type;
@@ -105,7 +105,7 @@ void		push_custom_event(t_doom3d *app,
 ** 3. All handlers must have been registered at the beginning of the app
 */
 
-void		handle_custom_events(t_doom3d *app, SDL_Event event)
+void	handle_custom_events(t_doom3d *app, SDL_Event event)
 {
 	void		(*handle)(void*, void*, void*);
 	char		event_str[128];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:03:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 14:21:40 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ void	handle_editor_save_start(t_doom3d *app)
 void	handle_editor_save_end(t_doom3d *app)
 {
 	if (!find_one_object_by_type(app, object_type_trigger,
-		trigger_player_start) ||
-		!find_one_object_by_type(app, object_type_trigger,
-		trigger_player_end))
+			trigger_player_start)
+		|| !find_one_object_by_type(app, object_type_trigger,
+			trigger_player_end))
 	{
 		notify_user(app, (t_notification){
-		.message = "You need to add start and end before saving!",
-		.type = notification_type_info, .time = 2000});
+			.message = "You need to add start and end before saving!",
+			.type = notification_type_info, .time = 2000});
 		return ;
 	}
 	else if (ft_strlen(app->editor.editor_savename) == 0)
 	{
 		notify_user(app, (t_notification){.message = "Name must not be empty",
-		.type = notification_type_info, .time = 2000});
+			.type = notification_type_info, .time = 2000});
 		return ;
 	}
 	SDL_StopTextInput();

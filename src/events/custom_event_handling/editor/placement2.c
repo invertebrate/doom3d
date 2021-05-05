@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   placement2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 01:57:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/05 02:02:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 14:19:38 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void		handle_editor_in_placement_move(t_doom3d *app)
+void	handle_editor_in_placement_move(t_doom3d *app)
 {
 	t_vec3		new_pos;
 	t_3d_object	*place_object;

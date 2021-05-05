@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 02:12:10 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 17:08:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 14:20:10 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void		handle_editor_zoom(t_doom3d *app, int32_t zoom_amount)
+void	handle_editor_zoom(t_doom3d *app, int32_t zoom_amount)
 {
 	t_vec3	dir;
 
@@ -20,7 +20,7 @@ void		handle_editor_zoom(t_doom3d *app, int32_t zoom_amount)
 	ml_vector3_add(app->player.velocity, dir, app->player.velocity);
 }
 
-void		handle_editor_move_view_forward(t_doom3d *app,
+void	handle_editor_move_view_forward(t_doom3d *app,
 				int32_t amount)
 {
 	t_vec3	dir;
@@ -35,7 +35,7 @@ void		handle_editor_move_view_forward(t_doom3d *app,
 	ml_vector3_add(app->player.velocity, dir, app->player.velocity);
 }
 
-void		handle_editor_move_view_sideways(t_doom3d *app,
+void	handle_editor_move_view_sideways(t_doom3d *app,
 				int32_t amount)
 {
 	t_vec3	dir;
@@ -44,16 +44,16 @@ void		handle_editor_move_view_sideways(t_doom3d *app,
 	ml_vector3_add(app->player.velocity, dir, app->player.velocity);
 }
 
-void		handle_editor_rotate_view(t_doom3d *app, int32_t xrel, int32_t yrel)
+void	handle_editor_rotate_view(t_doom3d *app, int32_t xrel, int32_t yrel)
 {
 	player_rotate_vertical(app, -(float)yrel * 0.3);
 	player_rotate_horizontal(app, (float)xrel * 0.3);
 }
 
-void		handle_editor_toggle_vertical_lock(t_doom3d *app)
+void	handle_editor_toggle_vertical_lock(t_doom3d *app)
 {
-	app->editor.is_locked_vertical_movement =
-		!app->editor.is_locked_vertical_movement;
+	app->editor.is_locked_vertical_movement
+		= !app->editor.is_locked_vertical_movement;
 	if (app->editor.is_locked_vertical_movement)
 		notify_user(app, (t_notification){
 			.message = "Toggled vertical movement on!",

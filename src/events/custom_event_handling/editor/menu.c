@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:11:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:02:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 14:22:06 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	handle_editor_delete(t_doom3d *app)
 		app->editor.is_saved = false;
 		editor_deselect_all(app);
 		notify_user(app, (t_notification){
-		.message = "Deleted!",
-		.type = notification_type_info, .time = 2000});
+			.message = "Deleted!",
+			.type = notification_type_info, .time = 2000});
 	}
 }
 
@@ -52,7 +52,8 @@ void	handle_editor_exit(t_doom3d *app)
 	}
 	if (app->editor.is_placing)
 		push_custom_event(app, event_editor_cancel_placement, NULL, NULL);
-	push_custom_event(app, event_scene_change, (void*)scene_id_main_menu, NULL);
+	push_custom_event(app, event_scene_change,
+		(void *)scene_id_main_menu, NULL);
 	editor_deselect_all(app);
 	SDL_StopTextInput();
 	app->editor.is_saving = false;
