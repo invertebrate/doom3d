@@ -59,7 +59,7 @@
 /*
 ** State defining how physics get applied for object / player
 */
-typedef enum				e_physics_state
+typedef enum e_physics_state
 {
 	physics_state_falling = 1,
 	physics_state_grounded = 2,
@@ -75,7 +75,7 @@ typedef enum				e_physics_state
 ** Default objects are just regular rendered 3d objects.
 ** t_3d_object
 */
-typedef enum				e_object_type
+typedef enum e_object_type
 {
 	object_type_default = 0,
 	object_type_npc = 1,
@@ -85,7 +85,7 @@ typedef enum				e_object_type
 	object_type_path = 5,
 }							t_object_type;
 
-typedef enum				e_light_type
+typedef enum e_light_type
 {
 	light_type_green = 11,
 	light_type_yellow = 12,
@@ -101,7 +101,7 @@ typedef enum				e_light_type
 ** Or later a combination of 3d models and their textures.
 ** They are a bundle of things placeable by the editor.
 */
-typedef enum				e_prefab_type
+typedef enum e_prefab_type
 {
 	prefab_plane = 1,
 	prefab_path_node = 2,
@@ -118,7 +118,7 @@ typedef enum				e_prefab_type
 ** Sub (params_type) for object_type_path
 */
 
-typedef struct				s_path_node
+typedef struct s_path_node
 {
 	t_bool		is_visited;
 	float		global_goal;
@@ -126,7 +126,7 @@ typedef struct				s_path_node
 	int32_t		num_neighbors;
 	t_3d_object	*neighbors[PATH_NEIGHBOUR_MAX];
 	t_3d_object	*parent;
-	t_3d_object *parent_obj;
+	t_3d_object	*parent_obj;
 }							t_path_node;
 
 /*
@@ -134,7 +134,7 @@ typedef struct				s_path_node
 ** t_trigger_type may be used as a sub type (params_type) under t_3d_object
 */
 
-typedef enum				e_trigger_type
+typedef enum e_trigger_type
 {
 	trigger_player_start = 1,
 	trigger_player_end = 2,
@@ -149,7 +149,6 @@ typedef enum				e_trigger_type
 	trigger_hurtbox,
 	trigger_jukebox,
 	trigger_type_disabled = 666,
-
 }							t_trigger_type;
 
 /*
@@ -157,7 +156,7 @@ typedef enum				e_trigger_type
 ** t_npc_type may be used as a sub type (params_type) under t_3d_object
 */
 
-typedef enum				e_npc_type
+typedef enum e_npc_type
 {
 	npc_type_monster01,
 	npc_type_monster01_a,
@@ -173,7 +172,7 @@ typedef enum				e_npc_type
 ** t_projectile_type may be used as a sub type (params_type) under t_3d_object
 */
 
-typedef enum				e_projectile_type
+typedef enum e_projectile_type
 {
 	projectile_type_rpg = 0,
 	projectile_type_fireball,
@@ -202,7 +201,7 @@ typedef enum				e_projectile_type
 ** reloading, or how player shoots in the game world.
 */
 
-typedef enum				e_weapon_id
+typedef enum e_weapon_id
 {
 	weapon_fist = 0,
 	weapon_pistol = 1,
@@ -215,7 +214,7 @@ typedef enum				e_weapon_id
 ** with enemies.
 */
 
-typedef struct				s_weapon
+typedef struct s_weapon
 {
 	t_weapon_id				id;
 	int						ammo;
@@ -232,7 +231,7 @@ typedef struct				s_weapon
 ** and how projectile interacts with the game world.
 */
 
-typedef struct				s_projectile
+typedef struct s_projectile
 {
 	t_projectile_type		type;
 	int						damage;
@@ -252,7 +251,7 @@ typedef struct				s_projectile
 ** mostly storing pointers to objects the trigger is linked to
 */
 
-typedef struct				s_trigger
+typedef struct s_trigger
 {
 	t_3d_object				*parent;
 	t_3d_object				*linked_obj[MAX_TRIGGER_LINKS];
@@ -264,7 +263,7 @@ typedef struct				s_trigger
 ** Enum defining npc's state.
 */
 
-typedef enum				e_npc_state
+typedef enum e_npc_state
 {
 	state_idle,
 	state_attack,
@@ -277,7 +276,7 @@ typedef enum				e_npc_state
 ** Enum defining npc's attack pattern
 */
 
-typedef enum				e_npc_action
+typedef enum e_npc_action
 {
 	action_wait,
 	action_melee_basic,
@@ -291,7 +290,7 @@ typedef enum				e_npc_action
 ** gets instantiated.
 */
 
-typedef struct				s_npc
+typedef struct s_npc
 {
 	t_3d_object				*parent;
 	t_physics_state			physics_state;

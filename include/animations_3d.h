@@ -30,7 +30,7 @@
 **	0 is basically static base_object.
 */
 
-typedef enum				e_animation_3d_type
+typedef enum e_animation_3d_type
 {
 	anim_3d_type_null = 0 + ANIM_3D_TYPE_MOD,
 	anim_3d_type_idle = 1 + ANIM_3D_TYPE_MOD,
@@ -39,7 +39,7 @@ typedef enum				e_animation_3d_type
 	anim_3d_type_death = 4 + ANIM_3D_TYPE_MOD
 }							t_animation_3d_type;
 
-typedef struct				s_anim_metadata
+typedef struct s_anim_metadata
 {
 	uint32_t				frame_count;
 	uint32_t				frames_start_idx;
@@ -53,7 +53,7 @@ typedef struct				s_anim_metadata
 **	Contains the info for each animation clip. anim_frame_numbers contains
 **	the indices for each frame in the clip in the animation_frames array;
 */
-typedef struct				s_anim_3d_clip_info
+typedef struct s_anim_3d_clip_info
 {
 	uint32_t				anim_frame_numbers[ANIM_3D_CLIP_LENGTH_MAX];
 	uint32_t				clip_length;
@@ -68,7 +68,7 @@ typedef struct				s_anim_3d_clip_info
 **	the behaviour is undefined.
 */
 
-typedef struct				s_anim_3d_instance
+typedef struct s_anim_3d_instance
 {
 	struct s_doom3d			*app;
 	void					(*f_event)(struct s_doom3d*, void**);
@@ -86,7 +86,7 @@ typedef struct				s_anim_3d_instance
 ** 3d objects under the animated object owning this data.
 */
 
-typedef struct				s_animation_3d
+typedef struct s_animation_3d
 {
 	uint32_t				frame_count;
 	uint32_t				frames_start_idx;

@@ -21,7 +21,7 @@
 ** A list of submenus under editor that open popup menus
 */
 
-typedef enum				e_editor_menu_index
+typedef enum e_editor_menu_index
 {
 	editor_menu_none = 0,
 	editor_menu_prefabs = 1,
@@ -39,7 +39,7 @@ typedef enum				e_editor_menu_index
 ** world.
 */
 
-typedef struct				s_editor
+typedef struct s_editor
 {
 	t_bool					is_locked_vertical_movement;
 	t_bool					is_placing;
@@ -65,7 +65,7 @@ typedef struct				s_editor
 ** popup menus.
 */
 
-typedef struct				s_button_menu_params
+typedef struct s_button_menu_params
 {
 	const char				**button_names;
 	int32_t					num_buttons;

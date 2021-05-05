@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:03:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 14:23:02 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	handle_editor_add_normal_map(t_doom3d *app, char *filename)
 
 	if (app->editor.num_selected_objects > 0)
 	{
-		normmap =
-			hash_map_get(app->active_scene->normal_maps, (int64_t)filename);
+		normmap
+			= hash_map_get(app->active_scene->normal_maps, (int64_t)filename);
 		i = -1;
 		while (++i < app->editor.num_selected_objects)
 		{
 			app->editor.selected_objects[i]->material->normal_map = normmap;
 			hash_map_add(app->active_scene->object_normal_maps,
-				app->editor.selected_objects[i]->id, (void*)filename);
+				app->editor.selected_objects[i]->id, (void *)filename);
 		}
 		app->editor.is_saved = false;
 		notify_user(app, (t_notification){
@@ -56,8 +56,8 @@ void	handle_editor_add_texture(t_doom3d *app, char *filename)
 
 	if (app->editor.num_selected_objects > 0)
 	{
-		texture =
-			hash_map_get(app->active_scene->textures, (int64_t)filename);
+		texture
+			= hash_map_get(app->active_scene->textures, (int64_t)filename);
 		i = -1;
 		while (++i < app->editor.num_selected_objects)
 		{

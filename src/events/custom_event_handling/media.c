@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   media.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:24:39 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:03:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 14:26:41 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** new is created by calling s_ini()
 */
 
-int				handle_play_effect(t_doom3d *app, int ind, t_sound *new)
+int	handle_play_effect(t_doom3d *app, int ind, t_sound *new)
 {
 	if (!new)
 		return (0);
@@ -35,7 +35,7 @@ int				handle_play_effect(t_doom3d *app, int ind, t_sound *new)
 ** new is created by calling s_ini()
 */
 
-int				handle_play_music(t_doom3d *app, int ind, t_sound *new)
+int	handle_play_music(t_doom3d *app, int ind, t_sound *new)
 {
 	if (!new)
 		return (0);

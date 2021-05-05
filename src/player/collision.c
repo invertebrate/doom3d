@@ -134,7 +134,7 @@ static void		cylinder_rays_from_aabb(t_player *future_player,
 ** triangles.
 */
 
-void			collision_limit_player_horizontal(t_doom3d *app, t_vec3 add)
+void	collision_limit_player_horizontal(t_doom3d *app, t_vec3 add)
 {
 	int32_t		i;
 	t_player	future_player;

@@ -59,6 +59,7 @@ SOURCES = main.c \
 			projectile/projectile_init.c \
 			projectile/projectile_update.c \
 			projectile/projectile_collision.c \
+			projectile/projectile_explosion.c \
 			projectile/projectile_data/projectile_data_rpg.c \
 			projectile/projectile_data/projectile_data_fireball.c \
 			player/player_animations1.c \

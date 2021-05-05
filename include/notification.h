@@ -20,7 +20,7 @@
 ** how the notification gets rendered.
 */
 
-typedef enum				e_nofitication_type
+typedef enum e_nofitication_type
 {
 	notification_type_info,
 	notification_type_story,
@@ -31,7 +31,7 @@ typedef enum				e_nofitication_type
 ** on screen to the player / user of the app.
 */
 
-typedef struct				s_notification
+typedef struct s_notification
 {
 	const char				*message;
 	t_notification_type		type;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   editor_mouse_state.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:37:44 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 19:33:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 15:53:23 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static int32_t			get_angle_amount(t_doom3d *app)
+static int32_t	get_angle_amount(t_doom3d *app)
 {
 	int32_t				amount;
 
@@ -22,7 +22,7 @@ static int32_t			get_angle_amount(t_doom3d *app)
 	return (amount);
 }
 
-static void				xyz_rotation_input(t_doom3d *app, int32_t i,
+static void	xyz_rotation_input(t_doom3d *app, int32_t i,
 							int32_t x, uint32_t *last_rotated)
 {
 	int32_t				angle;
@@ -30,17 +30,21 @@ static void				xyz_rotation_input(t_doom3d *app, int32_t i,
 	void				*angle_pass;
 
 	obj = app->editor.selected_objects[i];
-	angle = (x > 0 ? 1 : -1) * get_angle_amount(app);
-	angle_pass = (void*)(intptr_t)angle;
+	if (x > 0)
+		angle = 1;
+	else
+		angle = -1;
+	angle = angle * get_angle_amount(app);
+	angle_pass = (void *)(intptr_t)angle;
 	if (app->keyboard.state[SDL_SCANCODE_Y] && ft_abs(x) > 2)
 	{
 		push_custom_event(app, event_object_rotate_y, obj, angle_pass);
 		*last_rotated = SDL_GetTicks();
 		if (app->editor.selected_objects[i]->type == object_type_npc)
-			((t_npc*)app->editor.selected_objects[i]->params)->angle += angle;
+			((t_npc *)app->editor.selected_objects[i]->params)->angle += angle;
 	}
-	else if (app->keyboard.state[SDL_SCANCODE_Z] &&
-		ft_abs(x) > 2)
+	else if (app->keyboard.state[SDL_SCANCODE_Z]
+		&& ft_abs(x) > 2)
 	{
 		push_custom_event(app, event_object_rotate_z, obj, angle_pass);
 		*last_rotated = SDL_GetTicks();
@@ -52,7 +56,7 @@ static void				xyz_rotation_input(t_doom3d *app, int32_t i,
 	}
 }
 
-static void				handle_object_rotation_input(t_doom3d *app,
+static void	handle_object_rotation_input(t_doom3d *app,
 							int32_t xrel)
 {
 	static uint32_t		last_rotated;
@@ -74,7 +78,7 @@ static void				handle_object_rotation_input(t_doom3d *app,
 	}
 }
 
-static void				handle_editor_player_rotation_input(t_doom3d *app,
+static void	handle_editor_player_rotation_input(t_doom3d *app,
 							int32_t *xrel, int32_t *yrel)
 {
 	app->editor.is_rotating = true;
@@ -82,16 +86,16 @@ static void				handle_editor_player_rotation_input(t_doom3d *app,
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_GetRelativeMouseState(xrel, yrel);
 	push_custom_event(app, event_editor_rotate_view,
-		(void*)(intptr_t)*xrel, (void*)(intptr_t)*yrel);
+		(void *)(intptr_t)*xrel, (void*)(intptr_t)*yrel);
 }
 
-void					handle_editor_mouse_state_input(t_doom3d *app)
+void	handle_editor_mouse_state_input(t_doom3d *app)
 {
 	int32_t		xrel;
 	int32_t		yrel;
 
-	if ((app->mouse.state & SDL_BUTTON_MMASK) ||
-		(app->keyboard.state[SDL_SCANCODE_LALT]))
+	if ((app->mouse.state & SDL_BUTTON_MMASK)
+		|| (app->keyboard.state[SDL_SCANCODE_LALT]))
 		handle_editor_player_rotation_input(app, &xrel, &yrel);
 	else
 	{
@@ -99,12 +103,12 @@ void					handle_editor_mouse_state_input(t_doom3d *app)
 		SDL_ShowCursor(SDL_ENABLE);
 		SDL_SetRelativeMouseMode(SDL_FALSE);
 		SDL_GetRelativeMouseState(&xrel, &yrel);
-		if (!app->keyboard.state[SDL_SCANCODE_R] &&
-			app->editor.is_placing && app->editor.num_selected_objects > 0
+		if (!app->keyboard.state[SDL_SCANCODE_R]
+			&& app->editor.is_placing && app->editor.num_selected_objects > 0
 			&& mouse_inside_editor_view(app))
 			push_custom_event(app, event_editor_in_placement_move, NULL, NULL);
-		if (app->editor.num_selected_objects > 0 &&
-			app->keyboard.state[SDL_SCANCODE_R])
+		if (app->editor.num_selected_objects > 0
+			&& app->keyboard.state[SDL_SCANCODE_R])
 			handle_object_rotation_input(app, xrel);
 	}
 }
