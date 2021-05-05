@@ -31,7 +31,7 @@
 ** Directions to which player can move
 */
 
-typedef enum				e_move
+typedef enum e_move
 {
 	move_forward,
 	move_backward,
@@ -45,7 +45,7 @@ typedef enum				e_move
 ** Data defining player functionality and toggles.
 */
 
-typedef struct				s_player
+typedef struct s_player
 {
 	t_vec3					pos;
 	t_vec3					forward;
@@ -86,7 +86,7 @@ typedef struct				s_player
 ** in app->animations
 */
 
-typedef enum				e_player_animation
+typedef enum e_player_animation
 {
 	anim_none = 0,
 	anim_shotgun_default = 1,
@@ -108,7 +108,7 @@ typedef enum				e_player_animation
 ** Animation general state
 */
 
-typedef enum				e_player_anim_state
+typedef enum e_player_anim_state
 {
 	anim_state_default = 1,
 	anim_state_shoot = 2,
@@ -119,7 +119,7 @@ typedef enum				e_player_anim_state
 ** Data which defines different things that belong to player hud.
 */
 
-typedef struct				s_player_hud
+typedef struct s_player_hud
 {
 	t_player_animation		curr_animation;
 }							t_player_hud;
