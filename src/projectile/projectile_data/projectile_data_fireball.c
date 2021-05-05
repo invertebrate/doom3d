@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 13:59:58 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/03 18:21:24 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/05 17:15:46 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_projectile	projectile_data_fireball(t_doom3d *app)
 	t_projectile	projectile;
 
 	projectile.type = projectile_type_fireball;
-	projectile.damage = 10;
+	projectile.damage = 50;
 	projectile.speed = 250.0;
 	projectile.range = 100 * app->unit_size;
 	projectile.traveled = 0;
