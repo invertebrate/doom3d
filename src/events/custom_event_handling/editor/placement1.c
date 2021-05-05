@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   placement1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/27 03:10:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 14:22:26 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void		handle_editor_placement_start(t_doom3d *app,
+void	handle_editor_placement_start(t_doom3d *app,
 				uint32_t obj_type, void *data)
 {
 	t_3d_object	*obj;
@@ -38,13 +38,13 @@ void		handle_editor_placement_start(t_doom3d *app,
 		app->editor.is_placing = false;
 }
 
-void		handle_editor_placement_cancel(t_doom3d *app)
+void	handle_editor_placement_cancel(t_doom3d *app)
 {
 	push_custom_event(app, event_editor_delete, NULL, NULL);
 	app->editor.is_placing = false;
 }
 
-void		handle_editor_placement_end(t_doom3d *app)
+void	handle_editor_placement_end(t_doom3d *app)
 {
 	app->editor.is_placing = false;
 	notify_user(app, (t_notification){
@@ -63,7 +63,7 @@ static void	find_snap_pos(t_doom3d *app, t_vec3 old_pos, t_vec3 snap_pos)
 		snap_pos[i] = roundf(old_pos[i] / app->unit_size) * app->unit_size;
 }
 
-void		handle_editor_snap_to_grid(t_doom3d *app)
+void	handle_editor_snap_to_grid(t_doom3d *app)
 {
 	int32_t		i;
 	t_3d_object	*selected_obj;
