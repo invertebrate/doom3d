@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_read.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 02:05:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 18:27:36 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/05 16:36:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,8 @@ int32_t	read_objects(t_doom3d *app, char *contents)
 	obj = NULL;
 	while (++i < (int32_t)app->active_scene->num_objects)
 	{
-		error_check(!(obj
-				= l3d_3d_object_shallow_copy(
-					(t_3d_object *)(contents + offset))),
-			"Failed to read object from map byte offset");
+		error_check(!(obj = l3d_3d_object_shallow_copy((t_3d_object *)(contents
+						+ offset))), "E: read object from map byte offset");
 		offset += sizeof(t_3d_object);
 		offset = read_object_triangles_and_vertices(contents, obj, offset);
 		offset += read_obj_texture(obj, app, contents + offset);

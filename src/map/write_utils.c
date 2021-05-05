@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 01:54:45 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 18:41:55 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/05 16:35:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,26 +97,24 @@ void	write_npc_patrol_path_information(int32_t fd, t_doom3d *app)
 	int32_t		j;
 	int32_t		ret;
 	t_npc		*npc;
+	t_3d_object	*obj;
 
 	i = -1;
-	while (++i < (int32_t)(app->active_scene->num_objects
-		+ app->active_scene->num_deleted))
+	while (++i < (int32_t)app->active_scene->num_objects)
 	{
-		if (app->active_scene->objects[i]
-			&& app->active_scene->objects[i]->type == object_type_npc)
+		obj = app->active_scene->objects[i];
+		if (!obj || (obj && obj->type != object_type_npc))
+			continue ;
+		npc = obj->params;
+		ret = write(fd, &obj->id, sizeof(uint32_t));
+		ret = write(fd, &npc->num_patrol_path_nodes, sizeof(int32_t));
+		j = -1;
+		while (++j < npc->num_patrol_path_nodes)
 		{
-			npc = app->active_scene->objects[i]->params;
-			ret = write(fd,
-					&app->active_scene->objects[i]->id, sizeof(uint32_t));
-			ret = write(fd, &npc->num_patrol_path_nodes, sizeof(int32_t));
-			j = -1;
-			while (++j < npc->num_patrol_path_nodes)
-			{
-				if (npc->patrol_path[j])
-					ret = write(fd, &npc->patrol_path[j]->id, sizeof(uint32_t));
-				else
-					ret = write(fd, 0, sizeof(uint32_t));
-			}
+			if (npc->patrol_path[j])
+				ret = write(fd, &npc->patrol_path[j]->id, sizeof(uint32_t));
+			else
+				ret = write(fd, 0, sizeof(uint32_t));
 		}
 	}
 	(void)ret;
@@ -133,8 +131,7 @@ void	write_key_ids(int32_t fd, t_doom3d *app)
 	t_trigger	*trigger;
 
 	i = -1;
-	while (++i < (int32_t)(app->active_scene->num_objects
-		+ app->active_scene->num_deleted))
+	while (++i < (int32_t)app->active_scene->num_objects)
 	{
 		if (app->active_scene->objects[i]
 			&& app->active_scene->objects[i]->type == object_type_trigger)
