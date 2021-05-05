@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 18:38:24 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/04 20:53:20 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,8 @@ void			update_player(t_doom3d *app)
 	player_update_aabb(&app->player);
 	player_animation_update(app);
 	player_flashlight_update(app);
+	if (is_player_grounded(app))
+		ft_printf("GROUNDED\n");
+	else
+		ft_printf("NOT GROUNDED\n");
 }

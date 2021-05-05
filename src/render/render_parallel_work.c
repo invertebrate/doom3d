@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:33:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 19:47:08 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/04 23:47:33 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,40 @@ static void		render_editor_ux_highlights(t_render_work *work)
 		draw_editor_placement_position(work);
 }
 
+void			player_debug_graphic_draw(t_render_work *work)
+{
+	t_doom3d	*app;
+	t_player	player;
+	app = work->app;
+	player = app->player;
+	for (int i = 0; i < COLLIDER_RAY_TOTAL; i++)
+	{
+		t_vec3	points[2];
+		t_vec3	end_point;
+		t_vec3	dir;
+
+		ml_vector3_copy(player.collider.rays[i].dir, dir);
+		ml_vector3_mul(dir, player.collider.sphere.radius, dir);
+		ml_vector3_add(player.collider.sphere.pos, dir, end_point);
+		ml_vector3_copy(player.collider.sphere.pos, points[0]);
+		ml_vector3_copy(end_point, points[1]);
+		if (ml_vector3_angle_deg(player.collider.rays[i].dir, (t_vec3){0.0, 1.0, 0.0})
+			< SLOPE_ANGLE_THRESHOLD)
+		{
+			draw_debug_line(app,
+			work->framebuffer->sub_buffers[work->sub_buffer_i],
+			points, 0x000fffff);
+		}
+		else
+		{
+			draw_debug_line(app,
+			work->framebuffer->sub_buffers[work->sub_buffer_i],
+			points, 0xffffffff);
+		}
+	}
+	(void)app;
+}
+
 /*
 ** The render work inside each thread (square of framebuffer).
 ** First we clear buffers, then depending on passes & scenes, render rest
@@ -79,10 +113,6 @@ void			render_work(void *params)
 	uint32_t			main_pass;
 	uint32_t			transparency_pass;
 
-	t_3d_object			*obj;
-	t_ray				rays[2500];
-	ft_memset(rays, 0, sizeof(t_ray) * 2500);
-
 	work = params;
 	last_pass = work->num_passes - 1;
 	transparency_pass = 1;
@@ -92,47 +122,6 @@ void			render_work(void *params)
 		clear_buffers(work);
 		if (work->app->active_scene->scene_id == scene_id_editor3d)
 			draw_editor_debug_grid(work);
-
-		obj = work->app->active_scene->objects[0];
-		if (obj)
-		{
-			t_sphere sphere;
-			ml_vector3_set(sphere.forward, 0.0, 0.0, 1.0);
-			ml_vector3_set(sphere.up, 0.0, -1.0, 0.0);
-			ml_vector3_copy(obj->position, sphere.pos);
-			sphere.radius = 10 * work->app->unit_size;
-			l3d_cast_rays_sphere(rays, (uint32_t[2]){8, 8}, &sphere);
-			for (int i = 0; i < 64; i++)
-			{
-				t_vec3	points[2];
-				t_vec3	end_point;
-				t_vec3	dir;
-
-				ml_vector3_copy(rays[i].dir, dir);
-				ml_vector3_mul(dir, sphere.radius, dir);
-				ml_vector3_add(sphere.pos, dir, end_point);
-				ml_vector3_copy(sphere.pos, points[0]);
-				ml_vector3_copy(end_point, points[1]);
-				if (i == 0)
-				{
-					draw_debug_line(work->app,
-					work->framebuffer->sub_buffers[work->sub_buffer_i],
-					points, 0xffff00ff);
-				}
-				else if (i == 49)
-				{
-					draw_debug_line(work->app,
-					work->framebuffer->sub_buffers[work->sub_buffer_i],
-					points, 0x0000ffff);
-				}
-				else
-				{
-					draw_debug_line(work->app,
-					work->framebuffer->sub_buffers[work->sub_buffer_i],
-					points, 0xffffffff);
-				}
-			}
-		}
 	}
 	if (work->pass == main_pass)
 		rasterize_triangles(work);
@@ -146,6 +135,7 @@ void			render_work(void *params)
 		draw_aabb(work->app, work->framebuffer->sub_buffers[work->sub_buffer_i],
 			&work->app->player.aabb, 0xff0000ff);
 		//function draws player debug graphic^
+	player_debug_graphic_draw(work);
 	if (work->pass == last_pass)
 		draw_buffers_to_framebuffer(work);
 	free(work);

@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 19:33:41 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/04 20:18:37 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define MAX_KEYS 32
 # define COLLIDER_RAY_COUNT 10
 # define COLLIDER_RAY_TOTAL 10 * 10
-# define PLAYER_COLLIDER_RADIUS 1
+# define PLAYER_COLLIDER_RADIUS 0.2
 # define SLOPE_ANGLE_THRESHOLD 30
 
 # include "lib3d.h"

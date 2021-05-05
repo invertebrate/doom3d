@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 14:11:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/04 19:16:27 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/04 23:47:52 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,12 @@ static void		player_collider_init(t_doom3d *app)
 
 	player = &app->player;
 	ml_vector3_copy(player->pos, player->collider.sphere.pos);
+	ml_vector3_sub(player->collider.sphere.pos,
+		(t_vec3){0.0, -0.5 * app->unit_size, 0.0},
+		player->collider.sphere.pos);
 	ml_vector3_copy(player->up, player->collider.sphere.up);
 	ml_vector3_copy(player->forward, player->collider.sphere.forward);
-	player->collider.sphere.radius = PLAYER_COLLIDER_RADIUS;
+	player->collider.sphere.radius = 0.55 * app->unit_size;
 	ft_memset(player->collider.rays, 0, sizeof(t_ray) * COLLIDER_RAY_COUNT);
 }
 

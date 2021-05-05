@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 18:41:19 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/04 20:00:19 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,6 +379,7 @@ t_3d_object					*object_above(t_doom3d *app,
 											t_vec3 hit_point);
 t_bool						obj_is_grounded(t_doom3d *app,
 											t_3d_object *falling_obj);
+t_bool						is_player_grounded(t_doom3d *app);
 
 /*
 ** Events
