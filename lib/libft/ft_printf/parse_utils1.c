@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   parse_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 18:21:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 16:41:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 12:45:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	check_parsed_zero(t_printf *data, char *res)
 	return (true);
 }
 
-char	get_next_after_percentage(char *fmt, int *i)
+char	*get_next_after_percentage(char *fmt, int *i)
 {
 	while (fmt[*i])
 	{
@@ -97,5 +97,5 @@ char	get_next_after_percentage(char *fmt, int *i)
 			return (fmt + *i);
 		(*i)++;
 	}
-	return ('\0');
+	return (NULL);
 }

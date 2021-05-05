@@ -6,11 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:15:27 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 16:17:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 12:57:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_utils.h"
+#include "libft.h"
 
 /*
 ** The ft_memcpy() function copies n bytes from memory area src to memory

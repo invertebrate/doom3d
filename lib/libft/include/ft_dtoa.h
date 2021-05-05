@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:01:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 11:42:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 13:09:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,6 @@ void					big_int_mul_2(t_big_int *lhs, t_big_int *res);
 void					big_int_mul_2_modif(t_big_int *mod);
 void					big_int_mul_10_modif(t_big_int *mod);
 void					big_int_retard_print(t_big_int *b);
-t_big_int				*get_smaller(t_big_int *lhs, t_big_int *rhs);
 void					big_int_pow_10(uint32_t exponent, t_big_int *res);
 void					big_int_mul_pow_10(t_big_int *lhs,
 							uint32_t exponent, t_big_int *res);

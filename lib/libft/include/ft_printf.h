@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:01:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 11:53:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 12:45:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int					check_flag(t_printf *data, int *index, int *found_zero);
 int					check_length(t_printf *data, int *index, char s);
 int					get_width(t_printf *data, int var, int has_width);
 int					check_parsed_zero(t_printf *data, char *res);
-char				get_next_after_percentage(char *fmt, int *i);
+char				*get_next_after_percentage(char *fmt, int *i);
 char				*print_nothing_case(t_printf *data);
 long double			get_double_var(t_printf *data);
 

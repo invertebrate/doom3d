@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 22:08:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 16:21:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 13:09:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,4 @@ int32_t	big_int_cmp(t_big_int *lhs, t_big_int *rhs)
 t_bool	big_int_is_zero(t_big_int *b)
 {
 	return (b->length == 0);
-}
-
-t_big_int	*get_smaller(t_big_int *lhs, t_big_int *rhs)
-{
-	if (lhs->length < rhs->length)
-		return (lhs);
-	return (rhs);
 }

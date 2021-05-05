@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 22:11:51 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 15:44:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 13:09:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,13 @@ void	big_int_mul(t_big_int *lhs, t_big_int *rhs, t_big_int *res)
 	uint32_t	max_len;
 	size_t		i;
 
-	small = get_smaller(lhs, rhs);
-	large = get_smaller(rhs, lhs);
+	small = rhs;
+	large = lhs;
+	if (lhs->length < rhs->length)
+	{
+		small = lhs;
+		large = rhs;
+	}
 	max_len = large->length + small->length;
 	res->length = max_len;
 	i = -1;

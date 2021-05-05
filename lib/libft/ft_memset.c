@@ -6,11 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:13:19 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 16:39:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 12:57:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_utils.h"
+#include "libft.h"
 
 /*
 ** The ft_memset() function writes len bytes of value c
