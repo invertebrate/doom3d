@@ -37,7 +37,7 @@ static t_projectile	fire_custom(t_projectile projectile, int type)
 	return (projectile);
 }
 
-t_projectile		projectile_data_fireball_custom(t_doom3d *app, int type)
+t_projectile	projectile_data_fireball_custom(t_doom3d *app, int type)
 {
 	t_projectile	projectile;
 
@@ -60,7 +60,7 @@ t_projectile		projectile_data_fireball_custom(t_doom3d *app, int type)
 	return (projectile);
 }
 
-t_projectile		projectile_data_fireball(t_doom3d *app)
+t_projectile	projectile_data_fireball(t_doom3d *app)
 {
 	t_projectile	projectile;
 

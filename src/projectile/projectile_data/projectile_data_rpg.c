@@ -14,7 +14,7 @@
 
 t_projectile	projectile_data_rpg(t_doom3d *app)
 {
-	t_projectile projectile;
+	t_projectile	projectile;
 
 	projectile.type = projectile_type_rpg;
 	projectile.damage = 100;
