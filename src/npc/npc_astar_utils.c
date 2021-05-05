@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_astar_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:53:14 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 20:14:36 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/03 17:44:48 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	init_astar_vars2(t_astar_vars *v)
 	v->start->local_goal = 0;
 	v->start->global_goal = dist_between_nodes(v->start, v->end);
 	v->arr_pos = 0;
-	ft_memset(&v->not_tested_nodes, 0, sizeof(t_path_node *) *
-										MAX_PATH_NODE_NETWORK_SIZE);
+	ft_memset(&v->not_tested_nodes, 0, sizeof(t_path_node *)
+		* MAX_PATH_NODE_NETWORK_SIZE);
 	v->not_tested_nodes[v->arr_pos++] = v->start;
 }
 

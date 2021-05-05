@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:21:40 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/28 15:20:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 21:00:07 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Renders loading view text (and title text)
 */
 
-void			render_loading_view(t_doom3d *app)
+void	render_loading_view(t_doom3d *app)
 {
 	int32_t	width;
 	int32_t	height;
@@ -36,21 +36,21 @@ void			render_loading_view(t_doom3d *app)
 ** Renders dark overlay (e.g. pause view)
 */
 
-void			framebuffer_dark_overlay(t_framebuffer *framebuffer)
+void	framebuffer_dark_overlay(t_framebuffer *framebuffer)
 {
 	int32_t		i;
 
 	i = -1;
 	while (++i < framebuffer->width * framebuffer->height)
 		framebuffer->buffer[i] = l3d_color_blend_u32(framebuffer->buffer[i],
-			0x000000FF, 0.6);
+				0x000000FF, 0.6);
 }
 
 /*
 ** Renders health low overlay
 */
 
-void			framebuffer_health_low_overlay(t_doom3d *app)
+void	framebuffer_health_low_overlay(t_doom3d *app)
 {
 	int32_t				i;
 	static uint64_t		delta_time_sum;
@@ -62,8 +62,8 @@ void			framebuffer_health_low_overlay(t_doom3d *app)
 	max = app->window->framebuffer->width * app->window->framebuffer->height;
 	i = -1;
 	while (++i < max)
-		app->window->framebuffer->buffer[i] =
-			l3d_color_blend_u32(app->window->framebuffer->buffer[i],
+		app->window->framebuffer->buffer[i]
+			= l3d_color_blend_u32(app->window->framebuffer->buffer[i],
 				L3D_COLOR_RED, health_blend);
 }
 
@@ -71,7 +71,7 @@ void			framebuffer_health_low_overlay(t_doom3d *app)
 ** Render button menu
 */
 
-void			render_button_menu(t_button_group *menu, t_vec2 pos)
+void	render_button_menu(t_button_group *menu, t_vec2 pos)
 {
 	if (menu == NULL)
 		return ;
@@ -86,12 +86,12 @@ void			render_button_menu(t_button_group *menu, t_vec2 pos)
 ** Renders UI title
 */
 
-void			render_ui_title(t_doom3d *app)
+void	render_ui_title(t_doom3d *app)
 {
 	window_text_render_centered_shaded(app->window, (t_text_params){
-			.text = "Doom-3D", .blend_ratio = 1.0,
-			.xy = (int[2]){app->window->framebuffer->width / 2,
-				FONT_SIZE * 2 + 10},
-			.text_color = (SDL_Color){255, 0, 0, 255}},
-			app->window->title_font);
+		.text = "Doom-3D", .blend_ratio = 1.0,
+		.xy = (int [2]){app->window->framebuffer->width / 2,
+		FONT_SIZE * 2 + 10},
+		.text_color = (SDL_Color){255, 0, 0, 255}},
+		app->window->title_font);
 }

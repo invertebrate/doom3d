@@ -86,13 +86,13 @@
 ** SOUND STRUCTS
 */
 
-typedef struct			s_track
+typedef struct s_track
 {
 	Uint8	*data;
 	Uint32	len;
 }						t_track;
 
-typedef struct			s_sound
+typedef struct s_sound
 {
 	t_track			*sound;
 	Uint32			pos;
@@ -104,7 +104,7 @@ typedef struct			s_sound
 	struct s_sound	*next;
 }						t_sound;
 
-typedef struct			s_mp
+typedef struct s_mp
 {
 	int					channels;
 	SDL_AudioSpec		auspec;
@@ -130,7 +130,7 @@ typedef struct			s_mp
 ** pistol = pstl_
 */
 
-typedef enum			e_sounds
+typedef enum e_sounds
 {
 	mu_main,
 	mu_doom,
@@ -180,7 +180,7 @@ typedef enum			e_sounds
 ** is used in functions to pause/clear all sounds of a set type
 */
 
-typedef enum			e_sound_type
+typedef enum e_sound_type
 {
 	st_main_menu = 1,
 	st_menu,

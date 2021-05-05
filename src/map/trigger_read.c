@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   trigger_read.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 02:09:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/29 22:21:42 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/04 18:31:37 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		read_trigger_links_by_num_links(t_doom3d *app, char *contents,
+static void	read_trigger_links_by_num_links(t_doom3d *app, char *contents,
 					t_trigger_link_vars vars, int32_t *offset)
 {
 	int32_t		j;
@@ -32,7 +32,7 @@ static void		read_trigger_links_by_num_links(t_doom3d *app, char *contents,
 	}
 }
 
-int32_t			read_trigger_links(t_doom3d *app,
+int32_t	read_trigger_links(t_doom3d *app,
 					char *contents, int32_t offset)
 {
 	t_trigger_link_vars	vars;
@@ -72,7 +72,7 @@ static int32_t	get_num_triggers(t_doom3d *app)
 ** and links the triggers to their linked objects
 */
 
-int32_t			read_trigger_link_information(t_doom3d *app, char *contents)
+int32_t	read_trigger_link_information(t_doom3d *app, char *contents)
 {
 	int32_t		offset;
 	int32_t		num_triggers;

@@ -32,7 +32,7 @@ static void	mp_music_init1(t_doom3d *app)
 	mp_music_init2(app);
 }
 
-void		mp_music_init(t_doom3d *app)
+void	mp_music_init(t_doom3d *app)
 {
 	app->mp.library[mu_main] = read_sound(TRACK1, app);
 	app->mp.library[mu_doom] = read_sound(TRACK2, app);

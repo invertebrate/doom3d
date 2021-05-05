@@ -17,12 +17,13 @@
 ** Pops fully played sounds and resets looping sounds
 */
 
-static void		mp_move(t_sound **start, int len, t_sound *curr,
+static void	mp_move(t_sound **start, int len, t_sound *curr,
 				t_sound *prev[2])
 {
 	while (curr)
 	{
-		curr->pos += curr->state == SPLAYING ? len : 0;
+		if (curr->state == SPLAYING)
+			curr->pos += len;
 		if (curr->pos >= curr->sound->len)
 		{
 			if (curr->loop)
@@ -75,10 +76,12 @@ static t_sound	*mp_mixing(t_sound *curr, t_mp *mp, float vol)
 {
 	Uint32	amount;
 
-	if (!(curr = mp_mix_next(curr)))
+	curr = mp_mix_next(curr);
+	if (!curr)
 		return (curr);
 	amount = curr->sound->len - curr->pos;
-	amount = amount > (Uint32)mp->len ? (Uint32)mp->len : amount;
+	if (amount > (Uint32)mp->len)
+		amount = (Uint32)mp->len;
 	SDL_MixAudioFormat(mp->stream, &curr->sound->data[curr->pos],
 		mp->auspec.format, amount, SDL_MIX_MAXVOLUME * vol * curr->vol);
 	return (curr);
@@ -88,20 +91,20 @@ static t_sound	*mp_mixing(t_sound *curr, t_mp *mp, float vol)
 ** Loop thru sounds till max has been reached or no more sounds to play
 */
 
-static void		playing_audio(t_mp *mp, t_sound **start, int max, float vol)
+static void	playing_audio(t_mp *mp, t_sound **start, int max, float vol)
 {
 	t_sound	*curr;
 	t_sound	*prev[2];
 	int		played;
 
-	if (!(curr = *start))
-		return ;
-	else if (vol == -1)
+	curr = *start;
+	if (!curr || vol == -1)
 		return ;
 	played = 0;
 	while (played < max && curr && vol > 0)
 	{
-		if (!(curr = mp_mixing(curr, mp, mp->st_vol)))
+		curr = mp_mixing(curr, mp, mp->st_vol);
+		if (!curr)
 			break ;
 		played++;
 		curr = curr->next;
@@ -115,11 +118,11 @@ static void		playing_audio(t_mp *mp, t_sound **start, int max, float vol)
 ** Music player main loop
 */
 
-void			mp_au_mix(void *para, Uint8 *stream, int len)
+void	mp_au_mix(void *para, Uint8 *stream, int len)
 {
 	t_mp	*mp;
 
-	mp = (t_mp*)para;
+	mp = (t_mp *)para;
 	SDL_memset(stream, 0, len);
 	mp->stream = stream;
 	mp->len = len;

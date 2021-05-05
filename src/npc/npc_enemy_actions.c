@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_enemy_actions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 19:43:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/04/30 20:03:49 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/03 17:56:04 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	npc_attack_event_ontrigger(t_doom3d *app, void **params)
 	(void)params;
 }
 
-void		init_anim_instance_attack(t_3d_object *obj,
+void	init_anim_instance_attack(t_3d_object *obj,
 										t_anim_3d_instance *inst)
 {
 	inst->active = true;
@@ -50,7 +50,7 @@ void		init_anim_instance_attack(t_3d_object *obj,
 	inst->event_triggered = false;
 }
 
-void		init_anim_instance_death(t_3d_object *obj, t_anim_3d_instance *inst)
+void	init_anim_instance_death(t_3d_object *obj, t_anim_3d_instance *inst)
 {
 	inst->active = true;
 	inst->anim_clip = anim_3d_type_death;

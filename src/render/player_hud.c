@@ -3,55 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   player_hud.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:12:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 15:39:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 21:20:10 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		render_vertical_crosshair_part(t_doom3d *app,
+static void	render_vertical_crosshair_part(t_doom3d *app,
 					int32_t offset, int32_t length, uint32_t color)
 {
 	l3d_line_draw(app->window->framebuffer->buffer,
 		(uint32_t[2]){app->window->framebuffer->width,
-			app->window->framebuffer->height},
+		app->window->framebuffer->height},
 		(int32_t[2][2]){{app->window->framebuffer->width / 2,
-			app->window->framebuffer->height / 2 - (offset + length)},
-		{app->window->framebuffer->width / 2,
-			app->window->framebuffer->height / 2 - offset}}, color);
+		app->window->framebuffer->height / 2 - (offset + length)},
+	{app->window->framebuffer->width / 2,
+		app->window->framebuffer->height / 2 - offset}}, color);
 	l3d_line_draw(app->window->framebuffer->buffer,
 		(uint32_t[2]){app->window->framebuffer->width,
-			app->window->framebuffer->height},
+		app->window->framebuffer->height},
 		(int32_t[2][2]){{app->window->framebuffer->width / 2,
-			app->window->framebuffer->height / 2 + (offset + length)},
-		{app->window->framebuffer->width / 2,
-			app->window->framebuffer->height / 2 + offset}}, color);
+		app->window->framebuffer->height / 2 + (offset + length)},
+	{app->window->framebuffer->width / 2,
+		app->window->framebuffer->height / 2 + offset}}, color);
 }
 
-static void		render_crosshair(t_doom3d *app, int32_t offset, int32_t length,
+static void	render_crosshair(t_doom3d *app, int32_t offset, int32_t length,
 					uint32_t color)
 {
 	render_vertical_crosshair_part(app, offset, length, color);
 	l3d_line_draw(app->window->framebuffer->buffer,
 		(uint32_t[2]){app->window->framebuffer->width,
-			app->window->framebuffer->height},
-		(int32_t[2][2]){{app->window->framebuffer->width / 2 +
-			offset, app->window->framebuffer->height / 2},
-		{app->window->framebuffer->width / 2 + (offset + length),
-			app->window->framebuffer->height / 2}}, color);
+		app->window->framebuffer->height},
+		(int32_t[2][2]){{app->window->framebuffer->width / 2
+		+ offset, app->window->framebuffer->height / 2},
+	{app->window->framebuffer->width / 2 + (offset + length),
+		app->window->framebuffer->height / 2}}, color);
 	l3d_line_draw(app->window->framebuffer->buffer,
 		(uint32_t[2]){app->window->framebuffer->width,
-			app->window->framebuffer->height},
-		(int32_t[2][2]){{app->window->framebuffer->width / 2 -
-			(offset + length), app->window->framebuffer->height / 2},
-		{app->window->framebuffer->width / 2 - offset,
-			app->window->framebuffer->height / 2}}, color);
+		app->window->framebuffer->height},
+		(int32_t[2][2]){{app->window->framebuffer->width / 2
+		- (offset + length), app->window->framebuffer->height / 2},
+	{app->window->framebuffer->width / 2 - offset,
+		app->window->framebuffer->height / 2}}, color);
 }
 
-static void		render_current_frame(t_anim_frame *curr_frame,
+static void	render_current_frame(t_anim_frame *curr_frame,
 					t_surface *player_layer, t_surface *anim_source)
 {
 	int32_t				y;
@@ -60,8 +60,8 @@ static void		render_current_frame(t_anim_frame *curr_frame,
 	while (++y < curr_frame->height)
 	{
 		ft_memcpy(player_layer->pixels + y * curr_frame->width,
-			anim_source->pixels + anim_source->w *
-				(curr_frame->y_offset + y) + curr_frame->x_offset,
+			anim_source->pixels + anim_source->w
+			* (curr_frame->y_offset + y) + curr_frame->x_offset,
 			sizeof(uint32_t) * curr_frame->width);
 	}
 }
@@ -74,7 +74,7 @@ static void		render_current_frame(t_anim_frame *curr_frame,
 ** weapon animations.
 */
 
-static void		render_player_animation(t_doom3d *app)
+static void	render_player_animation(t_doom3d *app)
 {
 	t_surface			*anim_source;
 	t_sprite_anim		*animation;
@@ -82,11 +82,13 @@ static void		render_player_animation(t_doom3d *app)
 	t_surface			player_layer;
 
 	animation = &app->animations[app->player_hud.curr_animation];
-	if (!(anim_source = get_animation_source(app)))
+	anim_source = get_animation_source(app);
+	if (!anim_source)
 		return ;
 	curr_frame = &animation->frames[animation->current_frame];
-	error_check(!(player_layer.pixels =
-		ft_calloc(sizeof(uint32_t) * curr_frame->width * curr_frame->height)),
+	error_check(!(player_layer.pixels
+			= ft_calloc(sizeof(uint32_t) * curr_frame->width
+				* curr_frame->height)),
 		"Failed to malloc player layer for animation");
 	render_current_frame(curr_frame, &player_layer, anim_source);
 	player_layer.w = curr_frame->width;
@@ -98,7 +100,7 @@ static void		render_player_animation(t_doom3d *app)
 	free(player_layer.pixels);
 }
 
-void			render_hud(t_doom3d *app)
+void	render_hud(t_doom3d *app)
 {
 	int32_t	offset;
 	int32_t	length;

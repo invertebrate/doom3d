@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/27 02:08:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 18:35:56 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Read map data onto active scene from char *map_name file
 */
 
-void			read_map(t_doom3d *app, const char *map_name)
+void	read_map(t_doom3d *app, const char *map_name)
 {
 	t_file_contents	*file;
 	char			filename[128];

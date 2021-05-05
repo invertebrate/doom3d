@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile_data_fireball.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 13:59:58 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 16:53:22 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/03 18:21:24 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_projectile		projectile_data_fireball(t_doom3d *app)
 
 	projectile.type = projectile_type_fireball;
 	projectile.damage = 10;
-	projectile.speed = 350.0;
+	projectile.speed = 250.0;
 	projectile.range = 100 * app->unit_size;
 	projectile.traveled = 0;
 	projectile.radius = 5 * app->unit_size;

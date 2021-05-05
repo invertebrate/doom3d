@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_default.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 21:02:08 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/03 17:44:08 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	set_attack_pattern(t_npc *npc)
 ** monster01 variant differences
 */
 
-void		npc_monster01(t_doom3d *app, t_npc *npc, int type)
+void	npc_monster01(t_doom3d *app, t_npc *npc, int type)
 {
 	if (type == npc_type_monster01_a)
 	{
@@ -70,7 +70,7 @@ static void	npc_default_vars(t_npc *npc)
 {
 	npc->dir[0] = 0;
 	npc->dir[1] = 0;
-	npc->dir[2] = 0;
+	npc->dir[2] = -120.0f;
 	npc->rot_speed = 10;
 	npc->state = 0;
 	npc->hp = 100;
@@ -78,17 +78,16 @@ static void	npc_default_vars(t_npc *npc)
 	npc->physics_state = physics_state_grounded;
 }
 
-void		npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
+void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 {
 	t_animation_3d	*dummy;
 
-	error_check(!(dummy = (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
+	error_check(!(dummy = (t_animation_3d *)ft_calloc(sizeof(t_animation_3d))),
 		"Failed to malloc for dummy in npc_default.");
 	npc->parent = obj;
 	npc->type = npc_type_monster01;
 	npc->speed = app->unit_size / 3.5;
 	npc_default_vars(npc);
-	ml_vector3_set_all(npc->dir, 0.0);
 	npc->atk_range = app->unit_size * 6;
 	npc->atk_dmg = 25;
 	npc->atk_dur = 8000;

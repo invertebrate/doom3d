@@ -92,6 +92,7 @@ SOURCES = main.c \
 			npc/npc_move_to_waypoint.c \
 			npc/npc_destroy.c \
 			npc/npc_enemy_actions.c \
+			npc/npc_face_player.c \
 			trigger/trigger.c \
 			trigger/trigger_timer.c \
 			trigger/trigger_place.c \

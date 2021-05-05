@@ -305,6 +305,8 @@ t_3d_object					*npc_spawn(t_doom3d *app, t_vec3 pos, float angle,
 								int type);
 void						npc_update_state(t_doom3d *app,
 											t_3d_object *npc_obj);
+void						npc_face_player(t_3d_object *npc_obj, t_npc *npc,
+								t_vec3 start);
 void						npc_execute_behavior(t_doom3d *app,
 												t_3d_object *npc_obj);
 void						npc_default(t_doom3d *app, t_npc *npc,
