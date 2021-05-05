@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 00:49:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 16:21:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 ** in main loop (before event handling).
 */
 
-static void		handle_scene_switch(t_doom3d *app)
+static void	handle_scene_switch(t_doom3d *app)
 {
-	t_scene_id prev_scene_id;
+	t_scene_id	prev_scene_id;
 
-	if (app->active_scene->scene_id != app->next_scene_id ||
-		app->is_scene_reload)
+	if (app->active_scene->scene_id != app->next_scene_id
+		|| app->is_scene_reload)
 	{
 		if (app->is_debug)
 			LOG_DEBUG("Scen change detected, selecting next");
@@ -36,7 +36,7 @@ static void		handle_scene_switch(t_doom3d *app)
 	}
 }
 
-static void		app_init(t_doom3d *app)
+static void	app_init(t_doom3d *app)
 {
 	LOG_INFO("Register Custom Events");
 	register_custom_events(app);
@@ -59,7 +59,7 @@ static void		app_init(t_doom3d *app)
 	select_next_scene(app);
 }
 
-static void		cleanup(t_doom3d *app)
+static void	cleanup(t_doom3d *app)
 {
 	int32_t		i;
 
@@ -84,7 +84,7 @@ static void		cleanup(t_doom3d *app)
 	destroy_render_triangle_pool(app);
 }
 
-static void		main_loop(t_doom3d *app)
+static void	main_loop(t_doom3d *app)
 {
 	while (app->is_running)
 	{
@@ -105,14 +105,14 @@ static void		main_loop(t_doom3d *app)
 	}
 }
 
-void			doom3d_run(t_doom3d *app)
+void	doom3d_run(t_doom3d *app)
 {
 	int32_t	cpu_count;
 	int32_t	num_threads;
 
 	cpu_count = SDL_GetCPUCount();
 	num_threads = ft_max_int((int32_t[2]){
-		NUM_THREADS_DEFAULT, cpu_count}, 2);
+			NUM_THREADS_DEFAULT, cpu_count}, 2);
 	app->thread_pool = thread_pool_create(num_threads);
 	LOG_INFO("Created thread pool with %d threads for %d logical cpus",
 		num_threads, cpu_count);
