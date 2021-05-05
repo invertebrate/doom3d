@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_content.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 16:35:01 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/05 15:37:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,17 @@
 static void	scene_game_init(t_doom3d *app)
 {
 	t_3d_object		*start;
+	t_3d_object		*end;
 
 	l3d_skybox_create(app->active_scene->skybox,
 		app->active_scene->skybox_textures, app->unit_size);
 	read_map(app, app->level_list[app->current_level]);
 	start = find_one_object_by_type(app, object_type_trigger,
 			trigger_player_start);
-	if (!start || !find_one_object_by_type(app, object_type_trigger,
-			trigger_player_end))
-	{
-		notify_user(app, (t_notification){.message
-			= "Map does not have Start or End locations, Add them in editor!",
-			.type = notification_type_info, .time = 2000});
-		push_custom_event(app, event_scene_change,
-			(void *)scene_id_main_menu, NULL);
-		return ;
-	}
+	end = find_one_object_by_type(app, object_type_trigger,
+			trigger_player_end);
+	error_check(!start || !end,
+		"Invalid map: No start or end trigger found in map");
 	app->is_third_person = false;
 	app->active_scene->third_person_camera_distance = 3 * app->unit_size;
 	player_init(app, start->position);
