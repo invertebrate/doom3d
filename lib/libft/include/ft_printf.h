@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:01:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 12:45:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 13:36:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int					check_parsed_zero(t_printf *data, char *res);
 char				*get_next_after_percentage(char *fmt, int *i);
 char				*print_nothing_case(t_printf *data);
 long double			get_double_var(t_printf *data);
+t_dtoa_format		get_float_f_format(t_printf *data);
 
 /*
 ** Number parsing
