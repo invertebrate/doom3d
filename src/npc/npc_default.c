@@ -70,7 +70,7 @@ static void	npc_default_vars(t_npc *npc)
 {
 	npc->dir[0] = 0;
 	npc->dir[1] = 0;
-	npc->dir[2] = 0;
+	npc->dir[2] = -120.0f;
 	npc->rot_speed = 10;
 	npc->state = 0;
 	npc->hp = 100;
@@ -88,7 +88,6 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->type = npc_type_monster01;
 	npc->speed = app->unit_size / 3.5;
 	npc_default_vars(npc);
-	ml_vector3_set_all(npc->dir, 0.0);
 	npc->atk_range = app->unit_size * 6;
 	npc->atk_dmg = 25;
 	npc->atk_dur = 8000;

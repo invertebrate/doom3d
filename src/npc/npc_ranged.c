@@ -40,6 +40,9 @@ static void	set_attack_pattern(t_npc *npc)
 
 static void	npc_ranged_vars(t_npc *npc)
 {
+	ml_vector3_set_all(npc->dir, 0.0);
+	npc->dir[0] = 60.0f;
+	npc->dir[2] = 120.0f;
 	npc->rot_speed = 10;
 	npc->state = 0;
 	npc->hp = 100;
@@ -57,7 +60,6 @@ void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->type = npc_type_monster02;
 	npc->speed = app->unit_size / 8;
 	npc_ranged_vars(npc);
-	ml_vector3_set_all(npc->dir, 0.0);
 	npc->atk_range = app->unit_size * 5;
 	npc->atk_dmg = 10;
 	npc->atk_dur = 1000;

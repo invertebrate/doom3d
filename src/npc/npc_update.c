@@ -95,9 +95,11 @@ void	npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 {
 	t_npc	*npc;
 	t_vec3	diff;
+	t_vec3	rot;
 	float	dist;
 
 	npc = npc_obj->params;
+	ml_vector3_copy(npc->dir, rot);
 	ml_vector3_sub(npc_obj->aabb.center, app->player.aabb.center, diff);
 	dist = ml_vector3_mag(diff);
 	if (npc->state == state_idle)
@@ -106,4 +108,5 @@ void	npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 		handle_state_attack(app, npc_obj, npc, diff);
 	else if (npc->state == state_atk_anim)
 		handle_atk_anim(app, npc_obj);
+	npc_face_player(npc_obj, npc, rot);
 }
