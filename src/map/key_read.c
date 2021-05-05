@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_read.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 02:04:38 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 02:45:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 18:35:48 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int32_t	read_key_if_object_exists(t_doom3d *app, char *contents,
 ** and sets the correct key id values
 */
 
-int32_t			read_key_id_information(t_doom3d *app, char *contents)
+int32_t	read_key_id_information(t_doom3d *app, char *contents)
 {
 	int32_t		offset;
 	int32_t		num_triggers;

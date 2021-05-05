@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_next_index.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 22:50:47 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 23:03:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 18:09:55 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** Saves this next index to last_object_index under scene
 */
 
-uint32_t		next_object_index(t_doom3d *app)
+uint32_t	next_object_index(t_doom3d *app)
 {
 	uint32_t	next_index;
 

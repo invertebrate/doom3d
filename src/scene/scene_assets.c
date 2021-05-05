@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   scene_assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 19:57:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:29:15 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		create_asset_memory_maps(t_scene *scene)
+static void	create_asset_memory_maps(t_scene *scene)
 {
 	scene->models = hash_map_create(MAX_ASSETS);
 	scene->textures = hash_map_create(MAX_ASSETS);
@@ -20,7 +20,7 @@ static void		create_asset_memory_maps(t_scene *scene)
 	scene->animation_textures = hash_map_create(ANIM_3D_FRAME_MAX);
 }
 
-static void		load_models_textures_nmaps_to_memory(t_scene *scene,
+static void	load_models_textures_nmaps_to_memory(t_scene *scene,
 					t_asset_files *data)
 {
 	int32_t		i;
@@ -49,7 +49,7 @@ static void		load_models_textures_nmaps_to_memory(t_scene *scene,
 ** Hashmap = dictionary
 */
 
-static void		assets_load_to_memory(t_scene *scene, t_asset_files *data)
+static void	assets_load_to_memory(t_scene *scene, t_asset_files *data)
 {
 	create_asset_memory_maps(scene);
 	load_models_textures_nmaps_to_memory(scene, data);
@@ -62,7 +62,7 @@ static void		assets_load_to_memory(t_scene *scene, t_asset_files *data)
 ** Load all imported assets here, rest should be done with the editor.
 */
 
-void			scene_assets_load(t_scene *scene)
+void	scene_assets_load(t_scene *scene)
 {
 	scene->asset_files.num_models = 0;
 	scene->asset_files.num_textures = 0;

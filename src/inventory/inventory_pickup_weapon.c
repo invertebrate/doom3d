@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   inventory_pickup_weapon.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:26:50 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/27 03:47:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 17:48:56 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		weapon_id_to_str(char *str, t_weapon_id weapon_id)
+static void	weapon_id_to_str(char *str, t_weapon_id weapon_id)
 {
 	if (weapon_id == weapon_shotgun)
 		ft_sprintf(str, "Shotgun");
@@ -24,7 +24,7 @@ static void		weapon_id_to_str(char *str, t_weapon_id weapon_id)
 		ft_sprintf(str, "Unknown");
 }
 
-static void		give_jetpack(t_doom3d *app, t_3d_object *jetpack_obj)
+static void	give_jetpack(t_doom3d *app, t_3d_object *jetpack_obj)
 {
 	app->player.can_fly = true;
 	if (app->is_debug)
@@ -34,7 +34,7 @@ static void		give_jetpack(t_doom3d *app, t_3d_object *jetpack_obj)
 	jetpack_obj->params_type = trigger_type_disabled;
 }
 
-void			inventory_pickup_weapon_object(t_doom3d *app,
+void	inventory_pickup_weapon_object(t_doom3d *app,
 					t_3d_object *weapon_drop_obj)
 {
 	t_weapon	*weapon;
@@ -64,7 +64,7 @@ void			inventory_pickup_weapon_object(t_doom3d *app,
 		event_effect_play, (void*)sf_gun_rel, s_ini(0, 1, st_game, 1.0));
 }
 
-void			inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj)
+void	inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj)
 {
 	t_trigger	*key;
 
@@ -75,14 +75,14 @@ void			inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj)
 		push_custom_event(app, event_object_delete,
 			key_obj, NULL);
 		push_custom_event(app,
-		event_effect_play, (void*)sf_pickup, s_ini(0, 1, st_game, 1.0));
+			event_effect_play, (void*)sf_pickup, s_ini(0, 1, st_game, 1.0));
 		if (app->is_debug)
 			LOG_DEBUG("Picked up key %d", key->key_id);
 		key_obj->params_type = trigger_type_disabled;
 	}
 }
 
-void			inventory_pickup_medkit(t_doom3d *app, t_3d_object *medkit_obj)
+void	inventory_pickup_medkit(t_doom3d *app, t_3d_object *medkit_obj)
 {
 	if (app->player.hp < app->player.max_hp)
 	{
@@ -92,7 +92,7 @@ void			inventory_pickup_medkit(t_doom3d *app, t_3d_object *medkit_obj)
 		push_custom_event(app, event_object_delete,
 			medkit_obj, NULL);
 		push_custom_event(app,
-		event_effect_play, (void*)sf_pickup, s_ini(0, 1, st_game, 1.0));
+			event_effect_play, (void*)sf_pickup, s_ini(0, 1, st_game, 1.0));
 		if (app->is_debug)
 			LOG_DEBUG("Picked up medkit");
 		medkit_obj->params_type = trigger_type_disabled;

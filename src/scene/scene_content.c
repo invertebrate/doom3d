@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_content.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 00:39:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:35:01 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Initialize scene_id_main_game
 */
 
-static void		scene_game_init(t_doom3d *app)
+static void	scene_game_init(t_doom3d *app)
 {
 	t_3d_object		*start;
 
@@ -24,16 +24,15 @@ static void		scene_game_init(t_doom3d *app)
 		app->active_scene->skybox_textures, app->unit_size);
 	read_map(app, app->level_list[app->current_level]);
 	start = find_one_object_by_type(app, object_type_trigger,
-		trigger_player_start);
+			trigger_player_start);
 	if (!start || !find_one_object_by_type(app, object_type_trigger,
-		trigger_player_end))
+			trigger_player_end))
 	{
-		notify_user(app, (t_notification){
-			.message =
-				"Map does not have Start or End locations, Add them in editor!",
+		notify_user(app, (t_notification){.message
+			= "Map does not have Start or End locations, Add them in editor!",
 			.type = notification_type_info, .time = 2000});
 		push_custom_event(app, event_scene_change,
-			(void*)scene_id_main_menu, NULL);
+			(void *)scene_id_main_menu, NULL);
 		return ;
 	}
 	app->is_third_person = false;
@@ -51,7 +50,7 @@ static void		scene_game_init(t_doom3d *app)
 ** Initialize scene for editor
 */
 
-static void		scene_editor_init(t_doom3d *app)
+static void	scene_editor_init(t_doom3d *app)
 {
 	editor_deselect_all(app);
 	app->editor.is_moving = false;
@@ -80,7 +79,7 @@ static void		scene_editor_init(t_doom3d *app)
 	player_rotate_vertical(app, -90);
 }
 
-static void		active_scene_init(t_doom3d *app)
+static void	active_scene_init(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
@@ -96,7 +95,7 @@ static void		active_scene_init(t_doom3d *app)
 	}
 }
 
-static void		active_scene_mouse_mode_set(t_doom3d *app)
+static void	active_scene_mouse_mode_set(t_doom3d *app)
 {
 	if (app->active_scene->scene_id != scene_id_main_game)
 	{
@@ -114,17 +113,17 @@ static void		active_scene_mouse_mode_set(t_doom3d *app)
 ** Set textures, normal maps, and other assets for active scene
 */
 
-void			active_scene_content_set(t_doom3d *app)
+void	active_scene_content_set(t_doom3d *app)
 {
-	if (app->active_scene->scene_id == scene_id_main_game ||
-		app->active_scene->scene_id == scene_id_editor3d)
+	if (app->active_scene->scene_id == scene_id_main_game
+		|| app->active_scene->scene_id == scene_id_editor3d)
 	{
 		LOG_INFO("Create Texture Hash Map");
-		app->active_scene->object_textures =
-			hash_map_create(MAX_NUM_OBJECTS);
+		app->active_scene->object_textures
+			= hash_map_create(MAX_NUM_OBJECTS);
 		LOG_INFO("Create Normal Map Hash Map");
-		app->active_scene->object_normal_maps =
-			hash_map_create(MAX_NUM_OBJECTS);
+		app->active_scene->object_normal_maps
+			= hash_map_create(MAX_NUM_OBJECTS);
 		LOG_INFO("Create Camera");
 		app->active_scene->main_camera = new_camera();
 		app->active_scene->third_person_camera = new_camera();
