@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_keyboard_state.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:41:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 14:36:55 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/05 17:04:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,23 @@ static t_bool	wasd_is_pressed(t_doom3d *app)
 
 static void	handle_wasd_input(t_doom3d *app)
 {
-	int32_t	shift;
+	int	shift;
+	int	neg_shift;
 
 	if (app->keyboard.state[SDL_SCANCODE_LSHIFT])
 		shift = 5;
 	else
 		shift = 1;
+	neg_shift = -shift;
 	if (app->keyboard.state[SDL_SCANCODE_W])
 		push_custom_event(app, event_editor_move_view_forward,
 			(void *)(intptr_t)shift, NULL);
 	if (app->keyboard.state[SDL_SCANCODE_A])
 		push_custom_event(app, event_editor_move_view_sideways,
-			(void *)(intptr_t)-shift, NULL);
+			(void *)(intptr_t)neg_shift, NULL);
 	if (app->keyboard.state[SDL_SCANCODE_S])
 		push_custom_event(app, event_editor_move_view_forward,
-			(void *)(intptr_t)-shift, NULL);
+			(void *)(intptr_t)neg_shift, NULL);
 	if (app->keyboard.state[SDL_SCANCODE_D])
 		push_custom_event(app, event_editor_move_view_sideways,
 			(void *)(intptr_t)shift, NULL);

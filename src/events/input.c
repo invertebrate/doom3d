@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:56:40 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/05 16:59:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,29 @@ static void	handle_all_button_events(t_doom3d *app, SDL_Event event)
 	}
 }
 
+static void	handle_wheel(t_doom3d *app, SDL_Event event)
+{
+	int32_t	weapon;
+	int32_t	add;
+
+	add = -1;
+	if (event.wheel.y > 0)
+		add = 1;
+	if (!app->is_third_person)
+	{
+		weapon = app->player.equipped_weapon->id + add;
+		if (weapon < 0)
+			weapon = 3;
+		if (weapon >= 4)
+			weapon = 0;
+		push_custom_event(app, event_player_weapon_equip,
+			(void *)(intptr_t)weapon, NULL);
+	}
+	else
+		push_custom_event(app, event_third_person_zoom,
+			(void *)(intptr_t)(add * -1), NULL);
+}
+
 /*
 ** Handle button events for game including weapon switch via mouse wheel
 ** See keyboard_state.c and mouse_state.c for movement
@@ -48,33 +71,12 @@ static void	handle_all_button_events(t_doom3d *app, SDL_Event event)
 
 void	handle_game_input_events(t_doom3d *app, SDL_Event event)
 {
-	int32_t	weapon;
-	int32_t	add;
-
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE)
 		push_custom_event(app, event_player_jump, NULL, NULL);
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_9)
 		push_custom_event(app, event_player_toggle_flight, NULL, NULL);
 	if (event.type == SDL_MOUSEWHEEL)
-	{
-		if (event.wheel.y > 0)
-			add = 1;
-		else
-			add = -1;
-		if (!app->is_third_person)
-		{
-			weapon = app->player.equipped_weapon->id + add;
-			if (weapon < 0)
-				weapon = 3;
-			if (weapon >= 4)
-				weapon = 0;
-			push_custom_event(app, event_player_weapon_equip,
-				(void *)(intptr_t)weapon, NULL);
-		}
-		else
-			push_custom_event(app, event_third_person_zoom,
-				(void *)(intptr_t)(add * -1), NULL);
-	}
+		handle_wheel(app, event);
 }
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 01:29:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 14:25:27 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/05 16:57:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	handle_object_rotate_y(t_doom3d *app, t_3d_object *object,
 {
 	(void)app;
 	l3d_3d_object_rotate(object, 0, amount, 0);
+	if (object->type == object_type_npc)
+		((t_npc *)object->params)->angle += amount;
 }
 
 void	handle_object_rotate_z(t_doom3d *app, t_3d_object *object,
