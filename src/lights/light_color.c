@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   light_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:52:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 11:54:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 13:56:25 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-uint32_t		get_light_emit_color(t_3d_object *light_obj)
+uint32_t	get_light_emit_color(t_3d_object *light_obj)
 {
 	t_light_type	light_type;
 
