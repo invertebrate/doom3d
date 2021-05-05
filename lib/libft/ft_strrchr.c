@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 18:54:27 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:58:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:12:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	char *ret;
+	char	*ret;
 
 	ret = NULL;
 	while (*s)
 	{
 		if (*s == c)
-			ret = (char*)s;
+			ret = (char *)s;
 		s++;
 	}
 	if (*s == c)
-		ret = (char*)s;
+		ret = (char *)s;
 	return (ret);
 }

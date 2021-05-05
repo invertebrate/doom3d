@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:15:47 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:46:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:30:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include "radix_sort.h"
 # include "logger.h"
 
-typedef struct	s_list
+typedef struct s_list
 {
 	void			*content;
 	size_t			content_size;
@@ -40,21 +40,21 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
-typedef struct	s_rgb
+typedef struct s_rgb
 {
 	int			r;
 	int			g;
 	int			b;
 }				t_rgb;
 
-typedef struct	s_pixel
+typedef struct s_pixel
 {
 	int			x;
 	int			y;
 	int			color;
 }				t_pixel;
 
-typedef struct	s_pixel_bounds
+typedef struct s_pixel_bounds
 {
 	int			x_start;
 	int			x_end;
@@ -65,30 +65,30 @@ typedef struct	s_pixel_bounds
 /*
 ** Assumes little-endian machine.
 */
-typedef struct	s_float_bits {
-	unsigned long long int		fraction:52;
-	unsigned long long int		exp:11;
-	unsigned long long int		sign:1;
+typedef struct s_float_bits {
+	unsigned long long int		fraction :52;
+	unsigned long long int		exp :11;
+	unsigned long long int		sign :1;
 }				t_float_bits;
 
-typedef union	u_float_dissector {
+typedef union u_float_dissector {
 	double			f;
 	t_float_bits	b;
 }				t_float_dissector;
 
-typedef struct	s_float_bits_ld {
-	unsigned long long int		fraction:63;
-	unsigned long long int		intbit:1;
-	unsigned long long int		exp:15;
-	unsigned long long int		sign:1;
+typedef struct s_float_bits_ld {
+	unsigned long long int		fraction :63;
+	unsigned long long int		intbit :1;
+	unsigned long long int		exp :15;
+	unsigned long long int		sign :1;
 }				t_float_bits_ld;
 
-typedef union	u_float_dissector_ld {
+typedef union u_float_dissector_ld {
 	long double			f;
 	t_float_bits_ld		b;
 }				t_float_dissector_ld;
 
-typedef struct	s_file_contents
+typedef struct s_file_contents
 {
 	void				*buf;
 	uint32_t			size;
@@ -117,7 +117,7 @@ int				ft_atoi(const char *str);
 long long int	ft_atoi_long(const char *str);
 char			*ft_strstr(const char *haystack, const char *needle);
 char			*ft_strnstr(const char *haystack, const char *needle,
-				size_t len);
+					size_t len);
 void			*ft_calloc(size_t size);
 void			ft_memdel(void **ap);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
@@ -170,26 +170,27 @@ float			ft_sqrt(const float x);
 size_t			ft_lstlen(t_list *lst);
 int				ft_lmap_int(int nb, int *in_minmax, int *out_minmax);
 double			ft_lmap_double(double nb, double *in_minmax,
-				double *out_minmax);
+					double *out_minmax);
 double			ft_abs(double nb);
 double			ft_max_double(double *arr, size_t size);
 int				ft_max_int(int *arr, size_t size);
 double			ft_min_double(double *arr, size_t size);
 int				ft_min_int(int *arr, size_t size);
 void			ft_pixel_foreach(t_pixel_bounds *limits,
-				void *params, void (*f)(int pixel_i, int x, int y,
-				void *params));
+					void *params, void (*f)(int pixel_i, int x, int y,
+						void *params));
 void			ft_sort_int_tab(int *tab, unsigned int size, int dir);
 long double		ft_abs_long_double(long double nb);
 int				ft_match(char *s1, char *s2);
 void			ft_strrev(char *str);
 size_t			get_num_len(uint64_t nb, uint64_t base);
+int32_t			get_sign(int64_t nb);
 void			ft_capitalize(char *str);
 void			ft_uncapitalize(char *str);
 long double		ft_powl(long double nb, int pow);
 int				ft_exp_base(long double nb, int base);
 char			*ft_strnjoin(char const *s1, char const *s2,
-				size_t len1, size_t len2);
+					size_t len1, size_t len2);
 double			ft_ceil(double num);
 double			ft_floor(double num);
 uint32_t		ft_rand(uint32_t seed);

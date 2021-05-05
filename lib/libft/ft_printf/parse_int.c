@@ -6,23 +6,32 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 12:52:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:50:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 17:02:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+static void	handle_capital_length(t_printf *data)
+{
+	if (data->c == 'U')
+		data->c = 'u';
+	if (data->c == 'D')
+		data->c = 'd';
+	if (data->c == 'O')
+		data->c = 'o';
+}
+
 /*
 ** Consumes int variable based on length flags.
 */
 
-static uint64_t			parse_type(t_printf *data)
+static uint64_t	parse_type(t_printf *data)
 {
 	uint64_t		var;
 
-	if ((data->c == 'U' && (data->c = 'u')) ||
-		(data->c == 'D' && (data->c = 'd')) ||
-		(data->c == 'O' && (data->c = 'o')))
+	handle_capital_length(data);
+	if (data->c == 'u' || data->c == 'd' || data->c == 'o')
 		data->type = length_ll;
 	if (data->type == length_h)
 		var = (uint64_t)((short int)va_arg(data->variables, int32_t));
@@ -47,13 +56,14 @@ static uint64_t			parse_type(t_printf *data)
 ** Chooses which itoa to use based on length modifiers
 */
 
-static char				*printf_itoa(t_printf *data, uint64_t var,
-						int base, int is_signed)
+static char	*printf_itoa(t_printf *data, uint64_t var,
+				int base, int is_signed)
 {
 	int				is_conversion_up;
 
-	is_conversion_up = data->type == length_l || data->type == length_ll ||
-	data->type == length_j || data->type == length_z || data->type == length_t;
+	is_conversion_up = data->type == length_l || data->type == length_ll
+		|| data->type == length_j || data->type == length_z
+		|| data->type == length_t;
 	if (!is_signed)
 	{
 		if (data->type == length_hh)
@@ -78,7 +88,7 @@ static char				*printf_itoa(t_printf *data, uint64_t var,
 ** Parses ints based on int specifiers, and lengths
 */
 
-char					*parse_int(t_printf *data)
+char	*parse_int(t_printf *data)
 {
 	char			*res;
 	uint64_t		var;
@@ -107,7 +117,7 @@ char					*parse_int(t_printf *data)
 ** case of int
 */
 
-char					*parse_address(t_printf *data)
+char	*parse_address(t_printf *data)
 {
 	char			*res;
 	uint64_t		var;

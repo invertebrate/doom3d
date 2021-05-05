@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   parse_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 18:21:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:51:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 12:45:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Checks if zero flag (0) is found in between % and specifier
 */
 
-static int		check_zero_flag(t_printf *data,
+static int	check_zero_flag(t_printf *data,
 				int *index, int *found_zero)
 {
 	int		i;
@@ -41,7 +41,7 @@ static int		check_zero_flag(t_printf *data,
 ** maps found flags to t_printf data*
 */
 
-int				check_flag(t_printf *data, int *index, int *found_zero)
+int	check_flag(t_printf *data, int *index, int *found_zero)
 {
 	int		i;
 
@@ -67,40 +67,10 @@ int				check_flag(t_printf *data, int *index, int *found_zero)
 }
 
 /*
-** Checks for variable size flags and maps them to t_printf *data
-*/
-
-int				check_length(t_printf *data, int *index, char s)
-{
-	int		i;
-
-	i = *index;
-	if (i - 1 >= 0 && s == 'h' && data->spec[i - 1] == 'h')
-		data->type = data->type > length_hh && data->type != length_h ?
-			data->type : length_hh;
-	else if (s == 'h')
-		data->type = data->type > length_h ? data->type : length_h;
-	else if (i - 1 >= 0 && s == 'l' && data->spec[i - 1] == 'l')
-		data->type = data->type > length_ll && data->type != length_l ?
-			data->type : length_ll;
-	else if (s == 'l')
-		data->type = data->type > length_l ? data->type : length_l;
-	else if (s == 'j')
-		data->type = data->type > length_j ? data->type : length_j;
-	else if (s == 'z')
-		data->type = data->type > length_z ? data->type : length_z;
-	else if (s == 't')
-		data->type = data->type > length_t ? data->type : length_t;
-	else if (s == 'L')
-		data->type = data->type > length_L ? data->type : length_L;
-	return (true);
-}
-
-/*
 ** I do not remember the purpose of this :D (something to do with zerox flag)
 */
 
-int				check_parsed_zero(t_printf *data, char *res)
+int	check_parsed_zero(t_printf *data, char *res)
 {
 	int				i;
 	int				is_zero;
@@ -108,8 +78,24 @@ int				check_parsed_zero(t_printf *data, char *res)
 	is_zero = true;
 	i = -1;
 	while (res[++i])
-		if (res[i] != '0' && !(is_zero = false))
+	{
+		if (res[i] != '0')
+		{
+			is_zero = false;
 			break ;
+		}
+	}
 	data->is_zero_res = is_zero;
 	return (true);
+}
+
+char	*get_next_after_percentage(char *fmt, int *i)
+{
+	while (fmt[*i])
+	{
+		if (fmt[*i] == '%')
+			return (fmt + *i);
+		(*i)++;
+	}
+	return (NULL);
 }

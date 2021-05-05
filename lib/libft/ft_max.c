@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 14:48:39 by ohakola           #+#    #+#             */
-/*   Updated: 2020/02/02 17:02:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:38:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double	ft_max_double(double *arr, size_t size)
 	return (max);
 }
 
-int		ft_max_int(int *arr, size_t size)
+int	ft_max_int(int *arr, size_t size)
 {
 	size_t	i;
 	int		max;
@@ -60,7 +60,7 @@ double	ft_min_double(double *arr, size_t size)
 	return (min);
 }
 
-int		ft_min_int(int *arr, size_t size)
+int	ft_min_int(int *arr, size_t size)
 {
 	size_t	i;
 	int		min;

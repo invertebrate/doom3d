@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 17:27:15 by ohakola           #+#    #+#             */
-/*   Updated: 2020/10/16 19:23:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:50:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 
 typedef struct s_hash_node	t_hash_node;
 
-struct						s_hash_node
+struct s_hash_node
 {
 	int			key;
 	void		*val;
 	t_hash_node	*next;
 };
 
-typedef struct				s_hash_table
+typedef struct s_hash_table
 {
 	int			size;
 	t_hash_node	**list;
@@ -58,7 +58,7 @@ t_hash_table				*hash_map_create(int size);
 int							hash_map_hash(t_hash_table *table, int key);
 void						*hash_map_get(t_hash_table *table, int key);
 void						hash_map_add(t_hash_table *table, int key,
-							void *val);
+								void *val);
 t_bool						hash_map_has_key(t_hash_table *table, int key);
 
 #endif

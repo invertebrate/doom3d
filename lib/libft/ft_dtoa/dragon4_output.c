@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 18:52:45 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:48:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:47:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 */
 
 static t_bool	is_round_down(t_big_int *scale, t_big_int *scaled_value,
-				uint32_t output_digit, t_bool lo_hi[2])
+					uint32_t output_digit, t_bool lo_hi[2])
 {
 	int32_t		compare;
 	t_bool		round_down;
@@ -42,7 +42,7 @@ static t_bool	is_round_down(t_big_int *scale, t_big_int *scaled_value,
 */
 
 static int32_t	cutoff(t_dragon4_params params,
-				int32_t digit_exponent)
+					int32_t digit_exponent)
 {
 	int32_t		cutoff_exponent;
 	int32_t		desired_cutoff_exponent;
@@ -68,7 +68,7 @@ static int32_t	cutoff(t_dragon4_params params,
 */
 
 static uint32_t	round_if_needed(t_dragon4_params params, t_bool round_down,
-				uint32_t output_digit, uint32_t pos)
+					uint32_t output_digit, uint32_t pos)
 {
 	if (round_down)
 		params.buf[pos++] = (char)('0' + output_digit);
@@ -106,8 +106,8 @@ static uint32_t	round_if_needed(t_dragon4_params params, t_bool round_down,
 ** as large as low margin.
 */
 
-uint32_t		output_without_cutoff(t_dragon4_params params, t_big_int *scale,
-				t_big_int *scaled_value, t_big_int **scaled_margins)
+uint32_t	output_without_cutoff(t_dragon4_params params, t_big_int *scale,
+					t_big_int *scaled_value, t_big_int **scaled_margins)
 {
 	int32_t		exp;
 	uint32_t	output_digit;
@@ -133,7 +133,7 @@ uint32_t		output_without_cutoff(t_dragon4_params params, t_big_int *scale,
 			big_int_mul_2(scaled_margins[0], scaled_margins[1]);
 	}
 	return (round_if_needed(params, is_round_down(scale, scaled_value,
-		output_digit, lo_hi), output_digit, pos));
+				output_digit, lo_hi), output_digit, pos));
 }
 
 /*
@@ -143,7 +143,7 @@ uint32_t		output_without_cutoff(t_dragon4_params params, t_big_int *scale,
 ** reach the cutoff.
 */
 
-uint32_t		output_with_cutoff(t_dragon4_params params, t_big_int *scale,
+uint32_t	output_with_cutoff(t_dragon4_params params, t_big_int *scale,
 				t_big_int *scaled_value)
 {
 	int32_t		exp;
@@ -161,13 +161,12 @@ uint32_t		output_with_cutoff(t_dragon4_params params, t_big_int *scale,
 	{
 		exp = exp - 1;
 		output_digit = big_int_divide_to_output_digit(scaled_value, scale);
-		if (big_int_is_zero(scaled_value) |
-			(exp == cutoff_exponent))
+		if (big_int_is_zero(scaled_value) | (exp == cutoff_exponent))
 			break ;
 		params.buf[pos] = (char)('0' + output_digit);
 		pos++;
 		big_int_mul_10_modif(scaled_value);
 	}
 	return (round_if_needed(params, is_round_down(scale, scaled_value,
-		output_digit, lo_hi), output_digit, pos));
+				output_digit, lo_hi), output_digit, pos));
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:59:46 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:50:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 11:56:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Handles precision per data type.
 */
 
-static char				*handle_precision(t_printf *data, char *res)
+static char	*handle_precision(t_printf *data, char *res)
 {
 	if (is_int_specifier(data->c))
 		res = handle_number_precision(data, res);
@@ -33,7 +33,7 @@ static char				*handle_precision(t_printf *data, char *res)
 ** Handles padding based on data->c (variable type from spec)
 */
 
-static char				*handle_padding(t_printf *data, char *res)
+static char	*handle_padding(t_printf *data, char *res)
 {
 	if (is_int_specifier(data->c))
 		return (handle_int_padding(data, res));
@@ -54,15 +54,15 @@ static char				*handle_padding(t_printf *data, char *res)
 ** Sets special case flags for int
 */
 
-static void				handle_int_flag_specials(t_printf *data)
+static void	handle_int_flag_specials(t_printf *data)
 {
-	if (data->left_justify ||
-		(data->has_precision && data->precision == 0) ||
-		data->c == 'b')
+	if (data->left_justify
+		|| (data->has_precision && data->precision == 0)
+		|| data->c == 'b')
 		data->pad_zeros = false;
-	if (data->c == 'u' || data->c == 'U' ||
-		data->c == 'x' || data->c == 'X' ||
-		data->c == 'o' || data->c == 'O' || data->c == 'p')
+	if (data->c == 'u' || data->c == 'U'
+		|| data->c == 'x' || data->c == 'X'
+		|| data->c == 'o' || data->c == 'O' || data->c == 'p')
 	{
 		data->show_sign = false;
 		data->is_negative = false;
@@ -77,17 +77,17 @@ static void				handle_int_flag_specials(t_printf *data)
 ** and flags.
 */
 
-char					*handle_formatting(t_printf *data, char *res)
+char	*handle_formatting(t_printf *data, char *res)
 {
 	if (is_int_specifier(data->c) || data->c == 'p')
 		handle_int_flag_specials(data);
 	else if (is_float_specifier(data->c))
 	{
-		if (data->pad_zeros && (data->left_justify ||
-			ft_match(res, "*nan") || ft_match(res, "*inf")))
+		if (data->pad_zeros && (data->left_justify
+				|| ft_match(res, "*nan") || ft_match(res, "*inf")))
 			data->pad_zeros = false;
-		if (data->blank_space &&
-			(data->show_sign || data->is_negative || ft_match(res, "*nan")))
+		if (data->blank_space
+			&& (data->show_sign || data->is_negative || ft_match(res, "*nan")))
 			data->blank_space = false;
 		if (data->show_sign && ft_match(res, "*nan"))
 			data->show_sign = false;
@@ -97,7 +97,8 @@ char					*handle_formatting(t_printf *data, char *res)
 		if (data->blank_space || data->left_justify)
 			data->pad_zeros = false;
 	}
-	if (!(res = handle_precision(data, res)))
+	res = handle_precision(data, res);
+	if (!res)
 		return (NULL);
 	res = handle_padding(data, res);
 	return (res);

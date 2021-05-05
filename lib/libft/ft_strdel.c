@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 19:47:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:57:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:42:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@
 
 void	ft_strdel(char **as)
 {
-	ft_memdel((void*)as);
+	ft_memdel((void *)as);
 }

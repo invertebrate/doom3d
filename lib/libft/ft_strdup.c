@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 15:56:08 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:57:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:14:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strdup(const char *s1)
 	size_t	len;
 
 	len = (size_t)ft_strlen(s1);
-	dup = (char*)ft_calloc(len + 1);
+	dup = (char *)ft_calloc(len + 1);
 	if (dup)
 	{
 		dup = ft_memcpy(dup, s1, len + 1);

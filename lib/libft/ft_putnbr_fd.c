@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 12:45:46 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:56:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:40:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ void	ft_putnbr_fd(int nb, int fd)
 {
 	int	digits[10];
 	int	index;
-	int sign;
+	int	sign;
 
 	index = 0;
-	sign = nb >= 0 ? 1 : -1;
+	sign = 1;
+	if (nb < 0)
+		sign = -1;
 	if (nb == false)
 		ft_putchar_fd('0', fd);
 	while (nb != 0)

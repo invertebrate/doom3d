@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 15:53:35 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:51:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:33:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,16 @@
 ** Each element in the table is set as NULL
 */
 
-t_hash_table		*hash_map_create(int size)
+t_hash_table	*hash_map_create(int size)
 {
 	t_hash_table	*table;
 	int				i;
 
-	if (!(table = ft_calloc(sizeof(t_hash_table))))
-	{
-		ft_dprintf(2, "Failed to malloc hash table\n");
-		exit(EXIT_FAILURE);
-		return (NULL);
-	}
+	table = ft_calloc(sizeof(t_hash_table));
+	error_check(!table, "Failed to malloc hash table");
 	table->size = size;
-	if (!(table->list = ft_calloc(sizeof(t_hash_node*) * size)))
-	{
-		ft_dprintf(2, "Failed to malloc hash table list\n");
-		exit(EXIT_FAILURE);
-		return (NULL);
-	}
+	error_check(!(table->list = ft_calloc(sizeof(t_hash_node *) * size)),
+		"Failed to malloc hash table list");
 	i = -1;
 	while (++i < size)
 		table->list[i] = NULL;
@@ -46,7 +38,7 @@ t_hash_table		*hash_map_create(int size)
 ** Hashing function used to quickly access areas inside the hash table
 */
 
-int					hash_map_hash(t_hash_table *table, int key)
+int	hash_map_hash(t_hash_table *table, int key)
 {
 	if (key < 0)
 		return (-(key % table->size));
@@ -59,7 +51,7 @@ int					hash_map_hash(t_hash_table *table, int key)
 ** Else a new node is added.
 */
 
-void				hash_map_add(t_hash_table *table, int key, void *val)
+void	hash_map_add(t_hash_table *table, int key, void *val)
 {
 	int			pos;
 	t_hash_node	*list;
@@ -80,8 +72,8 @@ void				hash_map_add(t_hash_table *table, int key, void *val)
 		}
 		temp = temp->next;
 	}
-	if (!(new_node = ft_calloc(sizeof(t_hash_node))))
-		return (void)(ft_dprintf(2, "Failed to malloc new node\n"));
+	error_check(!(new_node = ft_calloc(sizeof(t_hash_node))),
+		"Failed to malloc new node to hash table");
 	new_node->key = key;
 	new_node->val = val;
 	new_node->next = list;
@@ -92,7 +84,7 @@ void				hash_map_add(t_hash_table *table, int key, void *val)
 ** Retrieve a value from the hash table. If value is not found, return NULL.
 */
 
-void				*hash_map_get(t_hash_table *table, int key)
+void	*hash_map_get(t_hash_table *table, int key)
 {
 	t_hash_node	*temp;
 
@@ -112,7 +104,7 @@ void				*hash_map_get(t_hash_table *table, int key)
 ** Retrieve a value from the hash table. If value is not found, return NULL.
 */
 
-t_bool				hash_map_has_key(t_hash_table *table, int key)
+t_bool	hash_map_has_key(t_hash_table *table, int key)
 {
 	t_hash_node	*temp;
 

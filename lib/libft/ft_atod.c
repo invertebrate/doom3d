@@ -6,14 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 15:12:27 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:54:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:33:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <math.h>
 
-static double			fractional_part(char *str)
+static double	fractional_part(char *str)
 {
 	int		zeros;
 	double	frac;
@@ -44,7 +44,7 @@ static double			fractional_part(char *str)
 ** returns sign for int part.
 */
 
-double					ft_atod(char *str)
+double	ft_atod(char *str)
 {
 	double	val;
 	int		sign;
@@ -52,7 +52,9 @@ double					ft_atod(char *str)
 	if (!(*str == '-' || *str == '+' || ft_isdigit(*str)))
 		return (0.0);
 	val = (double)ft_atoi_long(str);
-	sign = *str == '-' ? -1 : 1;
+	sign = 1;
+	if (*str == '-')
+		sign = -1;
 	while (ft_isdigit(*str) || *str == '-' || *str == '+')
 		str++;
 	val *= sign;

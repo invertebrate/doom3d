@@ -6,15 +6,15 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 19:34:30 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:58:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:50:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t		word_len(char *str, char c)
+static size_t	word_len(char *str, char c)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (*str != c && *str)
@@ -25,26 +25,28 @@ static size_t		word_len(char *str, char c)
 	return (i);
 }
 
-static void			*add_word_to_node(const char *str, size_t s_len,
-					t_list **prev, t_list **head)
+static void	*add_word_to_node(const char *str, size_t s_len,
+				t_list **prev, t_list **head)
 {
 	t_list			*new;
 
 	if (!*prev)
 	{
-		if (!(new = ft_lstnew(ft_strsub(str, 0, s_len), s_len + 1)))
+		new = ft_lstnew(ft_strsub(str, 0, s_len), s_len + 1);
+		if (!new)
 			return (NULL);
 		*head = new;
 		*prev = *head;
 	}
 	else
 	{
-		if (!(new = ft_lstnew(ft_strsub(str, 0, s_len), s_len + 1)))
+		new = ft_lstnew(ft_strsub(str, 0, s_len), s_len + 1);
+		if (!new)
 			return (NULL);
 		(*prev)->next = new;
 		*prev = new;
 	}
-	return ((void*)(1));
+	return ((void *)(1));
 }
 
 /*
@@ -54,7 +56,7 @@ static void			*add_word_to_node(const char *str, size_t s_len,
 ** NULL.
 */
 
-t_list				*ft_strsplit_lst(char const *str, char c)
+t_list	*ft_strsplit_lst(char const *str, char c)
 {
 	t_list			*prev;
 	t_list			*head;
@@ -70,7 +72,7 @@ t_list				*ft_strsplit_lst(char const *str, char c)
 			str++;
 		if (*str != c && *str)
 		{
-			s_len = word_len((char*)str, c);
+			s_len = word_len((char *)str, c);
 			if (add_word_to_node(str, s_len, &prev, &head) == NULL)
 				return (NULL);
 			str += s_len;

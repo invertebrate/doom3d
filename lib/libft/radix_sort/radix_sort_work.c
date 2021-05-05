@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 21:34:09 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:53:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 17:18:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "radix_sort_utils.h"
 
-void		reorder_work(void *args)
+void	reorder_work(void *args)
 {
 	t_radix_params	*params;
 	size_t			i;
@@ -39,7 +39,7 @@ void		reorder_work(void *args)
 	}
 }
 
-void		histogram_and_local_reorder(void *args)
+void	histogram_and_local_reorder(void *args)
 {
 	t_radix_params	*params;
 	uint32_t		*arr;
@@ -64,10 +64,10 @@ void		histogram_and_local_reorder(void *args)
 	reorder_work(params);
 }
 
-void		histogram(t_thread_pool *pool,
-						t_radix_params *thread_params,
-						size_t shift,
-						uint32_t *arrays[4])
+void	histogram(t_thread_pool *pool,
+			t_radix_params *thread_params,
+			size_t shift,
+			uint32_t *arrays[4])
 {
 	size_t			i;
 	t_radix_params	*param;
@@ -98,7 +98,7 @@ void		histogram(t_thread_pool *pool,
 ** Compute prefix
 */
 
-void		prefix_sum(t_radix_params *thread_params)
+void	prefix_sum(t_radix_params *thread_params)
 {
 	size_t			i;
 	size_t			j;
@@ -122,10 +122,10 @@ void		prefix_sum(t_radix_params *thread_params)
 ** param->out is now the sortable array.
 */
 
-void		reorder(t_thread_pool *pool,
-						t_radix_params *thread_params,
-						size_t shift,
-						uint32_t *arrays[4])
+void	reorder(t_thread_pool *pool,
+			t_radix_params *thread_params,
+			size_t shift,
+			uint32_t *arrays[4])
 {
 	size_t			i;
 	t_radix_params	*param;

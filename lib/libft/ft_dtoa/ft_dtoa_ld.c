@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/30 18:32:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:49:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 11:43:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 ** Version of set_dragon4_params for long double
 */
 
-static void		set_dragon4_params_ld(t_dragon4_params *dragon,
+static void	set_dragon4_params_ld(t_dragon4_params *dragon,
 				t_dtoa_params dtoa, char *buf, uint32_t buf_size)
 {
 	t_float_dissector_ld	fd;
 
-	fd.f = dtoa.value_ld;
+	fd.f = dtoa.value;
 	dragon->no_trailing_zeros = dtoa.g_mode;
 	dragon->hashtag = dtoa.hashtag;
 	if (fd.b.exp != 0)
@@ -49,13 +49,13 @@ static void		set_dragon4_params_ld(t_dragon4_params *dragon,
 ** Version of ft_dtoa for long double
 */
 
-char			*ft_dtoa_ld(t_dtoa_params params)
+char	*ft_dtoa_ld(t_dtoa_params params)
 {
 	char					buf[DTOA_BUF_SIZE];
 	t_dragon4_params		dragon;
 	t_float_dissector_ld	fd;
 
-	fd.f = params.value_ld;
+	fd.f = params.value;
 	if (fd.b.sign == 1)
 		*buf = '-';
 	if (fd.b.exp == 0x7FFF)
@@ -67,8 +67,8 @@ char			*ft_dtoa_ld(t_dtoa_params params)
 		if (params.format == FORMAT_SCI)
 			format_scientific(dragon, params.precision);
 		else
-			format_normal(dragon, params.precision -
-				(params.g_mode && params.hashtag));
+			format_normal(dragon, params.precision
+				- (params.g_mode && params.hashtag));
 	}
 	return (ft_strdup(buf));
 }
@@ -77,26 +77,26 @@ char			*ft_dtoa_ld(t_dtoa_params params)
 ** Version of ft_dtoa_buf for long double
 */
 
-int				ft_dtoa_buf_ld(t_dtoa_params params, char *buf, int buf_size)
+int	ft_dtoa_buf_ld(t_dtoa_params params, char *buf, int buf_size)
 {
 	t_dragon4_params		dragon;
 	t_float_dissector_ld	fd;
 	uint32_t				inf_nan_sign;
 
-	fd.f = params.value_ld;
+	fd.f = params.value;
 	if (fd.b.sign == 1)
 		*buf = '-';
 	inf_nan_sign = (fd.b.sign == 1 && fd.b.fraction == 0);
 	if (fd.b.exp == 0x7FFF)
-		return (format_inf_nan(buf + inf_nan_sign, fd.b.fraction) +
-			inf_nan_sign);
+		return (format_inf_nan(buf + inf_nan_sign, fd.b.fraction)
+			+ inf_nan_sign);
 	else
 	{
 		set_dragon4_params_ld(&dragon, params, buf, buf_size);
 		if (params.format == FORMAT_SCI)
 			return (format_scientific(dragon, params.precision) + fd.b.sign);
 		else
-			return (format_normal(dragon, params.precision -
-				(params.g_mode && params.hashtag)) + fd.b.sign);
+			return (format_normal(dragon, params.precision
+					- (params.g_mode && params.hashtag)) + fd.b.sign);
 	}
 }

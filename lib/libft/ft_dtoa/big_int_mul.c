@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 22:11:51 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:47:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 13:09:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dtoa.h"
 
-static void		perform_mul(t_big_int *small, t_big_int *large,
+static void	perform_mul(t_big_int *small, t_big_int *large,
 				t_big_int *res)
 {
 	uint64_t	carry;
@@ -31,8 +31,8 @@ static void		perform_mul(t_big_int *small, t_big_int *large,
 			r = s;
 			while (++l < large->length)
 			{
-				product = res->blocks[r] + large->blocks[l] *
-					(uint64_t)small->blocks[s] + carry;
+				product = res->blocks[r] + large->blocks[l]
+					* (uint64_t)small->blocks[s] + carry;
 				carry = product >> 32;
 				res->blocks[r++] = product & 0xFFFFFFFF;
 			}
@@ -47,15 +47,20 @@ static void		perform_mul(t_big_int *small, t_big_int *large,
 ** result.
 */
 
-void			big_int_mul(t_big_int *lhs, t_big_int *rhs, t_big_int *res)
+void	big_int_mul(t_big_int *lhs, t_big_int *rhs, t_big_int *res)
 {
 	t_big_int	*large;
 	t_big_int	*small;
 	uint32_t	max_len;
 	size_t		i;
 
-	small = lhs->length < rhs->length ? lhs : rhs;
-	large = lhs->length < rhs->length ? rhs : lhs;
+	small = rhs;
+	large = lhs;
+	if (lhs->length < rhs->length)
+	{
+		small = lhs;
+		large = rhs;
+	}
 	max_len = large->length + small->length;
 	res->length = max_len;
 	i = -1;
@@ -71,7 +76,7 @@ void			big_int_mul(t_big_int *lhs, t_big_int *rhs, t_big_int *res)
 ** into result.
 */
 
-void			big_int_mul_u32(t_big_int *lhs, uint32_t rhs, t_big_int *res)
+void	big_int_mul_u32(t_big_int *lhs, uint32_t rhs, t_big_int *res)
 {
 	uint32_t	carry;
 	uint64_t	product;
@@ -97,7 +102,7 @@ void			big_int_mul_u32(t_big_int *lhs, uint32_t rhs, t_big_int *res)
 ** Doubles a t_big_int saving it into result.
 */
 
-void			big_int_mul_2(t_big_int *lhs, t_big_int *res)
+void	big_int_mul_2(t_big_int *lhs, t_big_int *res)
 {
 	uint32_t	carry;
 	uint32_t	cur;

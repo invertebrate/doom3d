@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrev.c                                        :+:      :+:    :+:   */
+/*   parse_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/27 15:32:10 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 16:11:55 by ohakola          ###   ########.fr       */
+/*   Created: 2021/05/05 13:32:24 by ohakola           #+#    #+#             */
+/*   Updated: 2021/05/05 13:33:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_strrev(char *str)
+t_dtoa_format	get_float_f_format(t_printf *data)
 {
-	int		i;
-	int		len;
-	char	temp;
+	t_dtoa_format		format;
 
-	len = ft_strlen(str);
-	i = 0;
-	while (i < len / 2)
-	{
-		temp = str[i];
-		str[i] = str[len - i - 1];
-		str[len - i - 1] = temp;
-		i++;
-	}
+	format = FORMAT_SCI;
+	if (data->c == 'f' || data->c == 'F')
+		format = FORMAT_NORM;
+	return (format);
 }

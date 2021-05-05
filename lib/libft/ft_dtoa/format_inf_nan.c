@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 13:29:41 by ohakola           #+#    #+#             */
-/*   Updated: 2020/08/30 21:30:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:52:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dtoa.h"
 
-uint32_t		format_inf_nan(char *buf, uint64_t mantissa)
+uint32_t	format_inf_nan(char *buf, uint64_t mantissa)
 {
 	uint32_t	print_len;
 

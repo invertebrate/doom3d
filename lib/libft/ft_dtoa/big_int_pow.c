@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 22:14:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:48:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:46:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_big_int		g_power_of_10_big[10] = {(t_big_int){1, {100000000}},
 			0xd595d80f, 0x26b2716e, 0xadc666b0, 0x1d153624, 0x3c42d35a,
 			0x63ff540e, 0xcc5573c0, 0x65f9ef17, 0x55bc28f2, 0x80dcc7f7,
 			0xf46eeddc, 0x5fdcefce, 0x000553f7}},
-		(t_big_int){ 54, {
+		(t_big_int){54, {
 			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
 			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
 			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
@@ -50,7 +50,7 @@ t_big_int		g_power_of_10_big[10] = {(t_big_int){1, {100000000}},
 			0x93abade4, 0x1366732a, 0x9449775c, 0x69be5b0e, 0x7343afac,
 			0xb099bc81, 0x45a71d46, 0xa2699748, 0x8cb07303, 0x8a0b1f13,
 			0x8cab8a97, 0xc1d238d9, 0x633415d4, 0x0000001c}},
-		(t_big_int){ 107, {
+		(t_big_int){107, {
 			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
 			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
 			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
@@ -73,7 +73,7 @@ t_big_int		g_power_of_10_big[10] = {(t_big_int){1, {100000000}},
 			0x73c55349, 0xa7e6bd2a, 0xc1a6970c, 0x47187094, 0xd2db49ef,
 			0x926c3f5b, 0xae6209d4, 0x2d433949, 0x34f4a3c6, 0xd4305d94,
 			0xd9d61a05, 0x00000325}},
-		(t_big_int){ 213, {
+		(t_big_int){213, {
 			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
 			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
 			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
@@ -117,7 +117,7 @@ t_big_int		g_power_of_10_big[10] = {(t_big_int){1, {100000000}},
 			0xf7e928e6, 0xf2ee5ca6, 0x1b61b93c, 0x11eb962b, 0x9648b21c,
 			0xce2bcba1, 0x34f77154, 0x7bbebe30, 0xe526a319, 0x8ce329ac,
 			0xde4a74d2, 0xb5dc53d5, 0x0009e8b3}},
-		(t_big_int){ 426, {
+		(t_big_int){426, {
 			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
 			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
 			0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
@@ -205,7 +205,7 @@ t_big_int		g_power_of_10_big[10] = {(t_big_int){1, {100000000}},
 			0xbb0fd922, 0x25254932, 0xa60a9fc0, 0x104bcd64, 0x30290145,
 			0x00000062}}};
 
-void			mul_lhs_by_small_exponent(t_big_int *lhs, uint32_t exponent,
+void	mul_lhs_by_small_exponent(t_big_int *lhs, uint32_t exponent,
 				t_big_int *curr)
 {
 	if ((exponent & 0x7) != 0)
@@ -218,7 +218,7 @@ void			mul_lhs_by_small_exponent(t_big_int *lhs, uint32_t exponent,
 ** Outputs a big int of 10^exponent into result
 */
 
-void			big_int_pow_10(uint32_t exponent, t_big_int *res)
+void	big_int_pow_10(uint32_t exponent, t_big_int *res)
 {
 	t_big_int	temps[2];
 	t_big_int	*curr;
@@ -250,8 +250,8 @@ void			big_int_pow_10(uint32_t exponent, t_big_int *res)
 ** Multiplies a big int with 10^exponent into result
 */
 
-void			big_int_mul_pow_10(t_big_int *lhs, uint32_t exponent,
-				t_big_int *res)
+void	big_int_mul_pow_10(t_big_int *lhs, uint32_t exponent,
+			t_big_int *res)
 {
 	t_big_int	temps[2];
 	t_big_int	*curr;
@@ -283,7 +283,7 @@ void			big_int_mul_pow_10(t_big_int *lhs, uint32_t exponent,
 ** Outputs a big int of 2^exponent into result
 */
 
-void			big_int_pow_2(uint32_t exponent, t_big_int *res)
+void	big_int_pow_2(uint32_t exponent, t_big_int *res)
 {
 	uint32_t	block_i;
 	uint32_t	bit_i;

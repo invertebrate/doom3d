@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 22:17:57 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:48:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:46:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dtoa.h"
 
-static void		shift_aligned_left(uint32_t shift_blocks, t_big_int *big)
+static void	shift_aligned_left(uint32_t shift_blocks, t_big_int *big)
 {
 	int32_t		i;
 
@@ -24,7 +24,7 @@ static void		shift_aligned_left(uint32_t shift_blocks, t_big_int *big)
 	big->length += shift_blocks;
 }
 
-static void		shift_misaligned_left(uint32_t shift_blocks,
+static void	shift_misaligned_left(uint32_t shift_blocks,
 				uint32_t shift_bits, t_big_int *big)
 {
 	int32_t			in_i;
@@ -62,7 +62,7 @@ static void		shift_misaligned_left(uint32_t shift_blocks,
 ** In this example case, each 32bit block moved one further.
 */
 
-void			big_int_shift_left(uint32_t shift, t_big_int *big)
+void	big_int_shift_left(uint32_t shift, t_big_int *big)
 {
 	uint32_t		shift_blocks;
 	uint32_t		shift_bits;

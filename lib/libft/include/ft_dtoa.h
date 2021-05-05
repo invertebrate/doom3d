@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:01:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:52:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 13:09:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 ** Format type, whether value is to be formatted like: 123.123 or 1.23123e002
 */
 
-typedef enum			e_dtoa_format
+typedef enum e_dtoa_format
 {
 	FORMAT_NORM,
 	FORMAT_SCI
@@ -55,7 +55,7 @@ typedef enum			e_dtoa_format
 ** output. Fraction length cuts the number by counting number of decimal digits.
 */
 
-typedef enum			e_cutoff_mode
+typedef enum e_cutoff_mode
 {
 	CUTOFF_NONE,
 	CUTOFF_TOTAL_LENGTH,
@@ -66,10 +66,9 @@ typedef enum			e_cutoff_mode
 ** Input parameters to dtoa.
 */
 
-typedef struct			s_dtoa_params
+typedef struct s_dtoa_params
 {
-	double			value;
-	long double		value_ld;
+	long double		value;
 	t_dtoa_format	format;
 	int32_t			precision;
 	t_bool			hashtag;
@@ -82,7 +81,7 @@ typedef struct			s_dtoa_params
 ** 123 * (2^32)^0 + 456 * (2^32)^1 + 789 * (2^32)^2 = 1.455448108E22
 */
 
-typedef struct			s_big_int
+typedef struct s_big_int
 {
 	uint32_t		length;
 	uint32_t		blocks[MAX_BI_BLOCKS];
@@ -96,7 +95,7 @@ typedef struct			s_big_int
 ** Out exponent: Base 10 exponent of the first digit (e.g. used in sci format)
 */
 
-typedef struct			s_dragon4_params
+typedef struct s_dragon4_params
 {
 	uint64_t		mantissa;
 	int32_t			exponent;
@@ -117,24 +116,29 @@ typedef struct			s_dragon4_params
 
 char					*ft_dtoa(t_dtoa_params params);
 int						ft_dtoa_buf(t_dtoa_params params, char *buf,
-						int buf_size);
+							int buf_size);
 char					*ft_dtoa_ld(t_dtoa_params params);
 int						ft_dtoa_buf_ld(t_dtoa_params params, char *buf,
-						int buf_size);
+							int buf_size);
 void					set_cutoffs(t_dragon4_params *dragon,
-						t_dtoa_params dtoa);
+							t_dtoa_params dtoa);
 
 /*
 ** Format
 */
 
 uint32_t				format_normal(t_dragon4_params params,
-						int32_t precision);
+							int32_t precision);
 uint32_t				format_scientific(t_dragon4_params params,
-						int32_t precision);
+							int32_t precision);
 uint32_t				format_inf_nan(char *buf, uint64_t mantissa);
 void					set_exp_buf(t_dragon4_params params, int32_t exp,
-						char *exp_buf, uint32_t *exp_size);
+							char *exp_buf, uint32_t *exp_size);
+void					format_zero_and_dot(t_dragon4_params params,
+							uint32_t *pos);
+int32_t					get_negative_trim_to(t_dragon4_params params,
+							int32_t precision, int32_t exp);
+int32_t					get_trim_to(int32_t exp, int32_t negative_trim_to);
 
 /*
 ** Dragon4
@@ -142,21 +146,22 @@ void					set_exp_buf(t_dragon4_params params, int32_t exp,
 
 uint32_t				dragon4(t_dragon4_params params);
 uint32_t				output_without_cutoff(t_dragon4_params params,
-						t_big_int *scale, t_big_int *scaled_value,
-						t_big_int **scaled_margins);
+							t_big_int *scale, t_big_int *scaled_value,
+							t_big_int **scaled_margins);
 uint32_t				output_with_cutoff(t_dragon4_params params,
-						t_big_int *scale, t_big_int *scaled_value);
+							t_big_int *scale, t_big_int *scaled_value);
 void					normalized_initial_state(t_dragon4_params params,
-						t_big_int *scale, t_big_int *scaled_value,
-						t_big_int **scaled_margins);
+							t_big_int *scale, t_big_int *scaled_value,
+							t_big_int **scaled_margins);
 void					denormalized_initial_state(t_dragon4_params
-						params, t_big_int *scale, t_big_int *scaled_value,
-						t_big_int **scaled_margins);
+							params, t_big_int *scale, t_big_int *scaled_value,
+							t_big_int **scaled_margins);
 void					scale_values_after_exponent_estimation(t_big_int *scale,
-						t_big_int *scaled_value, t_big_int **scaled_margins,
-						int32_t *digit_exponent);
+							t_big_int *scaled_value, t_big_int **scaled_margins,
+							int32_t *digit_exponent);
 void					prepare_values_for_division(t_big_int *scale,
-						t_big_int *scaled_value, t_big_int **scaled_margins);
+							t_big_int *scaled_value,
+							t_big_int **scaled_margins);
 
 /*
 ** Math utils
@@ -175,21 +180,21 @@ void					big_int_set_u64(t_big_int *b, uint64_t val);
 void					big_int_set_u32(t_big_int *b, uint32_t val);
 int32_t					big_int_cmp(t_big_int *lhs, t_big_int *rhs);
 void					big_int_add(t_big_int *lhs, t_big_int *rhs,
-						t_big_int *res);
+							t_big_int *res);
 void					big_int_mul(t_big_int *lhs, t_big_int *rhs,
-						t_big_int *res);
+							t_big_int *res);
 void					big_int_mul_u32(t_big_int *lhs, uint32_t rhs,
-						t_big_int *res);
+							t_big_int *res);
 void					big_int_mul_2(t_big_int *lhs, t_big_int *res);
 void					big_int_mul_2_modif(t_big_int *mod);
 void					big_int_mul_10_modif(t_big_int *mod);
 void					big_int_retard_print(t_big_int *b);
 void					big_int_pow_10(uint32_t exponent, t_big_int *res);
 void					big_int_mul_pow_10(t_big_int *lhs,
-						uint32_t exponent, t_big_int *res);
+							uint32_t exponent, t_big_int *res);
 void					big_int_pow_2(uint32_t exponent, t_big_int *res);
 uint32_t				big_int_divide_to_output_digit(t_big_int *dividend,
-						t_big_int *divisor);
+							t_big_int *divisor);
 void					big_int_shift_left(uint32_t shift, t_big_int *big);
 
 #endif

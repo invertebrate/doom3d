@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 16:47:53 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:51:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:35:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Delete a t_hash_node in a hash map if found.
 */
 
-void				hash_map_delete(t_hash_table *table, int key)
+void	hash_map_delete(t_hash_table *table, int key)
 {
 	int			pos;
 	t_hash_node	**curr;
@@ -32,7 +32,7 @@ void				hash_map_delete(t_hash_table *table, int key)
 		temp = *curr;
 		if (temp->key == key)
 		{
-			*curr = temp->next != NULL ? temp->next : NULL;
+			*curr = temp->next;
 			free(temp);
 			temp = NULL;
 			break ;
@@ -47,7 +47,7 @@ void				hash_map_delete(t_hash_table *table, int key)
 ** Use when elements were not ft_calloced.
 */
 
-void				hash_map_clear(t_hash_table *table)
+void	hash_map_clear(t_hash_table *table)
 {
 	int			i;
 	t_hash_node	*temp;
@@ -74,7 +74,7 @@ void				hash_map_clear(t_hash_table *table)
 ** Destroy entire hash table freeing its memory.
 */
 
-void				hash_map_destroy(t_hash_table *table)
+void	hash_map_destroy(t_hash_table *table)
 {
 	if (!table)
 		return ;

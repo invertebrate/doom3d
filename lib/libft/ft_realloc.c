@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 14:26:04 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:56:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:40:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@
 
 void	*ft_realloc(void *ptr, size_t size_in, size_t size_out)
 {
-	void *out;
+	void	*out;
 
-	if (ptr == false)
+	if (ptr == NULL)
 		return (ft_calloc(size_out));
 	if (size_out <= size_in)
 		return (ptr);
-	if (!(out = ft_calloc(size_out)))
+	out = ft_calloc(size_out);
+	if (!out)
 		return (NULL);
 	ft_memcpy(out, ptr, size_in);
 	free(ptr);

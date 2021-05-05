@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:33:41 by ohakola           #+#    #+#             */
-/*   Updated: 2020/02/05 17:51:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:17:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_pixel_foreach(t_pixel_bounds *limits, void *params,
+void	ft_pixel_foreach(t_pixel_bounds *limits, void *params,
 			void (*f)(int pixel_i, int x, int y, void *params))
 {
 	int		x;

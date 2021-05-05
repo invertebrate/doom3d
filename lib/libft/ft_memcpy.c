@@ -6,11 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:15:27 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:47:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 12:57:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_utils.h"
+#include "libft.h"
 
 /*
 ** The ft_memcpy() function copies n bytes from memory area src to memory
@@ -20,7 +20,7 @@
 ** This version has been optimized to copy more at once.
 */
 
-void			*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	char		*destcpy;
 	const char	*srccpy;
