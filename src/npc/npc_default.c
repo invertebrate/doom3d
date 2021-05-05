@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/03 17:44:08 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/05 17:15:48 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	npc_monster01(t_doom3d *app, t_npc *npc, int type)
 		npc->texture_key = MONSTER01A_TEXTURE;
 		npc->model_scale = 0.03;
 		npc->type = type;
-		npc->hp = 200;
+		npc->hp = 1000;
 		npc->speed = app->unit_size / 4.2;
 		npc->atk_range = app->unit_size * 9;
-		npc->atk_dmg = 25;
+		npc->atk_dmg = 250;
 	}
 	if (type == npc_type_monster01_range)
 	{
@@ -60,7 +60,7 @@ void	npc_monster01(t_doom3d *app, t_npc *npc, int type)
 		npc->texture_key = MONSTER01B_TEXTURE;
 		npc->normal_map_key = MONSTER01_NORMM;
 		npc->model_scale = 0.009;
-		npc->hp = 80;
+		npc->hp = 200;
 		npc->speed = app->unit_size / 3.3;
 		npc->type = type;
 	}
@@ -89,7 +89,7 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->speed = app->unit_size / 3.5;
 	npc_default_vars(npc);
 	npc->atk_range = app->unit_size * 6;
-	npc->atk_dmg = 25;
+	npc->atk_dmg = 100;
 	npc->atk_dur = 8000;
 	npc->vision_range = app->unit_size * 50;
 	npc->hearing_range = app->unit_size * 20;
