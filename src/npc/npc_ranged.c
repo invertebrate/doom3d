@@ -40,9 +40,18 @@ static void	set_attack_pattern(t_npc *npc)
 
 static void	npc_ranged_vars(t_npc *npc)
 {
-	ml_vector3_set_all(npc->dir, 0.0);
-	npc->dir[0] = 60.0f;
-	npc->dir[2] = 120.0f;
+	float	cy;
+	float	sy;
+	float	offset;
+	float	angle;
+
+	offset = 135;
+	angle = (npc->angle + offset) * 3.14f / 180;
+	cy = cos(angle * 0.5f);
+	sy = sin(angle * 0.5f);
+	npc->dir[1] = 0;
+	npc->dir[0] = cy * 120;
+	npc->dir[2] = sy * 120;
 	npc->rot_speed = 10;
 	npc->state = 0;
 	npc->hp = 100;
