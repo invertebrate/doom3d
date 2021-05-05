@@ -31,7 +31,7 @@
 ** for the purpose of ray casted rendering.
 */
 
-typedef struct				s_camera
+typedef struct s_camera
 {
 	t_vec3					world_pos;
 	t_vec3					forward;
@@ -51,7 +51,7 @@ typedef struct				s_camera
 ** app can transition while playing.
 */
 
-typedef enum				e_scene_id
+typedef enum e_scene_id
 {
 	scene_id_main_menu,
 	scene_id_main_menu_settings,
@@ -66,7 +66,7 @@ typedef enum				e_scene_id
 ** game objects.
 */
 
-typedef struct				s_asset_files
+typedef struct s_asset_files
 {
 	const char				*animation_3d_files[ANIM_3D_FRAME_MAX];
 	const char				*animation_sprite_files[MAX_ASSETS];
@@ -102,7 +102,7 @@ typedef struct				s_asset_files
 ** object_textures: key: id, val: const char *filename)
 */
 
-typedef struct				s_scene
+typedef struct s_scene
 {
 	t_3d_object				*objects[MAX_NUM_OBJECTS];
 	uint32_t				num_objects;

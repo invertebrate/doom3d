@@ -17,7 +17,7 @@
 ** Enums for all custom events taking place in runtime
 */
 
-typedef enum				e_doom3d_event
+typedef enum e_doom3d_event
 {
 	event_music_play = 1,
 	event_effect_play = 2,
