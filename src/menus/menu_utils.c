@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:51:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:30:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 16:07:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,26 @@
 ** Create button menu
 */
 
-t_button_group		*button_menu_create(t_doom3d *app,
-						t_button_menu_params menu_params)
+t_button_group	*button_menu_create(t_doom3d *app,
+					t_button_menu_params menu_params)
 {
 	int32_t			i;
 	t_button		**buttons;
-	t_surface		*surfaces[menu_params.num_buttons];
-	t_surface		*down_surfaces[menu_params.num_buttons];
 	t_button_group	*menu;
 
 	buttons = NULL;
 	if (menu_params.num_buttons > 0)
-		error_check(!(buttons = ft_calloc(sizeof(t_button*) *
-			menu_params.num_buttons)), "Failed to malloc buttons");
+		error_check(!(buttons = ft_calloc(sizeof(t_button *)
+					* menu_params.num_buttons)), "Failed to malloc buttons");
 	i = -1;
 	while (++i < menu_params.num_buttons)
 	{
 		buttons[i] = button_create(app->window, i, menu_params.button_names[i]);
-		surfaces[i] = menu_button_surface(menu_params.button_names[i],
-			menu_params.button_font);
-		down_surfaces[i] = menu_button_down_surface(menu_params.button_names[i],
-			menu_params.button_font);
-		button_set_texture(buttons[i], surfaces[i], down_surfaces[i]);
+		button_set_texture(buttons[i],
+			menu_button_surface(menu_params.button_names[i],
+				menu_params.button_font),
+			menu_button_down_surface(menu_params.button_names[i],
+				menu_params.button_font));
 		button_set_handles(buttons[i], menu_params.on_click, NULL);
 		button_set_handle_params(buttons[i], app, NULL);
 	}
@@ -49,28 +47,26 @@ t_button_group		*button_menu_create(t_doom3d *app,
 ** Create shaded button menu (better looking, but with background)
 */
 
-t_button_group		*button_menu_create_shaded(t_doom3d *app,
-						t_button_menu_params pms)
+t_button_group	*button_menu_create_shaded(t_doom3d *app,
+					t_button_menu_params pms)
 {
 	int32_t			i;
 	t_button		**buttons;
-	t_surface		*surfaces[pms.num_buttons];
-	t_surface		*down_surfaces[pms.num_buttons];
 	t_button_group	*menu;
 
 	buttons = NULL;
 	if (pms.num_buttons > 0)
-		error_check(!(buttons = ft_calloc(sizeof(t_button*) *
-			pms.num_buttons)), "Failed to malloc buttons");
+		error_check(!(buttons = ft_calloc(sizeof(t_button *)
+					* pms.num_buttons)), "Failed to malloc buttons");
 	i = -1;
 	while (++i < pms.num_buttons)
 	{
 		buttons[i] = button_create(app->window, i, pms.button_names[i]);
-		surfaces[i] = menu_button_surface_shaded(pms.button_names[i],
-			pms.button_font);
-		down_surfaces[i] = menu_button_down_surface_shaded(pms.button_names[i],
-			pms.button_font);
-		button_set_texture(buttons[i], surfaces[i], down_surfaces[i]);
+		button_set_texture(buttons[i],
+			menu_button_surface_shaded(pms.button_names[i],
+				pms.button_font),
+			menu_button_down_surface_shaded(pms.button_names[i],
+				pms.button_font));
 		button_set_handles(buttons[i], pms.on_click, NULL);
 		button_set_handle_params(buttons[i], app, NULL);
 	}
@@ -82,7 +78,7 @@ t_button_group		*button_menu_create_shaded(t_doom3d *app,
 ** Destroy scene menus
 */
 
-void				scene_menus_destroy(t_scene *scene)
+void	scene_menus_destroy(t_scene *scene)
 {
 	int32_t		i;
 

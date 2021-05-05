@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 03:33:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:30:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 15:50:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void				active_scene_popup_menu_destroy(t_doom3d *app)
+void	active_scene_popup_menu_destroy(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_editor3d)
 	{
@@ -29,8 +29,8 @@ void				active_scene_popup_menu_destroy(t_doom3d *app)
 ** Create editor's active popup menu
 */
 
-void				editor_popup_menu_set(t_doom3d *app, t_vec2 pos,
-						t_button_menu_params params)
+void	editor_popup_menu_set(t_doom3d *app, t_vec2 pos,
+			t_button_menu_params params)
 {
 	uint32_t	bg_and_border_color[2];
 
