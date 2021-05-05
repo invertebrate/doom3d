@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:55:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 03:14:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 15:26:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Destroy a popup menu
 */
 
-void			button_popup_menu_destroy(t_button_menu *popup_menu)
+void	button_popup_menu_destroy(t_button_menu *popup_menu)
 {
 	if (popup_menu->menu)
 		button_group_destroy(popup_menu->menu);
@@ -28,8 +28,8 @@ void			button_popup_menu_destroy(t_button_menu *popup_menu)
 ** Render a popup menu
 */
 
-void			button_popup_menu_render(t_window *window,
-					t_button_menu *popup_menu)
+void	button_popup_menu_render(t_window *window,
+			t_button_menu *popup_menu)
 {
 	int32_t		pos_x;
 	int32_t		pos_y;
@@ -45,16 +45,16 @@ void			button_popup_menu_render(t_window *window,
 		button_group_render(popup_menu->menu);
 }
 
-static void		clamp_popup_menu_position_for_large_height(
-					t_button_menu *popup_menu, t_mouse *mouse)
+static void	clamp_popup_menu_position_for_large_height(
+				t_button_menu *popup_menu, t_mouse *mouse)
 {
 	t_window		*window;
 
 	window = popup_menu->menu->buttons[0]->window;
 	if (mouse->y > window->framebuffer->height / 2)
 	{
-		while (popup_menu->pos[1] + popup_menu->background.h >
-			window->framebuffer->height)
+		while (popup_menu->pos[1] + popup_menu->background.h
+			> window->framebuffer->height)
 			popup_menu->pos[1]--;
 	}
 	if (mouse->y <= window->framebuffer->height / 2)
@@ -64,8 +64,8 @@ static void		clamp_popup_menu_position_for_large_height(
 	}
 }
 
-void			button_popup_menu_clamp_position_to_window(
-					t_button_menu *popup_menu, t_mouse *mouse)
+void	button_popup_menu_clamp_position_to_window(
+			t_button_menu *popup_menu, t_mouse *mouse)
 {
 	t_window		*window;
 	t_vec2			buttons_pos;
@@ -73,21 +73,21 @@ void			button_popup_menu_clamp_position_to_window(
 	if (!popup_menu->menu)
 		return ;
 	window = popup_menu->menu->buttons[0]->window;
-	while (popup_menu->pos[1] + popup_menu->background.h >
-		window->framebuffer->height)
+	while (popup_menu->pos[1] + popup_menu->background.h
+		> window->framebuffer->height)
 		popup_menu->pos[1]--;
 	while (popup_menu->pos[1] < 0)
 		popup_menu->pos[1]++;
-	if (mouse &&
-		(int32_t)popup_menu->background.h > window->framebuffer->height)
+	if (mouse
+		&& (int32_t)popup_menu->background.h > window->framebuffer->height)
 		clamp_popup_menu_position_for_large_height(popup_menu, mouse);
-	while (popup_menu->pos[0] + popup_menu->background.w >
-		window->framebuffer->width)
+	while (popup_menu->pos[0] + popup_menu->background.w
+		> window->framebuffer->width)
 		popup_menu->pos[0]--;
 	while (popup_menu->pos[0] < 0)
 		popup_menu->pos[0]++;
 	ml_vector2_add(popup_menu->pos,
 		(t_vec2){popup_menu->border_size + popup_menu->padding,
-			popup_menu->border_size + popup_menu->padding}, buttons_pos);
+		popup_menu->border_size + popup_menu->padding}, buttons_pos);
 	button_group_update_position(popup_menu->menu, buttons_pos);
 }
