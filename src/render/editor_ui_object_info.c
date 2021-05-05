@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_ui_object_info.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:00:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 21:02:26 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/05 15:41:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ static void	render_object_scale(t_doom3d *app, char *str,
 		app->window->debug_font);
 }
 
+uint32_t	get_render_color(t_doom3d *app)
+{
+	uint32_t	color;
+
+	color = 0xff0000ff;
+	if (app->editor.is_saved)
+		color = 0x00ff00ff;
+	return (color);
+}
+
 void	render_object_information(t_doom3d *app)
 {
 	char		str[256];
@@ -50,10 +60,7 @@ void	render_object_information(t_doom3d *app)
 
 	if (app->editor.num_selected_objects != 1)
 		return ;
-	if (app->editor.is_saved)
-		color = 0x00ff00ff;
-	else
-		color = 0xff0000ff;
+	color = get_render_color(app);
 	l3d_u32_to_rgba(color, rgba);
 	ft_memset(str, 0, sizeof(str));
 	render_object_position(app, str, rgba);
