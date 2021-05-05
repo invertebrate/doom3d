@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:45:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 17:30:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -740,7 +740,7 @@ void						extend_all_objects_shading_opts(t_doom3d *app,
 								t_shading_opts opts_to_add);
 void						remove_all_objects_shading_opts(t_doom3d *app,
 								t_shading_opts opts_to_remove);
-void						finish_level(t_doom3d *app);
+void						finish_level(t_doom3d *app, t_3d_object *end_obj);
 
 /*
 ** Editor

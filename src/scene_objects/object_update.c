@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 18:13:23 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/05 17:31:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	update_trigger_object(t_doom3d *app, t_3d_object *obj)
 	if (l3d_aabb_collides(&app->player.aabb, &obj->aabb))
 	{
 		if (obj->params_type == trigger_player_end)
-			finish_level(app);
+			finish_level(app, obj);
 		else if (obj->params_type == trigger_weapon_drop_shotgun
 			|| obj->params_type == trigger_weapon_drop_pistol
 			|| obj->params_type == trigger_weapon_drop_rpg
