@@ -31,7 +31,7 @@ static t_path_node	*path_check_existing(t_doom3d *app, t_path_node *path_obj)
 ** eg. for deletion of a node object
 */
 
-void				delete_path_object_connections(t_path_node *src)
+void	delete_path_object_connections(t_path_node *src)
 {
 	t_path_node	*dst;
 	int			i;
@@ -47,8 +47,7 @@ void				delete_path_object_connections(t_path_node *src)
 ** to fill the spot and updates neighbour counts of both nodes
 */
 
-void				path_delete_connection(t_path_node *src,
-											t_path_node *dst)
+void	path_delete_connection(t_path_node *src, t_path_node *dst)
 {
 	int	i;
 	int	j;
@@ -77,7 +76,7 @@ void				path_delete_connection(t_path_node *src,
 ** Then npcs can loop those to find where to move :)
 */
 
-void				path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj)
+void	path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj)
 {
 	t_path_node	*path_obj;
 	t_path_node	*dest;
@@ -87,18 +86,17 @@ void				path_objects_set_neighbour(t_doom3d *app, t_3d_object *obj)
 		return ;
 	path_obj = obj->params;
 	dest = app->editor.selected_objects[0]->params;
-	if (path_obj->num_neighbors >= PATH_NEIGHBOUR_MAX)
-		LOG_INFO("Path connection limit reached on source %d", obj->id);
-	else if (dest->num_neighbors >= PATH_NEIGHBOUR_MAX)
-		LOG_INFO("Path connection limit reached on destination %d", obj->id);
-	else if (path_obj == dest)
-		LOG_INFO("Cannot connect path node to itself %d", obj->id);
-	else if ((delete = path_check_existing(app, path_obj)) != NULL)
+	if (path_obj->num_neighbors >= PATH_NEIGHBOUR_MAX
+		|| dest->num_neighbors >= PATH_NEIGHBOUR_MAX
+		|| path_obj == dest)
+		return ;
+	delete = path_check_existing(app, path_obj);
+	if (delete != NULL)
 		path_delete_connection(path_obj, delete);
 	else
 	{
-		path_obj->neighbors[path_obj->num_neighbors] =
-										app->editor.selected_objects[0];
+		path_obj->neighbors[path_obj->num_neighbors]
+			= app->editor.selected_objects[0];
 		dest->neighbors[dest->num_neighbors] = obj;
 		path_obj->num_neighbors++;
 		dest->num_neighbors++;
