@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 02:47:27 by ohakola           #+#    #+#             */
-/*   Updated: 2021/03/31 23:55:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 14:24:26 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void		handle_editor_patrol_slot_increment(t_doom3d *app)
+void	handle_editor_patrol_slot_increment(t_doom3d *app)
 {
 	if (app->editor.patrol_slot < MAX_PATROL_NODES)
 	{
@@ -31,7 +31,7 @@ void		handle_editor_patrol_slot_increment(t_doom3d *app)
 	}
 }
 
-void		handle_editor_patrol_slot_decrement(t_doom3d *app)
+void	handle_editor_patrol_slot_decrement(t_doom3d *app)
 {
 	if (app->editor.patrol_slot > 0)
 	{

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   editor_transform.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 03:12:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 19:23:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 14:40:01 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		handle_horizontal_translation(t_doom3d *app, int32_t amount,
+static void	handle_horizontal_translation(t_doom3d *app, int32_t amount,
 					int32_t i, uint32_t *last_changed)
 {
 	t_3d_object	*obj;
@@ -30,14 +30,14 @@ static void		handle_horizontal_translation(t_doom3d *app, int32_t amount,
 	if (app->keyboard.state[SDL_SCANCODE_LEFT])
 		push_custom_event(app, event_object_translate_x, obj,
 			(void *)(intptr_t)-amount);
-	if (app->keyboard.state[SDL_SCANCODE_LEFT] ||
-		app->keyboard.state[SDL_SCANCODE_DOWN] ||
-		app->keyboard.state[SDL_SCANCODE_RIGHT] ||
-		app->keyboard.state[SDL_SCANCODE_UP])
+	if (app->keyboard.state[SDL_SCANCODE_LEFT]
+		|| app->keyboard.state[SDL_SCANCODE_DOWN]
+		|| app->keyboard.state[SDL_SCANCODE_RIGHT]
+		|| app->keyboard.state[SDL_SCANCODE_UP])
 		*last_changed = SDL_GetTicks();
 }
 
-static void		handle_object_translation_input(t_doom3d *app,
+static void	handle_object_translation_input(t_doom3d *app,
 					int32_t i, uint32_t *last_changed)
 {
 	float				shift;
@@ -64,7 +64,7 @@ static void		handle_object_translation_input(t_doom3d *app,
 	}
 }
 
-static void		handle_object_scaling_input(t_doom3d *app,
+static void	handle_object_scaling_input(t_doom3d *app,
 					int32_t i, uint32_t *last_changed)
 {
 	t_doom3d_event	scale_event;
@@ -90,7 +90,7 @@ static void		handle_object_scaling_input(t_doom3d *app,
 ** Handle object transformation in editor
 */
 
-void			handle_editor_transform_input(t_doom3d *app)
+void	handle_editor_transform_input(t_doom3d *app)
 {
 	static uint32_t		last_changed;
 	uint32_t			prev_changed;
