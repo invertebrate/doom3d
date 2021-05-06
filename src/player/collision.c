@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 23:48:53 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/06 19:36:41 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,6 @@ t_bool			is_player_grounded(t_doom3d *app)
 			}
 		}
 	}
-	(void)app;
 	l3d_delete_hits(&hits);
 	return (false);
 }

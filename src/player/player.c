@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 20:53:20 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/06 20:00:50 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,87 +23,69 @@ void			player_update_aabb(t_player *player)
 	ml_vector3_copy(player->pos, player->aabb.center);
 }
 
-static void		nudge_player_up(t_doom3d *app)
+void			player_nudge_grounded(t_doom3d *app)
 {
-	while (player_is_grounded(app))
-	{
-		app->player.pos[1] -= 10;
-		player_update_aabb(&app->player);
-	}
-	if (!player_is_grounded(app))
-	{
-		app->player.pos[1] += 10;
-		player_update_aabb(&app->player);
-	}
-}
-
-static void		nudge_player_to_ground(t_doom3d *app)
-{
-	int	i;
+	t_hits		*hits;
+	t_ray		ray;
+	int			i;
+	t_hit		*closest_triangle_hit;
+	int			max_index;
+	float		max_mag;
+	t_vec3		nudge_vector;
+	t_vec3		max_vector;
 
 	i = -1;
-	while (!player_is_grounded(app) && ++i < app->player.aabb.size[1] / 20)
+	max_index = 0;
+	max_mag = 0.0;
+	ft_memset(max_vector, 0, sizeof(max_vector));
+	ft_memset(nudge_vector, 0, sizeof(nudge_vector));
+	hits = NULL;
+	while (++i < COLLIDER_RAY_TOTAL)
 	{
-		app->player.pos[1] += 10;
-		player_update_aabb(&app->player);
+		ray = app->player.collider.rays[i];
+		if (ml_vector3_angle_deg(ray.dir, (t_vec3){0.0, 1.0, 0.0})
+			< SLOPE_ANGLE_THRESHOLD
+			&& l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, ray.origin,
+				ray.dir, &hits))
+		{
+			closest_triangle_hit = NULL;
+			l3d_get_closest_triangle_hit_at_range(hits, &closest_triangle_hit,
+				-1, app->player.collider.sphere.radius);
+			if (closest_triangle_hit != NULL)
+			{
+				ml_vector3_mul(ray.dir, app->player.collider.sphere.radius, nudge_vector);
+				ml_vector3_add(nudge_vector, app->player.collider.sphere.pos, nudge_vector);
+				ml_vector3_sub(nudge_vector, closest_triangle_hit->hit_point, nudge_vector);
+				if (ml_vector3_mag(nudge_vector) > max_mag)
+				{
+					ml_vector3_copy(nudge_vector, max_vector);
+					max_index = i;
+				}
+
+				l3d_delete_hits(&hits);
+				return(true);
+			}
+		}
 	}
-	if (player_is_grounded(app))
-	{
-		app->player.pos[1] -= 10;
-		player_update_aabb(&app->player);
-	}
+	l3d_delete_hits(&hits);
+	return (false);
 }
 
 void			update_player_physics_state(t_doom3d *app)
 {
-	t_physics_state	prev_state;
-	const char		*physics_state;
-	t_bool			is_grounded;
-
 	if (app->active_scene->scene_id == scene_id_editor3d)
 	{
 		app->player.physics_state = physics_state_not_applied;
 		return ;
 	}
-	prev_state = app->player.physics_state;
-	if (app->player.velocity[1] < 0)
+	if (is_player_grounded(app))
 	{
-		app->player.physics_state = physics_state_jumping;
-		if (player_hits_ceiling(app))
-		{
-			nudge_player_off_ceiling(app);
-			app->player.velocity[1] = 0;
-		}
+		app->player.physics_state = physics_state_grounded;
+		player_nudge_grounded(app);
 	}
 	else
 	{
-		is_grounded = player_is_grounded(app);
-		if (!is_grounded)
-		{
-			if (should_nudge_to_ground(app))
-				nudge_player_to_ground(app);
-			else
-				app->player.physics_state = physics_state_falling;
-		}
-		else if (is_grounded)
-		{
-			app->player.physics_state = physics_state_grounded;
-			nudge_player_up(app);
-			if (app->player.physics_state != prev_state)
-				push_custom_event(app, event_effect_play,
-				(void*)sf_landing, s_ini(0, 1, st_game, 1.0));
-		}
-	}
-	if (app->player.physics_state != prev_state)
-	{
-		physics_state = "UNKNOWN";
-		if (app->player.physics_state == physics_state_jumping)
-			physics_state = "JUMPING(or flying if can fly)";
-		else if (app->player.physics_state == physics_state_falling)
-			physics_state = "FALLING";
-		else if (app->player.physics_state == physics_state_grounded)
-			physics_state = "GROUNDED";
-		LOG_DEBUG("Player physics state %s", physics_state);
+		app->player.physics_state = physics_state_not_grounded;
 	}
 }
 
