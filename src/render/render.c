@@ -6,11 +6,25 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 15:53:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 16:07:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+static void	render_background(t_doom3d *app)
+{
+	t_surface			*background;
+
+	background = hash_map_get(app->active_scene->textures,
+			(int64_t)"assets/textures/floor_metal_2048.bmp");
+	error_check(!background, "Could not find background image");
+	l3d_image_place(&(t_surface){
+		.h = app->window->framebuffer->height,
+		.w = app->window->framebuffer->width,
+		.pixels = app->window->framebuffer->buffer},
+		background, (int32_t[2]){0, 0}, 0.5);
+}
 
 /*
 ** Render 3d view. It gets a little special treatment as the view
@@ -42,6 +56,8 @@ void	render_3d_view_parallel(t_doom3d *app)
 
 void	render_to_framebuffer(t_doom3d *app)
 {
+	if (app->active_scene->scene_id == scene_id_main_game)
+		render_background(app);
 	if (app->active_scene->scene_id == scene_id_main_game
 		|| app->active_scene->scene_id == scene_id_editor3d)
 		render_3d_view_parallel(app);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 16:43:34 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/06 15:12:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 16:08:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	hp_render(t_doom3d *app)
 		app->window->title_font);
 	hp_image = hash_map_get(app->active_scene->hud_textures,
 			(int64_t)"assets/img/health_icon_64.bmp");
+	error_check(!hp_image, "Could not find hp_image image");
 	l3d_image_place(&(t_surface){
 		.h = app->window->framebuffer->height,
 		.w = app->window->framebuffer->width,
@@ -60,12 +61,12 @@ static void	ammo_render(t_doom3d *app)
 		app->window->title_font);
 	ammo_image = hash_map_get(app->active_scene->hud_textures,
 			(int64_t)"assets/img/ammo_icon_64.bmp");
+	error_check(!ammo_image, "Could not find ammo_image image");
 	l3d_image_place(&(t_surface){
 		.h = app->window->framebuffer->height,
 		.w = app->window->framebuffer->width,
 		.pixels = app->window->framebuffer->buffer},
-		ammo_image,
-		(int32_t[2]){96 + 2 * 74,
+		ammo_image, (int32_t[2]){96 + 2 * 74,
 		app->window->framebuffer->height - 76}, 1.0);
 }
 
@@ -79,6 +80,7 @@ static void	jetpack_render(t_doom3d *app)
 		blend_val = 1.0;
 	jetpack_image = hash_map_get(app->active_scene->hud_textures,
 			(int64_t)"assets/img/jetpack_icon_64.bmp");
+	error_check(!jetpack_image, "Could not find jetpack_image image");
 	l3d_image_place(&(t_surface){
 		.h = app->window->framebuffer->height,
 		.w = app->window->framebuffer->width,
@@ -106,6 +108,7 @@ static void	keys_render(t_doom3d *app)
 	}
 	key_image = hash_map_get(app->active_scene->hud_textures,
 			(int64_t)"assets/img/keycard_icon_64.bmp");
+	error_check(!key_image, "Could not find key_image image");
 	l3d_image_place(&(t_surface){
 		.h = app->window->framebuffer->height,
 		.w = app->window->framebuffer->width,
