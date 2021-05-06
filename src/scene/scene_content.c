@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 16:04:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 16:22:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ static void	active_scene_init(t_doom3d *app)
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
 		scene_game_init(app);
-		active_scene_update_after_objects(app->active_scene);
+		active_scene_update_after_objects(app);
 		LOG_INFO("Initialized Game Scene with %d objects",
 			app->active_scene->num_objects);
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
 		scene_editor_init(app);
-		active_scene_update_after_objects(app->active_scene);
+		active_scene_update_after_objects(app);
 		LOG_INFO("Initialized Editor Scene at %d objects",
 			app->active_scene->num_objects);
 	}

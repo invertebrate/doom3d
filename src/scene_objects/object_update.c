@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 17:31:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 16:29:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ static void	update_in_game_objects(t_doom3d *app)
 		obj = app->active_scene->objects[i];
 		if (!obj)
 			continue ;
+		if (object_too_far(app, obj))
+			continue ;
 		update_object_by_type(app, obj, is_npc_update);
 		update_object_light_sources(app, obj);
 	}
@@ -107,5 +109,5 @@ void	update_objects(t_doom3d *app)
 		&& app->active_scene->scene_id == scene_id_main_game)
 		update_in_game_objects(app);
 	delete_objects_set_for_deletion(app);
-	active_scene_update_after_objects(app->active_scene);
+	active_scene_update_after_objects(app);
 }

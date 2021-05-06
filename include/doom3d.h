@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 15:04:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 16:22:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -730,7 +730,7 @@ void						scene_animation_3d_files_set(t_asset_files *data);
 void						scene_normal_map_files_set(t_asset_files *data);
 void						scene_assets_load(t_scene *scene);
 void						active_scene_content_set(t_doom3d *app);
-void						active_scene_update_after_objects(t_scene *scene);
+void						active_scene_update_after_objects(t_doom3d *app);
 t_scene						*scene_new(t_scene_id scene_id);
 void						scene_destroy(t_doom3d *app);
 void						select_next_scene(t_doom3d *app);
