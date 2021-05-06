@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 15:54:10 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/06 13:22:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ void	editor_objects_invisible_unhighlight(t_doom3d *app)
 
 t_bool	mouse_inside_editor_view(t_doom3d *app)
 {
-	return (app->mouse.x > app->window->editor_pos[0] && app->mouse.x
-		< app->window->editor_pos[0]
-		+ app->window->editor_framebuffer->width
-		&& app->mouse.y > app->window->editor_pos[1] && app->mouse.y
-		< app->window->editor_pos[1]
-		+ app->window->editor_framebuffer->height);
+	return (app->mouse.x > app->window->view_3d_pos[0] && app->mouse.x
+		< app->window->view_3d_pos[0]
+		+ app->window->framebuffer_3d->width
+		&& app->mouse.y > app->window->view_3d_pos[1] && app->mouse.y
+		< app->window->view_3d_pos[1]
+		+ app->window->framebuffer_3d->height);
 }

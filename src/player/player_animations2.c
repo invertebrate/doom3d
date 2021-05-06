@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 21:25:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/30 21:27:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 15:47:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,19 @@ static void	set_anim_frame_info(t_doom3d *app, t_sprite_anim *anim,
 							int32_t index_offset, int32_t num_frames)
 {
 	int32_t		i;
+	int32_t		width;
+	int32_t		height;
 
 	anim->num_frames = num_frames;
 	i = index_offset - 1;
+	width = (app->settings.width / 2) * ANIMATION_SCALE;
+	height = (app->settings.height / 2) * ANIMATION_SCALE;
+	LOG_WARN("Width height: %d %d", width, height);
 	while (++i < anim->num_frames)
 	{
-		anim->frames[i - index_offset].width = app->settings.width;
-		anim->frames[i - index_offset].height = app->settings.height;
-		anim->frames[i - index_offset].x_offset = i * app->settings.width;
+		anim->frames[i - index_offset].width = width;
+		anim->frames[i - index_offset].height = height;
+		anim->frames[i - index_offset].x_offset = i * width;
 		anim->frames[i - index_offset].y_offset = 0;
 	}
 	anim->interruptable = false;

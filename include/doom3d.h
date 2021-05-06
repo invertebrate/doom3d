@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 17:30:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 15:04:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -640,6 +640,7 @@ void						prepare_render_triangle(t_doom3d *app,
 t_bool						object_inside_viewbox(t_camera *camera,
 								t_3d_object *obj);
 void						render_hud(t_doom3d *app);
+void						weapons_render(t_doom3d *app);
 void						set_aabb_origin_to_corners(t_3d_object *obj,
 								t_vec3 origin, t_vec3 origin_to_corner[8]);
 void						render_button_menu(t_button_group *menu,
@@ -710,7 +711,7 @@ t_3d_object					*find_object_by_id(t_doom3d *app, uint32_t id);
 ** Scene
 */
 
-void						load_sprite_animations_to_memory(t_scene *scene,
+void						load_sprites_to_memory(t_scene *scene,
 								t_asset_files *data);
 void						prefabs_load(t_scene *scene);
 void						triggers_load(t_scene *scene);

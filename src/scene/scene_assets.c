@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_assets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 16:29:15 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/06 14:32:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	create_asset_memory_maps(t_scene *scene)
 	scene->models = hash_map_create(MAX_ASSETS);
 	scene->textures = hash_map_create(MAX_ASSETS);
 	scene->normal_maps = hash_map_create(MAX_ASSETS);
-	scene->animation_textures = hash_map_create(ANIM_3D_FRAME_MAX);
+	scene->hud_textures = hash_map_create(ANIM_3D_FRAME_MAX);
 }
 
 static void	load_models_textures_nmaps_to_memory(t_scene *scene,
@@ -54,7 +54,7 @@ static void	assets_load_to_memory(t_scene *scene, t_asset_files *data)
 	create_asset_memory_maps(scene);
 	load_models_textures_nmaps_to_memory(scene, data);
 	load_animation_3d_frames_to_memory(scene, data);
-	load_sprite_animations_to_memory(scene, data);
+	load_sprites_to_memory(scene, data);
 	load_skybox_textures_to_memory(scene);
 }
 
@@ -70,7 +70,7 @@ void	scene_assets_load(t_scene *scene)
 	scene->asset_files.num_npcs = 0;
 	scene->asset_files.num_prefabs = 0;
 	scene->asset_files.num_animation_frames_3d = 0;
-	scene->asset_files.num_animations_sprite = 0;
+	scene->asset_files.num_hud_sprites = 0;
 	scene->asset_files.num_triggers = 0;
 	scene->asset_files.num_lights = 0;
 	scene_texture_files_set(&scene->asset_files);
