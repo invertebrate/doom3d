@@ -19,7 +19,7 @@
 ** The forces (velocity) are applied to player position in player_move.
 */
 
-void		forces_update_player(t_doom3d *app)
+void	forces_update_player(t_doom3d *app)
 {
 	float		deceleration;
 
@@ -27,13 +27,13 @@ void		forces_update_player(t_doom3d *app)
 	{
 		if (app->player.physics_state == physics_state_grounded)
 			app->player.velocity[1] = 0;
-		if ((app->player.physics_state == physics_state_jumping ||
-			app->player.physics_state == physics_state_falling) &&
-			app->player.velocity[1] < PLAYER_MAX_SPEED)
+		if ((app->player.physics_state == physics_state_jumping
+				|| app->player.physics_state == physics_state_falling)
+			&& app->player.velocity[1] < PLAYER_MAX_SPEED)
 			app->player.velocity[1] += CONST_GRAVITY;
 	}
-	if (app->player.physics_state != physics_state_grounded &&
-		app->player.physics_state != physics_state_not_applied)
+	if (app->player.physics_state != physics_state_grounded
+		&& app->player.physics_state != physics_state_not_applied)
 		deceleration = 1.02;
 	else
 		deceleration = 1.8;
@@ -54,13 +54,13 @@ static void	forces_update_npc(t_3d_object *npc_object)
 	{
 		if (npc->physics_state == physics_state_grounded)
 			npc->velocity[1] = 0;
-		else if ((npc->physics_state == physics_state_jumping ||
-			npc->physics_state == physics_state_falling) &&
-			npc->velocity[1] < PLAYER_MAX_SPEED)
+		else if ((npc->physics_state == physics_state_jumping
+				|| npc->physics_state == physics_state_falling)
+			&& npc->velocity[1] < PLAYER_MAX_SPEED)
 			npc->velocity[1] += CONST_GRAVITY;
 	}
-	if (npc->physics_state != physics_state_grounded &&
-		npc->physics_state != physics_state_not_applied)
+	if (npc->physics_state != physics_state_grounded
+		&& npc->physics_state != physics_state_not_applied)
 		deceleration = 1.000;
 	else
 		deceleration = 1.8;
@@ -76,7 +76,7 @@ static void	forces_update_npc(t_3d_object *npc_object)
 ** The forces (velocity) are then applied on the position of the object.
 */
 
-void		update_object_forces(t_doom3d *app, t_3d_object *obj)
+void	update_object_forces(t_doom3d *app, t_3d_object *obj)
 {
 	t_vec3			velocity;
 	t_vec3			add;
@@ -90,7 +90,7 @@ void		update_object_forces(t_doom3d *app, t_3d_object *obj)
 			dt_sum = 0;
 		}
 		dt_sum += app->info.delta_time;
-		ml_vector3_copy(((t_npc*)obj->params)->velocity, velocity);
+		ml_vector3_copy(((t_npc *)obj->params)->velocity, velocity);
 		ml_vector3_mul(velocity, app->info.delta_time * CONST_SPEED, add);
 		l3d_3d_object_translate(obj, add[0], add[1], add[2]);
 	}
@@ -104,13 +104,13 @@ static void	nudge_object_up(t_doom3d *app, t_3d_object *obj)
 		l3d_3d_object_translate(obj, 0, 25, 0);
 }
 
-void		update_object_physics_state(t_doom3d *app, t_3d_object *obj)
+void	update_object_physics_state(t_doom3d *app, t_3d_object *obj)
 {
 	t_npc			*npc;
 	t_bool			is_grounded;
 
-	if (obj->type == object_type_npc &&
-		((t_npc *)(obj->params))->type != npc_type_elevator)
+	if (obj->type == object_type_npc
+		&& ((t_npc *)(obj->params))->type != npc_type_elevator)
 	{
 		npc = obj->params;
 		if (npc->velocity[1] < 0)
