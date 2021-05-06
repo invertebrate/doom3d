@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 13:40:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 15:53:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	render_3d_view_parallel(t_doom3d *app)
 
 void	render_to_framebuffer(t_doom3d *app)
 {
-	if (app->active_scene->scene_id == scene_id_main_game ||
-		app->active_scene->scene_id == scene_id_editor3d)
+	if (app->active_scene->scene_id == scene_id_main_game
+		|| app->active_scene->scene_id == scene_id_editor3d)
 		render_3d_view_parallel(app);
 	render_ui(app);
 	if (app->is_debug)

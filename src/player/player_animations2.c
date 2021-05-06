@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 21:25:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 14:37:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 15:47:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ static void	set_anim_frame_info(t_doom3d *app, t_sprite_anim *anim,
 
 	anim->num_frames = num_frames;
 	i = index_offset - 1;
-	width = app->settings.width / 2 * ANIMATION_SCALE;
-	height = app->settings.height / 2 * ANIMATION_SCALE;
+	width = (app->settings.width / 2) * ANIMATION_SCALE;
+	height = (app->settings.height / 2) * ANIMATION_SCALE;
+	LOG_WARN("Width height: %d %d", width, height);
 	while (++i < anim->num_frames)
 	{
 		anim->frames[i - index_offset].width = width;

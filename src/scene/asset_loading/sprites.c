@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:37:19 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 14:38:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 15:54:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ void	load_sprites_to_memory(t_scene *scene,
 	{
 		animation_source = l3d_read_bmp_32bit_rgba_surface(
 				scene->asset_files.hud_sprite_files[i]);
-		if (ft_match((char*)scene->asset_files.hud_sprite_files[i],
-			"assets/anim*"))
+		if (ft_match((char *)scene->asset_files.hud_sprite_files[i],
+				"assets/anim*"))
 		{
 			scaled_anim_source = l3d_image_scaled(animation_source,
-				animation_source->w * ANIMATION_SCALE,
-				animation_source->h * ANIMATION_SCALE);
+					animation_source->w * ANIMATION_SCALE,
+					animation_source->h * ANIMATION_SCALE);
 			free(animation_source->pixels);
 			free(animation_source);
 		}
