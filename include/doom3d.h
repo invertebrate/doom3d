@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 16:22:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 17:12:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 # define NAME "Doom3D"
 
 # define GAME_VIEW_DIST_UNITS 200
-# define EDITOR_VIEW_DIST_UNITS 500
+# define EDITOR_VIEW_DIST_UNITS 450
 
 /*
 ** Allocation space for render triangles used in rasterization
