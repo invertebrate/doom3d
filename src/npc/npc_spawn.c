@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_spawn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 09:35:21 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/03 17:37:50 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/06 18:16:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_3d_object	*place_npc_object_in_scene(t_doom3d *app, t_npc *npc,
 		|| npc->type == npc_type_monster01_range)
 	{
 		obj->material->shading_opts = e_shading_standard;
-		l3d_3d_object_rotate(obj, 0, 180, 180);
+		l3d_3d_object_rotate(obj, 0, npc->angle, 180);
 	}
 	l3d_3d_object_rotate(obj, 0, npc->angle, 0);
 	return (obj);
