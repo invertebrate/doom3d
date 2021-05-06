@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 16:43:34 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/03 15:39:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 14:39:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,27 @@ static void	vitals_hp(t_doom3d *app)
 	char		str[256];
 	uint32_t	rgba[4];
 	uint32_t	color;
+	t_surface	*hp_image;
 
 	color = 0x00ff0000;
 	l3d_u32_to_rgba(color, rgba);
 	ft_memset(str, 0, sizeof(str));
-	ft_sprintf(str, "HP: %.0f",
+	ft_sprintf(str, "%.0f",
 		(float)app->player.hp * 100.0 / (float)app->player.max_hp);
 	window_text_render(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
-		.xy = (int [2]){20,
-		app->window->framebuffer->height - 100},
+		.xy = (int [2]){96 + 64 + 10,
+		app->window->framebuffer->height - 70},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->title_font);
+	hp_image = hash_map_get(app->active_scene->hud_textures,
+		(int64_t)"assets/img/health_icon_64.bmp");
+	l3d_image_place(&(t_surface){
+		.h = app->window->framebuffer->height,
+		.w = app->window->framebuffer->width,
+		.pixels = app->window->framebuffer->buffer},
+		hp_image,
+		(int32_t[2]){96, app->window->framebuffer->height - 76}, 1.0);
 }
 
 static void	vitals_ammo(t_doom3d *app)
@@ -45,7 +54,7 @@ static void	vitals_ammo(t_doom3d *app)
 	window_text_render(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
 		.xy = (int [2]){200,
-		app->window->framebuffer->height - 100},
+		app->window->framebuffer->height - 70},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->title_font);
 }
@@ -63,7 +72,7 @@ static void	vitals_jetpack(t_doom3d *app)
 	window_text_render(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
 		.xy = (int [2]){app->window->framebuffer->width - 250,
-		app->window->framebuffer->height - 100},
+		app->window->framebuffer->height - 70},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->title_font);
 }
@@ -81,7 +90,7 @@ static void	vitals_keys(t_doom3d *app)
 	window_text_render(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
 		.xy = (int [2]){600,
-		app->window->framebuffer->height - 200},
+		app->window->framebuffer->height - 70},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->title_font);
 }

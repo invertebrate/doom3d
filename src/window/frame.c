@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:32:17 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:19:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 13:24:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,14 @@ void	draw_window_frame(t_window *window)
 	SDL_RenderPresent(window->renderer);
 }
 
-static void	window_editor_framebuffer_recreate(t_window *window)
+void	window_3d_framebuffer_recreate(t_window *window, int32_t dims[2],
+			int32_t pos[2])
 {
-	int	width;
-	int	height;
-
-	width = window->framebuffer->width * 5 / 6;
-	height = window->framebuffer->height * 6 / 7;
-	while (width % 4 != 0)
-		width++;
-	while (height % 4 != 0)
-		height++;
-	l3d_framebuffer_recreate(&window->editor_framebuffer, width, height);
-	window->editor_pos[0] = window->framebuffer->width - width - 10;
-	window->editor_pos[1] = 10;
+	error_check(dims[0] % 4 != 0 || dims[1] % 4 != 0,
+		"3d framebuffer dimensions invalid. It should be dividible by 4");
+	l3d_framebuffer_recreate(&window->framebuffer_3d, dims[0], dims[1]);
+	window->view_3d_pos[0] = pos[0];
+	window->view_3d_pos[1] = pos[1];
 }
 
 /*
@@ -65,5 +59,4 @@ void	window_frame_recreate(t_window *window)
 	error_check(window->frame == NULL, SDL_GetError());
 	l3d_framebuffer_recreate(&window->framebuffer,
 		window->width, window->height);
-	window_editor_framebuffer_recreate(window);
 }

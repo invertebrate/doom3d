@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:35:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 14:20:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ void	scene_textures_destroy(t_scene *scene)
 	hash_map_destroy_free(scene->textures);
 	hash_map_destroy(scene->object_textures);
 	i = -1;
-	while (++i < (int32_t)scene->asset_files.num_animations_sprite)
+	while (++i < (int32_t)scene->asset_files.num_hud_sprites)
 	{
-		texture = hash_map_get(scene->animation_textures,
-				(int64_t)scene->asset_files.animation_sprite_files[i]);
+		texture = hash_map_get(scene->hud_textures,
+				(int64_t)scene->asset_files.hud_sprite_files[i]);
 		if (texture)
 			free(texture->pixels);
 	}
-	hash_map_destroy_free(scene->animation_textures);
+	hash_map_destroy_free(scene->hud_textures);
 }
 
 void	scene_normal_maps_destroy(t_scene *scene)

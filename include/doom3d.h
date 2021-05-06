@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 17:30:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 14:32:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -710,7 +710,7 @@ t_3d_object					*find_object_by_id(t_doom3d *app, uint32_t id);
 ** Scene
 */
 
-void						load_sprite_animations_to_memory(t_scene *scene,
+void						load_sprites_to_memory(t_scene *scene,
 								t_asset_files *data);
 void						prefabs_load(t_scene *scene);
 void						triggers_load(t_scene *scene);

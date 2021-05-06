@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:37:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 13:54:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ static void	scene_game_init(t_doom3d *app)
 	player_animations_init(app);
 	set_player_default_frame(app);
 	projectile_data_init(app);
-	active_scene_update_after_objects(app->active_scene);
+	window_3d_framebuffer_recreate(app->window,
+		(int32_t[2]){app->window->framebuffer->width - 192,
+		app->window->framebuffer->height - 108}, (int32_t[2]){96, 32});
 }
 
 /*
@@ -66,12 +68,11 @@ static void	scene_editor_init(t_doom3d *app)
 	}
 	app->editor.editor_menu_id = editor_menu_none;
 	app->editor.editor_menu = NULL;
-	l3d_skybox_create(app->active_scene->skybox,
-		app->active_scene->skybox_textures, app->unit_size);
-	active_scene_update_after_objects(app->active_scene);
-	player_init(app, (t_vec3){0,
-		-10 * app->unit_size, -20 * app->unit_size});
+	player_init(app, (t_vec3){0, -10 * app->unit_size, -20 * app->unit_size});
 	player_rotate_vertical(app, -90);
+	window_3d_framebuffer_recreate(app->window,
+		(int32_t[2]){app->window->framebuffer->width - 168,
+		app->window->framebuffer->height - 64}, (int32_t[2]){158, 10});
 }
 
 static void	active_scene_init(t_doom3d *app)
@@ -79,12 +80,14 @@ static void	active_scene_init(t_doom3d *app)
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
 		scene_game_init(app);
+		active_scene_update_after_objects(app->active_scene);
 		LOG_INFO("Initialized Game Scene with %d objects",
 			app->active_scene->num_objects);
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
 	{
 		scene_editor_init(app);
+		active_scene_update_after_objects(app->active_scene);
 		LOG_INFO("Initialized Editor Scene at %d objects",
 			app->active_scene->num_objects);
 	}
