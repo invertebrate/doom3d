@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 22:10:06 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/02 00:47:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 16:32:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	projectile_handle_collision(t_doom3d *app, t_3d_object *projectile_obj)
 	{
 		obj = app->active_scene->objects[i];
 		if (!obj || obj->type == object_type_projectile
-			|| obj->type == object_type_trigger)
+			|| obj->type == object_type_trigger || object_too_far(app, obj))
 			continue ;
 		ml_vector3_sub(obj->position, projectile_obj->position, dist);
 		if (projectile_hit(app, projectile_obj, obj, dist))

@@ -109,6 +109,7 @@ SOURCES = main.c \
 			path/path2.c \
 			path/patrol_path.c \
 			scene_objects/object_utils.c \
+			scene_objects/object_too_far.c \
 			scene_objects/object_next_index.c \
 			scene_objects/object_scene_placement.c \
 			scene_objects/object_update.c \

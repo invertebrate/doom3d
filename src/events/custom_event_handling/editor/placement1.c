@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   placement1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 14:22:26 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/06 16:22:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	handle_editor_placement_start(t_doom3d *app,
 		obj = editor_place_npc_object(app, (t_npc_type)data);
 	if (obj)
 	{
-		active_scene_update_after_objects(app->active_scene);
+		active_scene_update_after_objects(app);
 		editor_objects_invisible_highlight(app);
 		select_object(app, obj);
 	}
