@@ -47,6 +47,7 @@ SOURCES = main.c \
 			player/player.c \
 			player/player_jump.c \
 			player/player_shoot.c \
+			player/player_guns.c \
 			player/player_reload.c \
 			player/player_interact.c \
 			player/collision.c \

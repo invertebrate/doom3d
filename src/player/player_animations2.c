@@ -12,9 +12,8 @@
 
 #include "doom3d.h"
 
-static void				set_anim_frame_info(t_doom3d *app,
-							t_sprite_anim *anim, int32_t index_offset,
-							int32_t num_frames)
+static void	set_anim_frame_info(t_doom3d *app, t_sprite_anim *anim,
+							int32_t index_offset, int32_t num_frames)
 {
 	int32_t		i;
 
@@ -31,7 +30,7 @@ static void				set_anim_frame_info(t_doom3d *app,
 	anim->frame_time = 40;
 }
 
-static void				player_default_animations_init(t_doom3d *app)
+static void	player_default_animations_init(t_doom3d *app)
 {
 	set_anim_frame_info(app,
 		&app->animations[anim_shotgun_default], 0, 1);
@@ -54,7 +53,7 @@ static void				player_default_animations_init(t_doom3d *app)
 ** Initializes the frame information for each animation the player has
 */
 
-void					player_animations_init(t_doom3d *app)
+void	player_animations_init(t_doom3d *app)
 {
 	player_default_animations_init(app);
 	set_anim_frame_info(app,
@@ -84,10 +83,9 @@ void					player_animations_init(t_doom3d *app)
 ** by animation_id becomes current animation.
 */
 
-void					set_player_animation(t_doom3d *app,
-											uint32_t animation_id)
+void	set_player_animation(t_doom3d *app, uint32_t animation_id)
 {
-	t_sprite_anim *curr_player_anim;
+	t_sprite_anim	*curr_player_anim;
 
 	curr_player_anim = &app->animations[app->player_hud.curr_animation];
 	if (app->player.is_reloading && curr_player_anim->is_finished)
@@ -98,8 +96,8 @@ void					set_player_animation(t_doom3d *app,
 	if (!(curr_player_anim->is_finished || curr_player_anim->interruptable))
 		return ;
 	app->animations[app->player_hud.curr_animation].current_frame = 0;
-	app->animations[app->player_hud.curr_animation].frame_time_left =
-		app->animations[app->player_hud.curr_animation].frame_time;
+	app->animations[app->player_hud.curr_animation].frame_time_left
+		= app->animations[app->player_hud.curr_animation].frame_time;
 	app->animations[app->player_hud.curr_animation].is_finished = false;
 	app->player_hud.curr_animation = animation_id;
 }

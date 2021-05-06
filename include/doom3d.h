@@ -248,6 +248,12 @@ void						player_jump(t_doom3d *app);
 void						player_crouch(t_doom3d *app, t_bool toggle);
 void						player_shoot(t_doom3d *app,
 								uint32_t curr_time);
+void						shoot_shotgun(t_doom3d *app, t_vec3 origin,
+								int32_t i);
+void						player_shoot_projectile(t_doom3d *app,
+								t_vec3 origin);
+void						player_shoot_ray(t_doom3d *app, t_vec3 origin,
+								t_vec3 dir);
 void						player_reload(t_doom3d *app);
 void						player_reload_finish(t_doom3d *app);
 void						player_interact(t_doom3d *app);

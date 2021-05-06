@@ -12,7 +12,7 @@
 
 #include "doom3d.h"
 
-static void		vitals_hp(t_doom3d *app)
+static void	vitals_hp(t_doom3d *app)
 {
 	char		str[256];
 	uint32_t	rgba[4];
@@ -25,13 +25,13 @@ static void		vitals_hp(t_doom3d *app)
 		(float)app->player.hp * 100.0 / (float)app->player.max_hp);
 	window_text_render(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
-		.xy = (int[2]){20,
-			app->window->framebuffer->height - 100},
+		.xy = (int [2]){20,
+		app->window->framebuffer->height - 100},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->title_font);
 }
 
-static void		vitals_ammo(t_doom3d *app)
+static void	vitals_ammo(t_doom3d *app)
 {
 	char		str[256];
 	uint32_t	rgba[4];
@@ -41,16 +41,16 @@ static void		vitals_ammo(t_doom3d *app)
 	l3d_u32_to_rgba(color, rgba);
 	ft_memset(str, 0, sizeof(str));
 	ft_sprintf(str, "Ammo: %d | %d", app->player.equipped_weapon->clip,
-				app->player.equipped_weapon->ammo);
+		app->player.equipped_weapon->ammo);
 	window_text_render(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
-		.xy = (int[2]){200,
-			app->window->framebuffer->height - 100},
+		.xy = (int [2]){200,
+		app->window->framebuffer->height - 100},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->title_font);
 }
 
-static void		vitals_jetpack(t_doom3d *app)
+static void	vitals_jetpack(t_doom3d *app)
 {
 	char		str[256];
 	uint32_t	rgba[4];
@@ -62,13 +62,13 @@ static void		vitals_jetpack(t_doom3d *app)
 	ft_sprintf(str, "JETPACK");
 	window_text_render(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
-		.xy = (int[2]){app->window->framebuffer->width - 250,
-			app->window->framebuffer->height - 100},
+		.xy = (int [2]){app->window->framebuffer->width - 250,
+		app->window->framebuffer->height - 100},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->title_font);
 }
 
-static void		vitals_keys(t_doom3d *app)
+static void	vitals_keys(t_doom3d *app)
 {
 	char		str[256];
 	uint32_t	rgba[4];
@@ -80,13 +80,13 @@ static void		vitals_keys(t_doom3d *app)
 	ft_sprintf(str, "KEY");
 	window_text_render(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
-		.xy = (int[2]){600,
-			app->window->framebuffer->height - 200},
+		.xy = (int [2]){600,
+		app->window->framebuffer->height - 200},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
 		app->window->title_font);
 }
 
-void			player_stats_render(t_doom3d *app)
+void	player_stats_render(t_doom3d *app)
 {
 	int	i;
 
