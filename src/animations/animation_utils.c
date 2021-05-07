@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 19:02:34 by veilo             #+#    #+#             */
-/*   Updated: 2021/04/29 19:10:13 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/07 14:28:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,4 @@ t_bool	check_obj_3d_anim(t_3d_object *obj)
 	}
 	else
 		return (true);
-}
-
-uint32_t	npc_anim_3d_transform_update(t_animation_3d *animation)
-{
-	if (animation != NULL && animation->base_object != NULL)
-	{
-		npc_anim_3d_position_update(animation);
-		npc_anim_3d_rotation_update(animation);
-		return (animation->current_frame);
-	}
-	else
-	{
-		LOG_WARN("Tried to update animation instance of an invalid object!");
-		return (UINT32_MAX - 1);
-	}
-	return (0);
 }

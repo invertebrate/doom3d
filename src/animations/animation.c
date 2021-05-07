@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/04/29 18:39:40 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/07 14:33:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ uint32_t	anim_3d_instance_update(t_doom3d *app,
 		return (animation->current_frame);
 	animation->current_object
 		= animation->animation_frames[animation->current_frame];
-	return (npc_anim_3d_transform_update(animation));
+	npc_anim_3d_transform_update(animation);
+	return (animation->current_frame);
 }
 
 uint32_t	anim_3d_loop_update(t_doom3d *app,
@@ -56,10 +57,7 @@ uint32_t	anim_3d_loop_update(t_doom3d *app,
 	animation->current_object
 		= animation->animation_frames[animation->current_frame];
 	if (animation != NULL && animation->base_object != NULL)
-	{
-		npc_anim_3d_position_update(animation);
-		npc_anim_3d_rotation_update(animation);
-	}
+		npc_anim_3d_transform_update(animation);
 	else
 	{
 		LOG_WARN("Tried to update animation clip loop of an invalid object!");
@@ -77,8 +75,7 @@ uint32_t	anim_3d_frame_update(t_doom3d *app,
 	}
 	if (animation->current_clip == anim_3d_type_null)
 	{
-		npc_anim_3d_position_update(animation);
-		npc_anim_3d_rotation_update(animation);
+		npc_anim_3d_transform_update(animation);
 		return (UINT32_MAX);
 	}
 	if (animation->current_anim_instance->active == true)
@@ -114,10 +111,7 @@ uint32_t	anim_3d_clip_loop(t_doom3d *app, t_3d_object *obj,
 		animation->current_frame];
 	animation->tick_at_update = app->current_tick;
 	if (animation != NULL && animation->base_object != NULL)
-	{
-		npc_anim_3d_position_update(animation);
-		npc_anim_3d_rotation_update(animation);
-	}
+		npc_anim_3d_transform_update(animation);
 	else
 	{
 		LOG_WARN("Tried to update animation clip loop of an invalid object!");
@@ -149,7 +143,6 @@ t_bool	anim_3d_clip_play(t_doom3d *app, t_3d_object *obj,
 	anim->current_anim_instance->active = true;
 	anim->current_object = anim->animation_frames[anim->current_frame];
 	anim->tick_at_update = app->current_tick;
-	npc_anim_3d_position_update(anim);
-	npc_anim_3d_rotation_update(anim);
+	npc_anim_3d_transform_update(anim);
 	return (true);
 }
