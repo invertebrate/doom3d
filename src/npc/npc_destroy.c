@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 18:32:11 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/03 18:03:38 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/07 14:54:20 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ t_bool	npc_destroy(t_3d_object *npc_obj)
 	if (((t_npc *)npc_obj->params)->type == npc_type_monster01
 		|| ((t_npc *)npc_obj->params)->type == npc_type_monster01_a
 		|| ((t_npc *)npc_obj->params)->type == npc_type_monster01_range
-		|| ((t_npc *)npc_obj->params)->type == npc_type_monster02)
+		|| ((t_npc *)npc_obj->params)->type == npc_type_monster02
+		|| ((t_npc *)npc_obj->params)->type == npc_type_boss)
 	{
 		if (!animation_3d_instance_destroy(
 				(((t_npc *)npc_obj->params)

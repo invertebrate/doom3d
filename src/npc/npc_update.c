@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/03 18:00:45 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/07 13:30:03 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ static void	handle_state_attack(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc,
 	npc->atk_pattern_index++;
 	if (npc->atk_pattern[npc->atk_pattern_index] == action_repeat)
 		npc->atk_pattern_index = 0;
+	if (npc->atk_pattern[npc->atk_pattern_index] == action_spawn_a
+		|| npc->atk_pattern[npc->atk_pattern_index] == action_spawn_b)
+		npc_special_spawn(app, npc_obj, npc);
 	if (dist >= npc->vision_range || !npc_has_line_of_sight(app, npc_obj))
 	{
 		npc->interest--;

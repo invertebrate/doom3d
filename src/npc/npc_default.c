@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/05 17:15:48 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/07 14:55:13 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void	npc_monster01(t_doom3d *app, t_npc *npc, int type)
 		npc->hp = 200;
 		npc->speed = app->unit_size / 3.3;
 		npc->type = type;
+		npc->advance = true;
 	}
+	if (type == npc_type_boss)
+		npc_boss(app, npc, type);
 }
 
 static void	npc_default_vars(t_npc *npc)

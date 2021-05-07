@@ -96,6 +96,8 @@ SOURCES = main.c \
 			npc/npc_destroy.c \
 			npc/npc_enemy_actions.c \
 			npc/npc_face_player.c \
+			npc/npc_finalboss.c \
+			npc/npc_special_attack.c \
 			trigger/trigger.c \
 			trigger/trigger_timer.c \
 			trigger/trigger_place.c \

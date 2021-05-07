@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_animation.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/06 18:19:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 14:52:35 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	npc_animation_3d_init(t_doom3d *app, t_3d_object *obj)
 		npc->animation_3d = NULL;
 	}
 	if (npc->type == npc_type_monster01 || npc->type == npc_type_monster01_a
-		|| npc->type == npc_type_monster01_range)
+		|| npc->type == npc_type_monster01_range || npc->type == npc_type_boss)
 		npc_monster01_anim_3d_metadata_set(&anim_data);
 	else if (npc->type == npc_type_monster02)
 		npc_monster02_anim_3d_metadata_set(&anim_data);
