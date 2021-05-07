@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_utils1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 21:25:12 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/07 21:15:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_bool	triangle_too_far(t_doom3d *app, t_triangle *triangle)
 	float		too_far;
 	t_vec3		player_to_corner[3];
 	int32_t		i;
+	t_box3d		aabb;
 
 	if (app->active_scene->scene_id == scene_id_main_game)
 		too_far = app->unit_size * GAME_VIEW_DIST_UNITS;
@@ -58,7 +59,12 @@ t_bool	triangle_too_far(t_doom3d *app, t_triangle *triangle)
 	if (ml_vector3_mag(player_to_corner[0]) > too_far
 		&& ml_vector3_mag(player_to_corner[1]) > too_far
 		&& ml_vector3_mag(player_to_corner[2]) > too_far)
+	{
+		aabb = triangle_bounding_box(triangle);
+		if (!l3d_point_inside_aabb(&aabb, app->player.pos))
+			return (false);
 		return (true);
+	}
 	return (false);
 }
 
