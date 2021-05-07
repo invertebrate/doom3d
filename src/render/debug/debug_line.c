@@ -79,13 +79,13 @@ void	draw_enemy_direction(t_doom3d *app,
 	t_mat4				rotation_x;
 
 	npc = npc_object->params;
-	ml_matrix4_rotation_y(ml_rad(npc->angle), rotation_x);
-	ml_matrix4_mul_vec3(rotation_x, (t_vec3){0, 0, Z_DIR}, forward);
-	ml_vector3_mul(forward, app->unit_size * 2, add);
-	ml_vector3_add(npc_object->position, add, end);
-	draw_debug_line(app, sub_buffer,
-		(t_vec3[2]){{npc_object->position[0], npc_object->position[1],
-		npc_object->position[2]}, {end[0], end[1], end[2]}}, 0xffff00ff);
+	ml_matrix4_rotation_y(pitch_from_rotation_matrix(npc_object->rotation), rotation_x);
+    ml_matrix4_mul_vec3(rotation_x, (t_vec3){0, 0, -Z_DIR}, forward);
+    ml_vector3_mul(forward, app->unit_size * 2, add);
+    ml_vector3_add(npc_object->position, add, end);
+    draw_debug_line(app, sub_buffer,
+        (t_vec3[2]){{npc_object->position[0], npc_object->position[1],
+        npc_object->position[2]}, {end[0], end[1], end[2]}}, 0xffff00ff);
 }
 
 /*
