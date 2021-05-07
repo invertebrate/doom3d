@@ -39,14 +39,18 @@ static void	npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir,
 
 static void	handle_projectile(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc)
 {
+	t_vec3 dir;
+
+	ml_vector3_copy(npc->dir, dir);
+	ml_vector3_mul(dir, -1, dir);
 	if (npc->type == npc_type_monster01_range)
-		npc_shoot_projectile(app, npc_obj->aabb.center, npc->dir,
+		npc_shoot_projectile(app, npc_obj->aabb.center, dir,
 			projectile_type_fireball_green);
 	else if (npc->type == npc_type_boss)
-		npc_shoot_projectile(app, npc_obj->aabb.center, npc->dir,
+		npc_shoot_projectile(app, npc_obj->aabb.center, dir,
 			projectile_type_fireball_purple);
 	else
-		npc_shoot_projectile(app, npc_obj->aabb.center, npc->dir,
+		npc_shoot_projectile(app, npc_obj->aabb.center, dir,
 			projectile_type_fireball);
 	push_custom_event(app,
 		event_effect_play, (void *)sf_monster_shoot, s_ini(0, 1, st_game,

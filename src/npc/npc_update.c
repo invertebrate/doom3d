@@ -61,7 +61,6 @@ static void	handle_line_of_sight(t_doom3d *app, t_3d_object *npc_obj,
 		ft_memset(npc->attack_path, 0, sizeof(t_3d_object *)
 			* MAX_PATH_NODE_NETWORK_SIZE);
 		ml_vector3_normalize(diff, npc->dir);
-		ml_vector3_mul(npc->dir, -npc->speed, npc->dir);
 	}
 }
 

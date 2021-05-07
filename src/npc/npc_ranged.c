@@ -45,13 +45,13 @@ static void	npc_ranged_vars(t_npc *npc)
 	float	offset;
 	float	angle;
 
-	offset = 135;
-	angle = (npc->angle + offset) * 3.14f / 180;
-	cy = cos(angle * 0.5f);
-	sy = sin(angle * 0.5f);
+	offset = -90;
+	angle = (npc->angle - offset) * M_PI / 180;
+	cy = cos(angle);
+	sy = sin(angle);
 	npc->dir[1] = 0;
-	npc->dir[0] = cy * 120;
-	npc->dir[2] = sy * 120;
+	npc->dir[0] = cy;
+	npc->dir[2] = sy;
 	npc->rot_speed = 10;
 	npc->state = 0;
 	npc->hp = 100;

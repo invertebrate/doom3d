@@ -33,7 +33,6 @@ void	npc_get_dir_to_next_waypoint(t_doom3d *app, t_3d_object *obj)
 			ml_vector3_sub(obj->position,
 				npc->patrol_path[npc->patrol_path_index]->position, diff);
 			ml_vector3_normalize(diff, npc->dir);
-			ml_vector3_mul(npc->dir, -npc->speed, npc->dir);
 		}
 		handle_reaching_waypoint(app, npc, diff);
 	}
@@ -56,7 +55,6 @@ t_bool	npc_get_dir_to_next_atk(t_doom3d *app, t_3d_object *obj)
 	ml_vector3_sub(obj->position,
 		npc->attack_path[npc->attack_path_index]->position, diff);
 	ml_vector3_normalize(diff, npc->dir);
-	ml_vector3_mul(npc->dir, -npc->speed, npc->dir);
 	if (ml_vector3_mag(diff) < app->unit_size * 1.5)
 		npc->attack_path_index++;
 	return (false);
@@ -70,7 +68,7 @@ void	npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj)
 	npc = obj->params;
 	if (obj->params_type == npc_type_elevator)
 	{
-		l3d_3d_object_translate(obj, npc->dir[0], npc->dir[1], npc->dir[2]);
+		l3d_3d_object_translate(obj, npc->dir[0] * -npc->speed, npc->dir[1] * -npc->speed, npc->dir[2] * -npc->speed);
 		l3d_object_aabb_update(obj);
 	}
 	else
@@ -78,7 +76,7 @@ void	npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj)
 		if (npc->animation_3d
 			&& npc->animation_3d->current_clip != anim_3d_type_move)
 			anim_3d_clip_loop(app, obj, anim_3d_type_move, 0);
-		l3d_3d_object_translate(obj, npc->dir[0], 0, npc->dir[2]);
+		l3d_3d_object_translate(obj, npc->dir[0] * -npc->speed, 0, npc->dir[2] * -npc->speed);
 		l3d_object_aabb_update(obj);
 	}
 }

@@ -76,28 +76,18 @@ static void	npc_default_vars(t_npc *npc)
 	float	offset;
 	float	angle;
 
-	offset = 0;
-	if (npc->angle > 180)
-	{
-		offset = -(npc->angle - 180);
-		angle = (offset) * M_PI / 180;
-	}
-	else
-		angle = (npc->angle) * M_PI / 180;
-	cy = cos(angle * 0.5f);
-	sy = sin(angle * 0.5f);
+	offset = -90;
+	angle = (npc->angle - offset) * M_PI / 180;
+	cy = cos(angle);
+	sy = sin(angle);
 	npc->dir[1] = 0;
-	npc->dir[0] = cy * 120;
-	npc->dir[2] = sy * 120;
+	npc->dir[0] = cy;
+	npc->dir[2] = sy;
 	npc->rot_speed = 10;
 	npc->state = 0;
 	npc->hp = 100;
 	npc->advance = true;
 	npc->physics_state = physics_state_grounded;
-	LOG_INFO("npc->angle %f with offset %f rad %f", npc->angle, offset, angle);//npc->angle - offset);
-	LOG_INFO("quarternion %f %f", cy, sy);
-	//if (npc->type == npc_type_monster01)
-	//	ml_matrix4_print(npc->parent->rotation);
 }
 
 void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)

@@ -27,7 +27,7 @@ static void	handle_state_attack(t_doom3d *app, t_3d_object *npc_obj,
 			if (npc->animation_3d
 				&& npc->animation_3d->current_clip != anim_3d_type_move)
 				anim_3d_clip_loop(app, npc_obj, anim_3d_type_move, 0);
-			l3d_3d_object_translate(npc_obj, npc->dir[0], 0, npc->dir[2]);
+			l3d_3d_object_translate(npc_obj, npc->dir[0] * -npc->speed, 0, npc->dir[2] * -npc->speed);
 			l3d_object_aabb_update(npc_obj);
 		}
 	}
