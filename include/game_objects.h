@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_objects.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/27 03:44:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 14:05:35 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define MAX_PATROL_NODES 16
 # define MAX_TRIGGER_LINKS 16
 # define MAX_PATH_NODE_NETWORK_SIZE 256
+# define MAX_ATTACK_PATTERN_SIZE 128
 
 /*
 ** Projectile definitions
@@ -164,6 +165,7 @@ typedef enum e_npc_type
 	npc_type_monster02,
 	npc_type_elevator,
 	npc_type_crate,
+	npc_type_boss,
 }							t_npc_type;
 
 /*
@@ -282,6 +284,8 @@ typedef enum e_npc_action
 	action_melee_basic,
 	action_projectile_rpg,
 	action_repeat,
+	action_spawn_a,
+	action_spawn_b,
 }							t_npc_action;
 
 /*
@@ -306,7 +310,7 @@ typedef struct s_npc
 	uint32_t				atk_start;
 	uint32_t				atk_dur;
 	uint32_t				atk_timer;
-	int						atk_pattern[128];
+	int						atk_pattern[MAX_ATTACK_PATTERN_SIZE];
 	int						atk_pattern_index;
 	t_3d_object				*patrol_path[MAX_PATROL_NODES + 1];
 	int						patrol_path_index;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_spawn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 09:35:21 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/06 18:28:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 14:54:53 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static t_3d_object	*place_npc_object_in_scene(t_doom3d *app, t_npc *npc,
 	l3d_3d_object_set_params(obj, npc, sizeof(t_npc), npc->type);
 	if (npc->type == npc_type_monster01 || npc->type == npc_type_monster02
 		|| npc->type == npc_type_monster01_a
-		|| npc->type == npc_type_monster01_range)
+		|| npc->type == npc_type_monster01_range
+		|| npc->type == npc_type_boss)
 	{
 		obj->material->shading_opts = e_shading_standard;
 		l3d_3d_object_rotate(obj, 0, 0, 180);
@@ -39,7 +40,8 @@ static t_3d_object	*place_npc_object_in_scene(t_doom3d *app, t_npc *npc,
 
 void	parse_npc_type(t_doom3d *app, t_npc *npc, int type)
 {
-	if (type == npc_type_monster01 || type == npc_type_monster01_a)
+	if (type == npc_type_monster01 || type == npc_type_monster01_a
+		|| type == npc_type_boss)
 	{
 		npc_default(app, npc, NULL);
 		if (npc->animation_3d != NULL)
@@ -79,7 +81,7 @@ t_3d_object	*npc_spawn(t_doom3d *app, t_vec3 pos, float angle, int type)
 	obj = place_npc_object_in_scene(app, &npc, pos);
 	if (npc.type == npc_type_monster01 || npc.type == npc_type_monster02
 		|| npc.type == npc_type_monster01_a || npc.type
-		== npc_type_monster01_range)
+		== npc_type_monster01_range || npc.type == npc_type_boss)
 		npc_animation_3d_init(app, npc.parent);
 	if (npc.parent == NULL)
 		LOG_INFO("default npc parent was null");

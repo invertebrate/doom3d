@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:59:45 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/30 14:36:52 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/07 13:52:47 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 # define PREF_FREQ 44100
 # define SOUND_DIST 100000
 
-# define SOUNDS 40
+# define SOUNDS 41
 # define MUSIC 2
-# define SEFFECT 38
+# define SEFFECT 39
 # define AUDIO_LOG 20
 # define TRACK1 "assets/sounds/basic_music.wav"
 # define TRACK2 "assets/sounds/doom_music.wav"
@@ -77,6 +77,7 @@
 # define SF_AUDIO_LOG_18 "assets/sounds/story_18.wav"
 # define SF_AUDIO_LOG_19 "assets/sounds/story_19.wav"
 # define SF_AUDIO_LOG_20 "assets/sounds/story_20.wav"
+# define SF_SPAWN "assets/sounds/spawn_effect.wav"
 
 # define SPLAYING 1
 # define SPAUSED 2
@@ -172,6 +173,7 @@ typedef enum e_sounds
 	sf_audio_log_18,
 	sf_audio_log_19,
 	sf_audio_log_20,
+	sf_spawn,
 }						t_sounds;
 
 /*

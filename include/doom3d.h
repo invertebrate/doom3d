@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 14:28:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 13:55:37 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -360,6 +360,10 @@ void						init_astar_node(t_doom3d *app, t_astar_vars *v,
 void						astar_handle_node(t_astar_vars *v);
 void						handle_atk_anim(t_doom3d *app,
 								t_3d_object *npc_obj);
+void						npc_boss(t_doom3d *app, t_npc *npc, int type);
+void						npc_special_spawn(t_doom3d *app,
+								t_3d_object *npc_obj, t_npc *npc);
+void						npc_boss_death(t_doom3d *app);
 
 /*
 ** Physics
