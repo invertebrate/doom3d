@@ -116,7 +116,7 @@ static void	npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj,
 		l3d_3d_object_scale(npc->animation_3d->animation_frames[i],
 			npc->model_scale, npc->model_scale, npc->model_scale);
 		l3d_3d_object_rotate_matrix(npc->animation_3d->animation_frames[i],
-            obj->rotation);
+			obj->rotation);
 		ml_matrix4_id(npc->animation_3d->frame_object_prev_rotation[i]);
 	}
 }

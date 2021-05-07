@@ -68,7 +68,9 @@ void	npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj)
 	npc = obj->params;
 	if (obj->params_type == npc_type_elevator)
 	{
-		l3d_3d_object_translate(obj, npc->dir[0] * -npc->speed, npc->dir[1] * -npc->speed, npc->dir[2] * -npc->speed);
+		l3d_3d_object_translate(obj,
+			npc->dir[0] * -npc->speed, npc->dir[1] * -npc->speed,
+			npc->dir[2] * -npc->speed);
 		l3d_object_aabb_update(obj);
 	}
 	else
@@ -76,7 +78,8 @@ void	npc_move_step_to_waypoint(t_doom3d *app, t_3d_object *obj)
 		if (npc->animation_3d
 			&& npc->animation_3d->current_clip != anim_3d_type_move)
 			anim_3d_clip_loop(app, obj, anim_3d_type_move, 0);
-		l3d_3d_object_translate(obj, npc->dir[0] * -npc->speed, 0, npc->dir[2] * -npc->speed);
+		l3d_3d_object_translate(obj,
+			npc->dir[0] * -npc->speed, 0, npc->dir[2] * -npc->speed);
 		l3d_object_aabb_update(obj);
 	}
 }

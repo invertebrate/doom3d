@@ -39,7 +39,7 @@ static void	npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir,
 
 static void	handle_projectile(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc)
 {
-	t_vec3 dir;
+	t_vec3	dir;
 
 	ml_vector3_copy(npc->dir, dir);
 	ml_vector3_mul(dir, -1, dir);
