@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 15:49:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 15:24:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 23:12:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	triangle_sort_by_morton_code(t_tri_vec *triangles,
 		if (i < triangles->size)
 		{
 			tmp[i] = triangles->triangles[i];
-			aabb = triangle_bounding_box(triangles->triangles[i]);
+			aabb = l3d_triangle_bounding_box(triangles->triangles[i]);
 			normalize_by_world_box(aabb.center, world_box);
 			key_vals[0][i] = morton_3d(aabb.center);
 		}

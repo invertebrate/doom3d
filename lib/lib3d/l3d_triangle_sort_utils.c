@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 00:16:48 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 15:26:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 23:12:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	normalize_by_world_box(t_vec3 position,
 ** Return triangle's bounding box (axis aligned bounding box)
 */
 
-t_box3d	triangle_bounding_box(t_triangle *triangle)
+t_box3d	l3d_triangle_bounding_box(t_triangle *triangle)
 {
 	int32_t	i;
 	t_box3d	aabb;

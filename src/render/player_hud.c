@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:12:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 12:33:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 18:55:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,8 @@ static void	render_player_animation(t_doom3d *app)
 	l3d_image_place(&(t_surface){.pixels = app->window->framebuffer->buffer,
 		.h = app->window->framebuffer->height,
 		.w = app->window->framebuffer->width},
-		&player_layer, (int32_t[2]){app->window->framebuffer->width - 96
-		- ANIMATION_SCALE * (app->window->framebuffer->width / 2),
-		app->window->framebuffer->height - 76
-		- ANIMATION_SCALE * (app->window->framebuffer->height / 2)}, 1.0);
+		&player_layer, (int32_t[2]){app->window->framebuffer->width - 96 - 640,
+		app->window->framebuffer->height - 76 - 360}, 1.0);
 	free(player_layer.pixels);
 }
 

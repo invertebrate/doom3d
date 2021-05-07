@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 16:33:35 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 16:33:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 21:12:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ t_bool	object_too_far(t_doom3d *app, t_3d_object *obj)
 	ml_vector3_sub(obj->aabb.xyz_max, app->player.pos,
 		player_to_obj_max);
 	if (ml_vector3_mag(player_to_obj_min) > too_far
-		&& ml_vector3_mag(player_to_obj_max) > too_far)
+		&& ml_vector3_mag(player_to_obj_max) > too_far &&
+		!l3d_point_inside_aabb(&obj->aabb, app->player.pos))
 		return (true);
+	
 	return (false);
 }

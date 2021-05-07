@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 16:43:34 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/06 16:08:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 19:19:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ static void	hp_render(t_doom3d *app)
 	ft_memset(str, 0, sizeof(str));
 	ft_sprintf(str, "%.0f",
 		(float)app->player.hp * 100.0 / (float)app->player.max_hp);
-	window_text_render(app->window, (t_text_params){
+	window_text_render_centered(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
-		.xy = (int [2]){96 + 1 * 74,
-		app->window->framebuffer->height - 70},
+		.xy = (int [2]){96 + 48 + 1 * 74,
+		app->window->framebuffer->height - 35},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
-		app->window->title_font);
+		app->window->main_font);
 	hp_image = hash_map_get(app->active_scene->hud_textures,
 			(int64_t)"assets/img/health_icon_64.bmp");
 	error_check(!hp_image, "Could not find hp_image image");
@@ -53,12 +53,12 @@ static void	ammo_render(t_doom3d *app)
 	ft_memset(str, 0, sizeof(str));
 	ft_sprintf(str, "%d | %d", app->player.equipped_weapon->clip,
 		app->player.equipped_weapon->ammo);
-	window_text_render(app->window, (t_text_params){
+	window_text_render_centered(app->window, (t_text_params){
 		.text = str, .blend_ratio = 1.0,
-		.xy = (int [2]){96 + 3 * 74,
-		app->window->framebuffer->height - 70},
+		.xy = (int [2]){96 + 96 + 3 * 74,
+		app->window->framebuffer->height - 35},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
-		app->window->title_font);
+		app->window->main_font);
 	ammo_image = hash_map_get(app->active_scene->hud_textures,
 			(int64_t)"assets/img/ammo_icon_64.bmp");
 	error_check(!ammo_image, "Could not find ammo_image image");
@@ -66,7 +66,7 @@ static void	ammo_render(t_doom3d *app)
 		.h = app->window->framebuffer->height,
 		.w = app->window->framebuffer->width,
 		.pixels = app->window->framebuffer->buffer},
-		ammo_image, (int32_t[2]){96 + 2 * 74,
+		ammo_image, (int32_t[2]){96 + 42 + 2 * 74,
 		app->window->framebuffer->height - 76}, 1.0);
 }
 

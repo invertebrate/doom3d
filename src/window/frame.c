@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:32:17 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 13:24:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 18:17:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 ** Clear frame
 */
 
-void	window_frame_clear(t_window *window)
+void	window_frame_clear(t_window *window, uint32_t clear_color)
 {
 	l3d_buffer_uint32_clear(window->framebuffer->buffer,
-		window->framebuffer->width * window->framebuffer->height, CLEAR_COLOR);
+		window->framebuffer->width * window->framebuffer->height, clear_color);
 }
 
 /*

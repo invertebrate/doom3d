@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 16:21:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 18:58:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** Scene switch should be the first thing we do if next scene id has changed
 ** in main loop (before event handling).
+** Force main game to be smaller resolution.
 */
 
 static void	handle_scene_switch(t_doom3d *app)
@@ -27,6 +28,13 @@ static void	handle_scene_switch(t_doom3d *app)
 		if (app->is_debug)
 			LOG_DEBUG("Scen change detected, selecting next");
 		prev_scene_id = app->active_scene->scene_id;
+		if (app->next_scene_id == scene_id_main_game
+			&& prev_scene_id != scene_id_main_game
+			&& app->settings.width != WIDTH)
+		{
+			handle_window_resize(app, WIDTH, HEIGHT);
+			resize_dependent_recreate(app);
+		}
 		select_next_scene(app);
 		if (prev_scene_id == scene_id_main_game)
 			mp_typec(app, 0, 0, SSTOPPED);
@@ -86,17 +94,22 @@ static void	cleanup(t_doom3d *app)
 
 static void	main_loop(t_doom3d *app)
 {
+	uint32_t	clear_color;
+
 	while (app->is_running)
 	{
+		clear_color = CLEAR_COLOR;
 		app->info.performance_start = SDL_GetPerformanceCounter();
 		if (app->window->resized)
 			resize_dependent_recreate(app);
-		window_frame_clear(app->window);
 		handle_scene_switch(app);
 		handle_events(app);
 		update_player(app);
 		update_objects(app);
 		trigger_timer_update(app);
+		if (app->active_scene->scene_id == scene_id_main_game)
+			clear_color = 0x000000ff;
+		window_frame_clear(app->window, clear_color);
 		render_to_framebuffer(app);
 		draw_window_frame(app->window);
 		update_notifications(app);

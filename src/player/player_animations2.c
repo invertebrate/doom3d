@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 21:25:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 16:15:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 18:53:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void	set_anim_frame_info(t_doom3d *app, t_sprite_anim *anim,
+static void	set_anim_frame_info(t_sprite_anim *anim,
 							int32_t index_offset, int32_t num_frames)
 {
 	int32_t		i;
@@ -21,8 +21,8 @@ static void	set_anim_frame_info(t_doom3d *app, t_sprite_anim *anim,
 
 	anim->num_frames = num_frames;
 	i = index_offset - 1;
-	width = (app->settings.width / 2) * ANIMATION_SCALE;
-	height = (app->settings.height / 2) * ANIMATION_SCALE;
+	width = 640;
+	height = 360;
 	while (++i < anim->num_frames)
 	{
 		anim->frames[i - index_offset].width = width;
@@ -36,20 +36,15 @@ static void	set_anim_frame_info(t_doom3d *app, t_sprite_anim *anim,
 
 static void	player_default_animations_init(t_doom3d *app)
 {
-	set_anim_frame_info(app,
-		&app->animations[anim_shotgun_default], 0, 1);
+	set_anim_frame_info(&app->animations[anim_shotgun_default], 0, 1);
 	app->animations[anim_shotgun_default].interruptable = true;
-	set_anim_frame_info(app,
-		&app->animations[anim_pistol_default], 0, 1);
+	set_anim_frame_info(&app->animations[anim_pistol_default], 0, 1);
 	app->animations[anim_pistol_default].interruptable = true;
-	set_anim_frame_info(app,
-		&app->animations[anim_rpg_default], 0, 1);
+	set_anim_frame_info(&app->animations[anim_rpg_default], 0, 1);
 	app->animations[anim_rpg_default].interruptable = true;
-	set_anim_frame_info(app,
-		&app->animations[anim_rpg_special], 4, 1);
+	set_anim_frame_info(&app->animations[anim_rpg_special], 4, 1);
 	app->animations[anim_rpg_special].interruptable = true;
-	set_anim_frame_info(app,
-		&app->animations[anim_fist_default], 0, 1);
+	set_anim_frame_info(&app->animations[anim_fist_default], 0, 1);
 	app->animations[anim_fist_default].interruptable = true;
 }
 
@@ -60,25 +55,17 @@ static void	player_default_animations_init(t_doom3d *app)
 void	player_animations_init(t_doom3d *app)
 {
 	player_default_animations_init(app);
-	set_anim_frame_info(app,
-		&app->animations[anim_shotgun_shoot], 0, 5);
-	set_anim_frame_info(app,
-		&app->animations[anim_pistol_shoot], 0, 5);
-	set_anim_frame_info(app,
-		&app->animations[anim_rpg_shoot], 0, 5);
-	set_anim_frame_info(app,
-		&app->animations[anim_fist_shoot], 0, 5);
-	set_anim_frame_info(app,
-		&app->animations[anim_shotgun_reload], 5, 8);
+	set_anim_frame_info(&app->animations[anim_shotgun_shoot], 0, 5);
+	set_anim_frame_info(&app->animations[anim_pistol_shoot], 0, 5);
+	set_anim_frame_info(&app->animations[anim_rpg_shoot], 0, 5);
+	set_anim_frame_info(&app->animations[anim_fist_shoot], 0, 5);
+	set_anim_frame_info(&app->animations[anim_shotgun_reload], 5, 8);
 	app->animations[anim_shotgun_reload].frame_time = 120;
-	set_anim_frame_info(app,
-		&app->animations[anim_pistol_reload], 5, 8);
+	set_anim_frame_info(&app->animations[anim_pistol_reload], 5, 8);
 	app->animations[anim_pistol_reload].frame_time = 120;
-	set_anim_frame_info(app,
-		&app->animations[anim_rpg_reload], 5, 8);
+	set_anim_frame_info(&app->animations[anim_rpg_reload], 5, 8);
 	app->animations[anim_rpg_reload].frame_time = 120;
-	set_anim_frame_info(app,
-		&app->animations[anim_fist_reload], 5, 8);
+	set_anim_frame_info(&app->animations[anim_fist_reload], 5, 8);
 	app->animations[anim_fist_reload].frame_time = 120;
 }
 

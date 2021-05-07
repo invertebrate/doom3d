@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 15:24:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 23:12:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -493,7 +493,7 @@ int							l3d_triangle_test_clip(t_triangle *triangle,
 ** Bounding box
 */
 
-t_box3d						triangle_bounding_box(t_triangle *triangle);
+t_box3d						l3d_triangle_bounding_box(t_triangle *triangle);
 t_axis						l3d_bounding_box_longest_axis(t_box3d bounding_box);
 void						l3d_bounding_box_set(t_tri_vec *triangles,
 								t_box3d *res);

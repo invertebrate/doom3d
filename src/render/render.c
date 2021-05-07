@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 16:07:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 18:24:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ static void	render_background(t_doom3d *app)
 {
 	t_surface			*background;
 
-	background = hash_map_get(app->active_scene->textures,
-			(int64_t)"assets/textures/floor_metal_2048.bmp");
+	background = hash_map_get(app->active_scene->hud_textures,
+			(int64_t)"assets/img/hud_shell.bmp");
 	error_check(!background, "Could not find background image");
 	l3d_image_place(&(t_surface){
 		.h = app->window->framebuffer->height,
 		.w = app->window->framebuffer->width,
 		.pixels = app->window->framebuffer->buffer},
-		background, (int32_t[2]){0, 0}, 0.5);
+		background, (int32_t[2]){0, 0}, 1.0);
 }
 
 /*

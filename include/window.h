@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 12:54:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 18:18:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define GAME_FONT "assets/fonts/AmazDooMLeft.ttf"
 # define DEBUG_FONT "assets/fonts/Roboto-Regular.ttf"
 # define FONT_SIZE 38
-# define CLEAR_COLOR 0x000000ff
+# define CLEAR_COLOR 0x700000FF
 
 /*
 **	Frame buffer
@@ -178,7 +178,8 @@ void						window_3d_framebuffer_recreate(t_window *window,
 								int32_t dims[2],
 								int32_t pos[2]);
 void						draw_window_frame(t_window *window);
-void						window_frame_clear(t_window *window);
+void						window_frame_clear(t_window *window,
+								uint32_t clear_color);
 void						window_resize(t_window *window,
 								int32_t width, int32_t height);
 
