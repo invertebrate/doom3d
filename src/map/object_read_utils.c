@@ -58,20 +58,5 @@ int32_t	read_obj_normal_map(t_3d_object *obj,
 
 float	pitch_from_rotation_matrix(t_mat4 rotation)
 {
-	float	pitch1;
-	float	pitch2;
-
-	if (rotation[0][2] != 1 && rotation[0][2] != -1)
-	{
-		pitch1 = -1 * asin(rotation[0][2]);
-		pitch2 = M_PI - pitch1;
-		if (rotation[0][0] < 0 || rotation[2][2] < 0)
-			return (pitch2);
-		else
-			return (pitch1);
-	}
-	if (rotation[0][2] > 0)
-		return (-M_PI / 2.0);
-	else
-		return (M_PI / 2.0);
+	return (atan2(rotation[0][2], -rotation[2][2]));
 }
