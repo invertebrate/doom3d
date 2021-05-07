@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:41:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 16:12:44 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/07 14:55:13 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ static void	weird_npcs_load(t_scene *scene)
 	hash_map_add(scene->npc_map,
 		(int64_t)scene->asset_files.npc_names[scene->asset_files.num_npcs++],
 		(void *)npc_type_crate);
+	scene->asset_files.npc_names[scene->asset_files.num_npcs] = "Boss";
+	hash_map_add(scene->npc_map,
+		(int64_t)scene->asset_files.npc_names[scene->asset_files.num_npcs++],
+		(void *)npc_type_boss);
 }
 
 void	npcs_load(t_scene *scene)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_read.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 02:05:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 16:36:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 14:45:59 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	set_npc_object(t_doom3d *app, t_3d_object *obj)
 
 	ft_memset(&npc, 0, sizeof(t_npc));
 	if (obj->params_type == npc_type_monster01
-		|| obj->params_type == npc_type_monster01_a)
+		|| obj->params_type == npc_type_monster01_a
+		|| obj->params_type == npc_type_boss)
 		npc_default(app, &npc, obj);
 	else if (obj->params_type == npc_type_monster02
 		|| obj->params_type == npc_type_monster01_range)

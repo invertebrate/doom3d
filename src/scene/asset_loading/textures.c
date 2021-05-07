@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:19:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 14:14:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 12:50:03 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static void	scene_texture_files_set_sub3(t_asset_files *data)
 		= "assets/textures/alien_floor.bmp";
 	data->texture_files[data->num_textures++]
 		= "assets/textures/lava_molten.bmp";
+	data->texture_files[data->num_textures++]
+		= "assets/textures/monster01_finalboss.bmp";
 }
 
 void	scene_texture_files_set(t_asset_files *data)
