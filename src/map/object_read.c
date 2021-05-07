@@ -17,6 +17,7 @@ static void	set_npc_object(t_doom3d *app, t_3d_object *obj)
 	t_npc		npc;
 
 	ft_memset(&npc, 0, sizeof(t_npc));
+	npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 	if (obj->params_type == npc_type_monster01
 		|| obj->params_type == npc_type_monster01_a)
 		npc_default(app, &npc, obj);
@@ -30,7 +31,6 @@ static void	set_npc_object(t_doom3d *app, t_3d_object *obj)
 	else
 		return ;
 	npc_monster01(app, &npc, obj->params_type);
-	npc.angle = pitch_from_rotation_matrix(obj->rotation) * 180 / M_PI;
 	l3d_3d_object_set_params(obj, &npc, sizeof(t_npc), npc.type);
 	if (obj->params_type != npc_type_elevator)
 		npc_animation_3d_init(app, obj);
