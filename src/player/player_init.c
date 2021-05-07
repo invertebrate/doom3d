@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 14:11:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/02 23:17:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 18:11:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		player_attributes_init(t_doom3d *app)
 	else
 	{
 		app->player.speed = PLAYER_SPEED;
-		app->player.rot_speed = PLAYER_ROTATION_SPEED;
+		app->player.rot_speed = PLAYER_ROTATION_SPEED * 0.5;
 	}
 	app->player.rot_x = 0;
 	app->player.rot_y = 0;
