@@ -41,7 +41,8 @@ void			player_rotate_vertical(t_doom3d *app, float angle)
 
 void			player_rotate_horizontal(t_doom3d *app, float angle)
 {
-	app->player.rot_x += app->player.rot_speed * angle;
+	app->player.rot_x += app->player.rot_speed * angle * app->info.delta_time
+		* CONST_SPEED;
 	player_rotate(app);
 }
 
