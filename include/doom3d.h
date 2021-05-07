@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 17:12:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 14:28:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -530,6 +530,7 @@ void						handle_player_interact(t_doom3d *app);
 ** 3D Animations
 */
 
+void						npc_anim_3d_transform_update(t_animation_3d *anim);
 void						npc_animation_3d_set(t_doom3d *app,
 								t_3d_object *obj, t_npc *npc,
 								t_anim_metadata *anim_data);
@@ -543,8 +544,6 @@ uint32_t					anim_3d_clip_loop(t_doom3d *app, t_3d_object *obj,
 								uint32_t start_frame);
 t_bool						anim_3d_clip_play(t_doom3d *app, t_3d_object *obj,
 								t_anim_3d_instance *anim_instance);
-void						npc_anim_3d_position_update(t_animation_3d *anim);
-void						npc_anim_3d_rotation_update(t_animation_3d *anim);
 t_bool						check_obj_3d_anim(t_3d_object *obj);
 t_bool						animation_3d_instance_destroy(t_anim_3d_instance
 								*instance);
@@ -562,8 +561,6 @@ t_bool						instance_status_check(t_animation_3d *animation,
 								float elapsed_time);
 void						copy_instance_data(t_animation_3d *anim,
 								t_anim_3d_instance *instance);
-uint32_t					npc_anim_3d_transform_update(t_animation_3d
-								*animation);
 void						init_anim_instance_death(t_3d_object *obj,
 								t_anim_3d_instance *inst);
 void						init_anim_instance_attack(t_3d_object *obj,
