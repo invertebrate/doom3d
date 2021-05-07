@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:35:16 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/07 14:00:47 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/07 16:25:29 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 	npc->interest = npc->max_interest;
 	if (npc->type == npc_type_boss && npc->hp <= 100)
 		push_custom_event(app,
-			event_effect_play, (void *)SF_AUDIO_LOG_19,
+			event_effect_play, (void *)sf_audio_log_19,
 			s_ini(0, 1, st_game, 1.0));
 	if (npc->hp <= 0 && npc->type == npc_type_crate)
 		push_custom_event(app, event_object_delete, obj, NULL);

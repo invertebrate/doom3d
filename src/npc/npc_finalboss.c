@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/07 14:53:20 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/07 16:29:59 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	npc_boss(t_doom3d *app, t_npc *npc, int type)
 		npc->atk_range = app->unit_size * 12;
 		npc->atk_dmg = 250;
 		npc->advance = false;
+		npc->max_interest = 1000000000;
 		set_attack_pattern(npc);
 	}
 }
@@ -102,6 +103,6 @@ void	npc_boss(t_doom3d *app, t_npc *npc, int type)
 void	npc_boss_death(t_doom3d *app)
 {
 	push_custom_event(app,
-		event_effect_play, (void*)SF_AUDIO_LOG_20, s_ini(0, 1, st_game, 1.0));
+		event_effect_play, (void*)sf_audio_log_20, s_ini(0, 1, st_game, 1.0));
 	// START TIMER TO END GAME THEN END GAME AFTER AUDIO ENDS
 }

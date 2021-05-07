@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 13:59:58 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/07 15:21:30 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/07 16:15:47 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_projectile	fire_custom(t_projectile projectile, int type)
 	{
 		projectile.texture_key = NPC_PROJECTILE_06;
 		projectile.radius *= 5;
-		projectile.speed *= 0.8f;
+		projectile.damage *= 2;
 		projectile.speed *= 0.7;
 	}
 	return (projectile);

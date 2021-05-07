@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:19:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 12:50:03 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/07 16:04:24 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ static void	scene_texture_files_set_sub3(t_asset_files *data)
 		= "assets/textures/lava_molten.bmp";
 	data->texture_files[data->num_textures++]
 		= "assets/textures/monster01_finalboss.bmp";
+	data->texture_files[data->num_textures++]
+		= NPC_PROJECTILE_02;
+	data->texture_files[data->num_textures++]
+		= NPC_PROJECTILE_06;
 }
 
 void	scene_texture_files_set(t_asset_files *data)
