@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 13:25:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 12:54:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define GAME_FONT "assets/fonts/AmazDooMLeft.ttf"
 # define DEBUG_FONT "assets/fonts/Roboto-Regular.ttf"
 # define FONT_SIZE 38
-# define CLEAR_COLOR 0x700000FF
+# define CLEAR_COLOR 0x000000ff
 
 /*
 **	Frame buffer

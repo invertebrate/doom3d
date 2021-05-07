@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 23:18:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 15:44:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ void			player_rotate_vertical(t_doom3d *app, float angle)
 
 void			player_rotate_horizontal(t_doom3d *app, float angle)
 {
-	app->player.rot_x += app->player.rot_speed * angle * app->info.delta_time
-		* CONST_SPEED;
+	app->player.rot_x += app->player.rot_speed * angle;
 	player_rotate(app);
 }
 

@@ -254,6 +254,7 @@ SOURCES = main.c \
 			sound/sound_mp_controls.c\
 			sound/sound_mp_reorder.c\
 			animations/animation.c \
+			animations/animation_transform.c \
 			animations/animation_utils.c \
 			animations/animation_utils2.c
 
