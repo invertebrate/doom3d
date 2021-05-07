@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trigger_place_start_end.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 22:01:33 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/04 19:57:31 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/07 12:40:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_3d_object	*place_player_start(t_doom3d *app)
 			(const char *[3]){"assets/models/box.obj", NULL, NULL}, pos);
 	l3d_object_set_shading_opts(
 		app->active_scene->objects[app->active_scene->last_object_index],
-		e_shading_invisible | e_shading_transparent);
+		e_shading_invisible | e_shading_transparent | e_shading_light);
 	app->active_scene->objects[app->active_scene->last_object_index]->type
 		= object_type_trigger;
 	trigger_params.parent = app->active_scene->objects[
@@ -48,7 +48,7 @@ t_3d_object	*place_player_end(t_doom3d *app)
 			(const char *[3]){"assets/models/box.obj", NULL, NULL}, pos);
 	l3d_object_set_shading_opts(
 		app->active_scene->objects[app->active_scene->last_object_index],
-		e_shading_invisible | e_shading_transparent);
+		e_shading_invisible | e_shading_transparent | e_shading_light);
 	app->active_scene->objects[app->active_scene->last_object_index]->type
 		= object_type_trigger;
 	trigger_params.parent = app->active_scene->objects[
