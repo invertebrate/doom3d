@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:12:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 15:52:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 12:33:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static void	render_current_frame(t_anim_frame *curr_frame,
 	{
 		ft_memcpy(player_layer->pixels + y * curr_frame->width,
 			anim_source->pixels + anim_source->w
-			* (curr_frame->y_offset + y) + curr_frame->x_offset,
-			sizeof(uint32_t) * curr_frame->width);
+			* (curr_frame->y_offset + y) + curr_frame->x_offset + 2,
+			sizeof(uint32_t) * curr_frame->width - 2);
 	}
 }
 
