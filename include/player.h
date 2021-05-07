@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 15:45:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 18:35:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # define PLAYER_SPEED 8.0
 # define PLAYER_MAX_SPEED 14.00
 # define PLAYER_ROTATION_SPEED 0.1
-# define ANIMATION_SCALE 1.5
 # define PLAYER_JUMP_FORCE 8.0
 # define PLAYER_HEIGHT 1.75
 # define PLAYER_HEIGHT_CROUCH 0.75

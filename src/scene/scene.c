@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 16:47:26 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/07 18:46:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_scene	*scene_new(t_scene_id scene_id)
 void	select_next_scene(t_doom3d *app)
 {
 	LOG_INFO("Select Scene %d", app->next_scene_id);
-	window_frame_clear(app->window);
+	window_frame_clear(app->window, 0x000000ff);
 	render_loading_view(app);
 	draw_window_frame(app->window);
 	select_scene(app);
