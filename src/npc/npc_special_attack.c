@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/07 15:34:57 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/07 17:46:21 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ void	npc_special_spawn(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc)
 		npc_spawn(app, pos, 0, npc_type_monster01_range);
 	push_custom_event(app, event_effect_play, (void *)sf_spawn,
 		s_ini(0, 1, st_game, distance_vol(0.8f,
-			sound_mag(app->player.pos, npc_obj->position), -1)));
+				sound_mag(app->player.pos, npc_obj->position), -1)));
 }
