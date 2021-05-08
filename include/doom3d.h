@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 18:37:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 19:06:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -454,6 +454,7 @@ void						handle_object_scale(t_doom3d *app,
 void						handle_object_scale_with_uvs(t_doom3d *app,
 								t_3d_object *object,
 								int32_t dir);
+void						handle_object_set_shading_not_cull(t_doom3d *app);
 void						handle_object_rotate_x(t_doom3d *app,
 								t_3d_object *object,
 								int32_t amount);

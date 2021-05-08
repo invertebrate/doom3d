@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:32:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 14:26:12 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/08 19:09:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,25 @@ void	handle_object_scale_with_uvs(t_doom3d *app,
 		l3d_3d_object_scale_with_uvs(object, 1.1);
 	else
 		l3d_3d_object_scale_with_uvs(object, 1.0 / 1.1);
+}
+
+void	handle_object_set_shading_not_cull(t_doom3d *app)
+{
+	int32_t		i;
+	t_3d_object	*obj;
+
+	i = -1;
+	while (++i < app->editor.num_selected_objects)
+	{
+		obj = app->editor.selected_objects[i];
+		l3d_object_set_shading_opts(obj,
+			obj->material->shading_opts | e_shading_dont_cull);
+	}
+	if (i > 0)
+	{
+		app->editor.is_saved = false;
+		notify_user(app, (t_notification){
+			.message = "Selected objects set to not be culled by distance",
+			.time = 200, .type = notification_type_info});
+	}
 }
