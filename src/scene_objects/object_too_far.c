@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 16:33:35 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 18:42:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 19:32:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_bool	object_too_far(t_doom3d *app, t_3d_object *obj)
 	t_vec3		player_to_obj_max;
 	t_vec3		player_to_pos;
 
-	if (obj->type == object_type_light)
+	if (obj->type == object_type_light
+		|| (obj->material->shading_opts & e_shading_dont_cull))
 		return (false);
 	if (app->active_scene->scene_id == scene_id_main_game)
 		too_far = app->unit_size * GAME_VIEW_DIST_UNITS;
