@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 23:18:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 17:20:05 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ float			get_movement_speed(t_doom3d *app)
 	float		speed;
 
 	if (app->player.is_running &&
-		app->player.physics_state != physics_state_jumping)
+		app->player.physics_state != physics_state_not_grounded)
 		speed = app->player.speed * 1.5;
 	else if (app->player.is_crouching &&
-		app->player.physics_state != physics_state_jumping)
+		app->player.physics_state != physics_state_not_grounded)
 		speed = app->player.speed * 0.5;
 	else
 		speed = app->player.speed;
@@ -103,9 +103,4 @@ void			player_move(t_doom3d *app)
 		app->active_scene->triangle_tree != NULL)
 		collision_limit_player_horizontal(app, add);
 	ml_vector3_add(app->player.pos, add, app->player.pos);
-	ml_matrix4_translation(app->player.pos[0],
-		app->player.pos[1], app->player.pos[2], app->player.translation);
-	ml_matrix4_inverse(app->player.translation, app->player.inv_translation);
-	update_player_camera(app);
-	update_third_person_camera(app);
 }

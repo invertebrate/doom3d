@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 14:11:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/04 23:47:52 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/08 16:42:43 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,13 @@ static void		player_collider_init(t_doom3d *app)
 	player = &app->player;
 	ml_vector3_copy(player->pos, player->collider.sphere.pos);
 	ml_vector3_sub(player->collider.sphere.pos,
-		(t_vec3){0.0, -0.5 * app->unit_size, 0.0},
+		(t_vec3){0.1, -0.5 * app->unit_size, 0.0},//change x to 0
 		player->collider.sphere.pos);
 	ml_vector3_copy(player->up, player->collider.sphere.up);
 	ml_vector3_copy(player->forward, player->collider.sphere.forward);
 	player->collider.sphere.radius = 0.55 * app->unit_size;
 	ft_memset(player->collider.rays, 0, sizeof(t_ray) * COLLIDER_RAY_COUNT);
+	player_collider_update(app);
 }
 
 void			player_init(t_doom3d *app, t_vec3 pos)
@@ -69,6 +70,7 @@ void			player_init(t_doom3d *app, t_vec3 pos)
 	ft_memcpy(app->player.forward, &(t_vec3){0, 0, Z_DIR}, sizeof(t_vec3));
 	ft_memcpy(app->player.up, &(t_vec3){0, Y_DIR, 0}, sizeof(t_vec3));
 	ft_memcpy(app->player.sideways, &(t_vec3){X_DIR, 0, 0}, sizeof(t_vec3));
+	ft_memset(app->player.future_pos, 0, sizeof(t_vec3));
 	player_attributes_init(app);
 	player_transform_init(app);
 	player_move(app);

@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 19:36:41 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/08 16:43:33 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void			player_collider_update(t_doom3d *app)
 {
 	ml_vector3_copy(app->player.pos, app->player.collider.sphere.pos);
 	ml_vector3_sub(app->player.collider.sphere.pos,
-		(t_vec3){0.0, -0.5 * app->unit_size, 0.0},
+		(t_vec3){0.1, -0.5 * app->unit_size, 0.0},//change x to 0
 		app->player.collider.sphere.pos);
 	l3d_cast_rays_sphere(app->player.collider.rays,
 		(uint32_t[2]){COLLIDER_RAY_COUNT, COLLIDER_RAY_COUNT},

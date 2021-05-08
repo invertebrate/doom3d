@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 15:38:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 21:13:22 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		render_main_game_ui(t_doom3d *app)
 	if (app->player.hp <= 0.2 * app->player.max_hp &&
 		!app->active_scene->is_paused)
 		framebuffer_health_low_overlay(app);
-	render_hud(app);	
+	// render_hud(app);	//HERE UNCOMMENT THIS
 	if (app->active_scene->is_paused)
 	{
 		framebuffer_dark_overlay(app->window->framebuffer);

@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 20:18:37 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/07 18:46:08 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # define PLAYER_HEIGHT 1.75
 # define PLAYER_HEIGHT_CROUCH 0.75
 # define MAX_KEYS 32
-# define COLLIDER_RAY_COUNT 10
-# define COLLIDER_RAY_TOTAL 10 * 10
+# define COLLIDER_RAY_COUNT 50
+# define COLLIDER_RAY_TOTAL 50 * 50
 # define PLAYER_COLLIDER_RADIUS 0.2
 # define SLOPE_ANGLE_THRESHOLD 30
 
@@ -94,6 +94,10 @@ typedef struct				s_player
 	t_vec3					velocity;
 	t_flashlight			flashlight;
 	t_sphere_collider		collider;
+	t_vec3					future_pos;
+	t_vec3					nudge;//
+	t_vec3					hit_vec;//
+	t_vec3					ray;//testing only
 }							t_player;
 
 /*

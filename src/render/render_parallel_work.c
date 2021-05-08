@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:33:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 23:47:33 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/07 19:51:43 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void			player_debug_graphic_draw(t_render_work *work)
 {
 	t_doom3d	*app;
 	t_player	player;
+	t_vec3		nudgepoints[2];
+	t_vec3		hitpoints[2];
 	app = work->app;
 	player = app->player;
 	for (int i = 0; i < COLLIDER_RAY_TOTAL; i++)
@@ -91,13 +93,30 @@ void			player_debug_graphic_draw(t_render_work *work)
 			work->framebuffer->sub_buffers[work->sub_buffer_i],
 			points, 0x000fffff);
 		}
-		else
+		else if(ml_vector3_angle_deg(player.collider.rays[i].dir, (t_vec3){0.0, 1.0, 0.0}) < 90)
 		{
 			draw_debug_line(app,
 			work->framebuffer->sub_buffers[work->sub_buffer_i],
 			points, 0xffffffff);
 		}
 	}
+	ml_vector3_copy(player.pos, nudgepoints[0]);//
+	ml_vector3_add(player.pos, player.nudge, player.nudge);//
+	ml_vector3_copy(player.pos, nudgepoints[1]);//testing
+	ml_vector3_copy(player.pos, hitpoints[0]);//testing
+	ml_vector3_add(player.pos, player.hit_vec, player.hit_vec);
+	ml_vector3_copy(player.pos, hitpoints[1]);//testing
+	draw_debug_line(app,
+			work->framebuffer->sub_buffers[work->sub_buffer_i],
+			nudgepoints, 0xffff00ff);
+	draw_debug_line(app,
+	work->framebuffer->sub_buffers[work->sub_buffer_i],
+	hitpoints, 0xffff0ff);
+	ml_vector3_sub(player.pos, player.nudge, player.nudge);
+	// ft_printf("nudge: ");
+	// ml_vector3_print(player.nudge);
+	// ft_printf("hit_vec: ");
+	// ml_vector3_print(player.hit_vec);
 	(void)app;
 }
 
