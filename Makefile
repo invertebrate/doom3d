@@ -155,7 +155,8 @@ SOURCES = main.c \
 			scene/camera/update.c \
 			editor/editor_selection.c \
 			editor/editor_deselection.c \
-			editor/editor_utils.c \
+			editor/editor_utils1.c \
+			editor/editor_utils2.c \
 			editor/editor_init.c \
 			editor/editor_placement1.c \
 			editor/editor_placement2.c \
@@ -189,6 +190,7 @@ SOURCES = main.c \
 			render/ui.c \
 			render/ui_utils.c \
 			render/editor_ui.c \
+			render/editor_guide.c \
 			render/editor_ui_object_info.c \
 			render/debug/debug.c \
 			render/debug/debug_line.c \

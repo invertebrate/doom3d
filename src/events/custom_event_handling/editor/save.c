@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 14:21:40 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/08 19:29:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ void	handle_editor_save_start(t_doom3d *app)
 	}
 }
 
+static void	save_and_handle_highlights(t_doom3d *app)
+{
+	editor_objects_invisible_unhighlight(app);
+	editor_objects_non_culled_unhighlight(app);
+	save_map(app);
+	editor_objects_invisible_highlight(app);
+	editor_objects_non_culled_highlight(app);
+}
+
 /*
 ** Ends saving in editor (stops text input & saves)
 */
@@ -60,9 +69,7 @@ void	handle_editor_save_end(t_doom3d *app)
 	SDL_StopTextInput();
 	app->editor.is_saving = false;
 	ft_strcpy(app->editor.editor_filename, app->editor.editor_savename);
-	editor_objects_invisible_unhighlight(app);
-	save_map(app);
-	editor_objects_invisible_highlight(app);
+	save_and_handle_highlights(app);
 	notify_user(app, (t_notification){.message = "Saved level!",
 		.type = notification_type_info, .time = 2000});
 	app->editor.is_saved = true;

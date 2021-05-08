@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 23:12:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 19:49:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,9 @@ typedef enum e_shading_opts
 	e_shading_luminous = 1 << 20,
 	e_shading_standard = 1 << 17,
 	e_shading_lit = 1 << 18,
-	e_shading_emitter = 1 << 19
+	e_shading_emitter = 1 << 19,
+	e_shading_dont_cull = 1 << 20,
+	e_shading_blue_highlight = 1 << 21
 }							t_shading_opts;
 
 /*

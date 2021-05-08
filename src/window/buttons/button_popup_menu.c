@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:34:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:25:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 20:05:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	popup_menu_default_dims(t_vec2 dims)
 {
 	dims[0] = 450;
-	dims[1] = 300;
+	dims[1] = 330;
 }
 
 static void	determine_menu_dimensions(t_button_menu *popup_menu,

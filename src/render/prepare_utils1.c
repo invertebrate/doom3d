@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 23:12:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 20:24:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ t_bool	triangle_too_far(t_doom3d *app, t_triangle *triangle)
 	t_vec3		player_to_corner[3];
 	int32_t		i;
 	t_box3d		aabb;
+	t_vec3		player_to_center;
 
+	if (triangle->parent->material->shading_opts & e_shading_dont_cull)
+		return (false);
+	too_far = app->unit_size * EDITOR_VIEW_DIST_UNITS;
 	if (app->active_scene->scene_id == scene_id_main_game)
 		too_far = app->unit_size * GAME_VIEW_DIST_UNITS;
-	else
-		too_far = app->unit_size * EDITOR_VIEW_DIST_UNITS;
 	i = -1;
 	while (++i < 3)
 		ml_vector3_sub(triangle->vtc[i]->pos, app->player.pos,
@@ -61,7 +63,7 @@ t_bool	triangle_too_far(t_doom3d *app, t_triangle *triangle)
 		&& ml_vector3_mag(player_to_corner[2]) > too_far)
 	{
 		aabb = l3d_triangle_bounding_box(triangle);
-		if (!l3d_point_inside_aabb(&aabb, app->player.pos))
+		if (ml_vector3_mag(player_to_center) <= ml_vector3_mag(aabb.size))
 			return (false);
 		return (true);
 	}
