@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 15:43:06 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/08 18:37:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 # define HEIGHT 540
 # define NAME "Doom3D"
 
-# define GAME_VIEW_DIST_UNITS 200
+# define GAME_VIEW_DIST_UNITS 150
 # define EDITOR_VIEW_DIST_UNITS 450
 
 /*
