@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 18:42:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 20:57:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void	scene_editor_init(t_doom3d *app)
 		if (app->level_list[app->editor.editor_level])
 			read_map(app, app->level_list[app->editor.editor_level]);
 		editor_objects_invisible_highlight(app);
+		editor_objects_non_culled_highlight(app);
 		app->editor.is_saved = true;
 	}
 	else
