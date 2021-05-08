@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 14:05:35 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/08 15:50:40 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,16 @@ typedef struct s_trigger
 	int32_t					key_id;
 	int32_t					num_links;
 }							t_trigger;
+
+/*
+** Enum defining npc's state.
+*/
+
+typedef enum				e_timer_type
+{
+	timer_switch,
+	timer_end,
+}							t_timer_type;
 
 /*
 ** Enum defining npc's state.

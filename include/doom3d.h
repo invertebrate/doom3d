@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 13:55:37 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/08 15:43:06 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_timer
 {
 	t_bool					active;
 	t_3d_object				*target;
+	int						type;
 	int						timer_end;
 }							t_timer;
 
@@ -944,7 +945,7 @@ void						trigger_activate(t_doom3d *app, t_3d_object *obj);
 void						trigger_link_object_to_npc(t_3d_object *trigger,
 								t_3d_object *target);
 void						trigger_timer_start(t_doom3d *app,
-								t_3d_object *obj);
+								t_3d_object *obj, int type);
 void						trigger_timer_update(t_doom3d *app);
 void						get_trigger_action_text(t_trigger_type type,
 								char *action_text);

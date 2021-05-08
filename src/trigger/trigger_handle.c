@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 21:55:31 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/04 19:58:32 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/08 15:41:34 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	trigger_handle_door_switch(t_doom3d *app, t_trigger *trigger)
 		push_custom_event(app, event_effect_play,
 			(void *)sf_door_open, s_ini(0, 1, st_game, 1.0));
 	}
-	trigger_timer_start(app, trigger->linked_obj[0]);
+	trigger_timer_start(app, trigger->linked_obj[0], timer_switch);
 }
 
 void	trigger_handle_elevator_switch(t_doom3d *app,

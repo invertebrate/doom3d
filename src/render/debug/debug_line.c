@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:38:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 20:34:56 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/08 15:59:08 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,11 @@ void	draw_debug_line(t_doom3d *app,
 void	draw_enemy_direction(t_doom3d *app,
 					t_sub_framebuffer *sub_buffer, t_3d_object *npc_object)
 {
-	t_npc				*npc;
 	t_vec3				add;
 	t_vec3				end;
 	t_vec3				forward;
 	t_mat4				rotation_x;
 
-	npc = npc_object->params;
 	ml_matrix4_rotation_y(pitch_from_rotation_matrix(npc_object->rotation), rotation_x);
     ml_matrix4_mul_vec3(rotation_x, (t_vec3){0, 0, -Z_DIR}, forward);
     ml_vector3_mul(forward, app->unit_size * 2, add);
