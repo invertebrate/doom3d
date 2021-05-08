@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 20:57:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 23:22:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	scene_game_init(t_doom3d *app)
 			trigger_player_end);
 	error_check(!start || !end,
 		"Invalid map: No start or end trigger found in map");
+	editor_objects_non_culled_unhighlight(app);
 	app->is_third_person = false;
 	app->active_scene->third_person_camera_distance = 3 * app->unit_size;
 	player_init(app, start->position);
