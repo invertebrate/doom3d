@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 20:26:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 23:14:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,17 @@ static uint32_t	pixel_trans(t_triangle *triangle, t_vec2 uv,
 	t_shading_opts	shading;
 
 	shading = triangle->material->shading_opts;
-	pixel = get_pixel_initial_color_trans(triangle);
-	if (triangle->material->texture && (shading & e_shading_dont_cull))
-		pixel = l3d_color_blend_u32(pixel,
-				l3d_sample_texture(triangle->material->texture, uv), 0.5);
-	else if (triangle->material->texture)
+	if (triangle->material->texture)
+	{
 		pixel = l3d_sample_texture(triangle->material->texture, uv);
-	if ((shading & e_shading_zero_alpha) && (pixel & 255) == 0)
-		return (UINT32_MAX);
+		if ((shading & e_shading_dont_cull))
+			pixel = l3d_color_blend_u32(get_pixel_initial_color_trans(triangle),
+					pixel, 0.5);
+		if ((shading & e_shading_zero_alpha) && (pixel & 255) == 0)
+			return (UINT32_MAX);
+	}
+	else
+		pixel = get_pixel_initial_color_trans(triangle);
 	shade_special(triangle, uv, &pixel);
 	if ((shading & e_shading_luminous) || (shading & e_shading_lit))
 		return (pixel);
@@ -49,14 +52,19 @@ static uint32_t	pixel_color(t_triangle *triangle, t_vec2 uv,
 	t_shading_opts	shading;
 
 	shading = triangle->material->shading_opts;
-	pixel = get_pixel_initial_color(triangle);
-	if (triangle->material->texture && (shading & e_shading_dont_cull))
-		pixel = l3d_color_blend_u32(pixel,
-				l3d_sample_texture(triangle->material->texture, uv), 0.5);
-	else if (triangle->material->texture)
+	if (triangle->material->texture)
+	{
 		pixel = l3d_sample_texture(triangle->material->texture, uv);
-	if ((shading & e_shading_zero_alpha) && (pixel & 255) == 0)
-		return (UINT32_MAX);
+		if ((shading & e_shading_dont_cull))
+		{
+			pixel = l3d_color_blend_u32(get_pixel_initial_color(triangle),
+					pixel, 0.5);
+		}
+		if ((shading & e_shading_zero_alpha) && (pixel & 255) == 0)
+			return (UINT32_MAX);
+	}
+	else
+		pixel = get_pixel_initial_color(triangle);
 	shade_special(triangle, uv, &pixel);
 	if ((shading & e_shading_luminous) || (shading & e_shading_lit))
 		return (pixel);
