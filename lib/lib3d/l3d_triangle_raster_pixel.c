@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 20:25:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 20:26:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static uint32_t	pixel_trans(t_triangle *triangle, t_vec2 uv,
 	if (triangle->material->texture && (shading & e_shading_dont_cull))
 		pixel = l3d_color_blend_u32(pixel,
 				l3d_sample_texture(triangle->material->texture, uv), 0.5);
-	else
+	else if (triangle->material->texture)
 		pixel = l3d_sample_texture(triangle->material->texture, uv);
 	if ((shading & e_shading_zero_alpha) && (pixel & 255) == 0)
 		return (UINT32_MAX);
@@ -53,7 +53,7 @@ static uint32_t	pixel_color(t_triangle *triangle, t_vec2 uv,
 	if (triangle->material->texture && (shading & e_shading_dont_cull))
 		pixel = l3d_color_blend_u32(pixel,
 				l3d_sample_texture(triangle->material->texture, uv), 0.5);
-	else
+	else if (triangle->material->texture)
 		pixel = l3d_sample_texture(triangle->material->texture, uv);
 	if ((shading & e_shading_zero_alpha) && (pixel & 255) == 0)
 		return (UINT32_MAX);
