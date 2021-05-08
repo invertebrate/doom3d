@@ -155,7 +155,8 @@ SOURCES = main.c \
 			scene/camera/update.c \
 			editor/editor_selection.c \
 			editor/editor_deselection.c \
-			editor/editor_utils.c \
+			editor/editor_utils1.c \
+			editor/editor_utils2.c \
 			editor/editor_init.c \
 			editor/editor_placement1.c \
 			editor/editor_placement2.c \
