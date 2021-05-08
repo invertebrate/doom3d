@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 19:31:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 20:24:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ t_bool	triangle_too_far(t_doom3d *app, t_triangle *triangle)
 
 	if (triangle->parent->material->shading_opts & e_shading_dont_cull)
 		return (false);
+	too_far = app->unit_size * EDITOR_VIEW_DIST_UNITS;
 	if (app->active_scene->scene_id == scene_id_main_game)
 		too_far = app->unit_size * GAME_VIEW_DIST_UNITS;
-	else
-		too_far = app->unit_size * EDITOR_VIEW_DIST_UNITS;
 	i = -1;
 	while (++i < 3)
 		ml_vector3_sub(triangle->vtc[i]->pos, app->player.pos,

@@ -190,6 +190,7 @@ SOURCES = main.c \
 			render/ui.c \
 			render/ui_utils.c \
 			render/editor_ui.c \
+			render/editor_guide.c \
 			render/editor_ui_object_info.c \
 			render/debug/debug.c \
 			render/debug/debug_line.c \

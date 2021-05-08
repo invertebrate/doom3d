@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 19:27:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 20:04:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -596,6 +596,7 @@ void						render_ui(t_doom3d *app);
 void						render_ui_title(t_doom3d *app);
 void						render_button_menu(t_button_group *menu,
 								t_vec2 pos);
+void						set_guide_text(char *guide);
 void						framebuffer_dark_overlay(
 								t_framebuffer *framebuffer);
 void						framebuffer_health_low_overlay(

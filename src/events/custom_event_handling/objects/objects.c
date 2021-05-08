@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:32:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 19:23:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 19:56:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ void	handle_object_set_shading_not_cull(t_doom3d *app)
 		notify_user(app, (t_notification){
 			.message = "Toggled selected objects distance cull mode",
 			.time = 200, .type = notification_type_info});
+		editor_objects_non_culled_highlight(app);
 	}
 }
