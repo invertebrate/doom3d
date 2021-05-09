@@ -22,7 +22,7 @@ void	player_onhit(t_doom3d *app, int damage)
 		vol = 1;
 	push_custom_event(app,
 		event_effect_play, (void*)sf_player_hurt, s_ini(0, 1, st_game, vol));
-	if (app->player.hp < 0)
+	if (app->player.hp <= 0)
 	{
 		push_custom_event(app, event_scene_change,
 			(void *)scene_id_main_menu, NULL);
