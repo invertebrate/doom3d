@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 14:43:04 by ohakola           #+#    #+#              #
-#    Updated: 2021/05/09 17:43:31 by ohakola          ###   ########.fr        #
+#    Updated: 2021/05/09 17:47:54 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -147,7 +147,7 @@ SOURCES = ft_atoi.c \
 SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 
-INC=-I./include/ -I../log/
+INC=-I./include/ -I../external_log/
 
 CFLAGS = -Wall -Wextra -Werror -march=native -O3 -flto -DLOG_USE_COLOR
 
@@ -168,7 +168,7 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 	
 logger:
-	@$(CC) $(CFLAGS) $(INC) -c ../log/log.c -o temp/log.o
+	@$(CC) $(CFLAGS) $(INC) -c ../external_log/log.c -o temp/log.o
 
 DIR_TESTS = ./tests
 TEST_SRCS =$(wildcard $(DIR_TESTS)/*.c)
