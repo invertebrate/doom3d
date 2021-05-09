@@ -265,7 +265,7 @@ typedef struct s_trigger
 ** Enum defining npc's state.
 */
 
-typedef enum				e_timer_type
+typedef enum e_timer_type
 {
 	timer_switch,
 	timer_end,

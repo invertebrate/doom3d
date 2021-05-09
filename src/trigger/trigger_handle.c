@@ -14,6 +14,9 @@
 
 void	handle_jukebox(t_doom3d *app, t_3d_object *obj)
 {
+	if (((t_trigger *)(obj->params))->key_id < 0
+		|| ((t_trigger *)(obj->params))->key_id > 19)
+		return ;
 	if (((t_trigger *)(obj->params))->key_id == 17)
 	{
 		LOG_INFO("SHOULD CHANGE MUSIC!");
@@ -22,7 +25,6 @@ void	handle_jukebox(t_doom3d *app, t_3d_object *obj)
 			(void *)mu_doom, s_ini(1, 10, st_main_menu, 0.3));
 	}
 	obj->params_type = trigger_type_disabled;
-	LOG_INFO("sound #%d", ((t_trigger *)(obj->params))->key_id);
 	push_custom_event(app, event_effect_play, (void *)sf_audio_log_1
 		+ ((t_trigger *)(obj->params))->key_id,
 		s_ini(0, 1, st_game, 1));
