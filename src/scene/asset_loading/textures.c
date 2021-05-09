@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:19:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 16:04:24 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/09 22:36:00 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static void	scene_texture_files_set_sub1(t_asset_files *data)
 		= "assets/textures/door_metal_v.bmp";
 	data->texture_files[data->num_textures++]
 		= "assets/textures/wall_metal_panel.bmp";
-	data->texture_files[data->num_textures++]
-		= "assets/textures/floor_redsand.bmp";
 	data->texture_files[data->num_textures++]
 		= "assets/textures/shotgun_texture.bmp";
 	data->texture_files[data->num_textures++]
@@ -96,8 +94,6 @@ void	scene_texture_files_set(t_asset_files *data)
 		= "assets/textures/floor_dirt.bmp";
 	data->texture_files[data->num_textures++]
 		= "assets/textures/floor_metal_2048.bmp";
-	data->texture_files[data->num_textures++]
-		= "assets/textures/floor_metal2_2048.bmp";
 	data->texture_files[data->num_textures++]
 		= "assets/textures/floor_metal3.bmp";
 	data->texture_files[data->num_textures++]
