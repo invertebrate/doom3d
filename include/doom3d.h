@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 15:24:53 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/09 20:32:29 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,8 @@ void						player_rotate_horizontal(t_doom3d *app,
 void						player_apply_gravity(t_doom3d *app);
 void						player_limit_move_by_collision(t_doom3d *app,
 								t_vec3 add);
+void						player_limit_move_by_slope(t_doom3d *app,
+								t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						player_onhit(t_doom3d *app, int damage);
 void						player_jump(t_doom3d *app);
@@ -260,7 +262,8 @@ void						player_reload_finish(t_doom3d *app);
 void						player_interact(t_doom3d *app);
 void						player_collider_create(t_doom3d *app, t_ray *rays,
 								uint32_t *counts, t_sphere *sphere);
-void						player_collider_update(t_doom3d *app);
+void						player_colliders_update(t_doom3d *app);
+void						player_future_collider_update(t_doom3d *app);
 
 /*
 ** Player items

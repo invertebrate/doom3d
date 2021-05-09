@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 15:24:53 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/09 20:38:26 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void			player_move(t_doom3d *app)
 		app->active_scene->triangle_tree != NULL)
 	{
 		player_limit_move_by_collision(app, add);
+		player_limit_move_by_slope(app, add);
 	}
 	ml_vector3_add(app->player.pos, add, app->player.pos);
 }

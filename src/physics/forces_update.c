@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/09 16:34:22 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/09 20:27:01 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	forces_update_player(t_doom3d *app)
 				ft_printf("player y velocity set to 0\n");
 			}
 		else if ((app->player.physics_state == physics_state_not_grounded)
-			&& app->player.velocity[1] < PLAYER_MAX_SPEED)
-			app->player.velocity[1] += CONST_GRAVITY / 2;
+			&& app->player.velocity[1] < PLAYER_MAX_SPEED / 3)
+			app->player.velocity[1] += CONST_GRAVITY / 4;
 	}
 	if (app->player.physics_state != physics_state_grounded
 		&& app->player.physics_state != physics_state_not_applied)

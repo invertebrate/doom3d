@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 18:54:36 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/09 18:46:11 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,20 @@ typedef struct s_sphere
 	float			radius;
 
 }							t_sphere;
+
+/*
+** Structure representing a directed cylinder in 3D space.
+*/
+
+typedef struct s_cylinder
+{
+	t_vec3			pos;
+	t_vec3			up;
+	t_vec3			forward;
+	float			radius;
+	float			height;
+
+}							t_cylinder;
 
 /*
 ** Enums defining how to shade (in rasterization) the 3d object
@@ -444,6 +458,8 @@ t_bool						l3d_kd_tree_ray_hits(t_kd_tree *triangle_tree,
 								t_vec3 origin, t_vec3 dir, t_hits **hits);
 void						l3d_cast_rays_sphere(t_ray *rays,
 								uint32_t *ray_counts, t_sphere *sphere);
+void						l3d_cast_rays_cylinder(t_ray *rays, uint32_t *ray_counts,
+								t_cylinder *cylinder);
 
 /*
 ** Triangle vector
