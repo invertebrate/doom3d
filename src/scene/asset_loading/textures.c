@@ -47,7 +47,7 @@ static void	scene_texture_files_set_sub2(t_asset_files *data)
 	data->texture_files[data->num_textures++]
 		= "assets/textures/monster_02/monster02_diffuse.bmp";
 	data->texture_files[data->num_textures++]
-		= "assets/textures/npc_projectile_texture.bmp";
+		= NPC_PROJECTILE_00;
 	data->texture_files[data->num_textures++]
 		= "assets/textures/corridor_corner_floor.bmp";
 	data->texture_files[data->num_textures++]
@@ -79,9 +79,9 @@ static void	scene_texture_files_set_sub3(t_asset_files *data)
 	data->texture_files[data->num_textures++]
 		= "assets/textures/monster01_finalboss.bmp";
 	data->texture_files[data->num_textures++]
-		= NPC_PROJECTILE_02;
+		= NPC_PROJECTILE_01;
 	data->texture_files[data->num_textures++]
-		= NPC_PROJECTILE_06;
+		= NPC_PROJECTILE_02;
 }
 
 void	scene_texture_files_set(t_asset_files *data)

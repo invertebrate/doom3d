@@ -12,31 +12,6 @@
 
 #include "doom3d.h"
 
-static t_projectile	fire_custom(t_projectile projectile, int type)
-{
-	if (type == projectile_type_fireball_pink)
-	{
-		projectile.texture_key = NPC_PROJECTILE_04;
-		projectile.damage *= 0.1f;
-		projectile.speed *= 5;
-		projectile.radius *= 0.01f;
-	}
-	else if (type == projectile_type_fireball_yellow)
-	{
-		projectile.texture_key = NPC_PROJECTILE_05;
-		projectile.damage *= 0.5f;
-		projectile.speed *= 3;
-	}
-	else if (type == projectile_type_fireball_purple)
-	{
-		projectile.texture_key = NPC_PROJECTILE_06;
-		projectile.radius *= 5;
-		projectile.damage *= 2;
-		projectile.speed *= 0.7;
-	}
-	return (projectile);
-}
-
 t_projectile	projectile_data_fireball_custom(t_doom3d *app, int type)
 {
 	t_projectile	projectile;
@@ -45,18 +20,17 @@ t_projectile	projectile_data_fireball_custom(t_doom3d *app, int type)
 	projectile.type = type;
 	if (type == projectile_type_fireball_green)
 	{
-		projectile.texture_key = NPC_PROJECTILE_02;
+		projectile.texture_key = NPC_PROJECTILE_01;
 		projectile.damage *= 1.5f;
 		projectile.range *= 0.8f;
 	}
-	else if (type == projectile_type_fireball_lgreen)
+	else if (type == projectile_type_fireball_purple)
 	{
-		projectile.texture_key = NPC_PROJECTILE_03;
+		projectile.texture_key = NPC_PROJECTILE_02;
+		projectile.radius *= 5;
 		projectile.damage *= 2;
-		projectile.range *= 0.5f;
+		projectile.speed *= 0.7;
 	}
-	else
-		return (fire_custom(projectile, type));
 	return (projectile);
 }
 

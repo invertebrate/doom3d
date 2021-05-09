@@ -44,12 +44,8 @@
 
 # define NUM_PROJECTILES 10
 # define NPC_PROJECTILE_00 "assets/textures/npc_projectile_texture.bmp"
-# define NPC_PROJECTILE_01 "assets/textures/npc_projectile_texture_blue.bmp"
-# define NPC_PROJECTILE_02 "assets/textures/npc_projectile_texture_green.bmp"
-# define NPC_PROJECTILE_03 "assets/textures/npc_projectile_texture_l_green.bmp"
-# define NPC_PROJECTILE_04 "assets/textures/npc_projectile_texture_pink.bmp"
-# define NPC_PROJECTILE_05 "assets/textures/npc_projectile_texture_yellow.bmp"
-# define NPC_PROJECTILE_06 "assets/textures/npc_projectile_texture_purple.bmp"
+# define NPC_PROJECTILE_01 "assets/textures/npc_projectile_texture_green.bmp"
+# define NPC_PROJECTILE_02 "assets/textures/npc_projectile_texture_purple.bmp"
 
 /*
 ** Hurt trigger definitions
@@ -179,9 +175,6 @@ typedef enum e_projectile_type
 	projectile_type_rpg = 0,
 	projectile_type_fireball,
 	projectile_type_fireball_green,
-	projectile_type_fireball_lgreen,
-	projectile_type_fireball_pink,
-	projectile_type_fireball_yellow,
 	projectile_type_fireball_purple,
 	projectile_type_bullet,
 	projectile_type_none,
