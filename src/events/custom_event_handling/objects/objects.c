@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:32:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 19:56:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/09 18:55:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ void	handle_object_scale_with_uvs(t_doom3d *app,
 static void	toggle_shading_not_cull(t_3d_object *obj)
 {
 	if (obj->material->shading_opts & e_shading_dont_cull)
+	{
 		obj->material->shading_opts = (obj->material->shading_opts
-				& ~(e_shading_dont_cull));
+				& ~(e_shading_dont_cull | e_shading_blue_highlight));
+	}
 	else
 		l3d_object_set_shading_opts(obj,
 			obj->material->shading_opts | e_shading_dont_cull);
