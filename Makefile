@@ -2,7 +2,7 @@ CC = gcc
 NAME=doom-nukem
 DIR_SRC = ./src
 DIR_OBJ = temp
-LIBSDL2 = ./lib/SDL2
+LIBSDL2 = ./lib/external_SDL2
 LIBFT = ./lib/libft
 LIB3D = ./lib/lib3d
 LIBGMATRIX = ./lib/libgmatrix
@@ -35,6 +35,7 @@ endif
 LIBS = $(LIB3DFLAGS) $(LIBGMATRIXFLAGS) $(LIBFTFLAGS) $(SDL_FLAGS) $(LIB_MATH) $(LIB_PTHRTEAD)
 
 INCLUDES = -I ./include \
+		-I./lib/external_log \
 		-I$(LIBFT)/include \
 		-I$(LIB3D)/include \
 		-I$(LIBGMATRIX)/include \
