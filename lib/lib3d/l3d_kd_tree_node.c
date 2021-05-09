@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 22:13:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/09 20:57:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,13 @@
 
 void	l3d_kd_node_destroy(t_kd_node *root)
 {
-	t_kd_node	*left;
-	t_kd_node	*right;
-
 	if (root)
 	{
 		l3d_triangle_vec_delete(root->triangles);
-		left = root->left;
-		right = root->right;
+		l3d_kd_node_destroy(root->left);
+		l3d_kd_node_destroy(root->right);
 		free(root);
 		root = NULL;
-		l3d_kd_node_destroy(left);
-		l3d_kd_node_destroy(right);
 	}
 }
 
