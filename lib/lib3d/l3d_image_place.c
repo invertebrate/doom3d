@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 22:03:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 13:41:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	l3d_image_place(t_surface *frame,
 	int32_t			mins[2];
 	int32_t			xyi[3];
 
-	mins[0] = (int32_t)fmax(pos_xy[0] - 1, 0);
-	mins[1] = (int32_t)fmax(pos_xy[1] - 1, 0);
+	mins[0] = (int32_t)fmax(pos_xy[0] - 1, -1);
+	mins[1] = (int32_t)fmax(pos_xy[1] - 1, -1);
 	maxes[0] = (int32_t)fmin(pos_xy[0] + (int32_t)image->w, (int32_t)frame->w);
 	maxes[1] = (int32_t)fmin(pos_xy[1] + (int32_t)image->h, (int32_t)frame->h);
 	xyi[1] = mins[1];

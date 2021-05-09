@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 16:07:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:50:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:58:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 ** Parses char * variables handling also the special null case
 */
 
-static char				*parse_string(t_printf *data)
+static char	*parse_string(t_printf *data)
 {
 	char	*res;
 	char	*var;
 
-	if ((var = va_arg(data->variables, char*)))
+	var = va_arg(data->variables, char *);
+	if (var)
 	{
 		res = ft_strdup(var);
 		data->var_len = ft_strlen(res);
@@ -36,11 +37,12 @@ static char				*parse_string(t_printf *data)
 ** Parses char variables
 */
 
-static char				*parse_char(t_printf *data)
+static char	*parse_char(t_printf *data)
 {
 	char	*res;
 
-	if (!(res = ft_strnew(1)))
+	res = ft_strnew(1);
+	if (!res)
 		return (NULL);
 	res[0] = va_arg(data->variables, int);
 	data->var_len = 1;
@@ -52,7 +54,7 @@ static char				*parse_char(t_printf *data)
 ** outputs varialble to char *res to be later copied to buffer.
 */
 
-static char				*parse_variable(t_printf *data)
+static char	*parse_variable(t_printf *data)
 {
 	char	*res;
 
@@ -69,13 +71,13 @@ static char				*parse_variable(t_printf *data)
 		return (handle_formatting(data, parse_string(data)));
 	else if (data->c == 'c')
 		return (handle_formatting(data, parse_char(data)));
-	else if (data->c == '%' && (data->var_len = 1))
-		return (handle_formatting(data, ft_strdup("%")));
-	else if (data->c == 'n' && !(data->var_len = 0))
+	else if (data->c == '%')
 	{
-		va_arg(data->variables, unsigned);
-		return ((res = ft_strnew(1)));
+		data->var_len = 1;
+		return (handle_formatting(data, ft_strdup("%")));
 	}
+	else if (data->c == 'n')
+		return (print_nothing_case(data));
 	data->var_len++;
 	return (handle_formatting(data, (res = ft_strdup(&data->c))));
 }
@@ -85,14 +87,17 @@ static char				*parse_variable(t_printf *data)
 ** result to data->buffer.
 */
 
-int						parse_spec_variable_pair(t_printf *data, char *fmt)
+int	parse_spec_variable_pair(t_printf *data, char *fmt)
 {
 	char	*variable;
 	int		i;
 
 	data->spec = fmt;
-	if (!(variable = parse_variable(data)) ||
-		!(data->buffer = extend_str(data->buffer, data->len, data->var_len)))
+	variable = parse_variable(data);
+	if (!variable)
+		return (false);
+	data->buffer = extend_str(data->buffer, data->len, data->var_len);
+	if (!data->buffer)
 		return (false);
 	i = -1;
 	while (++i < data->var_len)

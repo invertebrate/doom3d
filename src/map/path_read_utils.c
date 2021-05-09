@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   path_read_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 02:32:06 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/29 17:45:02 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/04 18:31:58 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-int32_t			get_num_path_nodes(t_doom3d *app)
+int32_t	get_num_path_nodes(t_doom3d *app)
 {
 	int32_t		num_path_nodes;
 	int32_t		i;
@@ -25,7 +25,7 @@ int32_t			get_num_path_nodes(t_doom3d *app)
 	return (num_path_nodes);
 }
 
-int32_t			get_num_npcs(t_doom3d *app)
+int32_t	get_num_npcs(t_doom3d *app)
 {
 	int32_t		num_npcs;
 	int32_t		i;
@@ -38,7 +38,7 @@ int32_t			get_num_npcs(t_doom3d *app)
 	return (num_npcs);
 }
 
-static void		read_patrol_path_nodes(t_doom3d *app, char *contents,
+static void	read_patrol_path_nodes(t_doom3d *app, char *contents,
 								int32_t *offset, t_patrol_path_vars vars)
 {
 	int32_t	j;
@@ -56,7 +56,7 @@ static void		read_patrol_path_nodes(t_doom3d *app, char *contents,
 	}
 }
 
-int32_t			read_npc_path(t_doom3d *app, char *contents, int32_t offset)
+int32_t	read_npc_path(t_doom3d *app, char *contents, int32_t offset)
 {
 	t_patrol_path_vars	vars;
 

@@ -6,21 +6,21 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 19:57:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 14:32:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		create_asset_memory_maps(t_scene *scene)
+static void	create_asset_memory_maps(t_scene *scene)
 {
 	scene->models = hash_map_create(MAX_ASSETS);
 	scene->textures = hash_map_create(MAX_ASSETS);
 	scene->normal_maps = hash_map_create(MAX_ASSETS);
-	scene->animation_textures = hash_map_create(ANIM_3D_FRAME_MAX);
+	scene->hud_textures = hash_map_create(ANIM_3D_FRAME_MAX);
 }
 
-static void		load_models_textures_nmaps_to_memory(t_scene *scene,
+static void	load_models_textures_nmaps_to_memory(t_scene *scene,
 					t_asset_files *data)
 {
 	int32_t		i;
@@ -49,12 +49,12 @@ static void		load_models_textures_nmaps_to_memory(t_scene *scene,
 ** Hashmap = dictionary
 */
 
-static void		assets_load_to_memory(t_scene *scene, t_asset_files *data)
+static void	assets_load_to_memory(t_scene *scene, t_asset_files *data)
 {
 	create_asset_memory_maps(scene);
 	load_models_textures_nmaps_to_memory(scene, data);
 	load_animation_3d_frames_to_memory(scene, data);
-	load_sprite_animations_to_memory(scene, data);
+	load_sprites_to_memory(scene, data);
 	load_skybox_textures_to_memory(scene);
 }
 
@@ -62,7 +62,7 @@ static void		assets_load_to_memory(t_scene *scene, t_asset_files *data)
 ** Load all imported assets here, rest should be done with the editor.
 */
 
-void			scene_assets_load(t_scene *scene)
+void	scene_assets_load(t_scene *scene)
 {
 	scene->asset_files.num_models = 0;
 	scene->asset_files.num_textures = 0;
@@ -70,7 +70,7 @@ void			scene_assets_load(t_scene *scene)
 	scene->asset_files.num_npcs = 0;
 	scene->asset_files.num_prefabs = 0;
 	scene->asset_files.num_animation_frames_3d = 0;
-	scene->asset_files.num_animations_sprite = 0;
+	scene->asset_files.num_hud_sprites = 0;
 	scene->asset_files.num_triggers = 0;
 	scene->asset_files.num_lights = 0;
 	scene_texture_files_set(&scene->asset_files);

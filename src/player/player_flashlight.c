@@ -12,7 +12,7 @@
 
 #include "doom3d.h"
 
-void		player_flashlight_init(t_doom3d *app, t_player *player)
+void	player_flashlight_init(t_doom3d *app, t_player *player)
 {
 	t_flashlight	*fl;
 
@@ -32,7 +32,7 @@ void		player_flashlight_init(t_doom3d *app, t_player *player)
 	fl->intensity = 3.0;
 }
 
-void		player_flashlight_update(t_doom3d *app)
+void	player_flashlight_update(t_doom3d *app)
 {
 	t_flashlight	*fl;
 

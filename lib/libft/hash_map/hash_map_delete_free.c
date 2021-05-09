@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 17:25:46 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:51:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:35:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** Also frees value. If value has not been ft_calloced, a crash may occur.
 */
 
-void				hash_map_delete_free(t_hash_table *table, int key)
+void	hash_map_delete_free(t_hash_table *table, int key)
 {
 	int			pos;
 	t_hash_node	**curr;
@@ -49,7 +49,7 @@ void				hash_map_delete_free(t_hash_table *table, int key)
 ** If value(s) has not been ft_calloced, a crash may occur.
 */
 
-void				hash_map_clear_free(t_hash_table *table)
+void	hash_map_clear_free(t_hash_table *table)
 {
 	int			i;
 	t_hash_node	*temp;
@@ -78,7 +78,7 @@ void				hash_map_clear_free(t_hash_table *table)
 ** Also frees values. If value(s) has not been ft_calloced, a crash may occur.
 */
 
-void				hash_map_destroy_free(t_hash_table *table)
+void	hash_map_destroy_free(t_hash_table *table)
 {
 	if (!table)
 		return ;

@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 23:02:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 18:46:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		select_scene(t_doom3d *app)
+static void	select_scene(t_doom3d *app)
 {
 	SDL_StopTextInput();
 	if (app->active_scene != NULL)
@@ -30,11 +30,11 @@ static void		select_scene(t_doom3d *app)
 ** Initial transformations are set to id, and they change when player moves.
 */
 
-t_scene			*scene_new(t_scene_id scene_id)
+t_scene	*scene_new(t_scene_id scene_id)
 {
 	t_scene		*scene;
 
-	error_check(!(scene = (t_scene*)ft_calloc(sizeof(t_scene))),
+	error_check(!(scene = (t_scene *)ft_calloc(sizeof(t_scene))),
 		"Failed to malloc scene");
 	ft_memset(scene, 0, sizeof(*scene));
 	ft_memset(scene->deleted_object_i, 0, sizeof(scene->deleted_object_i));
@@ -52,10 +52,10 @@ t_scene			*scene_new(t_scene_id scene_id)
 ** Selects next scene by app->next_scene_id
 */
 
-void			select_next_scene(t_doom3d *app)
+void	select_next_scene(t_doom3d *app)
 {
 	LOG_INFO("Select Scene %d", app->next_scene_id);
-	window_frame_clear(app->window);
+	window_frame_clear(app->window, 0x000000ff);
 	render_loading_view(app);
 	draw_window_frame(app->window);
 	select_scene(app);
@@ -65,7 +65,7 @@ void			select_next_scene(t_doom3d *app)
 ** Destroy scene
 */
 
-void			scene_destroy(t_doom3d *app)
+void	scene_destroy(t_doom3d *app)
 {
 	active_scene_popup_menu_destroy(app);
 	scene_menus_destroy(app->active_scene);

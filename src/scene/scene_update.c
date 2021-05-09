@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:43:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 18:51:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 16:37:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,26 @@
 /*
 ** Objects defined here will not be included in triangle tree.
 ** Such objects should not be part ray-cast interaction in game.
+** Objects too far will not be part of the tree as well. Because they also
+** won't be rendered or part of physics then.
 */
 
-static t_bool			include_object_in_triangle_tree(t_scene *scene,
+static t_bool	include_object_in_triangle_tree(t_doom3d *app,
 							t_3d_object *object)
 {
-	if (scene->scene_id == scene_id_editor3d)
-		return (!!object);
-	return (object != NULL &&
-			object->type != object_type_light &&
-			object->type != object_type_path &&
-			!(object->type == object_type_trigger &&
-				(object->params_type == trigger_player_start ||
-					object->params_type == trigger_player_end ||
-					object->params_type == trigger_hurtbox ||
-					object->params_type == trigger_jukebox)));
+	if (!object)
+		return (false);
+	if (object_too_far(app, object))
+		return (false);
+	if (app->active_scene->scene_id == scene_id_editor3d)
+		return (true);
+	return (object->type != object_type_light
+		&& object->type != object_type_path
+		&& !(object->type == object_type_trigger
+			&& (object->params_type == trigger_player_start
+				|| object->params_type == trigger_player_end
+				|| object->params_type == trigger_hurtbox
+				|| object->params_type == trigger_jukebox)));
 }
 
 /*
@@ -38,28 +43,28 @@ static t_bool			include_object_in_triangle_tree(t_scene *scene,
 ** This should be updated once per frame
 */
 
-static void				active_scene_triangle_refs_set(t_scene *scene)
+static void	active_scene_triangle_refs_set(t_doom3d *app)
 {
 	int32_t		i;
 	int32_t		j;
 	int32_t		k;
-	int32_t		num_triangles;
+	t_scene		*scene;
 
-	if (scene->triangle_ref != NULL)
-		free(scene->triangle_ref);
+	scene = app->active_scene;
+	if (app->active_scene->triangle_ref != NULL)
+		free(app->active_scene->triangle_ref);
 	i = -1;
-	num_triangles = 0;
+	scene->num_triangles = 0;
 	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
-		if (include_object_in_triangle_tree(scene, scene->objects[i]))
-			num_triangles += scene->objects[i]->num_triangles;
-	scene->num_triangles = num_triangles;
-	error_check(!(scene->triangle_ref = ft_calloc(sizeof(t_triangle*) *
-		num_triangles)), "Failed to malloc triangle ref");
+		if (include_object_in_triangle_tree(app, scene->objects[i]))
+			scene->num_triangles += scene->objects[i]->num_triangles;
+	error_check(!(scene->triangle_ref = ft_calloc(sizeof(t_triangle *)
+				* scene->num_triangles)), "Failed to malloc triangle ref");
 	i = -1;
 	k = 0;
 	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
 	{
-		if (!include_object_in_triangle_tree(scene, scene->objects[i]))
+		if (!include_object_in_triangle_tree(app, scene->objects[i]))
 			continue ;
 		j = -1;
 		while (++j < scene->objects[i]->num_triangles)
@@ -67,7 +72,7 @@ static void				active_scene_triangle_refs_set(t_scene *scene)
 	}
 }
 
-static void				update_temp_object_light_sources(t_scene *scene)
+static void	update_temp_object_light_sources(t_scene *scene)
 {
 	t_temp_object			*tmp;
 	t_temp_objects			*node;
@@ -89,10 +94,12 @@ static void				update_temp_object_light_sources(t_scene *scene)
 ** Update triangle tree (for collisions & raycasting)
 */
 
-void					active_scene_update_after_objects(t_scene *scene)
+void	active_scene_update_after_objects(t_doom3d *app)
 {
-	int32_t					i;
+	int32_t	i;
+	t_scene	*scene;
 
+	scene = app->active_scene;
 	scene->num_scene_lights = 0;
 	update_temp_object_light_sources(scene);
 	i = -1;
@@ -100,14 +107,16 @@ void					active_scene_update_after_objects(t_scene *scene)
 	{
 		if (scene->objects[i])
 		{
+			if (object_too_far(app, scene->objects[i]))
+				continue ;
 			l3d_object_aabb_update(scene->objects[i]);
-			if (scene->objects[i]->type == object_type_light ||
-				scene->objects[i]->type == object_type_projectile)
-				scene->scene_lights[scene->num_scene_lights++] =
-					scene->objects[i];
+			if (scene->objects[i]->type == object_type_light
+				|| scene->objects[i]->type == object_type_projectile)
+				scene->scene_lights[scene->num_scene_lights++]
+					= scene->objects[i];
 		}
 	}
-	active_scene_triangle_refs_set(scene);
+	active_scene_triangle_refs_set(app);
 	l3d_kd_tree_create_or_update(&scene->triangle_tree,
 		scene->triangle_ref, scene->num_triangles);
 }

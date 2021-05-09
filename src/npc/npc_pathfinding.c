@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_pathfinding.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:19:27 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 20:02:52 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/03 17:40:24 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	and makes an array with addresses to them
 */
 
-void			path_node_network_init(t_doom3d *app)
+void	path_node_network_init(t_doom3d *app)
 {
 	int			i;
 	t_3d_object	*obj;
@@ -25,10 +25,10 @@ void			path_node_network_init(t_doom3d *app)
 
 	i = -1;
 	app->path_node_network_count = 0;
-	ft_memset(app->path_node_network, 0, sizeof(t_path_node *) *
-									MAX_PATH_NODE_NETWORK_SIZE + 1);
-	while (++i < (int32_t)(app->active_scene->num_objects +
-					app->active_scene->num_deleted))
+	ft_memset(app->path_node_network, 0, sizeof(t_path_node *)
+		* MAX_PATH_NODE_NETWORK_SIZE + 1);
+	while (++i < (int32_t)(app->active_scene->num_objects
+		+ app->active_scene->num_deleted))
 	{
 		obj = app->active_scene->objects[i];
 		if (!obj)
@@ -36,8 +36,8 @@ void			path_node_network_init(t_doom3d *app)
 		if (obj->type == object_type_path)
 		{
 			node = obj->params;
-			if (node->num_neighbors > 0 &&
-				app->path_node_network_count < MAX_PATH_NODE_NETWORK_SIZE)
+			if (node->num_neighbors > 0
+				&& app->path_node_network_count < MAX_PATH_NODE_NETWORK_SIZE)
 			{
 				app->path_node_network[app->path_node_network_count++] = node;
 			}
@@ -45,7 +45,7 @@ void			path_node_network_init(t_doom3d *app)
 	}
 }
 
-static void		sort_array(t_path_node **array)
+static void	sort_array(t_path_node **array)
 {
 	int			i;
 	int			j;
@@ -57,8 +57,8 @@ static void		sort_array(t_path_node **array)
 		j = 0;
 		while (j < MAX_PATH_NODE_NETWORK_SIZE - 1)
 		{
-			if (array[j] && array[j + 1] &&
-				array[j]->global_goal > array[j + 1]->global_goal)
+			if (array[j] && array[j + 1]
+				&& array[j]->global_goal > array[j + 1]->global_goal)
 			{
 				tmp = array[j];
 				array[j] = array[j + 1];
@@ -72,7 +72,7 @@ static void		sort_array(t_path_node **array)
 	}
 }
 
-static void		solve_astar2(t_doom3d *app, t_astar_vars *v, t_npc *npc)
+static void	solve_astar2(t_doom3d *app, t_astar_vars *v, t_npc *npc)
 {
 	while (v->current && v->i < MAX_PATH_NODE_NETWORK_SIZE)
 	{
@@ -91,7 +91,7 @@ static void		solve_astar2(t_doom3d *app, t_astar_vars *v, t_npc *npc)
 **	Algorithm for pathfinding
 */
 
-static void		solve_astar(t_doom3d *app, t_npc *npc,
+static void	solve_astar(t_doom3d *app, t_npc *npc,
 							uint32_t start_id, uint32_t end_id)
 {
 	t_astar_vars	v;
@@ -106,8 +106,8 @@ static void		solve_astar(t_doom3d *app, t_npc *npc,
 	{
 		sort_array(v.not_tested_nodes);
 		v.i = 0;
-		while (v.i < MAX_PATH_NODE_NETWORK_SIZE &&
-							v.not_tested_nodes[v.i]->is_visited)
+		while (v.i < MAX_PATH_NODE_NETWORK_SIZE
+			&& v.not_tested_nodes[v.i]->is_visited)
 			v.i++;
 		if (!v.not_tested_nodes[v.i])
 			break ;
@@ -119,8 +119,7 @@ static void		solve_astar(t_doom3d *app, t_npc *npc,
 	solve_astar2(app, &v, npc);
 }
 
-void			npc_find_path(t_doom3d *app, t_npc *npc, t_vec3 start,
-															t_vec3 end)
+void	npc_find_path(t_doom3d *app, t_npc *npc, t_vec3 start, t_vec3 end)
 {
 	t_pathfind_vars	vars;
 
@@ -129,8 +128,8 @@ void			npc_find_path(t_doom3d *app, t_npc *npc, t_vec3 start,
 	find_start_id(app, &vars, start);
 	vars.closest = INFINITY;
 	vars.i = -1;
-	while (++vars.i < MAX_PATH_NODE_NETWORK_SIZE &&
-				app->path_node_network[vars.i])
+	while (++vars.i < MAX_PATH_NODE_NETWORK_SIZE
+		&& app->path_node_network[vars.i])
 	{
 		ml_vector3_sub(end,
 			app->path_node_network[vars.i]->parent_obj->position, vars.tmp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile_data_fireball.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 13:59:58 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 16:53:22 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/07 16:15:47 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ static t_projectile	fire_custom(t_projectile projectile, int type)
 	{
 		projectile.texture_key = NPC_PROJECTILE_06;
 		projectile.radius *= 5;
-		projectile.speed *= 0.8f;
+		projectile.damage *= 2;
 		projectile.speed *= 0.7;
 	}
 	return (projectile);
 }
 
-t_projectile		projectile_data_fireball_custom(t_doom3d *app, int type)
+t_projectile	projectile_data_fireball_custom(t_doom3d *app, int type)
 {
 	t_projectile	projectile;
 
@@ -60,13 +60,13 @@ t_projectile		projectile_data_fireball_custom(t_doom3d *app, int type)
 	return (projectile);
 }
 
-t_projectile		projectile_data_fireball(t_doom3d *app)
+t_projectile	projectile_data_fireball(t_doom3d *app)
 {
 	t_projectile	projectile;
 
 	projectile.type = projectile_type_fireball;
-	projectile.damage = 10;
-	projectile.speed = 350.0;
+	projectile.damage = 50;
+	projectile.speed = 250.0;
 	projectile.range = 100 * app->unit_size;
 	projectile.traveled = 0;
 	projectile.radius = 5 * app->unit_size;

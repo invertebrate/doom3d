@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   item_data_shotgun.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:20:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/02 15:09:29 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/05 17:07:40 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_weapon	weapon_data_shotgun(t_doom3d *app)
 	item.clip_size = 8;
 	item.fire_rate = 3.0;
 	item.range = 80 * app->unit_size;
-	item.damage_per_hit = 5;
+	item.damage_per_hit = 15;
 	item.projectile = projectile_type_bullet;
 	return (item);
 }

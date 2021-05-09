@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 17:29:40 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:50:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 11:53:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 ** precision is provided.
 */
 
-static char				*choose_g_output(t_printf *data, int *print_lens,
-						char *norm_buf, char *sci_buf)
+static char	*choose_g_output(t_printf *data, int *print_lens,
+				char *norm_buf, char *sci_buf)
 {
 	char				*res;
 	int					exp;
@@ -33,19 +33,19 @@ static char				*choose_g_output(t_printf *data, int *print_lens,
 	if (exp >= -4 && exp < data->precision)
 	{
 		data->var_len = print_lens[1];
-		if (!(res = ft_strnew(data->var_len)))
+		res = ft_strnew(data->var_len);
+		if (!res)
 			return (NULL);
 		ft_memmove(res, norm_buf, data->var_len);
+		return (res);
 	}
-	else
-	{
-		data->var_len = print_lens[0];
-		if (!(res = ft_strnew(data->var_len)))
-			return (NULL);
-		ft_memmove(res, sci_buf, data->var_len);
-		if (data->c == 'G')
-			ft_capitalize(res);
-	}
+	data->var_len = print_lens[0];
+	res = ft_strnew(data->var_len);
+	if (!res)
+		return (NULL);
+	ft_memmove(res, sci_buf, data->var_len);
+	if (data->c == 'G')
+		ft_capitalize(res);
 	return (res);
 }
 
@@ -54,31 +54,19 @@ static char				*choose_g_output(t_printf *data, int *print_lens,
 ** See above.
 */
 
-static void				get_floats_for_g_mode(t_printf *data,
-						char *norm_buf, char *sci_buf, int print_lens[2])
+static void	get_floats_for_g_mode(t_printf *data,
+				char *norm_buf, char *sci_buf, int print_lens[2])
 {
+	t_dtoa_params		params[2];
 	long double			var;
 
-	if (data->type == length_L)
-	{
-		var = va_arg(data->variables, long double);
-		print_lens[0] = ft_dtoa_buf_ld((t_dtoa_params){.precision =
-			data->precision, .value_ld = var, .format = FORMAT_SCI,
-			.hashtag = data->zerox, .g_mode = true}, sci_buf, DTOA_BUF_SIZE);
-		print_lens[1] = ft_dtoa_buf_ld((t_dtoa_params){.precision =
-			data->precision, .value_ld = var, .format = FORMAT_NORM,
-			.hashtag = data->zerox, .g_mode = true}, norm_buf, DTOA_BUF_SIZE);
-	}
-	else
-	{
-		var = va_arg(data->variables, double);
-		print_lens[0] = ft_dtoa_buf((t_dtoa_params){.precision =
-			data->precision, .value = var, .format = FORMAT_SCI,
-			.hashtag = data->zerox, .g_mode = true}, sci_buf, DTOA_BUF_SIZE);
-		print_lens[1] = ft_dtoa_buf((t_dtoa_params){.precision =
-			data->precision, .value = var, .format = FORMAT_NORM,
-			.hashtag = data->zerox, .g_mode = true}, norm_buf, DTOA_BUF_SIZE);
-	}
+	var = get_double_var(data);
+	params[0] = (t_dtoa_params){.precision = data->precision, .value = var,
+		.format = FORMAT_SCI, .hashtag = data->zerox, .g_mode = true};
+	params[1] = (t_dtoa_params){.precision = data->precision, .value = var,
+		.format = FORMAT_NORM, .hashtag = data->zerox, .g_mode = true};
+	print_lens[0] = ft_dtoa_buf(params[0], sci_buf, DTOA_BUF_SIZE);
+	print_lens[1] = ft_dtoa_buf(params[1], norm_buf, DTOA_BUF_SIZE);
 }
 
 /*
@@ -86,14 +74,16 @@ static void				get_floats_for_g_mode(t_printf *data,
 ** the shorter representation with significant digits.
 */
 
-static char				*parse_g_float(t_printf *data)
+static char	*parse_g_float(t_printf *data)
 {
 	char				norm_buf[DTOA_BUF_SIZE];
 	char				sci_buf[DTOA_BUF_SIZE];
 	int					print_lens[2];
 
-	data->precision = data->precision >= 0 ? data->precision : 6;
-	data->precision = data->precision == 0 ? 1 : data->precision;
+	if (data->precision < 0)
+		data->precision = 6;
+	else if (data->precision == 0)
+		data->precision = 1;
 	get_floats_for_g_mode(data, norm_buf, sci_buf, print_lens);
 	data->is_negative = norm_buf[0] == '-';
 	return (choose_g_output(data, print_lens, norm_buf, sci_buf));
@@ -106,27 +96,26 @@ static char				*parse_g_float(t_printf *data)
 ** hood.
 */
 
-static char				*parse_f_float(t_printf *data)
+static char	*parse_f_float(t_printf *data)
 {
 	char				*res;
 	char				buf[DTOA_BUF_SIZE];
+	t_dtoa_format		format;
+	t_dtoa_params		params;
+	long double			var;
 
-	res = NULL;
-	data->precision = data->precision >= 0 ? data->precision : 6;
-	if (data->type == length_L)
-		data->var_len = ft_dtoa_buf_ld((t_dtoa_params){.precision =
-			data->precision, .value_ld = va_arg(data->variables, long double),
-			.format = data->c == 'f' || data->c == 'F' ? FORMAT_NORM :
-				FORMAT_SCI, .hashtag = data->zerox,
-			.g_mode = false}, buf, DTOA_BUF_SIZE);
-	else
-		data->var_len = ft_dtoa_buf((t_dtoa_params){.precision =
-			data->precision, .value = va_arg(data->variables, double),
-			.format = data->c == 'f' || data->c == 'F' ? FORMAT_NORM :
-			FORMAT_SCI, .hashtag = data->zerox,
-			.g_mode = false}, buf, DTOA_BUF_SIZE);
+	if (data->precision < 0)
+		data->precision = 6;
+	format = FORMAT_SCI;
+	if (data->c == 'f' || data->c == 'F')
+		format = FORMAT_NORM;
+	var = get_double_var(data);
+	params = (t_dtoa_params){.precision = data->precision, .value = var,
+		.format = format, .hashtag = data->zerox, .g_mode = false};
+	data->var_len = ft_dtoa_buf(params, buf, DTOA_BUF_SIZE);
 	data->is_negative = buf[0] == '-';
-	if (!(res = ft_strnew(data->var_len)))
+	res = ft_strnew(data->var_len);
+	if (!res)
 		return (NULL);
 	ft_memmove(res, buf, data->var_len);
 	if (data->c == 'E')
@@ -139,7 +128,7 @@ static char				*parse_f_float(t_printf *data)
 ** chooses the shortest format.
 */
 
-char					*parse_float(t_printf *data)
+char	*parse_float(t_printf *data)
 {
 	if (data->c == 'f' || data->c == 'F' || data->c == 'e' || data->c == 'E')
 		return (parse_f_float(data));

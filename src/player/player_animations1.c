@@ -17,7 +17,7 @@
 ** shoot animation
 */
 
-void					set_player_shoot_frame(t_doom3d *app)
+void	set_player_shoot_frame(t_doom3d *app)
 {
 	if (app->player.equipped_weapon->id == weapon_shotgun)
 		set_player_animation(app, anim_shotgun_shoot);
@@ -36,7 +36,7 @@ void					set_player_shoot_frame(t_doom3d *app)
 ** default animation
 */
 
-void					set_player_default_frame(t_doom3d *app)
+void	set_player_default_frame(t_doom3d *app)
 {
 	if (app->player.equipped_weapon->id == weapon_shotgun)
 		set_player_animation(app, anim_shotgun_default);
@@ -58,7 +58,7 @@ void					set_player_default_frame(t_doom3d *app)
 ** reload animation
 */
 
-void					set_player_reload_frame(t_doom3d *app)
+void	set_player_reload_frame(t_doom3d *app)
 {
 	if (app->player.equipped_weapon->id == weapon_shotgun)
 		set_player_animation(app, anim_shotgun_reload);
@@ -72,28 +72,28 @@ void					set_player_reload_frame(t_doom3d *app)
 		LOG_DEBUG("Set player reload sprite frame");
 }
 
-t_player_anim_state		player_animation_state(t_doom3d *app)
+t_player_anim_state	player_animation_state(t_doom3d *app)
 {
 	int	current;
 
 	current = app->player_hud.curr_animation;
-	if (current == anim_shotgun_default ||
-	current == anim_pistol_default ||
-	current == anim_shotgun_default ||
-	current == anim_rpg_default ||
-	current == anim_rpg_special ||
-	current == anim_fist_default)
+	if (current == anim_shotgun_default
+		|| current == anim_pistol_default
+		|| current == anim_shotgun_default
+		|| current == anim_rpg_default
+		|| current == anim_rpg_special
+		|| current == anim_fist_default)
 		return (anim_state_default);
-	else if (current == anim_shotgun_shoot ||
-	current == anim_pistol_shoot ||
-	current == anim_shotgun_shoot ||
-	current == anim_rpg_shoot ||
-	current == anim_fist_shoot)
+	else if (current == anim_shotgun_shoot
+		|| current == anim_pistol_shoot
+		|| current == anim_shotgun_shoot
+		|| current == anim_rpg_shoot
+		|| current == anim_fist_shoot)
 		return (anim_state_shoot);
-	else if (current == anim_shotgun_reload ||
-	current == anim_pistol_reload ||
-	current == anim_shotgun_reload ||
-	current == anim_rpg_reload)
+	else if (current == anim_shotgun_reload
+		|| current == anim_pistol_reload
+		|| current == anim_shotgun_reload
+		|| current == anim_rpg_reload)
 		return (anim_state_reload);
 	return (0);
 }
@@ -105,21 +105,21 @@ t_player_anim_state		player_animation_state(t_doom3d *app)
 ** frame is reached, animation is set to be finished.
 */
 
-void					player_animation_update(t_doom3d *app)
+void	player_animation_update(t_doom3d *app)
 {
-	t_sprite_anim *curr_player_anim;
+	t_sprite_anim	*curr_player_anim;
 
 	curr_player_anim = &app->animations[app->player_hud.curr_animation];
-	if (app->active_scene->scene_id != scene_id_main_game ||
-		curr_player_anim->is_finished)
+	if (app->active_scene->scene_id != scene_id_main_game
+		|| curr_player_anim->is_finished)
 		return ;
 	curr_player_anim->frame_time_left -= app->info.delta_time;
 	if (curr_player_anim->frame_time_left <= 0)
 	{
 		curr_player_anim->frame_time_left = 0;
 		curr_player_anim->current_frame++;
-		curr_player_anim->frame_time_left =
-			curr_player_anim->frame_time;
+		curr_player_anim->frame_time_left
+			= curr_player_anim->frame_time;
 		if (curr_player_anim->current_frame >= curr_player_anim->num_frames)
 		{
 			curr_player_anim->is_finished = true;

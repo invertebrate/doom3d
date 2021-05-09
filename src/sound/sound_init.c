@@ -16,7 +16,7 @@
 ** Initiating sound device for the first time
 */
 
-t_mp		mix_init(t_doom3d *app, int channels)
+t_mp	mix_init(t_doom3d *app, int channels)
 {
 	SDL_AudioSpec	cando;
 
@@ -29,7 +29,7 @@ t_mp		mix_init(t_doom3d *app, int channels)
 	app->mp.auspec.callback = mp_au_mix;
 	app->mp.auspec.userdata = &app->mp;
 	app->mp.audev = SDL_OpenAudioDevice(NULL, 0, &app->mp.auspec, &cando,
-		SDL_AUDIO_ALLOW_ANY_CHANGE);
+			SDL_AUDIO_ALLOW_ANY_CHANGE);
 	if (app->mp.audev == 0)
 		LOG_ERROR("Failed to open audio: %s", SDL_GetError());
 	else
@@ -62,7 +62,7 @@ static int	mp_all_init(t_doom3d *app)
 ** Starting up music player
 */
 
-void		mp_init(t_doom3d *app)
+void	mp_init(t_doom3d *app)
 {
 	int	ret;
 
@@ -72,7 +72,8 @@ void		mp_init(t_doom3d *app)
 	app->mp.st_vol = 1;
 	app->mp.sf_vol = 1;
 	app->mp = mix_init(app, app->mp.channels);
-	if ((ret = mp_all_init(app)) != 1)
+	ret = mp_all_init(app);
+	if (ret != 1)
 		error_check(true, "Failed to init sound");
 	SDL_PauseAudioDevice(app->mp.audev, 0);
 	SDL_UnlockAudioDevice(app->mp.audev);

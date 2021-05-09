@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 17:09:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 14:38:50 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	handle_editor_saving_input(t_doom3d *app, SDL_Event event)
 	}
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
 		push_custom_event(app, event_editor_end_save, NULL, NULL);
-	else if (event.type == SDL_KEYDOWN &&
-		event.key.keysym.sym == SDLK_BACKSPACE)
+	else if (event.type == SDL_KEYDOWN
+		&& event.key.keysym.sym == SDLK_BACKSPACE)
 		push_custom_event(app, event_editor_save_type_backspace, NULL, NULL);
 }
 
@@ -32,11 +32,11 @@ static void	handle_editor_selection_input(t_doom3d *app, SDL_Event event)
 	{
 		if (!app->editor.is_placing)
 		{
-			if ((app->mouse.state & SDL_BUTTON_LMASK) &&
-				!editor_popup_menu_open(app))
+			if ((app->mouse.state & SDL_BUTTON_LMASK)
+				&& !editor_popup_menu_open(app))
 				push_custom_event(app, event_editor_select, NULL, NULL);
-			else if ((app->mouse.state & SDL_BUTTON_RMASK) &&
-				app->editor.num_selected_objects > 0)
+			else if ((app->mouse.state & SDL_BUTTON_RMASK)
+				&& app->editor.num_selected_objects > 0)
 				push_custom_event(app, event_editor_deselect, NULL, NULL);
 		}
 		else
@@ -68,9 +68,9 @@ static void	handle_editor_key_input(t_doom3d *app, SDL_Event event)
 		else if (event.key.keysym.sym == SDLK_SPACE)
 			push_custom_event(app,
 				event_editor_snap_to_grid, NULL, NULL);
-		else if (!app->editor.is_saving &&
-			(event.key.keysym.sym == SDLK_DELETE ||
-			event.key.keysym.sym == SDLK_BACKSPACE))
+		else if (!app->editor.is_saving
+			&& (event.key.keysym.sym == SDLK_DELETE
+				|| event.key.keysym.sym == SDLK_BACKSPACE))
 			push_custom_event(app,
 				event_editor_delete, NULL, NULL);
 		else if (event.key.keysym.sym == SDLK_b)
@@ -78,7 +78,7 @@ static void	handle_editor_key_input(t_doom3d *app, SDL_Event event)
 	}
 }
 
-void		handle_editor_input_events(t_doom3d *app, SDL_Event event)
+void	handle_editor_input_events(t_doom3d *app, SDL_Event event)
 {
 	if (mouse_inside_editor_view(app))
 		handle_editor_selection_input(app, event);
@@ -91,8 +91,8 @@ void		handle_editor_input_events(t_doom3d *app, SDL_Event event)
 	handle_editor_key_input2(app, event);
 }
 
-t_bool		editor_popup_menu_open(t_doom3d *app)
+t_bool	editor_popup_menu_open(t_doom3d *app)
 {
-	return (app->editor.editor_menu != NULL &&
-			app->editor.editor_menu->is_open);
+	return (app->editor.editor_menu != NULL
+		&& app->editor.editor_menu->is_open);
 }

@@ -19,8 +19,8 @@ void	player_interact(t_doom3d *app)
 	t_vec3		dist;
 
 	i = -1;
-	while (++i < (int32_t)(app->active_scene->num_objects +
-		app->active_scene->num_deleted))
+	while (++i < (int32_t)(app->active_scene->num_objects
+		+ app->active_scene->num_deleted))
 	{
 		obj = app->active_scene->objects[i];
 		if (!obj)

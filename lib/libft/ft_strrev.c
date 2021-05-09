@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 15:32:10 by ohakola           #+#    #+#             */
-/*   Updated: 2020/03/11 17:27:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:11:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			ft_strrev(char *str)
+void	ft_strrev(char *str)
 {
 	int		i;
 	int		len;

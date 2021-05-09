@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 13:05:04 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:51:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 12:45:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Resets data after a spec and variable has been parsed and consumed.
 */
 
-static int						reset_var_data(t_printf *data)
+static int	reset_var_data(t_printf *data)
 {
 	data->left_justify = false;
 	data->pad_zeros = false;
@@ -39,8 +39,7 @@ static int						reset_var_data(t_printf *data)
 ** Sets spec lengths information to be used in parse_input.
 */
 
-static void						set_spec_len(t_fmt_specs *lengths,
-								char *fmt, int i)
+static void	set_spec_len(t_fmt_specs *lengths, char *fmt, int i)
 {
 	while (fmt[i] && is_sub_specifier(fmt[i]))
 	{
@@ -57,16 +56,13 @@ static void						set_spec_len(t_fmt_specs *lengths,
 ** Parses lengths of middle and spec parts to be used in parse_input.
 */
 
-static t_fmt_specs				fmt_part_lengths(char *fmt, t_fmt_specs lengths)
+static t_fmt_specs	fmt_part_lengths(char *fmt, t_fmt_specs lengths)
 {
 	int					i;
 	char				*next;
 
-	i = -1;
-	next = NULL;
-	while (fmt[++i])
-		if (fmt[i] == '%' && (next = fmt + i))
-			break ;
+	i = 0;
+	next = get_next_after_percentage(fmt, &i);
 	if (!next)
 	{
 		i = -1;
@@ -88,11 +84,12 @@ static t_fmt_specs				fmt_part_lengths(char *fmt, t_fmt_specs lengths)
 ** Adds non-spec parts of fmt string to data->buffer.
 */
 
-static int						parse_middle(t_printf *data, char *fmt)
+static int	parse_middle(t_printf *data, char *fmt)
 {
 	int		i;
 
-	if (!(data->buffer = extend_str(data->buffer, data->len, data->middle_len)))
+	data->buffer = extend_str(data->buffer, data->len, data->middle_len);
+	if (!data->buffer)
 		return (false);
 	i = -1;
 	while (++i < data->middle_len)
@@ -107,7 +104,7 @@ static int						parse_middle(t_printf *data, char *fmt)
 ** plus recognized variables already handled by the parsing of spec in fmt.
 */
 
-int								parse_input(t_printf *data, char *fmt)
+int	parse_input(t_printf *data, char *fmt)
 {
 	t_fmt_specs	l;
 
@@ -129,6 +126,7 @@ int								parse_input(t_printf *data, char *fmt)
 	}
 	else if (*fmt == '%')
 		fmt += 1;
-	return (*fmt && (l.spec_len > 0 || l.middle_len > 0) ?
-			parse_input(data, fmt) : true);
+	if (*fmt && (l.spec_len > 0 || l.middle_len > 0))
+		return (parse_input(data, fmt));
+	return (true);
 }

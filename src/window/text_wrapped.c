@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:58:11 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 18:05:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 15:18:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 ** Create text surface with wrapped (by line break) text
 */
 
-void				window_text_render_wrapped(t_window *window,
-						t_text_params params, TTF_Font *font)
+void	window_text_render_wrapped(t_window *window,
+			t_text_params params, TTF_Font *font)
 {
 	SDL_Surface	*surface;
 	char		**parts;
@@ -36,10 +36,10 @@ void				window_text_render_wrapped(t_window *window,
 		l3d_image_place(&(t_surface){.h = window->framebuffer->height,
 			.w = window->framebuffer->width,
 			.pixels = window->framebuffer->buffer
-			}, &(t_surface){.h = surface->h,
+		}, &(t_surface){.h = surface->h,
 			.w = surface->w,
 			.pixels = surface->pixels}, (int32_t[2]){
-				params.xy[0], params.xy[1] + i * height}, params.blend_ratio);
+			params.xy[0], params.xy[1] + i * height}, params.blend_ratio);
 		SDL_FreeSurface(surface);
 		ft_strdel(&parts[i++]);
 	}
@@ -50,8 +50,8 @@ void				window_text_render_wrapped(t_window *window,
 ** Render text on window centered and wrapped by line breaks
 */
 
-void				window_text_render_centered_wrapped(t_window *window,
-						t_text_params params, TTF_Font *font)
+void	window_text_render_centered_wrapped(t_window *window,
+			t_text_params params, TTF_Font *font)
 {
 	SDL_Surface	*surface;
 	char		**parts;
@@ -72,7 +72,7 @@ void				window_text_render_centered_wrapped(t_window *window,
 			.pixels = window->framebuffer->buffer},
 			&(t_surface){.h = surface->h,
 			.w = surface->w, .pixels = surface->pixels},
-			(int[2]){params.xy[0] - surface->w / 2,
+			(int32_t[2]){params.xy[0] - surface->w / 2,
 			params.xy[1] - surface->h / 2 + i * height}, params.blend_ratio);
 		SDL_FreeSurface(surface);
 		ft_strdel(&parts[i++]);
@@ -84,8 +84,8 @@ void				window_text_render_centered_wrapped(t_window *window,
 ** Render shaded text on window wrapped by line breaks
 */
 
-void				window_text_render_wrapped_shaded(t_window *window,
-						t_text_params params, TTF_Font *font)
+void	window_text_render_wrapped_shaded(t_window *window,
+			t_text_params params, TTF_Font *font)
 {
 	SDL_Surface	*surface;
 	char		**parts;
@@ -104,10 +104,10 @@ void				window_text_render_wrapped_shaded(t_window *window,
 		l3d_image_place(&(t_surface){.h = window->framebuffer->height,
 			.w = window->framebuffer->width,
 			.pixels = window->framebuffer->buffer
-			}, &(t_surface){.h = surface->h,
+		}, &(t_surface){.h = surface->h,
 			.w = surface->w,
 			.pixels = surface->pixels}, (int32_t[2]){
-				params.xy[0], params.xy[1] + i * height}, params.blend_ratio);
+			params.xy[0], params.xy[1] + i * height}, params.blend_ratio);
 		SDL_FreeSurface(surface);
 		ft_strdel(&parts[i++]);
 	}
@@ -118,8 +118,8 @@ void				window_text_render_wrapped_shaded(t_window *window,
 ** Render shaded and centered text on window wrapped by line breaks
 */
 
-void				window_text_render_centered_wrapped_shaded(t_window *window,
-						t_text_params params, TTF_Font *font)
+void	window_text_render_centered_wrapped_shaded(t_window *window,
+			t_text_params params, TTF_Font *font)
 {
 	SDL_Surface	*surface;
 	char		**parts;
@@ -140,7 +140,7 @@ void				window_text_render_centered_wrapped_shaded(t_window *window,
 			.pixels = window->framebuffer->buffer},
 			&(t_surface){.h = surface->h,
 			.w = surface->w, .pixels = surface->pixels},
-			(int[2]){params.xy[0] - surface->w / 2,
+			(int32_t[2]){params.xy[0] - surface->w / 2,
 			params.xy[1] - surface->h / 2 + i * height}, params.blend_ratio);
 		SDL_FreeSurface(surface);
 		ft_strdel(&parts[i++]);

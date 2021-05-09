@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 15:49:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 00:22:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 23:12:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ static unsigned int	morton_3d(t_vec3 normalized_pos)
 		+ expand_bits((unsigned int)z));
 }
 
+static void	allocate_key_vals(uint32_t **keys, uint32_t **values,
+				uint32_t padded_size)
+{
+	error_check(!(*keys = malloc(sizeof(uint32_t)
+				* padded_size)), "Failed to allocate keys in triangle sort");
+	error_check(!(*values = malloc(sizeof(uint32_t) * padded_size)),
+		"Failed to allocate values in triangle sort");
+}
+
 /*
 ** Sort triangle vector by morton codes as keys, indices as values.
 ** Use temp array to place triangles in right order back to the vector.
@@ -62,29 +71,28 @@ void	triangle_sort_by_morton_code(t_tri_vec *triangles,
 {
 	uint32_t	i;
 	t_triangle	**tmp;
-	uint32_t	*morton;
-	uint32_t	*triangle_indices;
+	uint32_t	*key_vals[2];
 	t_box3d		aabb;
+	uint32_t	padded_size;
 
-	error_check(!(tmp = malloc(sizeof(t_triangle *) * triangles->size)), "Err");
-	error_check(!(morton = malloc(sizeof(uint32_t) * triangles->size)), "Err");
-	error_check(!(triangle_indices = malloc(sizeof(uint32_t)
-				* triangles->size)), "Err tri sort");
+	error_check(!(tmp = malloc(sizeof(t_triangle *) * triangles->size)), "E");
+	padded_size = get_padded_size(triangles->size);
+	allocate_key_vals(&key_vals[0], &key_vals[1], padded_size);
 	i = -1;
-	while (++i < triangles->size)
+	while (++i < padded_size)
 	{
-		tmp[i] = triangles->triangles[i];
-		aabb = triangle_bounding_box(triangles->triangles[i]);
-		normalize_by_world_box(aabb.center, world_box);
-		morton[i] = morton_3d(aabb.center);
-		triangle_indices[i] = i;
+		if (i < triangles->size)
+		{
+			tmp[i] = triangles->triangles[i];
+			aabb = l3d_triangle_bounding_box(triangles->triangles[i]);
+			normalize_by_world_box(aabb.center, world_box);
+			key_vals[0][i] = morton_3d(aabb.center);
+		}
+		key_vals[1][i] = i;
 	}
-	radix_sort_key_val(pool, (uint32_t *[2]){morton, triangle_indices},
-		triangles->size);
-	i = -1;
-	while (++i < triangles->size)
-		triangles->triangles[i] = tmp[triangle_indices[i]];
-	triangle_sort_free(tmp, morton, triangle_indices);
+	radix_sort_key_val(pool, key_vals, triangles->size, padded_size);
+	reorder_sorted_triangles(triangles, tmp, key_vals);
+	triangle_sort_free(tmp, key_vals[0], key_vals[1]);
 }
 
 /*
@@ -97,27 +105,26 @@ void	triangle_sort_by_depth(t_tri_vec *triangles,
 {
 	uint32_t	i;
 	t_triangle	**tmp;
-	uint32_t	*depths;
-	uint32_t	*triangle_indices;
+	uint32_t	*key_vals[2];
 	t_vec3		center;
+	uint32_t	padded_size;
 
-	error_check(!(tmp = malloc(sizeof(t_triangle *) * triangles->size)), "Err");
-	error_check(!(depths = malloc(sizeof(uint32_t) * triangles->size)), "Err");
-	error_check(!(triangle_indices = malloc(sizeof(uint32_t)
-				* triangles->size)), "Err tri sort");
+	error_check(!(tmp = malloc(sizeof(t_triangle *) * triangles->size)), "E");
+	padded_size = get_padded_size(triangles->size);
+	allocate_key_vals(&key_vals[0], &key_vals[1], padded_size);
 	i = -1;
-	while (++i < triangles->size)
+	while (++i < padded_size)
 	{
-		tmp[i] = triangles->triangles[i];
-		ml_vector3_copy(triangles->triangles[i]->center, center);
-		normalize_by_world_box(center, world_box);
-		depths[i] = (uint32_t)(center[2] * 10000000.0f);
-		triangle_indices[i] = i;
+		if (i < triangles->size)
+		{
+			tmp[i] = triangles->triangles[i];
+			ml_vector3_copy(triangles->triangles[i]->center, center);
+			normalize_by_world_box(center, world_box);
+			key_vals[0][i] = (uint32_t)(center[2] * 10000000.0f);
+		}
+		key_vals[1][i] = i;
 	}
-	radix_sort_key_val(pool, (uint32_t *[2]){depths, triangle_indices},
-		triangles->size);
-	i = -1;
-	while (++i < triangles->size)
-		triangles->triangles[i] = tmp[triangle_indices[i]];
-	triangle_sort_free(tmp, depths, triangle_indices);
+	radix_sort_key_val(pool, key_vals, triangles->size, padded_size);
+	reorder_sorted_triangles(triangles, tmp, key_vals);
+	triangle_sort_free(tmp, key_vals[0], key_vals[1]);
 }

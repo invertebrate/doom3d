@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_selection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 15:46:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/26 01:20:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:42:10 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Select an object in editor
 */
 
-void			select_object(t_doom3d *app, t_3d_object *object)
+void	select_object(t_doom3d *app, t_3d_object *object)
 {
 	char	object_type[128];
 	int32_t	i;
@@ -45,7 +45,7 @@ void			select_object(t_doom3d *app, t_3d_object *object)
 		ft_sprintf(app->editor.selected_object_str, "multiple");
 }
 
-static void		path_connect_selection(t_doom3d *app, t_3d_object *new)
+static void	path_connect_selection(t_doom3d *app, t_3d_object *new)
 {
 	t_3d_object	*old;
 
@@ -70,7 +70,7 @@ static void		path_connect_selection(t_doom3d *app, t_3d_object *new)
 ** Add hit object to selected object.
 */
 
-void			editor_select_by_mouse(t_doom3d *app)
+void	editor_select_by_mouse(t_doom3d *app)
 {
 	t_3d_object		*hit_obj;
 

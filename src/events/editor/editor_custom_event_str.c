@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_custom_event_str.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 15:37:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 15:39:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 14:39:02 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	editor_event_to_str_sub2(char *str, t_doom3d_event code)
 		ft_sprintf(str, "event_editor_flip_lights");
 }
 
-void		editor_custom_event_to_str(char *str, t_doom3d_event code)
+void	editor_custom_event_to_str(char *str, t_doom3d_event code)
 {
 	editor_event_to_str_sub1(str, code);
 	editor_event_to_str_sub2(str, code);

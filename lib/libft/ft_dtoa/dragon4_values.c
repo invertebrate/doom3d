@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 18:57:09 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:48:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 15:48:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 ** will round to the appropriate value."
 */
 
-void			scale_values_after_exponent_estimation(t_big_int *scale,
-				t_big_int *scaled_value, t_big_int **scaled_margins,
-				int32_t *digit_exponent)
+void	scale_values_after_exponent_estimation(t_big_int *scale,
+			t_big_int *scaled_value, t_big_int **scaled_margins,
+			int32_t *digit_exponent)
 {
 	t_big_int	temp;
 	t_big_int	pow10;
@@ -56,9 +56,9 @@ void			scale_values_after_exponent_estimation(t_big_int *scale,
 ** values
 */
 
-void			normalized_initial_state(t_dragon4_params params,
-				t_big_int *scale, t_big_int *scaled_value,
-				t_big_int **scaled_margins)
+void	normalized_initial_state(t_dragon4_params params,
+			t_big_int *scale, t_big_int *scaled_value,
+			t_big_int **scaled_margins)
 {
 	big_int_set_u64(scaled_value, params.mantissa);
 	if (params.exponent > 0)
@@ -85,9 +85,9 @@ void			normalized_initial_state(t_dragon4_params params,
 ** values
 */
 
-void			denormalized_initial_state(t_dragon4_params params,
-				t_big_int *scale, t_big_int *scaled_value,
-				t_big_int **scaled_margins)
+void	denormalized_initial_state(t_dragon4_params params,
+			t_big_int *scale, t_big_int *scaled_value,
+			t_big_int **scaled_margins)
 {
 	big_int_set_u64(scaled_value, params.mantissa);
 	if (params.exponent > 0)
@@ -111,8 +111,8 @@ void			denormalized_initial_state(t_dragon4_params params,
 ** multiplied by 10 without overflowing the 32 bit block)
 */
 
-void			prepare_values_for_division(t_big_int *scale,
-				t_big_int *scaled_value, t_big_int **scaled_margins)
+void	prepare_values_for_division(t_big_int *scale,
+			t_big_int *scaled_value, t_big_int **scaled_margins)
 {
 	uint32_t	high_block;
 	uint32_t	shift;

@@ -17,7 +17,7 @@
 
 # define MAX_ANIMATION_FRAMES 16
 
-typedef struct				s_anim_frame
+typedef struct s_anim_frame
 {
 	int32_t		x_offset;
 	int32_t		y_offset;
@@ -36,7 +36,7 @@ typedef struct				s_anim_frame
 ** uninterruptable animations are not overridden unless they are finised
 */
 
-typedef struct				s_sprite_anim
+typedef struct s_sprite_anim
 {
 	t_anim_frame			frames[MAX_ANIMATION_FRAMES];
 	int32_t					num_frames;

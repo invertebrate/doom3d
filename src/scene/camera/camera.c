@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 23:13:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:28:34 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** These are used in object culling. dot(player to aabb min & max, normal)
 */
 
-static void		set_side_plane_normals(t_camera *camera,
+static void	set_side_plane_normals(t_camera *camera,
 					t_vec3 corners[4], t_vec3 pos)
 {
 	t_vec3	tmp[2];
@@ -54,7 +54,7 @@ static void		set_side_plane_normals(t_camera *camera,
 ** cross product nearby corners to get plane normals.
 */
 
-void			set_camera_viewbox(t_camera *camera, float dims[2],
+void	set_camera_viewbox(t_camera *camera, float dims[2],
 					t_vec3 forward_up_sideways[3])
 {
 	t_vec3	dirs[4];
@@ -85,11 +85,12 @@ void			set_camera_viewbox(t_camera *camera, float dims[2],
 ** Create new camera
 */
 
-t_camera		*new_camera(void)
+t_camera	*new_camera(void)
 {
 	t_camera	*camera;
 
-	if (!(camera = (t_camera*)ft_calloc(sizeof(t_camera))))
+	camera = (t_camera *)ft_calloc(sizeof(t_camera));
+	if (!camera)
 		return (NULL);
 	ml_vector3_set_all(camera->origin, 0);
 	return (camera);
@@ -99,7 +100,7 @@ t_camera		*new_camera(void)
 ** Destroy camera
 */
 
-void			scene_cameras_destroy(t_scene *scene)
+void	scene_cameras_destroy(t_scene *scene)
 {
 	if (scene->main_camera)
 	{

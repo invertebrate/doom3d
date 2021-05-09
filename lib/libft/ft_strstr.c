@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:09:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:58:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:50:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ char	*ft_strstr(const char *haystack, const char *needle)
 	haystack_len = ft_strlen(haystack);
 	i = 0;
 	if (*needle == '\0')
-		return ((char*)haystack);
+		return ((char *)haystack);
 	while (i < haystack_len)
 	{
 		if (*haystack == *needle)
 		{
 			if (ft_strncmp(haystack, needle, needle_len) == false)
-				return ((char*)haystack);
+				return ((char *)haystack);
 		}
 		i++;
 		haystack++;

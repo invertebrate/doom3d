@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:14:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 23:02:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 14:20:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 ** for the purpose of ray casted rendering.
 */
 
-typedef struct				s_camera
+typedef struct s_camera
 {
 	t_vec3					world_pos;
 	t_vec3					forward;
@@ -51,7 +51,7 @@ typedef struct				s_camera
 ** app can transition while playing.
 */
 
-typedef enum				e_scene_id
+typedef enum e_scene_id
 {
 	scene_id_main_menu,
 	scene_id_main_menu_settings,
@@ -66,10 +66,10 @@ typedef enum				e_scene_id
 ** game objects.
 */
 
-typedef struct				s_asset_files
+typedef struct s_asset_files
 {
 	const char				*animation_3d_files[ANIM_3D_FRAME_MAX];
-	const char				*animation_sprite_files[MAX_ASSETS];
+	const char				*hud_sprite_files[MAX_ASSETS];
 	const char				*texture_files[MAX_ASSETS];
 	const char				*normal_map_files[MAX_ASSETS];
 	const char				*model_files[MAX_ASSETS];
@@ -78,7 +78,7 @@ typedef struct				s_asset_files
 	const char				*trigger_names[MAX_ASSETS];
 	const char				*light_names[MAX_ASSETS];
 	uint32_t				num_animation_frames_3d;
-	uint32_t				num_animations_sprite;
+	uint32_t				num_hud_sprites;
 	uint32_t				num_models;
 	uint32_t				num_textures;
 	uint32_t				num_normal_maps;
@@ -102,7 +102,7 @@ typedef struct				s_asset_files
 ** object_textures: key: id, val: const char *filename)
 */
 
-typedef struct				s_scene
+typedef struct s_scene
 {
 	t_3d_object				*objects[MAX_NUM_OBJECTS];
 	uint32_t				num_objects;
@@ -121,7 +121,7 @@ typedef struct				s_scene
 	uint32_t				num_button_menus;
 	t_bool					is_paused;
 	t_scene_id				scene_id;
-	t_hash_table			*animation_textures;
+	t_hash_table			*hud_textures;
 	t_hash_table			*animation_3d_frames;
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;

@@ -6,18 +6,18 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 18:46:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 16:25:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		set_debug_info(t_doom3d *app, char *debug_info, char *pos)
+static void	set_debug_info(t_doom3d *app, char *debug_info, char *pos)
 {
 	t_vec3	unit_pos;
 
-	if (app->active_scene->scene_id == scene_id_main_game ||
-		app->active_scene->scene_id == scene_id_editor3d)
+	if (app->active_scene->scene_id == scene_id_main_game
+		|| app->active_scene->scene_id == scene_id_editor3d)
 	{
 		ml_vector3_mul(app->player.pos, 1.0 / app->unit_size, unit_pos);
 		ml_vector3_to_str(unit_pos, pos);
@@ -32,7 +32,7 @@ static void		set_debug_info(t_doom3d *app, char *debug_info, char *pos)
 			app->info.fps, app->info.delta_time);
 }
 
-void			render_debug_info(t_doom3d *app)
+void	render_debug_info(t_doom3d *app)
 {
 	char	debug_info[1024];
 	char	pos[128];
@@ -41,21 +41,21 @@ void			render_debug_info(t_doom3d *app)
 	ft_memset(pos, 0, sizeof(pos));
 	set_debug_info(app, debug_info, pos);
 	window_text_render_wrapped(app->window, (t_text_params){
-		.text = debug_info, .blend_ratio = 1.0, .xy = (int[2]){5, 5},
+		.text = debug_info, .blend_ratio = 1.0, .xy = (int [2]){5, 5},
 		.text_color = (SDL_Color){255, 255, 255, 0}},
 		app->window->debug_font);
 }
 
-void			capture_fps(t_doom3d *app)
+void	capture_fps(t_doom3d *app)
 {
 	app->info.performance_end = SDL_GetPerformanceCounter();
-	app->info.delta_time =
-		(app->info.performance_end - app->info.performance_start) * 1000.0 /
-		SDL_GetPerformanceFrequency();
+	app->info.delta_time
+		= (app->info.performance_end - app->info.performance_start) * 1000.0
+		/ SDL_GetPerformanceFrequency();
 	app->info.fps = window_framerate_capture(app->info.delta_time);
 }
 
-void			resize_dependent_recreate(t_doom3d *app)
+void	resize_dependent_recreate(t_doom3d *app)
 {
 	SDL_Event	event;
 

@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 18:46:08 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/09 16:22:45 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 # define PLAYER_SPEED 8.0
 # define PLAYER_MAX_SPEED 14.00
 # define PLAYER_ROTATION_SPEED 0.1
-# define ANIMATION_SCALE 2
 # define PLAYER_JUMP_FORCE 8.0
 # define PLAYER_HEIGHT 1.75
 # define PLAYER_HEIGHT_CROUCH 0.75
 # define MAX_KEYS 32
-# define COLLIDER_RAY_COUNT 50
-# define COLLIDER_RAY_TOTAL 50 * 50
-# define PLAYER_COLLIDER_RADIUS 0.2
+# define COLLIDER_RAY_COUNT 16
+# define COLLIDER_RAY_TOTAL COLLIDER_RAY_COUNT * COLLIDER_RAY_COUNT
+# define PLAYER_COLLIDER_RADIUS 0.55
+# define PLAYER_COLLIDER_SNAP_RADIUS 0.1
 # define SLOPE_ANGLE_THRESHOLD 30
 
 # include "lib3d.h"
@@ -35,7 +35,7 @@
 ** Directions to which player can move
 */
 
-typedef enum				e_move
+typedef enum e_move
 {
 	move_forward,
 	move_backward,
@@ -53,6 +53,7 @@ typedef struct s_sphere_collider
 {
 	t_ray			rays[COLLIDER_RAY_COUNT * COLLIDER_RAY_COUNT];
 	t_sphere		sphere;
+	float			snap_radius;
 }							t_sphere_collider;
 
 
@@ -60,7 +61,7 @@ typedef struct s_sphere_collider
 ** Data defining player functionality and toggles.
 */
 
-typedef struct				s_player
+typedef struct s_player
 {
 	t_vec3					pos;
 	t_vec3					forward;
@@ -106,7 +107,7 @@ typedef struct				s_player
 ** in app->animations
 */
 
-typedef enum				e_player_animation
+typedef enum e_player_animation
 {
 	anim_none = 0,
 	anim_shotgun_default = 1,
@@ -128,7 +129,7 @@ typedef enum				e_player_animation
 ** Animation general state
 */
 
-typedef enum				e_player_anim_state
+typedef enum e_player_anim_state
 {
 	anim_state_default = 1,
 	anim_state_shoot = 2,
@@ -139,7 +140,7 @@ typedef enum				e_player_anim_state
 ** Data which defines different things that belong to player hud.
 */
 
-typedef struct				s_player_hud
+typedef struct s_player_hud
 {
 	t_player_animation		curr_animation;
 }							t_player_hud;

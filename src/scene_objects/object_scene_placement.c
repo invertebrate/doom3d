@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 20:13:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/06 16:22:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		set_new_object_textures_and_nmaps(t_doom3d *app,
+static void	set_new_object_textures_and_nmaps(t_doom3d *app,
 					t_3d_object *obj,
 					const char *texture_str,
 					const char *normal_map_str)
@@ -26,7 +26,7 @@ static void		set_new_object_textures_and_nmaps(t_doom3d *app,
 		hash_map_add(app->active_scene->object_textures,
 			obj->id, (void*)texture_str);
 	normal_map = hash_map_get(app->active_scene->textures,
-		(int64_t)normal_map_str);
+			(int64_t)normal_map_str);
 	obj->material->normal_map = normal_map;
 	if (normal_map)
 		hash_map_add(app->active_scene->object_normal_maps,
@@ -38,7 +38,7 @@ static void		set_new_object_textures_and_nmaps(t_doom3d *app,
 ** have been read into scene)
 */
 
-t_3d_object		*place_scene_object(t_doom3d *app, const char *filenames[3],
+t_3d_object	*place_scene_object(t_doom3d *app, const char *filenames[3],
 					t_vec3 pos)
 {
 	t_3d_object	*obj;
@@ -57,7 +57,7 @@ t_3d_object		*place_scene_object(t_doom3d *app, const char *filenames[3],
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	obj->material->flashlight = &(app->player.flashlight);
 	app->active_scene->objects[next_object_index(app)] = obj;
-	active_scene_update_after_objects(app->active_scene);
+	active_scene_update_after_objects(app);
 	if (app->is_debug)
 		LOG_DEBUG("New object id %d", obj->id);
 	return (obj);
@@ -67,7 +67,7 @@ t_3d_object		*place_scene_object(t_doom3d *app, const char *filenames[3],
 ** Place object from model (add textures from memory)
 */
 
-t_3d_object		*place_procedural_scene_object(t_doom3d *app,
+t_3d_object	*place_procedural_scene_object(t_doom3d *app,
 												t_3d_object *model,
 												const char *filenames[2],
 												t_vec3 pos)
@@ -84,7 +84,7 @@ t_3d_object		*place_procedural_scene_object(t_doom3d *app,
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
 	obj->material->flashlight = &(app->player.flashlight);
-	active_scene_update_after_objects(app->active_scene);
+	active_scene_update_after_objects(app);
 	if (app->is_debug)
 		LOG_DEBUG("New procedural object id %d", obj->id);
 	return (obj);
@@ -94,7 +94,7 @@ t_3d_object		*place_procedural_scene_object(t_doom3d *app,
 ** Place object from model (add textures from memory)
 */
 
-t_3d_object		*place_temp_object(t_doom3d *app, const char *filenames[3],
+t_3d_object	*place_temp_object(t_doom3d *app, const char *filenames[3],
 						t_vec3 pos, int32_t lifetime_and_delay[2])
 {
 	t_3d_object	*obj;
@@ -122,7 +122,7 @@ t_3d_object		*place_temp_object(t_doom3d *app, const char *filenames[3],
 ** Place object from model (add textures from memory)
 */
 
-t_3d_object		*place_procedural_temp_object(t_doom3d *app,
+t_3d_object	*place_procedural_temp_object(t_doom3d *app,
 											t_procedural_tmp_obj_params params,
 											t_vec3 pos)
 {

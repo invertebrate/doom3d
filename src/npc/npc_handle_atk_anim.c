@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 20:27:37 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/03 00:33:30 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/08 18:56:47 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,27 @@ static void	npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir,
 	place_projectile_object_in_scene(app, &projectile, neworigin, rot);
 }
 
+static void	handle_projectile(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc)
+{
+	t_vec3	dir;
+
+	ml_vector3_copy(npc->dir, dir);
+	ml_vector3_mul(dir, -1, dir);
+	if (npc->type == npc_type_monster01_range)
+		npc_shoot_projectile(app, npc_obj->aabb.center, dir,
+			projectile_type_fireball_green);
+	else if (npc->type == npc_type_boss)
+		npc_shoot_projectile(app, npc_obj->aabb.center, dir,
+			projectile_type_fireball_purple);
+	else
+		npc_shoot_projectile(app, npc_obj->aabb.center, dir,
+			projectile_type_fireball);
+	push_custom_event(app,
+		event_effect_play, (void *)sf_monster_shoot, s_ini(0, 1, st_game,
+			distance_vol(1, sound_mag(app->player.pos,
+					npc_obj->position), -1)));
+}
+
 static void	handle_attack(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc)
 {
 	t_vec3	dist;
@@ -49,22 +70,13 @@ static void	handle_attack(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc)
 	}
 	if (npc->atk_pattern[npc->atk_pattern_index] == action_projectile_rpg)
 	{
-		if (npc->type == npc_type_monster01_range)
-			npc_shoot_projectile(app, npc_obj->aabb.center, npc->dir,
-				projectile_type_fireball_green);
-		else
-			npc_shoot_projectile(app, npc_obj->aabb.center, npc->dir,
-				projectile_type_fireball);
-		push_custom_event(app,
-			event_effect_play, (void*)sf_monster_shoot, s_ini(0, 1, st_game,
-			distance_vol(1, sound_mag(app->player.pos,
-												npc_obj->position), -1)));
+		handle_projectile(app, npc_obj, npc);
 		if (app->is_debug)
 			LOG_DEBUG("Npc %d shot projectile", npc_obj->id);
 	}
 }
 
-void		handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj)
+void	handle_atk_anim(t_doom3d *app, t_3d_object *npc_obj)
 {
 	uint32_t			new_time;
 	t_npc				*npc;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 15:47:10 by ohakola           #+#    #+#             */
-/*   Updated: 2020/10/18 21:52:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 15:55:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ typedef void					(*t_thread_work_func)(void *params);
 
 typedef struct s_thread_work	t_thread_work;
 
-struct							s_thread_work
+struct s_thread_work
 {
 	t_thread_work_func	work_func;
 	void				*params;
 	t_thread_work		*next;
 };
 
-typedef struct					s_thread_pool
+typedef struct s_thread_pool
 {
 	t_thread_work		*work_first;
 	t_thread_work		*work_last;

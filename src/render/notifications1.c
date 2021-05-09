@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   notifications1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:24:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 19:29:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 20:45:08 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ static int32_t	adjust_notifications_dims(t_doom3d *app,
 	i = 0;
 	while (node)
 	{
-		if (((t_notification*)node->content)->type == notification_type_info)
+		if (((t_notification *)node->content)->type == notification_type_info)
 		{
 			TTF_SizeText(app->window->debug_font,
-				((t_notification*)node->content)->message,
+				((t_notification *)node->content)->message,
 				&text_dims[0], &text_dims[1]);
 			dims[0] = (int32_t)l3d_fmax(dims[0], text_dims[0] + padding);
 			dims[1] += text_dims[1] + padding;
@@ -44,7 +44,7 @@ static int32_t	adjust_notifications_dims(t_doom3d *app,
 ** gets rendered in main game.
 */
 
-static void		render_action_notification(t_doom3d *app)
+static void	render_action_notification(t_doom3d *app)
 {
 	int32_t	height;
 
@@ -53,10 +53,10 @@ static void		render_action_notification(t_doom3d *app)
 		height = app->window->framebuffer->height * 3 / 4;
 		window_text_render(app->window,
 			(t_text_params){
-				.text = app->action_text,
-				.text_color = (SDL_Color){255, 255, 0, 255},
-				.blend_ratio = 1.0,
-				.xy = (int32_t[2]){100, height}}, app->window->main_font);
+			.text = app->action_text,
+			.text_color = (SDL_Color){255, 255, 0, 255},
+			.blend_ratio = 1.0,
+			.xy = (int32_t[2]){100, height}}, app->window->main_font);
 	}
 }
 
@@ -66,7 +66,7 @@ static void		render_action_notification(t_doom3d *app)
 ** Or! Action notification in-game.
 */
 
-void			render_notifications(t_doom3d *app, t_vec2 pos)
+void	render_notifications(t_doom3d *app, t_vec2 pos)
 {
 	int32_t		dims[2];
 	int32_t		padding;
@@ -77,12 +77,12 @@ void			render_notifications(t_doom3d *app, t_vec2 pos)
 	if (app->notifications == NULL)
 		return ;
 	padding = 3;
-	num_notifications =
-		adjust_notifications_dims(app, text_dims, dims, padding);
+	num_notifications
+		= adjust_notifications_dims(app, text_dims, dims, padding);
 	while ((int32_t)pos[1] + dims[1] + padding * 2 < 0)
 		pos[1]++;
-	while ((int32_t)pos[0] + dims[0] + padding * 2 >
-		app->window->framebuffer->width)
+	while ((int32_t)pos[0] + dims[0] + padding * 2
+		> app->window->framebuffer->width)
 		pos[0]--;
 	if (num_notifications > 0)
 		render_notifications_background(app, pos, dims, padding);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:03:32 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/18 19:51:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 14:48:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static const char	*get_level_color(t_log_level level)
 	const char	*color;
 
 	color = TRACE_COLOR_PRINT;
-	if (level == level_debug)
+	if (level == l_debug)
 		color = DEBUG_COLOR_PRINT;
-	else if (level == level_info)
+	else if (level == l_info)
 		color = INFO_COLOR_PRINT;
-	else if (level == level_warn)
+	else if (level == l_warn)
 		color = WARN_COLOR_PRINT;
-	else if (level == level_error)
+	else if (level == l_error)
 		color = ERROR_COLOR_PRINT;
-	else if (level == level_fatal)
+	else if (level == l_fatal)
 		color = FATAL_COLOR_PRINT;
 	return (color);
 }
@@ -37,24 +37,25 @@ static const char	*get_level_string(t_log_level level)
 	const char	*color;
 
 	color = TRACE_COLOR_STR;
-	if (level == level_debug)
+	if (level == l_debug)
 		color = DEBUG_COLOR_STR;
-	else if (level == level_info)
+	else if (level == l_info)
 		color = INFO_COLOR_STR;
-	else if (level == level_warn)
+	else if (level == l_warn)
 		color = WARN_COLOR_STR;
-	else if (level == level_error)
+	else if (level == l_error)
 		color = ERROR_COLOR_STR;
-	else if (level == level_fatal)
+	else if (level == l_fatal)
 		color = FATAL_COLOR_STR;
 	return (color);
 }
 
-void				logger_log(int32_t level,
-						const char *file,
-						int32_t line,
-						const char *fmt,
-						...)
+t_log	log_p(int32_t level, const char *file, int32_t line)
+{
+	return ((t_log){.level = level, .file = file, .line = line});
+}
+
+void	logger(t_log params, const char *fmt, ...)
 {
 	char	time_buf[64];
 	time_t	event_time;
@@ -63,14 +64,14 @@ void				logger_log(int32_t level,
 
 	event_time = time(NULL);
 	len = strftime(time_buf, sizeof(time_buf), "%H:%M:%S",
-		localtime(&event_time));
+			localtime(&event_time));
 	time_buf[len] = '\0';
 	ft_printf("%s %s%-5s\x1b[0m \x1b[90m%s:%d:\x1b[0m ",
 		time_buf,
-		get_level_color(level),
-		get_level_string(level),
-		file,
-		line);
+		get_level_color(params.level),
+		get_level_string(params.level),
+		params.file,
+		params.line);
 	va_start(args, fmt);
 	ft_vprintf(fmt, args);
 	ft_putchar('\n');

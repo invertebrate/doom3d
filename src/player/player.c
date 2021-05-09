@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 17:55:49 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/09 16:33:32 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,18 @@ void			player_nudge_grounded(t_doom3d *app)
 					// ml_vector3_sub(closest_triangle_hit->hit_point, ray.origin, hitvec);
 					ml_vector3_copy(nudge_vector, max_vector);//nudge vector calculation might be off
 					max_mag = current_mag;
+					break ;
 				}
 				// return(true);
 			}
+			l3d_delete_hits(&hits);
 		}
 	}
+	ft_printf("player nugded\n");
+	ml_vector3_print(max_vector);
+	// ml_vector3_mul(max_vector, 0.95, max_vector);
 	ml_vector3_copy(max_vector, app->player.nudge);//test
 	ml_vector3_add(app->player.pos, max_vector, app->player.pos);
-	l3d_delete_hits(&hits);
 	// return (false);
 }
 
@@ -110,66 +114,83 @@ void			player_snap_to_ground(t_doom3d *app)
 	(void)app;
 }
 
-void			player_collision_handle_ground_snap(t_doom3d *app,
-					t_physics_state *prev_state)
+void			player_collision_handle_ground_snap(t_doom3d *app)
 {
-	if (*prev_state == physics_state_grounded
-		&& app->player.physics_state == physics_state_not_grounded)
+	t_hits		*hits;
+	t_ray		ray;
+	int			i;
+	t_hit		*closest_triangle_hit;
+	float		max_mag;
+	t_vec3		snap_vector;
+	t_vec3		max_vector;
+	t_vec3		hitvec;
+	float		current_mag;
+
+	i = -1;
+	max_mag = 0.0;
+	ft_memset(max_vector, 0, sizeof(max_vector));
+	ft_memset(hitvec, 0, sizeof(hitvec));
+	ft_memset(snap_vector, 0, sizeof(snap_vector));
+	hits = NULL;
+	while (++i < COLLIDER_RAY_TOTAL)
+	{
+		ray = app->player.collider.rays[i];
+		if (ml_vector3_angle_deg(ray.dir, (t_vec3){0.0, 1.0, 0.0})
+			< SLOPE_ANGLE_THRESHOLD
+			&& l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, ray.origin,
+				ray.dir, &hits))
 		{
-			if (fabs(app->player.velocity[1]) > L3D_EPSILON )
+			closest_triangle_hit = NULL;
+			l3d_get_closest_triangle_hit_at_range(hits, &closest_triangle_hit,
+				-1, app->player.collider.snap_radius);
+			if (closest_triangle_hit != NULL)
 			{
-				player_snap_to_ground(app);
-				ft_printf("Player snapped to ground\n");
-				app->player.physics_state = physics_state_grounded;
-				return ;
-			}
-			else
-			{
-				ft_printf("velocity was 0\n");
-				*prev_state = physics_state_not_grounded;
+				ml_vector3_mul(ray.dir, app->player.collider.snap_radius, snap_vector);
+				// t_vec3	tdir;
+				float d;
+				d = closest_triangle_hit->t - app->player.collider.sphere.radius;
+				ml_vector3_mul(ray.dir, d, snap_vector);
+				// ml_vector3_sub(tdir, snap_vector, snap_vector);
+				current_mag = ml_vector3_mag(snap_vector);
+				if (current_mag > max_mag)
+				{
+					ml_vector3_copy(snap_vector, max_vector);//nudge vector calculation might be off
+					max_mag = current_mag;
+				}
+				// return(true);
 			}
 		}
-	else if (app->player.physics_state == physics_state_not_grounded)
-	{
-		ft_printf("prev state was not grounded or current was grounded\n");
-		*prev_state = physics_state_not_grounded;
 	}
-	(void)app;
-	(void)prev_state;
+	ft_printf("player_snapped\n");
+	ml_vector3_print(max_vector);
+	ml_vector3_add(app->player.pos, max_vector, app->player.pos);
+	l3d_delete_hits(&hits);
+	// return (false);
 }
 
 void			update_player(t_doom3d *app)
 {
-	static t_physics_state	previous_frame_grounded = 1000;
-
 	if ((app->active_scene->scene_id != scene_id_main_game &&
 		!app->active_scene->is_paused) &&
 			app->active_scene->scene_id != scene_id_editor3d)
 		return ;
-
+	player_move(app);
+	player_collider_update(app);
 	if (app->active_scene->scene_id != scene_id_editor3d)
 	{
 		update_player_physics_state(app);
-		player_collision_handle_ground_snap(app, &previous_frame_grounded);
 	}
 	if (app->player.physics_state == physics_state_grounded)
 	{
-		previous_frame_grounded = physics_state_grounded;
 		ft_printf("GROUNDED\n");
-		player_nudge_grounded(app);
-
+		// player_nudge_grounded(app);
 	}
 	else
 	{
-		previous_frame_grounded = physics_state_not_grounded;
+		// player_collision_handle_ground_snap(app);
 		ft_printf("NOT GROUNDED\n");
 	}
-
-	forces_update_player(app);
-
-	player_move(app);
-
-	player_collider_update(app);
+	forces_update_player(app);//vel = 0;
 	player_update_aabb(&app->player);
 	player_animation_update(app);
 	player_flashlight_update(app);

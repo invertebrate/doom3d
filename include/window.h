@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 19:08:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/07 18:18:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 ** xy position and its color
 */
 
-typedef struct				s_text_params
+typedef struct s_text_params
 {
 	const char				*text;
 	SDL_Color				text_color;
@@ -55,7 +55,7 @@ typedef struct				s_text_params
 ** Information struct for fps and delta time
 */
 
-typedef struct				s_info
+typedef struct s_info
 {
 	uint32_t				fps;
 	uint64_t				delta_time;
@@ -67,13 +67,13 @@ typedef struct				s_info
 ** A wrapper for software rasterizer's framebuffer & window information
 */
 
-typedef struct				s_window
+typedef struct s_window
 {
 	SDL_Renderer			*renderer;
 	SDL_Texture				*frame;
 	t_framebuffer			*framebuffer;
-	t_framebuffer			*editor_framebuffer;
-	t_vec2					editor_pos;
+	t_framebuffer			*framebuffer_3d;
+	t_vec2					view_3d_pos;
 	TTF_Font				*main_font;
 	TTF_Font				*debug_font;
 	TTF_Font				*title_font;
@@ -91,7 +91,7 @@ typedef struct				s_window
 ** Mouse state
 */
 
-typedef struct				s_mouse
+typedef struct s_mouse
 {
 	int32_t				x;
 	int32_t				y;
@@ -102,7 +102,7 @@ typedef struct				s_mouse
 ** Keyboard state
 */
 
-typedef struct				s_keyboard
+typedef struct s_keyboard
 {
 	const uint8_t		*state;
 }							t_keyboard;
@@ -113,7 +113,7 @@ typedef struct				s_keyboard
 
 typedef struct s_button		t_button;
 
-struct						s_button
+struct s_button
 {
 	uint32_t				id;
 	const char				*text;
@@ -136,7 +136,7 @@ struct						s_button
 ** UI Button group
 */
 
-typedef struct				s_button_group
+typedef struct s_button_group
 {
 	t_vec2					pos;
 	t_button				**buttons;
@@ -154,7 +154,7 @@ typedef struct				s_button_group
 ** UI Button menu
 */
 
-typedef struct				s_button_menu
+typedef struct s_button_menu
 {
 	t_button_group			*menu;
 	t_vec2					pos;
@@ -174,8 +174,12 @@ void						window_destroy(t_window *window);
 void						window_create(t_window **window_ref,
 								int32_t width, int32_t height);
 void						window_frame_recreate(t_window *window);
+void						window_3d_framebuffer_recreate(t_window *window,
+								int32_t dims[2],
+								int32_t pos[2]);
 void						draw_window_frame(t_window *window);
-void						window_frame_clear(t_window *window);
+void						window_frame_clear(t_window *window,
+								uint32_t clear_color);
 void						window_resize(t_window *window,
 								int32_t width, int32_t height);
 
@@ -190,8 +194,8 @@ void						window_text_render_wrapped(t_window *window,
 void						window_text_render_centered(t_window *window,
 								t_text_params params, TTF_Font *font);
 void						window_text_render_centered_wrapped(
-									t_window *window,
-									t_text_params params, TTF_Font *font);
+								t_window *window,
+								t_text_params params, TTF_Font *font);
 SDL_Surface					*surface_from_font_shaded(t_text_params params,
 								TTF_Font *font);
 SDL_Surface					*surface_from_font_solid(t_text_params params,

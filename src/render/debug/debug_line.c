@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   debug_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:38:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 23:28:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 15:59:08 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		clip_3d_line_and_screen_intersect(t_doom3d *app,
+static void	clip_3d_line_and_screen_intersect(t_doom3d *app,
 					t_vec3 points[2])
 {
 	t_vec3		near_to_point;
@@ -49,7 +49,7 @@ static void		clip_3d_line_and_screen_intersect(t_doom3d *app,
 ** 4. Draw 2d line
 */
 
-void			draw_debug_line(t_doom3d *app,
+void	draw_debug_line(t_doom3d *app,
 					t_sub_framebuffer *buffer, t_vec3 edge[2],
 					uint32_t color)
 {
@@ -66,27 +66,24 @@ void			draw_debug_line(t_doom3d *app,
 	l3d_line_draw(buffer->buffer, (uint32_t[2]){
 		buffer->width, buffer->height},
 		(int32_t[2][2]){{edge[0][0], edge[0][1]},
-		{edge[1][0], edge[1][1]}}, color);
+	{edge[1][0], edge[1][1]}}, color);
 }
 
-void			draw_enemy_direction(t_doom3d *app,
+void	draw_enemy_direction(t_doom3d *app,
 					t_sub_framebuffer *sub_buffer, t_3d_object *npc_object)
 {
-	t_npc				*npc;
 	t_vec3				add;
 	t_vec3				end;
 	t_vec3				forward;
 	t_mat4				rotation_x;
 
-	npc = npc_object->params;
-	ml_matrix4_rotation_y(ml_rad(npc->angle), rotation_x);
-	ml_matrix4_mul_vec3(rotation_x, (t_vec3){0, 0, Z_DIR}, forward);
-	ml_vector3_mul(forward, app->unit_size * 2, add);
-	ml_vector3_add(npc_object->position, add, end);
-	draw_debug_line(app, sub_buffer,
-		(t_vec3[2]){{npc_object->position[0], npc_object->position[1],
-			npc_object->position[2]},
-		{end[0], end[1], end[2]}}, 0xffff00ff);
+	ml_matrix4_rotation_y(pitch_from_rotation_matrix(npc_object->rotation), rotation_x);
+    ml_matrix4_mul_vec3(rotation_x, (t_vec3){0, 0, -Z_DIR}, forward);
+    ml_vector3_mul(forward, app->unit_size * 2, add);
+    ml_vector3_add(npc_object->position, add, end);
+    draw_debug_line(app, sub_buffer,
+        (t_vec3[2]){{npc_object->position[0], npc_object->position[1],
+        npc_object->position[2]}, {end[0], end[1], end[2]}}, 0xffff00ff);
 }
 
 /*
@@ -96,7 +93,7 @@ void			draw_enemy_direction(t_doom3d *app,
 ** (1. Access app through work, 2. Access your variables & draw)
 */
 
-void			draw_editor_debug_grid(t_render_work *work)
+void	draw_editor_debug_grid(t_render_work *work)
 {
 	t_sub_framebuffer	*sub_buffer;
 	int32_t				i;

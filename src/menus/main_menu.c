@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 15:51:38 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:30:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 16:15:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void			on_main_menu_button_click(t_button *self, void *params)
+static void	on_main_menu_button_click(t_button *self, void *params)
 {
 	t_doom3d	*app;
 
@@ -34,17 +34,18 @@ static void			on_main_menu_button_click(t_button *self, void *params)
 ** Create main button menu
 */
 
-void				main_menu_create(t_doom3d *app)
+void	main_menu_create(t_doom3d *app)
 {
-	error_check(!(app->active_scene->menus =
-		ft_calloc(sizeof(t_button_group*) * 1)), "Failed to malloc menus");
+	error_check(!(app->active_scene->menus
+			= ft_calloc(sizeof(t_button_group*) * 1)),
+		"Failed to malloc menus");
 	app->active_scene->menus[0] = button_menu_create_shaded(app,
-		(t_button_menu_params){
+			(t_button_menu_params){
 			.button_names = (const char*[4]){
-				"Start Game",
-				"Editor",
-				"Settings",
-				"Quit"},
+			"Start Game",
+			"Editor",
+			"Settings",
+			"Quit"},
 			.num_buttons = 4,
 			.on_click = on_main_menu_button_click,
 			.button_font = app->window->main_font,

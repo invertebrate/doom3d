@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 14:11:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/08 16:42:43 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/09 15:44:07 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		player_attributes_init(t_doom3d *app)
 	else
 	{
 		app->player.speed = PLAYER_SPEED;
-		app->player.rot_speed = PLAYER_ROTATION_SPEED;
+		app->player.rot_speed = PLAYER_ROTATION_SPEED * 0.5;
 	}
 	app->player.rot_x = 0;
 	app->player.rot_y = 0;
@@ -54,12 +54,14 @@ static void		player_collider_init(t_doom3d *app)
 	player = &app->player;
 	ml_vector3_copy(player->pos, player->collider.sphere.pos);
 	ml_vector3_sub(player->collider.sphere.pos,
-		(t_vec3){0.1, -0.5 * app->unit_size, 0.0},//change x to 0
-		player->collider.sphere.pos);
+		(t_vec3){0.0, -0.5 * app->unit_size, 0.0},
+			player->collider.sphere.pos);
 	ml_vector3_copy(player->up, player->collider.sphere.up);
 	ml_vector3_copy(player->forward, player->collider.sphere.forward);
 	player->collider.sphere.radius = 0.55 * app->unit_size;
 	ft_memset(player->collider.rays, 0, sizeof(t_ray) * COLLIDER_RAY_COUNT);
+	player->collider.snap_radius = 0.3 * app->unit_size
+		+ player->collider.sphere.radius;
 	player_collider_update(app);
 }
 

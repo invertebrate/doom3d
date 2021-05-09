@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   render_triangle_utils1.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:51:19 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 16:17:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 21:25:43 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void			destroy_render_triangle_vecs(t_tri_vec **render_triangles)
+void	destroy_render_triangle_vecs(t_tri_vec **render_triangles)
 {
 	l3d_triangle_vec_delete(render_triangles[0]);
 	l3d_triangle_vec_delete(render_triangles[1]);
@@ -45,7 +45,7 @@ static t_box3d	origo_centered_world_box(t_doom3d *app)
 ** offsets render triangles by skybox triangles and reverts back after sort
 */
 
-void			sort_render_triangles_by_depth(t_doom3d *app,
+void	sort_render_triangles_by_depth(t_doom3d *app,
 					t_tri_vec **render_triangles,
 					int32_t skybox_offset)
 {
@@ -56,19 +56,19 @@ void			sort_render_triangles_by_depth(t_doom3d *app,
 	is_skybox_offset = app->active_scene->scene_id != scene_id_editor3d;
 	if (is_skybox_offset)
 	{
-		render_triangles[0]->triangles =
-			render_triangles[0]->triangles + skybox_offset;
-		render_triangles[0]->size =
-			render_triangles[0]->size - skybox_offset;
+		render_triangles[0]->triangles
+			= render_triangles[0]->triangles + skybox_offset;
+		render_triangles[0]->size
+			= render_triangles[0]->size - skybox_offset;
 	}
 	triangle_sort_by_depth(render_triangles[0], app->thread_pool,
 		&centered_world);
 	if (is_skybox_offset)
 	{
-		render_triangles[0]->triangles =
-			render_triangles[0]->triangles - skybox_offset;
-		render_triangles[0]->size =
-			render_triangles[0]->size + skybox_offset;
+		render_triangles[0]->triangles
+			= render_triangles[0]->triangles - skybox_offset;
+		render_triangles[0]->size
+			= render_triangles[0]->size + skybox_offset;
 	}
 	if (render_triangles[1]->size > 0)
 		triangle_sort_by_depth(render_triangles[1], app->thread_pool,

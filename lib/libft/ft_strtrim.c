@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 20:34:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:58:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:50:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	is_clearable(char c)
 {
-	return (c == ' ' || c == '\n' || c == '\t' ||
-			c == '\v' || c == '\f' || c == '\r');
+	return (c == ' ' || c == '\n' || c == '\t'
+		|| c == '\v' || c == '\f' || c == '\r');
 }
 
 /*
@@ -27,7 +27,7 @@ static int	is_clearable(char c)
 ** If the allocation fails the function returns NULL.
 */
 
-char		*ft_strtrim(char const *s)
+char	*ft_strtrim(char const *s)
 {
 	size_t			start;
 	size_t			end;

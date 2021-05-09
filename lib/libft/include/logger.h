@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 14:44:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:53:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 14:48:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,22 @@
 ** https://github.com/rxi/log.c
 */
 
-typedef enum		e_log_level
+typedef enum e_log_level
 {
-	level_trace,
-	level_debug,
-	level_info,
-	level_warn,
-	level_error,
-	level_fatal,
+	l_trace,
+	l_debug,
+	l_info,
+	l_warn,
+	l_error,
+	l_fatal,
 }					t_log_level;
+
+typedef struct s_log
+{
+	int32_t		level;
+	const char	*file;
+	int32_t		line;
+}					t_log;
 
 # define TRACE_COLOR_PRINT "\x1b[94m"
 # define DEBUG_COLOR_PRINT "\x1b[36m"
@@ -49,41 +56,40 @@ typedef enum		e_log_level
 ** Log traces like you'd use ft_printf LOG_TRACE("%s", "hello")
 */
 
-# define LOG_TRACE(...) logger_log(level_trace, __FILE__, __LINE__, __VA_ARGS__)
+# define LOG_TRACE(...) logger(log_p(l_trace, __FILE__, __LINE__), __VA_ARGS__)
 
 /*
 ** Log debug information like you'd use ft_printf LOG_DEBUG("%s", "hello")
 */
 
-# define LOG_DEBUG(...) logger_log(level_debug, __FILE__, __LINE__, __VA_ARGS__)
+# define LOG_DEBUG(...) logger(log_p(l_debug, __FILE__, __LINE__), __VA_ARGS__)
 
 /*
 ** Log information like you'd use ft_printf LOG_INFO("%s", "hello")
 */
 
-# define LOG_INFO(...) logger_log(level_info,  __FILE__, __LINE__, __VA_ARGS__)
+# define LOG_INFO(...) logger(log_p(l_info,  __FILE__, __LINE__), __VA_ARGS__)
 
 /*
 ** Log warnings like you'd use ft_printf LOG_WARN("%s", "hello")
 */
 
-# define LOG_WARN(...) logger_log(level_warn,  __FILE__, __LINE__, __VA_ARGS__)
+# define LOG_WARN(...) logger(log_p(l_warn,  __FILE__, __LINE__), __VA_ARGS__)
 
 /*
 ** Log errors like you'd use ft_printf LOG_ERROR("%s", "hello")
 */
 
-# define LOG_ERROR(...) logger_log(level_error, __FILE__, __LINE__, __VA_ARGS__)
+# define LOG_ERROR(...) logger(log_p(l_error, __FILE__, __LINE__), __VA_ARGS__)
 
 /*
 ** Log crashing / fatal errors like you'd use ft_printf LOG_FATAL("%s", "hello")
 */
 
-# define LOG_FATAL(...) logger_log(level_fatal, __FILE__, __LINE__, __VA_ARGS__)
+# define LOG_FATAL(...) logger(log_p(l_fatal, __FILE__, __LINE__), __VA_ARGS__)
 
-void				logger_log(int32_t level,
-						const char *file,
-						int32_t line,
-						const char *fmt, ...);
+
+void				logger(t_log params, const char *fmt, ...);
+t_log				log_p(int32_t level, const char *file, int32_t line);
 
 #endif

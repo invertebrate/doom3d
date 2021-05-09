@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 16:28:17 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:55:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:19:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** using a given delete function
 */
 
-void	ft_lstdel(t_list **alst, void (*del)(void*, size_t))
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
 	if ((*alst)->next)
 		ft_lstdel(&(*alst)->next, del);

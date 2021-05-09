@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_default.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/30 21:02:08 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/07 14:55:13 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ static void	set_attack_pattern(t_npc *npc)
 ** monster01 variant differences
 */
 
-void		npc_monster01(t_doom3d *app, t_npc *npc, int type)
+void	npc_monster01(t_doom3d *app, t_npc *npc, int type)
 {
 	if (type == npc_type_monster01_a)
 	{
 		npc->texture_key = MONSTER01A_TEXTURE;
 		npc->model_scale = 0.03;
 		npc->type = type;
-		npc->hp = 200;
+		npc->hp = 1000;
 		npc->speed = app->unit_size / 4.2;
 		npc->atk_range = app->unit_size * 9;
-		npc->atk_dmg = 25;
+		npc->atk_dmg = 250;
 	}
 	if (type == npc_type_monster01_range)
 	{
@@ -60,17 +60,29 @@ void		npc_monster01(t_doom3d *app, t_npc *npc, int type)
 		npc->texture_key = MONSTER01B_TEXTURE;
 		npc->normal_map_key = MONSTER01_NORMM;
 		npc->model_scale = 0.009;
-		npc->hp = 80;
+		npc->hp = 200;
 		npc->speed = app->unit_size / 3.3;
 		npc->type = type;
+		npc->advance = true;
 	}
+	if (type == npc_type_boss)
+		npc_boss(app, npc, type);
 }
 
 static void	npc_default_vars(t_npc *npc)
 {
-	npc->dir[0] = 0;
+	float	cy;
+	float	sy;
+	float	offset;
+	float	angle;
+
+	offset = -90;
+	angle = (npc->angle - offset) * M_PI / 180;
+	cy = cos(angle);
+	sy = sin(angle);
 	npc->dir[1] = 0;
-	npc->dir[2] = 0;
+	npc->dir[0] = cy;
+	npc->dir[2] = sy;
 	npc->rot_speed = 10;
 	npc->state = 0;
 	npc->hp = 100;
@@ -78,19 +90,18 @@ static void	npc_default_vars(t_npc *npc)
 	npc->physics_state = physics_state_grounded;
 }
 
-void		npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
+void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 {
 	t_animation_3d	*dummy;
 
-	error_check(!(dummy = (t_animation_3d*)ft_calloc(sizeof(t_animation_3d))),
+	error_check(!(dummy = (t_animation_3d *)ft_calloc(sizeof(t_animation_3d))),
 		"Failed to malloc for dummy in npc_default.");
 	npc->parent = obj;
 	npc->type = npc_type_monster01;
 	npc->speed = app->unit_size / 3.5;
 	npc_default_vars(npc);
-	ml_vector3_set_all(npc->dir, 0.0);
 	npc->atk_range = app->unit_size * 6;
-	npc->atk_dmg = 25;
+	npc->atk_dmg = 100;
 	npc->atk_dur = 8000;
 	npc->vision_range = app->unit_size * 50;
 	npc->hearing_range = app->unit_size * 20;

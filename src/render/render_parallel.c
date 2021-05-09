@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_parallel.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:30:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 18:52:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 21:23:55 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Parallel render pass creating work or each thread (square part of screen)
 */
 
-static void		render_pass(t_doom3d *app, t_framebuffer *framebuffer,
+static void	render_pass(t_doom3d *app, t_framebuffer *framebuffer,
 					t_tri_vec **render_triangles, uint32_t pass_num_passes[2])
 {
 	int32_t				i;
@@ -32,8 +32,10 @@ static void		render_pass(t_doom3d *app, t_framebuffer *framebuffer,
 		work->app = app;
 		work->num_passes = pass_num_passes[1];
 		work->pass = pass_num_passes[0];
-		work->render_triangles = work->pass == 0 ? render_triangles[0] :
-			render_triangles[1];
+		if (work->pass == 0)
+			work->render_triangles = render_triangles[0];
+		else
+			work->render_triangles = render_triangles[1];
 		thread_pool_add_work(app->thread_pool, render_work, work);
 	}
 }
@@ -54,7 +56,7 @@ static void		render_pass(t_doom3d *app, t_framebuffer *framebuffer,
 ** 4. Parallel work is waited to finish and render triangles are destroyed.
 */
 
-void			render_parallel_3d_view(t_doom3d *app,
+void	render_parallel_3d_view(t_doom3d *app,
 					t_framebuffer *framebuffer)
 {
 	t_tri_vec			**render_triangles;
@@ -63,8 +65,8 @@ void			render_parallel_3d_view(t_doom3d *app,
 
 	transparency_pass = 2;
 	render_triangles = prepare_render_triangles(app);
-	app->triangles_in_view = render_triangles[0]->size +
-		render_triangles[1]->size;
+	app->triangles_in_view = render_triangles[0]->size
+		+ render_triangles[1]->size;
 	if (render_triangles[1]->size > 0)
 		num_passes = transparency_pass;
 	else
@@ -75,7 +77,7 @@ void			render_parallel_3d_view(t_doom3d *app,
 	if (num_passes == transparency_pass)
 	{
 		render_pass(app, framebuffer, render_triangles,
-		(uint32_t[2]){1, num_passes});
+			(uint32_t[2]){1, num_passes});
 		thread_pool_wait(app->thread_pool);
 	}
 	destroy_render_triangle_vecs(render_triangles);

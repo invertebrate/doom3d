@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/25 17:54:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/05 15:19:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Create new button with pointer to a window and id (index)
 */
 
-t_button		*button_create(t_window *window, uint32_t id, const char *text)
+t_button	*button_create(t_window *window, uint32_t id, const char *text)
 {
 	t_button		*button;
 
@@ -33,7 +33,7 @@ t_button		*button_create(t_window *window, uint32_t id, const char *text)
 ** Destroy button
 */
 
-void			button_destroy(t_button *button)
+void	button_destroy(t_button *button)
 {
 	if (button->texture)
 	{

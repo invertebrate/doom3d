@@ -47,6 +47,7 @@ SOURCES = main.c \
 			player/player.c \
 			player/player_jump.c \
 			player/player_shoot.c \
+			player/player_guns.c \
 			player/player_reload.c \
 			player/player_interact.c \
 			player/collision.c \
@@ -54,11 +55,13 @@ SOURCES = main.c \
 			player/movement.c \
 			player/player_status.c \
 			player/player_vitals_render.c \
+			player/player_weapons_render.c \
 			player/player_flashlight.c \
 			player/player_init.c \
 			projectile/projectile_init.c \
 			projectile/projectile_update.c \
 			projectile/projectile_collision.c \
+			projectile/projectile_explosion.c \
 			projectile/projectile_data/projectile_data_rpg.c \
 			projectile/projectile_data/projectile_data_fireball.c \
 			player/player_animations1.c \
@@ -92,6 +95,9 @@ SOURCES = main.c \
 			npc/npc_move_to_waypoint.c \
 			npc/npc_destroy.c \
 			npc/npc_enemy_actions.c \
+			npc/npc_face_player.c \
+			npc/npc_finalboss.c \
+			npc/npc_special_attack.c \
 			trigger/trigger.c \
 			trigger/trigger_timer.c \
 			trigger/trigger_place.c \
@@ -105,6 +111,7 @@ SOURCES = main.c \
 			path/path2.c \
 			path/patrol_path.c \
 			scene_objects/object_utils.c \
+			scene_objects/object_too_far.c \
 			scene_objects/object_next_index.c \
 			scene_objects/object_scene_placement.c \
 			scene_objects/object_update.c \
@@ -130,6 +137,7 @@ SOURCES = main.c \
 			scene/scene_menus.c \
 			scene/scene_update.c \
 			scene/cleanup.c \
+			scene/cleanup_animation3d.c \
 			scene/scene_assets.c \
 			scene/asset_loading/animations_3d.c \
 			scene/asset_loading/models.c \
@@ -246,6 +254,7 @@ SOURCES = main.c \
 			sound/sound_mp_controls.c\
 			sound/sound_mp_reorder.c\
 			animations/animation.c \
+			animations/animation_transform.c \
 			animations/animation_utils.c \
 			animations/animation_utils2.c
 

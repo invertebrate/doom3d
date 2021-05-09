@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound_effect_init.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 17:47:11 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/30 14:36:02 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/07 13:49:53 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	mp_effect_init1(t_doom3d *app)
 	mp_effect_init2(app);
 }
 
-void		mp_effect_init(t_doom3d *app)
+void	mp_effect_init(t_doom3d *app)
 {
 	app->mp.library[sf_shtg_fire] = read_sound(SF_SHTG_FIRE, app);
 	app->mp.library[sf_explsion] = read_sound(SF_EXPLSION, app);
@@ -73,5 +73,6 @@ void		mp_effect_init(t_doom3d *app)
 	app->mp.library[sf_monster_shoot] = read_sound(SF_MONSTER_SHOOT, app);
 	app->mp.library[sf_player_hurt] = read_sound(SF_PLAYER_HURT, app);
 	app->mp.library[sf_crate_break] = read_sound(SF_CRATE_BREAK, app);
+	app->mp.library[sf_spawn] = read_sound(SF_SPAWN, app);
 	mp_effect_init1(app);
 }
