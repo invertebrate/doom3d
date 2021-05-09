@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forces_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/04/25 03:16:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/09 17:04:51 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ static void	forces_update_npc(t_3d_object *npc_object)
 	{
 		if (npc->physics_state == physics_state_grounded)
 			npc->velocity[1] = 0;
-		else if ((npc->physics_state == physics_state_jumping
-				|| npc->physics_state == physics_state_falling)
-			&& npc->velocity[1] < PLAYER_MAX_SPEED)
+		else if (npc->physics_state == physics_state_falling
+			&& npc->velocity[1] < PLAYER_MAX_SPEED * 8)
 			npc->velocity[1] += CONST_GRAVITY;
 	}
 	if (npc->physics_state != physics_state_grounded
