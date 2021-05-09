@@ -6,7 +6,7 @@
 #    By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/17 13:09:18 by ohakola           #+#    #+#              #
-#    Updated: 2021/05/04 19:43:25 by veilo            ###   ########.fr        #
+#    Updated: 2021/05/09 20:57:03 by veilo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ SOURCES = ml_matrix4_id.c \
 SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))
-INCLUDES = -I ./include -I $(LIBFT)/include
+INCLUDES = -I ./include -I ../external_log -I $(LIBFT)/include
 CFLAGS = -Wall -Wextra -Werror -march=native -O3 -flto
 
 all: $(DIR_OBJ) $(NAME)

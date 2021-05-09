@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 18:17:36 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/09 21:03:59 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,6 @@ typedef struct s_player
 	t_sphere_collider		collider;
 	t_cylinder_collider		collider_ground;
 	t_vec3					future_pos;
-	t_vec3					nudge;//
-	t_vec3					hit_vec;//
-	t_vec3					ray;//testing only
 }							t_player;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:21:49 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/07 13:30:03 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/09 15:14:46 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ void	npc_update_state(t_doom3d *app, t_3d_object *npc_obj)
 		handle_state_attack(app, npc_obj, npc, diff);
 	else if (npc->state == state_atk_anim)
 		handle_atk_anim(app, npc_obj);
-	npc_face_player(npc_obj, npc, rot);
+	if (npc->type != npc_type_elevator && npc->type != npc_type_crate)
+		npc_face_player(npc_obj, npc, rot);
 }

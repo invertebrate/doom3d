@@ -24,7 +24,7 @@ static void	transform_current_object_vertex(t_animation_3d *anim,
 				t_mat4 inv_rot, t_vec3 prev_translation)
 {
 	ml_vector3_sub(vertex->pos, prev_translation, vertex->pos);
-	ml_matrix4_mul_vec3(inv_rot, vertex->pos,vertex->pos);
+	ml_matrix4_mul_vec3(inv_rot, vertex->pos, vertex->pos);
 	ml_matrix4_mul_vec3(anim->base_object->rotation, vertex->pos, vertex->pos);
 	ml_vector3_add(vertex->pos, anim->base_object->position, vertex->pos);
 }

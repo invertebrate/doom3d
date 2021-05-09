@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 20:32:29 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/09 20:56:15 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 # define HEIGHT 540
 # define NAME "Doom3D"
 
-# define GAME_VIEW_DIST_UNITS 200
+# define GAME_VIEW_DIST_UNITS 150
 # define EDITOR_VIEW_DIST_UNITS 450
 
 /*
@@ -462,6 +462,7 @@ void						handle_object_scale(t_doom3d *app,
 void						handle_object_scale_with_uvs(t_doom3d *app,
 								t_3d_object *object,
 								int32_t dir);
+void						handle_object_set_shading_not_cull(t_doom3d *app);
 void						handle_object_rotate_x(t_doom3d *app,
 								t_3d_object *object,
 								int32_t amount);
@@ -603,6 +604,7 @@ void						render_ui(t_doom3d *app);
 void						render_ui_title(t_doom3d *app);
 void						render_button_menu(t_button_group *menu,
 								t_vec2 pos);
+void						set_guide_text(char *guide);
 void						framebuffer_dark_overlay(
 								t_framebuffer *framebuffer);
 void						framebuffer_health_low_overlay(
@@ -765,6 +767,9 @@ void						finish_level(t_doom3d *app, t_3d_object *end_obj);
 
 void						editor_objects_invisible_unhighlight(t_doom3d *app);
 void						editor_objects_invisible_highlight(t_doom3d *app);
+void						editor_objects_non_culled_highlight(t_doom3d *app);
+void						editor_objects_non_culled_unhighlight(
+								t_doom3d *app);
 void						write_trigger_link_information(int32_t fd,
 								t_doom3d *app);
 void						write_npc_patrol_path_information(int32_t fd,
@@ -966,6 +971,7 @@ void						trigger_handle_door_switch(t_doom3d *app,
 void						trigger_handle_trigger_jukebox(t_doom3d *app,
 								t_3d_object *key,
 								t_trigger *trigger);
+void						handle_jukebox(t_doom3d *app, t_3d_object *obj);
 
 /*
 ** Player animations

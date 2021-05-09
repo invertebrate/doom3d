@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 12:52:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 17:02:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/09 18:45:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	handle_capital_length(t_printf *data)
 {
+	if (data->c == 'U' || data->c == 'D' || data->c == 'o')
+		data->type = length_ll;
 	if (data->c == 'U')
 		data->c = 'u';
 	if (data->c == 'D')
@@ -31,8 +33,6 @@ static uint64_t	parse_type(t_printf *data)
 	uint64_t		var;
 
 	handle_capital_length(data);
-	if (data->c == 'u' || data->c == 'd' || data->c == 'o')
-		data->type = length_ll;
 	if (data->type == length_h)
 		var = (uint64_t)((short int)va_arg(data->variables, int32_t));
 	else if (data->type == length_hh)

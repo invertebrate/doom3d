@@ -2,7 +2,7 @@ CC = gcc
 NAME=doom-nukem
 DIR_SRC = ./src
 DIR_OBJ = temp
-LIBSDL2 = ./lib/SDL2
+LIBSDL2 = ./lib/external_SDL2
 LIBFT = ./lib/libft
 LIB3D = ./lib/lib3d
 LIBGMATRIX = ./lib/libgmatrix
@@ -35,6 +35,7 @@ endif
 LIBS = $(LIB3DFLAGS) $(LIBGMATRIXFLAGS) $(LIBFTFLAGS) $(SDL_FLAGS) $(LIB_MATH) $(LIB_PTHRTEAD)
 
 INCLUDES = -I ./include \
+		-I./lib/external_log \
 		-I$(LIBFT)/include \
 		-I$(LIB3D)/include \
 		-I$(LIBGMATRIX)/include \
@@ -155,7 +156,8 @@ SOURCES = main.c \
 			scene/camera/update.c \
 			editor/editor_selection.c \
 			editor/editor_deselection.c \
-			editor/editor_utils.c \
+			editor/editor_utils1.c \
+			editor/editor_utils2.c \
 			editor/editor_init.c \
 			editor/editor_placement1.c \
 			editor/editor_placement2.c \
@@ -189,6 +191,7 @@ SOURCES = main.c \
 			render/ui.c \
 			render/ui_utils.c \
 			render/editor_ui.c \
+			render/editor_guide.c \
 			render/editor_ui_object_info.c \
 			render/debug/debug.c \
 			render/debug/debug_line.c \

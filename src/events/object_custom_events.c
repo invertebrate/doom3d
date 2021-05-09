@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_custom_events.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 00:43:13 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:55:13 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/08 19:02:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	object_custom_event_to_str(char *str, t_doom3d_event code)
 		ft_sprintf(str, "event_object_rotate_z");
 	else if (code == event_object_scale_with_uvs)
 		ft_sprintf(str, "event_object_scale_with_uvs");
+	else if (code == event_object_set_shading_not_cull)
+		ft_sprintf(str, "event_object_set_shading_not_cull");
 }
 
 void	register_object_custom_events(t_doom3d *app)
@@ -54,4 +56,6 @@ void	register_object_custom_events(t_doom3d *app)
 		(void *)handle_object_rotate_z);
 	hash_map_add(app->custom_event_handles, event_object_delete,
 		(void *)handle_object_deletion);
+	hash_map_add(app->custom_event_handles, event_object_set_shading_not_cull,
+		(void *)handle_object_set_shading_not_cull);
 }

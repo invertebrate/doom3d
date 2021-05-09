@@ -33,7 +33,7 @@
 # include "animations_3d.h"
 
 # define PATH_NEIGHBOUR_MAX 8
-# define MAX_PATROL_NODES 16
+# define MAX_PATROL_NODES 19
 # define MAX_TRIGGER_LINKS 16
 # define MAX_PATH_NODE_NETWORK_SIZE 256
 # define MAX_ATTACK_PATTERN_SIZE 128

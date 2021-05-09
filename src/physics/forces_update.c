@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/09 20:27:01 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/09 21:07:25 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ void	forces_update_player(t_doom3d *app)
 	if (app->player.physics_state != physics_state_not_applied)
 	{
 		if (app->player.physics_state == physics_state_grounded)
-			{
 				app->player.velocity[1] = 0;
-				ft_printf("player y velocity set to 0\n");
-			}
 		else if ((app->player.physics_state == physics_state_not_grounded)
 			&& app->player.velocity[1] < PLAYER_MAX_SPEED / 3)
 			app->player.velocity[1] += CONST_GRAVITY / 4;
@@ -56,9 +53,8 @@ static void	forces_update_npc(t_3d_object *npc_object)
 	{
 		if (npc->physics_state == physics_state_grounded)
 			npc->velocity[1] = 0;
-		else if ((npc->physics_state == physics_state_jumping
-				|| npc->physics_state == physics_state_falling)
-			&& npc->velocity[1] < PLAYER_MAX_SPEED)
+		else if (npc->physics_state == physics_state_falling
+			&& npc->velocity[1] < PLAYER_MAX_SPEED * 8)
 			npc->velocity[1] += CONST_GRAVITY;
 	}
 	if (npc->physics_state != physics_state_grounded

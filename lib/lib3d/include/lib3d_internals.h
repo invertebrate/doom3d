@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 21:13:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 19:50:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,8 @@ void						l3d_line_edge_end_swap(int32_t edge[2][2]);
 int32_t						l3d_2d_lines_intersect(t_vec2 edge1[2],
 								t_vec2 edge2[2],
 								t_vec2 intersect);
+
+uint32_t					get_pixel_initial_color_trans(t_triangle *triangle);
+uint32_t					get_pixel_initial_color(t_triangle *triangle);
 
 #endif

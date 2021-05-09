@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:09:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 23:05:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/08 19:01:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef enum e_doom3d_event
 	event_object_rotate_x = 40,
 	event_object_rotate_y = 41,
 	event_object_rotate_z = 42,
+	event_object_set_shading_not_cull = 421,
 	event_toggle_fullscreen = 43,
 	event_toggle_debug_mode = 44,
 	event_toggle_pause_game = 45,

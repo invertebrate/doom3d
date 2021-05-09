@@ -6,7 +6,7 @@
 #    By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#              #
-#    Updated: 2021/05/09 18:45:41 by veilo            ###   ########.fr        #
+#    Updated: 2021/05/09 20:56:52 by veilo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SOURCES = l3d_triangle.c \
 			l3d_triangle_raster_transparent.c \
 			l3d_triangle_raster_utils.c \
 			l3d_triangle_raster_pixel.c \
+			l3d_triangle_raster_pixel_initial_color.c \
 			l3d_triangle_sort.c \
 			l3d_triangle_sort_utils.c \
 			l3d_shading.c \
@@ -71,7 +72,7 @@ SOURCES = l3d_triangle.c \
 
 SRCS = $(addprefix $(DIR_SRC)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
-INCLUDES = -I ./include -I $(LIBFT)/include -I $(LIBGMATRIX)/include
+INCLUDES = -I ./include -I ../external_log -I $(LIBFT)/include -I $(LIBGMATRIX)/include
 CFLAGS = -Wall -Wextra -Werror -march=native -O3 -flto
 
 all: $(DIR_OBJ) $(NAME)

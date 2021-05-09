@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:33:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 20:18:16 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/09 21:10:00 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,44 +67,6 @@ static void	render_editor_ux_highlights(t_render_work *work)
 		draw_editor_placement_position(work);
 }
 
-void			player_debug_graphic_draw(t_render_work *work)
-{
-	t_doom3d	*app;
-	t_player	player;
-
-	app = work->app;
-	player = app->player;
-	for (int i = 0; i < COLLIDER_RAY_TOTAL; i++)
-	{
-		t_vec3	points[2];
-		t_vec3	end_point;
-		t_vec3	dir;
-
-		ml_vector3_copy(player.collider_ground.rays[i].dir, dir);
-		ml_vector3_mul(dir, player.collider_ground.cylinder.height, dir);
-		ml_vector3_add(player.collider_ground.cylinder.pos, dir, end_point);
-		ml_vector3_copy(player.collider_ground.cylinder.pos, points[0]);
-		ml_vector3_copy(end_point, points[1]);
-
-		ml_vector3_add(points[1], (t_vec3){0.2 * work->app->unit_size, -0.3* work->app->unit_size, 0.3* work->app->unit_size}, points[1]);
-
-		if (ml_vector3_angle_deg(player.collider.rays[i].dir, (t_vec3){0.0, 1.0, 0.0})
-			< SLOPE_ANGLE_THRESHOLD)
-		{
-			draw_debug_line(app,
-			work->framebuffer->sub_buffers[work->sub_buffer_i],
-			points, 0x000fffff);
-		}
-		else if(ml_vector3_angle_deg(player.collider.rays[i].dir, (t_vec3){0.0, 1.0, 0.0}) < 90)
-		{
-			draw_debug_line(app,
-			work->framebuffer->sub_buffers[work->sub_buffer_i],
-			points, 0xffffffff);
-		}
-	}
-	(void)app;
-}
-
 static void	draw_third_person(t_render_work *work)
 {
 	if (work->pass == work->num_passes - 1
@@ -113,7 +75,6 @@ static void	draw_third_person(t_render_work *work)
 	{
 		draw_aabb(work->app, work->framebuffer->sub_buffers[work->sub_buffer_i],
 			&work->app->player.aabb, 0xff0000ff);
-		player_debug_graphic_draw(work);
 	}
 }
 /*
