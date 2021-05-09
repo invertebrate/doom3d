@@ -6,11 +6,28 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 21:55:31 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/08 15:41:34 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/09 18:57:48 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+void	handle_jukebox(t_doom3d *app, t_3d_object *obj)
+{
+	if (((t_trigger *)(obj->params))->key_id == 17)
+	{
+		LOG_INFO("SHOULD CHANGE MUSIC!");
+		mp_typec(app, 0, 0, SSTOPPED);
+		push_custom_event(app, event_music_play,
+			(void *)mu_doom, s_ini(1, 10, st_main_menu, 0.3));
+	}
+	obj->params_type = trigger_type_disabled;
+	LOG_INFO("sound #%d", ((t_trigger *)(obj->params))->key_id);
+	push_custom_event(app, event_effect_play, (void *)sf_audio_log_1
+		+ ((t_trigger *)(obj->params))->key_id,
+		s_ini(0, 1, st_game, 1));
+	push_custom_event(app, event_object_delete, obj, NULL);
+}
 
 void	trigger_handle_trigger_jukebox(t_doom3d *app, t_3d_object *key,
 												t_trigger *trigger)

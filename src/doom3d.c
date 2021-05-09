@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 18:58:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/09 18:51:30 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	handle_scene_switch(t_doom3d *app)
 			mp_typec(app, 0, 0, SSTOPPED);
 		if (app->active_scene->scene_id == scene_id_main_game)
 			push_custom_event(app, event_music_play,
-				(void*)mu_main, s_ini(1, 10, st_main_menu, 0.6));
+				(void *)mu_main, s_ini(1, 10, st_main_menu, 0.6));
 	}
 }
 
