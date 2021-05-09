@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 21:08:17 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/09 21:28:40 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void			update_player_physics_state(t_doom3d *app)
 	}
 	if (is_player_grounded(app))
 	{
-		app->player.physics_state = physics_state_grounded;
+		if (app->player.velocity[1] >= 0)
+			app->player.physics_state = physics_state_grounded;
+		else
+			app->player.physics_state = physics_state_not_grounded;
 	}
 	else
 	{
