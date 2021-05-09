@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 20:40:42 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/09 20:50:59 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,16 @@ void	player_limit_move_by_collision(t_doom3d *app, t_vec3 add)
 	{
 		hits = NULL;
 		if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree,
-			app->player.collider.rays[i].origin, app->player.collider.rays[i].dir, &hits))
+			app->player.collider.rays[i].origin,
+			app->player.collider.rays[i].dir, &hits))
 		{
 			closest_triangle_hit = NULL;
 			l3d_get_closest_triangle_hit_at_range(hits, &closest_triangle_hit,
 				-1, app->player.collider.sphere.radius);
-			if (closest_triangle_hit != NULL)
-			{
+			if (closest_triangle_hit != NULL
+				&& closest_triangle_hit->triangle->parent->type
+				!= object_type_trigger)
 				limit_move_add_by_collision(closest_triangle_hit->normal, add);
-			}
 			l3d_delete_hits(&hits);
 		}
 	}
@@ -95,12 +96,15 @@ void	player_limit_move_by_slope(t_doom3d *app, t_vec3 add)
 	{
 		hits = NULL;
 		if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree,
-			app->player.collider_ground.rays[i].origin, app->player.collider_ground.rays[i].dir, &hits))
+			app->player.collider_ground.rays[i].origin,
+			app->player.collider_ground.rays[i].dir, &hits))
 		{
 			closest_triangle_hit = NULL;
 			l3d_get_closest_triangle_hit_at_range(hits, &closest_triangle_hit,
 				-1, app->player.collider_ground.cylinder.height);
-			if (closest_triangle_hit != NULL)
+			if (closest_triangle_hit != NULL
+				&& closest_triangle_hit->triangle->parent->type
+				!= object_type_trigger)
 			{
 				if (fabs(ml_vector3_angle_deg(closest_triangle_hit->normal,
 						(t_vec3){0.0, 1.0, 0.0}) - 180) < SLOPE_ANGLE_THRESHOLD
