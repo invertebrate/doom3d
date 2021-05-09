@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 20:04:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/09 18:36:03 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -963,6 +963,7 @@ void						trigger_handle_door_switch(t_doom3d *app,
 void						trigger_handle_trigger_jukebox(t_doom3d *app,
 								t_3d_object *key,
 								t_trigger *trigger);
+void						handle_jukebox(t_doom3d *app, t_3d_object *obj);
 
 /*
 ** Player animations
