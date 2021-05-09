@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 22:15:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/09 20:53:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,15 @@ void	l3d_kd_tree_split_triangles(t_tri_vec *triangles,
 {
 	t_vec3		mid_point;
 	int			i;
-	t_tri_vec	*tris;
 
 	l3d_triangle_vec_midpoint(triangles, mid_point);
 	i = -1;
 	while (++i < (int)triangles->size)
 	{
 		if (mid_point[axis] >= triangles->triangles[i]->center[axis])
-			tris = right_tris;
+			l3d_triangle_vec_push(right_tris, triangles->triangles[i]);
 		else
-			tris = left_tris;
-		l3d_triangle_vec_push(tris, triangles->triangles[i]);
+			l3d_triangle_vec_push(left_tris, triangles->triangles[i]);
 	}
 }
 

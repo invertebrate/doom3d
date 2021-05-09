@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_line_of_sight.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 14:24:25 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/03 17:43:43 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/09 21:51:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static t_bool	npc_ray_to_npc(t_doom3d *app, t_vec3 origin, t_vec3 dir,
 		if (closest_triangle_hit != NULL)
 		{
 			if (closest_triangle_hit->triangle->parent == npc_obj)
+			{
+				l3d_delete_hits(&hits);
 				return (true);
+			}
 		}
 		l3d_delete_hits(&hits);
 	}
