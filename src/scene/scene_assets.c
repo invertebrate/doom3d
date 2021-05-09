@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 14:32:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/09 22:01:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static void	assets_load_to_memory(t_scene *scene, t_asset_files *data)
 	load_models_textures_nmaps_to_memory(scene, data);
 	load_animation_3d_frames_to_memory(scene, data);
 	load_sprites_to_memory(scene, data);
-	load_skybox_textures_to_memory(scene);
 }
 
 /*
@@ -80,6 +79,7 @@ void	scene_assets_load(t_scene *scene)
 	if (scene->scene_id == scene_id_main_game)
 	{
 		scene_animation_sprite_files_set(&scene->asset_files);
+		load_skybox_textures_to_memory(scene);
 	}
 	assets_load_to_memory(scene, &scene->asset_files);
 	prefabs_load(scene);
