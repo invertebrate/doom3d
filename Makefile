@@ -35,6 +35,7 @@ endif
 LIBS = $(LIB3DFLAGS) $(LIBGMATRIXFLAGS) $(LIBFTFLAGS) $(SDL_FLAGS) $(LIB_MATH) $(LIB_PTHRTEAD)
 
 INCLUDES = -I ./include \
+		-I./lib/log \
 		-I$(LIBFT)/include \
 		-I$(LIB3D)/include \
 		-I$(LIBGMATRIX)/include \
