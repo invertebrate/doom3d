@@ -107,7 +107,7 @@ void	player_shoot_projectile(t_doom3d *app, t_vec3 origin)
 	ml_vector3_copy(app->player.forward, projectile.dir);
 	rot[0] = app->player.rot_x + 90;
 	rot[1] = -app->player.rot_y;
-	rot[2] = 90;
+	rot[2] = atan2(app->player.up[0], -app->player.up[1]) * 180 / M_PI + 90;
 	ml_vector3_copy(rot, projectile.euler_angles);
 	ml_vector3_mul(app->player.forward, app->unit_size, add);
 	ml_vector3_add(origin, add, origin);
