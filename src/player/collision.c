@@ -6,122 +6,17 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/10 17:04:15 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/10 17:19:24 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
 /*
-** https://gamedev.stackexchange.com/questions/49956/
-** collision-detection-smooth-wall-sliding-no-bounce-effect
-*/
-
-static void		limit_move_add_by_collision(t_vec3 collision_normal,
-					t_vec3 dir_add)
-{
-	t_vec3		direction_collider_part;
-	float		dot;
-
-	ml_vector3_normalize(collision_normal, collision_normal);
-	dot = ml_vector3_dot(dir_add, collision_normal);
-	if (dot < 0)
-	{
-		ml_vector3_mul(collision_normal, dot, direction_collider_part);
-		ml_vector3_sub(dir_add, direction_collider_part, dir_add);
-	}
-}
-
- void		limit_move_add_by_slope(t_vec3 slope_normal,
-					t_vec3 dir_add)
-{
-	t_vec3		add_along_normal;
-	float		dot;
-
-	ml_vector3_normalize(slope_normal, slope_normal);
-	dot = ml_vector3_dot(dir_add, slope_normal);
-	if (dot > 0)
-	{
-		ml_vector3_mul(slope_normal, dot, add_along_normal);
-		ml_vector3_sub(dir_add, add_along_normal, dir_add);
-	}
-}
-
-/*
-** Rays from sphere collider
-** See if they hit & subtract movement add so we limit the movement by the hit
-** triangles.
-*/
-
-void	player_limit_move_by_collision(t_doom3d *app, t_vec3 add)
-{
-	int32_t		i;
-	t_hits		*hits;
-	t_hit		*closest_triangle_hit;
-
-	i = -1;
-	while (++i < COLLIDER_RAY_TOTAL)
-	{
-		hits = NULL;
-		if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree,
-			app->player.collider.rays[i].origin,
-			app->player.collider.rays[i].dir, &hits))
-		{
-			closest_triangle_hit = NULL;
-			l3d_get_closest_triangle_hit_at_range(hits, &closest_triangle_hit,
-				-1, app->player.collider.sphere.radius);
-			if (closest_triangle_hit != NULL
-				&& closest_triangle_hit->triangle->parent->type
-				!= object_type_trigger)
-				limit_move_add_by_collision(closest_triangle_hit->normal, add);
-			l3d_delete_hits(&hits);
-		}
-	}
-}
-
-/*
-** Rays from cylinder collider
-** See if they hit & subtract movement add so we limit the movement by the hit
-** triangles.
-*/
-
-void	player_limit_move_by_slope(t_doom3d *app, t_vec3 add)
-{
-	int32_t		i;
-	t_hits		*hits;
-	t_hit		*closest_triangle_hit;
-
-	i = -1;
-	while (++i < COLLIDER_RAY_TOTAL)
-	{
-		hits = NULL;
-		if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree,
-			app->player.collider_ground.rays[i].origin,
-			app->player.collider_ground.rays[i].dir, &hits))
-		{
-			closest_triangle_hit = NULL;
-			l3d_get_closest_triangle_hit_at_range(hits, &closest_triangle_hit,
-				-1, app->player.collider_ground.cylinder.height);
-			if (closest_triangle_hit != NULL
-				&& closest_triangle_hit->triangle->parent->type
-				!= object_type_trigger)
-			{
-				if (fabs(ml_vector3_angle_deg(closest_triangle_hit->normal,
-						(t_vec3){0.0, 1.0, 0.0}) - 180) < SLOPE_ANGLE_THRESHOLD
-					&& app->player.physics_state == physics_state_grounded)
-					limit_move_add_by_slope(closest_triangle_hit->normal, add);
-			}
-			l3d_delete_hits(&hits);
-		}
-	}
-}
-
-
-/*
 ** Updates the sphere collider and casts rays.
 */
 
-void			player_colliders_update(t_doom3d *app)
+void	player_colliders_update(t_doom3d *app)
 {
 	ml_vector3_copy(app->player.pos, app->player.collider.sphere.pos);
 	ml_vector3_sub(app->player.collider.sphere.pos,
@@ -140,7 +35,7 @@ void			player_colliders_update(t_doom3d *app)
 	return ;
 }
 
-t_bool			is_player_grounded(t_doom3d *app)
+t_bool	is_player_grounded(t_doom3d *app)
 {
 	t_hits		*hits;
 	t_ray		ray;
@@ -154,8 +49,8 @@ t_bool			is_player_grounded(t_doom3d *app)
 		ray = app->player.collider_ground.rays[i];
 		if (ml_vector3_angle_deg(ray.dir, (t_vec3){0.0, 1.0, 0.0})
 			< SLOPE_ANGLE_THRESHOLD
-			&& l3d_kd_tree_ray_hits(app->active_scene->triangle_tree, ray.origin,
-				ray.dir, &hits))
+			&& l3d_kd_tree_ray_hits(app->active_scene->triangle_tree,
+					ray.origin, ray.dir, &hits))
 		{
 			closest_triangle_hit = NULL;
 			l3d_get_closest_triangle_hit_at_range(hits, &closest_triangle_hit,
@@ -163,7 +58,7 @@ t_bool			is_player_grounded(t_doom3d *app)
 			if (closest_triangle_hit != NULL)
 			{
 				l3d_delete_hits(&hits);
-				return(true);
+				return (true);
 			}
 		}
 	}

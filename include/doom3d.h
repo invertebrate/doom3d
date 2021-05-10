@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 20:56:15 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/10 17:20:42 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,7 @@ void						settings_init(t_doom3d *app);
 /*
 ** Player
 */
+
 void						update_player(t_doom3d *app);
 void						player_init(t_doom3d *app, t_vec3 pos);
 void						player_flashlight_init(t_doom3d *app,
@@ -264,6 +265,11 @@ void						player_collider_create(t_doom3d *app, t_ray *rays,
 								uint32_t *counts, t_sphere *sphere);
 void						player_colliders_update(t_doom3d *app);
 void						player_future_collider_update(t_doom3d *app);
+float						get_movement_speed(t_doom3d *app);
+void						limit_move_add_by_slope(t_vec3 slope_normal,
+								t_vec3 dir_add);
+void						limit_move_add_by_collision(t_vec3 collision_normal,
+								t_vec3 dir_add);
 
 /*
 ** Player items

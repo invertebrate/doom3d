@@ -6,13 +6,13 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/10 16:54:37 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/10 17:09:50 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		player_rotate(t_doom3d *app)
+static void	player_rotate(t_doom3d *app)
 {
 	t_mat4	rotation_y;
 	t_mat4	rotation_x;
@@ -28,7 +28,7 @@ static void		player_rotate(t_doom3d *app)
 	ml_matrix4_copy(rotation, app->player.rotation);
 }
 
-void			player_rotate_vertical(t_doom3d *app, float angle)
+void	player_rotate_vertical(t_doom3d *app, float angle)
 {
 	app->player.rot_y += app->player.rot_speed * angle * app->info.delta_time
 		* CONST_SPEED;
@@ -39,14 +39,14 @@ void			player_rotate_vertical(t_doom3d *app, float angle)
 	player_rotate(app);
 }
 
-void			player_rotate_horizontal(t_doom3d *app, float angle)
+void	player_rotate_horizontal(t_doom3d *app, float angle)
 {
 	app->player.rot_x += app->player.rot_speed * angle * app->info.delta_time
 		* CONST_SPEED;
 	player_rotate(app);
 }
 
-void			get_move_dir(t_doom3d *app, t_move dir_option, t_vec3 dir)
+void	get_move_dir(t_doom3d *app, t_move dir_option, t_vec3 dir)
 {
 	t_vec3		forward;
 	t_vec3		sideways;
@@ -71,27 +71,11 @@ void			get_move_dir(t_doom3d *app, t_move dir_option, t_vec3 dir)
 		ml_vector3_mul(up, -1, dir);
 }
 
-float			get_movement_speed(t_doom3d *app)
-{
-	float		speed;
-
-	if (app->player.is_running &&
-		app->player.physics_state != physics_state_not_grounded)
-		speed = app->player.speed * 1.5;
-	else if (app->player.is_crouching &&
-		app->player.physics_state != physics_state_not_grounded)
-		speed = app->player.speed * 0.5;
-	else
-		speed = app->player.speed;
-	speed = speed * app->info.delta_time * CONST_SPEED;
-	return (speed);
-}
-
 /*
 ** Move player after physics forces. Also updates the camera(s)
 */
 
-void			player_move(t_doom3d *app)
+void	player_move(t_doom3d *app)
 {
 	t_vec3		add;
 	float		speed;
@@ -99,8 +83,8 @@ void			player_move(t_doom3d *app)
 	app->player.is_moving = true;
 	speed = get_movement_speed(app);
 	ml_vector3_mul(app->player.velocity, speed, add);
-	if (app->active_scene->scene_id == scene_id_main_game &&
-		app->active_scene->triangle_tree != NULL)
+	if (app->active_scene->scene_id == scene_id_main_game
+		&& app->active_scene->triangle_tree != NULL)
 	{
 		player_limit_move_by_collision(app, add);
 		player_limit_move_by_slope(app, add);
