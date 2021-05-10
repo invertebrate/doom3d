@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forces_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:49:15 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/09 17:04:51 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/10 17:07:09 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ void	forces_update_player(t_doom3d *app)
 	{
 		if (app->player.physics_state == physics_state_grounded)
 			app->player.velocity[1] = 0;
-		if ((app->player.physics_state == physics_state_jumping
-				|| app->player.physics_state == physics_state_falling)
-			&& app->player.velocity[1] < PLAYER_MAX_SPEED)
-			app->player.velocity[1] += CONST_GRAVITY;
+		else if ((app->player.physics_state == physics_state_not_grounded)
+			&& app->player.velocity[1] < PLAYER_MAX_SPEED / 3)
+			app->player.velocity[1] += CONST_GRAVITY / 4;
 	}
 	if (app->player.physics_state != physics_state_grounded
 		&& app->player.physics_state != physics_state_not_applied)

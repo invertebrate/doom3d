@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   object_next_index.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 22:50:47 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 18:09:55 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/09 21:05:04 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
 /*
-** // !Note that this (inc/dec)rements both num_deleted and num_objects
+** !Note that this (inc/dec)rements both num_deleted and num_objects
 ** so only use this when intending to actually place objects
 ** Saves this next index to last_object_index under scene
 */

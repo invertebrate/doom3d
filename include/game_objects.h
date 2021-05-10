@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_objects.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 15:50:40 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/10 17:38:39 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef enum e_physics_state
 	physics_state_grounded = 2,
 	physics_state_jumping = 3,
 	physics_state_not_applied = 5,
+	physics_state_not_grounded = 6
 }							t_physics_state;
 
 /*

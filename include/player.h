@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 18:35:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/10 17:50:02 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@
 # define PLAYER_HEIGHT 1.75
 # define PLAYER_HEIGHT_CROUCH 0.75
 # define MAX_KEYS 32
+# define COLLIDER_RAY_COUNT 4
+# define COLLIDER_RAY_TOTAL 16
+# define PLAYER_COLLIDER_RADIUS 0.55
+# define PLAYER_COLLIDER_SNAP_RADIUS 0.1
+# define SLOPE_ANGLE_THRESHOLD 30
 
 # include "lib3d.h"
 # include "game_objects.h"
@@ -39,6 +44,22 @@ typedef enum e_move
 	move_upwards,
 	move_downwards,
 }							t_move;
+
+/*
+** A spherical collider that contains rays in every direction
+*/
+
+typedef struct s_sphere_collider
+{
+	t_ray			rays[COLLIDER_RAY_TOTAL];
+	t_sphere		sphere;
+}							t_sphere_collider;
+
+typedef struct s_cylinder_collider
+{
+	t_ray			rays[COLLIDER_RAY_TOTAL];
+	t_cylinder		cylinder;
+}							t_cylinder_collider;
 
 /*
 ** Data defining player functionality and toggles.
@@ -77,6 +98,9 @@ typedef struct s_player
 	int						max_hp;
 	t_vec3					velocity;
 	t_flashlight			flashlight;
+	t_sphere_collider		collider;
+	t_cylinder_collider		collider_ground;
+	t_vec3					future_pos;
 }							t_player;
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libgmatrix.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:17:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/02 00:55:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/04 19:43:06 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void				ml_vector3_to_vec4(t_vec3 v1, t_vec4 res);
 void				ml_vector3_copy(t_vec3 src, t_vec3 dest);
 void				ml_vector3_set(t_vec3 vec, float v0, float v1, float v2);
 void				ml_vector3_set_all(t_vec3 vec, float val);
+float				ml_vector3_angle_rad(t_vec3 v1, t_vec3 v2);
+float				ml_vector3_angle_deg(t_vec3 v1, t_vec3 v2);
 
 void				ml_vector4_add(t_vec4 v1, t_vec4 v2, t_vec4 res);
 void				ml_vector4_sub(t_vec4 v1, t_vec4 v2, t_vec4 res);

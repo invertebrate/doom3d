@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
+#    By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#              #
-#    Updated: 2021/05/09 17:48:06 by ohakola          ###   ########.fr        #
+#    Updated: 2021/05/09 20:56:52 by veilo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ SOURCES = l3d_triangle.c \
 			l3d_triangle_update.c \
 			l3d_triangle_vector.c \
 			l3d_ray.c \
+			l3d_ray_sphere_cast.c \
+			l3d_ray_cylinder_cast.c \
 			l3d_ray_hit.c \
 			l3d_ray_hit_utils1.c \
 			l3d_ray_hit_utils2.c \

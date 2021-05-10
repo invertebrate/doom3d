@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 18:36:03 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/10 17:40:46 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,7 @@ void						settings_init(t_doom3d *app);
 /*
 ** Player
 */
+
 void						update_player(t_doom3d *app);
 void						player_init(t_doom3d *app, t_vec3 pos);
 void						player_flashlight_init(t_doom3d *app,
@@ -241,7 +242,9 @@ void						player_rotate_vertical(t_doom3d *app, float angle);
 void						player_rotate_horizontal(t_doom3d *app,
 								float angle);
 void						player_apply_gravity(t_doom3d *app);
-void						collision_limit_player_horizontal(t_doom3d *app,
+void						player_limit_move_by_collision(t_doom3d *app,
+								t_vec3 add);
+void						player_limit_move_by_slope(t_doom3d *app,
 								t_vec3 add);
 void						player_update_aabb(t_player *player);
 void						player_onhit(t_doom3d *app, int damage);
@@ -258,6 +261,15 @@ void						player_shoot_ray(t_doom3d *app, t_vec3 origin,
 void						player_reload(t_doom3d *app);
 void						player_reload_finish(t_doom3d *app);
 void						player_interact(t_doom3d *app);
+void						player_collider_create(t_doom3d *app, t_ray *rays,
+								uint32_t *counts, t_sphere *sphere);
+void						player_colliders_update(t_doom3d *app);
+void						player_future_collider_update(t_doom3d *app);
+float						get_movement_speed(t_doom3d *app);
+void						limit_move_add_by_slope(t_vec3 slope_normal,
+								t_vec3 dir_add);
+void						limit_move_add_by_collision(t_vec3 collision_normal,
+								t_vec3 dir_add);
 
 /*
 ** Player items
@@ -389,6 +401,8 @@ t_3d_object					*object_above(t_doom3d *app,
 								t_vec3 hit_point);
 t_bool						obj_is_grounded(t_doom3d *app,
 								t_3d_object *falling_obj);
+t_bool						is_player_grounded(t_doom3d *app);
+void						player_nudge_grounded(t_doom3d *app);
 
 /*
 ** Events
