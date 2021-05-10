@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 21:03:59 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/10 16:51:23 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define PLAYER_HEIGHT 1.75
 # define PLAYER_HEIGHT_CROUCH 0.75
 # define MAX_KEYS 32
-# define COLLIDER_RAY_COUNT 16
+# define COLLIDER_RAY_COUNT 4
 # define COLLIDER_RAY_TOTAL COLLIDER_RAY_COUNT * COLLIDER_RAY_COUNT
 # define PLAYER_COLLIDER_RADIUS 0.55
 # define PLAYER_COLLIDER_SNAP_RADIUS 0.1
