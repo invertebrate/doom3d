@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 18:22:51 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/09 20:05:25 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/10 17:51:32 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ static float	get_radius(uint32_t ray_count, int index, t_cylinder *cylinder)
 	(void)index;
 }
 
-static void		get_ray_origin(float radius, float angle, t_vec3 origin)
+static void	get_ray_origin(float radius, float angle, t_vec3 origin)
 {
 	origin[0] = radius * cosf(angle * M_PI / 180);
 	origin[2] = radius * sinf(angle * M_PI / 180);
 }
 
-static void		cast_rays_line(t_ray *rays, uint32_t ray_count, float angle,
+static void	cast_rays_line(t_ray *rays, uint32_t ray_count, float angle,
 					t_cylinder *cylinder)
 {
 	int		i;
@@ -54,7 +54,7 @@ static void		cast_rays_line(t_ray *rays, uint32_t ray_count, float angle,
 ** rotating the line of rays around.
 */
 
-void			l3d_cast_rays_cylinder(t_ray *rays, uint32_t *ray_counts,
+void	l3d_cast_rays_cylinder(t_ray *rays, uint32_t *ray_counts,
 					t_cylinder *cylinder)
 {
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/10 17:41:58 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/10 17:50:02 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct s_cylinder_collider
 	t_ray			rays[COLLIDER_RAY_TOTAL];
 	t_cylinder		cylinder;
 }							t_cylinder_collider;
-
 
 /*
 ** Data defining player functionality and toggles.

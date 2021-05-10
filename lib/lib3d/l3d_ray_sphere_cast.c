@@ -6,14 +6,13 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:53:57 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/09 21:39:16 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/10 17:52:24 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d.h"
 
-
-static void		rotate_vector(t_vec3 vec, t_vec3 pivot, float angle)
+static void	rotate_vector(t_vec3 vec, t_vec3 pivot, float angle)
 {
 	t_mat4	rotation;
 
@@ -60,11 +59,11 @@ static void	cast_rays_semicircle(t_ray *rays, uint32_t ray_count,
 
 /*
 ** Creates rays evenly distributed in a spherical manner. ray_counts[0] is the
-** amount of rays in the semi-circle and ray_counts[1] is the number of steps when
-** rotating the semi-circle around.
+** amount of rays in the semi-circle and ray_counts[1] is the number of steps
+** when rotating the semi-circle around.
 */
 
-void		l3d_cast_rays_sphere(t_ray *rays, uint32_t *ray_counts,
+void	l3d_cast_rays_sphere(t_ray *rays, uint32_t *ray_counts,
 				t_sphere *sphere)
 {
 	int		i;
@@ -74,6 +73,6 @@ void		l3d_cast_rays_sphere(t_ray *rays, uint32_t *ray_counts,
 	while (++i < (int)ray_counts[1])
 	{
 		cast_rays_semicircle(rays + i * ray_counts[0], ray_counts[0],
-							get_sphere_angle(i, ray_counts[1]), sphere);
+			get_sphere_angle(i, ray_counts[1]), sphere);
 	}
 }
