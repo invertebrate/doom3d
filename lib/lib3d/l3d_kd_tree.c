@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 22:17:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/09 20:58:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,13 @@ static t_kd_node	*tree_create_recursive(t_tri_vec *triangles, uint32_t depth,
 	node = l3d_kd_node_create(triangles);
 	node->uuid = (*num_nodes)++;
 	node->depth = depth;
-	if (triangles->size == 0 || triangles->size == 1)
+	if (triangles->size < L3D_MIN_KD_NODE_NUM_TRIANGLES
+		|| depth >= L3D_MAX_KD_TREE_DEPTH)
 		return (node);
 	node->axis = l3d_bounding_box_longest_axis(node->bounding_box);
 	left_tris = l3d_triangle_vec_empty();
 	right_tris = l3d_triangle_vec_empty();
 	l3d_kd_tree_split_triangles(triangles, node->axis, left_tris, right_tris);
-	if ((left_tris->size < L3D_MIN_KD_NODE_NUM_TRIANGLES
-			|| right_tris->size < L3D_MIN_KD_NODE_NUM_TRIANGLES)
-		|| depth >= L3D_MAX_KD_TREE_DEPTH)
-	{
-		l3d_triangle_vec_delete(left_tris);
-		l3d_triangle_vec_delete(right_tris);
-		return (node);
-	}
 	node->left = tree_create_recursive(left_tris, depth + 1, num_nodes);
 	node->right = tree_create_recursive(right_tris, depth + 1, num_nodes);
 	return (node);

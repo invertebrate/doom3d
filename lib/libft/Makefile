@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 14:43:04 by ohakola           #+#    #+#              #
-#    Updated: 2021/05/09 17:47:54 by ohakola          ###   ########.fr        #
+#    Updated: 2021/05/09 22:10:18 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -170,18 +170,6 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 logger:
 	@$(CC) $(CFLAGS) $(INC) -c ../external_log/log.c -o temp/log.o
 
-DIR_TESTS = ./tests
-TEST_SRCS =$(wildcard $(DIR_TESTS)/*.c)
-
-test:
-	@make re
-	$(CC) -o test_run $(TEST_SRCS) -I$(DIR_TESTS)/include \
-			 -L./ -lft -lpthread $(CFLAGS) $(INC) $(NAME)
-	./test_run
-	@/bin/rm -f main.o
-	@/bin/rm -f test_run
-	@make fclean
-
 clean:
 	@/bin/rm -f $(OBJS)
 	@/bin/rm -rf $(DIR_OBJ)
@@ -191,4 +179,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all, $(DIR_OBJ), clean, fclean, re
+.PHONY: all, $(DIR_OBJ), clean, fclean, re, logger

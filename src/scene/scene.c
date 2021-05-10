@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 18:46:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/09 22:01:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	scene_destroy(t_doom3d *app)
 		scene_normal_maps_destroy(app->active_scene);
 	if (app->active_scene->models)
 		scene_assets_destroy(app->active_scene);
-	if (app->active_scene->skybox[0])
+	if (app->active_scene->scene_id == scene_id_main_game)
 		scene_skybox_destroy(app->active_scene);
 	if (app->active_scene->triangle_ref)
 	{

@@ -6,7 +6,7 @@
 #    By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/17 13:09:18 by ohakola           #+#    #+#              #
-#    Updated: 2021/05/09 20:57:03 by veilo            ###   ########.fr        #
+#    Updated: 2021/05/10 17:43:08 by veilo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,18 +74,6 @@ $(DIR_OBJ):
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
-
-TEST_SRCS =$(wildcard $(DIR_TESTS)/*.c)
-
-test: all
-	@make -C $(LIBFT)
-	$(CC) -o test_run $(TEST_SRCS) \
-	-I./tests/include -L$(LIBFT) -lft $(CFLAGS) $(INCLUDES) $(NAME)
-	./test_run
-	@/bin/rm -f main.o
-	@/bin/rm -f test_run
-	@make fclean
-	@make -C $(LIBFT) fclean
 
 clean:
 	@/bin/rm -f $(OBJS)
