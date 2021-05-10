@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 18:48:20 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/10 17:38:39 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,7 @@ typedef struct s_trigger
 ** Enum defining npc's state.
 */
 
-typedef enum				e_timer_type
+typedef enum e_timer_type
 {
 	timer_switch,
 	timer_end,

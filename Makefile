@@ -55,6 +55,7 @@ SOURCES = main.c \
 			player/crouch.c \
 			player/movement.c \
 			player/movement2.c \
+			player/player_limit_movement.c \
 			player/player_status.c \
 			player/player_vitals_render.c \
 			player/player_weapons_render.c \

@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/10 16:51:23 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/10 17:40:21 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define PLAYER_HEIGHT_CROUCH 0.75
 # define MAX_KEYS 32
 # define COLLIDER_RAY_COUNT 4
-# define COLLIDER_RAY_TOTAL COLLIDER_RAY_COUNT * COLLIDER_RAY_COUNT
+# define COLLIDER_RAY_TOTAL 16
 # define PLAYER_COLLIDER_RADIUS 0.55
 # define PLAYER_COLLIDER_SNAP_RADIUS 0.1
 # define SLOPE_ANGLE_THRESHOLD 30
@@ -51,16 +51,15 @@ typedef enum e_move
 
 typedef struct s_sphere_collider
 {
-	t_ray			rays[COLLIDER_RAY_COUNT * COLLIDER_RAY_COUNT];
+	t_ray			rays[COLLIDER_RAY_TOTAL];
 	t_sphere		sphere;
 }							t_sphere_collider;
 
 typedef struct s_cylinder_collider
 {
-	t_ray			rays[COLLIDER_RAY_COUNT * COLLIDER_RAY_COUNT];
+	t_ray			rays[COLLIDER_RAY_TOTAL];
 	t_cylinder		cylinder;
 }							t_cylinder_collider;
-
 
 /*
 ** Data defining player functionality and toggles.

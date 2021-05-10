@@ -6,13 +6,13 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 14:11:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/09 20:11:50 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/10 17:37:33 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void		player_transform_init(t_doom3d *app)
+static void	player_transform_init(t_doom3d *app)
 {
 	ml_vector3_set(app->player.velocity, 0, 0, 0);
 	ml_matrix4_id(app->player.rotation);
@@ -21,7 +21,7 @@ static void		player_transform_init(t_doom3d *app)
 	ml_matrix4_id(app->player.inv_translation);
 }
 
-static void		player_attributes_init(t_doom3d *app)
+static void	player_attributes_init(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_editor3d)
 	{
@@ -47,7 +47,7 @@ static void		player_attributes_init(t_doom3d *app)
 	app->player.can_fly = false;
 }
 
-static void		player_collider_init(t_doom3d *app)
+static void	player_collider_init(t_doom3d *app)
 {
 	t_player	*player;
 
@@ -61,7 +61,7 @@ static void		player_collider_init(t_doom3d *app)
 	ft_memset(player->collider.rays, 0, sizeof(t_ray) * COLLIDER_RAY_TOTAL);
 }
 
-static void		player_ground_collider_init(t_doom3d *app)
+static void	player_ground_collider_init(t_doom3d *app)
 {
 	t_player	*player;
 
@@ -77,7 +77,7 @@ static void		player_ground_collider_init(t_doom3d *app)
 		sizeof(t_ray) * COLLIDER_RAY_TOTAL);
 }
 
-void			player_init(t_doom3d *app, t_vec3 pos)
+void	player_init(t_doom3d *app, t_vec3 pos)
 {
 	ft_memset(&app->player, 0, sizeof(t_player));
 	ft_memcpy(app->player.pos, pos, sizeof(t_vec3));

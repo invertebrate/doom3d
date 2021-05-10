@@ -6,11 +6,11 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 17:19:42 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/10 17:23:13 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/10 17:28:52 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "doom3d.h"
+#include "doom3d.h"
 
 /*
 ** https://gamedev.stackexchange.com/questions/49956/
@@ -78,16 +78,25 @@ void	player_limit_move_by_collision(t_doom3d *app, t_vec3 add)
 	}
 }
 
+static void	player_handle_closest_hit_slope(t_doom3d *app,
+	t_hit *closest_triangle_hit, t_vec3 add)
+{
+	if (closest_triangle_hit != NULL
+		&& closest_triangle_hit->triangle->parent->type
+		!= object_type_trigger)
+	{
+		if (fabs(ml_vector3_angle_deg(closest_triangle_hit->normal,
+					(t_vec3){0.0, 1.0, 0.0}) - 180) < SLOPE_ANGLE_THRESHOLD
+				&& app->player.physics_state == physics_state_grounded)
+			limit_move_add_by_slope(closest_triangle_hit->normal, add);
+	}
+}
+
 /*
 ** Rays from cylinder collider
 ** See if they hit & subtract movement add so we limit the movement by the hit
 ** triangles.
 */
-
-static void	player_handle_closest_hit_slope
-{
-
-}
 
 void	player_limit_move_by_slope(t_doom3d *app, t_vec3 add)
 {
@@ -106,15 +115,7 @@ void	player_limit_move_by_slope(t_doom3d *app, t_vec3 add)
 			closest_triangle_hit = NULL;
 			l3d_get_closest_triangle_hit_at_range(hits, &closest_triangle_hit,
 				-1, app->player.collider_ground.cylinder.height);
-			if (closest_triangle_hit != NULL
-				&& closest_triangle_hit->triangle->parent->type
-				!= object_type_trigger)
-			{
-				if (fabs(ml_vector3_angle_deg(closest_triangle_hit->normal,
-							(t_vec3){0.0, 1.0, 0.0}) - 180) < SLOPE_ANGLE_THRESHOLD
-						&& app->player.physics_state == physics_state_grounded)
-					limit_move_add_by_slope(closest_triangle_hit->normal, add);
-			}
+			player_handle_closest_hit_slope(app, closest_triangle_hit, add);
 			l3d_delete_hits(&hits);
 		}
 	}

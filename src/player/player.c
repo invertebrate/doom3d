@@ -6,13 +6,13 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/10 17:03:37 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/10 17:36:21 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void			player_update_aabb(t_player *player)
+void	player_update_aabb(t_player *player)
 {
 	player->aabb.xyz_min[0] = player->pos[0] - player->aabb.size[0] / 2.0;
 	player->aabb.xyz_min[1] = player->pos[1] - player->aabb.size[1] / 2.0;
@@ -23,7 +23,7 @@ void			player_update_aabb(t_player *player)
 	ml_vector3_copy(player->pos, player->aabb.center);
 }
 
-void			update_player_physics_state(t_doom3d *app)
+void	update_player_physics_state(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_editor3d)
 	{
@@ -43,26 +43,26 @@ void			update_player_physics_state(t_doom3d *app)
 	}
 }
 
-static void		player_update_camera_pos(t_doom3d *app)
+static void	player_update_camera_pos(t_doom3d *app)
 {
 	ml_matrix4_translation(app->player.pos[0],
-	app->player.pos[1], app->player.pos[2], app->player.translation);
+		app->player.pos[1], app->player.pos[2], app->player.translation);
 	ml_matrix4_inverse(app->player.translation, app->player.inv_translation);
 	update_player_camera(app);
 	update_third_person_camera(app);
 }
 
-void			player_update_future_pos(t_doom3d *app)
+void	player_update_future_pos(t_doom3d *app)
 {
 	ml_vector3_add(app->player.velocity, app->player.future_pos,
 		app->player.future_pos);
 }
 
-void			update_player(t_doom3d *app)
+void	update_player(t_doom3d *app)
 {
-	if ((app->active_scene->scene_id != scene_id_main_game &&
-		!app->active_scene->is_paused) &&
-			app->active_scene->scene_id != scene_id_editor3d)
+	if ((app->active_scene->scene_id != scene_id_main_game
+			&& !app->active_scene->is_paused)
+		&& app->active_scene->scene_id != scene_id_editor3d)
 		return ;
 	player_move(app);
 	player_colliders_update(app);
@@ -75,5 +75,3 @@ void			update_player(t_doom3d *app)
 	player_update_camera_pos(app);
 	player_update_future_pos(app);
 }
-
-
