@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 14:11:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/10 17:37:33 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/11 18:46:43 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	player_attributes_init(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_editor3d)
 	{
-		app->player.speed = PLAYER_SPEED * 2;
+		app->player.speed = PLAYER_SPEED * 3;
 		app->player.rot_speed = PLAYER_ROTATION_SPEED * 2;
 	}
 	else
@@ -54,10 +54,10 @@ static void	player_collider_init(t_doom3d *app)
 	player = &app->player;
 	ml_vector3_copy(player->pos, player->collider.sphere.pos);
 	ml_vector3_sub(player->collider.sphere.pos,
-		(t_vec3){0.0, -0.5 * app->unit_size, 0.0}, player->collider.sphere.pos);
+		(t_vec3){0.0, -0.1, 0.0}, player->collider.sphere.pos);
 	ml_vector3_copy(player->up, player->collider.sphere.up);
 	ml_vector3_copy(player->forward, player->collider.sphere.forward);
-	player->collider.sphere.radius = 0.55 * app->unit_size;
+	player->collider.sphere.radius = 0.874 * app->unit_size;
 	ft_memset(player->collider.rays, 0, sizeof(t_ray) * COLLIDER_RAY_TOTAL);
 }
 
@@ -71,8 +71,8 @@ static void	player_ground_collider_init(t_doom3d *app)
 		(t_vec3){0.0, 0.0, 0.0}, player->collider_ground.cylinder.pos);
 	ml_vector3_copy(player->up, player->collider_ground.cylinder.up);
 	ml_vector3_copy(player->forward, player->collider_ground.cylinder.forward);
-	player->collider_ground.cylinder.radius = 0.55 * app->unit_size;
-	player->collider_ground.cylinder.height = 0.55 * app->unit_size;
+	player->collider_ground.cylinder.radius = 0.875 * app->unit_size;
+	player->collider_ground.cylinder.height = 0.875 * app->unit_size;
 	ft_memset(player->collider_ground.rays, 0,
 		sizeof(t_ray) * COLLIDER_RAY_TOTAL);
 }
