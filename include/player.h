@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/10 17:50:02 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/12 00:40:37 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_sphere_collider
 
 typedef struct s_cylinder_collider
 {
-	t_ray			rays[COLLIDER_RAY_TOTAL];
+	t_ray			rays[COLLIDER_RAY_TOTAL + 1];
 	t_cylinder		cylinder;
 }							t_cylinder_collider;
 
