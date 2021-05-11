@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 18:51:30 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/11 22:50:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static void	handle_scene_switch(t_doom3d *app)
 		select_next_scene(app);
 		if (prev_scene_id == scene_id_main_game)
 			mp_typec(app, 0, 0, SSTOPPED);
-		if (app->active_scene->scene_id == scene_id_main_game)
-			push_custom_event(app, event_music_play,
-				(void *)mu_main, s_ini(1, 10, st_main_menu, 0.6));
+		// if (app->active_scene->scene_id == scene_id_main_game)
+			// push_custom_event(app, event_music_play,
+			// 	(void *)mu_main, s_ini(1, 10, st_main_menu, 0.6));
 	}
 }
 
@@ -115,6 +115,7 @@ static void	main_loop(t_doom3d *app)
 		update_notifications(app);
 		capture_fps(app);
 		update_app_ticks(app);
+		LOG_WARN("Dt: %d", app->info.delta_time);
 	}
 }
 

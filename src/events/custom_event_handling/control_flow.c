@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   control_flow.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 00:07:48 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 14:27:20 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/11 22:36:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	handle_toggle_pause_game(t_doom3d *app)
 		SDL_ShowCursor(SDL_DISABLE);
 		SDL_SetRelativeMouseMode(SDL_TRUE);
 		SDL_GetRelativeMouseState(NULL, NULL);
+		SDL_SetHint(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1");
 		mp_typec(app, 0, 2, SPLAYING);
 	}
 }

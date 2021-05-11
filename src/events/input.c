@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 16:59:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/11 22:55:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	handle_events(t_doom3d *app)
 		handle_mouse_state_input(app);
 		handle_keyboard_state_input(app);
 	}
+	uint32_t counter = 0;
 	while (SDL_PollEvent(&event))
 	{
 		if (event.type == app->custom_event_type)
@@ -139,5 +140,7 @@ void	handle_events(t_doom3d *app)
 			handle_input_events(app, event);
 			handle_all_button_events(app, event);
 		}
+		counter++;
 	}
+	LOG_FATAL("Events per frame read %d", counter);
 }
