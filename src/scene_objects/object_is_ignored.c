@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   object_too_far.c                                   :+:      :+:    :+:   */
+/*   object_is_ignored.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 16:33:35 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 20:16:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 00:27:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-t_bool	object_too_far(t_doom3d *app, t_3d_object *obj)
+t_bool	object_is_ignored(t_doom3d *app, t_3d_object *obj)
 {
 	float		too_far;
 	t_vec3		player_to_obj_min;

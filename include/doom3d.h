@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/10 17:40:46 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/12 00:24:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -622,7 +622,7 @@ void						render_parallel_3d_view(t_doom3d *app,
 								t_framebuffer *framebuffer);
 void						render_loading_view(t_doom3d *app);
 t_tri_vec					**prepare_render_triangles(t_doom3d *app);
-t_bool						object_too_far(t_doom3d *app, t_3d_object *obj);
+t_bool						object_is_ignored(t_doom3d *app, t_3d_object *obj);
 void						update_triangle_vertex_zvalues(t_triangle *triangle,
 								float unit_size);
 void						add_skybox_render_triangles(t_doom3d *app,

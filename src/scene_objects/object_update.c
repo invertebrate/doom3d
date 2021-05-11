@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 18:36:49 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/12 00:24:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	update_in_game_objects(t_doom3d *app)
 		obj = app->active_scene->objects[i];
 		if (!obj)
 			continue ;
-		if (object_too_far(app, obj))
+		if (object_is_ignored(app, obj))
 			continue ;
 		update_object_by_type(app, obj, is_npc_update);
 		update_object_light_sources(app, obj);

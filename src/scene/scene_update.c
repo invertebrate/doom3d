@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:43:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 16:37:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 00:28:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static t_bool	include_object_in_triangle_tree(t_doom3d *app,
 {
 	if (!object)
 		return (false);
-	if (object_too_far(app, object))
+	if (object->type == object_type_npc
+		&& ((t_npc*)object->params)->state == state_death_anim)
+		return (false);
+	if (object_is_ignored(app, object))
 		return (false);
 	if (app->active_scene->scene_id == scene_id_editor3d)
 		return (true);
@@ -107,7 +110,7 @@ void	active_scene_update_after_objects(t_doom3d *app)
 	{
 		if (scene->objects[i])
 		{
-			if (object_too_far(app, scene->objects[i]))
+			if (object_is_ignored(app, scene->objects[i]))
 				continue ;
 			l3d_object_aabb_update(scene->objects[i]);
 			if (scene->objects[i]->type == object_type_light
