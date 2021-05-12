@@ -42,6 +42,8 @@ static void	update_trigger_object(t_doom3d *app, t_3d_object *obj)
 			player_onhit(app, HURT_DMG);
 		else if (obj->params_type == trigger_jukebox)
 			handle_jukebox(app, obj);
+		else if (obj->params_type == trigger_musicbox)
+			handle_musicbox(app, obj);
 	}
 }
 

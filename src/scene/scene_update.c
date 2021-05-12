@@ -37,7 +37,8 @@ static t_bool	include_object_in_triangle_tree(t_doom3d *app,
 			&& (object->params_type == trigger_player_start
 				|| object->params_type == trigger_player_end
 				|| object->params_type == trigger_hurtbox
-				|| object->params_type == trigger_jukebox)));
+				|| object->params_type == trigger_jukebox
+				|| object->params_type == trigger_musicbox)));
 }
 
 /*

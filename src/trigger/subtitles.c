@@ -74,3 +74,12 @@ const char	*get_subtitle_by_log_id(int32_t log_id)
 	i = log_id - sf_audio_log_1;
 	return (subtitles[i]);
 }
+
+void	show_subtitle(t_doom3d *app, int32_t log_id)
+{
+	const char	*subtitle;
+
+	subtitle = get_subtitle_by_log_id(log_id);
+	notify_user(app, (t_notification){
+		.message = subtitle, .type = notification_type_story});
+}

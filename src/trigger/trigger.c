@@ -108,7 +108,8 @@ void	trigger_update_key_id(t_doom3d *app, t_3d_object *key)
 				app->editor.patrol_slot);
 		}
 	}
-	else if (key->params_type == trigger_jukebox)
+	else if (key->params_type == trigger_jukebox
+		|| key->params_type == trigger_musicbox)
 		trigger_handle_trigger_jukebox(app, key, NULL);
 }
 

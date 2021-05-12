@@ -108,6 +108,7 @@ SOURCES = main.c \
 			trigger/trigger_place.c \
 			trigger/trigger_place2.c \
 			trigger/trigger_handle.c \
+			trigger/trigger_sound.c \
 			trigger/trigger_place_start_end.c \
 			lights/light.c \
 			lights/light2.c \
