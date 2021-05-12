@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:14:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 09:27:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 16:43:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	update_notifications(t_doom3d *app)
 }
 
 /*
-** For story notifications, the total time is forced to be min 150ms per letter
+** For story notifications, the total time is forced to be min 100ms per letter
 */
 
 void	notify_user(t_doom3d *app,
@@ -79,7 +79,7 @@ void	notify_user(t_doom3d *app,
 	if (notification.type == notification_type_story)
 	{
 		len = ft_strlen(notification.message);
-		time_per_letter = 150.0;
+		time_per_letter = 100.0;
 		notification.time = time_per_letter * len;
 	}
 	notification.time_start = notification.time;
