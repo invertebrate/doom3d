@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 23:22:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 11:00:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ static void	scene_editor_init(t_doom3d *app)
 	}
 	app->editor.editor_menu_id = editor_menu_none;
 	app->editor.editor_menu = NULL;
-	player_init(app, (t_vec3){0, -10 * app->unit_size, -20 * app->unit_size});
-	player_rotate_vertical(app, -90);
+	editor_player_init(app);
 	window_3d_framebuffer_recreate(app->window,
 		(int32_t[2]){app->window->framebuffer->width - 168,
 		app->window->framebuffer->height - 64}, (int32_t[2]){158, 10});

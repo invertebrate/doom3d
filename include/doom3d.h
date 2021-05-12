@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 10:49:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 11:01:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,7 @@ void						settings_init(t_doom3d *app);
 
 void						update_player(t_doom3d *app);
 void						player_init(t_doom3d *app, t_vec3 pos);
+void						editor_player_init(t_doom3d *app);
 void						player_flashlight_init(t_doom3d *app,
 								t_player *player);
 void						player_flashlight_update(t_doom3d *app);
