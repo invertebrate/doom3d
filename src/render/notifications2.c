@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:37:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 09:34:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 09:45:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ static void	render_story_message(t_doom3d *app, t_notification *notification)
 		tmp[i] = notification->message[i];
 	if (i == 0)
 		return ;
-	window_text_render_wrapped(app->window, (t_text_params){
+	window_text_render_centered_wrapped(app->window, (t_text_params){
 		.text = tmp,
 		.text_color = (SDL_Color){255, 255, 0, 255}, .blend_ratio = 1.0,
-		.xy = (int32_t[2]){app->window->framebuffer->width / 2, 10}
+		.xy = (int32_t[2]){app->window->framebuffer->width / 2,
+		app->window->framebuffer->height - 100}
 	}, app->window->small_font);
 }
 
