@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 19:29:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 10:49:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	handle_editor_save_start(t_doom3d *app)
 {
 	if (!app->editor.is_saving)
 	{
+		disable_editor_menus_on_save(app);
 		editor_deselect_all(app);
 		app->editor.is_saving = true;
 		SDL_StartTextInput();
@@ -66,6 +67,7 @@ void	handle_editor_save_end(t_doom3d *app)
 			.type = notification_type_info, .time = 2000});
 		return ;
 	}
+	enable_editor_menus_after_save(app);
 	SDL_StopTextInput();
 	app->editor.is_saving = false;
 	ft_strcpy(app->editor.editor_filename, app->editor.editor_savename);

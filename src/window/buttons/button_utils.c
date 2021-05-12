@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:22:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 10:35:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	button_render(t_button *button)
 	pos[0] = button->pos[0];
 	pos[1] = button->pos[1];
 	blend = 1.0;
-	if (button->is_hovered)
+	if (button->is_hovered || !button->is_active)
 		blend = 0.5;
 	texture = button->texture;
 	if (button->is_down)

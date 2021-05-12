@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:36:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 14:38:50 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/12 10:25:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,13 @@ static void	handle_editor_key_input(t_doom3d *app, SDL_Event event)
 
 void	handle_editor_input_events(t_doom3d *app, SDL_Event event)
 {
-	if (mouse_inside_editor_view(app))
+	if (!app->editor.is_saving && mouse_inside_editor_view(app))
 		handle_editor_selection_input(app, event);
 	if (app->editor.is_saving)
+	{
 		handle_editor_saving_input(app, event);
+		return ;
+	}
 	if (event.type == SDL_MOUSEWHEEL)
 		push_custom_event(app, event_editor_zoom,
 			(void*)(intptr_t)(-event.wheel.y * 10), NULL);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 00:07:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 09:44:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 10:54:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	on_editor_menu_button_click(t_button *self, void *params)
 		new_menu_id = editor_menu_triggers;
 	else if (self->id == 8)
 		new_menu_id = editor_menu_lights;
-	if (self->id > 1)
+	if (self->id > 1 && !((t_doom3d *)params)->editor.is_saving)
 		push_custom_event(params, event_editor_open_popup_menu,
 			(void *)new_menu_id, (void *)self->pos);
 }
