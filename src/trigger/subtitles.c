@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 10:03:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 16:42:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 17:16:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,42 +24,43 @@ static void	set_subtitles_0_to_10(const char *subtitles[20])
 	subtitles[2] = "Johnson: Hmmm. I need to find a key."
 		"\n                    ";
 	subtitles[3] = "Johnson: Fuck. That's a big boy.\n                    ";
-	subtitles[4] = "Office lady: I am reading elevated temperature from your"
+	subtitles[4] = "Johnson: Fuck. That's a big boy.\n                    ";
+	subtitles[5] = "Office lady: I am reading elevated temperature from your"
 		"suit.\nRemember, your suit can only handle 200 degrees."
 		"\n                    ";
-	subtitles[5] = "Johnson: Fuck. That's hotter than sauna.\n"
+	subtitles[6] = "Johnson: Fuck. That's hotter than sauna.\n"
 		"I don't want to fall down there.\n                    ";
-	subtitles[6] = "Office lady: You need to go upstairs to find the super "
+	subtitles[7] = "Office lady: You need to go upstairs to find the super "
 		"computers.\nThey should shed some light on what happened."
 		"\n                    ";
-	subtitles[7] = "Johnson: Fuck. I hate elevators.\n                    ";
-	subtitles[8] = "Office lady: Oh no! They've awakened an ancient demon "
+	subtitles[8] = "Johnson: Fuck. I hate elevators.\n                    ";
+	subtitles[9] = "Office lady: Oh no! They've awakened an ancient demon "
 		"deeper in the cave.\nYou must go kill it before it lays eggs!"
 		"\n                    ";
-	subtitles[9] = "Johnson: Fuck. I hate being pest control all the time.\n"
+	subtitles[10] = "Johnson: Fuck. I hate being pest control all the time.\n"
 		"I need a raise.\n                    ";
 }
 
 static void	set_subtitles_10_to_20(const char *subtitles[20])
 {
-	subtitles[10] = "Office lady: Arrays of what?\n                    ";
-	subtitles[11] = "Johnson: Fuck you, you know what I meant."
+	subtitles[11] = "Office lady: Arrays of what?\n                    ";
+	subtitles[12] = "Johnson: Fuck you, you know what I meant."
 		"\n                    ";
-	subtitles[12] = "Johnson: Fuck. This looks less healthy than 2020."
+	subtitles[13] = "Johnson: Fuck. This looks less healthy than 2020."
 		"\n                    ";
-	subtitles[13] = "Office lady: Your suit should protect you from the toxic "
+	subtitles[14] = "Office lady: Your suit should protect you from the toxic "
 		"environment\nas long as you don't expose yourself for too long."
 		"\n                    ";
-	subtitles[14] = "Johnson: Fuck. That's nasty.\n"
+	subtitles[15] = "Johnson: Fuck. That's nasty.\n"
 		"I don't want to fall down there.\n                    ";
-	subtitles[15] = "Johnson: Fuck.\n                    ";
-	subtitles[16] = "Johnson: It's time to kick ass and chew bubblegum."
-		"\n                    ";
-	subtitles[17] = "Office lady: Bubblegum?\n"
-		"How can you eat bubblegum with your suit on?\n                    ";
+	subtitles[16] = "Johnson: Fuck.\n                    ";
+	subtitles[17] = "Johnson: It's time to kick ass and chew bubblegum."
+		"Office lady: Bubblegum?"
+		" How can you eat bubblegum with your suit on?\n                    ";
 	subtitles[18] = "Johnson: Eat shit and die.\n                    ";
-	subtitles[19] = "Office lady: Congratulations Johnson!\n"
-		"You defeated the ancient demon and saved us all!"
+	subtitles[19] = "Office lady: Congratulations Johnson!"
+		"You defeated the ancient demon and saved us all!\n"
+		"Will you make it back in time for coffee?"
 		"\n                    ";
 }
 
