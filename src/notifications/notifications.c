@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   notifications.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:14:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 14:12:47 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/12 09:27:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,23 @@ void	update_notifications(t_doom3d *app)
 	}
 }
 
+/*
+** For story notifications, the total time is forced to be min 150ms per letter
+*/
+
 void	notify_user(t_doom3d *app,
 					t_notification notification)
 {
+	uint32_t	time_per_letter;
+	uint32_t	len;
+
+	if (notification.type == notification_type_story)
+	{
+		len = ft_strlen(notification.message);
+		time_per_letter = 150.0;
+		notification.time = time_per_letter * len;
+	}
+	notification.time_start = notification.time;
 	if (app->notifications == NULL)
 		app->notifications = ft_lstnew(&notification, sizeof(t_notification));
 	else
