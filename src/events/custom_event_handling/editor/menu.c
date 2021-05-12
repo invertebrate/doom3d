@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:11:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 14:22:06 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/12 10:18:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,7 @@ void	handle_editor_delete(t_doom3d *app)
 
 void	handle_editor_exit(t_doom3d *app)
 {
-	if (app->editor.is_saving)
-	{
-		notify_user(app, (t_notification){
-			.message = "Save first by pressing enter!",
-			.type = notification_type_info, .time = 2000});
-		return ;
-	}
+	editor_init(app, app->editor.editor_level);
 	if (app->editor.is_placing)
 		push_custom_event(app, event_editor_cancel_placement, NULL, NULL);
 	push_custom_event(app, event_scene_change,
