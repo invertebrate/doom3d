@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 00:24:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 10:09:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -978,6 +978,7 @@ void						trigger_handle_trigger_jukebox(t_doom3d *app,
 								t_3d_object *key,
 								t_trigger *trigger);
 void						handle_jukebox(t_doom3d *app, t_3d_object *obj);
+const char					*get_subtitle_by_log_id(int32_t log_id);
 
 /*
 ** Player animations

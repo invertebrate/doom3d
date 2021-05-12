@@ -3,17 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   trigger_handle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 21:55:31 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/09 18:57:48 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/12 10:11:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
+static void	show_subtitle(t_doom3d *app, int32_t log_id)
+{
+	const char	*subtitle;
+
+	subtitle = get_subtitle_by_log_id(log_id);
+	notify_user(app, (t_notification){
+		.message = subtitle, .type = notification_type_story});
+}
+
 void	handle_jukebox(t_doom3d *app, t_3d_object *obj)
 {
+	int32_t	log_id;
+
 	if (((t_trigger *)(obj->params))->key_id < 0
 		|| ((t_trigger *)(obj->params))->key_id > 19)
 		return ;
@@ -25,9 +36,10 @@ void	handle_jukebox(t_doom3d *app, t_3d_object *obj)
 			(void *)mu_doom, s_ini(1, 10, st_main_menu, 0.3));
 	}
 	obj->params_type = trigger_type_disabled;
-	push_custom_event(app, event_effect_play, (void *)sf_audio_log_1
-		+ ((t_trigger *)(obj->params))->key_id,
+	log_id = sf_audio_log_1 + ((t_trigger *)(obj->params))->key_id;
+	push_custom_event(app, event_effect_play, (void *)(intptr_t)log_id,
 		s_ini(0, 1, st_game, 1));
+	show_subtitle(app, log_id);
 	push_custom_event(app, event_object_delete, obj, NULL);
 }
 
