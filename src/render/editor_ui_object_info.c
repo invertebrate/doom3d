@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:00:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:41:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 09:34:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	render_object_position(t_doom3d *app, char *str,
 		.xy = (int [2]){app->window->framebuffer->width / 4,
 		app->window->framebuffer->height - 30},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
-		app->window->debug_font);
+		app->window->small_font);
 }
 
 static void	render_object_scale(t_doom3d *app, char *str,
@@ -39,7 +39,7 @@ static void	render_object_scale(t_doom3d *app, char *str,
 		.xy = (int [2]){app->window->framebuffer->width / 4 + 200,
 		app->window->framebuffer->height - 30},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
-		app->window->debug_font);
+		app->window->small_font);
 }
 
 uint32_t	get_render_color(t_doom3d *app)
@@ -71,12 +71,12 @@ void	render_object_information(t_doom3d *app)
 		.xy = (int [2]){app->window->framebuffer->width / 4 + 400,
 		app->window->framebuffer->height - 30},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
-		app->window->debug_font);
+		app->window->small_font);
 	if (app->editor.num_selected_objects > 0)
 		window_text_render_shaded(app->window, (t_text_params){
 			.text = app->editor.selected_object_str, .blend_ratio = 1.0,
 			.xy = (int [2]){app->window->framebuffer->width - 200,
 			app->window->framebuffer->height - 30},
 			.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
-			app->window->debug_font);
+			app->window->small_font);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trigger_timer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:24:06 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/08 15:56:01 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/12 08:40:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	trigger_timer_update(t_doom3d *app)
 					push_custom_event(app, event_scene_change,
 						(void *)scene_id_main_menu, NULL);
 					notify_user(app, (t_notification){.message = "The End",
-						.time = 6000, .type = notification_type_story});
+						.time = 6000, .type = notification_type_layer});
 				}
 				app->timer[i].active = false;
 				LOG_INFO("Finished timer in slot %d", i);

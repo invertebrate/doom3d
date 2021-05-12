@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   notifications1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:24:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 20:45:08 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/12 09:34:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int32_t	adjust_notifications_dims(t_doom3d *app,
 	{
 		if (((t_notification *)node->content)->type == notification_type_info)
 		{
-			TTF_SizeText(app->window->debug_font,
+			TTF_SizeText(app->window->small_font,
 				((t_notification *)node->content)->message,
 				&text_dims[0], &text_dims[1]);
 			dims[0] = (int32_t)l3d_fmax(dims[0], text_dims[0] + padding);

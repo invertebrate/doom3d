@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_state.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:57:41 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/12 10:20:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	handle_mouse_state_input(t_doom3d *app)
 	if (app->active_scene->scene_id == scene_id_main_game
 		&& !app->active_scene->is_paused)
 		handle_game_mouse_state_input(app);
-	if (app->active_scene->scene_id == scene_id_editor3d)
+	if (app->active_scene->scene_id == scene_id_editor3d
+		&& app->editor.is_saving == false)
 	{
 		handle_editor_mouse_state_input(app);
 	}

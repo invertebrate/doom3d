@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/10 17:40:46 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/12 11:01:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,7 @@ void						settings_init(t_doom3d *app);
 
 void						update_player(t_doom3d *app);
 void						player_init(t_doom3d *app, t_vec3 pos);
+void						editor_player_init(t_doom3d *app);
 void						player_flashlight_init(t_doom3d *app,
 								t_player *player);
 void						player_flashlight_update(t_doom3d *app);
@@ -622,7 +623,7 @@ void						render_parallel_3d_view(t_doom3d *app,
 								t_framebuffer *framebuffer);
 void						render_loading_view(t_doom3d *app);
 t_tri_vec					**prepare_render_triangles(t_doom3d *app);
-t_bool						object_too_far(t_doom3d *app, t_3d_object *obj);
+t_bool						object_is_ignored(t_doom3d *app, t_3d_object *obj);
 void						update_triangle_vertex_zvalues(t_triangle *triangle,
 								float unit_size);
 void						add_skybox_render_triangles(t_doom3d *app,
@@ -863,6 +864,8 @@ t_3d_object					*editor_place_npc_object(t_doom3d *app,
 								t_npc_type type);
 t_3d_object					*place_window_wall_prefab(t_doom3d *app);
 t_3d_object					*place_lava_plane_prefab(t_doom3d *app);
+void						enable_editor_menus_after_save(t_doom3d *app);
+void						disable_editor_menus_on_save(t_doom3d *app);
 
 /*
 ** Level
@@ -978,6 +981,7 @@ void						trigger_handle_trigger_jukebox(t_doom3d *app,
 								t_3d_object *key,
 								t_trigger *trigger);
 void						handle_jukebox(t_doom3d *app, t_3d_object *obj);
+const char					*get_subtitle_by_log_id(int32_t log_id);
 
 /*
 ** Player animations

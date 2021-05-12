@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 22:10:06 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/06 16:32:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 00:50:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,14 @@ int	projectile_check_terrain_collision(t_doom3d *app,
 }
 
 static int	projectile_hit(t_doom3d *app, t_3d_object *projectile_obj,
-					t_3d_object *obj, t_vec3 dist)
+					t_3d_object *obj)
 {
+	t_vec3		dist;
+
+	if (obj && (obj->type == object_type_npc
+			&& ((t_npc*)obj->params)->state == state_death_anim))
+		return (false);
+	ml_vector3_sub(obj->position, projectile_obj->position, dist);
 	return (ml_vector3_mag(dist) < app->unit_size * 20 && obj->type
 		== object_type_npc && l3d_aabb_collides(&obj->aabb,
 			&projectile_obj->aabb));
@@ -77,7 +83,6 @@ static int	projectile_hit(t_doom3d *app, t_3d_object *projectile_obj,
 
 void	projectile_handle_collision(t_doom3d *app, t_3d_object *projectile_obj)
 {
-	t_vec3		dist;
 	int			i;
 	t_3d_object	*obj;
 
@@ -90,10 +95,9 @@ void	projectile_handle_collision(t_doom3d *app, t_3d_object *projectile_obj)
 	{
 		obj = app->active_scene->objects[i];
 		if (!obj || obj->type == object_type_projectile
-			|| obj->type == object_type_trigger || object_too_far(app, obj))
+			|| obj->type == object_type_trigger || object_is_ignored(app, obj))
 			continue ;
-		ml_vector3_sub(obj->position, projectile_obj->position, dist);
-		if (projectile_hit(app, projectile_obj, obj, dist))
+		if (projectile_hit(app, projectile_obj, obj))
 		{
 			projectile_explode_effect(app, projectile_obj);
 			push_custom_event(app, event_object_delete,

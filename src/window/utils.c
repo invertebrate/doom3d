@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:15:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 09:34:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void	window_fps_draw(t_window *window,
 		.text = fps_str, .blend_ratio = 1.0,
 		.xy = (int [2]){5, 5},
 		.text_color = (SDL_Color){255, 0, 0, 255}},
-		window->debug_font);
+		window->small_font);
 	window_text_render(window, (t_text_params){
 		.text = dt_str, .blend_ratio = 1.0,
 		.xy = (int [2]){5, 5 + FONT_SIZE + 5},
 		.text_color = (SDL_Color){255, 0, 0, 255}},
-		window->debug_font);
+		window->small_font);
 	ft_strdel(&fps_str);
 	ft_strdel(&dt_str);
 }

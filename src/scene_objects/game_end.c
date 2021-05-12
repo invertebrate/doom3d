@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 20:54:30 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/05 17:30:44 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 08:40:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	finish_level(t_doom3d *app, t_3d_object *end_obj)
 	{
 		notify_user(app, (t_notification){
 			.message = "New level",
-			.type = notification_type_story, .time = 6000});
+			.type = notification_type_layer, .time = 6000});
 		push_custom_event(app, event_scene_reload, NULL, NULL);
 	}
 	else
@@ -30,6 +30,6 @@ void	finish_level(t_doom3d *app, t_3d_object *end_obj)
 			(void*)scene_id_main_menu, NULL);
 		notify_user(app, (t_notification){
 			.message = "Game over",
-			.type = notification_type_story, .time = 6000});
+			.type = notification_type_layer, .time = 6000});
 	}
 }

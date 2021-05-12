@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   notifications2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:37:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 21:22:07 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/12 09:45:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_bool	should_render_border(int32_t xy[2], int32_t xy_min_max[2],
 		< (int32_t)pos[1] + border_size);
 }
 
-static void	render_story_message(t_doom3d *app,
+static void	render_layer_message(t_doom3d *app,
 					t_notification *notification)
 {
 	framebuffer_dark_overlay(app->window->framebuffer);
@@ -62,6 +62,31 @@ void	render_notifications_background(t_doom3d *app, t_vec2 pos,
 	}
 }
 
+static void	render_story_message(t_doom3d *app, t_notification *notification)
+{
+	char		tmp[1024];
+	uint32_t	time_per_letter;
+	uint32_t	letters_left;
+	uint32_t	len;
+	int32_t		i;
+
+	len = ft_strlen(notification->message);
+	time_per_letter = notification->time_start / len;
+	letters_left = notification->time / time_per_letter;
+	ft_memset(tmp, 0, sizeof(tmp));
+	i = -1;
+	while (++i < (int32_t)(len - letters_left))
+		tmp[i] = notification->message[i];
+	if (i == 0)
+		return ;
+	window_text_render_centered_wrapped(app->window, (t_text_params){
+		.text = tmp,
+		.text_color = (SDL_Color){255, 255, 0, 255}, .blend_ratio = 1.0,
+		.xy = (int32_t[2]){app->window->framebuffer->width / 2,
+		app->window->framebuffer->height - 100}
+	}, app->window->small_font);
+}
+
 void	render_notification_messages(t_doom3d *app, t_vec2 pos,
 					int32_t text_dims[2], int32_t padding)
 {
@@ -81,9 +106,11 @@ void	render_notification_messages(t_doom3d *app, t_vec2 pos,
 				.text_color = (SDL_Color){255, 255, 0, 255}, .blend_ratio = 1.0,
 				.xy = (int32_t[2]){pos[0] + padding + 2,
 				pos[1] + i * (text_dims[1] + padding)}
-			}, app->window->debug_font);
+			}, app->window->small_font);
 			i++;
 		}
+		else if (notification->type == notification_type_layer)
+			render_layer_message(app, notification);
 		else if (notification->type == notification_type_story)
 			render_story_message(app, notification);
 		node = node->next;

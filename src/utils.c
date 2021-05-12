@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 16:25:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 09:34:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	render_debug_info(t_doom3d *app)
 	window_text_render_wrapped(app->window, (t_text_params){
 		.text = debug_info, .blend_ratio = 1.0, .xy = (int [2]){5, 5},
 		.text_color = (SDL_Color){255, 255, 255, 0}},
-		app->window->debug_font);
+		app->window->small_font);
 }
 
 void	capture_fps(t_doom3d *app)

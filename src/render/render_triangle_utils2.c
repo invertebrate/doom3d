@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_triangle_utils2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:53:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 21:08:22 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/12 00:24:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	add_temp_object_render_triangles(t_doom3d *app,
 	while (node)
 	{
 		tmp = node->content;
-		if (!object_too_far(app, tmp->obj)
+		if (!object_is_ignored(app, tmp->obj)
 			&& object_inside_viewbox(get_render_camera(app), tmp->obj))
 		{
 			i = -1;
@@ -115,7 +115,7 @@ void	add_objects_render_triangles(t_doom3d *app,
 		+ app->active_scene->num_deleted))
 	{
 		if ((app->active_scene->objects[i] == NULL)
-			|| object_too_far(app, app->active_scene->objects[i])
+			|| object_is_ignored(app, app->active_scene->objects[i])
 			|| !object_inside_viewbox(camera, app->active_scene->objects[i]))
 			continue ;
 		j = -1;

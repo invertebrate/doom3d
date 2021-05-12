@@ -60,6 +60,7 @@ SOURCES = main.c \
 			player/player_vitals_render.c \
 			player/player_weapons_render.c \
 			player/player_flashlight.c \
+			player/player_editor_init.c \
 			player/player_init.c \
 			projectile/projectile_init.c \
 			projectile/projectile_update.c \
@@ -101,6 +102,7 @@ SOURCES = main.c \
 			npc/npc_face_player.c \
 			npc/npc_finalboss.c \
 			npc/npc_special_attack.c \
+			trigger/subtitles.c \
 			trigger/trigger.c \
 			trigger/trigger_timer.c \
 			trigger/trigger_place.c \
@@ -114,7 +116,7 @@ SOURCES = main.c \
 			path/path2.c \
 			path/patrol_path.c \
 			scene_objects/object_utils.c \
-			scene_objects/object_too_far.c \
+			scene_objects/object_is_ignored.c \
 			scene_objects/object_next_index.c \
 			scene_objects/object_scene_placement.c \
 			scene_objects/object_update.c \

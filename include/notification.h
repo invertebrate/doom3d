@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:08:35 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/24 15:32:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 08:49:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef enum e_nofitication_type
 {
 	notification_type_info,
+	notification_type_layer,
 	notification_type_story,
 }							t_notification_type;
 
@@ -36,6 +37,7 @@ typedef struct s_notification
 	const char				*message;
 	t_notification_type		type;
 	int32_t					time;
+	int32_t					time_start;
 }							t_notification;
 
 #endif
