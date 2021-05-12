@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 18:18:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 09:34:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_window
 	t_framebuffer			*framebuffer_3d;
 	t_vec2					view_3d_pos;
 	TTF_Font				*main_font;
-	TTF_Font				*debug_font;
+	TTF_Font				*small_font;
 	TTF_Font				*title_font;
 	int32_t					width;
 	int32_t					height;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 16:13:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 20:04:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 09:34:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	draw_unsaved_underline(t_doom3d *app, char *filename,
 	int32_t		width;
 	int32_t		i;
 
-	TTF_SizeText(app->window->debug_font, filename, &width, NULL);
+	TTF_SizeText(app->window->small_font, filename, &width, NULL);
 	i = -1;
 	while (++i < 4)
 		l3d_line_draw(app->window->framebuffer->buffer,
@@ -65,7 +65,7 @@ static void	render_saved_filename(t_doom3d *app)
 		.text = filename, .blend_ratio = 1.0,
 		.xy = (int [2]){10, app->window->framebuffer->height - 30},
 		.text_color = (SDL_Color){rgba[0], rgba[1], rgba[2], rgba[3]}},
-		app->window->debug_font);
+		app->window->small_font);
 	if (app->editor.is_saving)
 		draw_unsaved_underline(app, filename, color);
 }
@@ -79,7 +79,7 @@ void	render_guide_on_popup(t_doom3d *app)
 		.text = guide, .blend_ratio = 1.0,
 		.xy = (int [2]){app->editor.editor_menu->pos[0] + 10,
 		app->editor.editor_menu->pos[1] + 10},
-		.text_color = (SDL_Color){0, 255, 0, 255}}, app->window->debug_font);
+		.text_color = (SDL_Color){0, 255, 0, 255}}, app->window->small_font);
 }
 
 void	render_editor_ui(t_doom3d *app)

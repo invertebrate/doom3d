@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:37:01 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 09:24:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 09:34:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	render_story_message(t_doom3d *app, t_notification *notification)
 		.text = tmp,
 		.text_color = (SDL_Color){255, 255, 0, 255}, .blend_ratio = 1.0,
 		.xy = (int32_t[2]){app->window->framebuffer->width / 2, 10}
-	}, app->window->debug_font);
+	}, app->window->small_font);
 }
 
 void	render_notification_messages(t_doom3d *app, t_vec2 pos,
@@ -105,7 +105,7 @@ void	render_notification_messages(t_doom3d *app, t_vec2 pos,
 				.text_color = (SDL_Color){255, 255, 0, 255}, .blend_ratio = 1.0,
 				.xy = (int32_t[2]){pos[0] + padding + 2,
 				pos[1] + i * (text_dims[1] + padding)}
-			}, app->window->debug_font);
+			}, app->window->small_font);
 			i++;
 		}
 		else if (notification->type == notification_type_layer)

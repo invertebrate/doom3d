@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 19:17:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/12 09:34:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static void	window_set_fonts(t_window *window)
 {
 	window->main_font = TTF_OpenFont(GAME_FONT, FONT_SIZE);
 	error_check(window->main_font == NULL, TTF_GetError());
-	window->debug_font = TTF_OpenFont(DEBUG_FONT, FONT_SIZE * 0.36);
-	error_check(window->debug_font == NULL, TTF_GetError());
+	window->small_font = TTF_OpenFont(DEBUG_FONT, FONT_SIZE * 0.36);
+	error_check(window->small_font == NULL, TTF_GetError());
 	window->title_font = TTF_OpenFont(GAME_FONT, FONT_SIZE * 1.5);
 	error_check(window->title_font == NULL, TTF_GetError());
 }
@@ -110,7 +110,7 @@ void	window_destroy(t_window *window)
 	SDL_DestroyRenderer(window->renderer);
 	SDL_DestroyWindow(window->window);
 	TTF_CloseFont(window->main_font);
-	TTF_CloseFont(window->debug_font);
+	TTF_CloseFont(window->small_font);
 	TTF_CloseFont(window->title_font);
 	free(window);
 }
