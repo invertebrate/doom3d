@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:33:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/13 17:45:00 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/13 18:45:56 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static void	draw_third_person(t_render_work *work)
 	{
 		draw_aabb(work->app, work->framebuffer->sub_buffers[work->sub_buffer_i],
 			&work->app->player.aabb, 0xff0000ff);
+		draw_sphere_collider(work);
+		draw_cylinder_collider(work);
 	}
 }
 /*
@@ -106,40 +108,6 @@ void	render_work(void *params)
 	if (work->app->active_scene->scene_id == scene_id_editor3d)
 		render_editor_ux_highlights(work);
 	draw_third_person(work);
-
-	l3d_cast_rays_sphere(work->app->player.collider.rays, (uint32_t[2]){4, 4}, &work->app->player.collider.sphere);
-	for (int i = 0; i < 16; i++)
-	{
-		t_vec3	points[2];
-		t_vec3	end_point;
-		t_vec3	dir;
-
-		ml_vector3_copy(work->app->player.collider.rays[i].dir, dir);
-		ml_vector3_mul(dir, work->app->player.collider.sphere.radius, dir);
-		ml_vector3_add(work->app->player.collider.sphere.pos, dir, end_point);
-		ml_vector3_copy(work->app->player.collider.sphere.pos, points[0]);
-		// ml_vector3_add(points[0], (t_vec3){50.0, 50.0, 50.0}, points[0]);
-		ml_vector3_copy(end_point, points[1]);
-		draw_debug_line(work->app,
-		work->framebuffer->sub_buffers[work->sub_buffer_i],
-		points, 0xffffffff);
-	}
-	for (int i = 0; i < 16; i++)
-	{
-		t_vec3	points[2];
-		t_vec3	end_point;
-		t_vec3	dir;
-
-		ml_vector3_copy(work->app->player.collider_ground.rays[i].dir, dir);
-		ml_vector3_mul(dir, work->app->player.collider_ground.cylinder.height, dir);
-		ml_vector3_add(dir, work->app->player.collider_ground.rays[i].origin, dir);
-		ml_vector3_copy(dir, end_point);
-		ml_vector3_copy(work->app->player.collider_ground.rays[i].origin, points[0]);
-		ml_vector3_copy(end_point, points[1]);
-		draw_debug_line(work->app,
-		work->framebuffer->sub_buffers[work->sub_buffer_i],
-		points, 0xfff00fff);
-	}
 	if (work->pass == last_pass)
 		draw_buffers_to_framebuffer(work);
 	free(work);

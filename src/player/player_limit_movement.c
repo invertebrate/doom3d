@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 17:19:42 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/13 17:57:08 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/13 18:39:23 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	player_handle_closest_hit_slope(t_doom3d *app,
 			== npc_type_elevator)
 		{
 			app->player.pos[1] = closest_triangle_hit->hit_point[1]
-				- app->player.collider_ground.cylinder.height * 1.2;
+				- app->player.collider_ground.cylinder.height;
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/10 17:36:21 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/13 18:49:47 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,6 @@ static void	player_update_camera_pos(t_doom3d *app)
 	update_third_person_camera(app);
 }
 
-void	player_update_future_pos(t_doom3d *app)
-{
-	ml_vector3_add(app->player.velocity, app->player.future_pos,
-		app->player.future_pos);
-}
-
 void	update_player(t_doom3d *app)
 {
 	if ((app->active_scene->scene_id != scene_id_main_game
@@ -71,7 +65,6 @@ void	update_player(t_doom3d *app)
 	forces_update_player(app);
 	player_update_aabb(&app->player);
 	player_animation_update(app);
-	player_flashlight_update(app);
 	player_update_camera_pos(app);
-	player_update_future_pos(app);
+	player_flashlight_update(app);
 }

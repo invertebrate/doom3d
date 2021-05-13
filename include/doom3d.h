@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/13 17:55:49 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/13 18:45:19 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -667,6 +667,8 @@ void						render_object_information(t_doom3d *app);
 void						draw_debug_line(t_doom3d *app,
 								t_sub_framebuffer *buffer, t_vec3 points[2],
 								uint32_t color);
+void						draw_sphere_collider(t_render_work *work);
+void						draw_cylinder_collider(t_render_work *work);
 void						draw_editor_debug_grid(t_render_work *work);
 void						draw_selected_wireframe(t_render_work *work);
 t_bool						triangle_outside_frame(t_triangle *triangle,

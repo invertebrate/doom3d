@@ -200,6 +200,7 @@ SOURCES = main.c \
 			render/editor_ui_object_info.c \
 			render/debug/debug.c \
 			render/debug/debug_line.c \
+			render/debug_draw_colliders.c \
 			render/debug/debug_aabb.c \
 			render/notifications1.c \
 			render/notifications2.c \
