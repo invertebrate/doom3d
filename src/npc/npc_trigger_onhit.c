@@ -42,7 +42,7 @@ void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 	if (npc->type == npc_type_boss && npc->hp <= 100)
 		push_custom_event(app,
 			event_effect_play, (void *)sf_audio_log_19,
-			s_ini(0, 1, st_game, 1.0));
+			s_ini(0, 1, st_game, 1.0f));
 	if (npc->hp <= 0 && npc->type == npc_type_crate)
 		push_custom_event(app, event_object_delete, obj, NULL);
 	if (npc->hp <= 0 && npc->state && npc->animation_3d)

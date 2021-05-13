@@ -946,6 +946,7 @@ void						update_notifications(t_doom3d *app);
 void						delete_notifications(t_doom3d *app);
 void						placement_notification(t_doom3d *app, char *txt);
 uint32_t					arr_sum(uint32_t *arr, uint32_t length);
+void						show_subtitle(t_doom3d *app, int32_t log_id);
 
 /*
 ** Triggers
@@ -963,6 +964,7 @@ t_3d_object					*place_elevator_switch_timer(t_doom3d *app);
 t_3d_object					*place_drop_key(t_doom3d *app);
 t_3d_object					*place_hurt_box(t_doom3d *app);
 t_3d_object					*place_jukebox(t_doom3d *app);
+t_3d_object					*place_musicbox(t_doom3d *app);
 void						trigger_activate(t_doom3d *app, t_3d_object *obj);
 void						trigger_link_object_to_npc(t_3d_object *trigger,
 								t_3d_object *target);
@@ -981,6 +983,7 @@ void						trigger_handle_trigger_jukebox(t_doom3d *app,
 								t_3d_object *key,
 								t_trigger *trigger);
 void						handle_jukebox(t_doom3d *app, t_3d_object *obj);
+void						handle_musicbox(t_doom3d *app, t_3d_object *obj);
 const char					*get_subtitle_by_log_id(int32_t log_id);
 
 /*

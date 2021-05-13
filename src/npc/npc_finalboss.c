@@ -104,5 +104,6 @@ void	npc_boss_death(t_doom3d *app)
 {
 	push_custom_event(app,
 		event_effect_play, (void *)sf_audio_log_20, s_ini(0, 1, st_game, 1.0));
+	show_subtitle(app, 20);
 	trigger_timer_start(app, NULL, timer_end);
 }

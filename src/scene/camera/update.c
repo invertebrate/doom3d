@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 18:00:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 16:26:56 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/12 16:23:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	update_player_camera(t_doom3d *app)
 
 	dims[0] = app->window->framebuffer->width / 2.0;
 	dims[1] = app->window->framebuffer->height / 2.0;
-	focal_length = Z_DIR * app->window->framebuffer->width * 0.7;
+	focal_length = Z_DIR * app->window->framebuffer->width * 0.65;
 	ml_vector3_copy(app->player.forward, forward_up_sideways[0]);
 	ml_vector3_copy(forward_up_sideways[0],
 		app->active_scene->main_camera->forward);
@@ -68,7 +68,7 @@ static void	update_third_person_camera_by_pos(t_doom3d *app, t_vec3 pos)
 	ft_memset(forward_up_sideways, 0, sizeof(t_vec3) * 3);
 	dims[0] = app->window->framebuffer->width / 2.0;
 	dims[1] = app->window->framebuffer->height / 2.0;
-	focal_length = Z_DIR * app->window->framebuffer->width * 0.7;
+	focal_length = Z_DIR * app->window->framebuffer->width * 0.65;
 	ml_vector3_copy(app->player.forward, forward_up_sideways[0]);
 	ml_vector3_copy(forward_up_sideways[0],
 		app->active_scene->third_person_camera->forward);
