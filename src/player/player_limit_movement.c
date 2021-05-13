@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 17:19:42 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/11 19:52:44 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/13 17:57:08 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 ** collision-detection-smooth-wall-sliding-no-bounce-effect
 */
 
-void	limit_move_add_by_collision(t_vec3 collision_normal,
-					t_vec3 dir_add)
+void	limit_move_add_by_collision(t_vec3 collision_normal, t_vec3 dir_add)
 {
 	t_vec3		direction_collider_part;
 	float		dot;

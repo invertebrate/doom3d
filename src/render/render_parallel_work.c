@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:33:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 00:42:18 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/13 17:45:00 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	render_work(void *params)
 		ml_vector3_mul(dir, work->app->player.collider.sphere.radius, dir);
 		ml_vector3_add(work->app->player.collider.sphere.pos, dir, end_point);
 		ml_vector3_copy(work->app->player.collider.sphere.pos, points[0]);
-		ml_vector3_add(points[0], (t_vec3){50.0, 50.0, 50.0}, points[0]);
+		// ml_vector3_add(points[0], (t_vec3){50.0, 50.0, 50.0}, points[0]);
 		ml_vector3_copy(end_point, points[1]);
 		draw_debug_line(work->app,
 		work->framebuffer->sub_buffers[work->sub_buffer_i],
