@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/14 16:12:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/14 16:21:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,7 +300,9 @@ t_projectile				projectile_data_fireball_custom(t_doom3d *app,
 void						projectile_update(t_doom3d *app, t_3d_object *obj);
 void						projectile_explosion(t_doom3d *app, t_vec3 pos,
 								t_projectile *projectile);
-void						place_projectile_object_in_scene(t_doom3d *app,
+void						place_missile_in_scene(t_doom3d *app,
+								t_projectile *projectile, t_vec3 origin);
+void						place_npc_projectile_in_scene(t_doom3d *app,
 								t_projectile *projectile, t_vec3 origin);
 int							check_projectile_collision_with_player(
 								t_doom3d *app, t_3d_object *projectile_obj);

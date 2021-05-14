@@ -6,13 +6,30 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 13:16:45 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/14 16:17:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/14 16:20:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	place_projectile_object_in_scene(t_doom3d *app,
+void	place_npc_projectile_in_scene(t_doom3d *app,
+					t_projectile *projectile, t_vec3 origin)
+{
+	t_3d_object	*obj;
+
+	obj = place_scene_object(app,
+			(const char *[3]){projectile->model_key, projectile->texture_key,
+			projectile->normal_map_key}, origin);
+	obj->type = object_type_projectile;
+	l3d_3d_object_set_params(obj, projectile, sizeof(t_projectile),
+		projectile->type);
+	l3d_3d_object_scale(obj, 0.1, 0.1, 0.1);
+	l3d_object_aabb_update(obj);
+	if (app->is_debug)
+		LOG_DEBUG("Spawned projectile id: %d", obj->id);
+}
+
+void	place_missile_in_scene(t_doom3d *app,
 					t_projectile *projectile, t_vec3 origin)
 {
 	t_3d_object	*obj;

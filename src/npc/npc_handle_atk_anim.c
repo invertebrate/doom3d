@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 20:27:37 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/14 16:14:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/14 16:21:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir,
 	ml_vector3_copy(newdir, projectile.dir);
 	ml_vector3_mul(newdir, app->unit_size * 3, add);
 	ml_vector3_add(origin, add, neworigin);
-	place_projectile_object_in_scene(app, &projectile, neworigin);
+	place_npc_projectile_in_scene(app, &projectile, neworigin);
 }
 
 static void	handle_projectile(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc)
