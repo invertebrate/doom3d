@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/13 18:45:19 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/14 16:12:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,8 +301,7 @@ void						projectile_update(t_doom3d *app, t_3d_object *obj);
 void						projectile_explosion(t_doom3d *app, t_vec3 pos,
 								t_projectile *projectile);
 void						place_projectile_object_in_scene(t_doom3d *app,
-								t_projectile *projectile, t_vec3 origin,
-								t_vec3 rot);
+								t_projectile *projectile, t_vec3 origin);
 int							check_projectile_collision_with_player(
 								t_doom3d *app, t_3d_object *projectile_obj);
 int							projectile_check_terrain_collision(

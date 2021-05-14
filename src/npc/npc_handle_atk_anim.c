@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_handle_atk_anim.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 20:27:37 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/08 18:56:47 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/14 16:14:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir,
 									int type)
 {
 	t_projectile	projectile;
-	t_vec3			rot;
 	t_vec3			add;
 	t_vec3			neworigin;
 	t_vec3			newdir;
@@ -26,15 +25,11 @@ static void	npc_shoot_projectile(t_doom3d *app, t_vec3 origin, t_vec3 dir,
 	ft_memcpy(&projectile,
 		&app->projectile_data[type],
 		sizeof(t_projectile));
-	rot[0] = 0;
-	rot[1] = 0;
-	rot[2] = 0;
-	ml_vector3_copy(rot, projectile.euler_angles);
 	ml_vector3_normalize(dir, newdir);
 	ml_vector3_copy(newdir, projectile.dir);
 	ml_vector3_mul(newdir, app->unit_size * 3, add);
 	ml_vector3_add(origin, add, neworigin);
-	place_projectile_object_in_scene(app, &projectile, neworigin, rot);
+	place_projectile_object_in_scene(app, &projectile, neworigin);
 }
 
 static void	handle_projectile(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc)

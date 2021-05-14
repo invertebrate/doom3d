@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_guns.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phakakos <phakakos@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 12:54:08 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/06 12:54:09 by phakakos         ###   ########.fr       */
+/*   Updated: 2021/05/14 16:12:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
 void	player_shoot_projectile(t_doom3d *app, t_vec3 origin)
 {
 	t_projectile	projectile;
-	t_vec3			rot;
 	t_vec3			add;
 
 	ft_memset(&projectile, 0, sizeof(t_projectile));
@@ -105,13 +104,9 @@ void	player_shoot_projectile(t_doom3d *app, t_vec3 origin)
 		&app->projectile_data[app->player.equipped_weapon->projectile],
 		sizeof(t_projectile));
 	ml_vector3_copy(app->player.forward, projectile.dir);
-	rot[0] = app->player.rot_x + 90;
-	rot[1] = -app->player.rot_y;
-	rot[2] = atan2(app->player.up[0], -app->player.up[1]) * 180 / M_PI + 90;
-	ml_vector3_copy(rot, projectile.euler_angles);
 	ml_vector3_mul(app->player.forward, app->unit_size, add);
 	ml_vector3_add(origin, add, origin);
-	place_projectile_object_in_scene(app, &projectile, origin, rot);
+	place_projectile_object_in_scene(app, &projectile, origin);
 	if (app->player.equipped_weapon->id == weapon_rpg)
 		push_custom_event(app,
 			event_effect_play, (void*)sf_rpg_fire, s_ini(0, 1, st_game, 1.0));
