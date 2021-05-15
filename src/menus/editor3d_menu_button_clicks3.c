@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 03:18:48 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 16:18:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 16:42:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	on_light_menu_button_click(t_button *self, void *params)
 	void			*get_res;
 
 	app = params;
-	get_res = hash_map_get(app->active_scene->trigger_map,
+	get_res = hash_map_get(app->active_scene->lights_map,
 			(int64_t)self->text);
 	push_custom_event(app, event_editor_start_placement,
 		(void *)object_type_light, get_res);
