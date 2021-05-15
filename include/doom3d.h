@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 18:35:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 19:00:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -781,6 +781,7 @@ void						editor_objects_invisible_highlight(t_doom3d *app);
 void						editor_objects_non_culled_highlight(t_doom3d *app);
 void						editor_objects_non_culled_unhighlight(
 								t_doom3d *app);
+void						write_assets(int32_t fd, t_doom3d *app);
 void						write_trigger_link_information(int32_t fd,
 								t_doom3d *app);
 void						write_npc_patrol_path_information(int32_t fd,

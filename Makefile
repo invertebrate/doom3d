@@ -183,6 +183,7 @@ SOURCES = main.c \
 			map/object_read_utils.c \
 			map/filename_keys.c \
 			map/write_utils.c \
+			map/write_assets.c \
 			render/render.c \
 			render/render_parallel.c \
 			render/render_parallel_work.c \

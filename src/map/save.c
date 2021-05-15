@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 18:35:06 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/15 19:00:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void	write_map(int32_t fd, t_doom3d *app)
 	int32_t		ret;
 
 	ret = write(fd, "MAP\0", 4);
+	write_assets(fd, app);
 	ret = write(fd, &app->active_scene->num_objects, sizeof(uint32_t));
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects
