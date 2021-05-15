@@ -6,17 +6,47 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 20:00:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 20:11:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 21:59:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASSETS_H
 # define ASSETS_H
 
+# ifdef __APPLE__
+#  include <SDL.h>
+# endif
+# ifdef __linux__
+#  include <SDL2/SDL.h>
+# endif
+
 # include "libft.h"
+# include "sound.h"
 # include "animations_3d.h"
 
 # define MAX_ASSETS 512
+# define GAME_FONT "assets/fonts/AmazDooMLeft.ttf"
+# define DEBUG_FONT "assets/fonts/Roboto-Regular.ttf"
+
+/*
+** Sound files in sound.h
+*/
+
+# define MONSTER01_MODEL "assets/models/monster_01/monster01_basemodel_000.obj"
+# define MONSTER01_TEXTURE "assets/textures/monster_01/monster01_diffuse.bmp"
+# define MONSTER01A_TEXTURE "assets/textures/monster_01/monster01a_diffuse.bmp"
+# define MONSTER01B_TEXTURE "assets/textures/monster_01/monster01b_diffuse.bmp"
+# define MONSTER01_NORMM "assets/textures/monster_01/monster01_normal.bmp"
+# define MONSTER02_MODEL "assets/models/monster_02/monster02_basemodel_000.obj"
+# define MONSTER02_TEXTURE "assets/textures/monster_02/monster02_diffuse.bmp"
+# define MONSTER02_NORMM "assets/textures/monster_02/monster02_normal.bmp"
+# define NPC_ELEVATOR_MODEL "assets/models/box.obj"
+# define NPC_ELEVATOR_TEXTURE "assets/textures/rock.bmp"
+# define NPC_ELEVATOR_NORMM "assets/textures/rock.bmp"
+# define ELEVATOR_SWITCH_TEXTURE "assets/textures/lava.bmp"
+# define NPC_PROJECTILE_00 "assets/textures/npc_projectile_texture.bmp"
+# define NPC_PROJECTILE_01 "assets/textures/npc_projectile_texture_green.bmp"
+# define NPC_PROJECTILE_02 "assets/textures/npc_projectile_texture_purple.bmp"
 
 /*
 ** t_asset_files holds a list of various types of assets and their paths
@@ -51,10 +81,10 @@ typedef struct s_asset_files
 
 typedef struct s_assets
 {
-	t_track					*library[SOUNDS];
-	TTF_Font				*main_font;
-	TTF_Font				*small_font;
-	TTF_Font				*title_font;
+	SDL_RWops				*sounds[SOUNDS];
+	SDL_RWops				*main_font;
+	SDL_RWops				*small_font;
+	SDL_RWops				*title_font;
 	t_asset_files			asset_files;
 	t_hash_table			*hud_textures;
 	t_hash_table			*sprite_textures;

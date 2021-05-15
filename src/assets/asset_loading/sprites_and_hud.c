@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:37:19 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 17:37:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 20:36:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-void	scene_hud_icon_files_set(t_asset_files *data)
+void	hud_icon_files_set(t_asset_files *data)
 {
 	data->hud_textures[data->num_hud_textures++]
 		= "assets/img/ammo_icon_64.bmp";
@@ -37,7 +37,7 @@ void	scene_hud_icon_files_set(t_asset_files *data)
 ** hash_table)
 */
 
-void	scene_animation_sprite_files_set(t_asset_files *data)
+void	sprite_animation_files_set(t_asset_files *data)
 {
 	data->sprite_files[data->num_sprites++]
 		= "assets/animations/shotgun_anim_720p.bmp";
@@ -59,7 +59,7 @@ void	scene_animation_sprite_files_set(t_asset_files *data)
 	data->sprite_files[data->num_sprites++] = "assets/animations/bullet_hole.bmp";
 }
 
-void	load_sprites_to_memory(t_scene *scene,
+void	load_sprites_to_memory(t_assets *assets,
 			t_asset_files *data)
 {
 	int32_t		i;
@@ -69,13 +69,13 @@ void	load_sprites_to_memory(t_scene *scene,
 	while (++i < (int32_t)data->num_sprites)
 	{
 		animation_source = l3d_read_bmp_32bit_rgba_surface(
-				scene->asset_files.sprite_files[i]);
-		hash_map_add(scene->sprite_textures,
-			(int64_t)scene->asset_files.sprite_files[i], animation_source);
+				assets->asset_files.sprite_files[i]);
+		hash_map_add(assets->sprite_textures,
+			(int64_t)assets->asset_files.sprite_files[i], animation_source);
 	}
 }
 
-void	load_hud_textures_to_memory(t_scene *scene,
+void	load_hud_textures_to_memory(t_assets *assets,
 			t_asset_files *data)
 {
 	int32_t		i;
@@ -85,8 +85,8 @@ void	load_hud_textures_to_memory(t_scene *scene,
 	while (++i < (int32_t)data->num_hud_textures)
 	{
 		hud_texture_source = l3d_read_bmp_32bit_rgba_surface(
-				scene->asset_files.hud_textures[i]);
-		hash_map_add(scene->hud_textures,
-			(int64_t)scene->asset_files.hud_textures[i], hud_texture_source);
+				assets->asset_files.hud_textures[i]);
+		hash_map_add(assets->hud_textures,
+			(int64_t)assets->asset_files.hud_textures[i], hud_texture_source);
 	}
 }

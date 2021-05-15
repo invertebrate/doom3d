@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 20:12:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 22:16:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static void	cleanup(t_doom3d *app)
 	thread_pool_destroy(app->thread_pool);
 	LOG_INFO("Destroy scene");
 	scene_destroy(app);
+	LOG_INFO("Destroy assets");
+	assets_destroy(&app->assets);
 	LOG_INFO("Destroy window");
 	window_destroy(app->window);
 	LOG_INFO("Quit SDL");
@@ -136,6 +138,7 @@ void	doom3d_run(t_doom3d *app)
 	settings_init(app);
 	LOG_INFO("Create SDL Window & frame buffers");
 	window_create(&app->window, app->settings.width, app->settings.height);
+	window_set_fonts(app->window, &app->assets);
 	app_init(app);
 	main_loop(app);
 	cleanup(app);

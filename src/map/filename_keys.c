@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filename_keys.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 01:24:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 18:42:42 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/15 22:20:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ const char	*texture_file_key(char *filename, t_doom3d *app)
 	int32_t		i;
 
 	i = -1;
-	while (++i < (int32_t)app->active_scene->asset_files.num_textures)
+	while (++i < (int32_t)app->assets.asset_files.num_textures)
 	{
 		if (ft_strequ(filename,
-				app->active_scene->asset_files.texture_files[i]))
-			return (app->active_scene->asset_files.texture_files[i]);
+				app->assets.asset_files.texture_files[i]))
+			return (app->assets.asset_files.texture_files[i]);
 	}
 	return (NULL);
 }
@@ -39,11 +39,11 @@ const char	*normal_map_file_key(char *filename, t_doom3d *app)
 	int32_t		i;
 
 	i = -1;
-	while (++i < (int32_t)app->active_scene->asset_files.num_normal_maps)
+	while (++i < (int32_t)app->assets.asset_files.num_normal_maps)
 	{
 		if (ft_strequ(filename,
-				app->active_scene->asset_files.normal_map_files[i]))
-			return (app->active_scene->asset_files.texture_files[i]);
+				app->assets.asset_files.normal_map_files[i]))
+			return (app->assets.asset_files.texture_files[i]);
 	}
 	return (NULL);
 }

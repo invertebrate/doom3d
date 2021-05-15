@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 17:23:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 18:25:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 22:22:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	set_temp_object_sprite_texture(t_doom3d *app,
 {
 	t_surface	*texture;
 
-	texture = hash_map_get(app->active_scene->sprite_textures,
+	texture = hash_map_get(app->assets.sprite_textures,
 			(int64_t)texture_str);
 	obj->material->texture = texture;
 	if (texture != NULL)

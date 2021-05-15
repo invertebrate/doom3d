@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:43:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 14:23:02 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/15 22:19:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	handle_editor_add_normal_map(t_doom3d *app, char *filename)
 	if (app->editor.num_selected_objects > 0)
 	{
 		normmap
-			= hash_map_get(app->active_scene->normal_maps, (int64_t)filename);
+			= hash_map_get(app->assets.normal_maps, (int64_t)filename);
 		i = -1;
 		while (++i < app->editor.num_selected_objects)
 		{
@@ -57,7 +57,7 @@ void	handle_editor_add_texture(t_doom3d *app, char *filename)
 	if (app->editor.num_selected_objects > 0)
 	{
 		texture
-			= hash_map_get(app->active_scene->textures, (int64_t)filename);
+			= hash_map_get(app->assets.textures, (int64_t)filename);
 		i = -1;
 		while (++i < app->editor.num_selected_objects)
 		{

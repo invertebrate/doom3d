@@ -3,31 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   game_objects.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/10 17:38:39 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/15 21:32:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_OBJECTS_H
 # define GAME_OBJECTS_H
-
-# define MONSTER01_MODEL "assets/models/monster_01/monster01_basemodel_000.obj"
-# define MONSTER01_TEXTURE "assets/textures/monster_01/monster01_diffuse.bmp"
-# define MONSTER01A_TEXTURE "assets/textures/monster_01/monster01a_diffuse.bmp"
-# define MONSTER01B_TEXTURE "assets/textures/monster_01/monster01b_diffuse.bmp"
-# define MONSTER01_NORMM "assets/textures/monster_01/monster01_normal.bmp"
-
-# define MONSTER02_MODEL "assets/models/monster_02/monster02_basemodel_000.obj"
-# define MONSTER02_TEXTURE "assets/textures/monster_02/monster02_diffuse.bmp"
-# define MONSTER02_NORMM "assets/textures/monster_02/monster02_normal.bmp"
-
-# define NPC_ELEVATOR_MODEL "assets/models/box.obj"
-# define NPC_ELEVATOR_TEXTURE "assets/textures/rock.bmp"
-# define NPC_ELEVATOR_NORMM "assets/textures/rock.bmp"
-
-# define ELEVATOR_SWITCH_TEXTURE "assets/textures/lava.bmp"
 
 # include "libgmatrix.h"
 # include "animations_3d.h"
@@ -43,9 +27,6 @@
 */
 
 # define NUM_PROJECTILES 10
-# define NPC_PROJECTILE_00 "assets/textures/npc_projectile_texture.bmp"
-# define NPC_PROJECTILE_01 "assets/textures/npc_projectile_texture_green.bmp"
-# define NPC_PROJECTILE_02 "assets/textures/npc_projectile_texture_purple.bmp"
 
 /*
 ** Hurt trigger definitions

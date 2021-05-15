@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/14 16:43:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 20:27:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,6 @@ void	active_scene_content_set(t_doom3d *app)
 		app->active_scene->third_person_camera = new_camera();
 		error_check(!app->active_scene->main_camera, "Camera NULL");
 		error_check(!app->active_scene->third_person_camera, "Camera NULL");
-		LOG_INFO("Load Assets");
-		scene_assets_load(app->active_scene);
 	}
 	active_scene_mouse_mode_set(app);
 	active_scene_init(app);

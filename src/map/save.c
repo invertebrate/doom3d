@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 19:00:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 20:22:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,18 @@ static void	write_obj_content(int32_t fd, t_doom3d *app, t_3d_object *obj)
 	(void)ret;
 }
 
+/*
+** Write assets to only FIRST_LEVEL and only if we are in assed load mode
+*/
+
 static void	write_map(int32_t fd, t_doom3d *app)
 {
 	int32_t		i;
 	int32_t		ret;
 
 	ret = write(fd, "MAP\0", 4);
-	write_assets(fd, app);
+	if (app->is_asset_load && app->editor.editor_level == 0)
+		write_assets(fd, app);
 	ret = write(fd, &app->active_scene->num_objects, sizeof(uint32_t));
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects

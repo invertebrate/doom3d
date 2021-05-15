@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 18:35:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 22:22:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static void	set_new_object_textures_and_nmaps(t_doom3d *app,
 	t_surface	*texture;
 	t_surface	*normal_map;
 
-	texture = hash_map_get(app->active_scene->textures, (int64_t)texture_str);
+	texture = hash_map_get(app->assets.textures, (int64_t)texture_str);
 	obj->material->texture = texture;
 	if (texture != NULL)
 		hash_map_add(app->active_scene->object_textures,
 			obj->id, (void*)texture_str);
-	normal_map = hash_map_get(app->active_scene->textures,
+	normal_map = hash_map_get(app->assets.textures,
 			(int64_t)normal_map_str);
 	obj->material->normal_map = normal_map;
 	if (normal_map)
@@ -44,7 +44,7 @@ t_3d_object	*place_scene_object(t_doom3d *app, const char *filenames[3],
 	t_3d_object	*obj;
 	t_3d_object	*model;
 
-	model = hash_map_get(app->active_scene->models, (int64_t)filenames[0]);
+	model = hash_map_get(app->assets.models, (int64_t)filenames[0]);
 	if (!model)
 	{
 		LOG_ERROR("No existing model file (%s) given to place object. "

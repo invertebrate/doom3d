@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:19:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 17:18:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 20:30:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	scene_texture_files_set_sub3(t_asset_files *data)
 		= NPC_PROJECTILE_02;
 }
 
-void	scene_texture_files_set(t_asset_files *data)
+void	texture_files_set(t_asset_files *data)
 {
 	data->texture_files[data->num_textures++]
 		= "assets/textures/lava.bmp";

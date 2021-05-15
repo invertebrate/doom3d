@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:51:05 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/25 18:13:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 22:01:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Reading WAV-files into t_track struct
 */
 
-t_track	*read_sound(char *file, t_doom3d *app)
+t_track	*read_sound(t_sounds sound, t_doom3d *app)
 {
 	t_track			*ret;
 	SDL_AudioSpec	wave;
@@ -24,9 +24,9 @@ t_track	*read_sound(char *file, t_doom3d *app)
 	Uint32			dlen;
 	SDL_AudioCVT	cvt;
 
-	if (SDL_LoadWAV(file, &wave, &data, &dlen) == NULL)
+	if (!SDL_LoadWAV_RW(app->assets.sounds[sound], 0, &wave, &data, &dlen))
 	{
-		LOG_ERROR("Couldn't load %s: %s\n", file, SDL_GetError());
+		LOG_ERROR("Couldn't load sound %d: %s\n", sound, SDL_GetError());
 		return (NULL);
 	}
 	if (SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq,

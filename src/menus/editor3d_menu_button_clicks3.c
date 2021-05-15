@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 03:18:48 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 16:42:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 22:20:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	on_npc_menu_button_click(t_button *self, void *params)
 
 	app = params;
 	push_custom_event(app, event_editor_start_placement,
-		(void *)object_type_npc, hash_map_get(app->active_scene->npc_map,
+		(void *)object_type_npc, hash_map_get(app->assets.npc_map,
 			(int64_t)self->text));
 }
 
@@ -35,7 +35,7 @@ void	on_prefab_menu_button_click(t_button *self, void *params)
 	app = params;
 	push_custom_event(app, event_editor_start_placement,
 		(void *)object_type_default,
-		hash_map_get(app->active_scene->prefab_map,
+		hash_map_get(app->assets.prefab_map,
 			(int64_t)self->text));
 }
 
@@ -45,7 +45,7 @@ void	on_trigger_menu_button_click(t_button *self, void *params)
 	void			*get_res;
 
 	app = params;
-	get_res = hash_map_get(app->active_scene->trigger_map,
+	get_res = hash_map_get(app->assets.trigger_map,
 			(int64_t)self->text);
 	push_custom_event(app, event_editor_start_placement,
 		(void *)object_type_trigger, get_res);
@@ -57,7 +57,7 @@ void	on_light_menu_button_click(t_button *self, void *params)
 	void			*get_res;
 
 	app = params;
-	get_res = hash_map_get(app->active_scene->lights_map,
+	get_res = hash_map_get(app->assets.lights_map,
 			(int64_t)self->text);
 	push_custom_event(app, event_editor_start_placement,
 		(void *)object_type_light, get_res);

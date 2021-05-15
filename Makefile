@@ -45,6 +45,25 @@ CFLAGS =-Wall -Wextra -Werror -march=native -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
 			doom3d.c \
 			settings.c \
+			assets/cleanup.c \
+			assets/cleanup_sprites_and_hud.c \
+			assets/cleanup_animation3d.c \
+			assets/asset_load.c \
+			assets/asset_write.c \
+			assets/asset_loading/animations_3d.c \
+			assets/asset_loading/models.c \
+			assets/asset_loading/normal_maps.c \
+			assets/asset_loading/textures.c \
+			assets/asset_loading/sprites_and_hud.c \
+			assets/asset_loading/skybox.c \
+			assets/asset_loading/npcs.c \
+			assets/asset_loading/lights.c \
+			assets/asset_loading/triggers.c \
+			assets/asset_loading/triggers_drops.c \
+			assets/asset_loading/prefabs.c \
+			assets/asset_loading/fonts.c \
+			assets/asset_loading/sounds.c \
+			assets/asset_loading/sdl_assets.c \
 			player/player.c \
 			player/player_jump.c \
 			player/player_shoot.c \
@@ -143,21 +162,6 @@ SOURCES = main.c \
 			scene/scene.c \
 			scene/scene_menus.c \
 			scene/scene_update.c \
-			scene/cleanup.c \
-			scene/cleanup_sprites_and_hud.c \
-			scene/cleanup_animation3d.c \
-			scene/scene_assets.c \
-			scene/asset_loading/animations_3d.c \
-			scene/asset_loading/models.c \
-			scene/asset_loading/normal_maps.c \
-			scene/asset_loading/textures.c \
-			scene/asset_loading/sprites_and_hud.c \
-			scene/asset_loading/skybox.c \
-			scene/asset_loading/npcs.c \
-			scene/asset_loading/lights.c \
-			scene/asset_loading/triggers.c \
-			scene/asset_loading/triggers_drops.c \
-			scene/asset_loading/prefabs.c \
 			scene/scene_content.c \
 			scene/camera/camera.c \
 			scene/camera/update.c \
@@ -183,7 +187,6 @@ SOURCES = main.c \
 			map/object_read_utils.c \
 			map/filename_keys.c \
 			map/write_utils.c \
-			map/write_assets.c \
 			render/render.c \
 			render/render_parallel.c \
 			render/render_parallel_work.c \
@@ -295,6 +298,7 @@ libs:
 
 $(DIR_OBJ):
 	@mkdir -p temp
+	@mkdir -p temp/assets
 	@mkdir -p temp/menus
 	@mkdir -p temp/map
 	@mkdir -p temp/scene

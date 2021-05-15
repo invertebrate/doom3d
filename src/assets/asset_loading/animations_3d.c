@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:53:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 17:48:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 20:39:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	scene_animation_3d_frames_set(t_asset_files *data,
 ** each object has their animations in a contiguous chunk in the array.
 */
 
-void	scene_animation_3d_files_set(t_asset_files *data)
+void	animation_3d_files_set(t_asset_files *data)
 {
 	scene_animation_3d_frames_set(data,
 		"assets/models/monster_01/monster01_basemodel", 1);
@@ -69,14 +69,15 @@ void	scene_animation_3d_files_set(t_asset_files *data)
 		"assets/models/monster_02/death/monster02_death", 32);
 }
 
-void	load_animation_3d_frames_to_memory(t_scene *scene,
+void	load_animation_3d_frames_to_memory(t_assets *assets,
 					t_asset_files *data)
 {
 	int		i;
 
 	i = -1;
 	while (++i < (int32_t)data->num_animation_frames_3d)
-		hash_map_add(scene->animation_3d_frames,
-			(int64_t)scene->asset_files.animation_3d_files[i],
-			l3d_read_obj(scene->asset_files.animation_3d_files[i], NULL, NULL));
+		hash_map_add(assets->animation_3d_frames,
+			(int64_t)assets->asset_files.animation_3d_files[i],
+			l3d_read_obj(assets->asset_files.animation_3d_files[i],
+			NULL, NULL));
 }
