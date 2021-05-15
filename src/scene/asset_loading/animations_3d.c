@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animations_3d.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:53:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 16:10:44 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/15 17:48:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	load_animation_3d_frames_to_memory(t_scene *scene,
 {
 	int		i;
 
-	scene->animation_3d_frames = hash_map_create(ANIM_3D_FRAME_MAX);
 	i = -1;
 	while (++i < (int32_t)data->num_animation_frames_3d)
 		hash_map_add(scene->animation_3d_frames,

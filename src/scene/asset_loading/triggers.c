@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   triggers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:44:56 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 16:21:47 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/15 17:51:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static void	soundbox_load(t_scene *scene)
 
 void	triggers_load(t_scene *scene)
 {
-	scene->trigger_map = hash_map_create(MAX_ASSETS);
 	level_end_start_load(scene);
 	weapon_drops_load(scene);
 	item_drops_load(scene);

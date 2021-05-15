@@ -120,6 +120,7 @@ SOURCES = main.c \
 			scene_objects/object_is_ignored.c \
 			scene_objects/object_next_index.c \
 			scene_objects/object_scene_placement.c \
+			scene_objects/object_scene_placement_utils.c \
 			scene_objects/object_update.c \
 			scene_objects/object_update_utils.c \
 			scene_objects/game_end.c \
@@ -143,13 +144,14 @@ SOURCES = main.c \
 			scene/scene_menus.c \
 			scene/scene_update.c \
 			scene/cleanup.c \
+			scene/cleanup_sprites_and_hud.c \
 			scene/cleanup_animation3d.c \
 			scene/scene_assets.c \
 			scene/asset_loading/animations_3d.c \
 			scene/asset_loading/models.c \
 			scene/asset_loading/normal_maps.c \
 			scene/asset_loading/textures.c \
-			scene/asset_loading/sprites.c \
+			scene/asset_loading/sprites_and_hud.c \
 			scene/asset_loading/skybox.c \
 			scene/asset_loading/npcs.c \
 			scene/asset_loading/lights.c \

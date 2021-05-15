@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 12:54:08 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/14 16:20:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 17:30:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	shoot_bullet_effect(t_doom3d *app, t_hit *hit, t_vec3 dir,
 	model = l3d_plane_create(NULL, NULL);
 	hit_effect = place_procedural_temp_object(app,
 			(t_procedural_tmp_obj_params){.model = model,
-			.texture = effect_key, .normal_map = NULL,
+			.texture = effect_key,
 			.lifetime = 100, .delay = 0}, pos);
 	hit_effect->material->shading_opts |= e_shading_standard
 		| e_shading_luminous;
@@ -49,10 +49,10 @@ void	handle_shoot_hit(t_doom3d *app, t_hit *closest_triangle_hit,
 	check_npc_hearing(app, closest_triangle_hit->hit_point);
 	if (app->player.equipped_weapon->id != weapon_fist && !is_blood)
 		shoot_bullet_effect(app, closest_triangle_hit, dir,
-			"assets/textures/explosion1.bmp");
+			"assets/animations/explosion1.bmp");
 	else if (is_blood)
 		shoot_bullet_effect(app, closest_triangle_hit, dir,
-			"assets/textures/blood.bmp");
+			"assets/animations/blood.bmp");
 	if (closest_triangle_hit->triangle->parent->type == object_type_npc
 		&& closest_triangle_hit->triangle->parent->params_type
 		!= npc_type_elevator)

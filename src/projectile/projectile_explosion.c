@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile_explosion.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phakakos <phakakos@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 15:43:05 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/05 15:43:06 by phakakos         ###   ########.fr       */
+/*   Updated: 2021/05/15 17:30:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ static void	explosion_place(t_doom3d *app, t_3d_object **explosions,
 {
 	explosions[0] = place_procedural_temp_object(app,
 			(t_procedural_tmp_obj_params){.model = model,
-			.texture = "assets/textures/explosion1.bmp", .normal_map = NULL,
+			.texture = "assets/animations/explosion1.bmp",
 			.lifetime = 100, .delay = 0}, pos);
 	explosions[1] = place_procedural_temp_object(app,
 			(t_procedural_tmp_obj_params){.model = model,
-			.texture = "assets/textures/explosion2.bmp", .normal_map = NULL,
+			.texture = "assets/animations/explosion2.bmp",
 			.lifetime = 100, .delay = 100}, pos);
 	explosions[2] = place_procedural_temp_object(app,
 			(t_procedural_tmp_obj_params){.model = model,
-			.texture = "assets/textures/explosion3.bmp", .normal_map = NULL,
+			.texture = "assets/animations/explosion3.bmp",
 			.lifetime = 100, .delay = 200}, pos);
 	explosions[3] = place_procedural_temp_object(app,
 			(t_procedural_tmp_obj_params){.model = model,
-			.texture = "assets/textures/explosion4.bmp", .normal_map = NULL,
+			.texture = "assets/animations/explosion4.bmp",
 			.lifetime = 100, .delay = 300}, pos);
 	explosions[4] = place_temp_object(app,
 			(const char*[2]){"assets/models/light_sphere.obj", NULL},

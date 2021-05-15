@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prefabs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:48:35 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 16:22:31 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/15 17:51:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	prefabs_load(t_scene *scene)
 {
-	scene->prefab_map = hash_map_create(MAX_ASSETS);
 	scene->asset_files.prefab_names[scene->asset_files.num_prefabs] = "Plane";
 	hash_map_add(scene->prefab_map,
 		(int64_t)scene->asset_files.prefab_names[

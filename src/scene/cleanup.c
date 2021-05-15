@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 14:20:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 18:06:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@ void	scene_textures_destroy(t_scene *scene)
 	}
 	hash_map_destroy_free(scene->textures);
 	hash_map_destroy(scene->object_textures);
-	i = -1;
-	while (++i < (int32_t)scene->asset_files.num_hud_sprites)
-	{
-		texture = hash_map_get(scene->hud_textures,
-				(int64_t)scene->asset_files.hud_sprite_files[i]);
-		if (texture)
-			free(texture->pixels);
-	}
-	hash_map_destroy_free(scene->hud_textures);
 }
 
 void	scene_normal_maps_destroy(t_scene *scene)
@@ -55,7 +46,7 @@ void	scene_normal_maps_destroy(t_scene *scene)
 	hash_map_destroy(scene->object_normal_maps);
 }
 
-void	scene_assets_destroy(t_scene *scene)
+void	scene_model_assets_destroy(t_scene *scene)
 {
 	t_3d_object	*model;
 	int32_t		i;
@@ -73,7 +64,6 @@ void	scene_assets_destroy(t_scene *scene)
 	hash_map_destroy(scene->prefab_map);
 	hash_map_destroy(scene->trigger_map);
 	hash_map_destroy(scene->lights_map);
-	scene_animations_3d_destroy(scene);
 }
 
 void	scene_skybox_destroy(t_scene *scene)

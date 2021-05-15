@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 16:22:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 17:29:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ t_3d_object	*place_procedural_scene_object(t_doom3d *app,
 }
 
 /*
-** Place object from model (add textures from memory)
+** Place object by model filename (add textures from memory)
 */
 
-t_3d_object	*place_temp_object(t_doom3d *app, const char *filenames[3],
+t_3d_object	*place_temp_object(t_doom3d *app, const char *filenames[2],
 						t_vec3 pos, int32_t lifetime_and_delay[2])
 {
 	t_3d_object	*obj;
@@ -108,7 +108,7 @@ t_3d_object	*place_temp_object(t_doom3d *app, const char *filenames[3],
 		return (NULL);
 	}
 	obj = l3d_object_instantiate(model, app->unit_size);
-	set_new_object_textures_and_nmaps(app, obj, filenames[1], filenames[2]);
+	set_temp_object_sprite_texture(app, obj, filenames[1]);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
 		lifetime_and_delay);
@@ -119,7 +119,7 @@ t_3d_object	*place_temp_object(t_doom3d *app, const char *filenames[3],
 }
 
 /*
-** Place object from model (add textures from memory)
+** Place object by t_3d_object *model (add textures from memory)
 */
 
 t_3d_object	*place_procedural_temp_object(t_doom3d *app,
@@ -134,8 +134,7 @@ t_3d_object	*place_procedural_temp_object(t_doom3d *app,
 		return (NULL);
 	}
 	obj = l3d_object_instantiate(params.model, app->unit_size);
-	set_new_object_textures_and_nmaps(app, obj,
-		params.texture, params.normal_map);
+	set_temp_object_sprite_texture(app, obj, params.texture);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
 		(int32_t[2]){params.lifetime, params.delay});

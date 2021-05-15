@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:45:08 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 16:39:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 17:51:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	lights_load(t_scene *scene)
 {
-	scene->lights_map = hash_map_create(MAX_ASSETS);
 	scene->asset_files.light_names[scene->asset_files.num_lights]
 		= "White Light";
 	hash_map_add(scene->lights_map, (int64_t)scene->asset_files.light_names[

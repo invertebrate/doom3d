@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/14 16:21:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 18:03:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,6 @@ typedef struct s_procedural_tmp_obj_params
 {
 	t_3d_object	*model;
 	const char	*texture;
-	const char	*normal_map;
 	int32_t		lifetime;
 	int32_t		delay;
 }				t_procedural_tmp_obj_params;
@@ -733,6 +732,8 @@ t_3d_object					*find_object_by_id(t_doom3d *app, uint32_t id);
 
 void						load_sprites_to_memory(t_scene *scene,
 								t_asset_files *data);
+void						load_hud_textures_to_memory(t_scene *scene,
+								t_asset_files *data);
 void						prefabs_load(t_scene *scene);
 void						triggers_load(t_scene *scene);
 void						lights_load(t_scene *scene);
@@ -744,6 +745,7 @@ void						load_animation_3d_frames_to_memory(t_scene *scene,
 								t_asset_files *data);
 void						scene_animation_sprite_files_set(t_asset_files
 								*data);
+void						scene_hud_icon_files_set(t_asset_files *data);
 void						scene_texture_files_set(t_asset_files *data);
 void						scene_model_files_set(t_asset_files *data);
 void						scene_animation_3d_files_set(t_asset_files *data);
@@ -758,10 +760,11 @@ void						scene_map_init(t_scene *scene);
 void						scene_cameras_destroy(t_scene *scene);
 void						scene_objects_destroy(t_scene *scene);
 void						scene_skybox_destroy(t_scene *scene);
-void						scene_assets_destroy(t_scene *scene);
+void						scene_model_assets_destroy(t_scene *scene);
 void						scene_animations_3d_destroy(t_scene *scene);
 void						scene_textures_destroy(t_scene *scene);
 void						scene_normal_maps_destroy(t_scene *scene);
+void						scene_sprites_and_hud_destroy(t_scene *scene);
 void						active_scene_popup_menu_destroy(t_doom3d *app);
 void						extend_all_objects_shading_opts(t_doom3d *app,
 								t_shading_opts opts_to_add);
@@ -822,6 +825,9 @@ t_3d_object					*place_temp_object(t_doom3d *app,
 t_3d_object					*place_procedural_temp_object(t_doom3d *app,
 								t_procedural_tmp_obj_params params,
 								t_vec3 pos);
+void						set_temp_object_sprite_texture(t_doom3d *app,
+								t_3d_object *obj,
+								const char *texture_str);
 void						get_mouse_world_position(t_doom3d *app,
 								t_vec3 mouse_world_pos);
 void						select_object(t_doom3d *app, t_3d_object *object);

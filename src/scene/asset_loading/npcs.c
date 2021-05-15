@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npcs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:41:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 14:55:13 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/15 17:51:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	weird_npcs_load(t_scene *scene)
 
 void	npcs_load(t_scene *scene)
 {
-	scene->npc_map = hash_map_create(MAX_ASSETS);
 	scene->asset_files.npc_names[scene->asset_files.num_npcs] = "Monster01";
 	hash_map_add(scene->npc_map,
 		(int64_t)scene->asset_files.npc_names[scene->asset_files.num_npcs++],

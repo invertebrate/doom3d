@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:19:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 22:36:00 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/15 17:18:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,6 @@ static void	scene_texture_files_set_sub1(t_asset_files *data)
 		= "assets/textures/pistol_texture.bmp";
 	data->texture_files[data->num_textures++]
 		= "assets/textures/rpg_texture.bmp";
-	data->texture_files[data->num_textures++]
-		= "assets/textures/explosion1.bmp";
-	data->texture_files[data->num_textures++]
-		= "assets/textures/explosion2.bmp";
-	data->texture_files[data->num_textures++]
-		= "assets/textures/explosion3.bmp";
-	data->texture_files[data->num_textures++]
-		= "assets/textures/explosion4.bmp";
-	data->texture_files[data->num_textures++] = "assets/textures/blood.bmp";
 }
 
 static void	scene_texture_files_set_sub2(t_asset_files *data)
