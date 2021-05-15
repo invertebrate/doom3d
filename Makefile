@@ -299,11 +299,11 @@ libs:
 $(DIR_OBJ):
 	@mkdir -p temp
 	@mkdir -p temp/assets
+	@mkdir -p temp/assets/asset_loading
 	@mkdir -p temp/menus
 	@mkdir -p temp/map
 	@mkdir -p temp/scene
 	@mkdir -p temp/scene/camera
-	@mkdir -p temp/scene/asset_loading
 	@mkdir -p temp/scene/scene_menus
 	@mkdir -p temp/editor
 	@mkdir -p temp/window

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:52:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 22:07:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 22:24:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	sounds_load(t_assets *assets)
 	assets->sounds[sf_audio_log_18] = sdl_asset_as_memory(SF_AUDIO_LOG_18);
 	assets->sounds[sf_audio_log_19] = sdl_asset_as_memory(SF_AUDIO_LOG_19);
 	assets->sounds[sf_audio_log_20] = sdl_asset_as_memory(SF_AUDIO_LOG_20);
+	sounds_load_sub(assets);
 }
 
 void	sounds_destroy(t_assets *assets)

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 20:27:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 22:26:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	scene_game_init(t_doom3d *app)
 	t_3d_object		*end;
 
 	l3d_skybox_create(app->active_scene->skybox,
-		app->active_scene->skybox_textures, app->unit_size);
+		app->assets.skybox_textures, app->unit_size);
 	read_map(app, app->level_list[app->current_level]);
 	start = find_one_object_by_type(app, object_type_trigger,
 			trigger_player_start);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 21:31:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 22:30:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "libft.h"
 # include "lib3d.h"
-# include "assets.h"
 
 # ifdef __APPLE__
 #  include <SDL.h>
@@ -182,8 +181,6 @@ void						window_frame_clear(t_window *window,
 								uint32_t clear_color);
 void						window_resize(t_window *window,
 								int32_t width, int32_t height);
-void						window_set_fonts(t_window *window,
-								t_assets *assets);
 
 /*
 ** Text
