@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 16:05:38 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 16:07:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 16:15:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ret_new_line(char **remainder, char **line, int ret)
 
 	if (ret < 0)
 		return (-1);
-	else if (ret == false && (*remainder == NULL || (*remainder)[0] == '\0'))
+	else if (ret == 0 && (*remainder == NULL || (*remainder)[0] == '\0'))
 		return (0);
 	len = 0;
 	while ((*remainder)[len] != '\0' && (*remainder)[len] != '\n')
@@ -81,7 +81,7 @@ int	get_next_line(const int fd, char **line)
 	char				buf[BUFF_SIZE + 1];
 	static char			*remainders[MAX_FD];
 
-	if (fd < 0 || line == NULL || fd > MAX_FD)
+	if (fd < 0 || line == NULL || *line == NULL || fd > MAX_FD)
 		return (-1);
 	if (remainders[fd] && ft_strchr(remainders[fd], '\n'))
 		return (ret_new_line(&(remainders[fd]), line, 1));
