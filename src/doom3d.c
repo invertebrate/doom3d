@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 22:16:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 23:11:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void	doom3d_run(t_doom3d *app)
 	int32_t	cpu_count;
 	int32_t	num_threads;
 
+	assets_load(app);
 	cpu_count = SDL_GetCPUCount();
 	num_threads = ft_max_int((int32_t[2]){
 			NUM_THREADS_DEFAULT, cpu_count}, 2);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:51:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 20:38:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 22:57:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	handle_scene_change(t_doom3d *app, t_scene_id scene_id)
 {
 	if (scene_id == scene_id_editor3d)
 	{
-		if (app->is_asset_load)
+		if (!app->is_asset_load)
 		{
 			notify_user(app, (t_notification){.message
 				= "To use editor, you must start app in asset load mode",

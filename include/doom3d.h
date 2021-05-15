@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 22:31:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 23:11:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -756,7 +756,7 @@ void						finish_level(t_doom3d *app, t_3d_object *end_obj);
 ** Assets
 */
 
-void						doom_nukem_assets_load(t_doom3d *app);
+void						assets_load(t_doom3d *app);
 void						load_sprites_to_memory(t_assets *assets,
 								t_asset_files *data);
 void						load_hud_textures_to_memory(t_assets *assets,

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 21:30:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 22:56:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ static int	window_resize_callback(void *data, SDL_Event *event)
 void	window_set_fonts(t_window *window, t_assets *assets)
 {
 	window->main_font
-		= TTF_OpenFontRW(assets->main_font, false, FONT_SIZE);
+		= TTF_OpenFontRW(assets->main_font, 1, FONT_SIZE);
 	error_check(window->main_font == NULL, TTF_GetError());
 	window->small_font
-		= TTF_OpenFontRW(assets->small_font, false, FONT_SIZE * 0.36);
+		= TTF_OpenFontRW(assets->small_font, 1, FONT_SIZE * 0.36);
 	error_check(window->small_font == NULL, TTF_GetError());
 	window->title_font
-		= TTF_OpenFontRW(assets->title_font, false, FONT_SIZE * 1.5);
+		= TTF_OpenFontRW(assets->title_font, 1, FONT_SIZE * 1.5);
 	error_check(window->title_font == NULL, TTF_GetError());
 }
 

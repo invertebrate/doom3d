@@ -49,6 +49,7 @@ SOURCES = main.c \
 			assets/cleanup_sprites_and_hud.c \
 			assets/cleanup_animation3d.c \
 			assets/asset_load.c \
+			assets/asset_load_from_first_level.c \
 			assets/asset_write.c \
 			assets/asset_loading/animations_3d.c \
 			assets/asset_loading/models.c \
@@ -282,7 +283,10 @@ $(NAME): $(OBJS)
 	@make libs
 	@printf "\033[32;1mCompiling app...\n\033[0m"
 	$(CC) -o $@ $^ $(LIBS) $(CFLAGS)
-	@printf "\033[32;1mDone. Run: ./$(NAME)\n\033[0m"
+	@printf "\033[32;1mDone.\n\033[0m"
+	@printf "\033[32;1mRun standalone with first map: ./$(NAME)\n\033[0m"
+	@printf "\033[32;1mRun all levels by executing inside this directory\n\033[0m"
+	@printf "\033[32;1mRun with loaded assets ./$(NAME) --load-assets\n\033[0m"
 
 debug: $(OBJS)
 	@make libs
