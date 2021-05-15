@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:04:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 16:13:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 17:08:04 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	read_level_list(t_doom3d *app)
 		ft_strdel(&app->level_list[i]);
 	ft_memset(app->level_list, 0, sizeof(app->level_list));
 	level_list = "assets/map_data/level_list.txt";
-	fd = open(level_list, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	fd = open(level_list, O_RDONLY | O_CREAT, 0644);
 	if (fd == -1)
 	{
 		LOG_ERROR("Failed to open file %s", level_list);
@@ -55,13 +55,13 @@ void	write_savename_to_level_list(t_doom3d *app)
 
 	level = NULL;
 	level_list = "assets/map_data/level_list.txt";
-	fd = open(level_list, O_RDWR);
+	fd = open(level_list, O_RDWR | O_CREAT, 0644);
 	if (fd == -1)
 	{
 		LOG_ERROR("Failed to open file %s", level_list);
 		exit(EXIT_FAILURE);
 	}
-	while (get_next_line(fd, &level))
+	while (get_next_line(fd, &level) > 0)
 		ft_strdel(&level);
 	ret = write(fd, app->editor.editor_filename,
 			ft_strlen(app->editor.editor_filename));
