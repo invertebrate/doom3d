@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 18:03:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 18:35:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -818,10 +818,6 @@ t_3d_object					*place_procedural_scene_object(t_doom3d *app,
 								t_3d_object *model,
 								const char *filenames[2],
 								t_vec3 pos);
-t_3d_object					*place_temp_object(t_doom3d *app,
-								const char *filenames[3],
-								t_vec3 pos,
-								int32_t lifetime_and_delay[2]);
 t_3d_object					*place_procedural_temp_object(t_doom3d *app,
 								t_procedural_tmp_obj_params params,
 								t_vec3 pos);

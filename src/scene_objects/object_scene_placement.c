@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 17:29:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 18:35:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,34 +87,6 @@ t_3d_object	*place_procedural_scene_object(t_doom3d *app,
 	active_scene_update_after_objects(app);
 	if (app->is_debug)
 		LOG_DEBUG("New procedural object id %d", obj->id);
-	return (obj);
-}
-
-/*
-** Place object by model filename (add textures from memory)
-*/
-
-t_3d_object	*place_temp_object(t_doom3d *app, const char *filenames[2],
-						t_vec3 pos, int32_t lifetime_and_delay[2])
-{
-	t_3d_object	*obj;
-	t_3d_object	*model;
-
-	model = hash_map_get(app->active_scene->models, (int64_t)filenames[0]);
-	if (!model)
-	{
-		LOG_ERROR("No existing model file (%s) given to place object. "
-			"Add it in scene/asset_loading", filenames[0]);
-		return (NULL);
-	}
-	obj = l3d_object_instantiate(model, app->unit_size);
-	set_temp_object_sprite_texture(app, obj, filenames[1]);
-	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
-	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
-		lifetime_and_delay);
-	if (app->is_debug)
-		LOG_DEBUG("New temp object id %d", obj->id);
-	obj->material->flashlight = &(app->player.flashlight);
 	return (obj);
 }
 

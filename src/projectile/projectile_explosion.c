@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 15:43:05 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/15 17:30:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 18:34:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,10 @@ static void	explosion_place(t_doom3d *app, t_3d_object **explosions,
 			(t_procedural_tmp_obj_params){.model = model,
 			.texture = "assets/animations/explosion4.bmp",
 			.lifetime = 100, .delay = 300}, pos);
-	explosions[4] = place_temp_object(app,
-			(const char*[2]){"assets/models/light_sphere.obj", NULL},
-			pos, (int32_t[2]){400, 0});
+	explosions[4] = place_procedural_temp_object(app,
+			(t_procedural_tmp_obj_params){.model = model,
+			.texture = NULL,
+			.lifetime = 400, .delay = 0}, pos);
 }
 
 static void	init_explosions(t_doom3d *app, t_3d_object **explosions,
