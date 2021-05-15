@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 18:35:56 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/15 16:26:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+static void	validate_map_file(t_file_contents *file, const char *map_name,
+				char *filename)
+{
+	if (!map_name)
+	{
+		LOG_FATAL("Map filename %s, ensure the level_list.txt has a map name",
+			map_name);
+		exit(EXIT_FAILURE);
+	}
+	if (!file)
+	{
+		LOG_FATAL("Failed to read %s, check assets/map_data/", filename);
+		exit(EXIT_FAILURE);
+	}
+}
 
 /*
 ** Read map data onto active scene from char *map_name file
@@ -26,11 +42,7 @@ void	read_map(t_doom3d *app, const char *map_name)
 	ft_sprintf(filename, "assets/map_data/%s", map_name);
 	LOG_INFO("Read map %s", filename);
 	file = read_file(filename);
-	if (!file)
-	{
-		LOG_INFO("Failed to read %s, check assets/map_data/", filename);
-		exit(EXIT_FAILURE);
-	}
+	validate_map_file(file, map_name, filename);
 	ft_memcpy(&header, file->buf, (offset = 4));
 	if (!ft_strequ(header, "MAP\0"))
 		error_check(true, "Invalid map file. First 4 bytes must be MAP\0");
