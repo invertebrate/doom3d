@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 19:43:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 20:12:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,7 @@ void	doom3d_run(t_doom3d *app)
 {
 	int32_t	cpu_count;
 	int32_t	num_threads;
-	int32_t	fd;
-	char	level1[128];
 
-	ft_sprintf(level1, "assets/map_data/%s", FIRST_LEVEL);
-	fd = open(level1, O_RDONLY);
-	error_check(fd == -1, "Level1 not found. Level1 is needed for doom to run");
-	close(fd);
 	cpu_count = SDL_GetCPUCount();
 	num_threads = ft_max_int((int32_t[2]){
 			NUM_THREADS_DEFAULT, cpu_count}, 2);

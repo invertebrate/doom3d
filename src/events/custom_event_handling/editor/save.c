@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 17:10:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 20:19:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,13 @@ void	handle_editor_save_end(t_doom3d *app)
 
 void	handle_editor_save_type(t_doom3d *app, char *text)
 {
+	if (app->editor.editor_level == 0)
+	{
+		notify_user(app, (t_notification){.message
+			= "Cant edit first level name",
+			.time = 2000, .type = notification_type_info});
+		return ;
+	}
 	app->editor.is_saved = false;
 	ft_strcat(app->editor.editor_savename, text);
 	ft_strdel(&text);
@@ -94,6 +101,13 @@ void	handle_editor_save_type_backspace(t_doom3d *app)
 {
 	int32_t		length;
 
+	if (app->editor.editor_level == 0)
+	{
+		notify_user(app, (t_notification){.message
+			= "Cant edit first level name",
+			.time = 2000, .type = notification_type_info});
+		return ;
+	}
 	app->editor.is_saved = false;
 	length = ft_strlen(app->editor.editor_savename);
 	if (length > 0)
