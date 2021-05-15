@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 19:00:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 19:21:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@
 # define WIDTH 960
 # define HEIGHT 540
 # define NAME "Doom3D"
+
+/*
+** First level is one that will always come with the executable
+*/
+
+# define FIRST_LEVEL "level1"
 
 # define GAME_VIEW_DIST_UNITS 150
 # define EDITOR_VIEW_DIST_UNITS 450

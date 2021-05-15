@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:04:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 17:08:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 19:27:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	read_level_list(t_doom3d *app)
 	while (++i < (int32_t)app->num_levels)
 		ft_strdel(&app->level_list[i]);
 	ft_memset(app->level_list, 0, sizeof(app->level_list));
+	app->level_list[0] = ft_strdup(FIRST_LEVEL);
 	level_list = "assets/map_data/level_list.txt";
 	fd = open(level_list, O_RDONLY | O_CREAT, 0644);
 	if (fd == -1)
@@ -35,10 +36,10 @@ void	read_level_list(t_doom3d *app)
 		exit(EXIT_FAILURE);
 		return ;
 	}
-	i = 0;
+	i = 1;
 	while (get_next_line(fd, &app->level_list[i]) > 0)
 		i++;
-	app->num_levels = i;
+	app->num_levels += i;
 	if (close(fd) == -1)
 	{
 		LOG_ERROR("Failed to close file %s", level_list);
