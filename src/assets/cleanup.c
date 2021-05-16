@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 19:31:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 19:45:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ static void	skybox_destroy(t_assets *assets)
 void	assets_destroy(t_assets *assets)
 {
 	skybox_destroy(assets);
-	model_assets_destroy(assets);
-	normal_maps_destroy(assets);
-	textures_destroy(assets);
 	sprites_and_hud_destroy(assets);
 	animations_3d_destroy(assets);
-	fonts_destroy(assets);
+	model_assets_destroy(assets);
+	textures_destroy(assets);
+	normal_maps_destroy(assets);
 	sounds_destroy(assets);
+	fonts_destroy(assets);
 }

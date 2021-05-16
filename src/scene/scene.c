@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 20:44:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 19:46:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	scene_destroy(t_doom3d *app)
 			app->active_scene->triangle_ref = NULL;
 		}
 		scene_objects_destroy(app->active_scene);
+		scene_cameras_destroy(app->active_scene);
 	}
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
