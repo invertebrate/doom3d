@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 20:40:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 22:36:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -785,11 +785,12 @@ void						load_fonts(t_assets *assets);
 void						sounds_destroy(t_assets *assets);
 void						load_sounds(t_assets *assets);
 SDL_RWops					*sdl_asset_as_memory(const char *filename);
+uint32_t					get_sdl_assets_write_size(t_assets *assets);
 void						write_assets(int32_t fd, t_doom3d *app);
 void						load_assets_from_first_level(t_doom3d *app);
 void						window_set_fonts(t_window *window,
 								t_assets *assets);
-size_t						get_assets_write_size(t_assets *assets);
+uint32_t					get_assets_write_size(t_doom3d *app);
 
 /*
 ** Editor

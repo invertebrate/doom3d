@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 17:27:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 21:45:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 22:29:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ void						hash_map_add(t_hash_table *table, int64_t key,
 								void *val);
 t_bool						hash_map_has_key(t_hash_table *table, int64_t key);
 void						hash_map_foreach(t_hash_table *table,
-								void (*f)(int64_t key, void *val, void *params),
-								void *params);
+								void (*f)(int64_t key, void *val,
+									void *params1, void *params2),
+								void *params1, void *params2);
+uint32_t					hash_map_get_count(t_hash_table *table);
 
 #endif
