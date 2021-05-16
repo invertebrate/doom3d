@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 19:29:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 20:09:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void	assets_load(t_doom3d *app)
 		load_hud_textures_to_memory(assets, &assets->asset_files);
 		load_animation_3d_frames_to_memory(assets, &assets->asset_files);
 		load_models_textures_and_nmaps_to_memory(assets, &assets->asset_files);
-		sounds_load(assets);
-		fonts_load(assets);
+		load_sounds(assets);
+		load_fonts(assets);
 	}
 	else
 		load_assets_from_first_level(app);

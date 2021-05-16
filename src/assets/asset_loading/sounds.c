@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:52:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 19:36:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 20:09:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	sounds_load_sub(t_assets *assets)
 	assets->sounds[sf_spawn] = sdl_asset_as_memory(SF_SPAWN);
 }
 
-void	sounds_load(t_assets *assets)
+void	load_sounds(t_assets *assets)
 {
 	assets->sounds[mu_main] = sdl_asset_as_memory(TRACK1);
 	assets->sounds[mu_doom] = sdl_asset_as_memory(TRACK2);

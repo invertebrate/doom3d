@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 23:11:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 20:09:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -781,9 +781,9 @@ void						assets_destroy(t_assets *assets);
 void						animations_3d_destroy(t_assets *assets);
 void						sprites_and_hud_destroy(t_assets *assets);
 void						fonts_destroy(t_assets *assets);
-void						fonts_load(t_assets *assets);
+void						load_fonts(t_assets *assets);
 void						sounds_destroy(t_assets *assets);
-void						sounds_load(t_assets *assets);
+void						load_sounds(t_assets *assets);
 SDL_RWops					*sdl_asset_as_memory(const char *filename);
 void						write_assets(int32_t fd, t_doom3d *app);
 void						load_assets_from_first_level(t_doom3d *app);
