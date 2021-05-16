@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 00:35:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 00:47:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -871,10 +871,6 @@ void						trigger_update_key_id(t_doom3d *app,
 void						draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
 								t_box3d *aabb, uint32_t color);
 void						editor_duplicate_selected_objects(t_doom3d *app);
-char						*get_object_normal_map_filename(t_scene *scene,
-								t_3d_object *obj);
-char						*get_object_texture_filename(t_scene *scene,
-								t_3d_object *obj);
 uint32_t					get_light_emit_color(t_3d_object *light_obj);
 t_shading_opts				get_light_shading(t_light_type
 								light_type);

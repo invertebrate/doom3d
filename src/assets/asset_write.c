@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:10:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 00:39:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 00:43:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,16 +131,18 @@ void	write_assets(int32_t fd, t_doom3d *app)
 {
 	uint32_t	assets_write_size;
 	t_assets	*assets;
-	uint32_t	i;
-	int32_t		ret;
+	// uint32_t	i;
+	// int32_t		ret;
 
+	(void)fd;
+	(void)write_asset_maps;
 	assets = &app->assets;
 	assets_write_size = get_assets_write_size(app);
 	LOG_WARN("Writing assets of size: %llu bytes", assets_write_size);
-	ret = write(fd, "ASSETS\0", 7);
-	i = -1;
-	while (++i < 6)
-		write_surface(0, assets->skybox_textures[i], &fd, NULL);
-	write_asset_maps(fd, app);
-	write_sdl_assets(fd, assets);
+	// ret = write(fd, "ASSETS\0", 7);
+	// i = -1;
+	// while (++i < 6)
+	// 	write_surface(0, assets->skybox_textures[i], &fd, NULL);
+	// write_asset_maps(fd, app);
+	// write_sdl_assets(fd, assets);
 }

@@ -6,11 +6,32 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 20:22:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 00:51:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+static void	write_3d_object_surfaces(int32_t fd, t_3d_object *obj)
+{
+	const char		*texture_file;
+	const char		*normal_map_file;
+	int32_t			len;
+	int32_t			ret;
+
+	texture_file = NULL;
+	if (obj->material->texture)
+		texture_file = obj->material->texture->filename;
+	normal_map_file = NULL;
+	if (obj->material->normal_map)
+		normal_map_file =  obj->material->normal_map->filename;
+	len = ft_strlen(texture_file);
+	ret = write(fd, &len, sizeof(uint32_t));
+	ret = write(fd, texture_file, len);
+	len = ft_strlen(normal_map_file);
+	ret = write(fd, &len, sizeof(uint32_t));
+	ret = write(fd, normal_map_file, len);
+}
 
 /*
 ** Write object content in bytes (Order is Important!)
@@ -21,12 +42,9 @@
 ** 5. Write shading opts
 */
 
-static void	write_obj_content(int32_t fd, t_doom3d *app, t_3d_object *obj)
+static void	write_obj_content(int32_t fd, t_3d_object *obj)
 {
 	int32_t			i;
-	char			*texture_file;
-	char			*normal_map_file;
-	int32_t			len;
 	int32_t			ret;
 
 	ret = write(fd, obj, sizeof(t_3d_object));
@@ -36,14 +54,7 @@ static void	write_obj_content(int32_t fd, t_doom3d *app, t_3d_object *obj)
 	i = -1;
 	while (++i < (int32_t)obj->num_triangles)
 		ret = write(fd, &obj->triangles[i], sizeof(t_triangle));
-	texture_file = get_object_texture_filename(app->active_scene, obj);
-	len = ft_strlen(texture_file);
-	ret = write(fd, &len, sizeof(uint32_t));
-	ret = write(fd, texture_file, len);
-	normal_map_file = get_object_normal_map_filename(app->active_scene, obj);
-	len = ft_strlen(normal_map_file);
-	ret = write(fd, &len, sizeof(uint32_t));
-	ret = write(fd, normal_map_file, len);
+	write_3d_object_surfaces(fd, obj);
 	ret = write(fd, &obj->material->shading_opts, sizeof(uint32_t));
 	(void)ret;
 }
@@ -65,7 +76,7 @@ static void	write_map(int32_t fd, t_doom3d *app)
 	while (++i < (int32_t)(app->active_scene->num_objects
 		+ app->active_scene->num_deleted))
 		if (app->active_scene->objects[i])
-			write_obj_content(fd, app, app->active_scene->objects[i]);
+			write_obj_content(fd, app->active_scene->objects[i]);
 	write_path_object_information(fd, app);
 	write_npc_patrol_path_information(fd, app);
 	write_trigger_link_information(fd, app);
