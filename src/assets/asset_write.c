@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:10:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 00:43:03 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 00:56:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	write_3d_model_fd(int32_t fd, t_3d_object *obj)
 	i = -1;
 	while (++i < (int32_t)obj->num_triangles)
 		ret = write(fd, &obj->triangles[i], sizeof(t_triangle));
+	texture_file = NULL;
 	if (obj->material->texture)
 		texture_file = obj->material->texture->filename;
 	normal_map_file = NULL;
