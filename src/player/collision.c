@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 17:40:54 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/16 20:04:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ t_bool	is_player_grounded(t_doom3d *app)
 				l3d_delete_hits(&hits);
 				return (true);
 			}
+			l3d_delete_hits(&hits);
 		}
 	}
-	l3d_delete_hits(&hits);
 	return (false);
 }
