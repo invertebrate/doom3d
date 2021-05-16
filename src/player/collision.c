@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/13 18:41:54 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/16 17:40:54 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,18 @@
 void	player_colliders_update(t_doom3d *app)
 {
 	ml_vector3_copy(app->player.pos, app->player.collider.sphere.pos);
+	if (app->player.is_crouching)
+		app->player.collider.sphere.radius = ((PLAYER_HEIGHT / 2) - 0.01)
+			* app->unit_size / 2;
+	else
+		app->player.collider.sphere.radius = ((PLAYER_HEIGHT / 2) - 0.01)
+			* app->unit_size;
 	l3d_cast_rays_sphere(app->player.collider.rays,
 		(uint32_t[2]){COLLIDER_RAY_COUNT, COLLIDER_RAY_COUNT},
 		&app->player.collider.sphere);
 	ml_vector3_copy(app->player.pos, app->player.collider_ground.cylinder.pos);
+	app->player.collider_ground.cylinder.height
+		= app->player.player_height / 2;
 	l3d_cast_rays_cylinder(app->player.collider_ground.rays,
 		(uint32_t[2]){COLLIDER_RAY_COUNT, COLLIDER_RAY_COUNT},
 		&app->player.collider_ground.cylinder);

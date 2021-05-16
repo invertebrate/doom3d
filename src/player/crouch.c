@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   crouch.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:59:19 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/02/03 14:03:26 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/16 17:40:16 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	player_crouch(t_doom3d *app, t_bool toggle)
 			app->player.player_height = PLAYER_HEIGHT_CROUCH * app->unit_size;
 		}
 		else
+		{
+			app->player.pos[1] -= PLAYER_HEIGHT * app->unit_size / 4;
 			app->player.is_crouching = false;
+		}
 	}
 	app->player.aabb.size[1] = app->player.player_height;
 	player_update_aabb(&app->player);
