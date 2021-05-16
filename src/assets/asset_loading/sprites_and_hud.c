@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:37:19 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 20:36:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 19:30:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	sprite_animation_files_set(t_asset_files *data)
 	data->sprite_files[data->num_sprites++]
 		= "assets/animations/explosion4.bmp";
 	data->sprite_files[data->num_sprites++] = "assets/animations/blood.bmp";
-	data->sprite_files[data->num_sprites++] = "assets/animations/bullet_hole.bmp";
+	data->sprite_files[data->num_sprites++]
+		= "assets/animations/bullet_hole.bmp";
 }
 
 void	load_sprites_to_memory(t_assets *assets,

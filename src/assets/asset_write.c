@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:10:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 22:11:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 19:30:46 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	log_containing_asset_filenames(void *val, void *params)
 
 void	write_assets(int32_t fd, t_doom3d *app)
 {
-	// Write size of all assets first.
-	// Write assets in one big blob here. Write filenames, write sizes etc.
 	(void)fd;
 	hash_map_foreach(app->active_scene->object_textures,
 		log_containing_asset_filenames, app);

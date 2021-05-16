@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:49:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 22:55:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 19:30:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ SDL_RWops	*sdl_asset_as_memory(const char *filename)
 	size_t		size;
 	void		*buffer;
 
-	rw_file =  SDL_RWFromFile(filename, "rb");
+	rw_file = SDL_RWFromFile(filename, "rb");
 	size = rw_file->size(rw_file);
 	buffer = ft_calloc(size);
 	error_check(!buffer, "Failed to malloc font buffer");

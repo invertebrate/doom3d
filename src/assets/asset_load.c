@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 23:11:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 19:29:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	set_asset_files_to_load(t_assets *assets)
 
 void	assets_load(t_doom3d *app)
 {
-	t_assets *assets;
+	t_assets	*assets;
 
 	assets = &app->assets;
 	set_asset_files_to_load(assets);

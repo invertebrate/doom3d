@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:53:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 20:39:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 19:30:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,5 @@ void	load_animation_3d_frames_to_memory(t_assets *assets,
 		hash_map_add(assets->animation_3d_frames,
 			(int64_t)assets->asset_files.animation_3d_files[i],
 			l3d_read_obj(assets->asset_files.animation_3d_files[i],
-			NULL, NULL));
+				NULL, NULL));
 }

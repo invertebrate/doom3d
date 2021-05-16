@@ -6,11 +6,22 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:04:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 19:27:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 19:29:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+static void	init_level_list(t_doom3d *app)
+{
+	int32_t		i;
+
+	i = -1;
+	while (++i < (int32_t)app->num_levels)
+		ft_strdel(&app->level_list[i]);
+	ft_memset(app->level_list, 0, sizeof(app->level_list));
+	app->level_list[0] = ft_strdup(FIRST_LEVEL);
+}
 
 /*
 ** Read map file list to be used as level for doom3d
@@ -23,11 +34,7 @@ void	read_level_list(t_doom3d *app)
 	const char	*level_list;
 	int32_t		i;
 
-	i = -1;
-	while (++i < (int32_t)app->num_levels)
-		ft_strdel(&app->level_list[i]);
-	ft_memset(app->level_list, 0, sizeof(app->level_list));
-	app->level_list[0] = ft_strdup(FIRST_LEVEL);
+	init_level_list(app);
 	level_list = "assets/map_data/level_list.txt";
 	fd = open(level_list, O_RDONLY | O_CREAT, 0644);
 	if (fd == -1)
