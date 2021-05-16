@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 20:23:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 20:32:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 20:47:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,28 @@ static size_t	get_3d_obj_size(t_3d_object *obj)
 	return (size_count);
 }
 
-static void	add_surface_size(void *val, void *params)
+static void	add_surface_size(int64_t key, void *val, void *params)
 {
 	t_surface	*surface;
 	size_t		*counter;
 
 	counter = params;
 	surface = val;
+	*counter += sizeof(uint32_t);
+	*counter += ft_strlen((char*)key);
 	*counter += sizeof(t_surface);
 	*counter += sizeof(uint32_t) * surface->w * surface->h;
 }
 
-static void	add_3d_animation_frame_size(void *val, void *params)
+static void	add_3d_animation_frame_size(int64_t key, void *val, void *params)
 {
 	t_3d_object	*obj;
 	size_t		*counter;
 
 	counter = params;
 	obj = val;
+	*counter += sizeof(uint32_t);
+	*counter += ft_strlen((char*)key);
 	*counter += get_3d_obj_size(obj);
 }
 
@@ -50,7 +54,7 @@ static size_t	get_sdl_asset_size(SDL_RWops *asset)
 	return (asset->size(asset));
 }
 
-size_t	get_assets_size(t_assets *assets)
+size_t	get_assets_write_size(t_assets *assets)
 {
 	size_t	size_count;
 	int32_t	i;
@@ -58,7 +62,7 @@ size_t	get_assets_size(t_assets *assets)
 	size_count = 0;
 	i = -1;
 	while (++i < 6)
-		add_surface_size(assets->skybox_textures[i], &size_count);
+		add_surface_size(i, assets->skybox_textures[i], &size_count);
 	hash_map_foreach(assets->sprite_textures, add_surface_size, &size_count);
 	hash_map_foreach(assets->hud_textures, add_surface_size, &size_count);
 	hash_map_foreach(assets->textures, add_surface_size, &size_count);

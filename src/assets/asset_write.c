@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:10:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 20:23:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 20:40:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	write_assets(int32_t fd, t_doom3d *app)
 {
 	(void)fd;
-	LOG_WARN("Assets size: %llu", get_assets_size(&app->assets));
+	LOG_WARN("Assets size: %llu", get_assets_write_size(&app->assets));
 }

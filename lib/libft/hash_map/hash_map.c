@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 15:53:35 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 15:33:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 21:35:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 ** Each element in the table is set as NULL
 */
 
-t_hash_table	*hash_map_create(int size)
+t_hash_table	*hash_map_create(size_t size)
 {
 	t_hash_table	*table;
-	int				i;
+	int64_t			i;
 
 	table = ft_calloc(sizeof(t_hash_table));
 	error_check(!table, "Failed to malloc hash table");
@@ -29,7 +29,7 @@ t_hash_table	*hash_map_create(int size)
 	error_check(!(table->list = ft_calloc(sizeof(t_hash_node *) * size)),
 		"Failed to malloc hash table list");
 	i = -1;
-	while (++i < size)
+	while (++i < (int64_t)size)
 		table->list[i] = NULL;
 	return (table);
 }
@@ -38,9 +38,9 @@ t_hash_table	*hash_map_create(int size)
 ** Hashing function used to quickly access areas inside the hash table
 */
 
-int	hash_map_hash(t_hash_table *table, int key)
+int64_t	hash_map_hash(t_hash_table *table, int64_t key)
 {
-	if (key < 0)
+	if (key < (int64_t)0)
 		return (-(key % table->size));
 	return (key % table->size);
 }
@@ -51,9 +51,9 @@ int	hash_map_hash(t_hash_table *table, int key)
 ** Else a new node is added.
 */
 
-void	hash_map_add(t_hash_table *table, int key, void *val)
+void	hash_map_add(t_hash_table *table, int64_t key, void *val)
 {
-	int			pos;
+	int64_t		pos;
 	t_hash_node	*list;
 	t_hash_node	*temp;
 	t_hash_node	*new_node;
@@ -84,7 +84,7 @@ void	hash_map_add(t_hash_table *table, int key, void *val)
 ** Retrieve a value from the hash table. If value is not found, return NULL.
 */
 
-void	*hash_map_get(t_hash_table *table, int key)
+void	*hash_map_get(t_hash_table *table, int64_t key)
 {
 	t_hash_node	*temp;
 
@@ -104,7 +104,7 @@ void	*hash_map_get(t_hash_table *table, int key)
 ** Retrieve a value from the hash table. If value is not found, return NULL.
 */
 
-t_bool	hash_map_has_key(t_hash_table *table, int key)
+t_bool	hash_map_has_key(t_hash_table *table, int64_t key)
 {
 	t_hash_node	*temp;
 

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 16:47:53 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 15:35:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 21:15:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 ** Delete a t_hash_node in a hash map if found.
 */
 
-void	hash_map_delete(t_hash_table *table, int key)
+void	hash_map_delete(t_hash_table *table, int64_t key)
 {
-	int			pos;
+	int64_t		pos;
 	t_hash_node	**curr;
 	t_hash_node	*temp;
 
@@ -49,7 +49,7 @@ void	hash_map_delete(t_hash_table *table, int key)
 
 void	hash_map_clear(t_hash_table *table)
 {
-	int			i;
+	int64_t		i;
 	t_hash_node	*temp;
 	t_hash_node	**curr;
 

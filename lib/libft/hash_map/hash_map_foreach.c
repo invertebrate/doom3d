@@ -6,17 +6,17 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 20:31:08 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 19:36:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 21:15:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hash_map.h"
 
 void	hash_map_foreach(t_hash_table *table,
-			void (*f)(void *val, void *params), void *params)
+			void (*f)(int64_t key, void *val, void *params), void *params)
 {
 	t_hash_node	*curr;
-	int			i;
+	int64_t		i;
 
 	if (!table)
 		return ;
@@ -26,7 +26,7 @@ void	hash_map_foreach(t_hash_table *table,
 		curr = table->list[i];
 		while (curr)
 		{
-			f(curr->val, params);
+			f(curr->key, curr->val, params);
 			curr = curr->next;
 		}
 	}
