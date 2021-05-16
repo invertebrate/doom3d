@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 20:00:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 21:59:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 19:39:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_asset_files
 
 typedef struct s_assets
 {
-	SDL_RWops				*sounds[SOUNDS];
+	SDL_RWops				*sounds[SOUNDS_NUM_TRACKS];
 	SDL_RWops				*main_font;
 	SDL_RWops				*small_font;
 	SDL_RWops				*title_font;

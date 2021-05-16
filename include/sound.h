@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:59:45 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/15 21:40:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 19:34:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define PREF_FREQ 44100
 # define SOUND_DIST 100000
 
-# define SOUNDS 41
+# define SOUNDS_NUM_TRACKS 41
 # define MUSIC 2
 # define SEFFECT 39
 # define AUDIO_LOG 20
@@ -111,7 +111,7 @@ typedef struct s_mp
 	int					channels;
 	SDL_AudioSpec		auspec;
 	SDL_AudioDeviceID	audev;
-	t_track				*library[SOUNDS];
+	t_track				*library[SOUNDS_NUM_TRACKS];
 	t_sound				*tracks;
 	t_sound				*effects;
 	float				st_vol;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:52:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 22:24:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 19:36:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ void	sounds_destroy(t_assets *assets)
 	int32_t	i;
 
 	i = -1;
-	while (++i < NUM_SOUNDS)
+	while (++i < SOUNDS_NUM_TRACKS)
 		free(assets->sounds[i]);
 }

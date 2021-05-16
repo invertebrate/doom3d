@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 19:29:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 19:31:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,6 @@ void	assets_destroy(t_assets *assets)
 	textures_destroy(assets);
 	sprites_and_hud_destroy(assets);
 	animations_3d_destroy(assets);
+	fonts_destroy(assets);
+	sounds_destroy(assets);
 }
