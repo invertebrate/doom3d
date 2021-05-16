@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 22:10:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 00:27:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,9 @@ void	l3d_read_bmp_image_32bit_rgba(const char *filename,
 	j = 0;
 	while (++i < (int32_t)(image.height * image.width))
 	{
+		alpha = 0xff;
 		if (image.bytes_per_pixel == 4)
 			alpha = image.pixels[j + 3];
-		else
-			alpha = 0xff;
 		rgba = l3d_rgba_to_u32((uint32_t[4]){image.pixels[j],
 				image.pixels[j + 1], image.pixels[j + 2], alpha});
 		ft_memcpy(*pixels_out + i, &rgba, sizeof(uint32_t));
@@ -143,5 +142,6 @@ t_surface	*l3d_read_bmp_32bit_rgba_surface(const char *filename)
 		return (NULL);
 	l3d_read_bmp_image_32bit_rgba(filename, &surface->pixels,
 		&surface->w, &surface->h);
+	surface->filename = filename;
 	return (surface);
 }

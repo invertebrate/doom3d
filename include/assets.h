@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 20:00:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 19:39:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 00:18:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ typedef struct s_assets
 	SDL_RWops				*small_font;
 	SDL_RWops				*title_font;
 	t_asset_files			asset_files;
+	t_hash_table			*models;
+	t_hash_table			*animation_3d_frames;
 	t_hash_table			*hud_textures;
 	t_hash_table			*sprite_textures;
-	t_hash_table			*animation_3d_frames;
 	t_hash_table			*textures;
 	t_hash_table			*normal_maps;
-	t_hash_table			*models;
 	t_hash_table			*npc_map;
 	t_hash_table			*prefab_map;
 	t_hash_table			*trigger_map;

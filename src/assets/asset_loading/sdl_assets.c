@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:49:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 22:36:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 00:35:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,28 @@ uint32_t	get_sdl_assets_write_size(t_assets *assets)
 	size_count += get_sdl_asset_write_size(assets->title_font);
 	size_count += get_sdl_asset_write_size(assets->small_font);
 	return (size_count);
+}
+
+void	write_sdl_assets(int32_t fd, t_assets *assets)
+{
+	uint32_t	i;
+	uint32_t	size;
+	int32_t		ret;
+
+	i = -1;
+	while (++i < SOUNDS_NUM_TRACKS)
+	{
+		size = assets->sounds[i]->size(assets->sounds[i]);
+		ret = write(fd, &size, sizeof(uint32_t));
+		ret = write(fd, assets->sounds[i], size);
+	}
+	size = assets->main_font->size(assets->main_font);
+	ret = write(fd, &size, sizeof(uint32_t));
+	ret = write(fd, assets->main_font, size);
+	size = assets->title_font->size(assets->title_font);
+	ret = write(fd, &size, sizeof(uint32_t));
+	ret = write(fd, assets->title_font, size);
+	size = assets->small_font->size(assets->small_font);
+	ret = write(fd, &size, sizeof(uint32_t));
+	ret = write(fd, assets->small_font, size);
 }

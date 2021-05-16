@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 20:23:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 23:22:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 00:39:51 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,20 @@ static void	add_surface_size(int64_t key, void *val,
 	*size_counter += sizeof(uint32_t) * surface->w * surface->h;
 }
 
-static uint32_t	get_3d_obj_textures_write_size(t_doom3d *app, t_3d_object *obj)
+static uint32_t	get_3d_obj_textures_write_size(t_3d_object *obj)
 {
-	char			*texture_file;
-	char			*normal_map_file;
+	const char		*texture_file;
+	const char		*normal_map_file;
 	uint32_t		size_count;
 
 	size_count = 0;
 	size_count += sizeof(uint32_t) * 2;
-	texture_file = get_object_texture_filename(app->active_scene, obj);
-	normal_map_file = get_object_normal_map_filename(app->active_scene, obj);
+	texture_file = NULL;
+	if (obj->material->texture)
+		texture_file = obj->material->texture->filename;
+	normal_map_file = NULL;
+	if (obj->material->normal_map)
+		normal_map_file =  obj->material->normal_map->filename;
 	size_count += ft_strlen(texture_file);
 	size_count += ft_strlen(normal_map_file);
 	return (size_count);
@@ -66,7 +70,7 @@ static uint32_t	get_3d_obj_textures_write_size(t_doom3d *app, t_3d_object *obj)
 ** + normal map filename len + size
 */
 
-static void	add_3d_animation_frame_size(int64_t key, void *val,
+static void	add_3d_object_write_size(int64_t key, void *val,
 				void *params1, void *params2)
 {
 	t_3d_object		*obj;
@@ -78,7 +82,7 @@ static void	add_3d_animation_frame_size(int64_t key, void *val,
 	obj = val;
 	*size_counter += sizeof(uint32_t);
 	*size_counter += ft_strlen((char *)key);
-	*size_counter += get_3d_obj_textures_write_size(app, obj);
+	*size_counter += get_3d_obj_textures_write_size(obj);
 	*size_counter += get_3d_obj_size(obj);
 }
 
@@ -88,10 +92,11 @@ static void	add_3d_animation_frame_size(int64_t key, void *val,
 ** 3. Num Hud textures + Hud textures, its filename lengths and filenames
 ** 4. Num Textures + Textures, its filename lengths and filenames
 ** 5. Num Nmaps + Normal maps, its filename lengths and filenames
-** 6. Num Frames + Animation 3d frames, its filename lengths and filenames
-** 7. Track lengts and their lengths and their content sizes, we know there's
+** 6. Num Models + 3d model, its filename lengths and filenames
+** 7. Num Frames + Animation 3d frames, its filename lengths and filenames
+** 8. Track lengts and their lengths and their content sizes, we know there's
 ** exactly SOUNDS_NUM_TRACKS
-** 8. Three fonts and their lengths and content sizes, we know there's 3
+** 9. Three fonts and their lengths and content sizes, we know there's 3
 */
 
 uint32_t	get_assets_write_size(t_doom3d *app)
@@ -116,8 +121,11 @@ uint32_t	get_assets_write_size(t_doom3d *app)
 	size_count += sizeof(uint32_t);
 	hash_map_foreach(assets->normal_maps, add_surface_size, &size_count, NULL);
 	size_count += sizeof(uint32_t);
+	hash_map_foreach(assets->models,
+		add_3d_object_write_size, &size_count, app);
+	size_count += sizeof(uint32_t);
 	hash_map_foreach(assets->animation_3d_frames,
-		add_3d_animation_frame_size, &size_count, app);
+		add_3d_object_write_size, &size_count, app);
 	size_count += get_sdl_assets_write_size(assets);
 	return (size_count);
 }
