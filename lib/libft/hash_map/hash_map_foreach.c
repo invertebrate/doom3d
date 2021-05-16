@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 20:31:08 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 22:29:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 23:15:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	hash_map_foreach(t_hash_table *table,
 		curr = table->list[i];
 		while (curr)
 		{
-			f(curr->key, curr->val, params1, params2);
+			if (curr->val)
+				f(curr->key, curr->val, params1, params2);
 			curr = curr->next;
 		}
 	}

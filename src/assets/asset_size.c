@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 20:23:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 22:36:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 23:19:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ static void	add_surface_size(int64_t key, void *val,
 	size_counter = params1;
 	(void)params2;
 	surface = val;
-	*size_counter += sizeof(uint32_t);
-	*size_counter += ft_strlen((char *)key);
+	if (key)
+	{
+		*size_counter += sizeof(uint32_t);
+		*size_counter += ft_strlen((char *)key);
+	}
 	*size_counter += sizeof(t_surface);
 	*size_counter += sizeof(uint32_t) * surface->w * surface->h;
 }
@@ -101,7 +104,7 @@ uint32_t	get_assets_write_size(t_doom3d *app)
 	size_count = 0;
 	i = -1;
 	while (++i < 6)
-		add_surface_size(i, assets->skybox_textures[i], &size_count, NULL);
+		add_surface_size(0, assets->skybox_textures[i], &size_count, NULL);
 	size_count += sizeof(uint32_t);
 	hash_map_foreach(assets->sprite_textures, add_surface_size,
 		&size_count, NULL);
