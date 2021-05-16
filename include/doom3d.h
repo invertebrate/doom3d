@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 20:09:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 20:24:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -789,6 +789,7 @@ void						write_assets(int32_t fd, t_doom3d *app);
 void						load_assets_from_first_level(t_doom3d *app);
 void						window_set_fonts(t_window *window,
 								t_assets *assets);
+size_t						get_assets_size(t_assets *assets);
 
 /*
 ** Editor

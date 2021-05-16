@@ -51,6 +51,7 @@ SOURCES = main.c \
 			assets/asset_load.c \
 			assets/asset_load_from_first_level.c \
 			assets/asset_write.c \
+			assets/asset_size.c \
 			assets/asset_loading/animations_3d.c \
 			assets/asset_loading/models.c \
 			assets/asset_loading/normal_maps.c \
