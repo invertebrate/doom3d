@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 20:23:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 23:19:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/16 23:21:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ uint32_t	get_assets_write_size(t_doom3d *app)
 	uint32_t	i;
 
 	assets = &app->assets;
-	size_count = 0;
+	size_count = ft_strlen("ASSETS");
 	i = -1;
 	while (++i < 6)
 		add_surface_size(0, assets->skybox_textures[i], &size_count, NULL);
