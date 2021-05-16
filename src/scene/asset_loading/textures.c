@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:19:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 22:36:00 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/16 16:37:11 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ static void	scene_texture_files_set_sub3(t_asset_files *data)
 		= NPC_PROJECTILE_01;
 	data->texture_files[data->num_textures++]
 		= NPC_PROJECTILE_02;
+	data->texture_files[data->num_textures++]
+		= "assets/textures/monitor_binary.bmp";
+	data->texture_files[data->num_textures++]
+		= "assets/textures/monitor_pepe.bmp";
 }
 
 void	scene_texture_files_set(t_asset_files *data)
