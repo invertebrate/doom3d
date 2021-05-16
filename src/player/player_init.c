@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 14:11:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/11 18:46:43 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/16 16:41:29 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ static void	player_collider_init(t_doom3d *app)
 		(t_vec3){0.0, -0.1, 0.0}, player->collider.sphere.pos);
 	ml_vector3_copy(player->up, player->collider.sphere.up);
 	ml_vector3_copy(player->forward, player->collider.sphere.forward);
-	player->collider.sphere.radius = 0.874 * app->unit_size;
+	player->collider.sphere.radius = ((PLAYER_HEIGHT / 2) - 0.01)
+		* app->unit_size;
+	player->collider.sphere.height = ((PLAYER_HEIGHT / 2) - 0.01)
+		* app->unit_size;
 	ft_memset(player->collider.rays, 0, sizeof(t_ray) * COLLIDER_RAY_TOTAL);
 }
 
@@ -71,8 +74,10 @@ static void	player_ground_collider_init(t_doom3d *app)
 		(t_vec3){0.0, 0.0, 0.0}, player->collider_ground.cylinder.pos);
 	ml_vector3_copy(player->up, player->collider_ground.cylinder.up);
 	ml_vector3_copy(player->forward, player->collider_ground.cylinder.forward);
-	player->collider_ground.cylinder.radius = 0.875 * app->unit_size;
-	player->collider_ground.cylinder.height = 0.875 * app->unit_size;
+	player->collider_ground.cylinder.radius = (PLAYER_HEIGHT / 2)
+		* app->unit_size;
+	player->collider_ground.cylinder.height = (PLAYER_HEIGHT / 2)
+		* app->unit_size;
 	ft_memset(player->collider_ground.rays, 0,
 		sizeof(t_ray) * COLLIDER_RAY_TOTAL);
 }

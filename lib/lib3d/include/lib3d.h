@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/10 17:52:44 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/16 16:40:54 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ typedef struct s_cone
 }							t_cone;
 
 /*
-** Structure representing a directed sphere in 3D space.
+** Structure representing a directed sphere in 3D space. Height is an optional
+** parameter to adjust the vertical scale. 
 */
 
 typedef struct s_sphere
@@ -119,6 +120,7 @@ typedef struct s_sphere
 	t_vec3			up;
 	t_vec3			forward;
 	float			radius;
+	float			height;
 
 }							t_sphere;
 
