@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 20:23:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/18 00:02:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/18 00:24:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,14 @@ static void	add_hash_map_assets_size(t_doom3d *app, uint32_t *size_count)
 ** 9. Three fonts and their lengths and content sizes, we know there's 3
 */
 
-uint32_t	get_assets_write_size(t_doom3d *app)
+uint32_t	get_assets_write_size_offset(t_doom3d *app)
 {
 	t_assets	*assets;
 	uint32_t	size_count;
 	uint32_t	i;
 
 	assets = &app->assets;
-	size_count = ft_strlen("ASSETS");
-	size_count += sizeof(uint32_t);
+	size_count = 0;
 	i = -1;
 	while (++i < 6)
 		add_surface_size(0, assets->skybox_textures[i], &size_count, NULL);
