@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:19:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 16:37:11 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/17 00:36:51 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ static void	scene_texture_files_set_sub3(t_asset_files *data)
 		= "assets/textures/monitor_binary.bmp";
 	data->texture_files[data->num_textures++]
 		= "assets/textures/monitor_pepe.bmp";
+	data->texture_files[data->num_textures++]
+		= "assets/textures/lamp_breakable.bmp";
 }
 
 void	scene_texture_files_set(t_asset_files *data)
