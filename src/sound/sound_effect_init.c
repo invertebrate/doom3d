@@ -74,5 +74,6 @@ void	mp_effect_init(t_doom3d *app)
 	app->mp.library[sf_player_hurt] = read_sound(SF_PLAYER_HURT, app);
 	app->mp.library[sf_crate_break] = read_sound(SF_CRATE_BREAK, app);
 	app->mp.library[sf_spawn] = read_sound(SF_SPAWN, app);
+	app->mp.library[sf_glass] = read_sound(SF_GLASS, app);
 	mp_effect_init1(app);
 }

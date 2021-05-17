@@ -49,6 +49,10 @@ void	check_light_breakable(t_doom3d *app, t_3d_object *light_obj)
 	new_obj = place_scene_object(app,
 			(const char *[3]){"assets/models/lamp_breakable.obj",
 			"assets/textures/lamp_breakable.bmp", NULL}, light_obj->position);
+	push_custom_event(app,
+		event_effect_play, (void*)sf_glass, s_ini(0, 1, st_game,
+			distance_vol(1.0f, sound_mag(app->player.pos,
+					light_obj->position), -1)));
 	l3d_3d_object_rotate(new_obj, 180, 0, 0);
 	push_custom_event(app, event_object_delete, light_obj, NULL);
 }

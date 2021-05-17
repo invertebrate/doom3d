@@ -33,9 +33,14 @@
 # define PREF_FREQ 44100
 # define SOUND_DIST 100000
 
-# define SOUNDS 41
+
+/*
+** SOUNDS = MUSIC + SEFFFECT
+*/
+
+# define SOUNDS 42
 # define MUSIC 2
-# define SEFFECT 39
+# define SEFFECT 40
 # define AUDIO_LOG 20
 # define TRACK1 "assets/sounds/basic_music.wav"
 # define TRACK2 "assets/sounds/doom_music.wav"
@@ -78,6 +83,7 @@
 # define SF_AUDIO_LOG_19 "assets/sounds/story_19.wav"
 # define SF_AUDIO_LOG_20 "assets/sounds/story_20.wav"
 # define SF_SPAWN "assets/sounds/spawn_effect.wav"
+# define SF_GLASS "assets/sounds/glass_shatter.wav"
 
 # define SPLAYING 1
 # define SPAUSED 2
@@ -174,6 +180,7 @@ typedef enum e_sounds
 	sf_audio_log_19,
 	sf_audio_log_20,
 	sf_spawn,
+	sf_glass,
 }						t_sounds;
 
 /*
