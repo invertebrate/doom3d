@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:56:11 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 15:48:37 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/17 02:58:57 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,13 @@ t_3d_object	*editor_place_light_object(t_doom3d *app, t_light_type light_type)
 	t_vec3			pos;
 
 	editor_pos_camera_front(app, pos);
-	light = place_scene_object(app, (const char *[3]){
-			"assets/models/light_sphere.obj", NULL, NULL}, pos);
+	if (light_type != light_type_breakable)
+		light = place_scene_object(app, (const char *[3]){
+				"assets/models/light_sphere.obj", NULL, NULL}, pos);
+	else
+		light = place_scene_object(app, (const char *[3]){
+				"assets/models/lamp_breakable.obj",
+				"assets/textures/lamp_breakable.bmp", NULL}, pos);
 	l3d_object_set_shading_opts(light,
 		e_shading_transparent | get_light_shading(light_type));
 	light->type = object_type_light;

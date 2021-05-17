@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:52:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 20:09:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 23:42:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	sounds_load_sub(t_assets *assets)
 	assets->sounds[sf_player_hurt] = sdl_asset_as_memory(SF_PLAYER_HURT);
 	assets->sounds[sf_crate_break] = sdl_asset_as_memory(SF_CRATE_BREAK);
 	assets->sounds[sf_spawn] = sdl_asset_as_memory(SF_SPAWN);
+	assets->sounds[sf_glass] = sdl_asset_as_memory(SF_GLASS);
 }
 
 void	load_sounds(t_assets *assets)

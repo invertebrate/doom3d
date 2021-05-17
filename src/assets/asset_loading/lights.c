@@ -6,11 +6,23 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:45:08 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 20:39:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 23:41:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+static void	lights_load2(t_assets *assets)
+{
+	assets->asset_files.light_names[assets->asset_files.num_lights]
+		= "Cyan Light";
+	hash_map_add(assets->trigger_map, (int64_t)assets->asset_files.light_names[
+		assets->asset_files.num_lights++], (void *)light_type_cyan);
+	assets->asset_files.light_names[assets->asset_files.num_lights]
+		= "Breakable Light";
+	hash_map_add(assets->trigger_map, (int64_t)assets->asset_files.light_names[
+		assets->asset_files.num_lights++], (void *)light_type_breakable);
+}
 
 void	lights_load(t_assets *assets)
 {
@@ -38,4 +50,5 @@ void	lights_load(t_assets *assets)
 		= "Cyan Light";
 	hash_map_add(assets->lights_map, (int64_t)assets->asset_files.light_names[
 		assets->asset_files.num_lights++], (void *)light_type_cyan);
+	lights_load2(assets);
 }

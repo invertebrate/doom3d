@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:19:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 19:24:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 23:43:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static void	texture_files_set_sub3(t_asset_files *data)
 		= "assets/textures/monitor_binary.bmp";
 	data->texture_files[data->num_textures++]
 		= "assets/textures/monitor_pepe.bmp";
+	data->texture_files[data->num_textures++]
+		= "assets/textures/lamp_breakable.bmp";
 }
 
 void	texture_files_set(t_asset_files *data)

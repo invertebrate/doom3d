@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 17:47:11 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/15 21:57:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 23:42:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ void	mp_effect_init(t_doom3d *app)
 	app->mp.library[sf_player_hurt] = read_sound(sf_player_hurt, app);
 	app->mp.library[sf_crate_break] = read_sound(sf_crate_break, app);
 	app->mp.library[sf_spawn] = read_sound(sf_spawn, app);
+	app->mp.library[sf_glass] = read_sound(sf_glass, app);
 	mp_effect_init1(app);
 }

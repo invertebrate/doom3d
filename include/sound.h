@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:59:45 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/16 19:34:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 23:46:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 # define PREF_FREQ 44100
 # define SOUND_DIST 100000
 
-# define SOUNDS_NUM_TRACKS 41
+# define SOUNDS_NUM_TRACKS 42
 # define MUSIC 2
-# define SEFFECT 39
+# define SEFFECT 40
 # define AUDIO_LOG 20
 
 # define TRACK1 "assets/sounds/basic_music.wav"
@@ -79,6 +79,7 @@
 # define SF_AUDIO_LOG_19 "assets/sounds/story_19.wav"
 # define SF_AUDIO_LOG_20 "assets/sounds/story_20.wav"
 # define SF_SPAWN "assets/sounds/spawn_effect.wav"
+# define SF_GLASS "assets/sounds/glass_shatter.wav"
 
 # define SPLAYING 1
 # define SPAUSED 2
@@ -175,6 +176,7 @@ typedef enum e_sounds
 	sf_audio_log_19,
 	sf_audio_log_20,
 	sf_spawn,
+	sf_glass,
 }						t_sounds;
 
 /*

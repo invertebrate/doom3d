@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 12:54:08 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/15 17:30:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 23:42:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ void	handle_shoot_hit(t_doom3d *app, t_hit *closest_triangle_hit,
 		npc_trigger_onhit(app, closest_triangle_hit->triangle->parent,
 			app->player.equipped_weapon->damage_per_hit);
 	if (closest_triangle_hit->triangle->parent->type == object_type_trigger)
-	{
 		trigger_activate(app, closest_triangle_hit->triangle->parent);
-	}
+	if (closest_triangle_hit->triangle->parent->type == object_type_light)
+		check_light_breakable(app, closest_triangle_hit->triangle->parent);
 	if (app->player.equipped_weapon->id == weapon_fist)
 		push_custom_event(app,
-			event_effect_play, (void*)sf_fist_hit, s_ini(0, 1, st_game, 1.0));
+			event_effect_play, (void *)sf_fist_hit, s_ini(0, 1, st_game, 1.0));
 }
 
 void	player_shoot_ray(t_doom3d *app, t_vec3 origin, t_vec3 dir)
