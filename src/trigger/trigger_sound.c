@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trigger_sound.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phakakos <phakakos@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 22:12:25 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/12 22:12:29 by phakakos         ###   ########.fr       */
+/*   Updated: 2021/05/17 19:38:32 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	handle_jukebox(t_doom3d *app, t_3d_object *obj)
 void	handle_musicbox(t_doom3d *app, t_3d_object *obj)
 {
 	int32_t	log_id;
+	float	volume;
 
 	if (((t_trigger *)(obj->params))->key_id < 0)
 		return ;
@@ -39,8 +40,12 @@ void	handle_musicbox(t_doom3d *app, t_3d_object *obj)
 		log_id = mu_main + ((t_trigger *)(obj->params))->key_id;
 	LOG_INFO("Music change");
 	mp_typec(app, 0, 1, SSTOPPED);
+	if (log_id == 1)
+		volume = 0.3;
+	else
+		volume = 1;
 	push_custom_event(app, event_music_play,
-		(void *)(intptr_t)log_id, s_ini(1, 10, st_game, 1.0f));
+		(void *)(intptr_t)log_id, s_ini(1, 10, st_game, volume));
 	obj->params_type = trigger_type_disabled;
 	push_custom_event(app, event_object_delete, obj, NULL);
 }
