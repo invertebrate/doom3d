@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:52:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 13:56:25 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/17 18:24:57 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ uint32_t	get_light_emit_color(t_3d_object *light_obj)
 			return (L3D_COLOR_GREEN);
 		else if (light_type == light_type_blue)
 			return (L3D_COLOR_BLUE);
-		else if (light_type == light_type_cyan)
+		else if (light_type == light_type_cyan
+			|| light_type == light_type_mushroom)
 			return (L3D_COLOR_CYAN);
 		else if (light_type == light_type_explosion)
 			return (L3D_COLOR_EXPLOSION);
@@ -49,7 +50,8 @@ t_shading_opts	get_light_shading(t_light_type light_type)
 		return (e_shading_red);
 	else if (light_type == light_type_green)
 		return (e_shading_green);
-	else if (light_type == light_type_cyan)
+	else if (light_type == light_type_cyan
+		|| light_type == light_type_mushroom)
 		return (e_shading_cyan);
 	return (e_shading_yellow);
 }

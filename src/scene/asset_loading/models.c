@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:58:39 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 00:37:47 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/17 18:07:41 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,7 @@ void	scene_model_files_set(t_asset_files *data)
 		= "assets/models/window/window_wall.obj";
 	data->model_files[data->num_models++]
 		= "assets/models/lamp_breakable.obj";
+	data->model_files[data->num_models++]
+		= "assets/models/mushroom.obj";
 	scene_model_files_set_sub(data);
 }
