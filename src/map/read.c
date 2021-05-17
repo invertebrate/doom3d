@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/18 00:29:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/18 00:41:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static uint32_t	get_initial_offset(t_doom3d *app, t_file_contents *file)
 	char			map_header[4];
 	uint32_t		offset;
 
-	if (app->current_level != 0)
+	if (app->current_level != 99)
 	{
 		offset = 4;
 		ft_memcpy(&map_header, file->buf, 4);
