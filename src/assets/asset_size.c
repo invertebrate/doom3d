@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 20:23:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/18 00:24:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/18 00:49:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ static uint32_t	get_3d_obj_size(t_3d_object *obj)
 	uint32_t	size_count;
 
 	size_count = 0;
+	size_count += sizeof(t_3d_object);
 	size_count += obj->num_vertices * sizeof(t_vertex);
 	size_count += obj->num_triangles * sizeof(t_triangle);
-	size_count += sizeof(t_material);
-	size_count += sizeof(t_3d_object);
 	return (size_count);
 }
 
@@ -71,21 +70,21 @@ static void	add_hash_map_assets_size(t_doom3d *app, uint32_t *size_count)
 	t_assets	*assets;
 
 	assets = &app->assets;
-	size_count += sizeof(uint32_t);
+	*size_count += sizeof(uint32_t);
 	hash_map_foreach(assets->sprite_textures, add_surface_size,
-		&size_count, NULL);
-	size_count += sizeof(uint32_t);
-	hash_map_foreach(assets->hud_textures, add_surface_size, &size_count, NULL);
-	size_count += sizeof(uint32_t);
-	hash_map_foreach(assets->textures, add_surface_size, &size_count, NULL);
-	size_count += sizeof(uint32_t);
-	hash_map_foreach(assets->normal_maps, add_surface_size, &size_count, NULL);
-	size_count += sizeof(uint32_t);
+		size_count, NULL);
+	*size_count += sizeof(uint32_t);
+	hash_map_foreach(assets->hud_textures, add_surface_size, size_count, NULL);
+	*size_count += sizeof(uint32_t);
+	hash_map_foreach(assets->textures, add_surface_size, size_count, NULL);
+	*size_count += sizeof(uint32_t);
+	hash_map_foreach(assets->normal_maps, add_surface_size, size_count, NULL);
+	*size_count += sizeof(uint32_t);
 	hash_map_foreach(assets->models,
-		add_3d_object_write_size, &size_count, app);
-	size_count += sizeof(uint32_t);
+		add_3d_object_write_size, size_count, app);
+	*size_count += sizeof(uint32_t);
 	hash_map_foreach(assets->animation_3d_frames,
-		add_3d_object_write_size, &size_count, app);
+		add_3d_object_write_size, size_count, app);
 }
 
 /*
