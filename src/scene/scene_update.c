@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_update.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:43:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 00:28:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 01:37:36 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static t_bool	include_object_in_triangle_tree(t_doom3d *app,
 	if (object_is_ignored(app, object))
 		return (false);
 	if (app->active_scene->scene_id == scene_id_editor3d)
+		return (true);
+	if (object->params_type == light_type_breakable)
 		return (true);
 	return (object->type != object_type_light
 		&& object->type != object_type_path

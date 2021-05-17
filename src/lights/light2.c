@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 18:11:02 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/05 13:56:14 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/17 03:02:54 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,17 @@ void	update_light_sources_anim3d(t_doom3d *app, t_3d_object *object)
 				(float [2]){radius, intensity}, i);
 		anim->current_object->material->flashlight = &(app->player.flashlight);
 	}
+}
+
+void	check_light_breakable(t_doom3d *app, t_3d_object *light_obj)
+{
+	t_3d_object	*new_obj;
+
+	if (light_obj->params_type != light_type_breakable)
+		return ;
+	new_obj = place_scene_object(app,
+			(const char *[3]){"assets/models/lamp_breakable.obj",
+			"assets/textures/lamp_breakable.bmp", NULL}, light_obj->position);
+	l3d_3d_object_rotate(new_obj, 180, 0, 0);
+	push_custom_event(app, event_object_delete, light_obj, NULL);
 }
