@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 20:23:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/18 00:49:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/18 00:52:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,10 @@ uint32_t	get_assets_write_size_offset(t_doom3d *app)
 	i = -1;
 	while (++i < 6)
 		add_surface_size(0, assets->skybox_textures[i], &size_count, NULL);
+	LOG_WARN("Calculated: %llu bytes", size_count);
 	add_hash_map_assets_size(app, &size_count);
+	LOG_WARN("Calculated: %llu bytes", size_count);
 	size_count += get_sdl_assets_write_size(assets);
+	LOG_WARN("Calculated: %llu bytes", size_count);
 	return (size_count);
 }
