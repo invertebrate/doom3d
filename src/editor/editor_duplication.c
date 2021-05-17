@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 01:26:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 00:47:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/18 00:00:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	duplicate_scene_object(t_doom3d *app, t_3d_object *selected)
 		texture_file = selected->material->texture->filename;
 	normal_map_file = NULL;
 	if (selected->material->normal_map)
-		normal_map_file =  selected->material->normal_map->filename;
+		normal_map_file = selected->material->normal_map->filename;
 	model = l3d_3d_object_copy(selected);
 	l3d_3d_object_scale(model,
 		1.0 / app->unit_size, 1.0 / app->unit_size, 1.0 / app->unit_size);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 00:51:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/18 00:02:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	write_3d_object_surfaces(int32_t fd, t_3d_object *obj)
 		texture_file = obj->material->texture->filename;
 	normal_map_file = NULL;
 	if (obj->material->normal_map)
-		normal_map_file =  obj->material->normal_map->filename;
+		normal_map_file = obj->material->normal_map->filename;
 	len = ft_strlen(texture_file);
 	ret = write(fd, &len, sizeof(uint32_t));
 	ret = write(fd, texture_file, len);

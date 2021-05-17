@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 20:23:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 00:39:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/18 00:02:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,6 @@ static void	add_surface_size(int64_t key, void *val,
 	*size_counter += sizeof(uint32_t) * surface->w * surface->h;
 }
 
-static uint32_t	get_3d_obj_textures_write_size(t_3d_object *obj)
-{
-	const char		*texture_file;
-	const char		*normal_map_file;
-	uint32_t		size_count;
-
-	size_count = 0;
-	size_count += sizeof(uint32_t) * 2;
-	texture_file = NULL;
-	if (obj->material->texture)
-		texture_file = obj->material->texture->filename;
-	normal_map_file = NULL;
-	if (obj->material->normal_map)
-		normal_map_file =  obj->material->normal_map->filename;
-	size_count += ft_strlen(texture_file);
-	size_count += ft_strlen(normal_map_file);
-	return (size_count);
-}
-
 /*
 ** Filename len + Filename size + obj size + texture filename len + size
 ** + normal map filename len + size
@@ -82,8 +63,29 @@ static void	add_3d_object_write_size(int64_t key, void *val,
 	obj = val;
 	*size_counter += sizeof(uint32_t);
 	*size_counter += ft_strlen((char *)key);
-	*size_counter += get_3d_obj_textures_write_size(obj);
 	*size_counter += get_3d_obj_size(obj);
+}
+
+static void	add_hash_map_assets_size(t_doom3d *app, uint32_t *size_count)
+{
+	t_assets	*assets;
+
+	assets = &app->assets;
+	size_count += sizeof(uint32_t);
+	hash_map_foreach(assets->sprite_textures, add_surface_size,
+		&size_count, NULL);
+	size_count += sizeof(uint32_t);
+	hash_map_foreach(assets->hud_textures, add_surface_size, &size_count, NULL);
+	size_count += sizeof(uint32_t);
+	hash_map_foreach(assets->textures, add_surface_size, &size_count, NULL);
+	size_count += sizeof(uint32_t);
+	hash_map_foreach(assets->normal_maps, add_surface_size, &size_count, NULL);
+	size_count += sizeof(uint32_t);
+	hash_map_foreach(assets->models,
+		add_3d_object_write_size, &size_count, app);
+	size_count += sizeof(uint32_t);
+	hash_map_foreach(assets->animation_3d_frames,
+		add_3d_object_write_size, &size_count, app);
 }
 
 /*
@@ -111,21 +113,7 @@ uint32_t	get_assets_write_size(t_doom3d *app)
 	i = -1;
 	while (++i < 6)
 		add_surface_size(0, assets->skybox_textures[i], &size_count, NULL);
-	size_count += sizeof(uint32_t);
-	hash_map_foreach(assets->sprite_textures, add_surface_size,
-		&size_count, NULL);
-	size_count += sizeof(uint32_t);
-	hash_map_foreach(assets->hud_textures, add_surface_size, &size_count, NULL);
-	size_count += sizeof(uint32_t);
-	hash_map_foreach(assets->textures, add_surface_size, &size_count, NULL);
-	size_count += sizeof(uint32_t);
-	hash_map_foreach(assets->normal_maps, add_surface_size, &size_count, NULL);
-	size_count += sizeof(uint32_t);
-	hash_map_foreach(assets->models,
-		add_3d_object_write_size, &size_count, app);
-	size_count += sizeof(uint32_t);
-	hash_map_foreach(assets->animation_3d_frames,
-		add_3d_object_write_size, &size_count, app);
+	add_hash_map_assets_size(app, &size_count);
 	size_count += get_sdl_assets_write_size(assets);
 	return (size_count);
 }

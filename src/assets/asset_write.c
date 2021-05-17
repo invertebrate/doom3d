@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:10:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 00:56:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/17 23:59:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static void	write_3d_model_fd(int32_t fd, t_3d_object *obj)
 {
-	const char		*texture_file;
-	const char		*normal_map_file;
-	int32_t			len;
 	int32_t			ret;
 	int32_t			i;
 
@@ -27,35 +24,30 @@ static void	write_3d_model_fd(int32_t fd, t_3d_object *obj)
 	i = -1;
 	while (++i < (int32_t)obj->num_triangles)
 		ret = write(fd, &obj->triangles[i], sizeof(t_triangle));
-	texture_file = NULL;
-	if (obj->material->texture)
-		texture_file = obj->material->texture->filename;
-	normal_map_file = NULL;
-	if (obj->material->normal_map)
-		normal_map_file =  obj->material->normal_map->filename;
-	len = ft_strlen(texture_file);
-	ret = write(fd, &len, sizeof(uint32_t));
-	ret = write(fd, texture_file, len);
-	len = ft_strlen(normal_map_file);
-	ret = write(fd, &len, sizeof(uint32_t));
-	ret = write(fd, normal_map_file, len);
 	(void)ret;
 }
 
 static void	write_3d_model(int64_t key, void *val,
 				void *params1, void *params2)
 {
-	t_3d_object		*obj;
 	t_doom3d		*app;
 	int32_t			*fd_ptr;
 	int32_t			fd;
+	uint32_t		len;
+	int32_t			ret;
 
 	(void)key;
 	fd_ptr = params1;
 	fd = *fd_ptr;
-	obj = val;
 	app = params2;
-	write_3d_model_fd(fd, obj);
+	if (key)
+	{
+		len = ft_strlen((char *)key);
+		ret = write(fd, &len, sizeof(uint32_t));
+		ret = write(fd, (char *)key, len);
+	}
+	write_3d_model_fd(fd, val);
+	(void)ret;
 }
 
 /*
@@ -83,7 +75,7 @@ static void	write_surface(int64_t key, void *val,
 	}
 	ret = write(fd, surface, sizeof(t_surface));
 	ret = write(fd, surface->pixels,
-		sizeof(uint32_t) * surface->w * surface->h);
+			sizeof(uint32_t) * surface->w * surface->h);
 	(void)ret;
 }
 
@@ -132,18 +124,18 @@ void	write_assets(int32_t fd, t_doom3d *app)
 {
 	uint32_t	assets_write_size;
 	t_assets	*assets;
-	// uint32_t	i;
-	// int32_t		ret;
+	uint32_t	i;
+	int32_t		ret;
 
 	(void)fd;
 	(void)write_asset_maps;
 	assets = &app->assets;
 	assets_write_size = get_assets_write_size(app);
 	LOG_WARN("Writing assets of size: %llu bytes", assets_write_size);
-	// ret = write(fd, "ASSETS\0", 7);
-	// i = -1;
-	// while (++i < 6)
-	// 	write_surface(0, assets->skybox_textures[i], &fd, NULL);
-	// write_asset_maps(fd, app);
-	// write_sdl_assets(fd, assets);
+	ret = write(fd, "ASSETS\0", 7);
+	i = -1;
+	while (++i < 6)
+		write_surface(0, assets->skybox_textures[i], &fd, NULL);
+	write_asset_maps(fd, app);
+	write_sdl_assets(fd, assets);
 }
