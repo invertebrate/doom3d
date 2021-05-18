@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/18 00:41:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/18 22:09:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ static uint32_t	get_asset_map_offset(t_file_contents *file)
 	return (offset);
 }
 
-static uint32_t	get_initial_offset(t_doom3d *app, t_file_contents *file)
+static uint32_t	get_initial_offset(t_doom3d *app, t_file_contents *file,
+					const char *map_name)
 {
 	char			map_header[4];
 	uint32_t		offset;
 
-	if (app->current_level != 99)
+	if (!((app->current_level == 0 && ft_strequ(FIRST_LEVEL, map_name))
+		|| (app->editor.editor_level == 0 && ft_strequ(FIRST_LEVEL, map_name))))
 	{
 		offset = 4;
 		ft_memcpy(&map_header, file->buf, 4);
@@ -66,7 +68,7 @@ static uint32_t	validate_map_file(t_doom3d *app,
 		LOG_FATAL("Failed to read %s, check assets/map_data/", filename);
 		exit(EXIT_FAILURE);
 	}
-	return (get_initial_offset(app, file));
+	return (get_initial_offset(app, file, map_name));
 }
 
 /*
