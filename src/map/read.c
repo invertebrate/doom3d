@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 00:24:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 00:29:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static uint32_t	get_asset_map_offset(t_file_contents *file)
 	ft_memcpy(&assets_size, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	offset += assets_size;
-	LOG_INFO("Reading first level, skip assets by offset %d", assets_size);
+	LOG_DEBUG("Reading first level, skip assets by offset %d", assets_size);
 	ft_memcpy(&map_header, file->buf + offset, 4);
 	offset += 4;
-	LOG_INFO("Map header: %s", map_header);
+	LOG_DEBUG("Map header: %s", map_header);
 	if (!ft_strequ(map_header, "MAP\0"))
 		error_check(true, "Invalid map file. First 4 bytes must be MAP\0");
 	return (offset);
