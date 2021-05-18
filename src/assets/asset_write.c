@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:10:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 00:00:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 00:27:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,4 +138,5 @@ void	write_assets(int32_t fd, t_doom3d *app)
 			ret, assets_write_size);
 		exit(EXIT_FAILURE);
 	}
+	LOG_INFO("Wrote assets with size offset of: %llu bytes", ret);
 }
