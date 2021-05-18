@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:10:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/18 00:52:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 00:00:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,9 @@ void	write_assets(int32_t fd, t_doom3d *app)
 	uint32_t	i;
 	int32_t		ret;
 
-	(void)fd;
-	(void)write_asset_maps;
 	assets = &app->assets;
 	assets_write_size = get_assets_write_size_offset(app);
-	LOG_WARN("Writing assets with size offset of: %llu bytes",
+	LOG_INFO("Writing assets with size offset of: %llu bytes",
 		assets_write_size);
 	ret = write(fd, "ASSETS\0", 8);
 	ret = write(fd, &assets_write_size, sizeof(uint32_t));
@@ -132,10 +130,12 @@ void	write_assets(int32_t fd, t_doom3d *app)
 	i = -1;
 	while (++i < 6)
 		write_surface(0, assets->skybox_textures[i], &fd, &ret);
-	LOG_WARN("Wrote: %llu bytes", ret);
 	write_asset_maps(fd, app, &ret);
-	LOG_WARN("Wrote: %llu bytes", ret);
 	write_sdl_assets(fd, assets, &ret);
-	LOG_WARN("Wrote: %llu bytes", ret);
-	LOG_WARN("Wrote assets with size offset of: %llu bytes", ret);
+	if (ret != (int32_t)assets_write_size)
+	{
+		LOG_FATAL("Asset written size %d not equal to calculated size %d",
+			ret, assets_write_size);
+		exit(EXIT_FAILURE);
+	}
 }

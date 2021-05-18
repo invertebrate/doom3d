@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:49:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/18 00:56:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/18 23:58:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 /*
 ** Allocates space for an SDL loaded file to be saved into memory.
-** These SDL_Rwops must be freed manually using free
 */
 
 SDL_RWops	*sdl_asset_as_memory(const char *filename)
 {
+	SDL_RWops	*ret;
 	SDL_RWops	*rw_file;
 	size_t		size;
 	void		*buffer;
@@ -26,10 +26,11 @@ SDL_RWops	*sdl_asset_as_memory(const char *filename)
 	rw_file = SDL_RWFromFile(filename, "rb");
 	size = rw_file->size(rw_file);
 	buffer = ft_calloc(size);
-	error_check(!buffer, "Failed to malloc font buffer");
+	error_check(!buffer, "Failed to malloc sdl buffer");
 	rw_file->read(rw_file, buffer, 1, size);
 	rw_file->close(rw_file);
-	return (SDL_RWFromConstMem(buffer, size));
+	ret = SDL_RWFromConstMem(buffer, size);
+	return (ret);
 }
 
 /*
@@ -56,25 +57,50 @@ uint32_t	get_sdl_assets_write_size(t_assets *assets)
 	return (size_count);
 }
 
+static int32_t	write_safe(int32_t fd, SDL_RWops *rw_ops, size_t byte_size)
+{
+	int32_t		ret;
+	void		*buffer;
+
+	buffer = ft_calloc(byte_size);
+	error_check(!buffer, "Failed to malloc sdl write buffer");
+	rw_ops->write(rw_ops, buffer, byte_size, 1);
+	ret = write(fd, buffer, byte_size);
+	free(buffer);
+	if (ret == -1)
+	{
+		LOG_FATAL("Failed to write map assets to map,"
+			" use `git checkout assets/` to delete malformed changes");
+		return (0);
+	}
+	return (ret);
+}
+
 void	write_sdl_assets(int32_t fd, t_assets *assets, int32_t *ret)
 {
 	uint32_t	i;
 	uint32_t	size;
+	uint32_t	size_count;
 
+	size_count = 0;
 	i = -1;
 	while (++i < SOUNDS_NUM_TRACKS)
 	{
-		size = assets->sounds[i]->size(assets->sounds[i]);
+		size = (uint32_t)assets->sounds[i]->size(assets->sounds[i]);
 		*ret += write(fd, &size, sizeof(uint32_t));
-		*ret += write(fd, assets->sounds[i], size);
+		*ret += write_safe(fd, assets->sounds[i], size);
+		size_count += size + sizeof(uint32_t);
 	}
-	size = assets->main_font->size(assets->main_font);
+	size = (uint32_t)assets->main_font->size(assets->main_font);
 	*ret += write(fd, &size, sizeof(uint32_t));
-	*ret += write(fd, assets->main_font, size);
-	size = assets->title_font->size(assets->title_font);
+	*ret += write_safe(fd, assets->main_font, size);
+	size_count += size + sizeof(uint32_t);
+	size = (uint32_t)assets->title_font->size(assets->title_font);
 	*ret += write(fd, &size, sizeof(uint32_t));
-	*ret += write(fd, assets->title_font, size);
-	size = assets->small_font->size(assets->small_font);
+	*ret += write_safe(fd, assets->title_font, size);
+	size_count += size + sizeof(uint32_t);
+	size = (uint32_t)assets->small_font->size(assets->small_font);
 	*ret += write(fd, &size, sizeof(uint32_t));
-	*ret += write(fd, assets->small_font, size);
+	*ret += write_safe(fd, assets->small_font, size);
+	size_count += size + sizeof(uint32_t);
 }
