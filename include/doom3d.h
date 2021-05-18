@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/18 00:38:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 00:07:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ typedef struct s_procedural_tmp_obj_params
 typedef struct s_doom3d
 {
 	t_bool					is_asset_load;
+	t_bool					no_assets_in_first_map;
 	t_bool					is_running;
 	t_bool					is_debug;
 	t_bool					is_scene_reload;
