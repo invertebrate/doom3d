@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 18:11:02 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/17 18:54:28 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/19 18:37:04 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void	check_light_breakable(t_doom3d *app, t_3d_object *light_obj)
 				light_obj->position);
 		l3d_3d_object_rotate(new_obj, 180, 0, 0);
 		push_custom_event(app, event_object_delete, light_obj, NULL);
-    push_custom_event(app,
-		event_effect_play, (void *)sf_glass, s_ini(0, 1, st_game,
-			distance_vol(1.0f, sound_mag(app->player.pos,
-					light_obj->position), -1)));
+		push_custom_event(app,
+			event_effect_play, (void *)sf_glass, s_ini(0, 1, st_game,
+				distance_vol(1.0f, sound_mag(app->player.pos,
+						light_obj->position), -1)));
 	}
 	if (light_obj->params_type == light_type_mushroom)
 		push_custom_event(app, event_object_delete, light_obj, NULL);
