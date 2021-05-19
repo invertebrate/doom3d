@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:13:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 14:07:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:15:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ static uint32_t	read_skybox(t_doom3d *app, t_file_contents *file, int32_t offset
 	{
 		error_check(!(surface = ft_calloc(sizeof(t_surface))),
 			"Failed to alloc surface");
-		ft_memcpy(&surface, file->buf + offset, sizeof(t_surface));
+		ft_memcpy(surface, file->buf + offset, sizeof(t_surface));
 		offset += sizeof(t_surface);
 		pixels_size = sizeof(uint32_t) * surface->w * surface->h;
 		error_check(!(pixels = ft_calloc(pixels_size)), "Failed to allc pixels");
-		ft_memcpy(&pixels, file->buf + offset, pixels_size);
+		ft_memcpy(pixels, file->buf + offset, pixels_size);
 		surface->pixels = pixels;
 		offset += pixels_size;
 		app->assets.skybox_textures[i] = surface;
@@ -79,14 +79,14 @@ void	load_assets_from_first_level(t_doom3d *app)
 	LOG_INFO("Load assets from first level (%s)", char_buf);
 	file = read_file(char_buf);
 	validate_assets_file(file);
-	offset = 8;
+	offset = 7;
 	ft_memcpy(&size_offset, file->buf, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	offset = read_skybox(app, file, offset);
 	offset = read_texture_assets(app, file, offset);
 	offset = read_model_assets(app, file, offset);
 	offset = read_sdl_assets(app, file, offset);
-	read_asset_offset = offset - 8 - sizeof(uint32_t);
+	read_asset_offset = offset - 7 - sizeof(uint32_t);
 	ft_memset(char_buf, 0, sizeof(char_buf));
 	ft_memcpy(&char_buf, file->buf + offset, 4);
 	validate_read_assets(size_offset, read_asset_offset, char_buf);

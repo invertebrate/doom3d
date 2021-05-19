@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:05:55 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 13:59:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:16:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ static t_surface	*read_surface(t_doom3d *app,
 	*offset += len;
 	error_check(!(surface = ft_calloc(sizeof(t_surface))),
 		"Failed to alloc surface");
-	ft_memcpy(&surface, file->buf + *offset, sizeof(t_surface));
+	ft_memcpy(surface, file->buf + *offset, sizeof(t_surface));
 	*offset += sizeof(t_surface);
 	pixels_size = sizeof(uint32_t) * surface->w * surface->h;
 	error_check(!(pixels = ft_calloc(pixels_size)), "Failed to allc pixels");
-	surface->pixels = pixels;
+	ft_memcpy(pixels, file->buf + *offset, pixels_size);
 	*offset += pixels_size;
+	surface->pixels = pixels;
 	surface->filename = (const char *)get_matching_asset_key(app, filename);
 	return (surface);
 }
