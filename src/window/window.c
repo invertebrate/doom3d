@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 15:59:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 18:13:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,22 @@ static int	window_resize_callback(void *data, SDL_Event *event)
 
 void	window_set_fonts(t_window *window, t_assets *assets)
 {
+	SDL_RWops	*rwops;
+
+	rwops = SDL_RWFromMem(assets->main_font.data,
+			assets->main_font.size);
 	window->main_font
-		= TTF_OpenFontRW(assets->main_font, 0, FONT_SIZE);
+		= TTF_OpenFontRW(rwops, 1, FONT_SIZE);
 	error_check(window->main_font == NULL, TTF_GetError());
+	rwops = SDL_RWFromMem(assets->small_font.data,
+			assets->small_font.size);
 	window->small_font
-		= TTF_OpenFontRW(assets->small_font, 0, FONT_SIZE * 0.36);
+		= TTF_OpenFontRW(rwops, 1, FONT_SIZE * 0.36);
 	error_check(window->small_font == NULL, TTF_GetError());
+	rwops = SDL_RWFromMem(assets->title_font.data,
+			assets->title_font.size);
 	window->title_font
-		= TTF_OpenFontRW(assets->title_font, 0, FONT_SIZE * 1.5);
+		= TTF_OpenFontRW(rwops, 1, FONT_SIZE * 1.5);
 	error_check(window->title_font == NULL, TTF_GetError());
 }
 

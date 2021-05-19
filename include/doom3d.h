@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 13:51:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 17:43:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -787,7 +787,8 @@ void						fonts_destroy(t_assets *assets);
 void						load_fonts(t_assets *assets);
 void						sounds_destroy(t_assets *assets);
 void						load_sounds(t_assets *assets);
-SDL_RWops					*sdl_asset_as_memory(const char *filename);
+void						sdl_asset_as_memory(const char *filename,
+								t_sized_file *file);
 uint32_t					get_sdl_assets_write_size(t_assets *assets);
 void						write_assets(int32_t fd, t_doom3d *app);
 void						load_assets_from_first_level(t_doom3d *app);
@@ -804,7 +805,7 @@ int32_t						read_object_triangles_and_vertices(char *contents,
 								t_3d_object *obj, int32_t offset);
 uint32_t					read_model_assets(t_doom3d *app,
 								t_file_contents *file, int32_t offset);
-uint32_t					get_sdl_asset_write_size(SDL_RWops *asset);
+uint32_t					get_sdl_asset_write_size(t_sized_file *file);
 uint32_t					read_sdl_assets(t_doom3d *app,
 								t_file_contents *file, int32_t offset);
 

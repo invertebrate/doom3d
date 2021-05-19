@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 20:00:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 00:18:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 17:40:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,18 @@ typedef struct s_asset_files
 	uint32_t				num_lights;
 }							t_asset_files;
 
+typedef struct s_sized_file
+{
+	void	*data;
+	size_t	size;
+}			t_sized_file;
+
 typedef struct s_assets
 {
-	SDL_RWops				*sounds[SOUNDS_NUM_TRACKS];
-	SDL_RWops				*main_font;
-	SDL_RWops				*small_font;
-	SDL_RWops				*title_font;
+	t_sized_file			sounds[SOUNDS_NUM_TRACKS];
+	t_sized_file			main_font;
+	t_sized_file			small_font;
+	t_sized_file			title_font;
 	t_asset_files			asset_files;
 	t_hash_table			*models;
 	t_hash_table			*animation_3d_frames;

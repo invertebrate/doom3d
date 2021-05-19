@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:51:05 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/16 19:41:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 18:04:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,9 @@ t_track	*read_sound(t_sounds sound, t_doom3d *app)
 	Uint32			dlen;
 	SDL_AudioCVT	cvt;
 
-	if (!SDL_LoadWAV_RW(app->assets.sounds[sound], 0, &wave, &data, &dlen))
-	{
-		LOG_ERROR("Couldn't load sound %d: %s\n", sound, SDL_GetError());
-		return (NULL);
-	}
+	error_check(!SDL_LoadWAV_RW(SDL_RWFromMem(app->assets.sounds[sound].data,
+				app->assets.sounds[sound].size), 1, &wave, &data, &dlen),
+		"Could not load sound");
 	if (SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq,
 			app->mp.auspec.format, app->mp.auspec.channels, app->mp.auspec.freq)
 		== -1)
