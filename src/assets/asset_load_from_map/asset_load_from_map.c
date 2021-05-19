@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:13:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/20 00:11:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/20 00:18:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	load_assets_from_first_level(t_doom3d *app)
 	uint32_t		read_asset_offset;
 
 	ft_memset(char_buf, 0, sizeof(char_buf));
-	ft_sprintf(char_buf, "assets/map_data/%s", FIRST_LEVEL);
+	ft_sprintf(char_buf, "maps/%s", FIRST_LEVEL);
 	LOG_INFO("Load assets from first level (%s)", char_buf);
 	file = read_file(char_buf);
 	validate_assets_file(file);

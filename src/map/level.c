@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:04:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 19:29:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/20 00:18:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	read_level_list(t_doom3d *app)
 	int32_t		i;
 
 	init_level_list(app);
-	level_list = "assets/map_data/level_list.txt";
+	level_list = "maps/level_list.txt";
 	fd = open(level_list, O_RDONLY | O_CREAT, 0644);
 	if (fd == -1)
 	{
@@ -62,7 +62,7 @@ void	write_savename_to_level_list(t_doom3d *app)
 	int32_t		ret;
 
 	level = NULL;
-	level_list = "assets/map_data/level_list.txt";
+	level_list = "maps/level_list.txt";
 	fd = open(level_list, O_RDWR | O_CREAT, 0644);
 	if (fd == -1)
 	{

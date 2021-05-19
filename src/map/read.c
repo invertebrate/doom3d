@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 23:59:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/20 00:18:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static uint32_t	validate_map_file(t_doom3d *app,
 	}
 	if (!file)
 	{
-		LOG_FATAL("Failed to read %s, check assets/map_data/", filename);
+		LOG_FATAL("Failed to read %s, check maps/", filename);
 		exit(EXIT_FAILURE);
 	}
 	return (get_initial_offset(app, file, map_name));
@@ -84,7 +84,7 @@ void	read_map(t_doom3d *app, const char *map_name)
 	char			filename[128];
 	int32_t			offset;
 
-	ft_sprintf(filename, "assets/map_data/%s", map_name);
+	ft_sprintf(filename, "maps/%s", map_name);
 	LOG_INFO("Read map %s", filename);
 	file = read_file(filename);
 	offset = validate_map_file(app, file, map_name, filename);
