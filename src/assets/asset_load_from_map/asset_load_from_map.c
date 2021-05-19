@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:13:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 15:22:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 23:42:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,5 @@ void	load_assets_from_first_level(t_doom3d *app)
 	ft_memset(char_buf, 0, sizeof(char_buf));
 	ft_memcpy(&char_buf, file->buf + offset, 4);
 	validate_read_assets(size_offset, read_asset_offset, char_buf);
+	destroy_file_contents(file);
 }
