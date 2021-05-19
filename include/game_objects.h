@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 00:48:01 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/17 18:08:20 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef enum e_light_type
 	light_type_white = 17,
 	light_type_explosion = 16,
 	light_type_breakable = 17,
+	light_type_mushroom = 18,
 }							t_light_type;
 
 /*

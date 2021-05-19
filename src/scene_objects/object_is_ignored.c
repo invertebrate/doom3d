@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 16:33:35 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 03:03:13 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/17 18:09:07 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_bool	object_is_ignored(t_doom3d *app, t_3d_object *obj)
 	t_vec3		player_to_pos;
 
 	if ((obj->type == object_type_light
-			&& obj->params_type != light_type_breakable)
+			&& obj->params_type != light_type_breakable
+			&& obj->params_type != light_type_mushroom)
 		|| (obj->material->shading_opts & e_shading_dont_cull))
 		return (false);
 	if (app->active_scene->scene_id == scene_id_main_game)

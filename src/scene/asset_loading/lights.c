@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:45:08 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 03:04:01 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/17 18:55:55 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ static void	lights_load2(t_scene *scene)
 		= "Breakable Light";
 	hash_map_add(scene->trigger_map, (int64_t)scene->asset_files.light_names[
 		scene->asset_files.num_lights++], (void *)light_type_breakable);
+	scene->asset_files.light_names[scene->asset_files.num_lights]
+		= "Glowing Mushroom";
+	hash_map_add(scene->trigger_map, (int64_t)scene->asset_files.light_names[
+		scene->asset_files.num_lights++], (void *)light_type_mushroom);
 }
 
 void	lights_load(t_scene *scene)
