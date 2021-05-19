@@ -6,13 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 17:27:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 22:29:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:03:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HASH_MAP_H
 # define HASH_MAP_H
 
+# include <stdint.h>
 # include <stdlib.h>
 # include "t_bool.h"
 

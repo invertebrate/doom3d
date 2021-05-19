@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:49:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/18 23:58:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 13:39:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,13 @@ SDL_RWops	*sdl_asset_as_memory(const char *filename)
 	return (ret);
 }
 
-/*
-** Size for writing thus one byte for len + actual size
-*/
-
-static uint32_t	get_sdl_asset_write_size(SDL_RWops *asset)
-{
-	return (sizeof(uint32_t) + asset->size(asset));
-}
-
 uint32_t	get_sdl_assets_write_size(t_assets *assets)
 {
 	uint32_t	i;
 	uint32_t	size_count;
 
 	size_count = 0;
+	size_count += sizeof(uint32_t);
 	i = -1;
 	while (++i < SOUNDS_NUM_TRACKS)
 		size_count += get_sdl_asset_write_size(assets->sounds[i]);
@@ -76,31 +68,39 @@ static int32_t	write_safe(int32_t fd, SDL_RWops *rw_ops, size_t byte_size)
 	return (ret);
 }
 
+/*
+** Note that we make an assumption that we'll have 3 fonts, no more...
+*/
+
+static void	write_fonts(int32_t fd, t_assets *assets, int32_t *ret)
+{
+	uint32_t	size;
+
+	size = (uint32_t)assets->main_font->size(assets->main_font);
+	*ret += write(fd, &size, sizeof(uint32_t));
+	*ret += write_safe(fd, assets->main_font, size);
+	size = (uint32_t)assets->title_font->size(assets->title_font);
+	*ret += write(fd, &size, sizeof(uint32_t));
+	*ret += write_safe(fd, assets->title_font, size);
+	size = (uint32_t)assets->small_font->size(assets->small_font);
+	*ret += write(fd, &size, sizeof(uint32_t));
+	*ret += write_safe(fd, assets->small_font, size);
+}
+
 void	write_sdl_assets(int32_t fd, t_assets *assets, int32_t *ret)
 {
 	uint32_t	i;
 	uint32_t	size;
-	uint32_t	size_count;
+	uint32_t	num_tracks;
 
-	size_count = 0;
+	num_tracks = SOUNDS_NUM_TRACKS;
+	*ret += write(fd, &num_tracks, sizeof(uint32_t));
 	i = -1;
-	while (++i < SOUNDS_NUM_TRACKS)
+	while (++i < num_tracks)
 	{
 		size = (uint32_t)assets->sounds[i]->size(assets->sounds[i]);
 		*ret += write(fd, &size, sizeof(uint32_t));
 		*ret += write_safe(fd, assets->sounds[i], size);
-		size_count += size + sizeof(uint32_t);
 	}
-	size = (uint32_t)assets->main_font->size(assets->main_font);
-	*ret += write(fd, &size, sizeof(uint32_t));
-	*ret += write_safe(fd, assets->main_font, size);
-	size_count += size + sizeof(uint32_t);
-	size = (uint32_t)assets->title_font->size(assets->title_font);
-	*ret += write(fd, &size, sizeof(uint32_t));
-	*ret += write_safe(fd, assets->title_font, size);
-	size_count += size + sizeof(uint32_t);
-	size = (uint32_t)assets->small_font->size(assets->small_font);
-	*ret += write(fd, &size, sizeof(uint32_t));
-	*ret += write_safe(fd, assets->small_font, size);
-	size_count += size + sizeof(uint32_t);
+	write_fonts(fd, assets, ret);
 }

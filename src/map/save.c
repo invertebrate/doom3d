@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/18 00:27:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:02:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	write_3d_object_surfaces(int32_t fd, t_3d_object *obj)
 	len = ft_strlen(normal_map_file);
 	ret = write(fd, &len, sizeof(uint32_t));
 	ret = write(fd, normal_map_file, len);
+	(void)ret;
 }
 
 /*

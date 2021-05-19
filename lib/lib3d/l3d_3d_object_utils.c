@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:34:25 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 21:22:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 13:26:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 /*
 ** Copies and sets vertex, uvs and normal information of triangles from src
-** to dst
+** to dst. Can be used to properly set triangles to vertices references after
+** e.g. reading obj from bytes and vertices separately
 */
 
 void	l3d_3d_object_triangle_copy_and_set(t_3d_object *dst,

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asset_load_from_map_utils2.c                       :+:      :+:    :+:   */
+/*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:05:55 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 13:08:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 13:59:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 ** Increment offset.
 */
 
-static t_scene	*read_surface(t_doom3d *app,
-					t_file_contents *file, int32_t *offset)
+static t_surface	*read_surface(t_doom3d *app,
+						t_file_contents *file, int32_t *offset)
 {
 	t_surface	*surface;
 	uint32_t	*pixels;
 	uint32_t	pixels_size;
-	const char	filename[128];
+	char		filename[128];
 	uint32_t	len;
 
 	ft_memset(filename, 0, sizeof(filename));
@@ -41,7 +41,7 @@ static t_scene	*read_surface(t_doom3d *app,
 	error_check(!(pixels = ft_calloc(pixels_size)), "Failed to allc pixels");
 	surface->pixels = pixels;
 	*offset += pixels_size;
-	surface->filename = get_matching_asset_key(app, filename);
+	surface->filename = (const char *)get_matching_asset_key(app, filename);
 	return (surface);
 }
 
@@ -80,13 +80,13 @@ static uint32_t	read_texture_assets_first_half(t_doom3d *app,
 	ft_memcpy(&num_written_assets, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	i = -1;
-	while (++i < num_written_assets)
+	while (++i < (int32_t)num_written_assets)
 		offset = read_and_add_surface_asset(app,
 			app->assets.sprite_textures, file, offset);
 	ft_memcpy(&num_written_assets, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	i = -1;
-	while (++i < num_written_assets)
+	while (++i < (int32_t)num_written_assets)
 		offset = read_and_add_surface_asset(app,
 			app->assets.hud_textures, file, offset);
 	return (offset);	
@@ -103,13 +103,13 @@ uint32_t	read_texture_assets(t_doom3d *app,
 	ft_memcpy(&num_written_assets, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	i = -1;
-	while (++i < num_written_assets)
+	while (++i < (int32_t)num_written_assets)
 		offset = read_and_add_surface_asset(app,
 			app->assets.textures, file, offset);
 	ft_memcpy(&num_written_assets, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	i = -1;
-	while (++i < num_written_assets)
+	while (++i < (int32_t)num_written_assets)
 		offset = read_and_add_surface_asset(app,
 			app->assets.normal_maps, file, offset);
 	return (offset);

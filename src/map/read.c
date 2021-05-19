@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 00:29:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:06:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 static uint32_t	get_asset_map_offset(t_file_contents *file)
 {
-	char			map_header[8];
+	char			map_header[7];
 	uint32_t		offset;
 	uint32_t		assets_size;
 
-	ft_memcpy(&map_header, file->buf, 8);
-	offset = 8;
-	if (!ft_strequ(map_header, "ASSETS\0"))
-		error_check(true, "Invalid map. First map must start ASSETS\0");
+	ft_memset(&map_header, 0, 7);
+	ft_memcpy(&map_header, file->buf, 7);
+	offset = 7;
+	if (!ft_strequ(map_header, "ASSETS"))
+		error_check(true, "Invalid map. First map must start ASSETS");
 	ft_memcpy(&assets_size, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	offset += assets_size;
@@ -29,8 +30,8 @@ static uint32_t	get_asset_map_offset(t_file_contents *file)
 	ft_memcpy(&map_header, file->buf + offset, 4);
 	offset += 4;
 	LOG_DEBUG("Map header: %s", map_header);
-	if (!ft_strequ(map_header, "MAP\0"))
-		error_check(true, "Invalid map file. First 4 bytes must be MAP\0");
+	if (!ft_strequ(map_header, "MAP"))
+		error_check(true, "Invalid map file. First 4 bytes must be MAP");
 	return (offset);
 }
 
@@ -49,7 +50,7 @@ static uint32_t	get_initial_offset(t_doom3d *app, t_file_contents *file,
 	{
 		offset = 4;
 		ft_memcpy(&map_header, file->buf, 4);
-		if (!ft_strequ(map_header, "MAP\0"))
+		if (!ft_strequ(map_header, "MAP"))
 			error_check(true, "Invalid map file. First 4 bytes must be MAP\0");
 	}		
 	return (offset);

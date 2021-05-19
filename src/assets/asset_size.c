@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 20:23:59 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/18 23:58:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:01:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,9 @@ static void	add_3d_object_write_size(int64_t key, void *val,
 {
 	t_3d_object		*obj;
 	uint32_t		*size_counter;
-	t_doom3d		*app;
 
+	(void)params2;
 	size_counter = params1;
-	app = params2;
 	obj = val;
 	*size_counter += sizeof(uint32_t);
 	*size_counter += ft_strlen((char *)key);
@@ -81,10 +80,10 @@ static void	add_hash_map_assets_size(t_doom3d *app, uint32_t *size_count)
 	hash_map_foreach(assets->normal_maps, add_surface_size, size_count, NULL);
 	*size_count += sizeof(uint32_t);
 	hash_map_foreach(assets->models,
-		add_3d_object_write_size, size_count, app);
+		add_3d_object_write_size, size_count, NULL);
 	*size_count += sizeof(uint32_t);
 	hash_map_foreach(assets->animation_3d_frames,
-		add_3d_object_write_size, size_count, app);
+		add_3d_object_write_size, size_count, NULL);
 }
 
 /*

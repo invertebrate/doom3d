@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_read.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 02:05:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 14:45:59 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/19 13:23:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ static void	set_obj_params_by_type(t_doom3d *app, t_3d_object *obj)
 		path_node_init(obj);
 }
 
-static int32_t	read_object_triangles_and_vertices(char *contents,
-					t_3d_object *obj, int32_t offset)
+int32_t	read_object_triangles_and_vertices(char *contents,
+			t_3d_object *obj, int32_t offset)
 {
 	int32_t		j;
 

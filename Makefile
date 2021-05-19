@@ -50,8 +50,10 @@ SOURCES = main.c \
 			assets/cleanup_animation3d.c \
 			assets/asset_load.c \
 			assets/asset_load_from_map/asset_load_from_map.c \
-			assets/asset_load_from_map/asset_key.c \
-			assets/asset_load_from_map/asset_textures.c \
+			assets/asset_load_from_map/key.c \
+			assets/asset_load_from_map/textures.c \
+			assets/asset_load_from_map/models.c \
+			assets/asset_load_from_map/sdl_assets.c \
 			assets/asset_write.c \
 			assets/asset_size.c \
 			assets/asset_loading/animations_3d.c \
@@ -68,6 +70,7 @@ SOURCES = main.c \
 			assets/asset_loading/fonts.c \
 			assets/asset_loading/sounds.c \
 			assets/asset_loading/sdl_assets.c \
+			assets/asset_loading/sdl_asset_size.c \
 			player/player.c \
 			player/player_jump.c \
 			player/player_shoot.c \
@@ -286,10 +289,11 @@ $(NAME): $(OBJS)
 	@make libs
 	@printf "\033[32;1mCompiling app...\n\033[0m"
 	$(CC) -o $@ $^ $(LIBS) $(CFLAGS)
-	@printf "\033[32;1mDone.\n\033[0m"
-	@printf "\033[32;1mRun standalone with first map: ./$(NAME)\n\033[0m"
-	@printf "\033[32;1mRun all levels by executing inside this directory\n\033[0m"
-	@printf "\033[32;1mRun with loaded assets ./$(NAME) --load-assets\n\033[0m"
+	@printf "\033[32;1mDone.\n\n\033[0m"
+	@printf "\033[32;1mUsage: ./$(NAME)\n\033[0m"
+	@printf "\033[32;1mUsage with new assets: ./$(NAME) --load-assets\n\033[0m"
+	@printf "\033[32;1m-Remember to save first level in editor\n\033[0m"
+	@printf "\033[32;1mUsage with old map (no assets in first map, used for conversion): ./$(NAME) --old\n\033[0m"
 
 debug: $(OBJS)
 	@make libs

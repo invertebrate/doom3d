@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:13:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 13:11:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:07:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,31 +42,52 @@ static uint32_t	read_skybox(t_doom3d *app, t_file_contents *file, int32_t offset
 
 static void	validate_assets_file(t_file_contents *file)
 {
-	char			map_header[8];
-	uint32_t		offset;
+	char			map_header[7];
 
 	if (!file)
 	{
 		LOG_FATAL("Asset file (first map) NULL");
 		exit(EXIT_FAILURE);
 	}
-	ft_memcpy(&map_header, file->buf, 8);
-	offset = 8;
-	if (!ft_strequ(map_header, "ASSETS\0"))
-		error_check(true, "Invalid asset file. First map must start ASSETS\0");
+	ft_memcpy(&map_header, file->buf, 7);
+	if (!ft_strequ(map_header, "ASSETS"))
+		error_check(true, "Invalid asset file. First map must start ASSETS");
+}
+
+static void	validate_read_assets(uint32_t size_offset,
+				uint32_t read_asset_offset, char map_header[128])
+{
+	if (read_asset_offset != size_offset || !ft_strequ(map_header, "MAP"))
+	{
+		LOG_FATAL("Asset read failure:"
+			" Read %d, should've read %d, map header: %s",
+			read_asset_offset, size_offset, map_header);
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	load_assets_from_first_level(t_doom3d *app)
 {
 	t_file_contents	*file;
-	char			filename[128];
+	char			char_buf[128];
 	int32_t			offset;
+	uint32_t		size_offset;
+	uint32_t		read_asset_offset;
 
-	ft_sprintf(filename, "assets/map_data/%s", FIRST_LEVEL);
-	LOG_INFO("Load assets from first level (%s)", filename);
-	file = read_file(filename);
+	ft_memset(char_buf, 0, sizeof(char_buf));
+	ft_sprintf(char_buf, "assets/map_data/%s", FIRST_LEVEL);
+	LOG_INFO("Load assets from first level (%s)", char_buf);
+	file = read_file(char_buf);
 	validate_assets_file(file);
-	offset = 8 + sizeof(uint32_t);
+	offset = 8;
+	ft_memcpy(&size_offset, file->buf, sizeof(uint32_t));
+	offset += sizeof(uint32_t);
 	offset = read_skybox(app, file, offset);
 	offset = read_texture_assets(app, file, offset);
+	offset = read_model_assets(app, file, offset);
+	offset = read_sdl_assets(app, file, offset);
+	read_asset_offset = offset - 8 - sizeof(uint32_t);
+	ft_memset(char_buf, 0, sizeof(char_buf));
+	ft_memcpy(&char_buf, file->buf + offset, 4);
+	validate_read_assets(size_offset, read_asset_offset, char_buf);
 }
