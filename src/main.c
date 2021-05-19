@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 23:58:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/20 00:14:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	check_args(t_doom3d *app, int32_t argc, char **argv)
 	parse_args(app, argc, argv);
 	if (!app->is_asset_load)
 	{
-		LOG_INFO("Start Doom App");
+		LOG_INFO("Start Doom");
 		ft_sprintf(level1, "assets/map_data/%s", FIRST_LEVEL);
 		fd = open(level1, O_RDONLY);
 		error_check(fd == -1, "Level1 not found. "
@@ -55,9 +55,12 @@ static void	check_args(t_doom3d *app, int32_t argc, char **argv)
 			" Create level1 with ./doom-nukem --load-assets");
 		close(fd);
 	}
-	else
+	else if (!app->is_old_map_format)
 		LOG_INFO("Start Doom in Asset Load Mode, dont forget to save %s,"
 			" which will contain shared assets", FIRST_LEVEL);
+	else
+		LOG_INFO("Start Doom in Old Map Mode. Saving won't save assets to"
+			" %s. Map should be valid old map (starts MAP)", FIRST_LEVEL);
 }
 
 /*
