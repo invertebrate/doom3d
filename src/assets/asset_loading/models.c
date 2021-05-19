@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:58:39 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 23:43:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 23:47:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,7 @@ void	model_files_set(t_asset_files *data)
 		= "assets/models/window/window_wall.obj";
 	data->model_files[data->num_models++]
 		= "assets/models/lamp_breakable.obj";
+	data->model_files[data->num_models++]
+		= "assets/models/mushroom.obj";
 	scene_model_files_set_sub(data);
 }
