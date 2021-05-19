@@ -6,11 +6,29 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/20 00:18:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/20 00:59:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+
+/*
+** Bonus to organize maps better in maps folder....
+** maps folder is created if it does not exist.
+*/
+
+static void	create_maps_if_not_exists(void)
+{
+	struct stat		st;
+
+	ft_memset(&st, 0, sizeof(st));
+	if (stat("maps", &st) == -1)
+	{
+		mkdir("maps", 0700);
+	}
+}
 
 static void	parse_args(t_doom3d *app, int32_t argc, char **argv)
 {
@@ -41,20 +59,9 @@ static void	parse_args(t_doom3d *app, int32_t argc, char **argv)
 
 static void	check_args(t_doom3d *app, int32_t argc, char **argv)
 {
-	int32_t		fd;
-	char		level1[128];
-
 	parse_args(app, argc, argv);
 	if (!app->is_asset_load)
-	{
 		LOG_INFO("Start Doom");
-		ft_sprintf(level1, "maps/%s", FIRST_LEVEL);
-		fd = open(level1, O_RDONLY);
-		error_check(fd == -1, "Level1 not found. "
-			"Level1 is needed for doom-nukem to run."
-			" Create level1 with ./doom-nukem --load-assets");
-		close(fd);
-	}
 	else if (!app->is_old_map_format)
 		LOG_INFO("Start Doom in Asset Load Mode, dont forget to save %s,"
 			" which will contain shared assets", FIRST_LEVEL);
@@ -74,6 +81,7 @@ int32_t	main(int32_t argc, char **argv)
 {
 	t_doom3d	app;
 
+	create_maps_if_not_exists();
 	ft_memset(&app, 0, sizeof(t_doom3d));
 	srand(time(NULL));
 	check_args(&app, argc, argv);

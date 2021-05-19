@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:13:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/20 00:18:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/20 00:47:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	validate_assets_file(t_file_contents *file)
 
 	if (!file)
 	{
-		LOG_FATAL("Asset file (first map) NULL");
+		LOG_FATAL("Asset file (first map) NULL, try with --load-assets");
 		exit(EXIT_FAILURE);
 	}
 	ft_memcpy(&map_header, file->buf, 7);

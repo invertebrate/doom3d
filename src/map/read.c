@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/20 00:18:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/20 00:57:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,35 @@ static uint32_t	validate_map_file(t_doom3d *app,
 	return (get_initial_offset(app, file, map_name));
 }
 
+void	create_first_map_if_not_exists(t_doom3d *app,
+			t_file_contents **file,
+			const char *map_name)
+{
+	int32_t		fd;
+	int32_t		ret;
+	char		filename[128];
+	uint32_t	offset;
+	uint32_t	num_objects;
+
+	if (!*file && ((app->current_level == 0 && ft_strequ(FIRST_LEVEL, map_name))
+			|| (app->editor.editor_level == 0
+				&& ft_strequ(FIRST_LEVEL, map_name))))
+	{
+		offset = 0;
+		num_objects = 0;
+		ft_memset(filename, 0, sizeof(filename));
+		ft_sprintf(filename, "maps/%s", FIRST_LEVEL);
+		fd = open(filename, O_RDWR | O_CREAT, 0644);
+		error_check(fd == -1, "Failed to create empty first map file");
+		ret = write(fd, "ASSETS", 7);
+		ret = write(fd, &offset, sizeof(uint32_t));
+		ret = write(fd, "MAP", 4);
+		ret = write(fd, &num_objects, sizeof(uint32_t));
+		error_check(close(fd) == -1, "Failed to close empty first map file");
+		*file = read_file(filename);
+	}
+}
+
 /*
 ** Read map data onto active scene from char *map_name file
 */
@@ -87,6 +116,7 @@ void	read_map(t_doom3d *app, const char *map_name)
 	ft_sprintf(filename, "maps/%s", map_name);
 	LOG_INFO("Read map %s", filename);
 	file = read_file(filename);
+	create_first_map_if_not_exists(app, &file, map_name);
 	offset = validate_map_file(app, file, map_name, filename);
 	ft_memcpy(&app->active_scene->num_objects,
 		file->buf + offset, sizeof(uint32_t));
