@@ -290,12 +290,12 @@ $(NAME): $(OBJS)
 	@printf "\033[32;1mCompiling app...\n\033[0m"
 	$(CC) -o $@ $^ $(LIBS) $(CFLAGS)
 	@printf "\033[32;1mDone.\n\n\033[0m"
-	@printf "\033[32;1mUsage:\n ./$(NAME)\n\033[0m"
-	@printf "\033[32;1mWith new assets:\n ./$(NAME) --load-assets\n\033[0m"
-	@printf "\033[32;1m - Remember to save first level in editor\n\033[0m"
-	@printf "\033[32;1mWith old map:\n ./$(NAME) --old\n\033[0m"
-	@printf "\033[32;1m - Like in asset load mode, save first level in editor to convert map to new format\n\033[0m"
-	@printf "\033[32;1mWith debug mode on: (can be toggled in-game)\n ./$(NAME) --debug\n\033[0m"
+	@printf "\033[32;1mUsage:\n ./$(NAME) [options]\n\033[0m"
+	@printf "\033[32;1mOptions:\n\033[0m"
+	@printf "\033[32;1m --load-assets: Loads assets from assets folder. Remember to save first level in editor\n\033[0m"
+	@printf "\033[32;1m --convert-assets: Convert old first map format to contain assets, save first level in editor to convert\n\033[0m"
+	@printf "\033[32;1m --old: Use old map without converting to contain assets when saving\n\033[0m"
+	@printf "\033[32;1m --debug: Debug mode toggled on from start\n\033[0m"
 
 debug: $(OBJS)
 	@make libs

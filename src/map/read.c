@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 23:28:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 23:59:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static uint32_t	get_initial_offset(t_doom3d *app, t_file_contents *file,
 	if (((app->current_level == 0 && ft_strequ(FIRST_LEVEL, map_name))
 			|| (app->editor.editor_level == 0
 				&& ft_strequ(FIRST_LEVEL, map_name)))
-		&& !app->no_assets_in_first_map)
+		&& !app->is_asset_conversion && !app->is_old_map_format)
 		offset = get_asset_map_offset(file);
 	else
 	{
