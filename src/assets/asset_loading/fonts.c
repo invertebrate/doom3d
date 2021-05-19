@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:21:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 20:09:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 16:22:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	load_fonts(t_assets *assets)
 
 void	fonts_destroy(t_assets *assets)
 {
-	free(assets->main_font);
-	free(assets->small_font);
-	free(assets->title_font);
+	SDL_RWclose(assets->main_font);
+	SDL_RWclose(assets->small_font);
+	SDL_RWclose(assets->title_font);
 }

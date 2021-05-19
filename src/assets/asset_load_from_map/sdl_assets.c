@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:29:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 15:43:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 16:20:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ static uint32_t	read_font(t_doom3d *app, SDL_RWops **font,
 {
 	uint32_t	size;
 	void		*buf;
+	SDL_RWops	*rwops;
 
 	ft_memcpy(&size, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	error_check(!(buf = ft_calloc(size)), "Failed to alloc rwops");
-	ft_memcpy(buf, file->buf + offset, size);
+	rwops = SDL_RWFromConstMem(file->buf + offset, size);
 	offset += size;
+	rwops->read(rwops, buf, size, 1);
 	*font = SDL_RWFromConstMem(buf, size);
+	SDL_RWclose(rwops);
 	if (app->is_debug)
 		LOG_DEBUG("Add font of size %d, sdl size: %d", size,
 			(*font)->size(*font));

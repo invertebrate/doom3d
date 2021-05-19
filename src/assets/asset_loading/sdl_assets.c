@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:49:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 15:57:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 16:14:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int32_t	write_safe(int32_t fd, SDL_RWops *rw_ops, size_t byte_size)
 
 	buffer = ft_calloc(byte_size);
 	error_check(!buffer, "Failed to malloc sdl write buffer");
-	rw_ops->write(rw_ops, buffer, byte_size, 1);
+	rw_ops->read(rw_ops, buffer, byte_size, 1);
 	ret = write(fd, buffer, byte_size);
 	free(buffer);
 	if (ret == -1)
