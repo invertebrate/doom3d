@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:29:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 14:43:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:56:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ static uint32_t	read_sdl_fonts(t_doom3d *app,
 	error_check(!(rwops = ft_calloc(size)), "Failed to alloc rwops");
 	ft_memcpy(rwops, file->buf + offset, sizeof(size));
 	offset += size;
-	app->assets.main_font = rwops;
+	app->assets.main_font = SDL_RWFromConstMem(rwops, size);
 	ft_memcpy(&size, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	error_check(!(rwops = ft_calloc(size)), "Failed to alloc rwops");
 	ft_memcpy(rwops, file->buf + offset, sizeof(size));
 	offset += size;
-	app->assets.title_font = rwops;
+	app->assets.title_font = SDL_RWFromConstMem(rwops, size);
 	ft_memcpy(&size, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	error_check(!(rwops = ft_calloc(size)), "Failed to alloc rwops");
 	ft_memcpy(rwops, file->buf + offset, sizeof(size));
 	offset += size;
-	app->assets.small_font = rwops;
+	app->assets.small_font = SDL_RWFromConstMem(rwops, size);
 	return (offset);
 }
 
@@ -51,7 +51,6 @@ uint32_t	read_sdl_assets(t_doom3d *app,
 	size = 0;
 	ft_memcpy(&num_written_tracks, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
-	rwops = NULL;
 	i = -1;
 	while (++i < (int32_t)num_written_tracks)
 	{
@@ -61,8 +60,9 @@ uint32_t	read_sdl_assets(t_doom3d *app,
 		{
 			error_check(!(rwops = ft_calloc(size)), "Failed to alloc rwops");
 			ft_memcpy(rwops, file->buf + offset, sizeof(size));
-			app->assets.sounds[i] = rwops;
-			LOG_WARN("Add sound of size %d", ((SDL_RWops*)rwops)->size(rwops));
+			app->assets.sounds[i] = SDL_RWFromConstMem(rwops, size);
+			if (app->is_debug)
+				LOG_DEBUG("Add sound of size %d", size);
 		}
 		offset += size;
 	}

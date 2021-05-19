@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:13:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 14:41:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:47:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	load_assets_from_first_level(t_doom3d *app)
 	offset = read_skybox(app, file, offset);
 	offset = read_texture_assets(app, file, offset);
 	offset = read_model_assets(app, file, offset);
+	LOG_WARN("Time for sdl assets");
 	offset = read_sdl_assets(app, file, offset);
 	read_asset_offset = offset - 7 - sizeof(uint32_t);
 	ft_memset(char_buf, 0, sizeof(char_buf));

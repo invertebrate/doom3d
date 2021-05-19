@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:05:55 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 14:42:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:57:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static t_surface	*read_surface(t_doom3d *app,
 						t_file_contents *file, int32_t *offset)
 {
 	t_surface	*surface;
-	uint32_t	*pixels;
 	uint32_t	pixels_size;
 	char		filename[128];
 	uint32_t	len;
@@ -38,12 +37,14 @@ static t_surface	*read_surface(t_doom3d *app,
 	ft_memcpy(surface, file->buf + *offset, sizeof(t_surface));
 	*offset += sizeof(t_surface);
 	pixels_size = sizeof(uint32_t) * surface->w * surface->h;
-	error_check(!(pixels = ft_calloc(pixels_size)), "Failed to allc pixels");
-	ft_memcpy(pixels, file->buf + *offset, pixels_size);
+	error_check(!(surface->pixels = ft_calloc(pixels_size)),
+		"Failed to allc pixels");
+	ft_memcpy(surface->pixels, file->buf + *offset, pixels_size);
 	*offset += pixels_size;
-	surface->pixels = pixels;
 	surface->filename = (const char *)get_matching_asset_key(app, filename);
-	LOG_WARN("Read surface of size %d %d, file: %s", surface->w, surface->h, surface->filename);
+	if (app->is_debug)
+		LOG_WARN("Read surface of size %d %d, file: %s",
+			surface->w, surface->h, surface->filename);
 	return (surface);
 }
 
@@ -68,7 +69,8 @@ static uint32_t	read_and_add_surface_asset(t_doom3d *app,
 			free(existing_surface->pixels);
 			free(existing_surface);
 		}
-		LOG_WARN("Added surface file: %s", surface->filename);
+		if (app->is_debug)
+			LOG_DEBUG("Added surfce file: %s", surface->filename);
 		hash_map_add(asset_map, (int64_t)surface->filename, surface);
 	}
 	return (offset);
