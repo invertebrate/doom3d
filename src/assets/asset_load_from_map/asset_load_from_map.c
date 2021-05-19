@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:13:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 14:15:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:18:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 ** Skybox does not have file names written... (thus separate from read surface)
 */
 
-static uint32_t	read_skybox(t_doom3d *app, t_file_contents *file, int32_t offset)
+static uint32_t	read_skybox(t_doom3d *app,
+					t_file_contents *file, int32_t offset)
 {
 	int32_t		i;
 	t_surface	*surface;
@@ -31,7 +32,8 @@ static uint32_t	read_skybox(t_doom3d *app, t_file_contents *file, int32_t offset
 		ft_memcpy(surface, file->buf + offset, sizeof(t_surface));
 		offset += sizeof(t_surface);
 		pixels_size = sizeof(uint32_t) * surface->w * surface->h;
-		error_check(!(pixels = ft_calloc(pixels_size)), "Failed to allc pixels");
+		error_check(!(pixels = ft_calloc(pixels_size)),
+			"Failed to allc pixels");
 		ft_memcpy(pixels, file->buf + offset, pixels_size);
 		surface->pixels = pixels;
 		offset += pixels_size;

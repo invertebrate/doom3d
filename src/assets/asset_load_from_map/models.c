@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:11:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 14:00:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:19:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_3d_object	*read_3d_obj(t_file_contents *file, int32_t *offset,
 	ft_memcpy(filename, file->buf + *offset, len);
 	*offset += len;
 	error_check(!(obj = l3d_3d_object_shallow_copy((t_3d_object *)(file->buf
-						+ *offset))), "E: read object from map byte offset");
+					+ *offset))), "E: read object from map byte offset");
 	*offset += sizeof(t_3d_object);
 	*offset = read_object_triangles_and_vertices(file->buf, obj, *offset);
 	l3d_3d_object_triangle_copy_and_set(obj, obj);
@@ -66,12 +66,12 @@ uint32_t	read_model_assets(t_doom3d *app,
 	i = -1;
 	while (++i < num_written_assets)
 		offset = read_and_add_model_asset(app,
-			app->assets.models, file, offset);
+				app->assets.models, file, offset);
 	ft_memcpy(&num_written_assets, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	i = -1;
 	while (++i < num_written_assets)
 		offset = read_and_add_model_asset(app,
-			app->assets.animation_3d_frames, file, offset);
+				app->assets.animation_3d_frames, file, offset);
 	return (offset);
 }

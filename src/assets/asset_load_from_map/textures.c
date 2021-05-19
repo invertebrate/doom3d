@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:05:55 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 14:16:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:19:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static t_surface	*read_surface(t_doom3d *app,
 	return (surface);
 }
 
-static uint32_t	read_and_add_surface_asset(t_doom3d *app, t_hash_table *asset_map,
+static uint32_t	read_and_add_surface_asset(t_doom3d *app,
+					t_hash_table *asset_map,
 					t_file_contents *file, int32_t offset)
 {
 	t_surface	*surface;
@@ -83,14 +84,14 @@ static uint32_t	read_texture_assets_first_half(t_doom3d *app,
 	i = -1;
 	while (++i < (int32_t)num_written_assets)
 		offset = read_and_add_surface_asset(app,
-			app->assets.sprite_textures, file, offset);
+				app->assets.sprite_textures, file, offset);
 	ft_memcpy(&num_written_assets, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	i = -1;
 	while (++i < (int32_t)num_written_assets)
 		offset = read_and_add_surface_asset(app,
-			app->assets.hud_textures, file, offset);
-	return (offset);	
+				app->assets.hud_textures, file, offset);
+	return (offset);
 }
 
 uint32_t	read_texture_assets(t_doom3d *app,
@@ -106,12 +107,12 @@ uint32_t	read_texture_assets(t_doom3d *app,
 	i = -1;
 	while (++i < (int32_t)num_written_assets)
 		offset = read_and_add_surface_asset(app,
-			app->assets.textures, file, offset);
+				app->assets.textures, file, offset);
 	ft_memcpy(&num_written_assets, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	i = -1;
 	while (++i < (int32_t)num_written_assets)
 		offset = read_and_add_surface_asset(app,
-			app->assets.normal_maps, file, offset);
+				app->assets.normal_maps, file, offset);
 	return (offset);
 }
