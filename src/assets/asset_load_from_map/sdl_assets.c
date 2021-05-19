@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:29:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 18:20:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 22:43:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ uint32_t	read_sdl_assets(t_doom3d *app,
 				= ft_calloc(app->assets.sounds[i].size)),
 			"Failed to alloc data");
 		ft_memcpy(app->assets.sounds[i].data,
-			file->buf + offset, sizeof(app->assets.sounds[i].size));
+			file->buf + offset, app->assets.sounds[i].size);
 		offset += app->assets.sounds[i].size;
 	}
 	return (read_sdl_fonts(app, file, offset));
