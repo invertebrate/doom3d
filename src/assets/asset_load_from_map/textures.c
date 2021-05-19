@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:05:55 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 14:57:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 23:28:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static t_surface	*read_surface(t_doom3d *app,
 		"Failed to allc pixels");
 	ft_memcpy(surface->pixels, file->buf + *offset, pixels_size);
 	*offset += pixels_size;
-	surface->filename = (const char *)get_matching_asset_key(app, filename);
+	surface->filename = (const char *)get_matching_surface_key(app, filename);
 	if (app->is_debug)
-		LOG_WARN("Read surface of size %d %d, file: %s",
+		LOG_DEBUG("Read surface of size %d %d, file: %s",
 			surface->w, surface->h, surface->filename);
 	return (surface);
 }

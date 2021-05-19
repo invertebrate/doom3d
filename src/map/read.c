@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 16:16:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 23:28:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static uint32_t	get_initial_offset(t_doom3d *app, t_file_contents *file,
 		offset = 4;
 		ft_memcpy(&map_header, file->buf, 4);
 		if (!ft_strequ(map_header, "MAP"))
-			error_check(true, "Invalid map file. First 4 bytes must be MAP\0");
+			error_check(true, "Invalid map file. First 4 bytes must be MAP");
 	}		
 	return (offset);
 }

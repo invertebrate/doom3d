@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:11:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 14:55:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 23:27:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static uint32_t	read_and_add_model_asset(t_doom3d *app, t_hash_table *asset_map,
 
 	ft_memset(filename, 0, sizeof(filename));
 	obj = read_3d_obj(file, &offset, filename);
-	matching_filename = (const char *)get_matching_asset_key(app, filename);
+	matching_filename = (const char *)get_matching_model_key(app, filename);
 	if (ft_strlen(filename) == 0 || matching_filename == NULL)
 		l3d_3d_object_destroy(obj);
 	else
@@ -50,7 +50,35 @@ static uint32_t	read_and_add_model_asset(t_doom3d *app, t_hash_table *asset_map,
 		if (existing_obj != NULL)
 			l3d_3d_object_destroy(existing_obj);
 		if (app->is_debug)
-			LOG_DEBUG("Add obj %s", matching_filename);
+			LOG_DEBUG("Add obj %s key ptr %p",
+				matching_filename, matching_filename);
+		hash_map_add(asset_map, (int64_t)matching_filename, existing_obj);
+	}
+	return (offset);
+}
+
+static uint32_t	read_and_add_3d_anim_asset(t_doom3d *app,
+					t_hash_table *asset_map,
+					t_file_contents *file, int32_t offset)
+{
+	t_3d_object	*obj;
+	t_3d_object	*existing_obj;
+	char		filename[128];
+	const char	*matching_filename;
+
+	ft_memset(filename, 0, sizeof(filename));
+	obj = read_3d_obj(file, &offset, filename);
+	matching_filename = (const char *)get_matching_3d_anim_key(app, filename);
+	if (ft_strlen(filename) == 0 || matching_filename == NULL)
+		l3d_3d_object_destroy(obj);
+	else
+	{
+		existing_obj = hash_map_get(asset_map, (int64_t)matching_filename);
+		if (existing_obj != NULL)
+			l3d_3d_object_destroy(existing_obj);
+		if (app->is_debug)
+			LOG_DEBUG("Add obj %s key ptr %p",
+				matching_filename, matching_filename);
 		hash_map_add(asset_map, (int64_t)matching_filename, existing_obj);
 	}
 	return (offset);
@@ -73,7 +101,7 @@ uint32_t	read_model_assets(t_doom3d *app,
 	offset += sizeof(uint32_t);
 	i = -1;
 	while (++i < num_written_assets)
-		offset = read_and_add_model_asset(app,
+		offset = read_and_add_3d_anim_asset(app,
 				app->assets.animation_3d_frames, file, offset);
 	return (offset);
 }
