@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 23:11:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:59:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void	app_init(t_doom3d *app)
 	app->active_scene = NULL;
 	app->triangles_in_view = 0;
 	app->is_running = true;
-	app->is_debug = false;
 	app->is_scene_reload = false;
 	app->unit_size = app->window->width;
 	ft_memset(&app->notifications, 0, sizeof(app->notifications));

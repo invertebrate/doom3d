@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 14:12:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:59:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	parse_args(t_doom3d *app, int32_t argc, char **argv)
 			app->no_assets_in_first_map = true;
 			app->is_asset_load = true;
 		}
+		if (ft_strequ(argv[i], "--debug"))
+			app->is_debug = true;
 	}
 }
 

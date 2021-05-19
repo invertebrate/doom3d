@@ -295,6 +295,7 @@ $(NAME): $(OBJS)
 	@printf "\033[32;1m - Remember to save first level in editor\n\033[0m"
 	@printf "\033[32;1mWith old map:\n ./$(NAME) --old\n\033[0m"
 	@printf "\033[32;1m - Like in asset load mode, save first level in editor to convert map to new format\n\033[0m"
+	@printf "\033[32;1mWith debug mode on: (can be toggled in-game)\n ./$(NAME) --debug\n\033[0m"
 
 debug: $(OBJS)
 	@make libs
