@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asset_load_from_first_level.c                      :+:      :+:    :+:   */
+/*   asset_load_from_map.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:13:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 00:59:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 13:11:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
 /*
-** Skybox does not have file names written...
+** Skybox does not have file names written... (thus separate from read surface)
 */
 
 static uint32_t	read_skybox(t_doom3d *app, t_file_contents *file, int32_t offset)
@@ -68,4 +68,5 @@ void	load_assets_from_first_level(t_doom3d *app)
 	validate_assets_file(file);
 	offset = 8 + sizeof(uint32_t);
 	offset = read_skybox(app, file, offset);
+	offset = read_texture_assets(app, file, offset);
 }

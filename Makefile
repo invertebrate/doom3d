@@ -49,7 +49,9 @@ SOURCES = main.c \
 			assets/cleanup_sprites_and_hud.c \
 			assets/cleanup_animation3d.c \
 			assets/asset_load.c \
-			assets/asset_load_from_first_level.c \
+			assets/asset_load_from_map/asset_load_from_map.c \
+			assets/asset_load_from_map/asset_key.c \
+			assets/asset_load_from_map/asset_textures.c \
 			assets/asset_write.c \
 			assets/asset_size.c \
 			assets/asset_loading/animations_3d.c \
@@ -305,6 +307,7 @@ $(DIR_OBJ):
 	@mkdir -p temp
 	@mkdir -p temp/assets
 	@mkdir -p temp/assets/asset_loading
+	@mkdir -p temp/assets/asset_load_from_map
 	@mkdir -p temp/menus
 	@mkdir -p temp/map
 	@mkdir -p temp/scene
