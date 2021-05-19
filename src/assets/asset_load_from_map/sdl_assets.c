@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:29:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 18:15:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 18:20:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static uint32_t	read_font(t_sized_file *font,
 	ft_memcpy(&font->size, file->buf + offset, sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	error_check(!(font->data = ft_calloc(font->size)), "Failed to alloc rwops");
-	offset += font->size;
 	ft_memcpy(font->data, file->buf + offset, font->size);
+	offset += font->size;
 	return (offset);
 }
 
