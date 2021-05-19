@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:11:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 14:19:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:42:48 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static uint32_t	read_and_add_model_asset(t_doom3d *app, t_hash_table *asset_map,
 		existing_obj = hash_map_get(asset_map, (int64_t)matching_filename);
 		if (existing_obj != NULL)
 			l3d_3d_object_destroy(existing_obj);
+		LOG_WARN("Add obj %s", matching_filename);
 		hash_map_add(asset_map, (int64_t)matching_filename, existing_obj);
 	}
 	return (offset);

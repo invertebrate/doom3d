@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:29:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 13:51:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:43:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ uint32_t	read_sdl_assets(t_doom3d *app,
 			error_check(!(rwops = ft_calloc(size)), "Failed to alloc rwops");
 			ft_memcpy(rwops, file->buf + offset, sizeof(size));
 			app->assets.sounds[i] = rwops;
+			LOG_WARN("Add sound of size %d", ((SDL_RWops*)rwops)->size(rwops));
 		}
 		offset += size;
 	}

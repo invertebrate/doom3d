@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:05:55 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 14:19:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:42:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static t_surface	*read_surface(t_doom3d *app,
 	*offset += pixels_size;
 	surface->pixels = pixels;
 	surface->filename = (const char *)get_matching_asset_key(app, filename);
+	LOG_WARN("Read surface of size %d %d, file: %s", surface->w, surface->h, surface->filename);
 	return (surface);
 }
 
@@ -67,6 +68,7 @@ static uint32_t	read_and_add_surface_asset(t_doom3d *app,
 			free(existing_surface->pixels);
 			free(existing_surface);
 		}
+		LOG_WARN("Added surface file: %s", surface->filename);
 		hash_map_add(asset_map, (int64_t)surface->filename, surface);
 	}
 	return (offset);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:10:50 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 00:27:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:45:33 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	write_assets(int32_t fd, t_doom3d *app)
 	assets_write_size = get_assets_write_size_offset(app);
 	LOG_INFO("Writing assets with size offset of: %llu bytes",
 		assets_write_size);
-	ret = write(fd, "ASSETS\0", 8);
+	ret = write(fd, "ASSETS", 7);
 	ret = write(fd, &assets_write_size, sizeof(uint32_t));
 	ret = 0;
 	i = -1;
