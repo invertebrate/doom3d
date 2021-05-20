@@ -6,29 +6,11 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/20 02:30:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/20 19:53:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-
-/*
-** Bonus to organize maps better in maps folder....
-** maps folder is created if it does not exist.
-*/
-
-static void	create_maps_if_not_exists(void)
-{
-	struct stat		st;
-
-	ft_memset(&st, 0, sizeof(st));
-	if (stat("maps", &st) == -1)
-	{
-		mkdir("maps", 0700);
-	}
-}
 
 static void	parse_args(t_doom3d *app, int32_t argc, char **argv)
 {
@@ -79,7 +61,6 @@ int32_t	main(int32_t argc, char **argv)
 {
 	t_doom3d	app;
 
-	create_maps_if_not_exists();
 	ft_memset(&app, 0, sizeof(t_doom3d));
 	srand(time(NULL));
 	check_args(&app, argc, argv);

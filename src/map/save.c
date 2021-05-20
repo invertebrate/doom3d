@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/20 00:18:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/20 19:50:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	save_map(t_doom3d *app)
 	t_bool			is_new;
 
 	remove_all_objects_shading_opts(app, e_shading_lit);
-	ft_sprintf(filename, "maps/%s", app->editor.editor_filename);
+	ft_sprintf(filename, "%s", app->editor.editor_filename);
 	fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (fd == -1
 		&& ft_dprintf(2, "Failed to open file %s\n", filename))

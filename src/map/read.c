@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/20 13:06:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/20 19:50:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static uint32_t	validate_map_file(t_doom3d *app,
 	}
 	if (!file)
 	{
-		LOG_FATAL("Failed to read %s, check maps/", filename);
+		LOG_FATAL("Failed to read %s, check ./", filename);
 		exit(EXIT_FAILURE);
 	}
 	return (get_initial_offset(app, file, map_name));
@@ -91,7 +91,7 @@ void	create_first_map_if_not_exists(t_doom3d *app,
 		offset = 0;
 		num_objects = 0;
 		ft_memset(filename, 0, sizeof(filename));
-		ft_sprintf(filename, "maps/%s", FIRST_LEVEL);
+		ft_sprintf(filename, "%s", FIRST_LEVEL);
 		fd = open(filename, O_RDWR | O_CREAT, 0644);
 		error_check(fd == -1, "Failed to create empty first map file");
 		ret = write(fd, "ASSETS", 7);
@@ -114,7 +114,7 @@ void	read_map(t_doom3d *app, const char *map_name)
 	char			filename[128];
 	int32_t			offset;
 
-	ft_sprintf(filename, "maps/%s", map_name);
+	ft_sprintf(filename, "%s", map_name);
 	LOG_INFO("Read map %s", filename);
 	file = read_file(filename);
 	create_first_map_if_not_exists(app, &file, map_name);

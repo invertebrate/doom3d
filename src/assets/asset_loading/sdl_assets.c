@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 21:49:54 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/20 00:18:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/20 19:51:08 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int32_t	write_safe(int32_t fd, t_sized_file *file)
 	if (ret == -1)
 	{
 		LOG_FATAL("Failed to write map assets to map,"
-			" use `git checkout maps/%s`"
+			" use `git checkout %s`"
 			" to delete malformed changes", FIRST_LEVEL);
 		return (0);
 	}
