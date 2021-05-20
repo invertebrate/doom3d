@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:10:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/20 00:57:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/20 13:06:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	create_first_map_if_not_exists(t_doom3d *app,
 		ret = write(fd, &num_objects, sizeof(uint32_t));
 		error_check(close(fd) == -1, "Failed to close empty first map file");
 		*file = read_file(filename);
+		(void)ret;
 	}
 }
 
