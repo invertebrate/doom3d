@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound_music_init.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phakakos <phakakos@hive.student.fi>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 17:47:03 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/06 17:47:05 by phakakos         ###   ########.fr       */
+/*   Updated: 2021/05/15 21:57:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	mp_music_init1(t_doom3d *app)
 
 void	mp_music_init(t_doom3d *app)
 {
-	app->mp.library[mu_main] = read_sound(TRACK1, app);
-	app->mp.library[mu_doom] = read_sound(TRACK2, app);
+	app->mp.library[mu_main] = read_sound(mu_main, app);
+	app->mp.library[mu_doom] = read_sound(mu_doom, app);
 	mp_music_init1(app);
 }

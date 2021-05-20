@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 01:17:00 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/19 23:53:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 ** Doom3d specific includes
 */
 
+# include "assets.h"
 # include "game_objects.h"
 # include "player.h"
 # include "scene.h"
@@ -57,6 +58,12 @@
 # define WIDTH 960
 # define HEIGHT 540
 # define NAME "Doom3D"
+
+/*
+** First level is one that will always come with the executable
+*/
+
+# define FIRST_LEVEL "level1"
 
 # define GAME_VIEW_DIST_UNITS 150
 # define EDITOR_VIEW_DIST_UNITS 450
@@ -155,7 +162,6 @@ typedef struct s_procedural_tmp_obj_params
 {
 	t_3d_object	*model;
 	const char	*texture;
-	const char	*normal_map;
 	int32_t		lifetime;
 	int32_t		delay;
 }				t_procedural_tmp_obj_params;
@@ -166,10 +172,14 @@ typedef struct s_procedural_tmp_obj_params
 
 typedef struct s_doom3d
 {
+	t_bool					is_asset_load;
+	t_bool					is_asset_conversion;
+	t_bool					is_old_map_format;
 	t_bool					is_running;
 	t_bool					is_debug;
 	t_bool					is_scene_reload;
 	t_bool					is_third_person;
+	t_assets				assets;
 	t_info					info;
 	t_window				*window;
 	t_scene_id				next_scene_id;
@@ -732,25 +742,6 @@ void						check_light_breakable(t_doom3d *app,
 /*
 ** Scene
 */
-
-void						load_sprites_to_memory(t_scene *scene,
-								t_asset_files *data);
-void						prefabs_load(t_scene *scene);
-void						triggers_load(t_scene *scene);
-void						lights_load(t_scene *scene);
-void						weapon_drops_load(t_scene *scene);
-void						item_drops_load(t_scene *scene);
-void						npcs_load(t_scene *scene);
-void						load_skybox_textures_to_memory(t_scene *scene);
-void						load_animation_3d_frames_to_memory(t_scene *scene,
-								t_asset_files *data);
-void						scene_animation_sprite_files_set(t_asset_files
-								*data);
-void						scene_texture_files_set(t_asset_files *data);
-void						scene_model_files_set(t_asset_files *data);
-void						scene_animation_3d_files_set(t_asset_files *data);
-void						scene_normal_map_files_set(t_asset_files *data);
-void						scene_assets_load(t_scene *scene);
 void						active_scene_content_set(t_doom3d *app);
 void						active_scene_update_after_objects(t_doom3d *app);
 t_scene						*scene_new(t_scene_id scene_id);
@@ -758,18 +749,70 @@ void						scene_destroy(t_doom3d *app);
 void						select_next_scene(t_doom3d *app);
 void						scene_map_init(t_scene *scene);
 void						scene_cameras_destroy(t_scene *scene);
-void						scene_objects_destroy(t_scene *scene);
-void						scene_skybox_destroy(t_scene *scene);
-void						scene_assets_destroy(t_scene *scene);
-void						scene_animations_3d_destroy(t_scene *scene);
-void						scene_textures_destroy(t_scene *scene);
-void						scene_normal_maps_destroy(t_scene *scene);
 void						active_scene_popup_menu_destroy(t_doom3d *app);
 void						extend_all_objects_shading_opts(t_doom3d *app,
 								t_shading_opts opts_to_add);
 void						remove_all_objects_shading_opts(t_doom3d *app,
 								t_shading_opts opts_to_remove);
 void						finish_level(t_doom3d *app, t_3d_object *end_obj);
+
+/*
+** Assets
+*/
+
+void						assets_load(t_doom3d *app);
+void						load_sprites_to_memory(t_assets *assets,
+								t_asset_files *data);
+void						load_hud_textures_to_memory(t_assets *assets,
+								t_asset_files *data);
+void						prefabs_load(t_assets *assets);
+void						triggers_load(t_assets *assets);
+void						lights_load(t_assets *assets);
+void						weapon_drops_load(t_assets *assets);
+void						item_drops_load(t_assets *assets);
+void						npcs_load(t_assets *assets);
+void						load_skybox_textures_to_memory(t_assets *assets);
+void						load_animation_3d_frames_to_memory(t_assets *assets,
+								t_asset_files *data);
+void						sprite_animation_files_set(t_asset_files
+								*data);
+void						hud_icon_files_set(t_asset_files *data);
+void						texture_files_set(t_asset_files *data);
+void						model_files_set(t_asset_files *data);
+void						animation_3d_files_set(t_asset_files *data);
+void						normal_map_files_set(t_asset_files *data);
+void						assets_destroy(t_assets *assets);
+void						animations_3d_destroy(t_assets *assets);
+void						sprites_and_hud_destroy(t_assets *assets);
+void						fonts_destroy(t_assets *assets);
+void						load_fonts(t_assets *assets);
+void						sounds_destroy(t_assets *assets);
+void						load_sounds(t_assets *assets);
+void						sdl_asset_as_memory(const char *filename,
+								t_sized_file *file);
+uint32_t					get_sdl_assets_write_size(t_assets *assets);
+void						write_assets(int32_t fd, t_doom3d *app);
+void						load_assets_from_first_level(t_doom3d *app);
+void						window_set_fonts(t_window *window,
+								t_assets *assets);
+uint32_t					get_assets_write_size_offset(t_doom3d *app);
+void						write_sdl_assets(int32_t fd, t_assets *assets,
+								int32_t *ret);
+int64_t						get_matching_surface_key(t_doom3d *app,
+								const char *filename);
+int64_t						get_matching_model_key(t_doom3d *app,
+								const char *filename);
+int64_t						get_matching_3d_anim_key(t_doom3d *app,
+								const char *filename);
+uint32_t					read_texture_assets(t_doom3d *app,
+								t_file_contents *file, int32_t offset);
+int32_t						read_object_triangles_and_vertices(char *contents,
+								t_3d_object *obj, int32_t offset);
+uint32_t					read_model_assets(t_doom3d *app,
+								t_file_contents *file, int32_t offset);
+uint32_t					get_sdl_asset_write_size(t_sized_file *file);
+uint32_t					read_sdl_assets(t_doom3d *app,
+								t_file_contents *file, int32_t offset);
 
 /*
 ** Editor
@@ -817,13 +860,12 @@ t_3d_object					*place_procedural_scene_object(t_doom3d *app,
 								t_3d_object *model,
 								const char *filenames[2],
 								t_vec3 pos);
-t_3d_object					*place_temp_object(t_doom3d *app,
-								const char *filenames[3],
-								t_vec3 pos,
-								int32_t lifetime_and_delay[2]);
 t_3d_object					*place_procedural_temp_object(t_doom3d *app,
 								t_procedural_tmp_obj_params params,
 								t_vec3 pos);
+void						set_temp_object_sprite_texture(t_doom3d *app,
+								t_3d_object *obj,
+								const char *texture_str);
 void						get_mouse_world_position(t_doom3d *app,
 								t_vec3 mouse_world_pos);
 void						select_object(t_doom3d *app, t_3d_object *object);
@@ -850,10 +892,6 @@ void						trigger_update_key_id(t_doom3d *app,
 void						draw_aabb(t_doom3d *app, t_sub_framebuffer *buffers,
 								t_box3d *aabb, uint32_t color);
 void						editor_duplicate_selected_objects(t_doom3d *app);
-char						*get_object_normal_map_filename(t_scene *scene,
-								t_3d_object *obj);
-char						*get_object_texture_filename(t_scene *scene,
-								t_3d_object *obj);
 uint32_t					get_light_emit_color(t_3d_object *light_obj);
 t_shading_opts				get_light_shading(t_light_type
 								light_type);
@@ -1016,7 +1054,7 @@ void						player_stats_render(t_doom3d *app);
 void						mp_init(t_doom3d *app);
 t_mp						mix_chan_swap(t_doom3d *app, int channels);
 t_mp						mix_init(t_doom3d *app, int channels);
-t_track						*read_sound(char *file, t_doom3d *app);
+t_track						*read_sound(t_sounds sound, t_doom3d *app);
 void						mp_close(t_doom3d *app);
 void						mp_au_mix(void *para, Uint8 *stream, int len);
 t_sound						*s_ini(char loop, char priority, char type,

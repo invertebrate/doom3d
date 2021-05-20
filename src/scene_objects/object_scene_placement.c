@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 16:22:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 22:22:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static void	set_new_object_textures_and_nmaps(t_doom3d *app,
 	t_surface	*texture;
 	t_surface	*normal_map;
 
-	texture = hash_map_get(app->active_scene->textures, (int64_t)texture_str);
+	texture = hash_map_get(app->assets.textures, (int64_t)texture_str);
 	obj->material->texture = texture;
 	if (texture != NULL)
 		hash_map_add(app->active_scene->object_textures,
 			obj->id, (void*)texture_str);
-	normal_map = hash_map_get(app->active_scene->textures,
+	normal_map = hash_map_get(app->assets.textures,
 			(int64_t)normal_map_str);
 	obj->material->normal_map = normal_map;
 	if (normal_map)
@@ -44,7 +44,7 @@ t_3d_object	*place_scene_object(t_doom3d *app, const char *filenames[3],
 	t_3d_object	*obj;
 	t_3d_object	*model;
 
-	model = hash_map_get(app->active_scene->models, (int64_t)filenames[0]);
+	model = hash_map_get(app->assets.models, (int64_t)filenames[0]);
 	if (!model)
 	{
 		LOG_ERROR("No existing model file (%s) given to place object. "
@@ -91,35 +91,7 @@ t_3d_object	*place_procedural_scene_object(t_doom3d *app,
 }
 
 /*
-** Place object from model (add textures from memory)
-*/
-
-t_3d_object	*place_temp_object(t_doom3d *app, const char *filenames[3],
-						t_vec3 pos, int32_t lifetime_and_delay[2])
-{
-	t_3d_object	*obj;
-	t_3d_object	*model;
-
-	model = hash_map_get(app->active_scene->models, (int64_t)filenames[0]);
-	if (!model)
-	{
-		LOG_ERROR("No existing model file (%s) given to place object. "
-			"Add it in scene/asset_loading", filenames[0]);
-		return (NULL);
-	}
-	obj = l3d_object_instantiate(model, app->unit_size);
-	set_new_object_textures_and_nmaps(app, obj, filenames[1], filenames[2]);
-	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
-	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
-		lifetime_and_delay);
-	if (app->is_debug)
-		LOG_DEBUG("New temp object id %d", obj->id);
-	obj->material->flashlight = &(app->player.flashlight);
-	return (obj);
-}
-
-/*
-** Place object from model (add textures from memory)
+** Place object by t_3d_object *model (add textures from memory)
 */
 
 t_3d_object	*place_procedural_temp_object(t_doom3d *app,
@@ -134,8 +106,7 @@ t_3d_object	*place_procedural_temp_object(t_doom3d *app,
 		return (NULL);
 	}
 	obj = l3d_object_instantiate(params.model, app->unit_size);
-	set_new_object_textures_and_nmaps(app, obj,
-		params.texture, params.normal_map);
+	set_temp_object_sprite_texture(app, obj, params.texture);
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
 		(int32_t[2]){params.lifetime, params.delay});

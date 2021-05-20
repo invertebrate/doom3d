@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 10:49:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 20:19:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 
 void	handle_editor_save_start(t_doom3d *app)
 {
+	if (!find_one_object_by_type(app, object_type_trigger,
+			trigger_player_start)
+		|| !find_one_object_by_type(app, object_type_trigger,
+			trigger_player_end))
+	{
+		notify_user(app, (t_notification){
+			.message = "You need to add start and end before saving!",
+			.type = notification_type_info, .time = 2000});
+		return ;
+	}
 	if (!app->editor.is_saving)
 	{
 		disable_editor_menus_on_save(app);
@@ -29,11 +39,9 @@ void	handle_editor_save_start(t_doom3d *app)
 			.type = notification_type_info, .time = 2000});
 	}
 	else
-	{
 		notify_user(app, (t_notification){
 			.message = "Press enter to save",
 			.type = notification_type_info, .time = 2000});
-	}
 }
 
 static void	save_and_handle_highlights(t_doom3d *app)
@@ -51,17 +59,7 @@ static void	save_and_handle_highlights(t_doom3d *app)
 
 void	handle_editor_save_end(t_doom3d *app)
 {
-	if (!find_one_object_by_type(app, object_type_trigger,
-			trigger_player_start)
-		|| !find_one_object_by_type(app, object_type_trigger,
-			trigger_player_end))
-	{
-		notify_user(app, (t_notification){
-			.message = "You need to add start and end before saving!",
-			.type = notification_type_info, .time = 2000});
-		return ;
-	}
-	else if (ft_strlen(app->editor.editor_savename) == 0)
+	if (ft_strlen(app->editor.editor_savename) == 0)
 	{
 		notify_user(app, (t_notification){.message = "Name must not be empty",
 			.type = notification_type_info, .time = 2000});
@@ -83,6 +81,13 @@ void	handle_editor_save_end(t_doom3d *app)
 
 void	handle_editor_save_type(t_doom3d *app, char *text)
 {
+	if (app->editor.editor_level == 0)
+	{
+		notify_user(app, (t_notification){.message
+			= "Cant edit first level name",
+			.time = 2000, .type = notification_type_info});
+		return ;
+	}
 	app->editor.is_saved = false;
 	ft_strcat(app->editor.editor_savename, text);
 	ft_strdel(&text);
@@ -96,6 +101,13 @@ void	handle_editor_save_type_backspace(t_doom3d *app)
 {
 	int32_t		length;
 
+	if (app->editor.editor_level == 0)
+	{
+		notify_user(app, (t_notification){.message
+			= "Cant edit first level name",
+			.time = 2000, .type = notification_type_info});
+		return ;
+	}
 	app->editor.is_saved = false;
 	length = ft_strlen(app->editor.editor_savename);
 	if (length > 0)

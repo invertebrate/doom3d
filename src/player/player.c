@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/13 18:49:47 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/16 23:32:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ void	update_player(t_doom3d *app)
 		return ;
 	player_move(app);
 	player_colliders_update(app);
-	if (app->active_scene->scene_id != scene_id_editor3d)
-		update_player_physics_state(app);
+	update_player_physics_state(app);
 	forces_update_player(app);
 	player_update_aabb(&app->player);
 	player_animation_update(app);

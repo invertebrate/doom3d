@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_duplication.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 01:26:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 15:55:48 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/18 00:00:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,12 @@ static void	duplicate_scene_object(t_doom3d *app, t_3d_object *selected)
 	const char	*texture_file;
 	const char	*normal_map_file;
 
-	texture_file = get_object_texture_filename(app->active_scene, selected);
-	normal_map_file
-		= get_object_normal_map_filename(app->active_scene, selected);
+	texture_file = NULL;
+	if (selected->material->texture)
+		texture_file = selected->material->texture->filename;
+	normal_map_file = NULL;
+	if (selected->material->normal_map)
+		normal_map_file = selected->material->normal_map->filename;
 	model = l3d_3d_object_copy(selected);
 	l3d_3d_object_scale(model,
 		1.0 / app->unit_size, 1.0 / app->unit_size, 1.0 / app->unit_size);

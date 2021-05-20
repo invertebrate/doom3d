@@ -6,7 +6,7 @@
 #    By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 14:43:04 by ohakola           #+#    #+#              #
-#    Updated: 2021/05/09 22:10:18 by ohakola          ###   ########.fr        #
+#    Updated: 2021/05/15 19:09:51 by ohakola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,6 +132,7 @@ SOURCES = ft_atoi.c \
 		hash_map/hash_map.c \
 		hash_map/hash_map_delete.c \
 		hash_map/hash_map_delete_free.c \
+		hash_map/hash_map_foreach.c \
 		thread_pool/thread_pool.c \
 		thread_pool/thread_pool_utils.c \
 		radix_sort/radix_sort.c \

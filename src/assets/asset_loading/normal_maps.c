@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal_maps.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:03:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 22:56:57 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/15 20:31:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	scene_normal_map_files_set2(t_asset_files *data)
 		= "assets/textures/rock_normal.bmp";
 }
 
-void	scene_normal_map_files_set(t_asset_files *data)
+void	normal_map_files_set(t_asset_files *data)
 {
 	data->normal_map_files[data->num_normal_maps++]
 		= "assets/textures/lava_normal.bmp";

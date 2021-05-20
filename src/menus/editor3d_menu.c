@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:26:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 09:34:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 22:26:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	editor_popup_menu_create_sub1(t_doom3d *app,
 {
 	if (new_menu == editor_menu_objects)
 		editor_popup_menu_set(app, pos, (t_button_menu_params){
-			.button_names = app->active_scene->asset_files.model_files,
-			.num_buttons = app->active_scene->asset_files.num_models,
+			.button_names = app->assets.asset_files.model_files,
+			.num_buttons = app->assets.asset_files.num_models,
 			.on_click = on_objects_menu_button_click,
 			.button_font = app->window->small_font});
 	else if (new_menu == editor_menu_textures)
 		editor_popup_menu_set(app, pos, (t_button_menu_params){
-			.button_names = app->active_scene->asset_files.texture_files,
-			.num_buttons = app->active_scene->asset_files.num_textures,
+			.button_names = app->assets.asset_files.texture_files,
+			.num_buttons = app->assets.asset_files.num_textures,
 			.on_click = on_textures_menu_button_click,
 			.button_font = app->window->small_font});
 }
@@ -36,14 +36,14 @@ void	editor_popup_menu_create_sub2(t_doom3d *app,
 {
 	if (new_menu == editor_menu_normalmaps)
 		editor_popup_menu_set(app, pos, (t_button_menu_params){
-			.button_names = app->active_scene->asset_files.normal_map_files,
-			.num_buttons = app->active_scene->asset_files.num_normal_maps,
+			.button_names = app->assets.asset_files.normal_map_files,
+			.num_buttons = app->assets.asset_files.num_normal_maps,
 			.on_click = on_normmaps_menu_button_click,
 			.button_font = app->window->small_font});
 	else if (new_menu == editor_menu_prefabs)
 		editor_popup_menu_set(app, pos, (t_button_menu_params){
-			.button_names = app->active_scene->asset_files.prefab_names,
-			.num_buttons = app->active_scene->asset_files.num_prefabs,
+			.button_names = app->assets.asset_files.prefab_names,
+			.num_buttons = app->assets.asset_files.num_prefabs,
 			.on_click = on_prefab_menu_button_click,
 			.button_font = app->window->small_font});
 }
@@ -54,14 +54,14 @@ void	editor_popup_menu_create_sub3(t_doom3d *app,
 {
 	if (new_menu == editor_menu_npcs)
 		editor_popup_menu_set(app, pos, (t_button_menu_params){
-			.button_names = app->active_scene->asset_files.npc_names,
-			.num_buttons = app->active_scene->asset_files.num_npcs,
+			.button_names = app->assets.asset_files.npc_names,
+			.num_buttons = app->assets.asset_files.num_npcs,
 			.on_click = on_npc_menu_button_click,
 			.button_font = app->window->small_font});
 	else if (new_menu == editor_menu_triggers)
 		editor_popup_menu_set(app, pos, (t_button_menu_params){
-			.button_names = app->active_scene->asset_files.trigger_names,
-			.num_buttons = app->active_scene->asset_files.num_triggers,
+			.button_names = app->assets.asset_files.trigger_names,
+			.num_buttons = app->assets.asset_files.num_triggers,
 			.on_click = on_trigger_menu_button_click,
 			.button_font = app->window->small_font});
 }
@@ -83,8 +83,8 @@ void	editor_popup_menu_create(t_doom3d *app,
 	editor_popup_menu_create_sub3(app, new_menu, pos);
 	if (new_menu == editor_menu_lights)
 		editor_popup_menu_set(app, pos, (t_button_menu_params){
-			.button_names = app->active_scene->asset_files.light_names,
-			.num_buttons = app->active_scene->asset_files.num_lights,
+			.button_names = app->assets.asset_files.light_names,
+			.num_buttons = app->assets.asset_files.num_lights,
 			.on_click = on_light_menu_button_click,
 			.button_font = app->window->small_font});
 	popup_menu_default_dims(dims);

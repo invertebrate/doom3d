@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 16:40:54 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/17 00:27:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ typedef struct s_surface
 	uint32_t		*pixels;
 	uint32_t		w;
 	uint32_t		h;
+	const char		*filename;
 }							t_surface;
 
 typedef struct s_flashlight

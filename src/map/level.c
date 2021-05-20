@@ -6,11 +6,22 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:04:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 16:45:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/20 00:18:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+static void	init_level_list(t_doom3d *app)
+{
+	int32_t		i;
+
+	i = -1;
+	while (++i < (int32_t)app->num_levels)
+		ft_strdel(&app->level_list[i]);
+	ft_memset(app->level_list, 0, sizeof(app->level_list));
+	app->level_list[0] = ft_strdup(FIRST_LEVEL);
+}
 
 /*
 ** Read map file list to be used as level for doom3d
@@ -23,22 +34,19 @@ void	read_level_list(t_doom3d *app)
 	const char	*level_list;
 	int32_t		i;
 
-	i = -1;
-	while (++i < (int32_t)app->num_levels)
-		ft_strdel(&app->level_list[i]);
-	ft_memset(app->level_list, 0, sizeof(app->level_list));
-	level_list = "assets/map_data/level_list.txt";
-	fd = open(level_list, O_RDONLY);
+	init_level_list(app);
+	level_list = "maps/level_list.txt";
+	fd = open(level_list, O_RDONLY | O_CREAT, 0644);
 	if (fd == -1)
 	{
 		LOG_ERROR("Failed to open file %s", level_list);
 		exit(EXIT_FAILURE);
 		return ;
 	}
-	i = 0;
-	while (get_next_line(fd, &app->level_list[i]))
+	i = 1;
+	while (get_next_line(fd, &app->level_list[i]) > 0)
 		i++;
-	app->num_levels = i;
+	app->num_levels += i;
 	if (close(fd) == -1)
 	{
 		LOG_ERROR("Failed to close file %s", level_list);
@@ -54,14 +62,14 @@ void	write_savename_to_level_list(t_doom3d *app)
 	int32_t		ret;
 
 	level = NULL;
-	level_list = "assets/map_data/level_list.txt";
-	fd = open(level_list, O_RDWR);
+	level_list = "maps/level_list.txt";
+	fd = open(level_list, O_RDWR | O_CREAT, 0644);
 	if (fd == -1)
 	{
 		LOG_ERROR("Failed to open file %s", level_list);
 		exit(EXIT_FAILURE);
 	}
-	while (get_next_line(fd, &level))
+	while (get_next_line(fd, &level) > 0)
 		ft_strdel(&level);
 	ret = write(fd, app->editor.editor_filename,
 			ft_strlen(app->editor.editor_filename));

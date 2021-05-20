@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 09:34:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 18:13:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,24 @@ static int	window_resize_callback(void *data, SDL_Event *event)
 	return (0);
 }
 
-static void	window_set_fonts(t_window *window)
+void	window_set_fonts(t_window *window, t_assets *assets)
 {
-	window->main_font = TTF_OpenFont(GAME_FONT, FONT_SIZE);
+	SDL_RWops	*rwops;
+
+	rwops = SDL_RWFromMem(assets->main_font.data,
+			assets->main_font.size);
+	window->main_font
+		= TTF_OpenFontRW(rwops, 1, FONT_SIZE);
 	error_check(window->main_font == NULL, TTF_GetError());
-	window->small_font = TTF_OpenFont(DEBUG_FONT, FONT_SIZE * 0.36);
+	rwops = SDL_RWFromMem(assets->small_font.data,
+			assets->small_font.size);
+	window->small_font
+		= TTF_OpenFontRW(rwops, 1, FONT_SIZE * 0.36);
 	error_check(window->small_font == NULL, TTF_GetError());
-	window->title_font = TTF_OpenFont(GAME_FONT, FONT_SIZE * 1.5);
+	rwops = SDL_RWFromMem(assets->title_font.data,
+			assets->title_font.size);
+	window->title_font
+		= TTF_OpenFontRW(rwops, 1, FONT_SIZE * 1.5);
 	error_check(window->title_font == NULL, TTF_GetError());
 }
 
@@ -91,7 +102,6 @@ void	window_create(t_window **window_ref,
 	window->frame = NULL;
 	window->framebuffer = NULL;
 	window->framebuffer_3d = NULL;
-	window_set_fonts(window);
 	window_frame_recreate(window);
 	SDL_AddEventWatch(window_resize_callback, window);
 	window->resized = false;

@@ -6,17 +6,27 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 14:51:05 by phakakos          #+#    #+#             */
-/*   Updated: 2021/04/25 18:13:06 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/19 22:22:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
+static void	read_sound_to_ptrs(t_sized_file *sound_file,
+				SDL_AudioSpec *wave,
+				Uint8 **data,
+				Uint32 *dlen)
+{
+	error_check(!SDL_LoadWAV_RW(
+			SDL_RWFromConstMem(sound_file->data, sound_file->size),
+			1, wave, data, dlen), SDL_GetError());
+}
+
 /*
 ** Reading WAV-files into t_track struct
 */
 
-t_track	*read_sound(char *file, t_doom3d *app)
+t_track	*read_sound(t_sounds sound, t_doom3d *app)
 {
 	t_track			*ret;
 	SDL_AudioSpec	wave;
@@ -24,11 +34,7 @@ t_track	*read_sound(char *file, t_doom3d *app)
 	Uint32			dlen;
 	SDL_AudioCVT	cvt;
 
-	if (SDL_LoadWAV(file, &wave, &data, &dlen) == NULL)
-	{
-		LOG_ERROR("Couldn't load %s: %s\n", file, SDL_GetError());
-		return (NULL);
-	}
+	read_sound_to_ptrs(&app->assets.sounds[sound], &wave, &data, &dlen);
 	if (SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq,
 			app->mp.auspec.format, app->mp.auspec.channels, app->mp.auspec.freq)
 		== -1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 18:51:30 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/19 14:59:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void	app_init(t_doom3d *app)
 	app->active_scene = NULL;
 	app->triangles_in_view = 0;
 	app->is_running = true;
-	app->is_debug = false;
 	app->is_scene_reload = false;
 	app->unit_size = app->window->width;
 	ft_memset(&app->notifications, 0, sizeof(app->notifications));
@@ -76,6 +75,8 @@ static void	cleanup(t_doom3d *app)
 	thread_pool_destroy(app->thread_pool);
 	LOG_INFO("Destroy scene");
 	scene_destroy(app);
+	LOG_INFO("Destroy assets");
+	assets_destroy(&app->assets);
 	LOG_INFO("Destroy window");
 	window_destroy(app->window);
 	LOG_INFO("Quit SDL");
@@ -123,6 +124,7 @@ void	doom3d_run(t_doom3d *app)
 	int32_t	cpu_count;
 	int32_t	num_threads;
 
+	assets_load(app);
 	cpu_count = SDL_GetCPUCount();
 	num_threads = ft_max_int((int32_t[2]){
 			NUM_THREADS_DEFAULT, cpu_count}, 2);
@@ -136,6 +138,7 @@ void	doom3d_run(t_doom3d *app)
 	settings_init(app);
 	LOG_INFO("Create SDL Window & frame buffers");
 	window_create(&app->window, app->settings.width, app->settings.height);
+	window_set_fonts(app->window, &app->assets);
 	app_init(app);
 	main_loop(app);
 	cleanup(app);

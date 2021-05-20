@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 09:34:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 22:30:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "lib3d.h"
+
 # ifdef __APPLE__
 #  include <SDL.h>
 #  include <SDL_image.h>
@@ -27,8 +28,6 @@
 # endif
 
 # define PIXEL_FORMAT SDL_PIXELFORMAT_RGBA8888
-# define GAME_FONT "assets/fonts/AmazDooMLeft.ttf"
-# define DEBUG_FONT "assets/fonts/Roboto-Regular.ttf"
 # define FONT_SIZE 38
 # define CLEAR_COLOR 0x700000FF
 

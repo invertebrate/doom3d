@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:59:45 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/07 13:52:47 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/17 23:46:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,11 @@
 # define PREF_FREQ 44100
 # define SOUND_DIST 100000
 
-
-/*
-** SOUNDS = MUSIC + SEFFFECT
-*/
-
-# define SOUNDS 42
+# define SOUNDS_NUM_TRACKS 42
 # define MUSIC 2
 # define SEFFECT 40
 # define AUDIO_LOG 20
+
 # define TRACK1 "assets/sounds/basic_music.wav"
 # define TRACK2 "assets/sounds/doom_music.wav"
 # define SF_SHTG_FIRE "assets/sounds/shotgun_fire.wav"
@@ -116,7 +112,7 @@ typedef struct s_mp
 	int					channels;
 	SDL_AudioSpec		auspec;
 	SDL_AudioDeviceID	audev;
-	t_track				*library[SOUNDS];
+	t_track				*library[SOUNDS_NUM_TRACKS];
 	t_sound				*tracks;
 	t_sound				*effects;
 	float				st_vol;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   models.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:58:39 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 18:07:41 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/20 00:03:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	scene_model_files_set_sub(t_asset_files *data)
 	data->model_files[data->num_models++] = "assets/models/keycard.obj";
 }
 
-void	scene_model_files_set(t_asset_files *data)
+void	model_files_set(t_asset_files *data)
 {
 	data->model_files[data->num_models++] = "assets/models/box.obj";
 	data->model_files[data->num_models++]

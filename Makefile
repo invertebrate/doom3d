@@ -45,6 +45,32 @@ CFLAGS =-Wall -Wextra -Werror -march=native -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
 			doom3d.c \
 			settings.c \
+			assets/cleanup.c \
+			assets/cleanup_sprites_and_hud.c \
+			assets/cleanup_animation3d.c \
+			assets/asset_load.c \
+			assets/asset_load_from_map/asset_load_from_map.c \
+			assets/asset_load_from_map/key.c \
+			assets/asset_load_from_map/textures.c \
+			assets/asset_load_from_map/models.c \
+			assets/asset_load_from_map/sdl_assets.c \
+			assets/asset_write.c \
+			assets/asset_size.c \
+			assets/asset_loading/animations_3d.c \
+			assets/asset_loading/models.c \
+			assets/asset_loading/normal_maps.c \
+			assets/asset_loading/textures.c \
+			assets/asset_loading/sprites_and_hud.c \
+			assets/asset_loading/skybox.c \
+			assets/asset_loading/npcs.c \
+			assets/asset_loading/lights.c \
+			assets/asset_loading/triggers.c \
+			assets/asset_loading/triggers_drops.c \
+			assets/asset_loading/prefabs.c \
+			assets/asset_loading/fonts.c \
+			assets/asset_loading/sounds.c \
+			assets/asset_loading/sdl_assets.c \
+			assets/asset_loading/sdl_asset_size.c \
 			player/player.c \
 			player/player_jump.c \
 			player/player_shoot.c \
@@ -120,6 +146,7 @@ SOURCES = main.c \
 			scene_objects/object_is_ignored.c \
 			scene_objects/object_next_index.c \
 			scene_objects/object_scene_placement.c \
+			scene_objects/object_scene_placement_utils.c \
 			scene_objects/object_update.c \
 			scene_objects/object_update_utils.c \
 			scene_objects/game_end.c \
@@ -142,20 +169,6 @@ SOURCES = main.c \
 			scene/scene.c \
 			scene/scene_menus.c \
 			scene/scene_update.c \
-			scene/cleanup.c \
-			scene/cleanup_animation3d.c \
-			scene/scene_assets.c \
-			scene/asset_loading/animations_3d.c \
-			scene/asset_loading/models.c \
-			scene/asset_loading/normal_maps.c \
-			scene/asset_loading/textures.c \
-			scene/asset_loading/sprites.c \
-			scene/asset_loading/skybox.c \
-			scene/asset_loading/npcs.c \
-			scene/asset_loading/lights.c \
-			scene/asset_loading/triggers.c \
-			scene/asset_loading/triggers_drops.c \
-			scene/asset_loading/prefabs.c \
 			scene/scene_content.c \
 			scene/camera/camera.c \
 			scene/camera/update.c \
@@ -276,7 +289,13 @@ $(NAME): $(OBJS)
 	@make libs
 	@printf "\033[32;1mCompiling app...\n\033[0m"
 	$(CC) -o $@ $^ $(LIBS) $(CFLAGS)
-	@printf "\033[32;1mDone. Run: ./$(NAME)\n\033[0m"
+	@printf "\033[32;1mDone.\n\n\033[0m"
+	@printf "\033[32;1mUsage:\n ./$(NAME) [options]\n\033[0m"
+	@printf "\033[32;1mOptions:\n\033[0m"
+	@printf "\033[32;1m --load-assets: Loads assets from assets folder. Remember to save first level in editor. Use this after adding new assets\n\033[0m"
+	@printf "\033[32;1m --convert-assets: Convert old first map format to contain assets, save first level in editor to convert\n\033[0m"
+	@printf "\033[32;1m --old: Use old map without converting to contain assets when saving\n\033[0m"
+	@printf "\033[32;1m --debug: Debug mode toggled on from start\n\033[0m"
 
 debug: $(OBJS)
 	@make libs
@@ -292,11 +311,13 @@ libs:
 
 $(DIR_OBJ):
 	@mkdir -p temp
+	@mkdir -p temp/assets
+	@mkdir -p temp/assets/asset_loading
+	@mkdir -p temp/assets/asset_load_from_map
 	@mkdir -p temp/menus
 	@mkdir -p temp/map
 	@mkdir -p temp/scene
 	@mkdir -p temp/scene/camera
-	@mkdir -p temp/scene/asset_loading
 	@mkdir -p temp/scene/scene_menus
 	@mkdir -p temp/editor
 	@mkdir -p temp/window

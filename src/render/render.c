@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 18:55:51 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/15 22:22:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	render_background(t_doom3d *app)
 {
 	t_surface			*background;
 
-	background = hash_map_get(app->active_scene->hud_textures,
+	background = hash_map_get(app->assets.hud_textures,
 			(int64_t)"assets/img/hud_shell.bmp");
 	error_check(!background, "Could not find background image");
 	l3d_image_place(&(t_surface){

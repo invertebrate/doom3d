@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 16:05:38 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/03 16:07:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/15 17:02:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ret_new_line(char **remainder, char **line, int ret)
 
 	if (ret < 0)
 		return (-1);
-	else if (ret == false && (*remainder == NULL || (*remainder)[0] == '\0'))
+	else if (ret == 0 && (*remainder == NULL || (*remainder)[0] == '\0'))
 		return (0);
 	len = 0;
 	while ((*remainder)[len] != '\0' && (*remainder)[len] != '\n')

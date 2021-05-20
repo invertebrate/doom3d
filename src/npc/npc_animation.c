@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_animation.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:41:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/07 14:52:35 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/19 23:34:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,20 +97,19 @@ static void	npc_anim_3d_frames_set(t_doom3d *app, t_3d_object *obj,
 											t_npc *npc)
 {
 	int			i;
+	t_3d_object	*frame;
 
 	i = -1;
 	while (++i < ANIM_3D_FRAME_MAX)
-	{
 		npc->animation_3d->animation_frames[i] = NULL;
-	}
 	i = npc->animation_3d->frames_start_idx - 1;
 	while (++i < (int)(npc->animation_3d->frames_start_idx
 		+ (npc->animation_3d->frame_count)))
 	{
-		npc->animation_3d->animation_frames[i] = l3d_object_instantiate(
-				hash_map_get(app->active_scene->animation_3d_frames,
-					(int64_t)(
-						app->active_scene->asset_files.animation_3d_files[i])),
+		error_check(!(frame = hash_map_get(app->assets.animation_3d_frames,
+					(int64_t)(app->assets.asset_files.animation_3d_files[i]))),
+			"Could not find animation 3d frame");
+		npc->animation_3d->animation_frames[i] = l3d_object_instantiate(frame,
 				app->unit_size);
 		npc_anim3d_material_copy(obj, npc->animation_3d->animation_frames[i]);
 		l3d_3d_object_scale(npc->animation_3d->animation_frames[i],

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:19:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 18:06:20 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/19 23:47:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void	scene_texture_files_set_sub1(t_asset_files *data)
+static void	texture_files_set_sub1(t_asset_files *data)
 {
 	data->texture_files[data->num_textures++]
 		= "assets/textures/door_metal_h.bmp";
@@ -26,18 +26,9 @@ static void	scene_texture_files_set_sub1(t_asset_files *data)
 		= "assets/textures/pistol_texture.bmp";
 	data->texture_files[data->num_textures++]
 		= "assets/textures/rpg_texture.bmp";
-	data->texture_files[data->num_textures++]
-		= "assets/textures/explosion1.bmp";
-	data->texture_files[data->num_textures++]
-		= "assets/textures/explosion2.bmp";
-	data->texture_files[data->num_textures++]
-		= "assets/textures/explosion3.bmp";
-	data->texture_files[data->num_textures++]
-		= "assets/textures/explosion4.bmp";
-	data->texture_files[data->num_textures++] = "assets/textures/blood.bmp";
 }
 
-static void	scene_texture_files_set_sub2(t_asset_files *data)
+static void	texture_files_set_sub2(t_asset_files *data)
 {
 	data->texture_files[data->num_textures++] = MONSTER01_TEXTURE;
 	data->texture_files[data->num_textures++] = MONSTER01A_TEXTURE;
@@ -66,7 +57,7 @@ static void	scene_texture_files_set_sub2(t_asset_files *data)
 		= "assets/textures/medkit_texture.bmp";
 }
 
-static void	scene_texture_files_set_sub3(t_asset_files *data)
+static void	texture_files_set_sub3(t_asset_files *data)
 {
 	data->texture_files[data->num_textures++]
 		= "assets/textures/rock_toxic.bmp";
@@ -90,7 +81,7 @@ static void	scene_texture_files_set_sub3(t_asset_files *data)
 		= "assets/textures/mushroom_texture.bmp";
 }
 
-void	scene_texture_files_set(t_asset_files *data)
+void	texture_files_set(t_asset_files *data)
 {
 	data->texture_files[data->num_textures++]
 		= "assets/textures/lava.bmp";
@@ -110,7 +101,7 @@ void	scene_texture_files_set(t_asset_files *data)
 		= "assets/textures/floor_metal4_box.bmp";
 	data->texture_files[data->num_textures++]
 		= "assets/textures/window_wall.bmp";
-	scene_texture_files_set_sub1(data);
-	scene_texture_files_set_sub2(data);
-	scene_texture_files_set_sub3(data);
+	texture_files_set_sub1(data);
+	texture_files_set_sub2(data);
+	texture_files_set_sub3(data);
 }

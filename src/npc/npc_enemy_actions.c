@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_enemy_actions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 19:43:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/03 17:56:04 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/18 23:07:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 static void	npc_death_event_ontrigger(t_doom3d *app, void **params)
 {
 	push_custom_event(app, event_object_delete, params[0], params[1]);
-	LOG_DEBUG("Enemy npc removed by death animation trigger event.");
+	if (app->is_debug)
+		LOG_DEBUG("Enemy npc removed by death animation trigger event.");
 }
 
 /*
