@@ -310,7 +310,6 @@ libs:
 	make -C $(LIBGMATRIX)
 
 $(DIR_OBJ):
-	@mkrid -p maps
 	@mkdir -p temp
 	@mkdir -p temp/assets
 	@mkdir -p temp/assets/asset_loading
