@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 16:38:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/21 14:01:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,8 @@ void	assets_load(t_doom3d *app)
 		load_fonts(assets);
 	}
 	else
+	{
+		LOG_INFO("Load assets from first level (%s)", FIRST_LEVEL);
 		load_assets_from_first_level(app);
+	}
 }
