@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 19:46:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/21 13:32:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 static void	select_scene(t_doom3d *app)
 {
 	SDL_StopTextInput();
+	delete_notifications_of_type(app, notification_type_story);
+	delete_notifications_of_type(app, notification_type_info);
 	if (app->active_scene != NULL)
 	{
 		LOG_INFO("Destroy previous scene %d", app->active_scene->scene_id);

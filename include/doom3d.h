@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 23:53:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/21 13:27:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -985,6 +985,8 @@ void						notify_user(t_doom3d *app,
 								t_notification notification);
 void						update_notifications(t_doom3d *app);
 void						delete_notifications(t_doom3d *app);
+void						delete_notifications_of_type(t_doom3d *app,
+								t_notification_type type);
 void						placement_notification(t_doom3d *app, char *txt);
 uint32_t					arr_sum(uint32_t *arr, uint32_t length);
 void						show_subtitle(t_doom3d *app, int32_t log_id);

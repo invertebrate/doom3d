@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:14:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 16:43:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/21 13:27:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,34 @@ void	delete_notifications(t_doom3d *app)
 		free((t_notification *)node->content);
 		node = node->next;
 		free(tmp);
+	}
+	app->notifications = NULL;
+}
+
+void	delete_notifications_of_type(t_doom3d *app, t_notification_type type)
+{
+	t_list		*node;
+	t_list		*prev;
+	t_list		*tmp;
+
+	node = app->notifications;
+	prev = NULL;
+	while (node)
+	{
+		tmp = node;
+		if (((t_notification *)node->content)->type == type)
+		{
+			free((t_notification *)node->content);
+			node = node->next;
+			if (prev != NULL)
+				prev->next = node;
+			free(tmp);
+		}
+		else
+		{
+			prev = node;
+			node = node->next;
+		}
 	}
 	app->notifications = NULL;
 }
