@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:14:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/21 13:27:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/21 13:36:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ void	update_notifications(t_doom3d *app)
 	while ((*last_node)->next)
 		last_node = &(*last_node)->next;
 	last_notification = (*last_node)->content;
+	if (app->active_scene->scene_id == scene_id_main_game
+		&& app->active_scene->is_paused)
+		return ;
 	last_notification->time -= app->info.delta_time;
 	if (last_notification->time <= 0)
 	{
