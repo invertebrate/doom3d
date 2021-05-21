@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:13:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/21 14:12:46 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/21 14:17:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	validate_read_assets(t_file_contents *file, uint32_t size_offset,
 	{
 		LOG_FATAL("No assets read from first map (None),"
 			" did you save first level in editor?"
-			" Use --load-assets to start doom");
+			" Use --load-assets to start doom and save in editor");
 		exit(EXIT_FAILURE);
 	}
 	ft_memset(map_header, 0, sizeof(map_header));
