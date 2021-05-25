@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/21 13:31:37 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:44:20 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	handle_scene_switch(t_doom3d *app)
 	if (app->active_scene->scene_id != app->next_scene_id
 		|| app->is_scene_reload)
 	{
-		if (app->is_debug)
+		if (app->settings.is_debug)
 			LOG_DEBUG("Scen change detected, selecting next");
 		prev_scene_id = app->active_scene->scene_id;
 		if (app->next_scene_id == scene_id_main_game

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:11:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 23:34:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:40:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static uint32_t	read_and_add_model_asset(t_doom3d *app,
 				(int64_t)matching_filename);
 		if (existing_obj != NULL)
 			l3d_3d_object_destroy(existing_obj);
-		if (app->is_debug)
+		if (app->settings.is_debug)
 			LOG_DEBUG("Add obj %s key ptr %p",
 				matching_filename, matching_filename);
 		hash_map_add(app->assets.models, (int64_t)matching_filename, obj);
@@ -77,7 +77,7 @@ static uint32_t	read_and_add_3d_anim_asset(t_doom3d *app,
 				(int64_t)matching_filename);
 		if (existing_obj != NULL)
 			l3d_3d_object_destroy(existing_obj);
-		if (app->is_debug)
+		if (app->settings.is_debug)
 			LOG_DEBUG("Add obj %s key ptr %p",
 				matching_filename, matching_filename);
 		hash_map_add(app->assets.animation_3d_frames,

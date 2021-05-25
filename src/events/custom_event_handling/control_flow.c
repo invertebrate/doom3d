@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   control_flow.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 00:07:48 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 14:27:20 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/25 12:40:41 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	handle_toggle_fullscreen(t_doom3d *app)
 
 void	handle_toggle_debug_mode(t_doom3d *app)
 {
-	app->is_debug = !app->is_debug;
+	app->settings.is_debug = !app->settings.is_debug;
 }
 
 void	handle_toggle_normal_map_mode(t_doom3d *app)

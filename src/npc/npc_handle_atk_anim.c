@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 20:27:37 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/14 16:21:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:41:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	handle_attack(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc)
 	if (npc->atk_pattern[npc->atk_pattern_index] == action_projectile_rpg)
 	{
 		handle_projectile(app, npc_obj, npc);
-		if (app->is_debug)
+		if (app->settings.is_debug)
 			LOG_DEBUG("Npc %d shot projectile", npc_obj->id);
 	}
 }

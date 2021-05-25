@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/02 23:24:48 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:41:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	player_shoot(t_doom3d *app, uint32_t curr_time)
 		set_player_shoot_frame(app);
 	else if (app->player.equipped_weapon->clip == 0)
 	{
-		if (app->is_debug)
+		if (app->settings.is_debug)
 			LOG_DEBUG("Out of Ammo");
 		set_player_default_frame(app);
 		push_custom_event(app,

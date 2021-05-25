@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:09:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/20 19:50:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:43:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	write_map(int32_t fd, t_doom3d *app)
 	int32_t		i;
 	int32_t		ret;
 
-	if (app->editor.editor_level == 0 && !app->is_old_map_format)
+	if (app->editor.editor_level == 0 && !app->settings.is_old_map_format)
 		write_assets(fd, app);
 	ret = write(fd, "MAP\0", 4);
 	ret = write(fd, &app->active_scene->num_objects, sizeof(uint32_t));

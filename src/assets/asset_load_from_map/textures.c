@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:05:55 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 23:28:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:40:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_surface	*read_surface(t_doom3d *app,
 	ft_memcpy(surface->pixels, file->buf + *offset, pixels_size);
 	*offset += pixels_size;
 	surface->filename = (const char *)get_matching_surface_key(app, filename);
-	if (app->is_debug)
+	if (app->settings.is_debug)
 		LOG_DEBUG("Read surface of size %d %d, file: %s",
 			surface->w, surface->h, surface->filename);
 	return (surface);
@@ -69,7 +69,7 @@ static uint32_t	read_and_add_surface_asset(t_doom3d *app,
 			free(existing_surface->pixels);
 			free(existing_surface);
 		}
-		if (app->is_debug)
+		if (app->settings.is_debug)
 			LOG_DEBUG("Added surfce file: %s", surface->filename);
 		hash_map_add(asset_map, (int64_t)surface->filename, surface);
 	}

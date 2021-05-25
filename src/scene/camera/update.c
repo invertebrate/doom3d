@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 18:00:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 16:23:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:38:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ static float	clamp_distance_by_surroundings(t_doom3d *app, t_vec3 dir,
 
 /*
 ** Initialize camera to be behind player. This is only called in 3d rendered
-** scenes and app->is_third_person should always be false initially
+** scenes and app->settings.is_third_person should always be false initially
 */
 
 void	update_third_person_camera(t_doom3d *app)

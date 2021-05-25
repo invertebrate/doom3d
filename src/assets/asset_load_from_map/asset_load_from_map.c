@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:13:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/21 14:17:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:40:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static uint32_t	read_skybox(t_doom3d *app,
 		surface->pixels = pixels;
 		offset += pixels_size;
 		app->assets.skybox_textures[i] = surface;
-		if (app->is_debug)
+		if (app->settings.is_debug)
 			LOG_DEBUG("Read skybox of size %d %d, i: %d",
 				surface->w, surface->h, i);
 	}

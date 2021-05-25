@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/21 14:01:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:43:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	assets_load(t_doom3d *app)
 	npcs_load(assets);
 	triggers_load(assets);
 	lights_load(assets);
-	if (app->is_asset_load)
+	if (app->settings.is_asset_load)
 	{
 		LOG_INFO("Load assets from files");
 		load_skybox_textures_to_memory(assets);

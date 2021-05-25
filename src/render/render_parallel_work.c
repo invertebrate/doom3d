@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:33:20 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/14 16:27:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:38:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ static void	draw_third_person(t_render_work *work)
 {
 	if (work->pass == work->num_passes - 1
 		&& work->app->active_scene->scene_id == scene_id_main_game
-		&& work->app->is_third_person)
+		&& work->app->settings.is_third_person)
 	{
 		draw_aabb(work->app, work->framebuffer->sub_buffers[work->sub_buffer_i],
 			&work->app->player.aabb, 0xff0000ff);
-		if (work->app->is_debug)
+		if (work->app->settings.is_debug)
 		{
 			draw_sphere_collider(work);
 			draw_cylinder_collider(work);

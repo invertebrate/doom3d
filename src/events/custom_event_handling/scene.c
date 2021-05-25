@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:51:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 22:51:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:44:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	handle_scene_change(t_doom3d *app, t_scene_id scene_id)
 
 	if (scene_id == scene_id_editor3d)
 	{
-		if (app->is_asset_load)
+		if (app->settings.is_asset_load)
 		{
 			ft_sprintf(filename, "assets/models/box.obj");
 			fd = open(filename, O_RDONLY);

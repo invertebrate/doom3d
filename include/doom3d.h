@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/21 13:27:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:44:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,12 @@
 
 typedef struct s_settings
 {
+	t_bool					is_asset_load;
+	t_bool					is_asset_conversion;
+	t_bool					is_old_map_format;
+	t_bool					is_debug;
+	t_bool					is_third_person;
 	t_bool					is_normal_map;
-	t_bool					is_skybox;
 	int32_t					width;
 	int32_t					height;
 }							t_settings;
@@ -172,18 +176,14 @@ typedef struct s_procedural_tmp_obj_params
 
 typedef struct s_doom3d
 {
-	t_bool					is_asset_load;
-	t_bool					is_asset_conversion;
-	t_bool					is_old_map_format;
 	t_bool					is_running;
-	t_bool					is_debug;
-	t_bool					is_scene_reload;
-	t_bool					is_third_person;
+	t_settings				settings;
 	t_assets				assets;
 	t_info					info;
 	t_window				*window;
 	t_scene_id				next_scene_id;
 	t_scene					*active_scene;
+	t_bool					is_scene_reload;
 	t_player				player;
 	t_player_hud			player_hud;
 	t_mouse					mouse;
@@ -196,7 +196,6 @@ typedef struct s_doom3d
 	uint32_t				current_level;
 	t_editor				editor;
 	uint64_t				current_tick;
-	t_settings				settings;
 	t_list					*notifications;
 	char					action_text[1024];
 	t_path_node				*path_node_network[MAX_PATH_NODE_NETWORK_SIZE + 1];

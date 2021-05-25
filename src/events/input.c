@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 16:59:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:57:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	handle_wheel(t_doom3d *app, SDL_Event event)
 	add = -1;
 	if (event.wheel.y > 0)
 		add = 1;
-	if (!app->is_third_person)
+	if (!app->settings.is_third_person)
 	{
 		weapon = app->player.equipped_weapon->id + add;
 		if (weapon < 0)
@@ -88,7 +88,7 @@ void	handle_game_input_events(t_doom3d *app, SDL_Event event)
 
 void	handle_input_events(t_doom3d *app, SDL_Event event)
 {
-	if (app->is_debug)
+	if (app->settings.is_debug)
 	{
 		if (event.type == SDL_KEYDOWN)
 			LOG_DEBUG("Key %s pressed", SDL_GetKeyName(event.key.keysym.sym));

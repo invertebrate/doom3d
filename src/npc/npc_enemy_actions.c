@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 19:43:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/18 23:07:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:41:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 static void	npc_death_event_ontrigger(t_doom3d *app, void **params)
 {
 	push_custom_event(app, event_object_delete, params[0], params[1]);
-	if (app->is_debug)
+	if (app->settings.is_debug)
 		LOG_DEBUG("Enemy npc removed by death animation trigger event.");
 }
 
@@ -32,7 +32,7 @@ static void	npc_death_event_ontrigger(t_doom3d *app, void **params)
 
 static void	npc_attack_event_ontrigger(t_doom3d *app, void **params)
 {
-	if (app->is_debug)
+	if (app->settings.is_debug)
 		LOG_DEBUG("Enemy finihed attacking.");
 	(void)params;
 }

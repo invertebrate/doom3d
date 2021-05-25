@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/20 19:53:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:40:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ static void	parse_args(t_doom3d *app, int32_t argc, char **argv)
 	while (++i < argc)
 	{
 		if (ft_strequ(argv[i], "--load-assets"))
-			app->is_asset_load = true;
+			app->settings.is_asset_load = true;
 		if (ft_strequ(argv[i], "--convert-assets"))
 		{
-			app->is_asset_conversion = true;
-			app->is_asset_load = true;
+			app->settings.is_asset_conversion = true;
+			app->settings.is_asset_load = true;
 		}
 		if (ft_strequ(argv[i], "--debug"))
-			app->is_debug = true;
+			app->settings.is_debug = true;
 		if (ft_strequ(argv[i], "--old"))
 		{
-			app->is_asset_load = true;
-			app->is_asset_conversion = false;
-			app->is_old_map_format = true;
+			app->settings.is_asset_load = true;
+			app->settings.is_asset_conversion = false;
+			app->settings.is_old_map_format = true;
 		}
 	}
 }
@@ -40,9 +40,9 @@ static void	parse_args(t_doom3d *app, int32_t argc, char **argv)
 static void	check_args(t_doom3d *app, int32_t argc, char **argv)
 {
 	parse_args(app, argc, argv);
-	if (!app->is_asset_load)
+	if (!app->settings.is_asset_load)
 		LOG_INFO("Start Doom");
-	else if (!app->is_old_map_format)
+	else if (!app->settings.is_old_map_format)
 		LOG_INFO("Start Doom in Asset Load Mode, dont forget to save %s,"
 			" which will contain shared assets", FIRST_LEVEL);
 	else

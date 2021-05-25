@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 22:22:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:41:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_3d_object	*place_scene_object(t_doom3d *app, const char *filenames[3],
 	obj->material->flashlight = &(app->player.flashlight);
 	app->active_scene->objects[next_object_index(app)] = obj;
 	active_scene_update_after_objects(app);
-	if (app->is_debug)
+	if (app->settings.is_debug)
 		LOG_DEBUG("New object id %d", obj->id);
 	return (obj);
 }
@@ -85,7 +85,7 @@ t_3d_object	*place_procedural_scene_object(t_doom3d *app,
 	app->active_scene->objects[next_object_index(app)] = obj;
 	obj->material->flashlight = &(app->player.flashlight);
 	active_scene_update_after_objects(app);
-	if (app->is_debug)
+	if (app->settings.is_debug)
 		LOG_DEBUG("New procedural object id %d", obj->id);
 	return (obj);
 }
@@ -110,7 +110,7 @@ t_3d_object	*place_procedural_temp_object(t_doom3d *app,
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	l3d_temp_objects_add(&app->active_scene->temp_objects, obj,
 		(int32_t[2]){params.lifetime, params.delay});
-	if (app->is_debug)
+	if (app->settings.is_debug)
 		LOG_DEBUG("New procedural temp object id %d", obj->id);
 	obj->material->flashlight = &(app->player.flashlight);
 	return (obj);

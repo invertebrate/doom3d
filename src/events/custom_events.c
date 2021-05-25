@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_events.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:57:41 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:54:57 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/25 12:40:27 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	handle_custom_events(t_doom3d *app, SDL_Event event)
 	handle = hash_map_get(app->custom_event_handles, event.user.code);
 	if (handle != NULL)
 	{
-		if (app->is_debug)
+		if (app->settings.is_debug)
 		{
 			custom_event_to_str(event_str, event.user.code);
 			LOG_DEBUG("Received User Event:%d(%s) with: data1: %p, data2: %p",

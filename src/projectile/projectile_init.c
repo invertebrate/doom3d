@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 13:16:45 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/14 16:20:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 12:41:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	place_npc_projectile_in_scene(t_doom3d *app,
 		projectile->type);
 	l3d_3d_object_scale(obj, 0.1, 0.1, 0.1);
 	l3d_object_aabb_update(obj);
-	if (app->is_debug)
+	if (app->settings.is_debug)
 		LOG_DEBUG("Spawned projectile id: %d", obj->id);
 }
 
@@ -51,7 +51,7 @@ void	place_missile_in_scene(t_doom3d *app,
 	ml_matrix4_general_rotation(app->player.sideways, ml_rad(-90), rot);
 	l3d_3d_object_rotate_matrix(obj, rot);
 	l3d_object_aabb_update(obj);
-	if (app->is_debug)
+	if (app->settings.is_debug)
 		LOG_DEBUG("Spawned projectile id: %d", obj->id);
 }
 

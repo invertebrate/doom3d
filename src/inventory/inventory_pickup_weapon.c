@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inventory_pickup_weapon.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:26:50 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/04 17:48:56 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/25 12:41:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	weapon_id_to_str(char *str, t_weapon_id weapon_id)
 static void	give_jetpack(t_doom3d *app, t_3d_object *jetpack_obj)
 {
 	app->player.can_fly = true;
-	if (app->is_debug)
+	if (app->settings.is_debug)
 		LOG_DEBUG("Picked up Jetpack");
 	push_custom_event(app, event_object_delete,
 		jetpack_obj, NULL);
@@ -53,7 +53,7 @@ void	inventory_pickup_weapon_object(t_doom3d *app,
 	{
 		weapon_id_to_str(weapon_id, weapon->id);
 		app->player.weapons[weapon->id].ammo += weapon->ammo;
-		if (app->is_debug)
+		if (app->settings.is_debug)
 			LOG_DEBUG("Picked up %s %d ammo", weapon_id,
 				app->player.weapons[weapon->id].ammo);
 		push_custom_event(app, event_object_delete,
@@ -76,7 +76,7 @@ void	inventory_pickup_key(t_doom3d *app, t_3d_object *key_obj)
 			key_obj, NULL);
 		push_custom_event(app,
 			event_effect_play, (void*)sf_pickup, s_ini(0, 1, st_game, 1.0));
-		if (app->is_debug)
+		if (app->settings.is_debug)
 			LOG_DEBUG("Picked up key %d", key->key_id);
 		key_obj->params_type = trigger_type_disabled;
 	}
@@ -93,7 +93,7 @@ void	inventory_pickup_medkit(t_doom3d *app, t_3d_object *medkit_obj)
 			medkit_obj, NULL);
 		push_custom_event(app,
 			event_effect_play, (void*)sf_pickup, s_ini(0, 1, st_game, 1.0));
-		if (app->is_debug)
+		if (app->settings.is_debug)
 			LOG_DEBUG("Picked up medkit");
 		medkit_obj->params_type = trigger_type_disabled;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_update_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 22:37:09 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 18:10:25 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/25 12:41:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ static void	delete_object_by_index(t_doom3d *app, t_3d_object **objects,
 	if (objects[del_index]->type == object_type_npc)
 	{
 		npc_destroy(objects[del_index]);
-		if (app->is_debug)
+		if (app->settings.is_debug)
 			LOG_DEBUG("Deleted object %s, id %u that may have"
 				"3D animations", obj_type, id);
 	}
 	else
 	{
 		l3d_3d_object_destroy(objects[del_index]);
-		if (app->is_debug)
+		if (app->settings.is_debug)
 			LOG_DEBUG("Deleted object %s, id %u", obj_type, id);
 	}
 }
