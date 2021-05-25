@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:41:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:49:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 20:31:50 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ static void	on_settings_menu_button_click(t_button *self, void *params)
 	else if (self->id == 3)
 		push_custom_event(app, event_scene_change,
 			(void*)scene_id_main_menu, NULL);
+}
+
+static void	update_settings_selector(t_doom3d *app)
+{
+	SDL_Event	dummy;
+
+	if (app->settings.width == 960)
+		button_group_set_selector(app->active_scene->menus[0], 0);
+	else if (app->settings.width == 1280)
+		button_group_set_selector(app->active_scene->menus[0], 1);
+	else if (app->settings.width == 1920)
+		button_group_set_selector(app->active_scene->menus[0], 2);
+	ft_memset(&dummy, 0, sizeof(dummy));
+	button_group_events_handle(app->active_scene->menus[0], app->mouse, dummy);
 }
 
 /*
@@ -49,4 +63,5 @@ void	settings_menu_create(t_doom3d *app)
 			.button_font = app->window->main_font,
 		});
 	app->active_scene->num_button_menus = 1;
+	update_settings_selector(app);
 }
