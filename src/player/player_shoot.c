@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/25 12:41:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 18:37:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	player_shoots(t_doom3d *app)
 		|| app->player.equipped_weapon->id == weapon_pistol)
 		player_shoot_ray(app, origin, app->player.forward);
 	else if (app->player.equipped_weapon->id == weapon_rpg)
-		player_shoot_projectile(app, origin);
+		push_custom_event(app, event_player_shoot_projectile, NULL, NULL);
 	else if (app->player.equipped_weapon->id == weapon_shotgun)
 		shoot_shotgun(app, origin, 0);
 	if (app->player.equipped_weapon->id != weapon_fist)

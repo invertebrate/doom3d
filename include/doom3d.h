@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 12:44:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 18:36:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -552,7 +552,7 @@ void						handle_player_crouch(t_doom3d *app,
 void						handle_player_weapon_equip(t_doom3d *app,
 								t_weapon_id weapon);
 void						handle_player_reload(t_doom3d *app);
-void						handle_player_shoot(t_doom3d *app);
+void						handle_player_shoot_projectile(t_doom3d *app);
 void						handle_player_interact(t_doom3d *app);
 
 /*
