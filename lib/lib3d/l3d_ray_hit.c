@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 22:33:21 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 14:13:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,15 @@ t_bool	l3d_kd_tree_ray_hits(t_kd_tree *triangle_tree,
 			t_vec3 origin, t_vec3 dir, t_hits **hits)
 {
 	t_ray			ray;
+	t_bool			result;
 
 	*hits = NULL;
 	l3d_ray_set(dir, origin, &ray);
-	return (l3d_kd_tree_ray_hit_recursive(triangle_tree->root, &ray, hits));
+	result = l3d_kd_tree_ray_hit_recursive(triangle_tree->root, &ray, hits);
+	if (!result)
+	{
+		l3d_delete_hits(hits);
+		*hits = NULL;
+	}
+	return (result);
 }
