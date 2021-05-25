@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:41:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 20:31:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 20:45:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,20 @@ static void	on_settings_menu_button_click(t_button *self, void *params)
 			(void*)scene_id_main_menu, NULL);
 }
 
-static void	update_settings_selector(t_doom3d *app)
+static void	on_difficulty_menu_button_click(t_button *self, void *params)
+{
+	t_doom3d	*app;
+
+	app = params;
+	if (self->id == 0)
+		push_custom_event(app, event_set_difficulty,
+			(void *)(intptr_t)self->id, NULL);
+	else if (self->id == 1)
+		push_custom_event(app, event_set_difficulty,
+			(void *)(intptr_t)self->id, NULL);
+}
+
+static void	update_settings_selectors(t_doom3d *app)
 {
 	SDL_Event	dummy;
 
@@ -38,8 +51,13 @@ static void	update_settings_selector(t_doom3d *app)
 		button_group_set_selector(app->active_scene->menus[0], 1);
 	else if (app->settings.width == 1920)
 		button_group_set_selector(app->active_scene->menus[0], 2);
+	if (app->settings.is_hard)
+		button_group_set_selector(app->active_scene->menus[1], 1);
+	else
+		button_group_set_selector(app->active_scene->menus[1], 0);
 	ft_memset(&dummy, 0, sizeof(dummy));
 	button_group_events_handle(app->active_scene->menus[0], app->mouse, dummy);
+	button_group_events_handle(app->active_scene->menus[1], app->mouse, dummy);
 }
 
 /*
@@ -62,6 +80,15 @@ void	settings_menu_create(t_doom3d *app)
 			.on_click = on_settings_menu_button_click,
 			.button_font = app->window->main_font,
 		});
-	app->active_scene->num_button_menus = 1;
-	update_settings_selector(app);
+	app->active_scene->menus[1] = button_menu_create_shaded(app,
+			(t_button_menu_params){
+			.button_names = (const char*[4]){
+			"Normal",
+			"Hard"},
+			.num_buttons = 2,
+			.on_click = on_difficulty_menu_button_click,
+			.button_font = app->window->main_font,
+		});
+	app->active_scene->num_button_menus = 2;
+	update_settings_selectors(app);
 }

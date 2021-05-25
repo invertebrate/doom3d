@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/09 21:05:00 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/25 20:44:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,21 @@ static void	render_main_menu_or_settings_menu(t_doom3d *app)
 
 	height = app->window->framebuffer->height;
 	render_ui_title(app);
-	render_button_menu(app->active_scene->menus[0], (t_vec2){100,
-		height / 2
-		- app->active_scene->menus[0]->buttons[0]->height
-		* app->active_scene->menus[0]->num_buttons / 2});
+	if (app->active_scene->scene_id == scene_id_main_menu_settings)
+	{
+		render_button_menu(app->active_scene->menus[0], (t_vec2){100, height / 2
+			- app->active_scene->menus[0]->buttons[0]->height
+			* app->active_scene->menus[0]->num_buttons / 2});
+		render_button_menu(app->active_scene->menus[1], (t_vec2){300, height / 2
+			- app->active_scene->menus[0]->buttons[0]->height
+			* app->active_scene->menus[0]->num_buttons / 2});
+	}
+	else
+	{
+		render_button_menu(app->active_scene->menus[0], (t_vec2){100, height / 2
+			- app->active_scene->menus[0]->buttons[0]->height
+			* app->active_scene->menus[0]->num_buttons / 2});
+	}
 }
 
 /*

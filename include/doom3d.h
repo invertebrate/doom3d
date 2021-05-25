@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 18:48:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 20:41:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct s_settings
 	t_bool					is_debug;
 	t_bool					is_third_person;
 	t_bool					is_normal_map;
+	t_bool					is_hard;
 	int32_t					width;
 	int32_t					height;
 }							t_settings;
@@ -542,6 +543,8 @@ void						handle_toggle_debug_mode(t_doom3d *app);
 void						handle_toggle_third_person(t_doom3d *app);
 void						handle_third_person_zoom(t_doom3d *app,
 								int32_t zoom_amount);
+void						handle_set_difficulty(t_doom3d *app,
+								int32_t button_index);
 void						handle_player_toggle_flight(t_doom3d *app);
 void						handle_player_jump(t_doom3d *app);
 void						handle_player_move(t_doom3d *app,

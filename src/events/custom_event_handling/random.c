@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   third_person.c                                     :+:      :+:    :+:   */
+/*   random.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 19:40:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 12:38:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 20:42:19 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,12 @@ void	handle_third_person_zoom(t_doom3d *app, int32_t zoom_amount)
 		app->active_scene->third_person_camera_distance = app->unit_size * 1;
 	if (app->active_scene->third_person_camera_distance > app->unit_size * 15)
 		app->active_scene->third_person_camera_distance = app->unit_size * 15;
+}
+
+void	handle_set_difficulty(t_doom3d *app, int32_t button_index)
+{
+	if (button_index == 0)
+		app->settings.is_hard = false;
+	if (button_index == 1)
+		app->settings.is_hard = true;
 }

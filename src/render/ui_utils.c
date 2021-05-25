@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:21:40 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 21:00:07 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/25 20:52:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,24 @@ void	render_button_menu(t_button_group *menu, t_vec2 pos)
 
 void	render_ui_title(t_doom3d *app)
 {
+	const char	*difficulty;
+	const char	*title;
+
+	title = "Doom-3D";
+	if (app->settings.is_hard)
+		difficulty = "hard";
+	else
+		difficulty = "normal";
 	window_text_render_centered_shaded(app->window, (t_text_params){
-		.text = "Doom-3D", .blend_ratio = 1.0,
+		.text = title, .blend_ratio = 1.0,
 		.xy = (int [2]){app->window->framebuffer->width / 2,
 		FONT_SIZE * 2 + 10},
 		.text_color = (SDL_Color){255, 0, 0, 255}},
 		app->window->title_font);
+	window_text_render_centered_shaded(app->window, (t_text_params){
+		.text = difficulty, .blend_ratio = 1.0,
+		.xy = (int [2]){app->window->framebuffer->width / 2,
+		FONT_SIZE * 3 + 10},
+		.text_color = (SDL_Color){255, 0, 0, 255}},
+		app->window->main_font);
 }
