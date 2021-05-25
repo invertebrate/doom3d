@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 16:02:10 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:51:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 20:01:38 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ static void	on_pause_menu_button_click(t_button *self, void *params)
 
 	app = params;
 	if (self->id == 0)
+		push_custom_event(app, event_toggle_pause_game, NULL, NULL);
+	if (self->id == 1)
 		push_custom_event(app, event_scene_change,
 			(void *)scene_id_main_menu, NULL);
-	else if (self->id == 1)
+	else if (self->id == 2)
 		push_custom_event(app, event_quit, NULL, NULL);
 }
 
@@ -36,9 +38,10 @@ void	pause_menu_create(t_doom3d *app)
 	app->active_scene->menus[0] = button_menu_create(app,
 			(t_button_menu_params){
 			.button_names = (const char*[4]){
+			"Resume",
 			"Main Menu",
 			"Quit"},
-			.num_buttons = 2,
+			.num_buttons = 3,
 			.on_click = on_pause_menu_button_click,
 			.button_font = app->window->main_font,
 		});
