@@ -244,6 +244,7 @@ SOURCES = main.c \
 			events/custom_event_handling/objects/translate.c \
 			events/custom_event_handling/objects/rotate.c \
 			events/custom_event_handling/objects/objects.c \
+			events/custom_event_handling/objects/npc.c \
 			events/custom_event_handling/editor/menu.c \
 			events/custom_event_handling/editor/selection.c \
 			events/custom_event_handling/editor/placement1.c \

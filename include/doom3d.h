@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 18:36:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/25 18:48:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -448,6 +448,8 @@ t_bool						mouse_inside_editor_view(t_doom3d *app);
 t_3d_object					*editor_object_by_mouse(t_doom3d *app);
 void						editor_point_on_target(t_doom3d
 								*app, t_vec3 hit_point);
+void						handle_npc_projectile_shoot(t_doom3d *app,
+								t_3d_object *npc_obj);
 
 /*
 ** Custom Event handling
