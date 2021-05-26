@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_status.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 12:53:53 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/12 08:40:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/26 16:26:40 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	player_onhit(t_doom3d *app, int damage)
 {
 	float	vol;
 
+	if (app->settings.is_hard)
+		damage = damage * 2;
 	app->player.hp -= damage;
 	vol = (float)(damage) / (app->player.max_hp * 0.02f);
 	if (vol > 1)
