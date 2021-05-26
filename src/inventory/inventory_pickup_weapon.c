@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inventory_pickup_weapon.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:26:50 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/25 12:41:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/26 16:52:33 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	inventory_pickup_weapon_object(t_doom3d *app,
 	if (weapon)
 	{
 		weapon_id_to_str(weapon_id, weapon->id);
-		app->player.weapons[weapon->id].ammo += weapon->ammo;
+		app->player.weapons[weapon->id].ammo += weapon->clip_size * 4;
 		if (app->settings.is_debug)
 			LOG_DEBUG("Picked up %s %d ammo", weapon_id,
 				app->player.weapons[weapon->id].ammo);
@@ -86,7 +86,10 @@ void	inventory_pickup_medkit(t_doom3d *app, t_3d_object *medkit_obj)
 {
 	if (app->player.hp < app->player.max_hp)
 	{
-		app->player.hp += 100;
+		if (app->settings.is_hard)
+			app->player.hp += app->player.max_hp * 0.25;
+		else
+			app->player.hp = app->player.max_hp;
 		if (app->player.hp > app->player.max_hp)
 			app->player.hp = app->player.max_hp;
 		push_custom_event(app, event_object_delete,
