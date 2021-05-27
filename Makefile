@@ -18,15 +18,7 @@ ifeq ($(UNAME), Linux)
 	LIB_MATH = -lm
 	LIB_PTHRTEAD = -lpthread
 else
-	SDL_FLAGS = -rpath $(LIBSDL2) \
-					-framework SDL2 -F$(LIBSDL2)/ \
-					-framework SDL2_image -F$(LIBSDL2)/ \
-					-framework SDL2_ttf -F$(LIBSDL2)/ \
-					-framework SDL2_mixer -F$(LIBSDL2)/
-	SDL_INCLUDES = -I$(LIBSDL2)/SDL2.framework/Headers \
-			-I$(LIBSDL2)/SDL2_image.framework/Headers \
-			-I$(LIBSDL2)/SDL2_ttf.framework/Headers \
-			-I$(LIBSDL2)/SDL2_mixer.framework/Headers
+	SDL_FLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 endif
 
 LIBS = $(LIB3DFLAGS) $(LIBGMATRIXFLAGS) $(LIBFTFLAGS) $(SDL_FLAGS) $(LIB_MATH) $(LIB_PTHRTEAD)
@@ -35,8 +27,7 @@ INCLUDES = -I ./include \
 		-I./lib/external_log \
 		-I$(LIBFT)/include \
 		-I$(LIB3D)/include \
-		-I$(LIBGMATRIX)/include \
-		$(SDL_INCLUDES)
+		-I$(LIBGMATRIX)/include
 
 CFLAGS =-Wall -Wextra -Werror -march=native -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 22:30:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/28 00:24:59 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,9 @@
 # include "libft.h"
 # include "lib3d.h"
 
-# ifdef __APPLE__
-#  include <SDL.h>
-#  include <SDL_image.h>
-#  include <SDL_ttf.h>
-# endif
-# ifdef __linux__
-#  include <SDL2/SDL.h>
-#  include <SDL2/SDL_image.h>
-#  include <SDL2/SDL_ttf.h>
-# endif
+# include <SDL2/SDL.h>
+# include <SDL2/SDL_image.h>
+# include <SDL2/SDL_ttf.h>
 
 # define PIXEL_FORMAT SDL_PIXELFORMAT_RGBA8888
 # define FONT_SIZE 38

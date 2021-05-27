@@ -11,6 +11,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	brew update
 	brew install sdl2
 	brew install sdl2_ttf
+	brew install sdl2_image
 	brew install sdl2_mixer
 else
 	echo "Other than Linux and OSX are not supported"

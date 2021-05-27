@@ -6,19 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:59:45 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/17 23:46:02 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/28 00:22:22 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SOUND_H
 # define SOUND_H
 
-# ifdef __APPLE__
-#  include <SDL_audio.h>
-# endif
-# ifdef __linux__
-#  include <SDL2/SDL_audio.h>
-# endif
+# include <SDL2/SDL_audio.h>
 
 /*
 ** SOUND MACROS

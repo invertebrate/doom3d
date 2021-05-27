@@ -6,19 +6,14 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 20:00:21 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 17:40:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/28 00:26:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASSETS_H
 # define ASSETS_H
 
-# ifdef __APPLE__
-#  include <SDL.h>
-# endif
-# ifdef __linux__
-#  include <SDL2/SDL.h>
-# endif
+# include <SDL2/SDL.h>
 
 # include "libft.h"
 # include "sound.h"
