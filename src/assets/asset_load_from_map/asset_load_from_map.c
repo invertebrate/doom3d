@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 22:13:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 12:40:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/27 19:58:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static void	validate_assets_file(t_file_contents *file)
 	ft_memcpy(&map_header, file->buf, 7);
 	if (!ft_strequ(map_header, "ASSETS"))
 		error_check(true, "Invalid asset file. First map must start ASSETS. "
-			"You can convert an old map to contain assets with"
+			"Run with --default or "
+			"you can convert a default map to contain assets with"
 			" --convert-assets");
 }
 
