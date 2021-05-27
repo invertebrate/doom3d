@@ -272,19 +272,12 @@ SOURCES = main.c \
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))
 
-all: $(DIR_OBJ) install_sdl $(NAME)
+all: intro $(DIR_OBJ) install_sdl $(NAME) usage
 
 $(NAME): $(OBJS)
 	@make libs
 	@printf "\033[32;1mCompiling app...\n\033[0m"
 	$(CC) -o $@ $^ $(LIBS) $(CFLAGS)
-	@printf "\033[32;1mDone.\n\n\033[0m"
-	@printf "\033[32;1mUsage:\n ./$(NAME) [options]\n\033[0m"
-	@printf "\033[32;1mOptions:\n\033[0m"
-	@printf "\033[32;1m --load-assets: Loads assets from assets folder. Remember to save first level in editor. Use this after adding new assets\n\033[0m"
-	@printf "\033[32;1m --convert-assets: Convert old first map format to contain assets, save first level in editor to convert\n\033[0m"
-	@printf "\033[32;1m --default: Use default map format	 without converting to contain assets when saving\n\033[0m"
-	@printf "\033[32;1m --debug: Debug mode toggled on from start\n\033[0m"
 
 libs:
 	@printf "\033[32;1mCompiling libs...\n\033[0m"
@@ -292,7 +285,20 @@ libs:
 	make -C $(LIB3D)
 	make -C $(LIBGMATRIX)
 
+usage:
+	@printf "\033[32;1mDone.\n\n\033[0m"
+	@printf "\033[32;1mUsage:\n ./$(NAME) [options]\n\033[0m"
+	@printf "\033[32;1mOptions:\n\033[0m"
+	@printf "\033[32;1m --load-assets: Loads assets from assets folder. Remember to save first level in editor. Use this after adding new assets\n\033[0m"
+	@printf "\033[32;1m --convert-assets: Convert old first map format to contain assets, save first level in editor to convert\n\033[0m"
+	@printf "\033[32;1m --default: Use default map format without converting to contain assets when saving\n\033[0m"
+	@printf "\033[32;1m --debug: Debug mode toggled on from start\n\033[0m"
+
+intro:
+	@printf "\033[32;1mBegin doom-nukem compilation...\n\033[0m"
+
 $(DIR_OBJ):
+	@printf "\033[32;1mCreate temp directories...\n\033[0m"
 	@mkdir -p temp
 	@mkdir -p temp/assets
 	@mkdir -p temp/assets/asset_loading
@@ -332,10 +338,23 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)
 
 install_sdl:
-	@printf "\033[32;1mInstall sdl2 if not exists...\n\033[0m"
-ifeq (, $(shell which sdl2-config))
-	./install.sh
+ifeq ($(UNAME), Darwin)
+ifeq (, $(shell which brew))
+	$(error "No brew found, install homebrew on macos for compilation to work")
 endif
+endif
+	@printf "\033[32;1mCheck SDL2...\n\033[0m"
+	@test -s /usr/local/lib/libSDL2.a || run_install_script = yes
+	@test -s /usr/local/lib/libSDL2_image.a || run_install_script = yes
+	@test -s /usr/local/lib/libSDL2_ttf.a || run_install_script = yes
+	@test -s /usr/local/lib/libSDL2_mixer.a || run_install_script = yes
+ifdef run_install_script
+	@printf "\033[32;1mInstall SDL2 (and its sub libraries)...\n\033[0m"
+	./install.sh
+else
+	@printf "\033[32;1mSDL2 already installed. Continue...\n\033[0m"
+endif
+
 
 clean:
 	@make -C $(LIBFT) clean
@@ -354,4 +373,4 @@ re: fclean all
 
 norm: norminette $(DIR_SRC) $(LIBFT) $(LIB3D) $(LIBGMATRIX) ./include
 
-.PHONY: all, $(DIR_OBJ), clean, fclean
+.PHONY: all, $(DIR_OBJ), clean, fclean, intro, usage
