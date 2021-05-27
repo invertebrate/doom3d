@@ -13,7 +13,6 @@ DEBUGFLAG = -g
 # Linux and MacOS specific includes & libs
 # Linux requires sdl2 installed
 UNAME := $(shell uname)
-UNAME_ALT := $(shell uname -r)
 ifeq ($(UNAME), Linux)
 	SDL_FLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 	LIB_MATH = -lm
@@ -29,9 +28,7 @@ else
 			-I$(LIBSDL2)/SDL2_ttf.framework/Headers \
 			-I$(LIBSDL2)/SDL2_mixer.framework/Headers
 endif
-ifeq ($(UNAME_ALT), 5.9.13-1-MANJARO-ARM)
-	LINUX_IGNOREW = -Wno-stringop-overflow -Wno-maybe-uninitialized
-endif
+
 LIBS = $(LIB3DFLAGS) $(LIBGMATRIXFLAGS) $(LIBFTFLAGS) $(SDL_FLAGS) $(LIB_MATH) $(LIB_PTHRTEAD)
 
 INCLUDES = -I ./include \
@@ -284,7 +281,7 @@ SOURCES = main.c \
 OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=.o))
 DEV_OBJS = $(addprefix $(DIR_OBJ)/,$(SOURCES:.c=_dev.o))
 
-all: $(DIR_OBJ) $(NAME)
+all: $(DIR_OBJ) install_sdl $(NAME)
 
 $(NAME): $(OBJS)
 	@make libs
@@ -297,12 +294,6 @@ $(NAME): $(OBJS)
 	@printf "\033[32;1m --convert-assets: Convert old first map format to contain assets, save first level in editor to convert\n\033[0m"
 	@printf "\033[32;1m --default: Use default map format	 without converting to contain assets when saving\n\033[0m"
 	@printf "\033[32;1m --debug: Debug mode toggled on from start\n\033[0m"
-
-debug: $(OBJS)
-	@make libs
-	@printf "\033[32;1mCompiling app...\n\033[0m"
-	$(CC) -o $@ $^ $(LIBS) $(CFLAGS) $(DEBUGFLAG)
-	@printf "\033[32;1mDone. Run: ./$(NAME)\n\033[0m"
 
 libs:
 	@printf "\033[32;1mCompiling libs...\n\033[0m"
@@ -349,6 +340,12 @@ $(DIR_OBJ):
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)
 
+install_sdl:
+	@printf "\033[32;1mInstall sdl2 if not exists...\n\033[0m"
+ifeq (, $(shell which sdl2-config))
+	./install.sh
+endif
+
 clean:
 	@make -C $(LIBFT) clean
 	@make -C $(LIB3D) clean
@@ -363,12 +360,6 @@ fclean: clean
 	@/bin/rm -f $(NAME)
 
 re: fclean all
-
-testrun: #this is only for quicker lib3d debug
-	@/bin/rm -f $(OBJS)
-	@/bin/rm -rf $(DIR_OBJ)
-	make all
-	./$(NAME)
 
 norm: norminette $(DIR_SRC) $(LIBFT) $(LIB3D) $(LIBGMATRIX) ./include
 
