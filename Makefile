@@ -295,7 +295,7 @@ $(NAME): $(OBJS)
 	@printf "\033[32;1mOptions:\n\033[0m"
 	@printf "\033[32;1m --load-assets: Loads assets from assets folder. Remember to save first level in editor. Use this after adding new assets\n\033[0m"
 	@printf "\033[32;1m --convert-assets: Convert old first map format to contain assets, save first level in editor to convert\n\033[0m"
-	@printf "\033[32;1m --old: Use old map without converting to contain assets when saving\n\033[0m"
+	@printf "\033[32;1m --default: Use default map format	 without converting to contain assets when saving\n\033[0m"
 	@printf "\033[32;1m --debug: Debug mode toggled on from start\n\033[0m"
 
 debug: $(OBJS)

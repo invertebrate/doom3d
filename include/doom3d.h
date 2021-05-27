@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 20:41:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/27 18:54:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ typedef struct s_settings
 {
 	t_bool					is_asset_load;
 	t_bool					is_asset_conversion;
-	t_bool					is_old_map_format;
+	t_bool					is_default_map_format;
 	t_bool					is_debug;
 	t_bool					is_third_person;
 	t_bool					is_normal_map;
