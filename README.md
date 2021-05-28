@@ -1,6 +1,6 @@
 # Doom3D
 
-Software rasterized game engine with 3d editor and demo maps
+Software rasterized raycast projected game engine with 3d editor and demo maps
 
 Features:
 - Raycasted 3D (ray to triangle corners, screen intersection for rasterization)
@@ -22,7 +22,7 @@ Features:
 - Fancy logs
 - Debug lines
 - Custom events
-... lots more
+- ... lots more
 
 ## Installation
 
