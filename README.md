@@ -42,3 +42,9 @@ make && ./doom-nukem --default
 # the executable, levels, level_list.txt elsewhere and run standalone
 ./doom-nukem
 ```
+
+Created by:
+@hakolao
+@invertebrate
+@ahakanen
+@RandommUser
