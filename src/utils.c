@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 09:34:07 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/28 12:53:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,27 @@ void	capture_fps(t_doom3d *app)
 	app->info.fps = window_framerate_capture(app->info.delta_time);
 }
 
+/*
+** Sometimes full screen alt + tab resizes window wrong, so force it to set size
+*/
+
+static void	force_window_size_after_resize_to_match_settings(t_doom3d *app)
+{
+	SDL_Surface	*surface;
+
+	surface = SDL_GetWindowSurface(app->window->window);
+	if (surface->w != app->settings.width
+		|| surface->h != app->settings.height)
+	{
+		if (app->settings.is_debug)
+			LOG_DEBUG("Window size wrong %d %d force to %d %d",
+				surface->w, surface->h,
+				app->settings.width, app->settings.height);
+		window_resize(app->window, app->settings.width, app->settings.height);
+		app->window->resized = false;
+	}
+}
+
 void	resize_dependent_recreate(t_doom3d *app)
 {
 	SDL_Event	event;
@@ -62,7 +83,8 @@ void	resize_dependent_recreate(t_doom3d *app)
 	app->window->resized = false;
 	if (app->window->is_hidden)
 	{
-		LOG_INFO("Window hidden, ignoring all but quit event");
+		if (app->settings.is_debug)
+			LOG_DEBUG("Window hidden, ignoring all but quit event");
 		while (app->window->is_hidden)
 		{
 			SDL_PollEvent(&event);
@@ -75,6 +97,7 @@ void	resize_dependent_recreate(t_doom3d *app)
 	}
 	else
 	{
+		force_window_size_after_resize_to_match_settings(app);
 		window_frame_recreate(app->window);
 		scene_menus_destroy(app->active_scene);
 		active_scene_menus_create(app);
