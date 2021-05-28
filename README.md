@@ -35,4 +35,10 @@ Windows is not supported
 ```sh
 git clone https://github.com/hakolao/doom3d && cd doom3d
 make && ./doom-nukem --default
+
+# to create a standalone version run
+./doom-nukem --convert-assets
+# save first map in editor and then you can move
+# the executable, levels, level_list.txt elsewhere and run standalone
+./doom-nukem
 ```
