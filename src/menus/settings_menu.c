@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:41:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 19:30:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 20:01:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static void	update_settings_selectors(t_doom3d *app)
 		button_group_set_selector(app->active_scene->menus[1], 0);
 	button_group_set_selector(app->active_scene->menus[2], app->current_level);
 	ft_memset(&dummy, 0, sizeof(dummy));
+	dummy.type = SDL_MOUSEBUTTONUP;
+	dummy.button.button = SDL_BUTTON_MMASK;
 	button_group_events_handle(app->active_scene->menus[0], app->mouse, dummy);
 	button_group_events_handle(app->active_scene->menus[1], app->mouse, dummy);
 	button_group_events_handle(app->active_scene->menus[2], app->mouse, dummy);
@@ -78,7 +80,7 @@ static void	update_settings_selectors(t_doom3d *app)
 void	settings_menu_create(t_doom3d *app)
 {
 	error_check(!(app->active_scene->menus
-			= ft_calloc(sizeof(t_button_group*) * 1)),
+			= ft_calloc(sizeof(t_button_group*) * 3)),
 		"Failed to malloc menus");
 	app->active_scene->menus[0] = button_menu_create_shaded(app,
 			(t_button_menu_params){.button_names = (const char*[4]){

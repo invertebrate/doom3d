@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 23:04:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/20 19:50:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 19:45:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	init_level_list(t_doom3d *app)
 		ft_strdel(&app->level_list[i]);
 	ft_memset(app->level_list, 0, sizeof(app->level_list));
 	app->level_list[0] = ft_strdup(FIRST_LEVEL);
+	app->num_levels = 0;
 }
 
 /*
