@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 13:41:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 20:37:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,30 @@ t_surface	*l3d_image_scaled(t_surface *image,
 		}
 	}
 	return (image_out);
+}
+
+void	l3d_background_place(t_surface *frame,
+			t_surface *image, float blend_ratio)
+{
+	uint32_t		frame_pixel;
+	uint32_t		layer_pixel;
+	int32_t			xyi[3];
+	int32_t			layer_x;
+	int32_t			layer_y;
+
+	xyi[1] = -1;
+	while (++xyi[1] < (int32_t)frame->h)
+	{
+		xyi[0] = -1;
+		while (++xyi[0] < (int32_t)frame->w)
+		{
+			layer_x = xyi[0] % image->w;
+			layer_y = xyi[1] % image->h;
+			xyi[2] = layer_y * image->w + layer_x;
+			layer_pixel = image->pixels[xyi[2]];
+			frame_pixel = frame->pixels[xyi[1] * frame->w + xyi[0]];
+			frame->pixels[xyi[1] * (int32_t)frame->w + xyi[0]
+			] = l3d_color_blend_u32(frame_pixel, layer_pixel, blend_ratio);
+		}
+	}
 }

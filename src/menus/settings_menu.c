@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:41:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 20:01:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 20:46:44 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,19 @@ void	settings_menu_create(t_doom3d *app)
 	error_check(!(app->active_scene->menus
 			= ft_calloc(sizeof(t_button_group*) * 3)),
 		"Failed to malloc menus");
-	app->active_scene->menus[0] = button_menu_create_shaded(app,
+	app->active_scene->menus[0] = button_menu_create(app,
 			(t_button_menu_params){.button_names = (const char*[4]){
 			"Small", "Medium", "Large", "Back"},
 			.num_buttons = 4, .on_click = on_settings_menu_button_click,
 			.button_font = app->window->main_font,
 		});
-	app->active_scene->menus[1] = button_menu_create_shaded(app,
+	app->active_scene->menus[1] = button_menu_create(app,
 			(t_button_menu_params){
 			.button_names = (const char*[4]){"Normal", "Hard"},
 			.num_buttons = 2, .on_click = on_difficulty_menu_button_click,
 			.button_font = app->window->main_font,
 		});
-	app->active_scene->menus[2] = button_menu_create_shaded(app,
+	app->active_scene->menus[2] = button_menu_create(app,
 			(t_button_menu_params){
 			.button_names = (const char **)app->level_list,
 			.num_buttons = app->num_levels,

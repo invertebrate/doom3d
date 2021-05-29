@@ -345,6 +345,7 @@ $(DIR_OBJ):
 	@mkdir -p temp/notifications
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
+	@printf "\033[32;1m$<\n\033[0m"
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)
 
 install_sdl:

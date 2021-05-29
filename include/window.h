@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/28 00:24:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 21:09:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define PIXEL_FORMAT SDL_PIXELFORMAT_RGBA8888
 # define FONT_SIZE 38
-# define CLEAR_COLOR 0x700000FF
+# define CLEAR_COLOR 0x0
 
 /*
 **	Frame buffer

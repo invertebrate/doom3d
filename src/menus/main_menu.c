@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 15:51:38 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 16:15:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 20:46:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	main_menu_create(t_doom3d *app)
 	error_check(!(app->active_scene->menus
 			= ft_calloc(sizeof(t_button_group*) * 1)),
 		"Failed to malloc menus");
-	app->active_scene->menus[0] = button_menu_create_shaded(app,
+	app->active_scene->menus[0] = button_menu_create(app,
 			(t_button_menu_params){
 			.button_names = (const char*[4]){
 			"Start Game",

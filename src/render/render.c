@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:09:05 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 12:41:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 21:14:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void	render_background(t_doom3d *app)
+static void	render_game_background(t_doom3d *app)
 {
 	t_surface			*background;
 
@@ -24,6 +24,41 @@ static void	render_background(t_doom3d *app)
 		.w = app->window->framebuffer->width,
 		.pixels = app->window->framebuffer->buffer},
 		background, (int32_t[2]){0, 0}, 1.0);
+}
+
+static void	render_effects_on_background(t_doom3d *app)
+{
+	t_surface	*splash;
+
+	splash = hash_map_get(app->assets.sprite_textures,
+			(int64_t)"assets/animations/blood.bmp");
+	error_check(!splash, "Blood image not found");
+	l3d_image_place(&(t_surface){.h = app->window->framebuffer->height,
+		.w = app->window->framebuffer->width,
+		.pixels = app->window->framebuffer->buffer}, splash,
+		(int32_t[2]){200, 200}, 0.7);
+}
+
+static void	render_menu_background(t_doom3d *app)
+{
+	t_surface	*background;
+
+	if (app->active_scene->scene_id == scene_id_main_menu)
+		background = hash_map_get(app->assets.textures,
+				(int64_t)"assets/textures/floor_metal_2048.bmp");
+	else if (app->active_scene->scene_id == scene_id_main_menu_settings)
+		background = hash_map_get(app->assets.textures,
+				(int64_t)"assets/textures/rock_toxic.bmp");
+	else
+		background = hash_map_get(app->assets.textures,
+				(int64_t)"assets/textures/wall_metal_panel.bmp");
+	error_check(!background, "Background image not found");
+	l3d_background_place(&(t_surface){.h = app->window->framebuffer->height,
+		.w = app->window->framebuffer->width,
+		.pixels = app->window->framebuffer->buffer}, background, 0.75);
+	if (app->active_scene->scene_id != scene_id_main_menu)
+		return ;
+	render_effects_on_background(app);
 }
 
 /*
@@ -57,7 +92,9 @@ void	render_3d_view_parallel(t_doom3d *app)
 void	render_to_framebuffer(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_main_game)
-		render_background(app);
+		render_game_background(app);
+	else
+		render_menu_background(app);
 	if (app->active_scene->scene_id == scene_id_main_game
 		|| app->active_scene->scene_id == scene_id_editor3d)
 		render_3d_view_parallel(app);

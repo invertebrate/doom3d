@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 12:44:20 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 21:09:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ static void	main_loop(t_doom3d *app)
 		update_player(app);
 		update_objects(app);
 		trigger_timer_update(app);
-		if (app->active_scene->scene_id == scene_id_main_game)
-			clear_color = 0x000000ff;
 		window_frame_clear(app->window, clear_color);
 		render_to_framebuffer(app);
 		draw_window_frame(app->window);

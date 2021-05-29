@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 00:27:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 20:34:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -693,6 +693,9 @@ t_surface					*l3d_read_bmp_32bit_rgba_surface(
 ** Buffer image copying / placing
 */
 
+void						l3d_background_place(t_surface *frame,
+								t_surface *image,
+								float blend_ratio);
 void						l3d_image_place(t_surface *frame,
 								t_surface *image, int32_t pos_xy[2],
 								float blend_ratio);

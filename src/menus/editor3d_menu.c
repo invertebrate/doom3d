@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 14:26:29 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 22:26:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 20:46:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,25 +105,25 @@ void	editor3d_menu_create(t_doom3d *app)
 {
 	error_check(!(app->active_scene->menus = ft_calloc(sizeof(t_button_group *)
 				* 4)), "Failed to malloc menus");
-	app->active_scene->menus[0] = button_menu_create_shaded(app,
+	app->active_scene->menus[0] = button_menu_create(app,
 			(t_button_menu_params){
 			.button_names = (const char*[9]){"Exit", "Save",
 			"Objects", "Textures", "NormMaps", "Prefabs",
 			"Characters", "Triggers", "Lights"},
 			.num_buttons = 9, .on_click = on_editor_menu_button_click,
 			.button_font = app->window->main_font});
-	app->active_scene->menus[1] = button_menu_create_shaded(app,
+	app->active_scene->menus[1] = button_menu_create(app,
 			(t_button_menu_params){
 			.button_names = (const char*[1]){"Delete"},
 			.num_buttons = 1, .on_click = on_delete_menu_button_click,
 			.button_font = app->window->main_font});
 	app->active_scene->menus[1]->is_active = false;
-	app->active_scene->menus[2] = button_menu_create_shaded(app,
+	app->active_scene->menus[2] = button_menu_create(app,
 			(t_button_menu_params){.button_names = (const char*[1]){
 			"New"}, .num_buttons = 1,
 			.on_click = on_new_level_menu_button_click,
 			.button_font = app->window->main_font});
-	app->active_scene->menus[3] = button_menu_create_shaded(app,
+	app->active_scene->menus[3] = button_menu_create(app,
 			(t_button_menu_params){.button_names = (const char*[1]){
 			"Guide"}, .num_buttons = 1, .on_click = on_guide_menu_button_click,
 			.button_font = app->window->main_font});
