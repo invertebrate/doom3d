@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:45:08 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 23:50:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 21:30:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,5 @@ void	lights_load(t_assets *assets)
 		= "Blue Light";
 	hash_map_add(assets->lights_map, (int64_t)assets->asset_files.light_names[
 		assets->asset_files.num_lights++], (void *)light_type_blue);
-	assets->asset_files.light_names[assets->asset_files.num_lights]
-		= "Cyan Light";
-	hash_map_add(assets->lights_map, (int64_t)assets->asset_files.light_names[
-		assets->asset_files.num_lights++], (void *)light_type_cyan);
 	lights_load2(assets);
 }
