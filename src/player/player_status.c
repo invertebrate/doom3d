@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 12:53:53 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/26 16:26:40 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/30 01:15:11 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,22 @@ void	player_onhit(t_doom3d *app, int damage)
 			(void *)scene_id_main_menu, NULL);
 		notify_user(app, (t_notification){.message = "You died",
 			.time = 6000, .type = notification_type_layer});
+	}
+}
+
+void	player_splash_damage(t_doom3d *app, t_3d_object *projectile_obj)
+{
+	float			mag;
+	int				damage;
+	t_vec3			dist;
+	t_projectile	*projectile;
+
+	projectile = projectile_obj->params;
+	ml_vector3_sub(projectile_obj->aabb.center, app->player.aabb.center, dist);
+	mag = ml_vector3_mag(dist);
+	if (mag < projectile->radius)
+	{
+		damage = projectile->damage * (1 - (mag / projectile->radius));
+		player_onhit(app, damage);
 	}
 }

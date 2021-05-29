@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 19:27:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 01:14:02 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,8 @@ void						player_future_collider_update(t_doom3d *app);
 float						get_movement_speed(t_doom3d *app);
 void						limit_move_add_by_slope(t_vec3 slope_normal,
 								t_vec3 dir_add);
+void						player_splash_damage(t_doom3d *app,
+										t_3d_object *projectile_obj);
 
 /*
 ** Player items
