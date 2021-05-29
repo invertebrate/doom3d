@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 01:24:14 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 00:46:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 18:39:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ const char	*normal_map_file_key(char *filename, t_doom3d *app)
 	{
 		if (ft_strequ(filename,
 				app->assets.asset_files.normal_map_files[i]))
-			return (app->assets.asset_files.texture_files[i]);
+			return (app->assets.asset_files.normal_map_files[i]);
 	}
 	return (NULL);
 }
