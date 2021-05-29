@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 00:21:40 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 20:52:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 20:08:43 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	framebuffer_health_low_overlay(t_doom3d *app)
 	int32_t				max;
 
 	delta_time_sum += app->info.delta_time;
-	health_blend = 0.20 * (1 + sin(2.0 * M_PI * delta_time_sum / 1000.0));
+	health_blend = 0.15 * (1 + sin(1.0 * M_PI * delta_time_sum / 1000.0));
 	max = app->window->framebuffer->width * app->window->framebuffer->height;
 	i = -1;
 	while (++i < max)
