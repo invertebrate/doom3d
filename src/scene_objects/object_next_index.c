@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 22:50:47 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 22:21:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 23:03:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ uint32_t	next_object_index(t_doom3d *app)
 		app->active_scene->free_object_indices[
 			app->active_scene->num_free_indices - 1] = -1;
 		app->active_scene->num_free_indices--;
-		app->active_scene->num_free_indices_consumed++;
 	}
 	else
 		next_index = app->active_scene->num_objects;

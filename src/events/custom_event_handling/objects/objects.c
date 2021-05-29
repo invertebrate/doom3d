@@ -6,16 +6,24 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:32:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 22:20:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 22:59:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
+/*
+** 1. When this event is called, we add the object's index to
+** objects_to_delete.
+** 2. At the end of each frame objects set for deletion are deleted
+** 3. After deletion, the index is saved to free_object_indices.
+** 4. Free object indices is used first to add new objects, and if already used
+** objects get added to the end of scene objects.
+*/
+
 void	handle_object_deletion(t_doom3d *app, t_3d_object *object)
 {
 	int32_t		i;
-	uint32_t	del_index;
 	int32_t		sum;
 
 	deselect_object(app, object);
@@ -27,10 +35,8 @@ void	handle_object_deletion(t_doom3d *app, t_3d_object *object)
 		if (app->active_scene->objects[i] != NULL
 			&& app->active_scene->objects[i]->id == object->id)
 		{
-			app->active_scene->num_free_indices++;
-			app->active_scene->num_objects--;
-			del_index = app->active_scene->num_free_indices - 1;
-			app->active_scene->free_object_indices[del_index] = i;
+			app->active_scene->objects_to_delete[
+				app->active_scene->num_objects_to_delete++] = i;
 			break ;
 		}
 	}
