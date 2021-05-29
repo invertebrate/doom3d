@@ -357,13 +357,13 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)
 
 install_sdl:
-ifeq ($(UNAME), Linux)
+ifeq ($(UNAME),Linux)
 	@printf "\033[32;1mCheck SDL2 on Linux...\n\033[0m"
-else ifeq ($(UNAME), Darwin)
+else ifeq ($(UNAME),Darwin)
 	@printf "\033[32;1mCheck SDL2 on MacOS...\n\033[0m"
-	ifeq (, $(shell which brew))
-		$(error "No brew found, install homebrew on macos for compilation to work")
-	endif
+ifeq (,$(shell which brew))
+	$(error "No brew found, install homebrew on macos for compilation to work")
+endif
 else
 	$(error "Can only compile on Mac OS and Linux")
 endif
