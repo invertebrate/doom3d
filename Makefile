@@ -373,6 +373,7 @@ endif
 		echo "SDL2 mixer missing";\
 		./install.sh;\
 	fi
+	@printf "\033[32;1mCompiling...\n\033[0m"
 
 clean:
 	@make -C $(LIBFT) clean

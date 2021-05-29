@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_state.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 16:00:12 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/29 18:58:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static void	handle_weapon_equip_input(t_doom3d *app)
 static void	handle_game_keyboard_state(t_doom3d *app)
 {
 	if (app->player.physics_state == physics_state_grounded
+		|| app->player.physics_state == physics_state_not_applied
 		|| app->player.can_fly)
 	{
 		handle_wasd_input(app);

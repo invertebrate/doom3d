@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 15:09:16 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 20:35:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 18:46:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef enum e_doom3d_event
 	event_player_move = 32,
 	event_player_jump = 33,
 	event_player_toggle_flight = 34,
+	event_player_toggle_collision = 341,
 	event_object_delete = 35,
 	event_object_scale = 36,
 	event_object_scale_with_uvs = 361,

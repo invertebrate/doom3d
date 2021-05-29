@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 16:12:29 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 18:50:07 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	handle_game_input_events(t_doom3d *app, SDL_Event event)
 		push_custom_event(app, event_player_jump, NULL, NULL);
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_9)
 		push_custom_event(app, event_player_toggle_flight, NULL, NULL);
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_0)
+		push_custom_event(app, event_player_toggle_collision, NULL, NULL);
 	if (event.type == SDL_MOUSEWHEEL)
 		handle_wheel(app, event);
 }

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 02:40:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 20:44:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 18:49:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	player_custom_event_to_str(char *str, t_doom3d_event code)
 		ft_sprintf(str, "event_third_person_zoom");
 	else if (code == event_set_difficulty)
 		ft_sprintf(str, "event_set_difficulty");
+	else if (code == event_player_toggle_collision)
+		ft_sprintf(str, "event_player_toggle_collision");
 }
 
 void	register_player_custom_events(t_doom3d *app)
@@ -60,4 +62,6 @@ void	register_player_custom_events(t_doom3d *app)
 		(void *)handle_third_person_zoom);
 	hash_map_add(app->custom_event_handles, event_set_difficulty,
 		(void *)handle_set_difficulty);
+	hash_map_add(app->custom_event_handles, event_player_toggle_collision,
+		(void *)handle_toggle_player_collision);
 }

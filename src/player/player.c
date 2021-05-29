@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 16:45:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 18:51:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ void	player_update_aabb(t_player *player)
 void	update_player_physics_state(t_doom3d *app)
 {
 	if (app->active_scene->scene_id == scene_id_editor3d)
-	{
 		app->player.physics_state = physics_state_not_applied;
+	if (app->player.physics_state == physics_state_not_applied)
 		return ;
-	}
 	if (is_player_grounded(app))
 	{
 		if (app->player.velocity[1] >= 0)
