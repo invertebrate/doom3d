@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 01:54:45 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 16:35:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 17:58:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	write_trigger_link_information(int32_t fd, t_doom3d *app)
 
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects
-		+ app->active_scene->num_deleted))
+		+ app->active_scene->num_free_indices))
 	{
 		if (app->active_scene->objects[i]
 			&& app->active_scene->objects[i]->type == object_type_trigger)
@@ -69,7 +69,7 @@ void	write_path_object_information(int32_t fd, t_doom3d *app)
 
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects
-		+ app->active_scene->num_deleted))
+		+ app->active_scene->num_free_indices))
 	{
 		if (app->active_scene->objects[i]
 			&& app->active_scene->objects[i]->type == object_type_path)

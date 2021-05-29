@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_update.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:43:52 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 18:32:02 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/29 17:58:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ static void	active_scene_triangle_refs_set(t_doom3d *app)
 		free(app->active_scene->triangle_ref);
 	i = -1;
 	scene->num_triangles = 0;
-	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
+	while (++i < (int32_t)(scene->num_objects + scene->num_free_indices))
 		if (include_object_in_triangle_tree(app, scene->objects[i]))
 			scene->num_triangles += scene->objects[i]->num_triangles;
 	error_check(!(scene->triangle_ref = ft_calloc(sizeof(t_triangle *)
 				* scene->num_triangles)), "Failed to malloc triangle ref");
 	i = -1;
 	k = 0;
-	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
+	while (++i < (int32_t)(scene->num_objects + scene->num_free_indices))
 	{
 		if (!include_object_in_triangle_tree(app, scene->objects[i]))
 			continue ;
@@ -110,7 +110,7 @@ void	active_scene_update_after_objects(t_doom3d *app)
 	scene->num_scene_lights = 0;
 	update_temp_object_light_sources(scene);
 	i = -1;
-	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
+	while (++i < (int32_t)(scene->num_objects + scene->num_free_indices))
 	{
 		if (scene->objects[i])
 		{

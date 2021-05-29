@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_pathfinding.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:19:27 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/03 17:40:24 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/29 17:58:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	path_node_network_init(t_doom3d *app)
 	ft_memset(app->path_node_network, 0, sizeof(t_path_node *)
 		* MAX_PATH_NODE_NETWORK_SIZE + 1);
 	while (++i < (int32_t)(app->active_scene->num_objects
-		+ app->active_scene->num_deleted))
+		+ app->active_scene->num_free_indices))
 	{
 		obj = app->active_scene->objects[i];
 		if (!obj)

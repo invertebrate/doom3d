@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahakanen <aleksi.hakanen94@gmail.com>      +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 22:21:12 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/07 14:31:40 by ahakanen         ###   ########.fr       */
+/*   Updated: 2021/05/29 17:58:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	path_draw_connections(t_render_work *work)
 		return ;
 	i = -1;
 	while (++i < (int32_t)(work->app->active_scene->num_objects
-		+ work->app->active_scene->num_deleted))
+		+ work->app->active_scene->num_free_indices))
 	{
 		obj = work->app->active_scene->objects[i];
 		if (!obj || obj->type != object_type_path)

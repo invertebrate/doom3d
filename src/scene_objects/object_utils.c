@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 21:02:30 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/04 18:08:11 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/29 17:58:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_3d_object	*find_object_by_id(t_doom3d *app, uint32_t id)
 
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects
-		+ app->active_scene->num_deleted))
+		+ app->active_scene->num_free_indices))
 	{
 		if (app->active_scene->objects[i]
 			&& app->active_scene->objects[i]->id == id)
@@ -34,7 +34,7 @@ t_3d_object	*find_one_object_by_type(t_doom3d *app, uint32_t object_type,
 
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects
-		+ app->active_scene->num_deleted))
+		+ app->active_scene->num_free_indices))
 	{
 		if (app->active_scene->objects[i]
 			&& app->active_scene->objects[i]->type == object_type
@@ -67,7 +67,7 @@ void	extend_all_objects_shading_opts(t_doom3d *app,
 
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects
-		+ app->active_scene->num_deleted))
+		+ app->active_scene->num_free_indices))
 	{
 		if (app->active_scene->objects[i])
 		{
@@ -85,7 +85,7 @@ void	remove_all_objects_shading_opts(t_doom3d *app,
 
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects
-		+ app->active_scene->num_deleted))
+		+ app->active_scene->num_free_indices))
 	{
 		if (app->active_scene->objects[i])
 		{

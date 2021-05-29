@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   editor_utils.c                                     :+:      :+:    :+:   */
+/*   editor_utils1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/07 12:42:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 17:58:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	editor_objects_invisible_highlight(t_doom3d *app)
 
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects
-		+ app->active_scene->num_deleted))
+		+ app->active_scene->num_free_indices))
 	{
 		obj = app->active_scene->objects[i];
 		if (obj == NULL)
@@ -70,7 +70,7 @@ void	editor_objects_invisible_unhighlight(t_doom3d *app)
 
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects
-		+ app->active_scene->num_deleted))
+		+ app->active_scene->num_free_indices))
 	{
 		obj = app->active_scene->objects[i];
 		if (obj

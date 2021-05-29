@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 23:53:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 00:24:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 17:58:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	add_objects_render_triangles(t_doom3d *app,
 	camera = get_render_camera(app);
 	i = -1;
 	while (++i < (int32_t)(app->active_scene->num_objects
-		+ app->active_scene->num_deleted))
+		+ app->active_scene->num_free_indices))
 	{
 		if ((app->active_scene->objects[i] == NULL)
 			|| object_is_ignored(app, app->active_scene->objects[i])

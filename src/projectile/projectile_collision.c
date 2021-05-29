@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 22:10:06 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/12 00:50:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 17:58:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	projectile_handle_collision(t_doom3d *app, t_3d_object *projectile_obj)
 		|| projectile_check_terrain_collision(app, projectile_obj))
 		return ;
 	while (++i < (int32_t)(app->active_scene->num_objects
-		+ app->active_scene->num_deleted))
+		+ app->active_scene->num_free_indices))
 	{
 		obj = app->active_scene->objects[i];
 		if (!obj || obj->type == object_type_projectile

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:14:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/15 20:05:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 18:02:06 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ typedef struct s_scene
 {
 	t_3d_object				*objects[MAX_NUM_OBJECTS];
 	uint32_t				num_objects;
-	uint32_t				deleted_object_i[MAX_NUM_OBJECTS];
-	uint32_t				num_deleted;
+	uint32_t				free_object_indices[MAX_NUM_OBJECTS];
+	uint32_t				num_free_indices;
+	uint32_t				num_free_indices_consumed;
 	int32_t					last_object_index;
 	t_hash_table			*object_textures;
 	t_hash_table			*object_normal_maps;

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 12:44:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 18:19:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ t_scene	*scene_new(t_scene_id scene_id)
 	error_check(!(scene = (t_scene *)ft_calloc(sizeof(t_scene))),
 		"Failed to malloc scene");
 	ft_memset(scene, 0, sizeof(*scene));
-	ft_memset(scene->deleted_object_i, 0, sizeof(scene->deleted_object_i));
-	scene->num_deleted = 0;
+	ft_memset(scene->free_object_indices, 0,
+		sizeof(scene->free_object_indices));
+	scene->num_free_indices = 0;
 	scene->num_objects = 0;
 	scene->npc_update_timer = 0;
 	scene->last_object_index = -1;
@@ -68,7 +69,7 @@ static void	scene_objects_destroy(t_scene *scene)
 	int32_t		i;
 
 	i = -1;
-	while (++i < (int32_t)(scene->num_objects + scene->num_deleted))
+	while (++i < (int32_t)(scene->num_objects + scene->num_free_indices))
 	{
 		if (scene->objects[i] != NULL)
 		{

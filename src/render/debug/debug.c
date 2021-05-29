@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:07:34 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 20:38:17 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/29 17:58:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	draw_npc_dirs(t_render_work *work)
 
 	i = -1;
 	while (++i < (int32_t)(work->app->active_scene->num_objects
-		+ work->app->active_scene->num_deleted))
+		+ work->app->active_scene->num_free_indices))
 	{
 		obj = work->app->active_scene->objects[i];
 		if (obj && obj->type == object_type_npc)
