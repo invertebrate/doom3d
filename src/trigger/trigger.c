@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 10:54:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 20:05:30 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/30 01:53:16 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,9 @@ void	get_trigger_action_text(t_trigger_type type,
 	else if (type == trigger_item_jetpack)
 		ft_sprintf(action_text, "Walk over to pick up Jetpack");
 	else if (type == trigger_elevator_switch)
-		ft_sprintf(action_text, "Press E to use elevator");
+		ft_sprintf(action_text, "Press E to use keypad");
 	else if (type == trigger_door_switch)
-		ft_sprintf(action_text, "Press E to use door");
+		ft_sprintf(action_text, "Press E to use keypad");
 	else
 		action_text[0] = '\0';
 }
