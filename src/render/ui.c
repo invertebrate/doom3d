@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 19:22:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 19:35:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,10 @@ static void	render_main_game_ui(t_doom3d *app)
 	}
 }
 
-static void	render_settings_menu(t_doom3d *app)
+static void	set_settings_menu_positions(t_doom3d *app,
+				t_vec2 pos1, t_vec2 pos2, t_vec2 pos3)
 {
 	int32_t		height;
-	t_vec2		pos1;
-	t_vec2		pos2;
 
 	height = app->window->framebuffer->height;
 	ml_vector3_copy((t_vec2){100, height / 2
@@ -43,6 +42,18 @@ static void	render_settings_menu(t_doom3d *app)
 	ml_vector3_copy((t_vec2){250, height / 2
 		- app->active_scene->menus[0]->buttons[0]->height
 		* app->active_scene->menus[0]->num_buttons / 2 + 30}, pos2);
+	ml_vector3_copy((t_vec2){400, height / 2
+		- app->active_scene->menus[0]->buttons[0]->height
+		* app->active_scene->menus[0]->num_buttons / 2 + 30}, pos3);
+}
+
+static void	render_settings_menu(t_doom3d *app)
+{
+	t_vec2		pos1;
+	t_vec2		pos2;
+	t_vec2		pos3;
+
+	set_settings_menu_positions(app, pos1, pos2, pos3);
 	window_text_render_shaded(app->window, (t_text_params){
 		.text = "Editor Size", .blend_ratio = 1.0,
 		.xy = (int32_t [2]){pos1[0], pos1[1] - 50},
@@ -53,6 +64,11 @@ static void	render_settings_menu(t_doom3d *app)
 		.xy = (int32_t [2]){pos2[0], pos2[1] - 50},
 		.text_color = (SDL_Color){255, 0, 0, 255}}, app->window->main_font);
 	render_button_menu(app->active_scene->menus[1], pos2);
+	window_text_render_shaded(app->window, (t_text_params){
+		.text = "Select Level", .blend_ratio = 1.0,
+		.xy = (int32_t [2]){pos3[0], pos3[1] - 50},
+		.text_color = (SDL_Color){255, 0, 0, 255}}, app->window->main_font);
+	render_button_menu(app->active_scene->menus[2], pos3);
 }
 
 static void	render_main_menu_or_settings_menu(t_doom3d *app)

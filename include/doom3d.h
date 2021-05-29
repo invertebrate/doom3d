@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 18:49:22 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 19:27:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -547,6 +547,8 @@ void						handle_toggle_third_person(t_doom3d *app);
 void						handle_third_person_zoom(t_doom3d *app,
 								int32_t zoom_amount);
 void						handle_set_difficulty(t_doom3d *app,
+								int32_t button_index);
+void						handle_select_level(t_doom3d *app,
 								int32_t button_index);
 void						handle_player_toggle_flight(t_doom3d *app);
 void						handle_player_jump(t_doom3d *app);

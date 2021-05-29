@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 00:43:13 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 18:42:51 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 19:27:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	object_custom_event_to_str(char *str, t_doom3d_event code)
 		ft_sprintf(str, "event_object_set_shading_not_cull");
 	else if (code == event_npc_shoot_projectile)
 		ft_sprintf(str, "event_npc_shoot_projectile");
+	else if (code == event_select_level)
+		ft_sprintf(str, "event_select_level");
 }
 
 void	register_object_custom_events(t_doom3d *app)
@@ -62,4 +64,6 @@ void	register_object_custom_events(t_doom3d *app)
 		(void *)handle_object_set_shading_not_cull);
 	hash_map_add(app->custom_event_handles, event_npc_shoot_projectile,
 		(void *)handle_npc_projectile_shoot);
+	hash_map_add(app->custom_event_handles, event_select_level,
+		(void *)handle_select_level);
 }

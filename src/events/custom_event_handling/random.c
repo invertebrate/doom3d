@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 19:40:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 20:42:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 19:28:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,9 @@ void	handle_set_difficulty(t_doom3d *app, int32_t button_index)
 		app->settings.is_hard = false;
 	if (button_index == 1)
 		app->settings.is_hard = true;
+}
+
+void	handle_select_level(t_doom3d *app, int32_t button_index)
+{
+	app->current_level = button_index;
 }
