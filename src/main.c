@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/27 19:52:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 20:20:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	check_args(t_doom3d *app, int32_t argc, char **argv)
 			" which will contain shared assets", FIRST_LEVEL);
 	else
 		LOG_INFO("Start Doom in Default Map Mode. Saving won't save assets to"
-			" %s. Map should be valid old map (starts MAP)", FIRST_LEVEL);
+			" %s. Map should be a valid map (starts MAP)", FIRST_LEVEL);
 }
 
 /*
