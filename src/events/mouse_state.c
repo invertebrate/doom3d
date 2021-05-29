@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 10:20:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 16:11:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,13 @@ void	handle_mouse_state_input(t_doom3d *app)
 	{
 		handle_editor_mouse_state_input(app);
 	}
+}
+
+void	correct_fullscreen_mouse_pos(t_doom3d *app)
+{
+	SDL_DisplayMode		display_mode;
+
+	SDL_GetCurrentDisplayMode(0, &display_mode);
+	app->mouse.x /= (float)display_mode.w / (float)app->settings.width;
+	app->mouse.y /= (float)display_mode.h / (float)app->settings.height;
 }

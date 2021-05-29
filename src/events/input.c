@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 12:57:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 16:12:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	handle_input_events(t_doom3d *app, SDL_Event event)
 /*
 ** Root of all event handling
 ** 1. Update event queue by pumping events
-** 2. Update mouse and key state
+** 2. Update mouse and key state (correct mouse pos for fullscreen)
 ** 3. Handle mouse & key state dependent actions
 ** 4. Handle custom events
 ** 5. Handle input events (for game, for editor, and for button clicks)
@@ -120,10 +120,12 @@ void	handle_input_events(t_doom3d *app, SDL_Event event)
 
 void	handle_events(t_doom3d *app)
 {
-	SDL_Event	event;
+	SDL_Event			event;
 
 	SDL_PumpEvents();
 	app->mouse.state = SDL_GetMouseState(&app->mouse.x, &app->mouse.y);
+	if (app->window->is_fullscreen)
+		correct_fullscreen_mouse_pos(app);
 	app->keyboard.state = SDL_GetKeyboardState(NULL);
 	if (!app->active_scene->is_paused)
 	{

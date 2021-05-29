@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/27 18:54:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 16:12:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -435,6 +435,7 @@ void						handle_player_rotation_input(t_doom3d *app,
 								int32_t xrel, int32_t yrel);
 void						handle_events(t_doom3d *app);
 void						handle_mouse_state_input(t_doom3d *app);
+void						correct_fullscreen_mouse_pos(t_doom3d *app);
 void						handle_editor_mouse_state_input(t_doom3d *app);
 void						handle_keyboard_state_input(t_doom3d *app);
 void						handle_editor_transform_input(t_doom3d *app);
