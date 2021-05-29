@@ -2,7 +2,6 @@ CC = gcc
 NAME=doom-nukem
 DIR_SRC = ./src
 DIR_OBJ = temp
-LIBSDL2 = ./lib/external_SDL2
 LIBFT = ./lib/libft
 LIB3D = ./lib/lib3d
 LIBGMATRIX = ./lib/libgmatrix
@@ -10,16 +9,36 @@ LIBFTFLAGS = -L$(LIBFT) -lft
 LIB3DFLAGS = -L$(LIB3D) -l3d
 LIBGMATRIXFLAGS = -L$(LIBGMATRIX) -lgmatrix
 DEBUGFLAG = -g
-# Linux and MacOS specific includes & libs
-# Linux requires sdl2 installed
+
+# Linux and MacOS specific includes & libs & library check files
+RUN_INSTALL_SCRIPT = no
+# ====================
 UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
 	SDL_FLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 	LIB_MATH = -lm
 	LIB_PTHRTEAD = -lpthread
-else
+	LIBSDL2FILE = /usr/lib/x86_64-linux-gnu/libSDL2.a
+	LIBSDL2IMAGEFILE = /usr/lib/x86_64-linux-gnu/libSDL2_image.a
+	LIBSDL2TTFFILE = /usr/lib/x86_64-linux-gnu/libSDL2_ttf.a
+	LIBSDL2MIXERFILE = /usr/lib/x86_64-linux-gnu/libSDL2_mixer.a
+else ifeq ($(UNAME), Darwin)
 	SDL_FLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
+	LIBSDL2FILE = /usr/local/lib/libSDL2.a
+	LIBSDL2IMAGEFILE = /usr/local/lib/libSDL2_image.a
+	LIBSDL2TTFFILE = /usr/local/lib/libSDL2_ttf.a
+	LIBSDL2MIXERFILE = /usr/local/lib/libSDL2_mixer.a
 endif
+ifeq ($(shell test -e $(LIBSDL2FILE) || echo -n no),no)
+	RUN_INSTALL_SCRIPT = yes
+else ifeq ($(shell test -e $(LIBSDL2IMAGEFILE) || echo -n no),no)
+	RUN_INSTALL_SCRIPT = yes
+else ifeq ($(shell test -e $(LIBSDL2TTFFILE) || echo -n no),no)
+	RUN_INSTALL_SCRIPT = yes
+else ifeq ($(shell test -e $(LIBSDL2MIXERFILE) || echo -n no),no)
+	RUN_INSTALL_SCRIPT = yes
+endif
+# ====================
 
 LIBS = $(LIB3DFLAGS) $(LIBGMATRIXFLAGS) $(LIBFTFLAGS) $(SDL_FLAGS) $(LIB_MATH) $(LIB_PTHRTEAD)
 
@@ -338,23 +357,21 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) -c -o $@ $< $(CFLAGS) $(INCLUDES)
 
 install_sdl:
-ifeq ($(UNAME), Darwin)
-ifeq (, $(shell which brew))
-	$(error "No brew found, install homebrew on macos for compilation to work")
-endif
-endif
-	@printf "\033[32;1mCheck SDL2...\n\033[0m"
-	@test -s /usr/local/lib/libSDL2.a || run_install_script = yes
-	@test -s /usr/local/lib/libSDL2_image.a || run_install_script = yes
-	@test -s /usr/local/lib/libSDL2_ttf.a || run_install_script = yes
-	@test -s /usr/local/lib/libSDL2_mixer.a || run_install_script = yes
-ifdef run_install_script
-	@printf "\033[32;1mInstall SDL2 (and its sub libraries)...\n\033[0m"
-	./install.sh
+ifeq ($(UNAME), Linux)
+	@printf "\033[32;1mCheck SDL2 on Linux...\n\033[0m"
+else ifeq ($(UNAME), Darwin)
+	@printf "\033[32;1mCheck SDL2 on MacOS...\n\033[0m"
+	ifeq (, $(shell which brew))
+		$(error "No brew found, install homebrew on macos for compilation to work")
+	endif
 else
-	@printf "\033[32;1mSDL2 already installed. Continue...\n\033[0m"
+	$(error "Can only compile on Mac OS and Linux")
 endif
-
+	@printf "\033[32;1mInstall SDL2 needed? $(RUN_INSTALL_SCRIPT)...\n\033[0m"
+ifeq (yes,$(RUN_INSTALL_SCRIPT))
+	@printf "\033[32;1mInstalling SDL2 (and its sub libraries)...\n\033[0m"
+	./install.sh
+endif
 
 clean:
 	@make -C $(LIBFT) clean
