@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 14:36:00 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/03 17:55:51 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/29 23:59:06 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	set_attack_pattern(t_npc *npc)
 	npc->atk_pattern[7] = action_repeat;
 }
 
-static void	npc_ranged_vars(t_npc *npc)
+static void	npc_ranged_vars(t_doom3d *app, t_npc *npc)
 {
 	float	cy;
 	float	sy;
@@ -46,6 +46,8 @@ static void	npc_ranged_vars(t_npc *npc)
 	float	angle;
 
 	offset = -90;
+	if (app->final_boss_bubblegum)
+		offset = +90;
 	angle = (npc->angle - offset) * M_PI / 180;
 	cy = cos(angle);
 	sy = sin(angle);
@@ -68,7 +70,7 @@ void	npc_ranged(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->parent = obj;
 	npc->type = npc_type_monster02;
 	npc->speed = app->unit_size / 8;
-	npc_ranged_vars(npc);
+	npc_ranged_vars(app, npc);
 	npc->atk_range = app->unit_size * 5;
 	npc->atk_dmg = 10;
 	npc->atk_dur = 1000;

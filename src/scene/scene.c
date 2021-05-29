@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 22:50:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 23:18:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void	scene_destroy(t_doom3d *app)
 {
 	int32_t		i;
 
-	active_scene_popup_menu_destroy(app);
+	if (app->active_scene->scene_id == scene_id_editor3d)
+		editor_popup_menu_destroy(app);
 	scene_menus_destroy(app->active_scene);
 	if (app->active_scene->scene_id == scene_id_editor3d
 		|| app->active_scene->scene_id == scene_id_main_game)

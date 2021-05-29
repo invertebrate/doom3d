@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/07 17:46:21 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/30 00:07:12 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	npc_special_spawn(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc)
 	float	a;
 	float	b;
 
+	app->final_boss_bubblegum = true;
 	a = (0.15 * l3d_rand_d() - 0.075) * app->unit_size;
 	b = (0.15 * l3d_rand_d() - 0.075) * app->unit_size;
 	offset[0] = a;
@@ -33,4 +34,5 @@ void	npc_special_spawn(t_doom3d *app, t_3d_object *npc_obj, t_npc *npc)
 	push_custom_event(app, event_effect_play, (void *)sf_spawn,
 		s_ini(0, 1, st_game, distance_vol(0.8f,
 				sound_mag(app->player.pos, npc_obj->position), -1)));
+	app->final_boss_bubblegum = false;
 }
