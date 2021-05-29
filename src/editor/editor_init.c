@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 20:34:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/04/27 02:15:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 23:21:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 /*
 ** Initialize editor (to null and falses mostly)
+** Destroy editor popup menu if it exists...
 */
 
 void	editor_init(t_doom3d *app, int32_t editor_level)
 {
+	editor_popup_menu_destroy(app);
 	ft_memset(&app->editor, 0, sizeof(t_editor));
 	app->editor.editor_level = editor_level;
 	ft_memset(app->editor.editor_filename, 0,

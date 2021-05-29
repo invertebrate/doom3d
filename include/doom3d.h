@@ -760,7 +760,7 @@ void						scene_destroy(t_doom3d *app);
 void						select_next_scene(t_doom3d *app);
 void						scene_map_init(t_scene *scene);
 void						scene_cameras_destroy(t_scene *scene);
-void						active_scene_popup_menu_destroy(t_doom3d *app);
+void						editor_popup_menu_destroy(t_doom3d *app);
 void						extend_all_objects_shading_opts(t_doom3d *app,
 								t_shading_opts opts_to_add);
 void						remove_all_objects_shading_opts(t_doom3d *app,
