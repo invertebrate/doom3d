@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/07 14:55:13 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/29 23:51:02 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	npc_monster01(t_doom3d *app, t_npc *npc, int type)
 		npc_boss(app, npc, type);
 }
 
-static void	npc_default_vars(t_npc *npc)
+static void	npc_default_vars(t_doom3d *app, t_npc *npc)
 {
 	float	cy;
 	float	sy;
@@ -77,6 +77,8 @@ static void	npc_default_vars(t_npc *npc)
 	float	angle;
 
 	offset = -90;
+	if (app->final_boss_bubblegum)
+		offset = +90;
 	angle = (npc->angle - offset) * M_PI / 180;
 	cy = cos(angle);
 	sy = sin(angle);
@@ -99,7 +101,7 @@ void	npc_default(t_doom3d *app, t_npc *npc, t_3d_object *obj)
 	npc->parent = obj;
 	npc->type = npc_type_monster01;
 	npc->speed = app->unit_size / 3.5;
-	npc_default_vars(npc);
+	npc_default_vars(app, npc);
 	npc->atk_range = app->unit_size * 6;
 	npc->atk_dmg = 100;
 	npc->atk_dur = 8000;

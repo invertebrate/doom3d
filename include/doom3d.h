@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 23:17:18 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 23:46:42 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,7 @@ typedef struct s_doom3d
 	uint32_t				render_triangle_pool_size;
 	uint32_t				render_vertex_pool_size;
 	t_timer					timer[MAX_TIMERS];
+	t_bool					final_boss_bubblegum;
 }							t_doom3d;
 
 /*
