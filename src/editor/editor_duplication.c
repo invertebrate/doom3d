@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 01:26:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/18 00:00:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 01:09:15 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static t_bool	is_start_or_end_object(t_3d_object *selected)
 static void	duplicate_scene_object(t_doom3d *app, t_3d_object *selected)
 {
 	t_3d_object	*model;
+	t_3d_object	*obj;
 	const char	*texture_file;
 	const char	*normal_map_file;
 
@@ -42,10 +43,13 @@ static void	duplicate_scene_object(t_doom3d *app, t_3d_object *selected)
 		1.0 / app->unit_size, 1.0 / app->unit_size, 1.0 / app->unit_size);
 	l3d_3d_object_translate(model, -selected->position[0],
 		-selected->position[1], -selected->position[2]);
-	place_procedural_scene_object(app, model,
-		(const char*[2]){texture_file, normal_map_file},
-		(t_vec3){selected->position[0], selected->position[1],
-		selected->position[2] + -app->unit_size});
+	obj = place_procedural_scene_object(app, model,
+			(const char*[2]){texture_file, normal_map_file},
+			(t_vec3){selected->position[0], selected->position[1],
+			selected->position[2] + -app->unit_size});
+	obj->material->shading_opts = selected->material->shading_opts;
+	obj->type = selected->type;
+	obj->params_type = selected->params_type;
 	l3d_3d_object_destroy(model);
 }
 
