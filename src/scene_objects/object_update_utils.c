@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 22:37:09 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 18:19:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 22:20:21 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	delete_objects_set_for_deletion(t_doom3d *app)
 		+ app->active_scene->num_free_indices_consumed))
 	{
 		del_index = app->active_scene->free_object_indices[i];
+		if (del_index == -1)
+			break ;
 		if (objects[del_index] != NULL)
 		{
 			delete_object_by_index(app, objects, del_index);
