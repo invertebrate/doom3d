@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 19:27:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 23:17:18 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -759,7 +759,7 @@ void						scene_destroy(t_doom3d *app);
 void						select_next_scene(t_doom3d *app);
 void						scene_map_init(t_scene *scene);
 void						scene_cameras_destroy(t_scene *scene);
-void						active_scene_popup_menu_destroy(t_doom3d *app);
+void						editor_popup_menu_destroy(t_doom3d *app);
 void						extend_all_objects_shading_opts(t_doom3d *app,
 								t_shading_opts opts_to_add);
 void						remove_all_objects_shading_opts(t_doom3d *app,
