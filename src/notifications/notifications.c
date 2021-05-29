@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:14:00 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/21 13:36:19 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/29 21:56:32 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ void	delete_notifications_of_type(t_doom3d *app, t_notification_type type)
 			node = node->next;
 			if (prev != NULL)
 				prev->next = node;
+			if (prev == NULL && node == NULL)
+				app->notifications = NULL;
 			free(tmp);
 		}
 		else
@@ -134,5 +136,4 @@ void	delete_notifications_of_type(t_doom3d *app, t_notification_type type)
 			node = node->next;
 		}
 	}
-	app->notifications = NULL;
 }
