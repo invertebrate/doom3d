@@ -11,10 +11,9 @@ LIBGMATRIXFLAGS = -L$(LIBGMATRIX) -lgmatrix
 DEBUGFLAG = -g
 
 # Linux and MacOS specific includes & libs & library check files
-RUN_INSTALL_SCRIPT = no
 # ====================
 UNAME := $(shell uname)
-ifeq ($(UNAME), Linux)
+ifeq ($(UNAME),Linux)
 	SDL_FLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 	LIB_MATH = -lm
 	LIB_PTHRTEAD = -lpthread
@@ -22,21 +21,12 @@ ifeq ($(UNAME), Linux)
 	LIBSDL2IMAGEFILE = /usr/lib/x86_64-linux-gnu/libSDL2_image.a
 	LIBSDL2TTFFILE = /usr/lib/x86_64-linux-gnu/libSDL2_ttf.a
 	LIBSDL2MIXERFILE = /usr/lib/x86_64-linux-gnu/libSDL2_mixer.a
-else ifeq ($(UNAME), Darwin)
+else ifeq ($(UNAME),Darwin)
 	SDL_FLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 	LIBSDL2FILE = /usr/local/lib/libSDL2.a
 	LIBSDL2IMAGEFILE = /usr/local/lib/libSDL2_image.a
 	LIBSDL2TTFFILE = /usr/local/lib/libSDL2_ttf.a
 	LIBSDL2MIXERFILE = /usr/local/lib/libSDL2_mixer.a
-endif
-ifeq ($(shell test -e $(LIBSDL2FILE) || echo -n no),no)
-	RUN_INSTALL_SCRIPT = yes
-else ifeq ($(shell test -e $(LIBSDL2IMAGEFILE) || echo -n no),no)
-	RUN_INSTALL_SCRIPT = yes
-else ifeq ($(shell test -e $(LIBSDL2TTFFILE) || echo -n no),no)
-	RUN_INSTALL_SCRIPT = yes
-else ifeq ($(shell test -e $(LIBSDL2MIXERFILE) || echo -n no),no)
-	RUN_INSTALL_SCRIPT = yes
 endif
 # ====================
 
@@ -359,19 +349,29 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 install_sdl:
 ifeq ($(UNAME),Linux)
 	@printf "\033[32;1mCheck SDL2 on Linux...\n\033[0m"
-else ifeq ($(UNAME),Darwin)
+endif
+ifeq ($(UNAME),Darwin)
 	@printf "\033[32;1mCheck SDL2 on MacOS...\n\033[0m"
 ifeq (,$(shell which brew))
 	$(error "No brew found, install homebrew on macos for compilation to work")
 endif
-else
+endif
+ifeq ($(OS),Windows_NT)
 	$(error "Can only compile on Mac OS and Linux")
 endif
-	@printf "\033[32;1mInstall SDL2 needed? $(RUN_INSTALL_SCRIPT)...\n\033[0m"
-ifeq (yes,$(RUN_INSTALL_SCRIPT))
-	@printf "\033[32;1mInstalling SDL2 (and its sub libraries)...\n\033[0m"
-	./install.sh
-endif
+	@if ! test -e $(LIBSDL2FILE); then\
+		echo "SDL2 missing";\
+		./install.sh;\
+	elif ! test -e $(LIBSDL2IMAGEFILE); then\
+		echo "SDL2 image missing";\
+		./install.sh;\
+	elif ! test -e $(LIBSDL2TTFFILE); then\
+		echo "SDL2 ttf missing";\
+		./install.sh;\
+	elif ! test -e $(LIBSDL2MIXERFILE); then\
+		echo "SDL2 mixer missing";\
+		./install.sh;\
+	fi
 
 clean:
 	@make -C $(LIBFT) clean
