@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:40:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 00:46:33 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:02:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,24 @@ static void	hologram_place(t_doom3d *app, t_3d_object **holograms,
 {
 	holograms[0] = place_procedural_temp_object(app,
 			(t_procedural_tmp_obj_params){.model = model,
-			.texture = "assets/animations/explosion1.bmp",
-			.lifetime = 100, .delay = 0}, pos);
+			.texture = "assets/animations/holoscreen1.bmp",
+			.lifetime = 250, .delay = 0}, pos);
 	holograms[1] = place_procedural_temp_object(app,
 			(t_procedural_tmp_obj_params){.model = model,
-			.texture = "assets/animations/explosion2.bmp",
-			.lifetime = 100, .delay = 100}, pos);
+			.texture = "assets/animations/holoscreen2.bmp",
+			.lifetime = 250, .delay = 250}, pos);
 	holograms[2] = place_procedural_temp_object(app,
 			(t_procedural_tmp_obj_params){.model = model,
-			.texture = "assets/animations/explosion3.bmp",
-			.lifetime = 100, .delay = 200}, pos);
+			.texture = "assets/animations/holoscreen3.bmp",
+			.lifetime = 250, .delay = 500}, pos);
 	holograms[3] = place_procedural_temp_object(app,
 			(t_procedural_tmp_obj_params){.model = model,
-			.texture = "assets/animations/explosion4.bmp",
-			.lifetime = 100, .delay = 300}, pos);
+			.texture = "assets/animations/holoscreen4.bmp",
+			.lifetime = 250, .delay = 740}, pos);
 	holograms[4] = place_procedural_temp_object(app,
 			(t_procedural_tmp_obj_params){.model = model,
 			.texture = NULL,
-			.lifetime = 400, .delay = 0}, pos);
+			.lifetime = 1000, .delay = 0}, pos);
 }
 
 static void	init_explosions(t_doom3d *app, t_3d_object **holograms,
@@ -68,11 +68,15 @@ static void	init_explosions(t_doom3d *app, t_3d_object **holograms,
 	holograms[4]->type = object_type_light;
 }
 
+/*
+** This time must equal the length of the animations .lifetime = 1000,
+*/
+
 static t_bool	should_create(void)
 {
 	static uint32_t		creation_time;
 
-	if (SDL_GetTicks() - creation_time > 400)
+	if (SDL_GetTicks() - creation_time > 1000)
 	{
 		creation_time = SDL_GetTicks();
 		return (true);

@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:37:19 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 00:53:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:00:28 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ static void	sprite_animation_files_set_sub(t_asset_files *data)
 		= "assets/animations/reaction_5.bmp";
 	data->sprite_files[data->num_sprites++]
 		= "assets/animations/reaction_6.bmp";
+	data->sprite_files[data->num_sprites++]
+		= "assets/animations/holoscreen1.bmp";
+	data->sprite_files[data->num_sprites++]
+		= "assets/animations/holoscreen2.bmp";
+	data->sprite_files[data->num_sprites++]
+		= "assets/animations/holoscreen3.bmp";
+	data->sprite_files[data->num_sprites++]
+		= "assets/animations/holoscreen4.bmp";
 }
 
 /*
