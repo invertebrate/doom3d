@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 19:47:42 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 19:53:56 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 18:54:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ uint32_t	get_pixel_initial_color_trans(t_triangle *triangle)
 		pixel = L3D_COLOR_CYAN_TRANSPARENT;
 	else if ((shading & e_shading_blue) || (shading & e_shading_blue_highlight))
 		pixel = L3D_COLOR_BLUE_TRANSPARENT;
+	else if (shading & e_shading_white)
+		pixel = L3D_COLOR_WHITE_TRANSPARENT;
 	else
 		pixel = L3D_DEFAULT_COLOR_TRANSPARENT;
 	return (pixel);
@@ -49,6 +51,8 @@ uint32_t	get_pixel_initial_color(t_triangle *triangle)
 		pixel = L3D_COLOR_BLUE;
 	else if (shading & e_shading_cyan)
 		pixel = L3D_COLOR_CYAN;
+	else if (shading & e_shading_white)
+		pixel = L3D_COLOR_WHITE;
 	else
 		pixel = L3D_DEFAULT_COLOR;
 	return (pixel);

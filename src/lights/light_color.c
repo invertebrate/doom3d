@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:52:58 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 18:24:57 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/30 18:49:37 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ uint32_t	get_light_emit_color(t_3d_object *light_obj)
 		light_type = light_obj->params_type;
 		if (light_type == light_type_yellow)
 			return (L3D_COLOR_YELLOW);
-		if (light_type == light_type_white)
+		if (light_type == light_type_white
+			|| light_type == light_type_breakable)
 			return (L3D_COLOR_WHITE);
 		else if (light_type == light_type_red)
 			return (L3D_COLOR_RED);
@@ -42,7 +43,7 @@ uint32_t	get_light_emit_color(t_3d_object *light_obj)
 
 t_shading_opts	get_light_shading(t_light_type light_type)
 {
-	if (light_type == light_type_white)
+	if (light_type == light_type_white || light_type == light_type_breakable)
 		return (e_shading_white);
 	if (light_type == light_type_yellow)
 		return (e_shading_yellow);
