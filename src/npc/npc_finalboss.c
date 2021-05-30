@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_finalboss.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/08 15:49:58 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/30 19:42:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ void	npc_boss_death(t_doom3d *app)
 {
 	push_custom_event(app,
 		event_effect_play, (void *)sf_audio_log_20, s_ini(0, 1, st_game, 1.0));
-	show_subtitle(app, 20);
-	trigger_timer_start(app, NULL, timer_end);
+	show_subtitle(app, sf_audio_log_20);
+	trigger_timer_start(app, NULL, timer_end, 20000);
 }

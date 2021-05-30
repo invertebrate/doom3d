@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/30 18:57:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 19:42:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1025,7 +1025,8 @@ void						trigger_activate(t_doom3d *app, t_3d_object *obj);
 void						trigger_link_object_to_npc(t_3d_object *trigger,
 								t_3d_object *target);
 void						trigger_timer_start(t_doom3d *app,
-								t_3d_object *obj, int type);
+								t_3d_object *obj,
+								int32_t type, int32_t length);
 void						trigger_timer_update(t_doom3d *app);
 void						get_trigger_action_text(t_trigger_type type,
 								char *action_text);
