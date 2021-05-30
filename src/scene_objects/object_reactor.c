@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:18:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 01:51:30 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:55:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ static void	transform_explosion_plane(t_doom3d *app, t_3d_object *reactor,
 static void	explosion_place_sub(t_doom3d *app, t_3d_object **explosions,
 										t_3d_object *model, t_vec3 pos)
 {
+	explosions[0] = place_procedural_temp_object(app,
+			(t_procedural_tmp_obj_params){.model = model,
+			.texture = "assets/animations/reaction_1.bmp",
+			.lifetime = 100, .delay = 0}, pos);
+	explosions[1] = place_procedural_temp_object(app,
+			(t_procedural_tmp_obj_params){.model = model,
+			.texture = "assets/animations/reaction_2.bmp",
+			.lifetime = 100, .delay = 100}, pos);
 	explosions[2] = place_procedural_temp_object(app,
 			(t_procedural_tmp_obj_params){.model = model,
 			.texture = "assets/animations/reaction_3.bmp",
@@ -45,9 +53,6 @@ static void	explosion_place_sub(t_doom3d *app, t_3d_object **explosions,
 			(t_procedural_tmp_obj_params){.model = model,
 			.texture = "assets/animations/reaction_6.bmp",
 			.lifetime = 100, .delay = 500}, pos);
-	explosions[6] = place_procedural_temp_object(app,
-			(t_procedural_tmp_obj_params){.model = model, .texture = NULL,
-			.lifetime = 600, .delay = 0}, pos);
 }
 
 static void	init_explosions(t_doom3d *app, t_3d_object **explosions,
@@ -55,15 +60,10 @@ static void	init_explosions(t_doom3d *app, t_3d_object **explosions,
 {
 	int32_t	i;
 
-	explosions[0] = place_procedural_temp_object(app,
-			(t_procedural_tmp_obj_params){.model = model,
-			.texture = "assets/animations/reaction_1.bmp",
-			.lifetime = 100, .delay = 0}, pos);
-	explosions[1] = place_procedural_temp_object(app,
-			(t_procedural_tmp_obj_params){.model = model,
-			.texture = "assets/animations/reaction_2.bmp",
-			.lifetime = 100, .delay = 100}, pos);
 	explosion_place_sub(app, explosions, model, pos);
+	explosions[6] = place_procedural_temp_object(app,
+			(t_procedural_tmp_obj_params){.model = model, .texture = NULL,
+			.lifetime = 600, .delay = 0}, pos);
 	i = -1;
 	while (++i < 7)
 		explosions[i]->material->shading_opts |= e_shading_standard
