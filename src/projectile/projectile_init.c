@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 13:16:45 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/30 22:29:43 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/31 01:22:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	place_missile_in_scene(t_doom3d *app,
 	l3d_3d_object_set_params(obj, projectile, sizeof(t_projectile),
 		projectile->type);
 	l3d_3d_object_scale(obj, 0.1, 0.1, 0.1);
-	rotate_object_by_player_dir(app, obj);
+	l3d_3d_object_rotate_matrix(obj, app->player.dir_rotation);
 	ml_matrix4_general_rotation(app->player.sideways, ml_rad(-90), rot);
 	l3d_3d_object_rotate_matrix(obj, rot);
 	l3d_object_aabb_update(obj);

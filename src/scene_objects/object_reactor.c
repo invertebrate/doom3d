@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:18:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 01:12:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:22:40 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	transform_explosion_plane(t_doom3d *app, t_3d_object *reactor,
 	if (!explosion_effect)
 		return ;
 	scale = (reactor->scale[0][0] / app->unit_size) * 1.5;
-	rotate_object_by_player_dir(app, explosion_effect);
+	l3d_3d_object_rotate_matrix(explosion_effect, app->player.dir_rotation);
 	l3d_3d_object_scale(explosion_effect, scale, scale, scale);
 	l3d_3d_object_translate(explosion_effect, 0,
 		app->unit_size * 1.3 * scale, 0);

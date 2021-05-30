@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/28 18:42:15 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/31 01:20:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_player
 	float					rot_y;
 	float					player_height;
 	float					fire_rate_per_sec;
+	t_mat4					dir_rotation;
 	t_mat4					rotation;
 	t_mat4					inv_rotation;
 	t_mat4					translation;

@@ -94,7 +94,7 @@ SOURCES = main.c \
 			player/player_animations1.c \
 			player/player_animations2.c \
 			player/player_animations3.c \
-			player/rotate_by_player_dir.c \
+			player/set_player_dir_rotation_matrix.c \
 			inventory/item_data/item_data_fist.c \
 			inventory/item_data/item_data_pistol.c \
 			inventory/item_data/item_data_rpg.c \

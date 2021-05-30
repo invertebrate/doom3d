@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:40:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 01:12:35 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:23:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	transform_hologram_plane(t_doom3d *app, t_3d_object *hologram_obj,
 	if (!hologram_effect)
 		return ;
 	scale = (hologram_obj->scale[0][0] / app->unit_size) * 1.2;
-	rotate_object_by_player_dir(app, hologram_effect);
+	l3d_3d_object_rotate_matrix(hologram_effect, app->player.dir_rotation);
 	l3d_3d_object_scale(hologram_effect, scale, scale, scale);
 	l3d_3d_object_translate(hologram_effect, 0,
 		app->unit_size * 4.0 * scale, 0);

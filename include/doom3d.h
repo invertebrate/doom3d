@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 00:42:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:22:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,8 +241,7 @@ void						settings_init(t_doom3d *app);
 ** Player
 */
 
-void						rotate_object_by_player_dir(t_doom3d *app,
-								t_3d_object *obj);
+void						set_player_dir_rotation_matrix(t_doom3d *app);
 void						update_player(t_doom3d *app);
 void						player_init(t_doom3d *app, t_vec3 pos);
 void						editor_player_init(t_doom3d *app);
