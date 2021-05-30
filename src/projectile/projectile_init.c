@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projectile_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 13:16:45 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/29 18:30:41 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 22:27:03 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	place_npc_projectile_in_scene(t_doom3d *app,
 		projectile->type);
 	l3d_3d_object_scale(obj, 0.1, 0.1, 0.1);
 	l3d_object_aabb_update(obj);
+	obj->material->shading_opts |= e_shading_luminous;
 	if (app->settings.is_debug)
 		LOG_DEBUG("Spawned projectile id: %d", obj->id);
 }
