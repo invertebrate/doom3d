@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 10:03:43 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 17:16:04 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 19:47:29 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	set_subtitles_10_to_20(const char *subtitles[20])
 		"Office lady: Bubblegum?"
 		" How can you eat bubblegum with your suit on?\n                    ";
 	subtitles[18] = "Johnson: Eat shit and die.\n                    ";
-	subtitles[19] = "Office lady: Congratulations Johnson!"
+	subtitles[19] = "Office lady: Congratulations Johnson! "
 		"You defeated the ancient demon and saved us all!\n"
 		"Will you make it back in time for coffee?"
 		"\n                    ";
