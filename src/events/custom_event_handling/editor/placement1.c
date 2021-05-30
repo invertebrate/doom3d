@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/30 19:04:25 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 23:25:52 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	handle_editor_placement_start(t_doom3d *app,
 		obj = editor_place_npc_object(app, (t_npc_type)data);
 	if (obj)
 	{
+		if (app->editor.lights_enabled == false)
+			obj->material->shading_opts |= e_shading_lit;
 		active_scene_update_after_objects(app);
 		editor_objects_invisible_highlight(app);
 		select_object(app, obj);
