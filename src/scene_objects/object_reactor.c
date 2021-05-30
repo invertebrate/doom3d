@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:18:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 00:57:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:12:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ void	reactor_explosion_effect(t_doom3d *app, t_3d_object *reactor_obj)
 	int32_t				i;
 	t_vec3				pos;
 
+	if (!(reactor_obj->type == object_type_default
+			&& reactor_obj->params_type == prefab_reactor))
+		return ;
 	if (!should_create())
 		return ;
 	if (app->settings.is_debug)

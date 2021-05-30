@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 00:54:24 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 00:16:55 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:10:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_3d_object	*place_reactor_prefab(t_doom3d *app)
 			NULL}, pos);
 	l3d_3d_object_rotate(object, 0, 180, 180);
 	object->material->shading_opts = e_shading_transparent;
+	object->type = object_type_default;
+	object->params_type = prefab_reactor;
 	placement_notification(app, "Placing reactor!");
 	return (object);
 }
@@ -55,6 +57,8 @@ t_3d_object	*place_hologram_prefab(t_doom3d *app)
 			"assets/textures/hologram_diffuse.bmp",
 			NULL}, pos);
 	l3d_3d_object_rotate(object, 0, 180, 180);
+	object->type = object_type_default;
+	object->params_type = prefab_hologram;
 	object->material->shading_opts = e_shading_standard;
 	placement_notification(app, "Placing hologram!");
 	return (object);

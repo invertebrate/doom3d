@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 00:43:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:06:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ static void	update_trigger_object(t_doom3d *app, t_3d_object *obj)
 			handle_musicbox(app, obj);
 	}
 }
+
+/*
+** The texture tests are for sprite object effects, if object has textures
+** 
+*/
 
 static void	update_object_by_type(t_doom3d *app, t_3d_object *obj,
 					t_bool is_npc_update)

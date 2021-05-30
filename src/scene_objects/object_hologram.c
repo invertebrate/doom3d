@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:40:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 01:02:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:12:35 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ void	hologram_effect(t_doom3d *app, t_3d_object *hologram_obj)
 	int32_t				i;
 	t_vec3				pos;
 
+	if (!(hologram_obj->type == object_type_default
+			&& hologram_obj->params_type == prefab_hologram))
+		return ;
 	if (!should_create())
 		return ;
 	if (app->settings.is_debug)
