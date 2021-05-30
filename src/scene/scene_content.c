@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 12:54:27 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 18:38:45 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static void	scene_game_init(t_doom3d *app)
 	read_map(app, app->level_list[app->current_level]);
 	start = find_one_object_by_type(app, object_type_trigger,
 			trigger_player_start);
-	end = find_one_object_by_type(app, object_type_trigger,
-			trigger_player_end);
+	end = find_one_object_by_type(app, object_type_trigger, trigger_player_end);
 	error_check(!start || !end, "Invalid map: No start or end found in map");
 	editor_objects_non_culled_unhighlight(app);
+	editor_objects_invisible_unhighlight(app);
 	app->settings.is_third_person = false;
 	app->active_scene->third_person_camera_distance = 3 * app->unit_size;
 	player_init(app, (t_vec3){start->position[0],

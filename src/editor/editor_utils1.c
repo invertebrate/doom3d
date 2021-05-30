@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 22:39:05 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 18:36:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ void	editor_objects_invisible_unhighlight(t_doom3d *app)
 						|| obj->params_type == trigger_musicbox))
 				|| obj->type == object_type_path))
 			obj->material->shading_opts = e_shading_invisible;
+		if (obj && obj->type == object_type_light
+			&& obj->params_type != light_type_breakable
+			&& obj->params_type != light_type_mushroom)
+			obj->material->shading_opts |= e_shading_invisible;
 	}
 }
 
