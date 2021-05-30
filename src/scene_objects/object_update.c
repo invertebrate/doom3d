@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 00:38:12 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 00:43:49 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,12 @@ static void	update_object_by_type(t_doom3d *app, t_3d_object *obj,
 	if (obj->material->texture
 		&& ft_strequ(obj->material->texture->filename,
 			"assets/textures/reactor_diffuse.bmp"))
-	{
 		reactor_explosion_effect(app, obj);
+	else if (obj->material->texture
+		&& ft_strequ(obj->material->texture->filename,
+			"assets/textures/hologram_diffuse.bmp"))
+	{
+		hologram_effect(app, obj);
 	}
 }
 

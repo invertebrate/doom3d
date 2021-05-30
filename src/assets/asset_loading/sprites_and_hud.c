@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:37:19 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 19:30:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 00:53:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,22 @@ void	hud_icon_files_set(t_asset_files *data)
 		= "assets/img/shotgun_icon_64.bmp";
 	data->hud_textures[data->num_hud_textures++]
 		= "assets/img/hud_shell.bmp";
+}
+
+static void	sprite_animation_files_set_sub(t_asset_files *data)
+{
+	data->sprite_files[data->num_sprites++]
+		= "assets/animations/reaction_1.bmp";
+	data->sprite_files[data->num_sprites++]
+		= "assets/animations/reaction_2.bmp";
+	data->sprite_files[data->num_sprites++]
+		= "assets/animations/reaction_3.bmp";
+	data->sprite_files[data->num_sprites++]
+		= "assets/animations/reaction_4.bmp";
+	data->sprite_files[data->num_sprites++]
+		= "assets/animations/reaction_5.bmp";
+	data->sprite_files[data->num_sprites++]
+		= "assets/animations/reaction_6.bmp";
 }
 
 /*
@@ -58,6 +74,7 @@ void	sprite_animation_files_set(t_asset_files *data)
 	data->sprite_files[data->num_sprites++] = "assets/animations/blood.bmp";
 	data->sprite_files[data->num_sprites++]
 		= "assets/animations/bullet_hole.bmp";
+	sprite_animation_files_set_sub(data);
 }
 
 void	load_sprites_to_memory(t_assets *assets,
