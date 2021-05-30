@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:18:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 01:46:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:51:30 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,6 @@ void	reactor_explosion_effect(t_doom3d *app, t_3d_object *reactor_obj)
 	init_explosions(app, explosions, model, pos);
 	l3d_3d_object_destroy(model);
 	i = -1;
-	while (++i < 8)
+	while (++i < 7)
 		transform_explosion_plane(app, reactor_obj, explosions[i]);
 }
