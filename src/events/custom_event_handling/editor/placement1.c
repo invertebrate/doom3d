@@ -6,11 +6,16 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 01:10:02 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/06 16:22:47 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 19:04:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
+
+/*
+** active_scene_update_after_objects is required once we add an object
+** It also gets called each frame
+*/
 
 void	handle_editor_placement_start(t_doom3d *app,
 				uint32_t obj_type, void *data)

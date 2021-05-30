@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:24:06 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/12 08:40:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 19:09:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	trigger_timer_update(t_doom3d *app)
 						.time = 6000, .type = notification_type_layer});
 				}
 				app->timer[i].active = false;
-				LOG_INFO("Finished timer in slot %d", i);
+				if (app->settings.is_debug)
+					LOG_DEBUG("Finished timer in slot %d", i);
 			}
 		}
 	}

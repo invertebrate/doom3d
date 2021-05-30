@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 15:36:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/25 12:41:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 19:03:24 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_3d_object	*place_scene_object(t_doom3d *app, const char *filenames[3],
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	obj->material->flashlight = &(app->player.flashlight);
 	app->active_scene->objects[next_object_index(app)] = obj;
-	active_scene_update_after_objects(app);
 	if (app->settings.is_debug)
 		LOG_DEBUG("New object id %d", obj->id);
 	return (obj);
@@ -84,7 +83,6 @@ t_3d_object	*place_procedural_scene_object(t_doom3d *app,
 	l3d_3d_object_translate(obj, pos[0], pos[1], pos[2]);
 	app->active_scene->objects[next_object_index(app)] = obj;
 	obj->material->flashlight = &(app->player.flashlight);
-	active_scene_update_after_objects(app);
 	if (app->settings.is_debug)
 		LOG_DEBUG("New procedural object id %d", obj->id);
 	return (obj);
