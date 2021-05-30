@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:24:06 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/30 19:43:23 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 20:13:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	trigger_timer_start(t_doom3d *app, t_3d_object *obj,
 			app->timer[i].target = obj;
 			app->timer[i].type = type;
 			app->timer[i].timer_end = (int)SDL_GetTicks() + timer_length;
-			if (type == timer_end)
-				break ;
+			break ;
 		}
 	}
 }
@@ -44,8 +43,8 @@ void	trigger_timer_update(t_doom3d *app)
 		if (app->timer[i].active
 			&& app->timer[i].timer_end - current_time < 0)
 		{
-			app->timer[i].active = false;
-			if (app->timer[i].type == timer_switch)
+			if (app->timer[i].type == timer_switch
+				&& app->timer[i].target != NULL)
 				elevator_go_to_next_node(app, app->timer[i].target);
 			if (app->timer[i].type == timer_end)
 			{
@@ -53,8 +52,8 @@ void	trigger_timer_update(t_doom3d *app)
 					(void *)scene_id_main_menu, NULL);
 				notify_user(app, (t_notification){.message = "The End",
 					.time = 10000, .type = notification_type_layer});
-				return ;
 			}
+			ft_memset(&app->timer[i], 0, sizeof(app->timer[i]));
 		}
 	}
 }
