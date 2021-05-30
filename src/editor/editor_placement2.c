@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_placement2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:56:11 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/17 18:12:28 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/30 21:34:14 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_3d_object	*editor_place_light_object(t_doom3d *app, t_light_type light_type)
 	return (light);
 }
 
-static t_3d_object	*place_plane_prefab(t_doom3d *app)
+t_3d_object	*place_plane_prefab(t_doom3d *app)
 {
 	t_3d_object		*model;
 	t_3d_object		*object;
@@ -70,16 +70,14 @@ t_3d_object	*editor_place_default_object(t_doom3d *app, void *data)
 	t_vec3			pos;
 
 	object = NULL;
-	if ((t_prefab_type)data == prefab_plane)
-		object = place_plane_prefab(app);
-	else if ((t_prefab_type)data == prefab_window_wall)
-		object = place_window_wall_prefab(app);
-	else if ((t_prefab_type)data == prefab_lava_plane)
-		object = place_lava_plane_prefab(app);
-	else if ((t_prefab_type)data == prefab_path_node)
+	if ((t_prefab_type)data == prefab_plane
+		|| (t_prefab_type)data == prefab_reactor
+		|| (t_prefab_type)data == prefab_window_wall
+		|| (t_prefab_type)data == prefab_hologram
+		|| (t_prefab_type)data == prefab_lava_plane
+		|| (t_prefab_type)data == prefab_path_node)
 	{
-		object = place_path_object(app);
-		placement_notification(app, "Placing Path Node!");
+		editor_handle_prefab_place(app, data, &object);
 	}
 	else if ((char *)data)
 	{

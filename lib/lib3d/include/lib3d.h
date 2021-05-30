@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/30 18:54:43 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 21:43:33 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef struct s_cone
 
 /*
 ** Structure representing a directed sphere in 3D space. Height is an optional
-** parameter to adjust the vertical scale. 
+** parameter to adjust the vertical scale.
 */
 
 typedef struct s_sphere
@@ -621,7 +621,7 @@ void						l3d_order_corners_y(t_vec2 *ordered_corners,
 float						l3d_z_val(float baryc[3], t_triangle *triangle);
 uint32_t					l3d_pixel_depth_shaded(uint32_t pixel, float z_val);
 uint32_t					l3d_pixel_normal_shaded(uint32_t pixel,
-								t_triangle *triangle, t_vec2 uv);
+								t_triangle *triangle, t_vec2 uv, t_vec3 baryc);
 uint32_t					l3d_pixel_selection_shaded(uint32_t pixel);
 void						l3d_clamp_uv(t_vec2 uv);
 void						l3d_uv_repeat(t_vec2 uv);

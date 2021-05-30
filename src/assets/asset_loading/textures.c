@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:19:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/19 23:47:49 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/27 18:33:23 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ static void	texture_files_set_sub3(t_asset_files *data)
 		= "assets/textures/lamp_breakable.bmp";
 	data->texture_files[data->num_textures++]
 		= "assets/textures/mushroom_texture.bmp";
+	data->texture_files[data->num_textures++]
+		= "assets/textures/reactor_diffuse.bmp";
+	data->texture_files[data->num_textures++]
+		= "assets/textures/hologram_diffuse.bmp";
 }
 
 void	texture_files_set(t_asset_files *data)

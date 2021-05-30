@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   l3d_triangle_raster_pixel.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:15:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/08 23:22:59 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 15:49:58 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib3d_internals.h"
 
-static void	shade_special(t_triangle *triangle, t_vec2 uv, uint32_t *pixel)
+static void	shade_special(t_triangle *triangle, t_vec2 uv, uint32_t *pixel,
+	t_vec3 baryc)
 {
 	if ((triangle->material->shading_opts & e_shading_normal_map)
 		&& triangle->material->normal_map)
-		*pixel = l3d_pixel_normal_shaded(*pixel, triangle, uv);
+		*pixel = l3d_pixel_normal_shaded(*pixel, triangle, uv, baryc);
 	if (triangle->material->shading_opts & e_shading_select)
 		*pixel = l3d_pixel_selection_shaded(*pixel);
 }
@@ -39,7 +40,7 @@ static uint32_t	pixel_trans(t_triangle *triangle, t_vec2 uv,
 	}
 	else
 		pixel = get_pixel_initial_color_trans(triangle);
-	shade_special(triangle, uv, &pixel);
+	shade_special(triangle, uv, &pixel, baryc);
 	if ((shading & e_shading_luminous) || (shading & e_shading_lit))
 		return (pixel);
 	return (l3d_pixel_light_shaded(triangle, baryc, pixel));
@@ -65,7 +66,7 @@ static uint32_t	pixel_color(t_triangle *triangle, t_vec2 uv,
 	}
 	else
 		pixel = get_pixel_initial_color(triangle);
-	shade_special(triangle, uv, &pixel);
+	shade_special(triangle, uv, &pixel, baryc);
 	if ((shading & e_shading_luminous) || (shading & e_shading_lit))
 		return (pixel);
 	return (l3d_pixel_light_shaded(triangle, baryc, pixel));

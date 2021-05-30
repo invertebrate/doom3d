@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/30 19:42:26 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 21:43:18 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,6 +282,7 @@ void						player_future_collider_update(t_doom3d *app);
 float						get_movement_speed(t_doom3d *app);
 void						limit_move_add_by_slope(t_vec3 slope_normal,
 								t_vec3 dir_add);
+void						player_cap_velocity(t_doom3d *app);
 void						player_splash_damage(t_doom3d *app,
 								t_3d_object *projectile_obj);
 
@@ -916,8 +917,13 @@ t_3d_object					*editor_place_default_object(t_doom3d *app,
 								void *data);
 t_3d_object					*editor_place_npc_object(t_doom3d *app,
 								t_npc_type type);
+t_3d_object					*place_plane_prefab(t_doom3d *app);
 t_3d_object					*place_window_wall_prefab(t_doom3d *app);
 t_3d_object					*place_lava_plane_prefab(t_doom3d *app);
+t_3d_object					*place_hologram_prefab(t_doom3d *app);
+t_3d_object					*place_reactor_prefab(t_doom3d *app);
+void						editor_handle_prefab_place(t_doom3d *app, void *data,
+								t_3d_object **object);
 void						enable_editor_menus_after_save(t_doom3d *app);
 void						disable_editor_menus_on_save(t_doom3d *app);
 

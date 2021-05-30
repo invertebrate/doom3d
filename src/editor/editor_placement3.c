@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_placement3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 00:54:24 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/04 15:39:33 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/27 18:56:20 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,38 @@ t_3d_object	*place_window_wall_prefab(t_doom3d *app)
 	l3d_3d_object_rotate(object, 0, 180, 180);
 	object->material->shading_opts = e_shading_transparent;
 	placement_notification(app, "Placing window wall!");
+	return (object);
+}
+
+t_3d_object	*place_reactor_prefab(t_doom3d *app)
+{
+	t_3d_object		*object;
+	t_vec3			pos;
+
+	editor_pos_camera_front(app, pos);
+	object = place_scene_object(app, (const char *[3]){
+			"assets/models/reactor.obj",
+			"assets/textures/reactor_diffuse.bmp",
+			NULL}, pos);
+	l3d_3d_object_rotate(object, 0, 180, 180);
+	object->material->shading_opts = e_shading_transparent;
+	placement_notification(app, "Placing reactor!");
+	return (object);
+}
+
+t_3d_object	*place_hologram_prefab(t_doom3d *app)
+{
+	t_3d_object		*object;
+	t_vec3			pos;
+
+	editor_pos_camera_front(app, pos);
+	object = place_scene_object(app, (const char *[3]){
+			"assets/models/hologram.obj",
+			"assets/textures/hologram_diffuse.bmp",
+			NULL}, pos);
+	l3d_3d_object_rotate(object, 0, 180, 180);
+	object->material->shading_opts = e_shading_standard;
+	placement_notification(app, "Placing hologram!");
 	return (object);
 }
 

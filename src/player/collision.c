@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/16 20:04:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/28 14:41:23 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ t_bool	is_player_grounded(t_doom3d *app)
 			closest_triangle_hit = NULL;
 			l3d_get_closest_triangle_hit_at_range(hits, &closest_triangle_hit,
 				-1, app->player.collider_ground.cylinder.height);
-			if (closest_triangle_hit != NULL)
+			if (closest_triangle_hit != NULL
+				&& ml_vector3_dot(ray.dir, closest_triangle_hit->normal) < 0)
 			{
 				l3d_delete_hits(&hits);
 				return (true);

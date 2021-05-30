@@ -178,6 +178,7 @@ SOURCES = main.c \
 			editor/editor_placement1.c \
 			editor/editor_placement2.c \
 			editor/editor_placement3.c \
+			editor/editor_placement4.c \
 			editor/editor_point_on_target.c \
 			editor/editor_object_by_mouse.c \
 			editor/editor_duplication.c \
@@ -288,6 +289,12 @@ $(NAME): $(OBJS)
 	@make libs
 	@printf "\033[32;1mCompiling app...\n\033[0m"
 	$(CC) -o $@ $^ $(LIBS) $(CFLAGS)
+
+testrun: #this is only for quicker lib3d debug
+	@/bin/rm -f $(OBJS)
+	@/bin/rm -rf $(DIR_OBJ)
+	make all
+	./$(NAME)
 
 libs:
 	@printf "\033[32;1mCompiling libs...\n\033[0m"

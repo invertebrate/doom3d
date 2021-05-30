@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_flashlight.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 20:47:40 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/03 15:36:50 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 21:47:25 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	player_flashlight_init(t_doom3d *app, t_player *player)
 		player->flashlight.enabled = false;
 		return ;
 	}
-	player->flashlight.enabled = true;
+	player->flashlight.enabled = false;
 	player->flashlight.active = true;
 	fl = &(player->flashlight);
 	fl->light_color = L3D_COLOR_WHITE;

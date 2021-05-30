@@ -6,7 +6,7 @@
 /*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/12 00:40:37 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/28 18:42:15 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define NUM_WEAPONS 4
 # define NUM_PLAYER_ANIMATIONS 16
 # define PLAYER_SPEED 8.0
-# define PLAYER_MAX_SPEED 14.00
+# define PLAYER_MAX_SPEED 10.00
 # define PLAYER_ROTATION_SPEED 0.1
 # define PLAYER_JUMP_FORCE 8.0
 # define PLAYER_HEIGHT 1.75

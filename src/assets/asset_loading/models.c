@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   models.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 18:58:39 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/20 00:03:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/27 18:32:45 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,9 @@ void	model_files_set(t_asset_files *data)
 		= "assets/models/lamp_breakable.obj";
 	data->model_files[data->num_models++]
 		= "assets/models/mushroom.obj";
+	data->model_files[data->num_models++]
+		= "assets/models/reactor.obj";
+	data->model_files[data->num_models++]
+		= "assets/models/hologram.obj";
 	scene_model_files_set_sub(data);
 }

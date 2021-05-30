@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_objects.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:36:18 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/30 18:46:54 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 21:43:25 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ typedef enum e_prefab_type
 	prefab_plane = 1,
 	prefab_path_node = 2,
 	prefab_window_wall = 3,
-	prefab_lava_plane = 4
+	prefab_lava_plane = 4,
+	prefab_reactor = 5,
+	prefab_hologram = 6
 }							t_prefab_type;
 
 /*

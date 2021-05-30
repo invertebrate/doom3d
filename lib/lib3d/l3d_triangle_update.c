@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   l3d_triangle_update.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 22:59:58 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/28 19:46:26 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	l3d_triangle_update(t_triangle *triangle)
 
 void	l3d_triangle_normal_update(t_triangle *triangle)
 {
-	ml_vector3_cross(triangle->ab, triangle->ac, triangle->normal);
+	if (triangle->clipped)
+		ml_vector3_cross(triangle->ac, triangle->ab, triangle->normal);
+	else
+		ml_vector3_cross(triangle->ab, triangle->ac, triangle->normal);
 	if (ml_vector3_mag(triangle->normal) < L3D_EPSILON)
 		ml_vector3_set_all(triangle->normal, 1.0);
 }

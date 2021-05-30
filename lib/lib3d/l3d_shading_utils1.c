@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   l3d_shading_utils1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:04:36 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/01 22:35:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 20:26:24 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,35 +41,40 @@ static void	calc_bumped_normal(t_triangle *triangle, t_vec2 uv, t_vec3 res)
 	ml_vector3_normalize(resultnormal, res);
 }
 
-static uint32_t	fragment_shade_normal(t_vec3 light_vector, t_vec3 frag_normal,
-					uint32_t frag)
+static float	fragment_get_normal_dot(t_vec3 light_vector, t_vec3 frag_normal)
 {
 	float		dot;
-	uint32_t	rgba[4];
-	int			i;
 
-	i = -1;
-	dot = ml_vector3_dot(light_vector, frag_normal);
-	l3d_u32_to_rgba(frag, rgba);
-	while (++i < 3)
-	{
-		rgba[i] *= fabs(dot);
-	}
-	return (l3d_rgba_to_u32(rgba));
+	ml_vector3_normalize(light_vector, light_vector);
+	dot = fabs(ml_vector3_dot(light_vector, frag_normal));
+	return (dot);
 }
 
 /*
-** Return pixel with shading for normal mapping
+** Return pixel with shading for normal mapping. Only considers the first light
+** in a scene and ignores rest.
 */
 
 uint32_t	l3d_pixel_normal_shaded(uint32_t pixel, t_triangle *triangle,
-				t_vec2 uv)
+				t_vec2 uv, t_vec3 baryc)
 {
-	t_vec3	frag_normal;
-	t_vec3	light_vector;
+	t_vec3		frag_normal;
+	t_vec3		light_vector;
+	t_vec3		world_pos;
+	float		lightness;
+	uint32_t	rgba[4];
 
+	lightness = 0;
+	l3d_u32_to_rgba(pixel, rgba);
+	get_world_pos_persp_corr(triangle, baryc, world_pos);
 	ml_vector3_set(light_vector, 0.0, 0.0, -1.0);
 	ml_vector3_set(frag_normal, 0.0, 0.0, -1.0);
+	ml_vector3_sub(world_pos,
+		triangle->material->light_sources[0].pos, light_vector);
 	calc_bumped_normal(triangle, uv, frag_normal);
-	return (fragment_shade_normal(light_vector, frag_normal, pixel));
+	lightness = fragment_get_normal_dot(light_vector, frag_normal);
+	rgba[0] *= lightness;
+	rgba[1] *= lightness;
+	rgba[2] *= lightness;
+	return (l3d_rgba_to_u32(rgba));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 18:51:52 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 15:24:58 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void	player_move(t_doom3d *app)
 		&& app->active_scene->triangle_tree != NULL
 		&& app->player.physics_state != physics_state_not_applied)
 	{
-		player_limit_move_by_slope(app, add);
+		if (app->player.physics_state == physics_state_grounded)
+			player_limit_move_by_slope(app, add);
 		player_limit_move_by_collision(app, add);
 	}
 	ml_vector3_add(app->player.pos, add, app->player.pos);

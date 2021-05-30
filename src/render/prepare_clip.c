@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_clip.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 15:47:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/27 21:22:59 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static void	push_two_clipped_triangles(t_doom3d *app,
 					t_tri_vec *render_triangles,
 					t_triangle *clipped_triangles[2])
 {
-	l3d_triangle_update(clipped_triangles[0]);
-	l3d_triangle_update(clipped_triangles[1]);
 	screen_intersection(app, clipped_triangles[0]);
 	screen_intersection(app, clipped_triangles[1]);
 	update_triangle_vertex_zvalues(clipped_triangles[0], app->unit_size);
 	update_triangle_vertex_zvalues(clipped_triangles[1], app->unit_size);
+	l3d_triangle_update(clipped_triangles[0]);
+	l3d_triangle_update(clipped_triangles[1]);
 	l3d_triangle_vec_push(render_triangles, clipped_triangles[0]);
 	l3d_triangle_vec_push(render_triangles, clipped_triangles[1]);
 }
@@ -30,9 +30,9 @@ static void	push_one_clipped_triangle(t_doom3d *app,
 					t_tri_vec *render_triangles,
 					t_triangle *clipped_triangles[2])
 {
-	l3d_triangle_update(clipped_triangles[0]);
 	screen_intersection(app, clipped_triangles[0]);
 	update_triangle_vertex_zvalues(clipped_triangles[0], app->unit_size);
+	l3d_triangle_update(clipped_triangles[0]);
 	l3d_triangle_vec_push(render_triangles, clipped_triangles[0]);
 }
 
@@ -46,6 +46,7 @@ static void	push_non_clipped_triangle(t_doom3d *app,
 	l3d_triangle_copy(render_triangle, triangle);
 	screen_intersection(app, render_triangle);
 	update_triangle_vertex_zvalues(render_triangle, app->unit_size);
+	l3d_triangle_update(render_triangle);
 	l3d_triangle_vec_push(render_triangles, render_triangle);
 }
 
