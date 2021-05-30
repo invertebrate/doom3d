@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:40:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 01:23:01 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:46:16 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void	init_explosions(t_doom3d *app, t_3d_object **holograms,
 		e_shading_invisible);
 	l3d_3d_object_set_params(holograms[4], NULL, 0, light_type_explosion);
 	holograms[4]->type = object_type_light;
+	holograms[4]->params_type = light_type_cyan;
 }
 
 /*
@@ -103,6 +104,6 @@ void	hologram_effect(t_doom3d *app, t_3d_object *hologram_obj)
 	init_explosions(app, holograms, model, pos);
 	l3d_3d_object_destroy(model);
 	i = -1;
-	while (++i < 4)
+	while (++i < 5)
 		transform_hologram_plane(app, hologram_obj, holograms[i]);
 }

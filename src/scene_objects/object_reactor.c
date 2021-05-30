@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:18:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 01:22:40 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:46:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static void	init_explosions(t_doom3d *app, t_3d_object **explosions,
 			| e_shading_luminous;
 	l3d_3d_object_scale(explosions[6], 0.3, 0.3, 0.3);
 	l3d_object_set_shading_opts(explosions[6], e_shading_invisible);
-	l3d_3d_object_set_params(explosions[6], NULL, 0, light_type_explosion);
 	explosions[6]->type = object_type_light;
 	explosions[6]->params_type = light_type_cyan;
 }
@@ -110,6 +109,6 @@ void	reactor_explosion_effect(t_doom3d *app, t_3d_object *reactor_obj)
 	init_explosions(app, explosions, model, pos);
 	l3d_3d_object_destroy(model);
 	i = -1;
-	while (++i < 7)
+	while (++i < 8)
 		transform_explosion_plane(app, reactor_obj, explosions[i]);
 }
