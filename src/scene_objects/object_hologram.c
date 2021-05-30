@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:40:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 01:46:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 01:59:53 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	hologram_place(t_doom3d *app, t_3d_object **holograms,
 	holograms[3] = place_procedural_temp_object(app,
 			(t_procedural_tmp_obj_params){.model = model,
 			.texture = "assets/animations/holoscreen4.bmp",
-			.lifetime = 250, .delay = 740}, pos);
+			.lifetime = 250, .delay = 750}, pos);
 	holograms[4] = place_procedural_temp_object(app,
 			(t_procedural_tmp_obj_params){.model = model,
 			.texture = NULL,
