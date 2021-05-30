@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:24:06 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/30 19:09:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/30 19:12:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,21 @@ void	trigger_timer_update(t_doom3d *app)
 	current_time = (int)SDL_GetTicks();
 	while (++i < MAX_TIMERS)
 	{
-		if (app->timer[i].active)
+		if (app->timer[i].active
+			&& app->timer[i].timer_end - current_time < 0)
 		{
-			if (app->timer[i].timer_end - current_time < 0)
+			if (app->timer[i].type == timer_switch)
+				elevator_go_to_next_node(app, app->timer[i].target);
+			if (app->timer[i].type == timer_end)
 			{
-				if (app->timer[i].type == timer_switch)
-					elevator_go_to_next_node(app, app->timer[i].target);
-				if (app->timer[i].type == timer_end)
-				{
-					push_custom_event(app, event_scene_change,
-						(void *)scene_id_main_menu, NULL);
-					notify_user(app, (t_notification){.message = "The End",
-						.time = 6000, .type = notification_type_layer});
-				}
-				app->timer[i].active = false;
-				if (app->settings.is_debug)
-					LOG_DEBUG("Finished timer in slot %d", i);
+				push_custom_event(app, event_scene_change,
+					(void *)scene_id_main_menu, NULL);
+				notify_user(app, (t_notification){.message = "The End",
+					.time = 6000, .type = notification_type_layer});
 			}
+			app->timer[i].active = false;
+			if (app->settings.is_debug)
+				LOG_DEBUG("Finished timer in slot %d", i);
 		}
 	}
 }
