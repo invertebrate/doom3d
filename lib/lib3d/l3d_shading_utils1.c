@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 22:04:36 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 02:02:00 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 02:09:13 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ uint32_t	l3d_pixel_normal_shaded(uint32_t pixel, t_triangle *triangle,
 	lightness = 0;
 	l3d_u32_to_rgba(pixel, rgba);
 	get_world_pos_persp_corr(triangle, baryc, world_pos);
+	ml_vector3_set(light_vector, 0.0, 0.0, -1.0);
+	ml_vector3_set(frag_normal, 0.0, 0.0, -1.0);
 	ml_vector3_sub(world_pos,
 		triangle->material->light_sources[0].pos, light_vector);
-	ml_vector3_set(frag_normal, 0, 0, 0);
 	calc_bumped_normal(triangle, uv, frag_normal);
 	lightness = fragment_get_normal_dot(light_vector, frag_normal);
 	rgba[0] *= lightness;
