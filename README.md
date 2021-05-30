@@ -43,8 +43,8 @@ make && ./doom-nukem --default
 ./doom-nukem
 ```
 
-Created by:
-@hakolao
-@invertebrate
-@ahakanen
-@RandommUser
+Created as part of Hive Helsinki Graphics Path:
+- @hakolao
+- @invertebrate
+- @ahakanen
+-@RandommUser
