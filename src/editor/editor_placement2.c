@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_placement2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 00:56:11 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/30 21:34:14 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/30 22:27:00 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_3d_object	*editor_place_default_object(t_doom3d *app, void *data)
 		|| (t_prefab_type)data == prefab_lava_plane
 		|| (t_prefab_type)data == prefab_path_node)
 	{
-		editor_handle_prefab_place(app, data, &object);
+		object = editor_handle_prefab_place(app, data);
 	}
 	else if ((char *)data)
 	{

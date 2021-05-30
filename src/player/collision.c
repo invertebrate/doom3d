@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/28 14:41:23 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/30 22:29:25 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	player_colliders_update(t_doom3d *app)
 
 t_bool	is_player_grounded(t_doom3d *app)
 {
-	t_hits		*hits;
-	t_ray		ray;
-	int			i;
-	t_hit		*closest_triangle_hit;
+	t_hits			*hits;
+	t_ray			ray;
+	int32_t			i;
+	t_hit			*tri_hit;
 
 	i = -1;
 	hits = NULL;
@@ -52,11 +52,10 @@ t_bool	is_player_grounded(t_doom3d *app)
 		if (l3d_kd_tree_ray_hits(app->active_scene->triangle_tree,
 				ray.origin, ray.dir, &hits))
 		{
-			closest_triangle_hit = NULL;
-			l3d_get_closest_triangle_hit_at_range(hits, &closest_triangle_hit,
+			tri_hit = NULL;
+			l3d_get_closest_triangle_hit_at_range(hits, &tri_hit,
 				-1, app->player.collider_ground.cylinder.height);
-			if (closest_triangle_hit != NULL
-				&& ml_vector3_dot(ray.dir, closest_triangle_hit->normal) < 0)
+			if (tri_hit != NULL && ml_vector3_dot(ray.dir, tri_hit->normal) < 0)
 			{
 				l3d_delete_hits(&hits);
 				return (true);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/30 21:43:18 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/30 22:27:10 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -922,8 +922,8 @@ t_3d_object					*place_window_wall_prefab(t_doom3d *app);
 t_3d_object					*place_lava_plane_prefab(t_doom3d *app);
 t_3d_object					*place_hologram_prefab(t_doom3d *app);
 t_3d_object					*place_reactor_prefab(t_doom3d *app);
-void						editor_handle_prefab_place(t_doom3d *app, void *data,
-								t_3d_object **object);
+t_3d_object					*editor_handle_prefab_place(t_doom3d *app,
+								void *data);
 void						enable_editor_menus_after_save(t_doom3d *app);
 void						disable_editor_menus_on_save(t_doom3d *app);
 
