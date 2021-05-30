@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/30 21:43:33 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/30 22:53:57 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -580,6 +580,9 @@ float						*point_inside_cone(t_cone *cone, t_vec3 point,
 void						get_world_pos_persp_corr(t_triangle *triangle,
 								t_vec3 baryc,
 								t_vec3 world_pos);
+void						point_light_calculation(t_triangle *triangle,
+								t_vec3 world_pos,
+								uint32_t light[4]);
 
 /*
 ** OBJ reading

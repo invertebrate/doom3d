@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   l3d_shading.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:27:23 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/30 20:33:44 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/30 22:52:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,35 +63,6 @@ static void	flashlight_light_calculation(t_triangle *triangle,
 		light[0] += intensity * light_add[0];
 		light[1] += intensity * light_add[1];
 		light[2] += intensity * light_add[2];
-	}
-}
-
-void	point_light_calculation(t_triangle *triangle, t_vec3 world_pos,
-			uint32_t light[4])
-{
-	t_vec3		light_dir;
-	int32_t		i;
-	float		dist;
-	float		intens;
-	uint32_t	light_add[4];
-
-	i = -1;
-	while (++i < (int32_t)triangle->material->num_lights)
-	{
-		l3d_u32_to_rgba(triangle->material->light_sources[i].color, light_add);
-		ml_vector3_sub(world_pos,
-			triangle->material->light_sources[i].pos, light_dir);
-		dist = ml_vector3_mag(light_dir);
-		ml_vector3_normalize(light_dir, light_dir);
-		intens = -ml_vector3_dot(light_dir, triangle->normalized_normal);
-		if (dist < triangle->material->light_sources[i].radius && intens >= 0)
-		{
-			intens *= (1.0 - dist / triangle->material->light_sources[i].radius)
-				* triangle->material->light_sources[i].intensity;
-			light[0] += intens * light_add[0];
-			light[1] += intens * light_add[1];
-			light[2] += intens * light_add[2];
-		}
 	}
 }
 
