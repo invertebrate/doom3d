@@ -142,6 +142,7 @@ SOURCES = main.c \
 			path/patrol_path.c \
 			scene_objects/object_utils.c \
 			scene_objects/object_is_ignored.c \
+			scene_objects/object_reactor.c \
 			scene_objects/object_next_index.c \
 			scene_objects/object_scene_placement.c \
 			scene_objects/object_scene_placement_utils.c \

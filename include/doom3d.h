@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/30 22:27:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 00:21:36 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -752,6 +752,8 @@ void						path_objects_set_neighbors(t_doom3d *app);
 t_3d_object					*find_object_by_id(t_doom3d *app, uint32_t id);
 void						check_light_breakable(t_doom3d *app,
 								t_3d_object *light_obj);
+void						reactor_explosion_effect(t_doom3d *app,
+								t_3d_object *reactor_obj);
 
 /*
 ** Scene

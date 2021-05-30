@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:48:31 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 17:58:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 00:38:12 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ static void	update_object_by_type(t_doom3d *app, t_3d_object *obj,
 		projectile_update(app, obj);
 	else if (obj->type == object_type_trigger)
 		update_trigger_object(app, obj);
+	if (obj->material->texture
+		&& ft_strequ(obj->material->texture->filename,
+			"assets/textures/reactor_diffuse.bmp"))
+	{
+		reactor_explosion_effect(app, obj);
+	}
 }
 
 static void	update_in_game_objects(t_doom3d *app)
