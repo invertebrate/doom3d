@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trigger_handle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 21:55:31 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/30 19:42:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 15:18:25 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,11 @@ void	trigger_handle_elevator_switch(t_doom3d *app,
 			push_custom_event(app, event_effect_play,
 				(void *)sf_door_locked, s_ini(0, 1, st_game, 1.0));
 		}
+	}
+	else
+	{
+		LOG_INFO("Keypad not linked to anything!");
+		push_custom_event(app, event_effect_play,
+			(void *)sf_door_locked, s_ini(0, 1, st_game, 1.0));
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 19:19:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/27 18:33:23 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/31 15:00:51 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	texture_files_set_sub1(t_asset_files *data)
 		= "assets/textures/pistol_texture.bmp";
 	data->texture_files[data->num_textures++]
 		= "assets/textures/rpg_texture.bmp";
+	data->texture_files[data->num_textures++]
+		= "assets/textures/airduct_grate.bmp";
 }
 
 static void	texture_files_set_sub2(t_asset_files *data)
