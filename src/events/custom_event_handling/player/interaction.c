@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 16:06:15 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/05 14:25:00 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/31 22:37:05 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,6 @@ void	handle_player_crouch(t_doom3d *app, t_bool is_crouching)
 void	handle_player_toggle_flight(t_doom3d *app)
 {
 	app->player.can_fly = !app->player.can_fly;
+	if (app->player.can_fly)
+		app->stats.times_cheated++;
 }

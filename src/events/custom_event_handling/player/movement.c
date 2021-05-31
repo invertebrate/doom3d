@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 02:46:11 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 19:11:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 22:38:22 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,8 @@ void	handle_toggle_player_collision(t_doom3d *app)
 	if (app->player.physics_state == physics_state_not_applied)
 		app->player.physics_state = physics_state_not_grounded;
 	else
+	{
 		app->player.physics_state = physics_state_not_applied;
+		app->stats.times_cheated++;
+	}
 }

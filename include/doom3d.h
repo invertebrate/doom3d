@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 03:07:09 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/06/01 00:03:23 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,21 @@
 
 # define NUM_CUSTOM_EVENTS 64
 # define MAX_TIMERS 16
+
+typedef struct	s_stats
+{
+	char					stats_text[1024];
+	int						total_damage;
+	int						total_kills;
+	int						shots_fired;
+	int						times_jumped;
+	int						damage_taken;
+	uint32_t				level_start_time;
+	uint32_t				level_end_time;
+	int						completion_time;
+	int						total_deaths;
+	int						times_cheated;
+}				t_stats;
 
 typedef struct s_settings
 {
@@ -216,6 +231,7 @@ typedef struct s_doom3d
 	t_timer					timer[MAX_TIMERS];
 	uint32_t				sprite_timers[MAX_TIMERS];
 	t_bool					final_boss_bubblegum;
+	t_stats					stats;
 }							t_doom3d;
 
 /*

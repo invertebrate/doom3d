@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_jump.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 18:47:01 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/11 19:26:10 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/31 22:18:56 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	player_jump(t_doom3d *app)
 		app->player.velocity[0] = app->player.velocity[0] * 1.65;
 		app->player.velocity[2] = app->player.velocity[2] * 1.65;
 		app->player.physics_state = physics_state_jumping;
+		app->stats.times_jumped++;
 	}
 	if (app->player.can_fly)
 	{

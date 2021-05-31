@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_end.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 20:54:30 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/15 19:28:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/06/01 00:24:35 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	finish_level(t_doom3d *app, t_3d_object *end_obj)
 			.message = "New level",
 			.type = notification_type_layer, .time = 6000});
 		push_custom_event(app, event_scene_reload, NULL, NULL);
+		app->stats.level_end_time = SDL_GetTicks();
+		app->stats.completion_time += (app->stats.level_end_time
+				- app->stats.level_start_time) / 1000;
 	}
 	else
 	{

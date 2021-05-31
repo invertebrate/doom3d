@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_shoot.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:51:46 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/25 18:37:31 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 22:20:17 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	player_shoots(t_doom3d *app)
 	{
 		app->player.equipped_weapon->clip--;
 		app->player.equipped_weapon->ammo--;
+		app->stats.shots_fired++;
 	}
 }
 
