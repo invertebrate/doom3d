@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 19:40:03 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 19:28:17 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/06/01 00:52:17 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,6 @@ void	handle_set_difficulty(t_doom3d *app, int32_t button_index)
 void	handle_select_level(t_doom3d *app, int32_t button_index)
 {
 	app->current_level = button_index;
+	ft_memset(&app->stats, 0, sizeof(t_stats));
+	LOG_INFO("Reset stats (Select level)");
 }
