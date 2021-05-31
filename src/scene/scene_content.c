@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/06/01 00:39:11 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/06/01 01:08:03 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static void	scene_editor_init(t_doom3d *app)
 
 static void	active_scene_init(t_doom3d *app)
 {
+	ft_memset(&app->timer, 0, sizeof(app->timer));
 	if (app->active_scene->scene_id == scene_id_main_game)
 	{
 		scene_game_init(app);
