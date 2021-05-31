@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:55:49 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 01:20:36 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/06/01 01:28:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_player
 	t_bool					is_reloading;
 	t_bool					is_moving;
 	t_bool					is_rotating;
+	t_bool					is_dead;
 	t_physics_state			physics_state;
 	t_bool					can_fly;
 	float					jump_force;

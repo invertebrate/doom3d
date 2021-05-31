@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 14:11:09 by veilo             #+#    #+#             */
-/*   Updated: 2021/05/31 01:23:34 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/06/01 01:29:55 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	player_attributes_init(t_doom3d *app)
 	app->player.physics_state = physics_state_grounded;
 	app->player.jump_force = PLAYER_JUMP_FORCE;
 	app->player.can_fly = false;
+	app->player.is_dead = false;
 }
 
 static void	player_collider_init(t_doom3d *app)
