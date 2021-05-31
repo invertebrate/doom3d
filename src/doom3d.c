@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 21:09:53 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/06/01 00:15:34 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	handle_scene_switch(t_doom3d *app)
 
 static void	app_init(t_doom3d *app)
 {
+	ft_memset(&app->stats, 0, sizeof(t_stats));
 	LOG_INFO("Register Custom Events");
 	register_custom_events(app);
 	mp_init(app);

@@ -6,7 +6,7 @@
 /*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:35:16 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/07 16:25:29 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/31 22:13:58 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 
 	npc = obj->params;
 	npc->hp -= damage;
+	app->stats.total_damage += damage;
 	if (npc->state == state_death_anim)
 		return ;
 	handle_sound_effect(app, npc, obj);
@@ -52,5 +53,6 @@ void	npc_trigger_onhit(t_doom3d *app, t_3d_object *obj, int damage)
 		anim_3d_clip_play(app, obj, &anim_instance_death);
 		if (npc->type == npc_type_boss)
 			npc_boss_death(app);
+		app->stats.total_kills++;
 	}
 }

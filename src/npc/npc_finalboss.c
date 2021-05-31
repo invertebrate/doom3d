@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_finalboss.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 12:08:04 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/30 19:42:39 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/06/01 00:24:28 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,25 @@ void	npc_boss(t_doom3d *app, t_npc *npc, int type)
 
 void	npc_boss_death(t_doom3d *app)
 {
+	int		min;
+	int		s;
+
 	push_custom_event(app,
 		event_effect_play, (void *)sf_audio_log_20, s_ini(0, 1, st_game, 1.0));
 	show_subtitle(app, sf_audio_log_20);
 	trigger_timer_start(app, NULL, timer_end, 20000);
+	app->stats.level_end_time = SDL_GetTicks();
+	app->stats.completion_time += (app->stats.level_end_time
+			- app->stats.level_start_time) / 1000;
+	s = app->stats.completion_time % 60;
+	min = app->stats.completion_time / 60;
+	ft_memset(app->stats.stats_text, 0, sizeof(app->stats.stats_text));
+	ft_sprintf(app->stats.stats_text,
+		"Completion Time: %d min %d s\nTotal Damage Dealt: %d\n"
+		"Total Kills: %d\nShots Fired: %d\nTotal Deaths: %d\n",
+		min, s, app->stats.total_damage, app->stats.total_kills,
+		app->stats.shots_fired, app->stats.total_deaths);
+	notify_user(app, (t_notification){
+		. message = app->stats.stats_text, .time = 20000,
+		.type = notification_type_layer});
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_status.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 12:53:53 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/30 21:44:10 by veilo            ###   ########.fr       */
+/*   Updated: 2021/05/31 23:25:45 by sotamursu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	player_onhit(t_doom3d *app, int damage)
 	if (app->settings.is_hard)
 		damage = damage * 2;
 	app->player.hp -= damage;
+	app->stats.damage_taken += damage;
 	vol = (float)(damage) / (app->player.max_hp * 0.02f);
 	if (vol > 1)
 		vol = 1;
@@ -30,6 +31,7 @@ void	player_onhit(t_doom3d *app, int damage)
 			(void *)scene_id_main_menu, NULL);
 		notify_user(app, (t_notification){.message = "You died",
 			.time = 6000, .type = notification_type_layer});
+		app->stats.total_deaths++;
 	}
 }
 
