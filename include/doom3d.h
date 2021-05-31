@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/06/01 00:03:23 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/06/01 00:39:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@
 # define NUM_CUSTOM_EVENTS 64
 # define MAX_TIMERS 16
 
-typedef struct	s_stats
+typedef struct s_stats
 {
 	char					stats_text[1024];
 	int						total_damage;

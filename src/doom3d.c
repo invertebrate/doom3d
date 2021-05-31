@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/06/01 00:15:34 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/06/01 00:47:31 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,14 @@ static void	main_loop(t_doom3d *app)
 		handle_events(app);
 		update_player(app);
 		update_objects(app);
-		trigger_timer_update(app);
 		window_frame_clear(app->window, clear_color);
 		render_to_framebuffer(app);
 		draw_window_frame(app->window);
 		update_notifications(app);
 		capture_fps(app);
 		update_app_ticks(app);
+		if (app->active_scene->scene_id == scene_id_main_game)
+			trigger_timer_update(app);
 	}
 }
 

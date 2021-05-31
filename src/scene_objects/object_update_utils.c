@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 22:37:09 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 23:03:10 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/06/01 00:45:34 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	delete_object_by_index(t_doom3d *app, t_3d_object **objects,
 		npc_destroy(objects[del_index]);
 		if (app->settings.is_debug)
 			LOG_DEBUG("Deleted object %s, id %u that may have"
-				"3D animations", obj_type, id);
+				" 3D animations", obj_type, id);
 	}
 	else
 	{

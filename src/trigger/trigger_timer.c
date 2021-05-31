@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:24:06 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/31 03:02:42 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/06/01 00:46:26 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,8 @@ void	trigger_timer_update(t_doom3d *app)
 			if (app->timer[i].type == timer_switch)
 				elevator_go_to_next_node(app, app->timer[i].target);
 			if (app->timer[i].type == timer_end)
-			{
 				push_custom_event(app, event_scene_change,
 					(void *)scene_id_main_menu, NULL);
-				notify_user(app, (t_notification){.message = "The End",
-					.time = 10000, .type = notification_type_layer});
-			}
 			ft_memset(&app->timer[i], 0, sizeof(app->timer[i]));
 		}
 	}

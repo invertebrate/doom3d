@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_content.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 23:48:47 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/06/01 00:39:11 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,11 @@ static void	active_scene_init(t_doom3d *app)
 		init_sprite_effect_timers(app);
 		LOG_INFO("Initialized Game Scene with %d objects",
 			app->active_scene->num_objects);
+		if (app->current_level == 0)
+		{
+			ft_memset(&app->stats, 0, sizeof(t_stats));
+			LOG_INFO("Reset stats (First Level)");
+		}
 		app->stats.level_start_time = SDL_GetTicks();
 	}
 	else if (app->active_scene->scene_id == scene_id_editor3d)
