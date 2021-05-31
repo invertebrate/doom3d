@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/30 18:38:45 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 03:19:54 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static void	active_scene_init(t_doom3d *app)
 	{
 		scene_game_init(app);
 		active_scene_update_after_objects(app);
+		init_sprite_effect_timers(app);
 		LOG_INFO("Initialized Game Scene with %d objects",
 			app->active_scene->num_objects);
 	}
@@ -124,6 +125,8 @@ void	active_scene_content_set(t_doom3d *app)
 		LOG_INFO("Create Normal Map Hash Map");
 		app->active_scene->object_normal_maps
 			= hash_map_create(MAX_NUM_OBJECTS);
+		LOG_INFO("Create Object Timer Hash Map");
+		app->active_scene->object_timers = hash_map_create(128);
 		LOG_INFO("Create Camera");
 		app->active_scene->main_camera = new_camera();
 		app->active_scene->third_person_camera = new_camera();

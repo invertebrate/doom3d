@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 23:18:28 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 03:20:01 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static void	scene_objects_destroy(t_scene *scene)
 	l3d_temp_objects_destroy(&scene->temp_objects);
 	hash_map_destroy(scene->object_normal_maps);
 	hash_map_destroy(scene->object_textures);
+	hash_map_destroy(scene->object_timers);
 }
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_elevator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotamursu <sotamursu@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:13:24 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/03 17:41:36 by sotamursu        ###   ########.fr       */
+/*   Updated: 2021/05/31 02:29:05 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	elevator_go_to_next_node(t_doom3d *app, t_3d_object *obj)
 {
 	t_npc	*elevator;
 
+	if (!obj)
+		return ;
 	elevator = obj->params;
 	elevator->speed = app->unit_size / 16;
 }

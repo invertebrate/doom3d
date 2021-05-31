@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:18:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 01:55:13 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 03:07:39 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,6 @@ static void	init_explosions(t_doom3d *app, t_3d_object **explosions,
 	explosions[6]->params_type = light_type_cyan;
 }
 
-/*
-** This time must equal the length of the animations .lifetime = 600,
-*/
-
-static t_bool	should_create(void)
-{
-	static uint32_t		creation_time;
-
-	if (SDL_GetTicks() - creation_time > 600)
-	{
-		creation_time = SDL_GetTicks();
-		return (true);
-	}
-	return (false);
-}
-
 void	reactor_explosion_effect(t_doom3d *app, t_3d_object *reactor_obj)
 {
 	t_3d_object			*explosions[7];
@@ -100,7 +84,7 @@ void	reactor_explosion_effect(t_doom3d *app, t_3d_object *reactor_obj)
 	if (!(reactor_obj->type == object_type_default
 			&& reactor_obj->params_type == prefab_reactor))
 		return ;
-	if (!should_create())
+	if (!sprite_should_start(app, reactor_obj, 600))
 		return ;
 	if (app->settings.is_debug)
 		LOG_DEBUG("Create reactor explosion");

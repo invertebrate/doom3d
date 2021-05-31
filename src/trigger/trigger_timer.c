@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:24:06 by ahakanen          #+#    #+#             */
-/*   Updated: 2021/05/30 20:13:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 03:02:42 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	trigger_timer_update(t_doom3d *app)
 		if (app->timer[i].active
 			&& app->timer[i].timer_end - current_time < 0)
 		{
-			if (app->timer[i].type == timer_switch
-				&& app->timer[i].target != NULL)
+			if (app->timer[i].type == timer_switch)
 				elevator_go_to_next_node(app, app->timer[i].target);
 			if (app->timer[i].type == timer_end)
 			{

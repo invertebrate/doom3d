@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 01:22:14 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 03:07:09 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,7 @@ typedef struct s_doom3d
 	uint32_t				render_triangle_pool_size;
 	uint32_t				render_vertex_pool_size;
 	t_timer					timer[MAX_TIMERS];
+	uint32_t				sprite_timers[MAX_TIMERS];
 	t_bool					final_boss_bubblegum;
 }							t_doom3d;
 
@@ -755,6 +756,11 @@ void						reactor_explosion_effect(t_doom3d *app,
 								t_3d_object *reactor_obj);
 void						hologram_effect(t_doom3d *app,
 								t_3d_object *hologram_obj);
+void						place_sprite_object_effect(t_doom3d *app,
+								t_3d_object *obj);
+void						init_sprite_effect_timers(t_doom3d *app);
+t_bool						sprite_should_start(t_doom3d *app, t_3d_object *obj,
+								uint64_t limit);
 
 /*
 ** Scene

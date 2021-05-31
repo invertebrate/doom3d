@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:14:28 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 22:35:15 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 02:58:56 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_scene
 	int32_t					last_object_index;
 	t_hash_table			*object_textures;
 	t_hash_table			*object_normal_maps;
+	t_hash_table			*object_timers;
 	t_kd_tree				*triangle_tree;
 	t_triangle				**triangle_ref;
 	uint32_t				num_triangles;
