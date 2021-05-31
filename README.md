@@ -47,4 +47,4 @@ Created as part of Hive Helsinki Graphics Path:
 - @hakolao
 - @invertebrate
 - @ahakanen
--@RandommUser
+- @RandommUser
