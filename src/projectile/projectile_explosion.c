@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 15:43:05 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/31 01:23:08 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 21:54:58 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	explosion_place(t_doom3d *app, t_3d_object **explosions,
 			.lifetime = 400, .delay = 0}, pos);
 }
 
-static void	init_explosions(t_doom3d *app, t_3d_object **explosions,
+static void	init_holograms(t_doom3d *app, t_3d_object **explosions,
 										t_3d_object *model, t_vec3 pos)
 {
 	int32_t	i;
@@ -79,7 +79,7 @@ void	projectile_explode_effect(t_doom3d *app, t_3d_object *projectile_obj)
 		-1 * 0.2 * app->unit_size, add);
 	ml_vector3_add(projectile_obj->position, add, pos);
 	model = l3d_plane_create(NULL, NULL);
-	init_explosions(app, explosions, model, pos);
+	init_holograms(app, explosions, model, pos);
 	l3d_3d_object_destroy(model);
 	i = -1;
 	while (++i < 4)
