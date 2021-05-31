@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_hologram.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: veilo <veilo@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:40:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/31 22:01:24 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 23:50:49 by veilo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,31 @@ static void	transform_hologram_plane(t_doom3d *app, t_3d_object *hologram_obj,
 static int32_t	get_player_angle_option(t_doom3d *app,
 					t_vec3 pos)
 {
-	(void)app;
-	(void)pos;
-	return (0);
+	t_vec3	player_to_obj;
+	t_vec3	z_vec;
+	float	angle;
+	t_vec3	x_vec;
+	float	dot_x;
+
+	ml_vector3_set(z_vec, 0.0, 0.0, 1.0);
+	ml_vector3_set(x_vec, 1.0, 0.0, 0.0);
+	ml_vector3_sub(app->player.pos, pos, player_to_obj);
+	player_to_obj[1] = 0.0;
+	ml_vector3_normalize(player_to_obj, player_to_obj);
+	dot_x = ml_vector3_dot(x_vec, player_to_obj);
+	angle = ml_vector3_angle_deg(z_vec, player_to_obj);
+	if (angle <= 45)
+		return (0);
+	else if (angle <= 135)
+	{
+		if (dot_x < 0)
+			return (1);
+		else if (dot_x >= 0)
+			return (2);
+	}
+	else if (angle > 135)
+		return (3);
+	return (5);
 }
 
 static void	hologram_place(t_doom3d *app, t_3d_object **holograms,
