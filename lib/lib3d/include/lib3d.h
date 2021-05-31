@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:22:07 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/30 22:53:57 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/05/31 23:53:02 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 # define L3D_COLOR_LIGHT_YELLOW_TRANSPARENT 0xffff8064
 # define L3D_COLOR_CYAN_TRANSPARENT 0x00ffff64
 
-# define L3D_MAX_LIGHTS 32
+# define L3D_MAX_LIGHTS 64
 
 /*
 ** OBJ file temporary structs. They are used in transfering obj data to final
