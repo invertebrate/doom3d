@@ -69,8 +69,6 @@ void	mp_init(t_doom3d *app)
 	app->mp.channels = PREF_CHAN;
 	app->mp.tracks = NULL;
 	app->mp.effects = NULL;
-	app->mp.st_vol = 1;
-	app->mp.sf_vol = 1;
 	app->mp = mix_init(app, app->mp.channels);
 	ret = mp_all_init(app);
 	if (ret != 1)

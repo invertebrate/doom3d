@@ -72,7 +72,7 @@ static t_sound	*mp_mix_next(t_sound *start)
 ** Find playable sounds
 */
 
-static t_sound	*mp_mixing(t_sound *curr, t_mp *mp, float vol)
+static t_sound	*mp_mixing(t_sound *curr, t_mp *mp)
 {
 	Uint32	amount;
 
@@ -83,7 +83,7 @@ static t_sound	*mp_mixing(t_sound *curr, t_mp *mp, float vol)
 	if (amount > (Uint32)mp->len)
 		amount = (Uint32)mp->len;
 	SDL_MixAudioFormat(mp->stream, &curr->sound->data[curr->pos],
-		mp->auspec.format, amount, SDL_MIX_MAXVOLUME * vol * curr->vol);
+		mp->auspec.format, amount, SDL_MIX_MAXVOLUME * curr->vol);
 	return (curr);
 }
 
@@ -91,19 +91,19 @@ static t_sound	*mp_mixing(t_sound *curr, t_mp *mp, float vol)
 ** Loop thru sounds till max has been reached or no more sounds to play
 */
 
-static void	playing_audio(t_mp *mp, t_sound **start, int max, float vol)
+static void	playing_audio(t_mp *mp, t_sound **start, int max)
 {
 	t_sound	*curr;
 	t_sound	*prev[2];
 	int		played;
 
 	curr = *start;
-	if (!curr || vol == -1)
+	if (!curr)
 		return ;
 	played = 0;
 	while (played < max && curr && vol > 0)
 	{
-		curr = mp_mixing(curr, mp, mp->st_vol);
+		curr = mp_mixing(curr, mp);
 		if (!curr)
 			break ;
 		played++;
@@ -126,8 +126,8 @@ void	mp_au_mix(void *para, Uint8 *stream, int len)
 	SDL_memset(stream, 0, len);
 	mp->stream = stream;
 	mp->len = len;
-	playing_audio(mp, &mp->tracks, NUM_MUSIC, mp->st_vol);
-	playing_audio(mp, &mp->effects, NUM_SEFFECTS, mp->sf_vol);
+	playing_audio(mp, &mp->tracks, NUM_MUSIC);
+	playing_audio(mp, &mp->effects, NUM_SEFFECTS);
 	mp->stream = NULL;
 	mp->len = 0;
 }

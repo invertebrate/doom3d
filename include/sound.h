@@ -110,8 +110,6 @@ typedef struct s_mp
 	t_track				*library[SOUNDS_NUM_TRACKS];
 	t_sound				*tracks;
 	t_sound				*effects;
-	float				st_vol;
-	float				sf_vol;
 	Uint8				*stream;
 	int					len;
 }						t_mp;
