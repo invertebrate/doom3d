@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 23:22:26 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/29 20:49:32 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/06/21 17:24:47 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ static void	set_settings_menu_positions(t_doom3d *app,
 	int32_t		height;
 
 	height = app->window->framebuffer->height;
-	ml_vector3_copy((t_vec2){100, height / 2
+	ml_vector2_copy((t_vec2){100, height / 2
 		- app->active_scene->menus[0]->buttons[0]->height
 		* app->active_scene->menus[0]->num_buttons / 2 + 30}, pos1);
-	ml_vector3_copy((t_vec2){250, height / 2
+	ml_vector2_copy((t_vec2){250, height / 2
 		- app->active_scene->menus[0]->buttons[0]->height
 		* app->active_scene->menus[0]->num_buttons / 2 + 30}, pos2);
-	ml_vector3_copy((t_vec2){400, height / 2
+	ml_vector2_copy((t_vec2){400, height / 2
 		- app->active_scene->menus[0]->buttons[0]->height
 		* app->active_scene->menus[0]->num_buttons / 2 + 30}, pos3);
 }
