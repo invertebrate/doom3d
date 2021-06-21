@@ -6,13 +6,13 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:17:37 by ohakola           #+#    #+#             */
-/*   Updated: 2021/05/30 18:36:16 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/06/21 17:19:23 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom3d.h"
 
-static void	invisible_shading_tone(t_3d_object *obj)
+static void	invisible_trigger_and_path_shading(t_3d_object *obj)
 {
 	if (obj->params_type == trigger_player_start)
 		obj->material->shading_opts
@@ -54,8 +54,13 @@ void	editor_objects_invisible_highlight(t_doom3d *app)
 		{
 			obj->material->shading_opts = (obj->material->shading_opts
 					& ~(e_shading_invisible));
-			invisible_shading_tone(obj);
+			invisible_trigger_and_path_shading(obj);
 		}
+		if (obj->type == object_type_light
+			&& obj->params_type != light_type_breakable
+			&& obj->params_type != light_type_mushroom)
+			obj->material->shading_opts = (obj->material->shading_opts
+					& ~(e_shading_invisible));
 	}
 }
 
