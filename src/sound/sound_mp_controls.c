@@ -6,7 +6,7 @@
 /*   By: ohakola <ohakola@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 15:51:41 by phakakos          #+#    #+#             */
-/*   Updated: 2021/05/15 21:37:38 by ohakola          ###   ########.fr       */
+/*   Updated: 2021/07/30 17:20:14 by ohakola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	mp_close(t_doom3d *app)
 	SDL_CloseAudioDevice(app->mp.audev);
 	i = -1;
 	LOG_INFO("Freeing audio library");
-	while (++i < NUM_SOUNDS)
+	while (++i < SOUNDS_NUM_TRACKS)
 	{
 		free(app->mp.library[i]->data);
 		free(app->mp.library[i]);
