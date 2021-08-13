@@ -23,10 +23,18 @@ ifeq ($(UNAME),Linux)
 	LIBSDL2MIXERFILE = /usr/lib/x86_64-linux-gnu/libSDL2_mixer.a
 else ifeq ($(UNAME),Darwin)
 	SDL_FLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
-	LIBSDL2FILE = /usr/local/lib/libSDL2.a
-	LIBSDL2IMAGEFILE = /usr/local/lib/libSDL2_image.a
-	LIBSDL2TTFFILE = /usr/local/lib/libSDL2_ttf.a
-	LIBSDL2MIXERFILE = /usr/local/lib/libSDL2_mixer.a
+# check if compiling on school computer where brew installs in .brew instead due to permissions
+	ifeq (,$(wildcard ~/.brew/lib/libSDL2.a))
+		LIBSDL2FILE = ~/.brew/lib/libSDL2.a
+		LIBSDL2IMAGEFILE = ~/.brew/lib/libSDL2_image.a
+		LIBSDL2TTFFILE = ~/.brew/lib/libSDL2_ttf.a
+		LIBSDL2MIXERFILE = ~/.brew/lib/libSDL2_mixer.a
+	else
+		LIBSDL2FILE = /usr/local/lib/libSDL2.a
+		LIBSDL2IMAGEFILE = /usr/local/lib/libSDL2_image.a
+		LIBSDL2TTFFILE = /usr/local/lib/libSDL2_ttf.a
+		LIBSDL2MIXERFILE = /usr/local/lib/libSDL2_mixer.a
+	endif
 endif
 # ====================
 
@@ -36,7 +44,8 @@ INCLUDES = -I ./include \
 		-I./lib/external_log \
 		-I$(LIBFT)/include \
 		-I$(LIB3D)/include \
-		-I$(LIBGMATRIX)/include
+		-I$(LIBGMATRIX)/include \
+		-I$(HOME)/.brew/include
 
 CFLAGS =-Wall -Wextra -Werror -march=native -O3 -flto $(LINUX_IGNOREW)
 SOURCES = main.c \
