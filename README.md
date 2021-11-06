@@ -9,6 +9,7 @@ This was a group project part of the 42 curriculum. It was built on our earlier 
 My areas of focus in this project were:
 
 **Rendering**
+- Projection methon using rays
 - Triangle processing
 - Texture and normal mapping
 - Triangle rasterization
