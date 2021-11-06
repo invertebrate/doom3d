@@ -4,6 +4,24 @@ Video Showcase: https://youtu.be/BQTTFh3VMtQ
 
 Software rasterized raycast projected game engine with 3d editor and demo maps
 
+----------------------------------------
+This was a group project part of the 42 curriculum. It was built on our earlier Wolf3d-rasterizer project using its engine. 
+My areas of focus in this project were:
+
+**Rendering**
+-Triangle processing
+-Texture and normal mapping
+-Triangle rasterization
+-Shading and lighting
+
+**Animations**
+-An makeshift animation system that used multiple 3D objects in different poses as animation frames.
+-Animation timers and triggers based on animation state
+
+**Physics**
+-Player collider and physics interaction
+----------------------------------------
+
 Features:
 - Raycasted 3D (ray to triangle corners, screen intersection for rasterization)
 - Parallel rendering with z-sorted triangles
