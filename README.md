@@ -9,18 +9,17 @@ This was a group project part of the 42 curriculum. It was built on our earlier 
 My areas of focus in this project were:
 
 **Rendering**
--Triangle processing\n
--Texture and normal mapping
--Triangle rasterization
--Shading and lighting
+- Triangle processing
+- Texture and normal mapping
+- Triangle rasterization
+- Shading and lighting
 
 **Animations**
--An makeshift animation system that used multiple 3D objects in different poses as animation frames.
--Animation timers and triggers based on animation state
+- An makeshift animation system that used multiple 3D objects in different poses as animation frames.
+- Animation timers and triggers based on animation state
 
 **Physics**
--Player collider and physics interaction
-
+- Player collider and physics interaction
 ----------------------------------------
 
 Features:
