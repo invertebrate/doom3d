@@ -20,6 +20,7 @@ My areas of focus in this project were:
 
 **Physics**
 -Player collider and physics interaction
+
 ----------------------------------------
 
 Features:
